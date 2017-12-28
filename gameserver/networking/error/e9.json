@@ -1,0 +1,7 @@
+﻿[
+  {
+    "title": "Account in use",
+    "titleColor": 16724016,
+    "description": "Dear <b>{CLIENT_NAME}</b>, unfortunately your account still in use, <b>{TIME_LEFT}</b> until timeout."
+  }
+]

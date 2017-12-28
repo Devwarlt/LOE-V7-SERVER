@@ -1,0 +1,17 @@
+<project outputDir="C:\LoESoft\LOE-V6-SERVER\bin-server" baseDir="C:\LoESoft\LOE-V6-SERVER\bin-server" xmlns="http://confuser.codeplex.com">
+  <rule pattern="true" preset="minimum">
+    <protection id="anti ildasm" />
+    <protection id="anti tamper" />
+    <protection id="constants" action="remove" />
+    <protection id="ctrl flow" />
+    <protection id="anti dump" />
+    <protection id="anti debug" />
+    <protection id="invalid metadata" />
+    <protection id="ref proxy" />
+    <protection id="resources" action="remove" />
+    <protection id="rename" action="remove" />
+  </rule>
+  <module path="appengine.exe" />
+  <module path="common.dll" />
+  <module path="gameserver.exe" />
+</project>

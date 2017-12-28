@@ -1,0 +1,7 @@
+﻿[
+  {
+    "title": "Login Denied",
+    "titleColor": 16776960,
+    "description": "[Server: <b>{MAX_USAGE}</b>/<b>{MAX_USAGE}</b> players] Server is <b>full</b> at this moment. Try again later."
+  }
+]

@@ -1,0 +1,7 @@
+﻿[
+  {
+    "title": "Login Denied",
+    "titleColor": 16776960,
+    "description": "<b>{CLIENT_NAME}</b>, your account was <b>temporarily</b> suspended, try again later."
+  }
+]

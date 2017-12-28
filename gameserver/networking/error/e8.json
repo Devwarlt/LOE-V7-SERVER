@@ -1,0 +1,7 @@
+﻿[
+  {
+    "title": "Vip Account",
+    "titleColor": 2003199,
+    "description": "Dear <b>{CLIENT_NAME}</b>, unfortunately your Vip Account lifetime over.\n\n<b>Server Time:</b>\n{SERVER_TIME}\n\nVip Account registered at \n<b>{REGISTRATION_TIME}</b>\nuntil\n<b>{CURRENT_TIME}</b>."
+  }
+]
