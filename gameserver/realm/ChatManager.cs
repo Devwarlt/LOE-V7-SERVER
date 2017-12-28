@@ -42,9 +42,10 @@ namespace gameserver.realm
 
         public void Say(Player src, string text)
         {
+            ChatColor color = new ChatColor(src.Stars, src.AccountType);
             src.Owner.BroadcastPacket(new TEXT()
             {
-                Name = (src.Client.Account.Admin ? "@" : "") + src.Name,
+                Name = src.Name,
                 ObjectId = src.Id,
                 Stars = src.Stars,
                 Admin = src.Client.Account.Admin ? 1 : 0,
@@ -52,8 +53,8 @@ namespace gameserver.realm
                 Recipient = "",
                 Text = text,
                 CleanText = text,
-                NameColor = src.Client.Account.Admin ? 0xFF0000 : 0x123456,
-                TextColor = src.Client.Account.Admin ? 0x696969 : 0x123456
+                NameColor = color.GetColor(),
+                TextColor = 0x123456
             }, null);
             log.Info($"[{src.Owner.Name} ({src.Owner.Id})] <{src.Name}> {text}");
         }
