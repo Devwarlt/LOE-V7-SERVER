@@ -44,7 +44,7 @@ namespace common.config
                 return $"{string.Join("\n\t * ", data.ToArray())}\n\t * {lastData}";
             }
 
-            public static string APPENGINE_URL = "https://devwarlt.github.io"; //"http://appengine.loesoft.org";
+            public static string APPENGINE_URL = "https://loesoft-games.github.io"; //"http://appengine.loesoft.org";
             public static int CPU_HANDLER = 4096;
             public static int MAX_CONNECTIONS = 25;
             public static bool DISABLE_NAGLES_ALGORITHM = IS_PRODUCTION;
@@ -62,9 +62,9 @@ namespace common.config
                     @"<cross-domain-policy>
                         <policy-file-request/>
                         <site-control permitted-cross-domain-policies=""master-only""/>
-                        <allow-access-from domain=""devwarlt.github.io"" secure=""true""/>
-                        <allow-access-from domain=""devwarlt.github.io"" to-ports=""*""/>
-                        <allow-http-request-headers-from domain=""devwarlt.github.io"" headers=""*"" secure=""true""/>
+                        <allow-access-from domain=""loesoft-games.github.io"" secure=""true""/>
+                        <allow-access-from domain=""loesoft-games.github.io"" to-ports=""*""/>
+                        <allow-http-request-headers-from domain=""loesoft-games.github.io"" headers=""*"" secure=""true""/>
                         <allow-access-from domain=""loesoft.org"" secure=""false""/>
                         <allow-access-from domain=""loesoft.org"" to-ports=""*""/>
                         <allow-http-request-headers-from domain=""loesoft.org"" headers=""*"" secure=""false""/>
