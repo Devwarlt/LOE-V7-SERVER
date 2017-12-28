@@ -379,6 +379,7 @@
     <Compile Include="networking\socket\state\OutgoingState.cs" />
     <Compile Include="networking\socket\token\OutgoingToken.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="realm\ChatColor.cs" />
     <Compile Include="realm\ChatManager.cs" />
     <Compile Include="realm\Collision.cs" />
     <Compile Include="realm\commands\AdminCommands.cs" />
