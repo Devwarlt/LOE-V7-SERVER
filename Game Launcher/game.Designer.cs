@@ -29,8 +29,26 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
+            this.webclient = new System.Windows.Forms.WebBrowser();
             this.gameLauncherStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // webclient
+            // 
+            this.webclient.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.webclient.AllowNavigation = false;
+            this.webclient.AllowWebBrowserDrop = false;
+            this.webclient.IsWebBrowserContextMenuEnabled = false;
+            this.webclient.Location = new System.Drawing.Point(0, 0);
+            this.webclient.Margin = new System.Windows.Forms.Padding(0);
+            this.webclient.Name = "webclient";
+            this.webclient.ScriptErrorsSuppressed = true;
+            this.webclient.ScrollBarsEnabled = false;
+            this.webclient.Size = new System.Drawing.Size(800, 600);
+            this.webclient.TabIndex = 0;
+            this.webclient.Url = new System.Uri("http://testing.loesoft.org:1000/testing/loe/?platform=Desktop", System.UriKind.Absolute);
+            this.webclient.WebBrowserShortcutsEnabled = false;
+            this.webclient.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webclient_DocumentCompleted);
             // 
             // gameLauncherStatus
             // 
@@ -52,10 +70,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 624);
             this.Controls.Add(this.gameLauncherStatus);
+            this.Controls.Add(this.webclient);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -66,10 +84,11 @@
             this.Text = "[GL] LoE Realm";
             this.Load += new System.EventHandler(this.Launcher_Load);
             this.ResumeLayout(false);
-
         }
 
         #endregion
+
+        private System.Windows.Forms.WebBrowser webclient;
         private System.Windows.Forms.Label gameLauncherStatus;
     }
 }
