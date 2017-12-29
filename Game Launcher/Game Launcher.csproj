@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Game_Launcher</RootNamespace>
-    <AssemblyName>LoE Realm</AssemblyName>
+    <AssemblyName>LoEGL</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -93,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="loesoft.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="flashplayer_28_sa.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
