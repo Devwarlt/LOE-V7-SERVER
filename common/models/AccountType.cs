@@ -43,7 +43,7 @@ namespace common.config
             return experience;
         }
 
-        public int StatsBoost(int boost, int stat) => boost / (_accountType == accountType.VIP_ACCOUNT ? 10 : _accountType == accountType.LEGENDS_OF_LOE_ACCOUNT ? 20 / 3 : 1) + stat * (!Boosted.Contains(_accountType) ? 0 : 1);
+        public int StatsBoost(int stat, int boost) => stat / (_accountType == accountType.VIP_ACCOUNT ? 10 : _accountType == accountType.LEGENDS_OF_LOE_ACCOUNT ? 20 / 3 : 1) + boost * (!Boosted.Contains(_accountType) ? 0 : 1);
 
         public bool AccessToDrastaCitadel() => _accessToDrastaCitadel;
 
@@ -80,6 +80,6 @@ namespace common.config
             return icon;
         }
 
-        public double MerchantDiscount() => _accountType == accountType.VIP_ACCOUNT ? 0.9 : _accountType == accountType.LEGENDS_OF_LOE_ACCOUNT ? 0.8 : 1;
+        public int MerchantDiscount() => _accountType == accountType.VIP_ACCOUNT ? 9 / 10 : _accountType == accountType.LEGENDS_OF_LOE_ACCOUNT ? 8 / 10 : 1;
     }
 }

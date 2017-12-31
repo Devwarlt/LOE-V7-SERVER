@@ -38,6 +38,7 @@ namespace gameserver.realm.entity.player
                 if (client.Account.Admin == true)
                     Admin = 1;
                 AccountType = client.Account.AccountType;
+                AccountPerks = new AccountTypePerks(AccountType);
                 AccountLifetime = client.Account.AccountLifetime;
                 isVip = AccountLifetime != DateTime.MinValue;
                 Client = client;
@@ -308,34 +309,7 @@ namespace gameserver.realm.entity.player
                 ApplyConditionEffect(invulnerable);
             }
 
-            SetPlayerRankIcon((accountType) AccountType);            
-        }
-
-        private void SetPlayerRankIcon(accountType type)
-        {
-            ConditionEffect icon = new ConditionEffect();
-            icon.DurationMS = -1;
-
-            switch (type)
-            {
-                case accountType.FREE_ACCOUNT:
-                    icon.Effect = ConditionEffectIndex.FreeAccount;
-                    break;
-                case accountType.VIP_ACCOUNT:
-                    icon.Effect = ConditionEffectIndex.VipAccount;
-                    break;
-                case accountType.LEGENDS_OF_LOE_ACCOUNT:
-                    icon.Effect = ConditionEffectIndex.LegendsofLoEAccount;
-                    break;
-                case accountType.TUTOR_ACCOUNT:
-                    icon.Effect = ConditionEffectIndex.TutorAccount;
-                    break;
-                case accountType.LOESOFT_ACCOUNT:
-                    icon.Effect = ConditionEffectIndex.LoESoftAccount;
-                    break;
-            }
-
-            ApplyConditionEffect(icon);
+            ApplyConditionEffect(AccountPerks.SetAccountTypeIcon());
         }
 
         public void Teleport(RealmTime time, TELEPORT packet)

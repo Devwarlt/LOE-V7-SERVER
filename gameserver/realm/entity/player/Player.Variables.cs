@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using gameserver.logic;
 using gameserver.networking;
+using common.config;
 
 #endregion
 
@@ -13,6 +14,7 @@ namespace gameserver.realm.entity.player
 {
     partial class Player
     {
+        public AccountTypePerks AccountPerks { get; set; }
         public int PetID { get; set; }
         public List<List<int>> PetHealing { get; set; }
         public List<int> PetAttack { get; set; }

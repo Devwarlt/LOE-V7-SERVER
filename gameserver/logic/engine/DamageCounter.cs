@@ -123,7 +123,7 @@ namespace gameserver.logic
 
                     bool killer = (Parent ?? this).LastHitter == i.Item1;
 
-                    if (i.Item1.EnemyKilled(enemy, (int) playerXp, killer) && !killer)
+                    if (i.Item1.EnemyKilled(enemy, i.Item1.AccountPerks.Experience(i.Item1.Level, (int) playerXp), killer) && !killer)
                         lvUps++;
                 }
 
