@@ -140,9 +140,7 @@ namespace gameserver.realm.entity.player
         }
 
         private Tuple<bool, AccType> GetAccountType() => (AccountType >= (int) common.config.AccountType.VIP_ACCOUNT && AccountType <= (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int) common.config.AccountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
-
-        private int GetStats(int i, AccType type) => Stats[i] / (type == AccType.VIP_ACCOUNT ? 10 : 20 / 3);
-
+        
         public void CalculateBoost()
         {
 
@@ -456,7 +454,7 @@ namespace gameserver.realm.entity.player
             catch
             {
                 Log.Write(nameof(Player), $"Ping error! Forcing save method.");
-                Client.Save();
+                Client?.Save();
                 return false;
             }
         }

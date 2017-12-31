@@ -381,7 +381,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="realm\ChatColor.cs" />
     <Compile Include="realm\ChatManager.cs" />
-    <Compile Include="realm\Collision.cs" />
+    <Compile Include="realm\world\Collision.cs" />
     <Compile Include="realm\commands\AdminCommands.cs" />
     <Compile Include="realm\commands\Command.cs" />
     <Compile Include="realm\commands\gazer\gazer.cs" />
@@ -431,8 +431,8 @@
     <Compile Include="realm\mapsetpiece\setpieces\special\AbyssIdol_LavaBomb.cs" />
     <Compile Include="realm\networking\LogicTicker.cs" />
     <Compile Include="realm\networking\NetworkTicker.cs" />
-    <Compile Include="realm\RealmManager.cs" />
-    <Compile Include="realm\RealmPortalMonitor.cs" />
+    <Compile Include="realm\world\RealmManager.cs" />
+    <Compile Include="realm\world\RealmPortalMonitor.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\AbyssDeath.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Ciphers.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Avatar.cs" />
@@ -458,7 +458,7 @@
     <Compile Include="realm\mapsetpiece\setpieces\TempleA.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\TempleB.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Tower.cs" />
-    <Compile Include="realm\Sight.cs" />
+    <Compile Include="realm\world\Sight.cs" />
     <Compile Include="realm\Stats.cs" />
     <Compile Include="realm\StatsManager.cs" />
     <Compile Include="realm\terrain\Json2Wmap.cs" />
@@ -467,7 +467,7 @@
     <Compile Include="realm\terrain\WorldMapExporter.cs" />
     <Compile Include="realm\TradeManager.cs" />
     <Compile Include="realm\Utils.cs" />
-    <Compile Include="realm\World.cs" />
+    <Compile Include="realm\world\World.cs" />
     <Compile Include="realm\world\worlds\Arena.cs" />
     <Compile Include="realm\world\worlds\dungeons\Beachzone.cs" />
     <Compile Include="realm\world\worlds\dungeons\BelladonnasGarden.cs" />
@@ -488,14 +488,14 @@
     <Compile Include="realm\world\worlds\GameWorld.cs" />
     <Compile Include="realm\world\worlds\Kitchen.cs" />
     <Compile Include="realm\world\worlds\Nexus.cs" />
-    <Compile Include="realm\Oryx.cs" />
+    <Compile Include="realm\world\Oryx.cs" />
     <Compile Include="realm\world\worlds\dungeons\OceanTrench.cs" />
     <Compile Include="realm\world\worlds\dungeons\OryxCastle.cs" />
     <Compile Include="realm\world\worlds\Test.cs" />
     <Compile Include="realm\world\worlds\Tutorial.cs" />
     <Compile Include="realm\world\worlds\dungeons\UndeadLair.cs" />
     <Compile Include="realm\world\worlds\dungeons\WineCellar.cs" />
-    <Compile Include="realm\WorldTimer.cs" />
+    <Compile Include="realm\world\WorldTimer.cs" />
     <Compile Include="networking\Server.cs" />
     <Compile Include="Structures.cs" />
     <Compile Include="networking\messages\Message.cs" />
