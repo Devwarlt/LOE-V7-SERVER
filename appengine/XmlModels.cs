@@ -275,8 +275,8 @@ namespace appengine
                 Name = acc.Name,
                 NameChosen = acc.NameChosen,
                 Converted = acc.Converted,
-                Admin = acc.AccountType == (int) common.config.AccountType.LOESOFT_ACCOUNT,
-                MapEditor = acc.AccountType == (int) common.config.AccountType.TUTOR_ACCOUNT,
+                Admin = acc.AccountType == (int)accountType.LOESOFT_ACCOUNT,
+                MapEditor = acc.AccountType == (int)accountType.TUTOR_ACCOUNT,
                 VerifiedEmail = acc.Verified,
                 Credits = acc.Credits,
                 NextCharSlotPrice = 100, // need adjusts

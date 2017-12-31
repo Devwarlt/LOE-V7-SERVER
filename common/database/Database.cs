@@ -56,7 +56,7 @@ namespace common
         {
             return new DbAccount(this, "0")
             {
-                AccountType = (int) AccountType.FREE_ACCOUNT,
+                AccountType = (int) accountType.FREE_ACCOUNT,
                 AccountLifetime = DateTime.MinValue,
                 UUID = uuid,
                 Name = Names[(uint)uuid.GetHashCode() % Names.Length],
@@ -253,7 +253,7 @@ namespace common
 
             acc = new DbAccount(this, newAccId.ToString())
             {
-                AccountType = (int) AccountType.FREE_ACCOUNT,
+                AccountType = (int) accountType.FREE_ACCOUNT,
                 AccountLifetime = DateTime.MinValue,
                 UUID = uuid,
                 Name = Names[(uint)uuid.GetHashCode() % Names.Length],
@@ -417,7 +417,7 @@ namespace common
             Update(acc);
         }
 
-        public void UpdateAccountLifetime(DbAccount acc, AccountType accType, int amount)
+        public void UpdateAccountLifetime(DbAccount acc, accountType accType, int amount)
         {
             acc.AccountLifetime = DateTime.Now;
             acc.AccountLifetime = acc.AccountLifetime.AddDays(amount);

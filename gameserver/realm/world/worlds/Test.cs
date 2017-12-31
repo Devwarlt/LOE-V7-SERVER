@@ -32,7 +32,7 @@ namespace gameserver.realm.world
 
             foreach (KeyValuePair<int, Player> i in Players)
             {
-                if (i.Value.Client.Account.AccountType != (int) common.config.AccountType.LOESOFT_ACCOUNT || !i.Value.Client.Account.Admin)
+                if (i.Value.Client.Account.AccountType != (int) common.config.accountType.LOESOFT_ACCOUNT || !i.Value.Client.Account.Admin)
                 {
                     i.Value.SendError(string.Format("[Staff Member: {0}] You cannot access Test world with account type {1}.", i.Value.Client.Account.Admin, nameof(i.Value.Client.Account.AccountType)));
                     i.Value.Client.Disconnect(DisconnectReason.ACCESS_DENIED);

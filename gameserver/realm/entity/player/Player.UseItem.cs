@@ -493,7 +493,7 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            if (Stars >= 10 || Client.Account.AccountType >= (int) common.config.AccountType.VIP_ACCOUNT)
+                            if (Stars >= 10 || AccountPerks.ByPassKeysRequirements())
                             {
                                 ushort objType;
                                 if (!Manager.GameData.IdToObjectType.TryGetValue(eff.Id, out objType) || !Manager.GameData.Portals.ContainsKey(objType))
@@ -763,7 +763,7 @@ namespace gameserver.realm.entity.player
                             int chance = eff.chance;
                             int minStars = item.minStars;
 
-                            if (Stars >= minStars || (int) AccountType >= (int) common.config.AccountType.VIP_ACCOUNT)
+                            if (Stars >= minStars || AccountPerks.ByPassEggsRequirements())
                             {
                                 if (Owner.Name == "Vault")
                                 {
@@ -828,7 +828,7 @@ namespace gameserver.realm.entity.player
                                 }
                             } else
                             {
-                                SendInfo("You need enough stars to use this item.");
+                                SendInfo($"You need {minStars} star{(minStars > 1 ? "s" : "")} to use this item.");
                                 return true;
                             }
                         }
@@ -1152,13 +1152,13 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            if (AccountType == (int) common.config.AccountType.VIP_ACCOUNT)
+                            if (AccountType == (int)accountType.VIP_ACCOUNT)
                             {
                                 SendInfo($"You can only use {item.DisplayId} when your VIP account lifetime over.");
                                 return true;
                             }
 
-                            if (AccountType >= (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT)
+                            if (AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT)
                             {
                                 SendInfo($"Only VIP account type can use {item.DisplayId}.");
                                 return true;
@@ -1189,7 +1189,7 @@ namespace gameserver.realm.entity.player
 
                             acc.AccountLifetime = DateTime.Now;
                             acc.AccountLifetime = acc.AccountLifetime.AddDays(days);
-                            acc.AccountType = (int) common.config.AccountType.VIP_ACCOUNT;
+                            acc.AccountType = (int)accountType.VIP_ACCOUNT;
                             acc.Flush();
                             acc.Reload();
 
@@ -1360,7 +1360,7 @@ namespace gameserver.realm.entity.player
             log.FatalFormat("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId);
             foreach (Player player in Owner?.Players.Values)
-                if (player?.Client.Account.AccountType >= (int) common.config.AccountType.TUTOR_ACCOUNT)
+                if (player?.Client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId));
             Client?.Disconnect(DisconnectReason.CHEAT_ENGINE_DETECTED);

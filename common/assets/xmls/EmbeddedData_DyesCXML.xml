@@ -294,48 +294,6 @@
 		<Soulbound />
 		<BagType>2</BagType>
 	</Object>
-	<Object type="0x1007" id="Black Clothing Dye">
-		<Class>Dye</Class>
-		<DisplayId>{dyes.Black_Clothing_Dye}</DisplayId>
-		<Item />
-		<Texture>
-			<File>lofiObj3</File>
-			<Index>0x10</Index>
-		</Texture>
-		<Mask>
-			<File>lofiObj3</File>
-			<Index>0x18</Index>
-		</Mask>
-		<Tex1>0x01000000</Tex1>
-		<SlotType>10</SlotType>
-		<Description>{dyes.clothing_description}</Description>
-		<Activate>Dye</Activate>
-		<Sound>use_potion</Sound>
-		<Consumable />
-		<Soulbound />
-		<BagType>2</BagType>
-	</Object>
-	<Object type="0x1107" id="Black Accessory Dye">
-		<Class>Dye</Class>
-		<DisplayId>{dyes.Black_Accessory_Dye}</DisplayId>
-		<Item />
-		<Texture>
-			<File>lofiObj3</File>
-			<Index>0x19</Index>
-		</Texture>
-		<Mask>
-			<File>lofiObj3</File>
-			<Index>0x1a</Index>
-		</Mask>
-		<Tex2>0x01000000</Tex2>
-		<SlotType>10</SlotType>
-		<Description>{dyes.accessory_description}</Description>
-		<Activate>Dye</Activate>
-		<Sound>use_potion</Sound>
-		<Consumable />
-		<Soulbound />
-		<BagType>2</BagType>
-	</Object>
 	<Object type="0x1008" id="Blanched Almond Clothing Dye">
 		<Class>Dye</Class>
 		<DisplayId>{dyes.Blanched_Almond_Clothing_Dye}</DisplayId>

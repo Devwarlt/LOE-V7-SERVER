@@ -37,7 +37,7 @@ namespace gameserver.networking.handlers
                             log4net.FatalFormat("Cheat engine detected for player {0},\nItem should be a Health Potion, but its {1}.",
                                 client.Player.Name, item.ObjectId);
                             foreach (Player player in client.Player.Owner.Players.Values)
-                                if (player.Client.Account.AccountType >= (int) common.config.AccountType.TUTOR_ACCOUNT)
+                                if (player.Client.Account.AccountType >= (int) common.config.accountType.TUTOR_ACCOUNT)
                                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be a Health Potion, but its {1}.",
                                         client.Player.Name, item.ObjectId));
                             client.Disconnect(DisconnectReason.HP_POTION_CHEAT_ENGINE);
@@ -107,7 +107,7 @@ namespace gameserver.networking.handlers
                         {
                             log4net.FatalFormat("Cheat engine detected for player {0},\nItem should be a Magic Potion, but its {1}.",
                                 client.Player.Name, item.ObjectId);
-                            foreach (Player player in client.Player.Owner.Players.Values.Where(player => player.Client.Account.AccountType >= (int) common.config.AccountType.TUTOR_ACCOUNT))
+                            foreach (Player player in client.Player.Owner.Players.Values.Where(player => player.Client.Account.AccountType >= (int) common.config.accountType.TUTOR_ACCOUNT))
                                 player.SendInfo($"Cheat engine detected for player {client.Player.Name},\nItem should be a Magic Potion, but its {item.ObjectId}.");
                             client.Disconnect(DisconnectReason.MP_POTION_CHEAT_ENGINE);
                             return;

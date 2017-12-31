@@ -31,6 +31,7 @@ namespace gameserver.realm.entity.merchant
         {
             if (ObjectType == 0x01ca) //Merchant
             {
+                Price *= player.AccountPerks.MerchantDiscount();
                 if (TryDeduct(player))
                 {
                     for (var i = 4; i < player.Inventory.Length; i++)
@@ -146,48 +147,6 @@ namespace gameserver.realm.entity.merchant
             if (Currency == CurrencyType.FortuneTokens)
                 if (acc.FortuneTokens < Price) return false;
             return true;
-        }
-
-        private static int returnProdLikePrices(int tier, string type)
-        {
-            switch(type)
-            {
-                case "weapons":
-                    switch(tier)
-                    {
-                        case 8: return 51;
-                        case 9: return 150;
-                        case 10: return 225;
-                        case 11: return 450;
-                        case 12: return 900;
-                        default: return -1;
-                    }
-                case "abilities":
-                    switch(tier)
-                    {
-                        case 5: return 175;
-                        case 6: return 400;
-                        default: return -1;
-                    }
-                case "armors":
-                    switch(tier)
-                    {
-                        case 9: return 51;
-                        case 10: return 100;
-                        case 11: return 225;
-                        case 12: return 425;
-                        case 13: return 800;
-                        default: return -1;
-                    }
-                case "rings":
-                    switch(tier)
-                    {
-                        case 4: return 180;
-                        case 5: return 360;
-                        default: return -1;
-                    }
-                default: return -1;
-            }
         }
     }
 }

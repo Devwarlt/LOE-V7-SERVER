@@ -139,10 +139,8 @@ namespace gameserver.realm.entity.player
             NULL
         }
 
-        private Tuple<bool, AccType> GetAccountType() => (AccountType >= (int) common.config.AccountType.VIP_ACCOUNT && AccountType <= (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int) common.config.AccountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
-
-        private int GetStats(int i, AccType type) => Stats[i] / (type == AccType.VIP_ACCOUNT ? 10 : 20 / 3);
-
+        private Tuple<bool, AccType> GetAccountType() => (AccountType >= (int)accountType.VIP_ACCOUNT && AccountType <= (int)accountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int)accountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
+        
         public void CalculateBoost()
         {
 
@@ -173,21 +171,21 @@ namespace gameserver.realm.entity.player
                 foreach (var pair in Inventory[i].StatsBoost)
                 {
                     if (pair.Key == StatsType.MAX_HP_STAT)
-                        Boost[0] += GetAccountType().Item1 ? (Stats[0] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
+                        Boost[0] += AccountPerks.StatsBoost(Stats[0], pair.Value);
                     if (pair.Key == StatsType.MAX_MP_STAT)
-                        Boost[1] += GetAccountType().Item1 ? (Stats[1] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
+                        Boost[1] += AccountPerks.StatsBoost(Stats[1], pair.Value);
                     if (pair.Key == StatsType.ATTACK_STAT)
-                        Boost[2] += GetAccountType().Item1 ? (Stats[2] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
+                        Boost[2] += AccountPerks.StatsBoost(Stats[2], pair.Value);
                     if (pair.Key == StatsType.DEFENSE_STAT)
-                        Boost[3] += GetAccountType().Item1 ? (Stats[3] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
+                        Boost[3] += AccountPerks.StatsBoost(Stats[3], pair.Value);
                     if (pair.Key == StatsType.SPEED_STAT)
-                        Boost[4] += GetAccountType().Item1 ? (Stats[4] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
+                        Boost[4] += AccountPerks.StatsBoost(Stats[4], pair.Value);
                     if (pair.Key == StatsType.VITALITY_STAT)
-                        Boost[5] += GetAccountType().Item1 ? (Stats[5] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
+                        Boost[5] += AccountPerks.StatsBoost(Stats[5], pair.Value);
                     if (pair.Key == StatsType.WISDOM_STAT)
-                        Boost[6] += GetAccountType().Item1 ? (Stats[6] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
+                        Boost[6] += AccountPerks.StatsBoost(Stats[6], pair.Value);
                     if (pair.Key == StatsType.DEXTERITY_STAT)
-                        Boost[7] += GetAccountType().Item1 ? (Stats[7] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
+                        Boost[7] += AccountPerks.StatsBoost(Stats[7], pair.Value);
                 }
             }
 
@@ -456,7 +454,7 @@ namespace gameserver.realm.entity.player
             catch
             {
                 Log.Write(nameof(Player), $"Ping error! Forcing save method.");
-                Client.Save();
+                Client?.Save();
                 return false;
             }
         }

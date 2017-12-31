@@ -159,13 +159,13 @@ namespace gameserver.networking.handlers
                     return;
                 }
 
-                if (acc.AccountType == (int) AccountType.VIP_ACCOUNT)
+                if (acc.AccountType == (int) accountType.VIP_ACCOUNT)
                 {
                     DateTime _currentTime = DateTime.Now;
                     DateTime _vipRegistration = acc.AccountLifetime;
                     if (_vipRegistration <= _currentTime)
                     {
-                        acc.AccountType = (int)AccountType.FREE_ACCOUNT;
+                        acc.AccountType = (int)accountType.FREE_ACCOUNT;
                         acc.Flush();
                         acc.Reload();
                         FAILURE _failure = new FAILURE();
