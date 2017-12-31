@@ -179,7 +179,7 @@ namespace common
 
         public int AccountType
         {
-            get { return GetValue("accountType", (int) config.AccountType.FREE_ACCOUNT); }
+            get { return GetValue("accountType", (int) config.accountType.FREE_ACCOUNT); }
             set { SetValue("accountType", value); }
         }
 

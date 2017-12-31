@@ -52,7 +52,7 @@ namespace gameserver.realm.entity.player
                 Level = client.Character.Level == 0 ? 1 : client.Character.Level;
                 Experience = client.Character.Experience;
                 ExperienceGoal = GetExpGoal(Level);
-                Stars = AccountType >= (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT ? 70 : GetStars();
+                Stars = AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT ? 70 : GetStars();
                 Texture1 = client.Character.Tex1;
                 Texture2 = client.Character.Tex2;
                 Credits = client.Account.Credits;
@@ -77,7 +77,7 @@ namespace gameserver.realm.entity.player
                 lootDropBoostFreeTimer = LootDropBoost;
                 LootTierBoostTimeLeft = client.Character.LootTierTimer;
                 lootTierBoostFreeTimer = LootTierBoost;
-                FameGoal = (AccountType >= (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : GetFameGoal(FameCounter.ClassStats[ObjectType].BestFame);
+                FameGoal = (AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : GetFameGoal(FameCounter.ClassStats[ObjectType].BestFame);
                 Glowing = false;
                 DbGuild guild = Manager.Database.GetGuild(client.Account.GuildId);
                 if (guild != null)
@@ -156,7 +156,7 @@ namespace gameserver.realm.entity.player
                 for (var i = 0; i < SlotTypes.Length; i++)
                     if (SlotTypes[i] == 0) SlotTypes[i] = 10;
 
-                if (Client.Account.AccountType >= (int) common.config.AccountType.TUTOR_ACCOUNT)
+                if (Client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
                     return;
 
                 for (var i = 0; i < 4; i++)
@@ -293,7 +293,7 @@ namespace gameserver.realm.entity.player
 
             CheckSetTypeSkin();
 
-            if ((AccountType) AccountType == common.config.AccountType.LOESOFT_ACCOUNT)
+            if ((accountType) AccountType == accountType.LOESOFT_ACCOUNT)
             {
                 ConditionEffect invincible = new ConditionEffect();
                 invincible.Effect = ConditionEffectIndex.Invincible;
@@ -308,29 +308,29 @@ namespace gameserver.realm.entity.player
                 ApplyConditionEffect(invulnerable);
             }
 
-            SetPlayerRankIcon((AccountType) AccountType);            
+            SetPlayerRankIcon((accountType) AccountType);            
         }
 
-        private void SetPlayerRankIcon(AccountType type)
+        private void SetPlayerRankIcon(accountType type)
         {
             ConditionEffect icon = new ConditionEffect();
             icon.DurationMS = -1;
 
             switch (type)
             {
-                case common.config.AccountType.FREE_ACCOUNT:
+                case accountType.FREE_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.FreeAccount;
                     break;
-                case common.config.AccountType.VIP_ACCOUNT:
+                case accountType.VIP_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.VipAccount;
                     break;
-                case common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT:
+                case accountType.LEGENDS_OF_LOE_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.LegendsofLoEAccount;
                     break;
-                case common.config.AccountType.TUTOR_ACCOUNT:
+                case accountType.TUTOR_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.TutorAccount;
                     break;
-                case common.config.AccountType.LOESOFT_ACCOUNT:
+                case accountType.LOESOFT_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.LoESoftAccount;
                     break;
             }
@@ -468,7 +468,7 @@ namespace gameserver.realm.entity.player
                 newGoal = GetFameGoal(stats.BestFame);
             else
                 newGoal = GetFameGoal(Fame);
-            if (newGoal > FameGoal && AccountType < (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT)
+            if (newGoal > FameGoal && AccountType < (int)accountType.LEGENDS_OF_LOE_ACCOUNT)
             {
                 Owner.BroadcastPacket(new NOTIFICATION
                 {
@@ -478,7 +478,7 @@ namespace gameserver.realm.entity.player
                 }, null);
                 Stars = GetStars();
             }
-            FameGoal = (AccountType >= (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : newGoal;
+            FameGoal = (AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : newGoal;
             UpdateCount++;
         }
 

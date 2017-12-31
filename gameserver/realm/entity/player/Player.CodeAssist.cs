@@ -139,7 +139,7 @@ namespace gameserver.realm.entity.player
             NULL
         }
 
-        private Tuple<bool, AccType> GetAccountType() => (AccountType >= (int) common.config.AccountType.VIP_ACCOUNT && AccountType <= (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int) common.config.AccountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
+        private Tuple<bool, AccType> GetAccountType() => (AccountType >= (int)accountType.VIP_ACCOUNT && AccountType <= (int)accountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int)accountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
         
         public void CalculateBoost()
         {
