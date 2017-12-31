@@ -77,7 +77,7 @@ namespace gameserver.realm.entity.player
                 lootDropBoostFreeTimer = LootDropBoost;
                 LootTierBoostTimeLeft = client.Character.LootTierTimer;
                 lootTierBoostFreeTimer = LootTierBoost;
-                FameGoal = GetFameGoal(FameCounter.ClassStats[ObjectType].BestFame);
+                FameGoal = (AccountType >= (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : GetFameGoal(FameCounter.ClassStats[ObjectType].BestFame);
                 Glowing = false;
                 DbGuild guild = Manager.Database.GetGuild(client.Account.GuildId);
                 if (guild != null)
@@ -468,7 +468,7 @@ namespace gameserver.realm.entity.player
                 newGoal = GetFameGoal(stats.BestFame);
             else
                 newGoal = GetFameGoal(Fame);
-            if (newGoal > FameGoal)
+            if (newGoal > FameGoal && AccountType < (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT)
             {
                 Owner.BroadcastPacket(new NOTIFICATION
                 {
@@ -478,7 +478,7 @@ namespace gameserver.realm.entity.player
                 }, null);
                 Stars = GetStars();
             }
-            FameGoal = newGoal;
+            FameGoal = (AccountType >= (int) common.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : newGoal;
             UpdateCount++;
         }
 
