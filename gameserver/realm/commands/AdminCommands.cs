@@ -18,7 +18,515 @@ using System.Threading;
 
 namespace gameserver.realm.commands
 {
-    class TestCommand : Command
+	internal class GlandCommand : Command
+	{
+		public GlandCommand()
+			: base("glands", (int)accountType.FREE_ACCOUNT)
+		{
+		}
+
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			if (args.Length == 1000 || args.Length == 1000)
+			{
+				player.SendHelp("Usage: /glands to tp to glands");
+			}
+			else
+			{
+				int x, y;
+				try
+				{
+					x = int.Parse("1000");
+					y = int.Parse("1000");
+				}
+				catch
+				{
+					player.SendError("Invalid coordinates!");
+					return false;
+				}
+				player.Move(x + 0.5f, y + 0.5f);
+				if (player.Pet != null)
+					player.Pet.Move(x + 0.5f, y + 0.5f);
+				player.UpdateCount++;
+				player.Owner.BroadcastPacket(new GOTO
+				{
+					ObjectId = player.Id,
+					Position = new Position
+					{
+						X = player.X,
+						Y = player.Y
+					}
+				}, null);
+			}
+			return true;
+		}
+	}
+	internal class GlobalChatCommand : Command
+	{
+		public GlobalChatCommand()
+			: base("global", (int)accountType.FREE_ACCOUNT)
+		{
+		}
+
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			if (args.Length == 0)
+			{
+				player.SendInfo("Usage: /global <saytext>");
+				return false;
+			}
+			string saytext = string.Join(" ", args);
+
+			foreach (Client i in player.Manager.Clients.Values)
+
+			{
+				i.SendMessage(new TEXT
+				{
+					BubbleTime = 5,
+					Stars = player.Stars,
+					Name = "[Global]",
+					Text = " " + saytext,
+					TextColor = 0xffffff,
+					NameColor = 0xffffff
+				});
+			}
+			return true;
+		}
+	}
+	internal class SpawnOnCommand : Command
+	{
+		public SpawnOnCommand()
+			: base("spawnon", (int)accountType.LOESOFT_ACCOUNT)
+		{
+		}
+
+
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			if (string.IsNullOrEmpty(args[0]))
+			{
+				player.SendHelp("Usage: /spawnon <Player> <Int> <Entity>");
+				return false;
+			}
+
+
+			foreach (Client i in player.Manager.Clients.Values)
+			{
+
+
+				if (i.Account.Name.EqualsIgnoreCase(args[0]))
+				{
+					int num;
+					if (args[1].Length > 0 && int.TryParse(args[1], out num)) //multi
+					{
+						string name = string.Join(" ", args.Skip(2).ToArray());
+						ushort objType;
+						Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
+							player.Manager.GameData.IdToObjectType,
+							StringComparer.OrdinalIgnoreCase);
+						if (!icdatas.TryGetValue(name, out objType) ||
+							!player.Manager.GameData.ObjectDescs.ContainsKey(objType))
+						{
+							player.SendInfo("Unknown entity!");
+							return false;
+						}
+						else
+						{
+							for (int u = 0; u < num; u++)
+							{
+								Entity entity = Entity.Resolve(player.Manager, objType);
+								entity.Move(i.Player.X, i.Player.Y);
+								i.Player.Owner.EnterWorld(entity);
+							}
+							player.SendInfo("Sent " + i.Player.Name + " " + string.Join(" ", args.Skip(1).ToArray()) + "'s");
+							return true;
+						}
+					}
+				}
+				else
+				{
+					if (i.Account.Name.EqualsIgnoreCase(args[0]))
+					{
+						{
+							string name = string.Join(" ", args.Skip(1).ToArray());
+							ushort objType;
+							Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
+								player.Manager.GameData.IdToObjectType,
+								StringComparer.OrdinalIgnoreCase);
+							if (!icdatas.TryGetValue(name, out objType) ||
+								!player.Manager.GameData.ObjectDescs.ContainsKey(objType))
+							{ }
+							Entity entity = Entity.Resolve(player.Manager, objType);
+							entity.Move(i.Player.X, i.Player.Y);
+							i.Player.Owner.EnterWorld(entity);
+						}
+						player.SendInfo("Sent " + i.Player.Name + " " + string.Join(" ", args.Skip(1).ToArray()));
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+	}
+	internal class RogueCommand : Command
+	{
+		public RogueCommand() : base("rogue", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9c6]; // Sinister Deed
+				player.Inventory[5] = player.Manager.GameData.Items[0xb27]; // GhostlyConcealment
+				player.Inventory[6] = player.Manager.GameData.Items[0x9c1]; // Wyrmhide
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class ArcherCommand : Command
+	{
+		public ArcherCommand() : base("archer", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9cc]; // Mystical Energy
+				player.Inventory[5] = player.Manager.GameData.Items[0xb28]; // Elvish Mastery
+				player.Inventory[6] = player.Manager.GameData.Items[0x9c1]; // Wyrmhide
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class WizardCommand : Command
+	{
+		public WizardCommand() : base("wizard", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9d1]; // Vital Unity
+				player.Inventory[5] = player.Manager.GameData.Items[0xb24]; // Elemental Denotation
+				player.Inventory[6] = player.Manager.GameData.Items[0x9cf]; // Star Mother
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class PriestCommand : Command
+	{
+		public PriestCommand() : base("priest", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9ca]; // Retribution
+				player.Inventory[5] = player.Manager.GameData.Items[0xb25]; // T6 Tome
+				player.Inventory[6] = player.Manager.GameData.Items[0x9cf]; // Star Mother
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class WarriorCommand : Command
+	{
+		public WarriorCommand() : base("warrior", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9c8]; // Splendor
+				player.Inventory[5] = player.Manager.GameData.Items[0xb29]; // Great General Helm
+				player.Inventory[6] = player.Manager.GameData.Items[0x9c4]; // Dominion
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class KnightCommand : Command
+	{
+		public KnightCommand() : base("knight", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9c8]; // Splendor
+				player.Inventory[5] = player.Manager.GameData.Items[0xb22]; // Colossus Shield
+				player.Inventory[6] = player.Manager.GameData.Items[0x9c4]; // Dominion
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class PaladinCommand : Command
+	{
+		public PaladinCommand() : base("paladin", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9c8]; // Splendor
+				player.Inventory[5] = player.Manager.GameData.Items[0xb26]; // T6 Seal
+				player.Inventory[6] = player.Manager.GameData.Items[0x9c4]; // Dominion
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class AssassinCommand : Command
+	{
+		public AssassinCommand() : base("assassin", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9c6]; // Sinister Deed
+				player.Inventory[5] = player.Manager.GameData.Items[0xb2a]; // Baneserpent
+				player.Inventory[6] = player.Manager.GameData.Items[0x9c1]; // Wyrmhide
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class NecromanserCommand : Command
+	{
+		public NecromanserCommand() : base("necromanser", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9d1]; // Vital Unity
+				player.Inventory[5] = player.Manager.GameData.Items[0xb2b]; // Bloodsucker
+				player.Inventory[6] = player.Manager.GameData.Items[0x9cf]; // Star Mother
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class HuntressCommand : Command
+	{
+		public HuntressCommand() : base("huntress", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9cc]; // Mystical Energy
+				player.Inventory[5] = player.Manager.GameData.Items[0xb2c]; // giantcatcher
+				player.Inventory[6] = player.Manager.GameData.Items[0x9c1]; // Wyrmhide
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class MysticCommand : Command
+	{
+		public MysticCommand() :
+			base("mystic", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9d1]; // Vital Unity
+				player.Inventory[5] = player.Manager.GameData.Items[0xb2d]; // plantfetter Orb
+				player.Inventory[6] = player.Manager.GameData.Items[0x9cf]; // Star Mother
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class TricksterCommand : Command
+	{
+		public TricksterCommand() : base("trickster", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9c6]; // Sinister Deed
+				player.Inventory[5] = player.Manager.GameData.Items[0xb23]; // Apparitions
+				player.Inventory[6] = player.Manager.GameData.Items[0x9c1]; // Wyrmhide
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class SorcererCommand : Command
+	{
+		public SorcererCommand() : base("Sorcerer", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0x9ca]; // Retribution
+				player.Inventory[5] = player.Manager.GameData.Items[0xb33]; // storm
+				player.Inventory[6] = player.Manager.GameData.Items[0x9cf]; // Star Mother
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class NinjaCommand : Command
+	{
+		public NinjaCommand() : base("ninja", (int)accountType.VIP_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			for (int i = 0; i < player.Inventory.Length; i++)
+			{
+				player.Inventory[4] = player.Manager.GameData.Items[0xc4f]; // Muramasa
+				player.Inventory[5] = player.Manager.GameData.Items[0xc59]; // doom circle
+				player.Inventory[6] = player.Manager.GameData.Items[0x9c1]; // Wyrmhide
+				player.Inventory[7] = player.Manager.GameData.Items[0xba9]; // UBHP
+				player.UpdateCount++;
+			}
+			player.SendInfo("Set Given");
+			return true;
+		}
+	}
+	internal class GiftCommand : Command
+	{
+		public GiftCommand()
+			: base("gift", (int)accountType.LOESOFT_ACCOUNT)
+		{
+		}
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			if (args.Length == 1)
+			{
+				player.SendHelp("Usage: /gift <Playername> <Itemname>");
+				return false;
+			}
+			string name = string.Join(" ", args.Skip(1).ToArray()).Trim();
+			var plr = player.Manager.FindPlayer(args[0]);
+			ushort objType;
+			Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(player.Manager.GameData.IdToObjectType,
+				StringComparer.OrdinalIgnoreCase);
+			if (!icdatas.TryGetValue(name, out objType))
+			{
+				player.SendError("Item not found, PERHAPS YOUR A RETARD LIKE LYNX WHO CAN'T SPELL SHIT?");
+				return false;
+			}
+			if (!player.Manager.GameData.Items[objType].Secret || player.Client.Account.AccountType >= 4)
+			{
+				for (int i = 0; i < plr.Inventory.Length; i++)
+					if (plr.Inventory[i] == null)
+					{
+						plr.Inventory[i] = player.Manager.GameData.Items[objType];
+						plr.UpdateCount++;
+						plr.SaveToCharacter();
+						player.SendInfo("Success sending " + name + " to " + plr.Name);
+						plr.SendInfo("You got a " + name + " from " + player.Name);
+						break;
+					}
+			}
+			else
+			{
+				player.SendError("Item failed sending to " + plr.Name + ", make sure you spelt the command right, and their name!");
+				return false;
+			}
+			return true;
+		}
+	}
+	internal class Size : Command
+	{
+		public Size() : base("size", (int)accountType.VIP_ACCOUNT) { }
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			if (args.Length != 3)
+			{
+				player.SendHelp("Usage: /size <Playername> <PlayerOrPet> <Amount>");
+				return false;
+			}
+			foreach (KeyValuePair<string, Client> i in player.Manager.Clients
+				.Where(i => i.Value.Player.Name.EqualsIgnoreCase(args[0])))
+			{
+				int size;
+				if (!int.TryParse(args[2], out size))
+				{
+					player.SendError("Invalid Amount");
+					return false;
+				}
+				switch (args[1].ToLower())
+				{
+					case "player":
+						if (!string.Equals(player.Name.ToLower(), args[0].ToLower()))
+						{
+							i.Value.Player.Size = size;
+							return true;
+						}
+						player.Size = size;
+						return true;
+					case "pet":
+						if (!string.Equals(player.Name.ToLower(), args[0].ToLower()))
+						{
+							i.Value.Player.Pet.Size = size;
+							return true;
+						}
+						player.Pet.Size = size;
+						return true;
+					default:
+						player.SendError("Player or Pet");
+						return false;
+				}
+			}
+			player.SendError($"Player {args[0]} could not be found");
+			return false;
+		}
+	}
+	class TestCommand : Command
     {
         public TestCommand() : base("test", (int) accountType.LOESOFT_ACCOUNT) { }
 

@@ -194,4 +194,241 @@
 		</Texture>
 		<AngleCorrection>1</AngleCorrection>
 	</Object>
+	<Object type="0x5726" id="Lotll Bullet">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x97</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5727" id="Lotll Shot">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x98</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5728" id="Chinese Dragon Shot">
+		<Class>Projectile</Class>
+		<AnimatedTexture>
+			<File>chars8x8rPets1</File>
+			<Index>120</Index>
+		</AnimatedTexture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x5729" id="Neo Shot">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x89</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x572a" id="Bloody Shot">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x8d</Index>
+		</Texture>
+		<Rotation>100</Rotation>
+	</Object>
+	<Object type="0x572b" id="Arctic Magic">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x8a</Index>
+		</Texture>
+	</Object>
+	<Object type="0x572c" id="Nagravitts Shot">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x8f</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x572d" id="Antidote Slash">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x8b</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x572e" id="Blue void shot">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x88</Index>
+		</Texture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x572f" id="Light Star prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xf6</Index>
+		</Texture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x5730" id="Darkness Star prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xf5</Index>
+		</Texture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x5731" id="Royal MG shot">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xf7</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5732" id="Purple void shot">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x87</Index>
+		</Texture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x5733" id="BAN HAMMER">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xf0</Index>
+		</Texture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x5734" id="NECRO STAFF SHOT">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xed</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5735" id="ARMY QUIVER SHOT">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xe8</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5736" id="ARMY BOW SHOT">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xe7</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5737" id="FROZEN QUIVER SHOT">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xde</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5738" id="FROZEN BOW SHOT">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xe2</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5739" id="UFO RED BULWARK">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x82</Index>
+		</Texture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x573a" id="UFO RED SPINNER">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x85</Index>
+		</Texture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x573b" id="UFO BLUE SPINNER">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0xa5</Index>
+		</Texture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x573c" id="UFO GREEN SPINNER">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0x95</Index>
+		</Texture>
+		<Rotation>270</Rotation>
+	</Object>
+	<Object type="0x573d" id="UFO BLUE">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiProjs</File>
+			<Index>0xa0</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x573e" id="UFO GREEN">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj</File>
+			<Index>0x90</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x573f" id="UFO RED">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj</File>
+			<Index>0x80</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5740" id="Vicious Slash">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj2</File>
+			<Index>0x84</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5741" id="DoomSpoon">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0x8e</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5742" id="BlueMoon">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj4</File>
+			<Index>0xbb</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5743" id="Axe Shot">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>lofiObj4</File>
+			<Index>0xb5</Index>
+		</Texture>
+		<Rotation>60</Rotation>
+	</Object>
 </Objects>
