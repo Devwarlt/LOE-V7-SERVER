@@ -1033,7 +1033,7 @@
 		</Texture>
 		<SlotType>11</SlotType>
 		<SRT/>
-		<BlueL/>
+		<Blue/>
 		<Description>A horrifically dangerous spell, made in Alantis by Posideon himself containing godly power.</Description>
 		<Sound>spell/magic_nova</Sound>
 		<Projectile>
