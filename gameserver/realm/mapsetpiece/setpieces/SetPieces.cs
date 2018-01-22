@@ -14,7 +14,7 @@ namespace gameserver.realm.mapsetpiece
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(SetPieces));
 
-        private static readonly List<Tuple<MapSetPiece, int, int, bool, DayOfWeek, WmapTerrain[]>> setPieces = new List<Tuple<MapSetPiece, int, int, bool, DayOfWeek, WmapTerrain[]>>
+        private static readonly List<Tuple<MapSetPiece, int, int, string, WmapTerrain[]>> setPieces = new List<Tuple<MapSetPiece, int, int, string, WmapTerrain[]>>
         {
             SetPiece(piece: new Building(), min: 80, max: 100, terrains: new WmapTerrain[3] { WmapTerrain.LowForest, WmapTerrain.LowPlains, WmapTerrain.MidForest }),
             SetPiece(piece: new Graveyard(), min: 5, max: 10, terrains: new WmapTerrain[2] {WmapTerrain.LowSand, WmapTerrain.LowPlains }),
@@ -27,12 +27,12 @@ namespace gameserver.realm.mapsetpiece
             SetPiece(piece: new Oasis(), min: 0, max: 5, terrains: new WmapTerrain[2] { WmapTerrain.LowSand, WmapTerrain.MidSand }),
             SetPiece(piece: new Pyre(), min: 0, max: 5, terrains: new WmapTerrain[2] { WmapTerrain.MidSand, WmapTerrain.HighSand }),
             SetPiece(piece: new LavaFissure(), min: 3, max: 5, terrains: new WmapTerrain[1] { WmapTerrain.Mountains }),
-            //SetPiece(piece: new Event(), min: 1, max: 1, terrains: new WmapTerrain[indexes] { }, isEvent: true, weekDay: DayOfWeek.Friday),
+            //SetPiece(piece: new Event(), min: 1, max: 1, terrains: new WmapTerrain[0] { }, weekDay: DayOfWeek.Friday),
         };
 
-        private static Tuple<MapSetPiece, int, int, bool, DayOfWeek, WmapTerrain[]> SetPiece(MapSetPiece piece, int min, int max, bool isEvent = false, DayOfWeek weekDay = DayOfWeek.Monday, params WmapTerrain[] terrains)
+        private static Tuple<MapSetPiece, int, int, string, WmapTerrain[]> SetPiece(MapSetPiece piece, int min, int max, string weekDay = null, params WmapTerrain[] terrains)
         {
-            return Tuple.Create(piece, min, max, isEvent, weekDay, terrains);
+            return Tuple.Create(piece, min, max, weekDay, terrains);
         }
 
         public static int[,] rotateCW(int[,] mat)
@@ -87,11 +87,11 @@ namespace gameserver.realm.mapsetpiece
 
             Random rand = new Random();
             HashSet<Rect> rects = new HashSet<Rect>();
-            foreach (Tuple<MapSetPiece, int, int, bool, DayOfWeek, WmapTerrain[]> dat in setPieces)
+            foreach (Tuple<MapSetPiece, int, int, string, WmapTerrain[]> dat in setPieces)
             {
                 int size = dat.Item1.Size;
                 int count = rand.Next(dat.Item2, dat.Item3);
-                if (!dat.Item4 || (dat.Item4 && today.DayOfWeek == dat.Item5))
+                if (dat.Item4 == null || dat.Item4 == today.DayOfWeek.ToString())
                 {
                     for (int i = 0; i < count; i++)
                     {
@@ -105,7 +105,7 @@ namespace gameserver.realm.mapsetpiece
                             pt.Y = rand.Next(0, h);
                             rect = new Rect { x = pt.X, y = pt.Y, w = size, h = size };
                             max--;
-                        } while ((Array.IndexOf(dat.Item6, map[pt.X, pt.Y].Terrain) == -1 ||
+                        } while ((Array.IndexOf(dat.Item5, map[pt.X, pt.Y].Terrain) == -1 ||
                                   rects.Any(_ => Rect.Intersects(rect, _))) &&
                                  max > 0);
                         if (max <= 0) continue;
