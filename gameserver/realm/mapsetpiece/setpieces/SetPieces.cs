@@ -14,26 +14,25 @@ namespace gameserver.realm.mapsetpiece
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(SetPieces));
 
-        private static readonly List<Tuple<MapSetPiece, int, int, WmapTerrain[]>> setPieces = new List
-            <Tuple<MapSetPiece, int, int, WmapTerrain[]>>
+        private static readonly List<Tuple<MapSetPiece, int, int, string, WmapTerrain[]>> setPieces = new List<Tuple<MapSetPiece, int, int, string, WmapTerrain[]>>
         {
-            SetPiece(new Building(), 80, 100, WmapTerrain.LowForest, WmapTerrain.LowPlains, WmapTerrain.MidForest),
-            SetPiece(new Graveyard(), 5, 10, WmapTerrain.LowSand, WmapTerrain.LowPlains),
-            SetPiece(new Grove(), 17, 25, WmapTerrain.MidForest, WmapTerrain.MidPlains),
-            SetPiece(new LichyTemple(), 4, 7, WmapTerrain.MidForest, WmapTerrain.MidPlains),
-            SetPiece(new Castle(), 4, 7, WmapTerrain.HighForest, WmapTerrain.HighPlains),
-            SetPiece(new Tower(), 8, 15, WmapTerrain.HighForest, WmapTerrain.HighPlains),
-            SetPiece(new TempleA(), 10, 20, WmapTerrain.MidForest, WmapTerrain.MidPlains),
-            SetPiece(new TempleB(), 10, 20, WmapTerrain.MidForest, WmapTerrain.MidPlains),
-            SetPiece(new Oasis(), 0, 5, WmapTerrain.LowSand, WmapTerrain.MidSand),
-            SetPiece(new Pyre(), 0, 5, WmapTerrain.MidSand, WmapTerrain.HighSand),
-            SetPiece(new LavaFissure(), 3, 5, WmapTerrain.Mountains)
+            SetPiece(piece: new Building(), min: 80, max: 100, terrains: new WmapTerrain[3] { WmapTerrain.LowForest, WmapTerrain.LowPlains, WmapTerrain.MidForest }),
+            SetPiece(piece: new Graveyard(), min: 5, max: 10, terrains: new WmapTerrain[2] {WmapTerrain.LowSand, WmapTerrain.LowPlains }),
+            SetPiece(piece: new Grove(), min: 17, max: 25, terrains: new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
+            SetPiece(piece: new LichyTemple(), min: 4, max: 7, terrains: new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
+            SetPiece(piece: new Castle(), min: 4, max: 7, terrains: new WmapTerrain[2] { WmapTerrain.HighForest, WmapTerrain.HighPlains }),
+            SetPiece(piece: new Tower(), min: 8, max: 15, terrains: new WmapTerrain[2] { WmapTerrain.HighForest, WmapTerrain.HighPlains }),
+            SetPiece(piece: new TempleA(), min: 10, max: 20, terrains: new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
+            SetPiece(piece: new TempleB(), min: 10, max: 20, terrains: new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
+            SetPiece(piece: new Oasis(), min: 0, max: 5, terrains: new WmapTerrain[2] { WmapTerrain.LowSand, WmapTerrain.MidSand }),
+            SetPiece(piece: new Pyre(), min: 0, max: 5, terrains: new WmapTerrain[2] { WmapTerrain.MidSand, WmapTerrain.HighSand }),
+            SetPiece(piece: new LavaFissure(), min: 3, max: 5, terrains: new WmapTerrain[1] { WmapTerrain.Mountains }),
+            //SetPiece(piece: new Event(), min: 1, max: 1, terrains: new WmapTerrain[0] { }, weekDay: DayOfWeek.Friday),
         };
 
-        private static Tuple<MapSetPiece, int, int, WmapTerrain[]> SetPiece(MapSetPiece piece, int min, int max,
-            params WmapTerrain[] terrains)
+        private static Tuple<MapSetPiece, int, int, string, WmapTerrain[]> SetPiece(MapSetPiece piece, int min, int max, string weekDay = null, params WmapTerrain[] terrains)
         {
-            return Tuple.Create(piece, min, max, terrains);
+            return Tuple.Create(piece, min, max, weekDay, terrains);
         }
 
         public static int[,] rotateCW(int[,] mat)
@@ -84,31 +83,36 @@ namespace gameserver.realm.mapsetpiece
 
             Wmap map = world.Map;
             int w = map.Width, h = map.Height;
+            DateTime today = DateTime.Now; // = DateTime.Today;
 
             Random rand = new Random();
             HashSet<Rect> rects = new HashSet<Rect>();
-            foreach (Tuple<MapSetPiece, int, int, WmapTerrain[]> dat in setPieces)
+            foreach (Tuple<MapSetPiece, int, int, string, WmapTerrain[]> dat in setPieces)
             {
                 int size = dat.Item1.Size;
                 int count = rand.Next(dat.Item2, dat.Item3);
-                for (int i = 0; i < count; i++)
+                if (dat.Item4 == null || dat.Item4 == today.DayOfWeek.ToString())
                 {
-                    IntPoint pt = new IntPoint();
-                    Rect rect;
-
-                    int max = 50;
-                    do
+                    for (int i = 0; i < count; i++)
                     {
-                        pt.X = rand.Next(0, w);
-                        pt.Y = rand.Next(0, h);
-                        rect = new Rect {x = pt.X, y = pt.Y, w = size, h = size};
-                        max--;
-                    } while ((Array.IndexOf(dat.Item4, map[pt.X, pt.Y].Terrain) == -1 ||
-                              rects.Any(_ => Rect.Intersects(rect, _))) &&
-                             max > 0);
-                    if (max <= 0) continue;
-                    dat.Item1.RenderSetPiece(world, pt);
-                    rects.Add(rect);
+                        IntPoint pt = new IntPoint();
+                        Rect rect;
+
+                        int max = 50;
+                        do
+                        {
+                            pt.X = rand.Next(0, w);
+                            pt.Y = rand.Next(0, h);
+                            rect = new Rect { x = pt.X, y = pt.Y, w = size, h = size };
+                            max--;
+                        } while ((Array.IndexOf(dat.Item5, map[pt.X, pt.Y].Terrain) == -1 ||
+                                  rects.Any(_ => Rect.Intersects(rect, _))) &&
+                                 max > 0);
+                        if (max <= 0) continue;
+
+                        dat.Item1.RenderSetPiece(world, pt);
+                        rects.Add(rect);
+                    }
                 }
             }
 
