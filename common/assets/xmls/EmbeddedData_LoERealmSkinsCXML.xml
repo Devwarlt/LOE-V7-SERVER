@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
+	<Object type="0x9007" id="FrogKing">
+		<Skin />
+		<Class>Skin</Class>
+		<AnimatedTexture>
+			<File>playerskins</File>
+			<Index>172</Index>
+		</AnimatedTexture>
+		<PlayerClassType>0x0320</PlayerClassType>
+		<UnlockSpecial>Frog Skin</UnlockSpecial>
+	</Object>
 	<Object type="0x9006" id="Uzumaki Naruto">
 		<Skin />
 		<Class>Skin</Class>
@@ -8,7 +18,7 @@
 			<Index>169</Index>
 		</AnimatedTexture>
 		<PlayerClassType>0x0326</PlayerClassType>
-		<UnlockSpecial>Ninja Skin</UnlockSpecial>
+		<UnlockSpecial>Uzumaki Naruto</UnlockSpecial>
 	</Object>
 	<Object type="0x9005" id="Happy Clown">
 		<Skin />

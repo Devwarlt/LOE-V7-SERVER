@@ -26,7 +26,8 @@ namespace gameserver.logic
 					new Wander(2),
 				  new Shoot(30, index: 0, shoots: 1, coolDown: 1000)
 				  )
-			  )
+			  ),
+		  new ItemLoot("Frog King Skin", 0.0001)
 			)
 	   .Init("Frog King",
 			new State(
@@ -83,10 +84,10 @@ namespace gameserver.logic
 							new Chase(1.5, range: 7),
 							new Wander(5)
 							),
-				  new TossObject("Frog Minion", range: 8.89949, angle: 45, coolDown: 5000),
-				  new TossObject("Frog Minion", range: 8.89949, angle: 135, coolDown: 5000),
-				  new TossObject("Frog Minion", range: 8.89949, angle: 225, coolDown: 5000),
-				  new TossObject("Frog Minion", range: 8.89949, angle: 315, coolDown: 5000),
+				  new TossObject("Frog Minion", range: 8.89949, angle: 45, coolDown: 10000),
+				  new TossObject("Frog Minion", range: 8.89949, angle: 135, coolDown: 10000),
+				  new TossObject("Frog Minion", range: 8.89949, angle: 225, coolDown: 10000),
+				  new TossObject("Frog Minion", range: 8.89949, angle: 315, coolDown: 10000),
 					new Shoot(10, index: 0, shoots: 10, shootAngle: 36, coolDown: 1000),
 					new Shoot(20, index: 3, shoots: 3, shootAngle: 24, coolDown: 1000),
 					new Shoot(15, index: 1, shoots: 3, shootAngle: 15, coolDown: 250),
@@ -98,8 +99,14 @@ namespace gameserver.logic
 					)
 				),
 					new ItemLoot("Potion of Speed", 1),
-					new ItemLoot("Potion of Speed", 0.5),
-					new ItemLoot("Staff of Filisha", 0.00000000000001),
+					new ItemLoot("Potion of Defense", 0.5),
+					new ItemLoot("Frog King Skin", 0.001),
+					new ItemLoot("Prism of Chromatic Light", 0.001),
+					new ItemLoot("Rainbow Sword", 0.001),
+					new ItemLoot("Edge of Time", 0.001),
+					new ItemLoot("Robe of Elemental Mastery", 0.001),
+					new ItemLoot("Orb of Time", 0.001),
+					new ItemLoot("Rain of Elemental Energy", 0.001),
 
 					new TierLoot(10, ItemType.Weapon, 0.2),
 					new TierLoot(11, ItemType.Weapon, 0.1),
