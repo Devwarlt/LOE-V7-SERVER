@@ -491,6 +491,7 @@ namespace gameserver.realm.commands
                     Y = player.Quest.Y
                 }
             }, null);
+            player.Pet.Move(player.X, player.Y);
             player.SendInfo("Success!");
             return true;
         }

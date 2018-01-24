@@ -12,7 +12,6 @@ namespace gameserver.logic.skills.Pets
     {
         protected readonly double angleOffset;
         protected readonly int count;
-        protected readonly double predictive;
         protected readonly int projectileIndex;
         protected readonly double shootAngle;
         protected readonly double? fixedAngle;
@@ -28,7 +27,6 @@ namespace gameserver.logic.skills.Pets
             double? fixedAngle = null,
             double angleOffset = 0,
             double? defaultAngle = null,
-            double predictive = 0,
             bool special = false,
             int coolDownOffset = 0,
             Cooldown coolDown = new Cooldown()
@@ -40,38 +38,12 @@ namespace gameserver.logic.skills.Pets
             this.angleOffset = angleOffset * Math.PI / 180;
             this.defaultAngle = defaultAngle * Math.PI / 180;
             this.projectileIndex = projectileIndex;
-            this.predictive = predictive;
             this.special = special;
             this.coolDownOffset = coolDownOffset;
             this.coolDown = coolDown.Normalize();
         }
 
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state) => state = special ? coolDownOffset : 0;
-
-        private static Position EnemyShootHistory(Entity host)
-        {
-            Position? history = host.TryGetHistory(1);
-
-            if (history == null)
-                return new Position { X = host.X, Y = host.Y };
-
-            return new Position { X = history.Value.X, Y = history.Value.Y };
-        }
-
-        private static double Predict(Entity host, Entity target, ProjectileDesc desc)
-        {
-            Position? history = target.TryGetHistory(1);
-            if (history == null)
-                return 0;
-
-            double originalAngle = Math.Atan2(history.Value.Y - host.Y, history.Value.X - host.X);
-            double newAngle = Math.Atan2(target.Y - host.Y, target.X - host.X);
-
-
-            float bulletSpeed = desc.Speed / 100;
-            double angularVelo = (newAngle - originalAngle) / (100 / 1000f);
-            return angularVelo * bulletSpeed;
-        }
 
         private void _(string message) => Log.Write(nameof(PetShoot), message, ConsoleColor.DarkYellow);
 
@@ -93,30 +65,25 @@ namespace gameserver.logic.skills.Pets
             if (host.Owner.SafePlace)
                 return;
 
-            int cool = (int?) state ?? -1;
+            int cool = (int?)state ?? -1;
             Status = CycleStatus.NotStarted;
-            
+
             if (cool <= 0)
             {
                 if (player.HasConditionEffect(ConditionEffectIndex.Sick) || player.HasConditionEffect(ConditionEffectIndex.PetDisable))
                     return;
 
                 int stars = player.Stars;
-                
+
                 Entity target = pet.GetNearestEntity(12, false, enemy => enemy is Enemy && pet.Dist(enemy) <= 12) as Enemy;
 
                 if (target != null && target.ObjectDesc.Enemy)
                 {
                     ProjectileDesc desc = pet.ObjectDesc.Projectiles[projectileIndex];
-                    
-                    double a = fixedAngle ??
-                               (target == null ?
-                               defaultAngle.Value :
-                               Math.Atan2(target.Y - pet.Y, target.X - pet.X));
+
+                    double a = fixedAngle ?? (target == null ? defaultAngle.Value : Math.Atan2(target.Y - pet.Y, target.X - pet.X));
                     a += angleOffset;
-                    if (predictive != 0 && target != null)
-                        a += Predict(pet, target, desc)*predictive;
-                                        
+
                     int variance;
 
                     if (stars == 70)
@@ -125,7 +92,7 @@ namespace gameserver.logic.skills.Pets
                         variance = player.Stars * 100;
 
                     cool = special ? cool = coolDown.Next(Random) : (7750 - variance); // max 750ms cooldown if not special
-                    
+
                     Random rnd = new Random();
 
                     int min = 0;
@@ -164,34 +131,31 @@ namespace gameserver.logic.skills.Pets
                     }
 
                     int dmg = rnd.Next(desc.MinDamage, desc.MaxDamage);
-                    
-                    double startAngle = a - shootAngle*(count - 1)/2;
 
-                    Position prjPos = EnemyShootHistory(pet);
+                    double startAngle = a - shootAngle * (count - 1) / 2;
 
-                    Projectile prj = pet.CreateProjectile(
+                    Position prjPos = new Position() { X = pet.X,  Y = pet.Y };
+
+                    Projectile prj = player.CreateProjectile(
                         desc, pet.ObjectType, dmg, time.TotalElapsedMs,
-                        prjPos, (float) startAngle);
-                    
-                    // Visual only
+                        prjPos, (float)startAngle);
+
+                    player.Owner.EnterWorld(prj);
+                    player.FameCounter.Shoot(prj);
+
                     SERVERPLAYERSHOOT _shoot = new SERVERPLAYERSHOOT();
                     _shoot.BulletId = prj.ProjectileId;
                     _shoot.OwnerId = player.Id;
                     _shoot.ContainerType = pet.ObjectType;
                     _shoot.StartingPos = prj.BeginPos;
                     _shoot.Angle = prj.Angle;
-                    _shoot.Damage = 0;
+                    _shoot.Damage = (short)prj.Damage;
 
-                    pet.Owner.BroadcastPacket(_shoot, null);
-                    
-                    target.Owner.Timers.Add(new WorldTimer((int) (prj.ProjDesc.Speed * prj.ProjDesc.LifetimeMS) / 100, (world, t) =>
-                    {
-                        if (target != null)
-                            (target as Enemy).Damage(player, time, dmg, prj.ProjDesc.ArmorPiercing, prj.ProjDesc.Effects);
-                    }));
-                                        
+                    player.Owner.BroadcastPacket(_shoot, null);
+
                     Status = CycleStatus.Completed;
-                } else
+                }
+                else
                     return;
             }
             else

@@ -4,6 +4,7 @@ using gameserver.networking.incoming;
 using gameserver.realm;
 using gameserver.realm.entity;
 using gameserver.realm.entity.player;
+using System;
 
 #endregion
 
@@ -17,19 +18,19 @@ namespace gameserver.networking.handlers
 
         private void Handle(Player player, RealmTime time, ENEMYHIT message)
         {
-            Entity entity = player?.Owner?.GetEntity(message.TargetId);
+            if (player?.Owner == null) return;
 
-            if (entity?.Owner == null)
-                return;
+            Entity entity = player.Owner.GetEntity(message.TargetId);
 
-            Projectile prj;
-            
-            prj = (player as IProjectileOwner).Projectiles[message.BulletId];
-            
-            prj?.ForceHit(entity, time);
+            if (entity != null)
+            {
+                Projectile prj = (player as IProjectileOwner).Projectiles[message.BulletId];
 
-            if (message.Killed)
-                player.ClientKilledEntity.Enqueue(entity);
+                prj?.ForceHit(entity, time);
+
+                if (message.Killed)
+                    player.ClientKilledEntity.Enqueue(entity);
+            }
         }
     }
 }

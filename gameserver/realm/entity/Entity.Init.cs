@@ -645,7 +645,7 @@ namespace gameserver.realm
             return ObjectDesc.Enemy || ObjectDesc.Player;
         }
 
-        public virtual void ProjectileHit(Projectile projectile, Entity target) { }
+        public virtual void ProjectileHit(Projectile projectile, Entity target) {}
 
         public bool IsOneHit(int dmg, int hpBeforeHit)
         {
