@@ -172,6 +172,9 @@ namespace gameserver.logic.skills.Pets
                     Projectile prj = pet.CreateProjectile(
                         desc, pet.ObjectType, dmg, time.TotalElapsedMs,
                         prjPos, (float) startAngle);
+
+                    player.Owner.EnterWorld(prj);
+                    player.FameCounter.Shoot(prj);
                     
                     // Visual only
                     SERVERPLAYERSHOOT _shoot = new SERVERPLAYERSHOOT();
@@ -180,15 +183,9 @@ namespace gameserver.logic.skills.Pets
                     _shoot.ContainerType = pet.ObjectType;
                     _shoot.StartingPos = prj.BeginPos;
                     _shoot.Angle = prj.Angle;
-                    _shoot.Damage = 0;
+                    _shoot.Damage = (short)prj.Damage;
 
                     pet.Owner.BroadcastPacket(_shoot, null);
-                    
-                    target.Owner.Timers.Add(new WorldTimer((int) (prj.ProjDesc.Speed * prj.ProjDesc.LifetimeMS) / 100, (world, t) =>
-                    {
-                        if (target != null)
-                            (target as Enemy).Damage(player, time, dmg, prj.ProjDesc.ArmorPiercing, prj.ProjDesc.Effects);
-                    }));
                                         
                     Status = CycleStatus.Completed;
                 } else
