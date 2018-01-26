@@ -41,59 +41,49 @@ namespace gameserver.realm
             this.manager = manager;
             manager.InterServer.AddHandler<Message>(ISManager.CHAT, HandleChat);
         }
-
-        #region "ChatManager - extra feature"
+        
         public Dictionary<string, List<Tuple<DateTime, string>>> ChatData = new Dictionary<string, List<Tuple<DateTime, string>>>();
 
-        /*public void Say(Player src, string text) {
-            if (!ChatData.ContainsKey(src.Name))
-                ChatData.Add(src.Name, new List<Tuple<DateTime, string>> { Tuple.Create(DateTime.Now, text) });
-            else
-                ChatData[src.Name].Add(Tuple.Create(DateTime.Now, text));
-                // the rest of code bellow (not gonna copy it here)
-        }*/
-        #endregion
-
-        public void Say(Player src, string text)
+        public void Say(Player player, string chatText)
         {
-            ChatColor color = new ChatColor(src.Stars, src.AccountType);
-            src.Owner.BroadcastPacket(new TEXT()
-            {
-                Name = src.Name,
-                ObjectId = src.Id,
-                Stars = src.Stars,
-                Admin = src.Client.Account.Admin ? 1 : 0,
-                BubbleTime = 5,
-                Recipient = "",
-                Text = text,
-                CleanText = text,
-                NameColor = color.GetColor(),
-                TextColor = 0x123456
-            }, null);
+        		if (!ChatData.ContainsKey(player.Name))
+        				ChatData.Add(player.Name, new List<Tuple<DateTime, string>> { Tuple.Create(DateTime.Now, chatText) });
+        		else
+        				ChatData[player.Name].Add(Tuple.Create(DateTime.Now, chatText));
+        		ChatColor color = new  ChatColor(player.Stars, player.AccountType);
+        		TEXT _text = new TEXT();
+        		_text.Name = player.Name;
+        		_text.ObjectId = player.Id;
+        		_text.Stars = player.Stars;
+        		_text.Admin = player.Client.Account.Admin ? 1 : 0;
+        		_text.BubbleTime = 5;
+        		_text.Recipient = "";
+        		_text.Text = chatText;
+        		_text.CleanText = chatText;
+        		_text.NameColor = color.GetColor();
+        		_text.TextColor = 0x123456;
+            player.Owner.BroadcastPacket(_text, null);
             log.Info($"[{src.Owner.Name} ({src.Owner.Id})] <{src.Name}> {text}");
         }
 
         public void Announce(string text)
         {
-            manager.InterServer.Publish(ISManager.CHAT, new Message()
-            {
-                Type = ANNOUNCE,
-                Inst = manager.InstanceId,
-                Text = text
-            });
+        		Message _message = new Message();
+        		_message.Type = ANNOUNCE;
+        		_message.Inst = manager.InstanceId;
+        		_message.Text = text;
+        		manager.InterServer.Publish(ISManager.CHAT, _message);
         }
 
         public void Oryx(World world, string text)
         {
-            world.BroadcastPacket(new TEXT()
-            {
-                BubbleTime = 0,
-                Stars = -1,
-                Name = "#Oryx the Mad God",
-                Text = text,
-                NameColor = 0x123456,
-                TextColor = 0x123456
-            }, null);
+        		TEXT _text = new TEXT();
+        		_text.Name = "#Oryx the Mad God";
+        		_text.Text = text;
+        		_text.BubbleTime = 0;
+        		_text.Stars = -1;
+        		_text.NameColor = _text.TextColor = 0x123456;
+            world.BroadcastPacket(_text, null);
             log.Info($"[{world.Name} ({world.Id})] <Oryx the Mad God> {text}");
         }
 
@@ -124,18 +114,17 @@ namespace gameserver.realm
 
         public void Tell(Player player, string BOT_NAME, string callback)
         {
-            player.Client.SendMessage(new TEXT() {
-                ObjectId = -1,
-                BubbleTime = 10,
-                Stars = 70,
-                Name = BOT_NAME,
-                Admin = 0,
-                Recipient = player.Name,
-                Text = callback.ToSafeText(),
-                CleanText = "",
-                TextColor = 0x123456,
-                NameColor = 0x123456
-            });
+        		TEXT _text = new TEXT();
+        		_text.ObjectId = -1;
+        		_text.BubbleTime = 10;
+        		_text.Stars = 70;
+        		_text.Name = BOT_NAME;
+        		_text.Admin = 0;
+        		_text.Recipient = player.Name;
+        		_text.Text = callback.ToSafeText();
+        		_text.CleanText = "";
+        		_text.NameColor = _text.TextColor = 0x123456;
+            player.Client.SendMessage(_text);
         }
 
         private void HandleChat(object sender, InterServerEventArgs<Message> e)

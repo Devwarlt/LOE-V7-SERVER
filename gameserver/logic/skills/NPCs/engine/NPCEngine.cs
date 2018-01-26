@@ -52,23 +52,23 @@ namespace gameserver.logic.behaviors
 				// duty loop
 				protected override void TickCore(Entity npc, RealmTime time, ref object state)
 				{
-				    string playerMessage = string.Empty;
-					var players = npc.GetNearestEntities(_range, null);
-                    foreach (Entity player in players)
-					{
-					    if (player != null &&  chatManager.ChatData.ContainsKey(player.Name))
+						string playerMessage = string.Empty;
+						var players = npc.GetNearestEntities(_range, null);
+						foreach (Entity player in players)
 						{
-						    foreach (Tuple<DateTime, string> messageInfo in chatManager.ChatData[player.Name])
-							if (messageInfo.Item1.AddMilliseconds(- _delay) <= _now && _playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()))
-							{ // validate message handler
-							    chatManager.ChatData[player.Name].Remove(messageInfo); // delete message to avoid duplicated check
-								ProcessNPC(npc.Name);
-								continue; // stop handler
-								// process NPC welcome message here
-							}
-            		    }
-        			}
-    			}
+								if (player != null &&  chatManager.ChatData.ContainsKey(player.Name))
+								{
+										foreach (Tuple<DateTime, string> messageInfo in chatManager.ChatData[player.Name])
+												if (messageInfo.Item1.AddMilliseconds(- _delay) <= _now && _playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()))
+												{ // validate message handler
+														chatManager.ChatData[player.Name].Remove(messageInfo); // delete message to avoid duplicated check
+														ProcessNPC(npc.Name);
+														continue; // stop handler
+														// process NPC welcome message here
+												}
+								}
+						}
+				}
     			
     			private void ProcessNPC(string name)
     			{
