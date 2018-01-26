@@ -10,9 +10,39 @@ namespace gameserver.logic.behaviors
 {
 		/** NPC Engine (LoESoft Games)
 		* Author: Warlt
-		* Code Support: Sebafra
+		* Code Review: Sebafra
 		*/
-  
+		
+		// Module only (NPCs declaration)
+		public partial class NPCModule
+		{
+				public readonly Dictionary<string, NPCEngineModule> = new Dictionary<string, NPCEngineModule>
+				{
+						// TODO: add new experimental NPC.
+				};
+				
+				public class NPCEngineModule
+				{
+						public string name { get; set; }
+						public List<string> welcomeMessages { get; set; }
+						public string playerName { get; set; }
+						public int range { get; set; }
+						
+						
+						// we might use override methods for these kind of functions since NPCs gonna use several commands and extras.
+						protected void NPCCommands()
+						{
+								// TODO: add basic welcome messages proccessed here, if this void function isn't overrided by other NPC module.
+						}
+						
+						protected void NPCExtras()
+						{
+								// TODO: add basic extras (migrate: 'online' and 'uptime' algorithms from virtual Gazer) into this extra module.
+						}
+				}
+		}
+  		
+  		// Engine only
 		public class NPCEngine : Behavior
 		{
 				// NPC read-only variables (declaration) 
@@ -85,6 +115,7 @@ namespace gameserver.logic.behaviors
     					)
     			{
     					// TODO: implement declaration & handlers (might use dictionary with checker for auto process)
+    					
     			}
   		}
 }
