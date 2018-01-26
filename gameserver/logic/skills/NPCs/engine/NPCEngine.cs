@@ -14,7 +14,7 @@ namespace gameserver.logic.behaviors
 		*/
 		
 		// Module only (NPCs declaration)
-		public partial class NPCModule
+		public abstract class NPCModule
 		{
 				public readonly Dictionary<string, NPC> NPCDatabase = new Dictionary<string, NPC>
 				{
@@ -28,15 +28,14 @@ namespace gameserver.logic.behaviors
 						public string playerName { get; set; }
 						public int range { get; set; }
 						
-						
-						protected void NPC() {}
+						public void NPC() {}
 						// we might use override methods for these kind of functions since NPCs gonna use several commands and extras.
-						protected void NPCCommands()
+						public void NPCCommands()
 						{
 								// TODO: add basic welcome messages proccessed here, if this void function isn't overrided by other NPC module.
 						}
 						
-						protected void NPCExtras()
+						public void NPCExtras()
 						{
 								// TODO: add basic extras (migrate: 'online' and 'uptime' algorithms from virtual Gazer) into this extra module.
 						}
