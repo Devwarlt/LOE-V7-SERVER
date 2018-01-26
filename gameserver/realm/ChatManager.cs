@@ -63,7 +63,7 @@ namespace gameserver.realm
         		_text.NameColor = color.GetColor();
         		_text.TextColor = 0x123456;
             player.Owner.BroadcastPacket(_text, null);
-            log.Info($"[{src.Owner.Name} ({src.Owner.Id})] <{src.Name}> {text}");
+            log.Info($"[{player.Owner.Name} ({player.Owner.Id})] <{player.Name}> {chatText}");
         }
 
         public void Announce(string text)
