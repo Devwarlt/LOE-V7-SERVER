@@ -196,10 +196,10 @@
     <Compile Include="logic\skills\HealGroup.cs" />
     <Compile Include="logic\skills\ManaDrainBomb.cs" />
     <Compile Include="logic\skills\MoveLine.cs" />
+    <Compile Include="logic\skills\NPCs\engine\NPCEngine.cs" />
     <Compile Include="logic\skills\Pets\PetFollow.cs" />
     <Compile Include="logic\skills\Pets\PetHPHealing.cs" />
     <Compile Include="logic\skills\Pets\PetMPHealing.cs" />
-    <Compile Include="logic\skills\NPCs\engine\NPCEngine.s" />
     <Compile Include="logic\skills\Pets\PetShoot.cs" />
     <Compile Include="logic\skills\TossSetpiece.cs" />
     <Compile Include="logic\skills\ApplySetpiece.cs" />
