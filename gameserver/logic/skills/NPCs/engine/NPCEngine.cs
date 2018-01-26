@@ -16,12 +16,12 @@ namespace gameserver.logic.behaviors
 		// Module only (NPCs declaration)
 		public partial class NPCModule
 		{
-				public readonly Dictionary<string, NPCEngineModule> = new Dictionary<string, NPCEngineModule>
+				public readonly Dictionary<string, NPC> NPCDatabase = new Dictionary<string, NPC>
 				{
 						// TODO: add new experimental NPC.
 				};
 				
-				public class NPCEngineModule
+				public class NPC
 				{
 						public string name { get; set; }
 						public List<string> welcomeMessages { get; set; }
@@ -29,6 +29,7 @@ namespace gameserver.logic.behaviors
 						public int range { get; set; }
 						
 						
+						protected void NPC() {}
 						// we might use override methods for these kind of functions since NPCs gonna use several commands and extras.
 						protected void NPCCommands()
 						{
@@ -115,7 +116,7 @@ namespace gameserver.logic.behaviors
     					)
     			{
     					// TODO: implement declaration & handlers (might use dictionary with checker for auto process)
-    					
+    					NPCModule.NPCDatabase[npc].NPC(); // not sure about this (it'll be recoded in 3 days max ;D)
     			}
   		}
 }
