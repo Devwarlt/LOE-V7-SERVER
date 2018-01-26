@@ -66,16 +66,3 @@ namespace gameserver.logic.behaviors {
     }
   }
 }
-
-// this one is used to send data for NPCs (internal data traffic)
-#region "ChatManager - extra feature"
-  public Dictionary<string, List<Tuple<DateTime, string>>> ChatData = new Dictionary<string, List<Tuple<DateTime, string>>>();
-  
-  public void Say(Player src, string text) {
-      if (!ChatData.ContainsKey(src.Name))
-          ChatData.Add(src.Name, new List<Tuple<DateTime, string>> { Tuple.Create(DateTime.Now, text) });
-      else
-          ChatData[src.Name].Add(Tuple.Create(DateTime.Now, text));
-      // the rest of code bellow (not gonna copy it here)
-  }
-#endregion
