@@ -14,7 +14,7 @@ namespace gameserver.logic.behaviors
 		*/
 		
 		// Module only (NPCs declaration)
-		public abstract class NPCModule
+		public class NPCModule
 		{
 				public readonly Dictionary<string, NPC> NPCDatabase = new Dictionary<string, NPC>
 				{
@@ -28,7 +28,7 @@ namespace gameserver.logic.behaviors
 						public string playerName { get; set; }
 						public int range { get; set; }
 						
-						public void NPC() {}
+						public void NPCConfig() {}
 						// we might use override methods for these kind of functions since NPCs gonna use several commands and extras.
 						public void NPCCommands()
 						{
@@ -76,21 +76,13 @@ namespace gameserver.logic.behaviors
 				}
 				
 				// first handler, initialize engine (declarations only)
-				protected override void OnStateEntry(
-						Entity npc,
-						RealmTime time,
-						ref object state
-						)
+				protected override void OnStateEntry(Entity npc, RealmTime time, ref object state)
 				{
 				    state = 0;
 				}
 				
 				// duty loop
-				protected override void TickCore(
-						Entity npc,
-						RealmTime time,
-						ref object state
-						)
+				protected override void TickCore(Entity npc, RealmTime time, ref object state)
 				{
 						string playerMessage = string.Empty;
 						IEnumerable<Entity> players = npc.GetNearestEntities(_range, null);
@@ -110,12 +102,11 @@ namespace gameserver.logic.behaviors
 						}
 				}
     			
-    			private void ProcessNPCModule(
-    					string npc
-    					)
+    			private void ProcessNPCModule(string npc)
     			{
+                        NPCModule _NPCModule = new NPCModule();
     					// TODO: implement declaration & handlers (might use dictionary with checker for auto process)
-    					NPCModule.NPCDatabase[npc].NPC(); // not sure about this (it'll be recoded in 3 days max ;D)
+    					_NPCModule.NPCDatabase[npc].NPCConfig(); // not sure about this (it'll be recoded in 3 days max ;D)
     			}
   		}
 }
