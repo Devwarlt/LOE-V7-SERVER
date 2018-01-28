@@ -42,14 +42,14 @@ namespace gameserver.realm
             manager.InterServer.AddHandler<Message>(ISManager.CHAT, HandleChat);
         }
         
-        public Dictionary<string, List<Tuple<DateTime, string>>> ChatData = new Dictionary<string, List<Tuple<DateTime, string>>>();
+        public Dictionary<Player, List<Tuple<DateTime, string>>> ChatData = new Dictionary<Player, List<Tuple<DateTime, string>>>();
 
         public void Say(Player player, string chatText)
         {
-        		if (!ChatData.ContainsKey(player.Name))
-        				ChatData.Add(player.Name, new List<Tuple<DateTime, string>> { Tuple.Create(DateTime.Now, chatText) });
+        		if (!ChatData.ContainsKey(player))
+        				ChatData.Add(player, new List<Tuple<DateTime, string>> { Tuple.Create(DateTime.Now, chatText) });
         		else
-        				ChatData[player.Name].Add(Tuple.Create(DateTime.Now, chatText));
+        				ChatData[player].Add(Tuple.Create(DateTime.Now, chatText));
         		ChatColor color = new  ChatColor(player.Stars, player.AccountType);
         		TEXT _text = new TEXT();
         		_text.Name = player.Name;
