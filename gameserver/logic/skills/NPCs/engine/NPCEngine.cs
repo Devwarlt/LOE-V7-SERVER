@@ -3,6 +3,8 @@
 using System;
 using gameserver.realm;
 using System.Collections.Generic;
+using gameserver.realm.entity.player;
+using gameserver.networking.outgoing;
 
 #endregion
 
@@ -17,7 +19,7 @@ namespace gameserver.logic.behaviors
 		#region "Experimental NPC"
 		public class Gazer : NPC
 		{
-				protected override void Welcome()
+				protected void Welcome()
 				{
 						_NPCStars = 70; // not sure
 						string welcome = $"Hello {_player.Name}! I'm Gazer, how can I help you?";
@@ -37,7 +39,7 @@ namespace gameserver.logic.behaviors
 				public void Config(
 						Player player,
 						Entity NPC,
-						List<strint> NPCLeaveMessages,
+						List<string> NPCLeaveMessages,
 						bool randomNPCLeaveMessages
 						)
 				{
@@ -67,7 +69,7 @@ namespace gameserver.logic.behaviors
 				}
 				
 				// send a private message to specific player (idea by Sebafra)
-				private void Callback(
+				public void Callback(
 						string message
 						)
 				{
@@ -145,7 +147,7 @@ namespace gameserver.logic.behaviors
 				{
 						string playerMessage = string.Empty;
 						IEnumerable<Entity> players = npc.GetNearestEntities(_range, null);
-						foreach (Entity player in players)
+						foreach (Player player in players)
 						{
 								if (player != null &&  _chatManager.ChatData.ContainsKey(player))
 								{
