@@ -12,10 +12,10 @@ namespace appengine.gamestore
 
         private class Offer
         {
-            public int objectType;
-            public int price;
-            public int currencyType;
-            public int quantity;
+            public int objectType { get; set; }
+            public int price { get; set; }
+            public int currencyType { get; set; }
+            public int quantity { get; set; }
         }
 
         private enum Currency : int

@@ -1,35 +1,30 @@
-﻿using common;
-using common.config;
+﻿#region
+
+using common;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+
+#endregion
 
 namespace appengine.gamestore
 {
-    public static class CONSTANTS
-    {
-        public static readonly string appengine = Settings.NETWORKING.APPENGINE_URL;
-        public static WebClient client = new WebClient();
-        public static readonly string file = "/app/packages/gameStoreData.json";
-    }
-
     public class GameStore
     {
-        public string welcome;
-        public string offers;
-        public string offer0;
-        public string offer1;
-        public string offer2;
-        public string offer3;
-        public string offer4;
+        public string welcome { get; set; }
+        public string offers { get; set; }
+        public string offer0 { get; set; }
+        public string offer1 { get; set; }
+        public string offer2 { get; set; }
+        public string offer3 { get; set; }
+        public string offer4 { get; set; }
     }
 
     internal class getOffers : RequestHandler
     {
         protected override void HandleRequest()
         {
-            string JSONData = CONSTANTS.client.DownloadString(CONSTANTS.appengine + CONSTANTS.file);
+            string JSONData = File.ReadAllText("gamestore/gameStoreData.json");
             
             DbAccount acc;
             LoginStatus status = Database.Verify(Query["guid"], Query["password"], out acc);

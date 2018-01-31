@@ -37,22 +37,23 @@ namespace gameserver.realm
         public wRandom Random { get; private set; }
 
         public Entity(RealmManager manager, ushort objType)
-            : this(manager, objType, true, false)
+            : this(manager, objType, true, false, false)
         {
         }
 
         public Entity(RealmManager manager, ushort objType, bool interactive)
-            : this(manager, objType, interactive, false)
+            : this(manager, objType, interactive, false, false)
         {
         }
 
-        protected Entity(RealmManager manager, ushort objType, bool interactive, bool isPet)
+        protected Entity(RealmManager manager, ushort objType, bool interactive, bool isPet, bool npc)
         {
             Manager = manager;
             ObjectType = objType;
             Name = "";
             Usable = false;
             BagDropped = false;
+            NPC = npc;
             IsPet = isPet;
             Manager.Behaviors.ResolveBehavior(this);
             Manager.GameData.ObjectDescs.TryGetValue(objType, out desc);
@@ -77,6 +78,8 @@ namespace gameserver.realm
                     DurationMS = -1
                 });
         }
+
+        public bool NPC { get; private set; }
 
         public RealmManager Manager { get; private set; }
 
@@ -558,6 +561,8 @@ namespace gameserver.realm
         {
             var node = manager.GameData.ObjectTypeToElement[id];
             var cls = node.Element("Class");
+            if (node.Element("NPC") != null)
+                return new NPC(manager, id);
             if (cls == null) throw new ArgumentException("Invalid XML Element, field class is missing");
             var type = cls.Value;
 

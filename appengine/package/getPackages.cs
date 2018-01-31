@@ -13,14 +13,6 @@ namespace appengine.package
 {
     internal class getPackages : RequestHandler
     {
-        //scope
-        internal static class CONSTANTS
-        {
-            internal static readonly string appengine = Settings.NETWORKING.APPENGINE_URL;
-            internal static WebClient client = new WebClient();
-            internal static readonly string file = "/app/packages/packageResponse.xml";
-        }
-
         protected override void HandleRequest()
         {
             string response = SerializePackageResponse.Serialize();
@@ -53,8 +45,8 @@ namespace appengine.package
             internal static SerializePackageResponse GetPackage(int id)
             {
                 XmlDocument doc = new XmlDocument();
-                
-                string response = CONSTANTS.client.DownloadString(CONSTANTS.appengine + CONSTANTS.file);
+
+                string response = File.ReadAllText("package/packageResponse.xml");
 
                 if (response == null)
                     return null;
@@ -100,7 +92,7 @@ namespace appengine.package
             {
                 XmlDocument doc = new XmlDocument();
 
-                string response = CONSTANTS.client.DownloadString(CONSTANTS.appengine + CONSTANTS.file);
+                string response = File.ReadAllText("package/packageResponse.xml");
 
                 if (response == null)
                     return null;

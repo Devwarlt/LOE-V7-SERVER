@@ -917,6 +917,7 @@ public class ObjectDesc
         if (xElement != null) Class = xElement.Value;
         Group = (n = elem.Element("Group")) != null ? n.Value : null;
         DisplayId = (n = elem.Element("DisplayId")) == null ? ObjectId : n.Value;
+        NPC = elem.Element("NPC") != null;
         Player = elem.Element("Player") != null;
         Enemy = elem.Element("Enemy") != null;
         Pet = elem.Element("NewPet") != null;
@@ -1034,6 +1035,8 @@ public class ObjectDesc
 
         Connects = elem.Element("Connects") != null;
     }
+
+    public bool NPC { get; private set; }
 
     public bool NewExperience { get; private set; }
     public float Experience { get; private set; }

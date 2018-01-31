@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
-	<Object type="0x6709" id="Gazer">
+	<Object type="0x6709" id="NPC Gazer">
+    <DisplayId>Gazer</DisplayId>
 		<Class>Character</Class>
+    <NPC />
 		<Texture>
 			<File>lofiChar28x8</File>
 			<Index>0x7a</Index>
