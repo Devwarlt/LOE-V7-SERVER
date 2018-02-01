@@ -23,9 +23,9 @@ namespace gameserver.networking.handlers
                 return;
 
             Projectile prj;
-            
+
             prj = (player as IProjectileOwner).Projectiles[message.BulletId];
-            
+
             prj?.ForceHit(entity, time);
 
             if (message.Killed)

@@ -337,7 +337,7 @@ namespace gameserver.logic
                         new Flashing(0xFF0000, 0.5, 8)
                         ),
                     new State("Suicide",
-                        new Shoot(0, shoots: 8, direction: 360/8, index: 1),
+                        new Shoot(0, shoots: 8, direction: 360 / 8, index: 1),
                         new Suicide()
                         )
                     ),
@@ -534,7 +534,7 @@ namespace gameserver.logic
                         new TimedTransition(1000, "Explode")
                         ),
                     new State("Explode",
-                        new Shoot(6, 36, direction: 360/36),
+                        new Shoot(6, 36, direction: 360 / 36),
                         new Suicide()
                         )
                     )

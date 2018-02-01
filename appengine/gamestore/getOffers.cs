@@ -25,7 +25,7 @@ namespace appengine.gamestore
         protected override void HandleRequest()
         {
             string JSONData = File.ReadAllText("gamestore/gameStoreData.json");
-            
+
             DbAccount acc;
             LoginStatus status = Database.Verify(Query["guid"], Query["password"], out acc);
 

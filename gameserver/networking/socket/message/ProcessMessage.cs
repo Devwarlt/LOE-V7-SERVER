@@ -15,9 +15,9 @@ namespace gameserver.networking
         {
             try
             {
-                Program.Logger.Logger.Log(typeof (Client), Level.Verbose, $"Handling message '{msg}'...", null);
+                Program.Logger.Logger.Log(typeof(Client), Level.Verbose, $"Handling message '{msg}'...", null);
 
-                if (msg.ID == (MessageID) 255)
+                if (msg.ID == (MessageID)255)
                     return;
 
                 IMessage handler;
@@ -25,14 +25,14 @@ namespace gameserver.networking
                 if (!MessageHandler.Handlers.TryGetValue(msg.ID, out handler))
                     Program.Logger.Warn($"Unhandled message '{msg.ID}'.");
                 else
-                    handler.Handle(this, (IncomingMessage) msg);
+                    handler.Handle(this, (IncomingMessage)msg);
             }
             catch
             {
                 Program.Logger.Error($"Message error\t->\t{msg.ID}");
                 Disconnect(DisconnectReason.ERROR_WHEN_HANDLING_MESSAGE);
             }
-        }        
+        }
 
         public bool IsReady() => State == ProtocolState.Disconnected ? false : (State != ProtocolState.Ready || (Player != null && (Player == null || Player.Owner != null)));
 

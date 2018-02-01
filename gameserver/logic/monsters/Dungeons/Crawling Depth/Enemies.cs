@@ -105,10 +105,10 @@ namespace gameserver.logic
                     )
                 ),
                 new ItemLoot("Healing Ichor", 0.2)
-            
 
-                    
-                
+
+
+
             );
-     }
+    }
 }

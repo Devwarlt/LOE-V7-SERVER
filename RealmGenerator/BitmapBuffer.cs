@@ -25,15 +25,15 @@ namespace terrain
 
         public uint this[int x, int y]
         {
-            get { return *(uint*) (ptr + x*4 + y*s); }
-            set { *(uint*) (ptr + x*4 + y*s) = value; }
+            get { return *(uint*)(ptr + x * 4 + y * s); }
+            set { *(uint*)(ptr + x * 4 + y * s) = value; }
         }
 
         public void Lock()
         {
             dat = bmp.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadWrite, PixelFormat.Format32bppPArgb);
             s = dat.Stride;
-            ptr = (byte*) dat.Scan0;
+            ptr = (byte*)dat.Scan0;
         }
 
         public void Unlock()

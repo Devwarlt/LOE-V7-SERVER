@@ -37,10 +37,10 @@ namespace gameserver.logic.behaviors
 
                 foreach (var entity in host.GetNearestEntitiesByGroup(range, group).OfType<Enemy>())
                 {
-                    int newHp = (int) entity.ObjectDesc.MaxHP;
+                    int newHp = (int)entity.ObjectDesc.MaxHP;
                     if (amount != null)
                     {
-                        var newHealth = (int) amount + entity.HP;
+                        var newHealth = (int)amount + entity.HP;
                         if (newHp > newHealth)
                             newHp = newHealth;
                     }

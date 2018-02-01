@@ -6,7 +6,7 @@ namespace gameserver.logic
 {
     partial class BehaviorDb
     {
-        private _ HighlandsHighForest = () => Behav()        
+        private _ HighlandsHighForest = () => Behav()
             .Init("Lizard God",
                 new State(
                     new Spawn("Night Elf Archer", maxChildren: 4),
@@ -254,7 +254,7 @@ namespace gameserver.logic
                     new TierLoot(7, ItemType.Armor, 0.05),
                     new ItemLoot("Seal of the Divine", 0.015),
                     new ItemLoot("White Drake Egg", 0.004),
-                    new ItemLoot("Eternal Rest",0.01),
+                    new ItemLoot("Eternal Rest", 0.01),
                     new ItemLoot("Lightweight Leather Armor", 0.01),
                     new ItemLoot("Helm of the Barbarian Leader", 0.01),
                     new ItemLoot("Heart Dragon", 0.01)
@@ -280,7 +280,7 @@ namespace gameserver.logic
                         new PlayerWithinTransition(1, "BEER")
                         ),
                     new State("BEER",
-                        new Shoot(20, shoots: 10,index: 1, shootAngle: 36, coolDown: 700),
+                        new Shoot(20, shoots: 10, index: 1, shootAngle: 36, coolDown: 700),
                         new Shoot(20, shoots: 1, index: 0, coolDown: 1000),
                         new NoPlayerWithinTransition(4, "Attack")
                         )
@@ -291,7 +291,7 @@ namespace gameserver.logic
                     new ItemLoot("Realm-wheat Hefeweizen", 0.2),
                     new ItemLoot("Mad God Ale", 0.2),
                     new ItemLoot("Oryx Stout", 0.2),
-                    new ItemLoot("Moloch's bammer weed",0.02)
+                    new ItemLoot("Moloch's bammer weed", 0.02)
                     )
             )
         ;

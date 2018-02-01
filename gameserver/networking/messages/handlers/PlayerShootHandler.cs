@@ -24,7 +24,7 @@ namespace gameserver.networking.handlers
 
             if (item == player.Inventory[1])
                 return;
-            
+
             var prjDesc = item.Projectiles[0];
             Projectile prj = player.PlayerShootProjectile(
                 message.BulletId, prjDesc, item.ObjectType,

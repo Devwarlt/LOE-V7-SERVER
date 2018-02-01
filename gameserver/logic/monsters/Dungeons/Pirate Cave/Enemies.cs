@@ -4,7 +4,7 @@ namespace gameserver.logic
 {
     partial class BehaviorDb
     {
-        private _ PirateCaveEnemies = ()  => Behav()
+        private _ PirateCaveEnemies = () => Behav()
             .Init("Cave Pirate Brawler",
                 new State(
                     new Wander(),

@@ -67,7 +67,7 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            if(string.IsNullOrWhiteSpace(args[0]))
+            if (string.IsNullOrWhiteSpace(args[0]))
             {
                 player.SendInfo("Usage: /trade <player name>");
                 return false;

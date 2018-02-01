@@ -33,12 +33,12 @@ namespace appengine.package
             internal string BgURL { get; set; }
             internal DateTime EndDate { get; set; }
             internal string Contents { get; set; }
-        
+
             internal static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
             {
                 //Unix timestamp is seconds past epoch
-                DateTime dtDateTime = new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc);
-                dtDateTime = dtDateTime.AddSeconds( unixTimeStamp ).ToLocalTime();
+                DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+                dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
                 return dtDateTime;
             }
 
@@ -104,7 +104,8 @@ namespace appengine.package
                     StringWriter wtr = new StringWriter();
                     doc.Save(wtr);
                     return wtr.ToString();
-                } catch (Exception error)
+                }
+                catch (Exception error)
                 {
                     log.Error($"Unhandle exception: {error}.");
                     return null;

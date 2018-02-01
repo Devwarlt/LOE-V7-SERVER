@@ -39,13 +39,13 @@ namespace terrain
 
         public void Plot(double x, double y, T val)
         {
-            Buffer[(int) x, (int) y] = val;
+            Buffer[(int)x, (int)y] = val;
         }
 
         public void Transform(double x, double y, Func<T, T> transform)
         {
-            T v = Buffer[(int) x, (int) y];
-            Buffer[(int) x, (int) y] = transform(v);
+            T v = Buffer[(int)x, (int)y];
+            Buffer[(int)x, (int)y] = transform(v);
         }
 
         public void PlotSqr(double x, double y, T val, int w)
@@ -55,19 +55,19 @@ namespace terrain
                 case 0:
                     return;
                 case 1:
-                    Buffer[(int) x, (int) y] = val;
+                    Buffer[(int)x, (int)y] = val;
                     break;
                 case 2:
-                    Buffer[(int) x, (int) y] = val;
-                    Buffer[(int) x + 1, (int) y] = val;
-                    Buffer[(int) x, (int) y + 1] = val;
-                    Buffer[(int) x + 1, (int) y + 1] = val;
+                    Buffer[(int)x, (int)y] = val;
+                    Buffer[(int)x + 1, (int)y] = val;
+                    Buffer[(int)x, (int)y + 1] = val;
+                    Buffer[(int)x + 1, (int)y + 1] = val;
                     break;
                 default:
                     for (int _x = 0; _x < w; _x++)
                         for (int _y = 0; _y < w; _y++)
                         {
-                            Buffer[(int) x + _x, (int) y + _y] = val;
+                            Buffer[(int)x + _x, (int)y + _y] = val;
                         }
                     break;
             }
@@ -80,19 +80,19 @@ namespace terrain
                 case 0:
                     return;
                 case 1:
-                    Buffer[(int) x, (int) y] = transform(Buffer[(int) x, (int) y]);
+                    Buffer[(int)x, (int)y] = transform(Buffer[(int)x, (int)y]);
                     break;
                 case 2:
-                    Buffer[(int) x, (int) y] = transform(Buffer[(int) x, (int) y]);
-                    Buffer[(int) x + 1, (int) y] = transform(Buffer[(int) x + 1, (int) y]);
-                    Buffer[(int) x, (int) y + 1] = transform(Buffer[(int) x, (int) y + 1]);
-                    Buffer[(int) x + 1, (int) y + 1] = transform(Buffer[(int) x + 1, (int) y + 1]);
+                    Buffer[(int)x, (int)y] = transform(Buffer[(int)x, (int)y]);
+                    Buffer[(int)x + 1, (int)y] = transform(Buffer[(int)x + 1, (int)y]);
+                    Buffer[(int)x, (int)y + 1] = transform(Buffer[(int)x, (int)y + 1]);
+                    Buffer[(int)x + 1, (int)y + 1] = transform(Buffer[(int)x + 1, (int)y + 1]);
                     break;
                 default:
                     for (int _x = 0; _x < w; _x++)
                         for (int _y = 0; _y < w; _y++)
                         {
-                            Buffer[(int) x + _x, (int) y + _y] = transform(Buffer[(int) x + _x, (int) y + _y]);
+                            Buffer[(int)x + _x, (int)y + _y] = transform(Buffer[(int)x + _x, (int)y + _y]);
                         }
                     break;
             }
@@ -121,8 +121,8 @@ namespace terrain
             for (int i = 1; i < pn; i += 2)
             {
                 double py = points[i];
-                if (py < yMin) yMin = (int) Math.Floor(py);
-                if (py > yMax) yMax = (int) Math.Ceiling(py);
+                if (py < yMin) yMin = (int)Math.Floor(py);
+                if (py > yMax) yMax = (int)Math.Ceiling(py);
             }
             if (yMin < 0) yMin = 0;
             if (yMax >= h) yMax = h - 1;
@@ -149,7 +149,7 @@ namespace terrain
                         || vyj < y && vyi >= y)
                     {
                         // Compute the intersection of the scanline with the edge (line between two points)
-                        intersectionsX[intersectionCount++] = vxi + (y - vyi)/(vyj - vyi)*(vxj - vxi);
+                        intersectionsX[intersectionCount++] = vxi + (y - vyi) / (vyj - vyi) * (vxj - vxi);
                     }
                     vxi = vxj;
                     vyi = vyj;
@@ -174,8 +174,8 @@ namespace terrain
                 // Fill the pixels between the intersections
                 for (int i = 0; i < intersectionCount - 1; i += 2)
                 {
-                    int x0 = (int) Math.Floor(intersectionsX[i]);
-                    int x1 = (int) Math.Ceiling(intersectionsX[i + 1]);
+                    int x0 = (int)Math.Floor(intersectionsX[i]);
+                    int x1 = (int)Math.Ceiling(intersectionsX[i + 1]);
 
                     // Check boundary
                     if (x1 < 0) x1 = 0;
@@ -255,7 +255,7 @@ namespace terrain
             // Init start
             double x = x1;
             double y = y1;
-            double error = el/2;
+            double error = el / 2;
             if (y < h && y >= 0 && x < w && x >= 0)
             {
                 Transform(x, y, transform);
@@ -346,28 +346,28 @@ namespace terrain
             if (len != 0)
             {
                 // Init vars
-                double step = StepFactor/len;
+                double step = StepFactor / len;
                 double tx1 = x2;
                 double ty1 = y2;
                 double tx2, ty2;
 
                 // Calculate factors
-                double sx1 = tension*(x3 - x1);
-                double sy1 = tension*(y3 - y1);
-                double sx2 = tension*(x4 - x2);
-                double sy2 = tension*(y4 - y2);
-                double ax = sx1 + sx2 + 2*x2 - 2*x3;
-                double ay = sy1 + sy2 + 2*y2 - 2*y3;
-                double bx = -2*sx1 - sx2 - 3*x2 + 3*x3;
-                double by = -2*sy1 - sy2 - 3*y2 + 3*y3;
+                double sx1 = tension * (x3 - x1);
+                double sy1 = tension * (y3 - y1);
+                double sx2 = tension * (x4 - x2);
+                double sy2 = tension * (y4 - y2);
+                double ax = sx1 + sx2 + 2 * x2 - 2 * x3;
+                double ay = sy1 + sy2 + 2 * y2 - 2 * y3;
+                double bx = -2 * sx1 - sx2 - 3 * x2 + 3 * x3;
+                double by = -2 * sy1 - sy2 - 3 * y2 + 3 * y3;
 
                 // Interpolate
                 for (double t = step; t <= 1; t += step)
                 {
-                    double tSq = t*t;
+                    double tSq = t * t;
 
-                    tx2 = ax*tSq*t + bx*tSq + sx1*t + x2;
-                    ty2 = ay*tSq*t + by*tSq + sy1*t + y2;
+                    tx2 = ax * tSq * t + bx * tSq + sx1 * t + x2;
+                    ty2 = ay * tSq * t + by * tSq + sy1 * t + y2;
 
                     // Draw line
                     DrawLineBresenham(tx1, ty1, tx2, ty2, transform, width);

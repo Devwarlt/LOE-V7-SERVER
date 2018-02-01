@@ -28,10 +28,11 @@ namespace gameserver.networking
             List<GameVersion> gameVersions = new List<GameVersion>();
             foreach (Tuple<string, bool> i in Settings.NETWORKING.SUPPORTED_VERSIONS())
                 gameVersions.Add(
-                    new GameVersion() {
+                    new GameVersion()
+                    {
                         version = i.Item1,
                         access = i.Item2
-                });
+                    });
             foreach (GameVersion j in gameVersions)
                 if (build == j.version && j.access)
                     return Tuple.Create(build, false);
@@ -42,9 +43,9 @@ namespace gameserver.networking
         public DbAccount Account { get; internal set; }
 
         public wRandom Random { get; internal set; }
-        
+
         public int Id { get; internal set; }
-        public int TargetWorld { get; internal set; }   
+        public int TargetWorld { get; internal set; }
         public string ConnectedBuild { get; internal set; }
 
         public byte[] _IncomingCipher => new byte[] { 0x3D, 0xC1, 0xC4, 0x44, 0xF5, 0x78, 0xC1, 0xEC, 0x7B, 0xF4, 0x0A, 0x4D, 0xCA, 0x94, 0x93, 0xA2 };

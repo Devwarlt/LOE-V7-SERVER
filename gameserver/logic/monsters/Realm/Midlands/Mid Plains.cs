@@ -9,7 +9,7 @@ namespace gameserver.logic
         private _ MidlandMidPlains = () => Behav()
             .Init("Orc King",
                 new State(
-                    new DropPortalOnDeath("Spider Den Portal",0.1),
+                    new DropPortalOnDeath("Spider Den Portal", 0.1),
                     new Shoot(3),
                     new Spawn("Orc Queen", maxChildren: 2, coolDown: 60000),
                     new Prioritize(

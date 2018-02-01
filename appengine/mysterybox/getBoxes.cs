@@ -182,7 +182,8 @@ namespace appengine.mysterybox
                 StringWriter wtr = new StringWriter();
                 doc.Save(wtr);
                 return wtr.ToString();
-            } catch (Exception error)
+            }
+            catch (Exception error)
             {
                 log.Error($"Unhandle exception: {error}.");
                 return null;
@@ -195,7 +196,7 @@ namespace appengine.mysterybox
         internal int Amount { get; set; }
         internal int Currency { get; set; }
     }
-    
+
     internal class FortuneGamePrice
     {
         internal int firstInGold { get; set; }

@@ -19,7 +19,7 @@ namespace gameserver.logic.behaviors
         private bool returned;
         private float X;
         private float Y;
-        
+
         public MoveTo(
             float X,
             float Y,
@@ -30,7 +30,7 @@ namespace gameserver.logic.behaviors
             )
         {
             this.isMapPosition = isMapPosition;
-            this.speed = (float) speed / 10;
+            this.speed = (float)speed / 10;
             this.once = once;
             this.instant = instant;
             baseX = X;

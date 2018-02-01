@@ -95,7 +95,7 @@ namespace gameserver.realm
         public int Id { get; internal set; }
 
         public bool Usable { get; set; }
-        
+
         //Stats
         public string Name { get; set; }
         public int Size { get; set; }
@@ -228,11 +228,11 @@ namespace gameserver.realm
 
         public float EntitySpeed(float speed, RealmTime time)
         {
-            float speedFormula = 4 + 5.6f*(speed/75f);
+            float speedFormula = 4 + 5.6f * (speed / 75f);
             if (HasConditionEffect(ConditionEffectIndex.Slowed))
                 speedFormula = speedFormula / 2;
             float outputSpeed = speedFormula * (time.ElapsedMsDelta / 1000f);
-            if (outputSpeed >= 1.25*speed)
+            if (outputSpeed >= 1.25 * speed)
                 outputSpeed = speed;
             return outputSpeed;
         }
@@ -285,9 +285,9 @@ namespace gameserver.realm
             float fx = 0;
             float fy = 0;
 
-            var isFarX = (X % .5f == 0 && x != X) || (int) (X / .5f) != (int) (x / .5f);
-            var isFarY = (Y % .5f == 0 && y != Y) || (int) (Y / .5f) != (int) (y / .5f);
-            
+            var isFarX = (X % .5f == 0 && x != X) || (int)(X / .5f) != (int)(x / .5f);
+            var isFarY = (Y % .5f == 0 && y != Y) || (int)(Y / .5f) != (int)(y / .5f);
+
             if ((!isFarX && !isFarY) || RegionUnblocked(x, y))
             {
                 pos.X = x;
@@ -297,25 +297,25 @@ namespace gameserver.realm
 
             if (isFarX)
             {
-                fx = (x > X) ? (int) (x * 2) / 2f : (int) (X * 2) / 2f;
-                if ((int) fx > (int) X)
+                fx = (x > X) ? (int)(x * 2) / 2f : (int)(X * 2) / 2f;
+                if ((int)fx > (int)X)
                     fx = fx - 0.01f;
             }
 
             if (isFarY)
             {
-                fy = (y > Y) ? (int) (y * 2) / 2f : (int) (Y * 2) / 2f;
-                if ((int) fy > (int) Y)
+                fy = (y > Y) ? (int)(y * 2) / 2f : (int)(Y * 2) / 2f;
+                if ((int)fy > (int)Y)
                     fy = fy - 0.01f;
             }
-			
+
             if (!isFarX)
             {
                 pos.X = x;
                 pos.Y = fy;
                 return;
             }
-			
+
             if (!isFarY)
             {
                 pos.X = fx;
@@ -357,7 +357,7 @@ namespace gameserver.realm
                     return;
                 }
             }
-			
+
             pos.X = fx;
             pos.Y = fy;
         }
@@ -366,15 +366,15 @@ namespace gameserver.realm
         {
             if (TileOccupied(x, y))
                 return false;
-			
-            var xFrac = x - (int) x;
-            var yFrac = y - (int) y;
+
+            var xFrac = x - (int)x;
+            var yFrac = y - (int)y;
 
             if (xFrac < 0.5)
             {
                 if (TileFullOccupied(x - 1, y))
                     return false;
-                
+
                 if (yFrac < 0.5)
                 {
                     if (TileFullOccupied(x, y - 1) || TileFullOccupied(x - 1, y - 1))
@@ -394,7 +394,7 @@ namespace gameserver.realm
             {
                 if (TileFullOccupied(x + 1, y))
                     return false;
-                    
+
                 if (yFrac < 0.5)
                 {
                     if (TileFullOccupied(x, y - 1) || TileFullOccupied(x + 1, y - 1))
@@ -424,11 +424,11 @@ namespace gameserver.realm
 
             return true;
         }
-        
+
         public bool TileOccupied(float x, float y)
         {
-            var x_ = (int) x;
-            var y_ = (int) y;
+            var x_ = (int)x;
+            var y_ = (int)y;
 
             var map = Owner.Map;
 
@@ -440,7 +440,7 @@ namespace gameserver.realm
             var tileDesc = Manager.GameData.Tiles[tile.TileId];
             if (tileDesc?.NoWalk == true)
                 return true;
-            
+
             if (tile.ObjType != 0)
             {
                 var objDesc = Manager.GameData.ObjectDescs[tile.ObjType];
@@ -453,8 +453,8 @@ namespace gameserver.realm
 
         public bool TileFullOccupied(float x, float y)
         {
-            var xx = (int) x;
-            var yy = (int) y;
+            var xx = (int)x;
+            var yy = (int)y;
 
             if (!Owner.Map.Contains(xx, yy))
                 return true;

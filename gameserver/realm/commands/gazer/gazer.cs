@@ -40,8 +40,8 @@ namespace gameserver.realm.commands.gazer
         public static bool HandleCommands(string command, Player player)
         {
             string callback;
-			Gazer_PacketID packet = GetType(command) ? PacketID.FirstOrDefault(i => i.Value == command).Key : Gazer_PacketID.NOTHING;
-            switch(packet)
+            Gazer_PacketID packet = GetType(command) ? PacketID.FirstOrDefault(i => i.Value == command).Key : Gazer_PacketID.NOTHING;
+            switch (packet)
             {
                 #region "Command: Uptime"
                 case Gazer_PacketID.UPTIME:
@@ -81,7 +81,7 @@ namespace gameserver.realm.commands.gazer
                 case Gazer_PacketID.GAZER:
                 case Gazer_PacketID.NOTHING:
                 default: callback = $"Hi {player.Name}! Sorry, I don't understand. If you need help, then visit me at realmeye.com/mreyeball"; break;
-                #endregion
+                    #endregion
             }
             player.Client.SendMessage(new TEXT()
             {
@@ -96,7 +96,8 @@ namespace gameserver.realm.commands.gazer
                 TextColor = 0x123456,
                 NameColor = 0x123456
             });
-            player.Client.SendMessage(new TEXT() {
+            player.Client.SendMessage(new TEXT()
+            {
                 ObjectId = -1,
                 BubbleTime = 10,
                 Stars = 70,

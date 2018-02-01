@@ -42,9 +42,9 @@ namespace gameserver.logic.behaviors
                 WmapTile tile = host.Owner.Map[(int)host.X + 1, (int)host.Y].Clone();
 
                 if (tile.ObjType != 0)
-                    direction = (float?) (180*Math.PI/180);
+                    direction = (float?)(180 * Math.PI / 180);
                 else
-                    direction = (float?) (0*Math.PI/180);
+                    direction = (float?)(0 * Math.PI / 180);
 
 
                 if (player != null || defaultAngle != null || direction != null)

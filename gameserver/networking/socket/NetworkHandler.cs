@@ -11,7 +11,7 @@ namespace gameserver.networking
     {
         public int BUFFER_SIZE = int.MaxValue / Settings.NETWORKING.CPU_HANDLER;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof (NetworkHandler));
+        private static readonly ILog log = LogManager.GetLogger(typeof(NetworkHandler));
 
         private readonly Client parent;
         private readonly ConcurrentQueue<Message> pendingPackets = new ConcurrentQueue<Message>();
@@ -54,7 +54,7 @@ namespace gameserver.networking
             if (!skt.ReceiveAsync(_outgoing))
                 OutgoingCompleted(this, _outgoing);
         }
-        
+
         private void OnError(Exception ex)
         {
             log.Error("Socket error detected: ", ex);

@@ -2,7 +2,7 @@
 
 namespace common.config
 {
-    public enum accountType:int
+    public enum accountType : int
     {
         FREE_ACCOUNT = 0,
         VIP_ACCOUNT = 1,
@@ -21,7 +21,7 @@ namespace common.config
 
         public AccountTypePerks(int accountType)
         {
-            _accountType = (accountType) accountType;
+            _accountType = (accountType)accountType;
             _accessToDrastaCitadel = _accountType > config.accountType.VIP_ACCOUNT;
             _byPassKeysRequirements = _accountType > config.accountType.VIP_ACCOUNT;
             _byPassEggsRequirements = _accountType > config.accountType.VIP_ACCOUNT;
@@ -37,9 +37,9 @@ namespace common.config
         public int Experience(int level, int experience)
         {
             if (_accountType == accountType.VIP_ACCOUNT)
-                return level < 20 ? (int) (experience * 1.5) : (int) (experience * 1.05);
+                return level < 20 ? (int)(experience * 1.5) : (int)(experience * 1.05);
             if (_accountType == accountType.LEGENDS_OF_LOE_ACCOUNT)
-                return level < 20 ? (experience * 2) : (int) (experience * 1.1);
+                return level < 20 ? (experience * 2) : (int)(experience * 1.1);
             return experience;
         }
 
@@ -54,7 +54,7 @@ namespace common.config
         public bool PriorityToLogin() => _priorityToLogin;
 
         public ConditionEffect SetAccountTypeIcon()
-        {            
+        {
             ConditionEffect icon = new ConditionEffect();
             icon.DurationMS = -1;
 

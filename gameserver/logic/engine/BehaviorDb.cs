@@ -18,7 +18,7 @@ namespace gameserver.logic
     public partial class BehaviorDb
     {
         private static wRandom rand = new wRandom();
-        private static readonly ILog log = LogManager.GetLogger(typeof (BehaviorDb));
+        private static readonly ILog log = LogManager.GetLogger(typeof(BehaviorDb));
 
         private static int initializing;
         internal static BehaviorDb InitDb;
@@ -55,13 +55,13 @@ namespace gameserver.logic
 
             FieldInfo[] fields = GetType()
                 .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(field => field.FieldType == typeof (_))
+                .Where(field => field.FieldType == typeof(_))
                 .ToArray();
             for (int i = 0; i < fields.Length; i++)
             {
                 FieldInfo field = fields[i];
                 log.InfoFormat("Loading behavior for '{0}'({1}/{2})...", field.Name, i + 1, fields.Length);
-                ((_) field.GetValue(this))();
+                ((_)field.GetValue(this))();
                 field.SetValue(this, null);
             }
 

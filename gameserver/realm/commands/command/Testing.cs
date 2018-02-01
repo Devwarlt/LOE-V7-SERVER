@@ -7,7 +7,7 @@ namespace gameserver.realm.commands
 {
     public class TestingCommands : Command
     {
-        public TestingCommands() : base("test", (int) accountType.LOESOFT_ACCOUNT) { }
+        public TestingCommands() : base("test", (int)accountType.LOESOFT_ACCOUNT) { }
 
         private readonly bool AllowTestingCommands = true;
 
@@ -34,7 +34,8 @@ namespace gameserver.realm.commands
                             foreach (KeyValuePair<string, List<Tuple<DateTime, string>>> messageInfos in ChatManager.ChatDataCache)
                                 foreach (Tuple<DateTime, string> messageInfo in ChatManager.ChatDataCache[messageInfos.Key])
                                     player.SendInfo($"[ChatData] [{messageInfo.Item1}] <{messageInfos.Key}> {messageInfo.Item2}");
-                    } break;
+                    }
+                    break;
                 default:
                     player.SendHelp("Available testing commands: 'chatdata' (my / all).");
                     break;

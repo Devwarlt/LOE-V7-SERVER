@@ -93,30 +93,30 @@ namespace gameserver.logic.skills.Pets
             if (host.Owner.SafePlace)
                 return;
 
-            int cool = (int?) state ?? -1;
+            int cool = (int?)state ?? -1;
             Status = CycleStatus.NotStarted;
-            
+
             if (cool <= 0)
             {
                 if (player.HasConditionEffect(ConditionEffectIndex.Sick) || player.HasConditionEffect(ConditionEffectIndex.PetDisable))
                     return;
 
                 int stars = player.Stars;
-                
+
                 Entity target = pet.GetNearestEntity(12, false, enemy => enemy is Enemy && pet.Dist(enemy) <= 12) as Enemy;
 
                 if (target != null && target.ObjectDesc.Enemy)
                 {
                     ProjectileDesc desc = pet.ObjectDesc.Projectiles[projectileIndex];
-                    
+
                     double a = fixedAngle ??
                                (target == null ?
                                defaultAngle.Value :
                                Math.Atan2(target.Y - pet.Y, target.X - pet.X));
                     a += angleOffset;
                     if (predictive != 0 && target != null)
-                        a += Predict(pet, target, desc)*predictive;
-                                        
+                        a += Predict(pet, target, desc) * predictive;
+
                     int variance;
 
                     if (stars == 70)
@@ -125,7 +125,7 @@ namespace gameserver.logic.skills.Pets
                         variance = player.Stars * 100;
 
                     cool = special ? cool = coolDown.Next(Random) : (7750 - variance); // max 750ms cooldown if not special
-                    
+
                     Random rnd = new Random();
 
                     int min = 0;
@@ -164,15 +164,15 @@ namespace gameserver.logic.skills.Pets
                     }
 
                     int dmg = rnd.Next(desc.MinDamage, desc.MaxDamage);
-                    
-                    double startAngle = a - shootAngle*(count - 1)/2;
+
+                    double startAngle = a - shootAngle * (count - 1) / 2;
 
                     Position prjPos = EnemyShootHistory(pet);
 
                     Projectile prj = pet.CreateProjectile(
                         desc, pet.ObjectType, dmg, time.TotalElapsedMs,
-                        prjPos, (float) startAngle);
-                    
+                        prjPos, (float)startAngle);
+
                     // Visual only
                     SERVERPLAYERSHOOT _shoot = new SERVERPLAYERSHOOT();
                     _shoot.BulletId = prj.ProjectileId;
@@ -183,15 +183,16 @@ namespace gameserver.logic.skills.Pets
                     _shoot.Damage = 0;
 
                     pet.Owner.BroadcastPacket(_shoot, null);
-                    
-                    target.Owner.Timers.Add(new WorldTimer((int) (prj.ProjDesc.Speed * prj.ProjDesc.LifetimeMS) / 100, (world, t) =>
-                    {
-                        if (target != null)
-                            (target as Enemy).Damage(player, time, dmg, prj.ProjDesc.ArmorPiercing, prj.ProjDesc.Effects);
-                    }));
-                                        
+
+                    target.Owner.Timers.Add(new WorldTimer((int)(prj.ProjDesc.Speed * prj.ProjDesc.LifetimeMS) / 100, (world, t) =>
+                   {
+                       if (target != null)
+                           (target as Enemy).Damage(player, time, dmg, prj.ProjDesc.ArmorPiercing, prj.ProjDesc.Effects);
+                   }));
+
                     Status = CycleStatus.Completed;
-                } else
+                }
+                else
                     return;
             }
             else

@@ -29,7 +29,7 @@ namespace gameserver.logic.loot.Loot_System
             switch (lootType)
             {
                 case LootType.Equipment:
-                    return ProcessEquipmentsLoot(new List<Tuple<ItemType, byte>> {Tuple.Create(itemType, tier)});
+                    return ProcessEquipmentsLoot(new List<Tuple<ItemType, byte>> { Tuple.Create(itemType, tier) });
                 case LootType.Any:
                     {
                         List<string> items = new List<string>();

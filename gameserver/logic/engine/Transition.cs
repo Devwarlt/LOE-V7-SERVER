@@ -10,7 +10,8 @@ namespace gameserver.logic
 {
     public abstract class Transition : IStateChildren
     {
-        [ThreadStatic] private static Random rand;
+        [ThreadStatic]
+        private static Random rand;
         private readonly string targetStateName;
 
         public Transition(string targetState)

@@ -233,12 +233,12 @@ namespace gameserver.realm
         public void Run()
         {
             log.Info("Starting Realm Manager...");
-            
+
             Logic = new LogicTicker(this);
             var logic = new Task(() => Logic.TickLoop(), TaskCreationOptions.LongRunning);
             logic.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
             logic.Start();
-                        
+
             Network = new NetworkTicker(this);
             var network = new Task(() => Network.TickLoop(), TaskCreationOptions.LongRunning);
             network.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
@@ -293,7 +293,7 @@ namespace gameserver.realm
 
         private void OnWorldAdded(World world)
         {
-            if(world.Manager == null)
+            if (world.Manager == null)
                 world.Manager = this;
             if (world is GameWorld)
                 Monitor.WorldAdded(world);

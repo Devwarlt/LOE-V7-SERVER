@@ -27,7 +27,7 @@ namespace gameserver.logic.behaviors
         {
             int index;
             if (state == null) index = 0;
-            else index = (int) state;
+            else index = (int)state;
 
             children[index].Tick(host, time);
             if (children[index].Status == CycleStatus.Completed || children[index].Status == CycleStatus.NotStarted)

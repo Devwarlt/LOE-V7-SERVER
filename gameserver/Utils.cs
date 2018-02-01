@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace gameserver
 {
-    public class DateProvider: IFormatProvider, ICustomFormatter
+    public class DateProvider : IFormatProvider, ICustomFormatter
     {
         public object GetFormat(Type formatType)
         {
@@ -22,11 +22,11 @@ namespace gameserver
         {
             if (!(arg is DateTime)) throw new NotSupportedException();
 
-            DateTime dt = (DateTime) arg;
+            DateTime dt = (DateTime)arg;
 
             string suffix, _suffix;
 
-            if (new[] {11, 12, 13}.Contains(dt.Day))
+            if (new[] { 11, 12, 13 }.Contains(dt.Day))
                 suffix = "th";
             else if (dt.Day % 10 == 1)
                 suffix = "st";
@@ -76,9 +76,9 @@ namespace gameserver
 
     public static class MathsUtils
     {
-        public static double Dist(double x1, double y1, double x2, double y2) => Math.Sqrt((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2));
+        public static double Dist(double x1, double y1, double x2, double y2) => Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 
-        public static double DistSqr(double x1, double y1, double x2, double y2) => (x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2);
+        public static double DistSqr(double x1, double y1, double x2, double y2) => (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
 
         public static double NextDouble(this Random rand, double minValue, double maxValue) => rand.NextDouble() * (maxValue - minValue) + minValue;
 

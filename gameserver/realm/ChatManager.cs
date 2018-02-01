@@ -41,50 +41,50 @@ namespace gameserver.realm
             this.manager = manager;
             manager.InterServer.AddHandler<Message>(ISManager.CHAT, HandleChat);
         }
-        
+
         public static Dictionary<string, List<Tuple<DateTime, string>>> ChatDataCache = new Dictionary<string, List<Tuple<DateTime, string>>>();
 
         public void Say(Player player, string chatText)
         {
             if (!player.NameChosen)
                 return;
-        	if (!ChatDataCache.ContainsKey(player.Name))
-        		ChatDataCache.Add(player.Name, new List<Tuple<DateTime, string>> { Tuple.Create(DateTime.Now, chatText) });
-        	else
-        		ChatDataCache[player.Name].Add(Tuple.Create(DateTime.Now, chatText));
-        	ChatColor color = new  ChatColor(player.Stars, player.AccountType);
-        	TEXT _text = new TEXT();
-        	_text.Name = player.Name;
-        	_text.ObjectId = player.Id;
-        	_text.Stars = player.Stars;
-        	_text.Admin = player.Client.Account.Admin ? 1 : 0;
-        	_text.BubbleTime = 5;
-        	_text.Recipient = "";
-        	_text.Text = chatText;
-        	_text.CleanText = chatText;
-        	_text.NameColor = color.GetColor();
-        	_text.TextColor = 0x123456;
+            if (!ChatDataCache.ContainsKey(player.Name))
+                ChatDataCache.Add(player.Name, new List<Tuple<DateTime, string>> { Tuple.Create(DateTime.Now, chatText) });
+            else
+                ChatDataCache[player.Name].Add(Tuple.Create(DateTime.Now, chatText));
+            ChatColor color = new ChatColor(player.Stars, player.AccountType);
+            TEXT _text = new TEXT();
+            _text.Name = player.Name;
+            _text.ObjectId = player.Id;
+            _text.Stars = player.Stars;
+            _text.Admin = player.Client.Account.Admin ? 1 : 0;
+            _text.BubbleTime = 5;
+            _text.Recipient = "";
+            _text.Text = chatText;
+            _text.CleanText = chatText;
+            _text.NameColor = color.GetColor();
+            _text.TextColor = 0x123456;
             player.Owner.BroadcastPacket(_text, null);
             log.Info($"[{player.Owner.Name} ({player.Owner.Id})] <{player.Name}> {chatText}");
         }
 
         public void Announce(string text)
         {
-        	Message _message = new Message();
-        	_message.Type = ANNOUNCE;
-        	_message.Inst = manager.InstanceId;
-        	_message.Text = text;
-        	manager.InterServer.Publish(ISManager.CHAT, _message);
+            Message _message = new Message();
+            _message.Type = ANNOUNCE;
+            _message.Inst = manager.InstanceId;
+            _message.Text = text;
+            manager.InterServer.Publish(ISManager.CHAT, _message);
         }
 
         public void Oryx(World world, string text)
         {
-        	TEXT _text = new TEXT();
-        	_text.Name = "#Oryx the Mad God";
-        	_text.Text = text;
-        	_text.BubbleTime = 0;
-        	_text.Stars = -1;
-        	_text.NameColor = _text.TextColor = 0x123456;
+            TEXT _text = new TEXT();
+            _text.Name = "#Oryx the Mad God";
+            _text.Text = text;
+            _text.BubbleTime = 0;
+            _text.Stars = -1;
+            _text.NameColor = _text.TextColor = 0x123456;
             world.BroadcastPacket(_text, null);
             log.Info($"[{world.Name} ({world.Id})] <Oryx the Mad God> {text}");
         }
@@ -116,16 +116,16 @@ namespace gameserver.realm
 
         public void Tell(Player player, string BOT_NAME, string callback)
         {
-        	TEXT _text = new TEXT();
-        	_text.ObjectId = -1;
-        	_text.BubbleTime = 10;
-        	_text.Stars = 70;
-        	_text.Name = BOT_NAME;
-        	_text.Admin = 0;
-        	_text.Recipient = player.Name;
-        	_text.Text = callback.ToSafeText();
-        	_text.CleanText = "";
-        	_text.NameColor = _text.TextColor = 0x123456;
+            TEXT _text = new TEXT();
+            _text.ObjectId = -1;
+            _text.BubbleTime = 10;
+            _text.Stars = 70;
+            _text.Name = BOT_NAME;
+            _text.Admin = 0;
+            _text.Recipient = player.Name;
+            _text.Text = callback.ToSafeText();
+            _text.CleanText = "";
+            _text.NameColor = _text.TextColor = 0x123456;
             player.Client.SendMessage(_text);
         }
 
@@ -157,9 +157,9 @@ namespace gameserver.realm
                             .Where(x => x.Account.GuildId == e.Content.To)
                             .Select(x => x.Player))
                         {
-                           // i.GuildReceived(
-                           //     e.Content.Inst == manager.InstanceId ? e.Content.ObjId : -1,
-                           //     e.Content.Stars, from, e.Content.Text);
+                            // i.GuildReceived(
+                            //     e.Content.Inst == manager.InstanceId ? e.Content.ObjId : -1,
+                            //     e.Content.Stars, from, e.Content.Text);
                         }
                     }
                     break;
@@ -169,7 +169,7 @@ namespace gameserver.realm
                             .Where(x => x.Player != null)
                             .Select(x => x.Player))
                         {
-                          //  i.AnnouncementReceived(e.Content.Text);
+                            //  i.AnnouncementReceived(e.Content.Text);
                         }
                     }
                     break;

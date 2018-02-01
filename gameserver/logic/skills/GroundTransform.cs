@@ -21,10 +21,10 @@ namespace gameserver.logic.behaviors
         private readonly int? _relativeY;
 
         public GroundTransform(
-            string tileId, 
-            int radius = 0, 
-            int? relativeX = null, 
-            int? relativeY = null, 
+            string tileId,
+            int radius = 0,
+            int? relativeX = null,
+            int? relativeY = null,
             bool persist = false)
         {
             _tileId = tileId;
@@ -37,8 +37,8 @@ namespace gameserver.logic.behaviors
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {
             var map = host.Owner.Map;
-            var hx = (int) host.X;
-            var hy = (int) host.Y;
+            var hx = (int)host.X;
+            var hy = (int)host.Y;
 
             var tileType = host.Manager.GameData.IdToTileType[_tileId];
 
@@ -46,8 +46,8 @@ namespace gameserver.logic.behaviors
 
             if (_relativeX != null && _relativeY != null)
             {
-                var x = hx + (int) _relativeX;
-                var y = hy + (int) _relativeY;
+                var x = hx + (int)_relativeX;
+                var y = hy + (int)_relativeY;
 
                 if (!map.Contains(new IntPoint(x, y)))
                     return;

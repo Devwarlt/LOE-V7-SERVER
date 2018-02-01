@@ -100,9 +100,9 @@ namespace terrain
                 foreach (MapNode j in i.Nodes)
                 {
                     //var n = noise[(int)((j.X + 1) / 2 * 255), (int)((j.Y + 1) / 2 * 255)];
-                    float n = noise.GetNoise((j.X + 1)*2, (j.Y + 1)*2, 0);
-                    double d = j.X*j.X + j.Y*j.Y;
-                    if (n < d*0.7 ||
+                    float n = noise.GetNoise((j.X + 1) * 2, (j.Y + 1) * 2, 0);
+                    double d = j.X * j.X + j.Y * j.Y;
+                    if (n < d * 0.7 ||
                         (Math.Abs(j.X) > 0.9 || Math.Abs(j.Y) > 0.9))
                     {
                         j.IsWater = true;
@@ -281,8 +281,8 @@ namespace terrain
             Dictionary<double, double> dict = new Dictionary<double, double>();
             for (int i = 0; i < sorted.Count; i++)
             {
-                double y = (double) i/(sorted.Count - 1);
-                double x = (Math.Sqrt(1.0) - Math.Sqrt(1.0*(1 - y)));
+                double y = (double)i / (sorted.Count - 1);
+                double x = (Math.Sqrt(1.0) - Math.Sqrt(1.0 * (1 - y)));
                 dict[sorted[i]] = x > 1 ? 1 : x;
             }
             foreach (MapNode i in nodes)
@@ -322,8 +322,8 @@ namespace terrain
                 Random rand = new Random(seed);
                 while (hashSet.Count < pointCount)
                 {
-                    double x = rand.NextDouble()*2 - 1;
-                    double y = rand.NextDouble()*2 - 1;
+                    double x = rand.NextDouble() * 2 - 1;
+                    double y = rand.NextDouble() * 2 - 1;
                     if (x < -0.99 || y < -0.99 || x > 0.99 || y > 0.99) continue;
                     hashSet.Add(new Coordinate(x, y));
                 }
@@ -355,7 +355,7 @@ namespace terrain
                     Coordinate[] coords = poly.Coordinates;
                     for (int j = 1; j < coords.Length; j++)
                     {
-                        edges.Add(new Edge(new[] {coords[j - 1], coords[j]}, new Label(Location.Boundary)));
+                        edges.Add(new Edge(new[] { coords[j - 1], coords[j] }, new Label(Location.Boundary)));
                     }
                 }
                 graph.AddEdges(edges);
@@ -382,9 +382,9 @@ namespace terrain
                         MapNode mapNode;
                         if (!nodeDict.TryGetValue(n, out mapNode))
                         {
-                            mapNode = new MapNode {X = j.X, Y = j.Y};
+                            mapNode = new MapNode { X = j.X, Y = j.Y };
                             dats[mapNode] =
-                                new Tuple<HashSet<MapPolygon>, HashSet<MapEdge>>(new HashSet<MapPolygon> {poly},
+                                new Tuple<HashSet<MapPolygon>, HashSet<MapEdge>>(new HashSet<MapPolygon> { poly },
                                     new HashSet<MapEdge>());
                         }
                         else
@@ -407,7 +407,7 @@ namespace terrain
                     {
                         MapNode from = nodeDict[graph.Find(j.Coordinate)];
                         MapNode to = nodeDict[graph.Find(j.DirectedCoordinate)];
-                        dats[from].Item2.Add(new MapEdge {From = from, To = to});
+                        dats[from].Item2.Add(new MapEdge { From = from, To = to });
                     }
                 }
                 int ftrh = dats.Count(_ => _.Value.Item2.Count == 0);

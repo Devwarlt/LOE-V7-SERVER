@@ -6,7 +6,7 @@ using System;
 
 namespace gameserver.logic.skills.Pets
 {
-    internal class PetHPHealing :Behavior
+    internal class PetHPHealing : Behavior
     {
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {
@@ -35,7 +35,7 @@ namespace gameserver.logic.skills.Pets
                 if (!player.HasConditionEffect(ConditionEffectIndex.Sick) && !player.HasConditionEffect(ConditionEffectIndex.PetDisable))
                 {
                     float distance = Vector2.Distance(new Vector2(pet.X, pet.Y), new Vector2(player.X, player.Y));
-                    
+
                     if (distance < 20)
                     {
                         int maxhp = player.Stats[0] + player.Boost[0];
@@ -92,7 +92,8 @@ namespace gameserver.logic.skills.Pets
                         }
                     }
                 }
-            }  else
+            }
+            else
             {
                 //Log.Write(nameof(PetHPHealing), $"{cool} ms", ConsoleColor.DarkRed);
                 cool -= time.ElapsedMsDelta;
@@ -103,11 +104,11 @@ namespace gameserver.logic.skills.Pets
 
         private static int GetHP(int tier, int stars)
         {
-            Random rnd = new Random();            
+            Random rnd = new Random();
 
             Tuple<int, int, double> formula = MinMaxBonus(tier, stars);
-            
-            return (int) (rnd.Next(formula.Item1, formula.Item2) * formula.Item3);
+
+            return (int)(rnd.Next(formula.Item1, formula.Item2) * formula.Item3);
         }
 
         public static Tuple<int, int, double> MinMaxBonus(int tier, int stars)
@@ -115,7 +116,7 @@ namespace gameserver.logic.skills.Pets
             int min = 0;
             int max = 0;
 
-            double bonus = (1 + (stars == 70 ? 0.35 : stars/200)); // at least 35% bonus
+            double bonus = (1 + (stars == 70 ? 0.35 : stars / 200)); // at least 35% bonus
 
             switch (tier)
             {
@@ -123,46 +124,54 @@ namespace gameserver.logic.skills.Pets
                     {
                         min = 2;
                         max = 9;
-                    } break;
+                    }
+                    break;
                 case 1:
                     {
                         min = 9;
                         max = 13;
-                    } break;
+                    }
+                    break;
                 case 2:
                     {
                         min = 13;
                         max = 18;
-                    } break;
+                    }
+                    break;
                 case 3:
                     {
                         min = 18;
                         max = 24;
-                    } break;
+                    }
+                    break;
                 case 4:
                     {
                         min = 24;
                         max = 32;
-                    } break;
+                    }
+                    break;
                 case 5:
                     {
                         min = 32;
                         max = 44;
-                    } break;
+                    }
+                    break;
                 case 6:
                     {
                         min = 44;
                         max = 54;
-                    } break;
+                    }
+                    break;
                 case 7:
                     {
                         min = 54;
                         max = 74;
-                    } break;
+                    }
+                    break;
             }
             return Tuple.Create(min, max, bonus);
         }
 
-        private int CalculateCooldown(Player player, ref int cooldown) => 8000 - (player.Stars*100);
+        private int CalculateCooldown(Player player, ref int cooldown) => 8000 - (player.Stars * 100);
     }
 }

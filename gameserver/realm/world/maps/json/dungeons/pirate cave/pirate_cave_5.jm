@@ -1,1 +1,716 @@
-{"width":132,"height":113,"dict":[{"ground":"Space"},{"ground":"Composite","objs":[{"id":"Cave Wall"}]},{"ground":"Shallow Water"},{"ground":"Brown Lines"},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Lieutenant"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Admiral"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Cabin Boy"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Cabin Boy"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Parrot"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Monkey"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Commander"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Admiral"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Parrot"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Moll"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Captain"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Cabin Boy"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Commander"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Lieutenant"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Moll"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Captain"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Captain"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Admiral"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Commander"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Cabin Boy"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Parrot"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Commander"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Monkey"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Admiral"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Parrot"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Admiral"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Monkey"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Macaw"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Moll"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Captain"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Commander"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Dreadstump the Pirate King"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Light Sand"},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Monkey"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Moll"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Macaw"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Lieutenant"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Light Sand","regions":[{"id":"Spawn"}],"objs":[{"id":"Portal of Cowardice"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Cabin Boy"}]},{"ground":"Light Sand","objs":[{"id":"Palm Tree"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Commander"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Brawler"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Moll"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Hunchback"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Pirate Admiral"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Veteran"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Sailor"}]},{"ground":"Brown Lines","objs":[{"id":"Cave Pirate Macaw"}]}],"data":"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"}
+{
+  "width": 132,
+  "height": 113,
+  "dict": [
+    { "ground": "Space" },
+    {
+      "ground": "Composite",
+      "objs": [ { "id": "Cave Wall" } ]
+    },
+    { "ground": "Shallow Water" },
+    { "ground": "Brown Lines" },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Lieutenant" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Admiral" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Cabin Boy" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Cabin Boy" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Parrot" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Monkey" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Commander" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Admiral" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Parrot" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Moll" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Captain" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Cabin Boy" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Commander" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Lieutenant" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Moll" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Captain" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Captain" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Admiral" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Commander" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Cabin Boy" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Parrot" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Commander" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Monkey" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Admiral" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Parrot" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Admiral" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Monkey" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Macaw" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Moll" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Captain" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Commander" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Dreadstump the Pirate King" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    { "ground": "Light Sand" },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Monkey" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Moll" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Macaw" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Lieutenant" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "regions": [ { "id": "Spawn" } ],
+      "objs": [ { "id": "Portal of Cowardice" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Cabin Boy" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Commander" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Brawler" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Moll" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Hunchback" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Pirate Admiral" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Veteran" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Sailor" } ]
+    },
+    {
+      "ground": "Brown Lines",
+      "objs": [ { "id": "Cave Pirate Macaw" } ]
+    }
+  ],
+  "data": "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"
+}
