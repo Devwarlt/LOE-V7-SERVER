@@ -5,6 +5,7 @@ using gameserver.realm;
 using System.Collections.Generic;
 using gameserver.realm.entity.player;
 using gameserver.networking.outgoing;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -19,58 +20,64 @@ namespace gameserver.logic.behaviors
 	#region "Experimental NPC"
 	public class Gazer : NPC
 	{
-        protected override void Welcome()
-		{
-			_NPCStars = 70; // not sure
-			string welcome = $"Hello {_player.Name}! I'm Gazer, how can I help you?";
-			Callback(welcome);
-		}
+        public override void Welcome(Player player) => Callback(player, $"Hello {player.Name}! I'm Gazer, how can I help you?");
+
+        public override void Leave(Player player, bool polite) => Callback(player, polite ? _NPCLeaveMessage.Replace("{PLAYER}", player.Name) : "How rude!");
+
+        protected override void SetStars() => _NPCStars = 70;
 	}
 	#endregion
 	
 	public abstract class NPC
 	{
-        protected Player _player { get; set; }
+        protected List<string> _playersCache { get; set; }
 		protected Entity _NPC { get; set; }
-		protected List<string> _NPCLeaveMessages { get; set; }
-		protected bool _randomNPCLeaveMessages { get; set; }
+		protected string _NPCLeaveMessage { get; set; }
 		protected int _NPCStars { get; set; }
 			
 		public void Config(
-			Player player,
 			Entity NPC,
 			List<string> NPCLeaveMessages,
 			bool randomNPCLeaveMessages
 			)
 		{
-			_player = player;
+            _playersCache = new List<string>();
 			_NPC = NPC;
-			_NPCLeaveMessages = NPCLeaveMessages;
-			_randomNPCLeaveMessages = randomNPCLeaveMessages;
+			_NPCLeaveMessage = randomNPCLeaveMessages ? NPCLeaveMessages[new Random().Next(0, NPCLeaveMessages.Count)] : NPCLeaveMessages[0];
 		}
-				
-		public void Init() => Welcome(); // to player target (private message)
-			
-		// this method gets override (can be customized)
-		protected abstract void Welcome();
+
+        public void NoRepeat(Player player) => Callback(player, $"I'm already talking to you, {player.Name}...");
+
+        public List<string> ReturnPlayersCache() => _playersCache;
+
+        public void AddPlayer(Player player) => _playersCache.Add(player.Name);
+
+        public void RemovePlayer(Player player) => _playersCache.Remove(player.Name);
+		
+		public abstract void Welcome(Player player);
+
+        public abstract void Leave(Player player, bool polite);
+
+        protected abstract void SetStars();
 				
 		// send a private message to specific player (idea by Sebafra)
-		public void Callback(
+		protected void Callback(
+            Player player,
 			string message
 			)
 		{
-			// i'm not sure about this callback message as well
+            if (player == null) return;
 			TEXT _text = new TEXT();
 			_text.ObjectId = _NPC.Id;
 			_text.BubbleTime = 10;
 			_text.Stars = _NPCStars;
 			_text.Name = _NPC.Name;
 			_text.Admin = 0;
-			_text.Recipient = _player.Name;
+			_text.Recipient = player.Name;
 			_text.Text = message.ToSafeText();
 			_text.CleanText = "";
 			_text.NameColor = _text.TextColor = 0x123456;
-			_player.Client.SendMessage(_text);
+			player.Client.SendMessage(_text);
         }
 	}
   		
@@ -89,13 +96,11 @@ namespace gameserver.logic.behaviors
 		protected List<string> _playerLeaveMessages { get; set; }
 		protected List<string> _NPCLeaveMessages { get; set; }
 		protected bool _randomNPCLeaveMessages { get; set; }
-		protected int _range { get; set; }
+		protected double _range { get; set; }
 		protected string _NPCName { get; set; } // internal set
-		protected ChatManager _chatManager;
+		protected NPC _NPC { get; set; }
 
 		// Engine read-only variables
-		protected string _PLAYER = "{PLAYER_NAME}";
-		protected string _NPC = "{NPC_NAME}";
 		protected DateTime _now => DateTime.Now; // get current time (real-time) 
 		protected int _delay = 1000; // in milliseconds
 				
@@ -104,12 +109,12 @@ namespace gameserver.logic.behaviors
 			List<string> playerLeaveMessages = null,
 			List<string> NPCLeaveMessages = null,
 			bool randomNPCLeaveMessages = true,
-			int range = 8
+			double range = 8.00
 			)
 		{
 			_playerWelcomeMessages = playerWelcomeMessages != null ? playerWelcomeMessages : new List<string> { "hi", "hello", "hey", "good morning", "good afternoon", "good evening" };
 			_playerLeaveMessages = playerLeaveMessages != null ? playerLeaveMessages : new List<string> { "bye", "see ya", "goodbye", "see you", "see you soon", "goodnight" };
-			_NPCLeaveMessages = NPCLeaveMessages != null ? NPCLeaveMessages : new List<string> { "Farewell!", "Good bye, then...", "Cheers!", "See you soon!" };
+			_NPCLeaveMessages = NPCLeaveMessages != null ? NPCLeaveMessages : new List<string> { "Farewell, {PLAYER}!", "Good bye, then...", "Cheers!", "See you soon, {PLAYER}!" };
 			_randomNPCLeaveMessages = randomNPCLeaveMessages;
 			_range = range;
 		}
@@ -121,6 +126,8 @@ namespace gameserver.logic.behaviors
 			ref object state
 			)
 		{
+            _NPC = NPCDatabase.ContainsKey(npc.Name) ? NPCDatabase[npc.Name] : null;
+            _NPC.Config(npc, _NPCLeaveMessages, _randomNPCLeaveMessages);
 			state = 0;
 		}
 				
@@ -131,34 +138,45 @@ namespace gameserver.logic.behaviors
 			ref object state
 			)
 		{
-			string playerMessage = string.Empty;
-			IEnumerable<Entity> players = npc.GetNearestEntities(_range, null);
-			foreach (Player player in players)
+            if (_NPC == null) return;
+            Parallel.ForEach(npc.GetNearestEntities(_range * _range, null), entity =>
             {
+                Player player;
+                if (entity is Player)
+                    player = entity as Player;
+                else
+                    return;
                 try
                 {
-                    if (player != null && ChatManager.ChatDataCache.ContainsKey(player.Name))
+                    if (ChatManager.ChatDataCache.ContainsKey(player.Name))
                     {
                         foreach (Tuple<DateTime, string> messageInfo in ChatManager.ChatDataCache[player.Name])
                         {
-                            if (messageInfo.Item1.AddMilliseconds(- _delay) <= _now && _playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()))
-                                ProcessNPC(npc, player);
-                            // auto clean chat data cache
-                            ChatManager.ChatDataCache[player.Name].Remove(messageInfo);
+                            if (_NPC.ReturnPlayersCache().Contains(player.Name))
+                            {
+                                if (messageInfo.Item1.AddMilliseconds(- _delay) <= _now && _playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()) && npc.Dist(player) <= _range)
+                                {
+                                    _NPC.NoRepeat(player); // if player keep repeating welcome message >.>
+                                    ChatManager.ChatDataCache[player.Name].Remove(messageInfo); // auto clean chat data cache
+                                }
+                                if (npc.Dist(player) > _range || _playerLeaveMessages.Contains(messageInfo.Item2.ToLower()))
+                                {
+                                    _NPC.RemovePlayer(player);
+                                    _NPC.Leave(player, !(npc.Dist(player) > _range));
+                                }
+                            } else
+                            {
+                                if (messageInfo.Item1.AddMilliseconds(- _delay) <= _now && _playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()) && npc.Dist(player) <= _range)
+                                {
+                                    _NPC.Welcome(player);
+                                    _NPC.AddPlayer(player);
+                                    ChatManager.ChatDataCache[player.Name].Remove(messageInfo); // auto clean chat data cache
+                                }
+                            }
                         }
                     }
                 } catch (InvalidOperationException) { } // collection can be updated, so new handler exception for it
-            }
+            });
 		}
-
-    	private void ProcessNPC(
-    		Entity npc,
-    		Player player
-    		)
-    	{
-            NPC thisNPC = NPCDatabase[npc.Name];
-            thisNPC.Config(player, npc, _NPCLeaveMessages, _randomNPCLeaveMessages);
-            thisNPC.Init(); // always initialize NPC
-        }
   	}
 }
