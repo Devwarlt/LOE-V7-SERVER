@@ -19,7 +19,7 @@ namespace gameserver.logic.behaviors
 	#region "Experimental NPC"
 	public class Gazer : NPC
 	{
-		protected void Welcome()
+        protected override void Welcome()
 		{
 			_NPCStars = 70; // not sure
 			string welcome = $"Hello {_player.Name}! I'm Gazer, how can I help you?";
@@ -52,18 +52,7 @@ namespace gameserver.logic.behaviors
 		public void Init() => Welcome(); // to player target (private message)
 			
 		// this method gets override (can be customized)
-		private void Welcome() {}
-			
-		// we might use override methods for these kind of functions since NPCs gonna use several commands and extras.
-		private void Commands()
-		{
-			// TODO: add basic welcome messages proccessed here, if this void function isn't overrided by other NPC module.
-		}
-			
-		private void Extras()
-		{
-			// TODO: add basic extras (migrate: 'online' and 'uptime' algorithms from virtual Gazer) into this extra module.
-		}
+		protected abstract void Welcome();
 				
 		// send a private message to specific player (idea by Sebafra)
 		public void Callback(
@@ -72,7 +61,7 @@ namespace gameserver.logic.behaviors
 		{
 			// i'm not sure about this callback message as well
 			TEXT _text = new TEXT();
-			_text.ObjectId = -1;
+			_text.ObjectId = _NPC.Id;
 			_text.BubbleTime = 10;
 			_text.Stars = _NPCStars;
 			_text.Name = _NPC.Name;
@@ -92,7 +81,7 @@ namespace gameserver.logic.behaviors
 		public readonly Dictionary<string, NPC> NPCDatabase = new Dictionary<string, NPC>
 		{
 			// TODO: add new experimental NPC.
-			{ "Gazer", new Gazer() }
+			{ "NPC Gazer", new Gazer() }
 		};
 
 		// NPC read-only variables (declaration) 
@@ -145,14 +134,21 @@ namespace gameserver.logic.behaviors
 			string playerMessage = string.Empty;
 			IEnumerable<Entity> players = npc.GetNearestEntities(_range, null);
 			foreach (Player player in players)
-				if (player != null &&  _chatManager.ChatData.ContainsKey(player))
-					foreach (Tuple<DateTime, string> messageInfo in _chatManager.ChatData[player])
-						if (messageInfo.Item1.AddMilliseconds(- _delay) <= _now && _playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()))
-						{ // validate message handler
-							_chatManager.ChatData[player].Remove(messageInfo); // delete message to avoid duplicated check
-							ProcessNPC(npc, player);
-							continue; // stop handler
+            {
+                try
+                {
+                    if (player != null && ChatManager.ChatDataCache.ContainsKey(player.Name))
+                    {
+                        foreach (Tuple<DateTime, string> messageInfo in ChatManager.ChatDataCache[player.Name])
+                        {
+                            if (messageInfo.Item1.AddMilliseconds(- _delay) <= _now && _playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()))
+                                ProcessNPC(npc, player);
+                            // auto clean chat data cache
+                            ChatManager.ChatDataCache[player.Name].Remove(messageInfo);
                         }
+                    }
+                } catch (InvalidOperationException) { } // collection can be updated, so new handler exception for it
+            }
 		}
 
     	private void ProcessNPC(
@@ -160,9 +156,9 @@ namespace gameserver.logic.behaviors
     		Player player
     		)
     	{
-    		NPC thisNPC = NPCDatabase[npc.Name];
-    		thisNPC.Config(player, npc, _NPCLeaveMessages, _randomNPCLeaveMessages);
-    		thisNPC.Init(); // always initialize NPC
-    	}
+            NPC thisNPC = NPCDatabase[npc.Name];
+            thisNPC.Config(player, npc, _NPCLeaveMessages, _randomNPCLeaveMessages);
+            thisNPC.Init(); // always initialize NPC
+        }
   	}
 }

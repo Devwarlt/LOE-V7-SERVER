@@ -18,12 +18,14 @@ namespace gameserver.realm.entity
         private DamageCounter counter;
         private float bleeding;
         private Position? pos;
+        private bool npc { get; set; }
 
         protected static readonly new ILog log4net = LogManager.GetLogger(typeof(Enemy));
 
-        public Enemy(RealmManager manager, ushort objType)
+        public Enemy(RealmManager manager, ushort objType, bool npc)
             : base(manager, objType, new wRandom())
         {
+            npc = this.npc;
             stat = ObjectDesc.MaxHP == 0;
             counter = new DamageCounter(this);
             LootState = "";

@@ -561,8 +561,7 @@ namespace gameserver.realm
         {
             var node = manager.GameData.ObjectTypeToElement[id];
             var cls = node.Element("Class");
-            if (node.Element("NPC") != null)
-                return new NPC(manager, id);
+            var npc = node.Element("NPC") != null;
             if (cls == null) throw new ArgumentException("Invalid XML Element, field class is missing");
             var type = cls.Value;
 
@@ -592,7 +591,7 @@ namespace gameserver.realm
                 case "Player":
                     throw new Exception("Player should not instantiated using Entity.Resolve");
                 case "Character": //Other characters means enemy
-                    return new Enemy(manager, id);
+                    return new Enemy(manager, id, npc);
                 case "Portal":
                 case "GuildHallPortal":
                     return new Portal(manager, id, null);

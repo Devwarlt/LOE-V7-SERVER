@@ -18,9 +18,9 @@ using System.Threading;
 
 namespace gameserver.realm.commands
 {
-    class TestCommand : Command
+    class ZombifyCommand : Command
     {
-        public TestCommand() : base("test", (int) accountType.LOESOFT_ACCOUNT) { }
+        public ZombifyCommand() : base("zombify", (int) accountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {

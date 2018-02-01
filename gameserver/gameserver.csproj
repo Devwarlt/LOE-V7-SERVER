@@ -403,12 +403,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="realm\ChatColor.cs" />
     <Compile Include="realm\ChatManager.cs" />
-    <Compile Include="realm\entity\npc\NPC.Init.cs" />
+    <Compile Include="realm\commands\command\Testing.cs" />
     <Compile Include="realm\world\Collision.cs" />
-    <Compile Include="realm\commands\AdminCommands.cs" />
+    <Compile Include="realm\commands\command\AdminCommands.cs" />
     <Compile Include="realm\commands\Command.cs" />
     <Compile Include="realm\commands\gazer\gazer.cs" />
-    <Compile Include="realm\commands\WorldCommand.cs" />
+    <Compile Include="realm\commands\command\WorldCommand.cs" />
     <Compile Include="realm\entity\character\Character.Init.cs" />
     <Compile Include="realm\entity\gameobject\GameObject.ConnectedObject.cs" />
     <Compile Include="realm\entity\gameobject\GameObject.Container.cs" />
