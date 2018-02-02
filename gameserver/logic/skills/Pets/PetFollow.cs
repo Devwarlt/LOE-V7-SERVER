@@ -13,7 +13,7 @@ namespace gameserver.logic.skills.Pets
             if (state == null)
                 s = new FollowState();
             else
-                s = (FollowState) state;
+                s = (FollowState)state;
 
             Status = CycleStatus.NotStarted;
 
@@ -29,7 +29,7 @@ namespace gameserver.logic.skills.Pets
                 _notification.ObjectId = host.Id;
                 _notification.Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"New Pet!\"}}";
 
-                host.Owner.BroadcastPacket(_notification, null);                
+                host.Owner.BroadcastPacket(_notification, null);
                 return;
             }
 
@@ -64,10 +64,11 @@ namespace gameserver.logic.skills.Pets
                         pet.Move(player.X, player.Y); //TOFIX..
                         pet.UpdateCount++;
                     }
-                    else if(vect.Length > 1)
+
+                    else if (vect.Length > 1)
                     {
                         float dist = host.EntitySpeed(player.Stats[4] / 10, time);
-                        
+
                         if (vect.Length > 2 && vect.Length <= 3.5)
                             dist *= 1.75f;
                         else if (vect.Length > 3.5 && vect.Length <= 5)

@@ -134,7 +134,7 @@ namespace gameserver.logic.skills.Pets
 
                     double startAngle = a - shootAngle * (count - 1) / 2;
 
-                    Position prjPos = new Position() { X = pet.X,  Y = pet.Y };
+                    Position prjPos = new Position() { X = pet.X, Y = pet.Y };
 
                     Projectile prj = player.CreateProjectile(
                         desc, pet.ObjectType, dmg, time.TotalElapsedMs,
