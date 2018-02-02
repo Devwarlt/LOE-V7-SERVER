@@ -240,8 +240,8 @@ namespace gameserver.realm.entity.player
                         AccountId = AccountId,
                         CharId = Client.Character.CharId,
                         Killer = killer,
-                        obf0 = -1,
-                        obf1 = -1,
+                        zombieType = -1,
+                        zombieId = -1,
                     });
                     Owner.Timers.Add(new WorldTimer(1000, (w, t) => Client.Disconnect(DisconnectReason.CHARACTER_IS_DEAD)));
                     Owner.LeaveWorld(this);
