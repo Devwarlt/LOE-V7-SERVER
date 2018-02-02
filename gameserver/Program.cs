@@ -12,7 +12,6 @@ using gameserver.realm;
 using common.config;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using gameserver.realm.commands.gazer;
 using static gameserver.networking.Client;
 
 #endregion
@@ -140,7 +139,7 @@ namespace gameserver
                     try
                     {
                         foreach (Client j in manager.Clients.Values)
-                            chat.Tell(j?.Player, Gazer_Dictionary.BOT_NAME, ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", j?.Player.Name));
+                            chat.Tell(j?.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", j?.Player.Name));
                     }
                     catch (Exception ex)
                     {
@@ -154,7 +153,7 @@ namespace gameserver
                 try
                 {
                     foreach (Client k in manager.Clients.Values)
-                        chat.Tell(k?.Player, Gazer_Dictionary.BOT_NAME, message);
+                        chat.Tell(k?.Player, "(!) Notification (!)", message);
                 }
                 catch (Exception ex)
                 {

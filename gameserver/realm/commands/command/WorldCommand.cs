@@ -8,7 +8,8 @@ using gameserver.networking.outgoing;
 using gameserver.realm.entity;
 using gameserver.realm.entity.player;
 using common.config;
-using gameserver.realm.commands.gazer;
+using gameserver.realm.entity.npc;
+using gameserver.logic;
 
 #endregion
 
@@ -208,11 +209,45 @@ namespace gameserver.realm.commands
                 return false;
             }
 
-            if (playername.ToLower() == Gazer_Dictionary.PacketID[Gazer_Dictionary.Gazer_PacketID.GAZER])
+            if (string.Join(" ", args, 0, 1).ToLower() == "npc")
             {
-                string cmd = msg.ToLower();
-                Gazer_Dictionary.HandleCommands(cmd, player);
-                return true;
+                string npcName = $"NPC {Utils.FirstCharToUpper(string.Join(" ", args, 1, 1).ToLower())}";
+                if (NPCs.Database.ContainsKey($"NPC {Utils.FirstCharToUpper(string.Join(" ", args, 1, 1).ToLower())}"))
+                {
+                    string npcMsg = args.Length > 2 ? string.Join(" ", args, 2, 1) : null;
+                    NPC npc = NPCs.Database.ContainsKey(npcName) ? NPCs.Database[npcName] : null;
+                    if (npcMsg == null || npcMsg == string.Empty || npcMsg == "" || npcMsg == " ")
+                    {
+                        player.SendInfo($"Send a valid message to NPC {Utils.FirstCharToUpper(string.Join(" ", args, 1, 1).ToLower())}.");
+                        return false;
+                    }
+                    else
+                    {
+                        if (npc == null)
+                        {
+                            player.SendInfo($"Oh! {npcName} found in database but not declared yet, try again later.");
+                            return false;
+                        }
+                        else
+                        {
+                            if (!npc.ReturnPlayersCache().Contains(player.Name))
+                            {
+                                player.SendInfo($"You need to initialize conversation with {npcName}.");
+                                return false;
+                            }
+                            else
+                            {
+                                npc.Commands(player, npcMsg.ToLower()); // handle all commands, redirecting to properly NPC instance
+                                return true;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    player.SendInfo($"There is no {npcName} found in our database.");
+                    return false;
+                }
             }
 
             foreach (var i in player.Manager.Clients.Values)

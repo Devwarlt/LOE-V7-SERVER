@@ -4,8 +4,9 @@ using System;
 using gameserver.realm;
 using System.Collections.Generic;
 using gameserver.realm.entity.player;
-using gameserver.networking.outgoing;
 using System.Threading.Tasks;
+using gameserver.realm.entity.npc;
+using System.Linq;
 
 #endregion
 
@@ -16,88 +17,17 @@ namespace gameserver.logic.behaviors
 	* Code Review: Sebafra
 	*/
 
-    // this part of code shall be migrated (other files path)
-    #region "Experimental NPC"
-    public class Gazer : NPC
-    {
-        public override void Welcome(Player player) => Callback(player, $"Hello {player.Name}! I'm Gazer, how can I help you?");
-
-        public override void Leave(Player player, bool polite) => Callback(player, polite ? _NPCLeaveMessage.Replace("{PLAYER}", player.Name) : "How rude!");
-
-        protected override void SetStars() => _NPCStars = 70;
-    }
-    #endregion
-
-    public abstract class NPC
-    {
-        protected List<string> _playersCache { get; set; }
-        protected Entity _NPC { get; set; }
-        protected string _NPCLeaveMessage { get; set; }
-        protected int _NPCStars { get; set; }
-
-        public void Config(
-            Entity NPC,
-            List<string> NPCLeaveMessages,
-            bool randomNPCLeaveMessages
-            )
-        {
-            _playersCache = new List<string>();
-            _NPC = NPC;
-            _NPCLeaveMessage = randomNPCLeaveMessages ? NPCLeaveMessages[new Random().Next(0, NPCLeaveMessages.Count)] : NPCLeaveMessages[0];
-        }
-
-        public void NoRepeat(Player player) => Callback(player, $"I'm already talking to you, {player.Name}...");
-
-        public List<string> ReturnPlayersCache() => _playersCache;
-
-        public void AddPlayer(Player player) => _playersCache.Add(player.Name);
-
-        public void RemovePlayer(Player player) => _playersCache.Remove(player.Name);
-
-        public abstract void Welcome(Player player);
-
-        public abstract void Leave(Player player, bool polite);
-
-        protected abstract void SetStars();
-
-        // send a private message to specific player (idea by Sebafra)
-        protected void Callback(
-            Player player,
-            string message
-            )
-        {
-            if (player == null) return;
-            TEXT _text = new TEXT();
-            _text.ObjectId = _NPC.Id;
-            _text.BubbleTime = 10;
-            _text.Stars = _NPCStars;
-            _text.Name = _NPC.Name;
-            _text.Admin = 0;
-            _text.Recipient = player.Name;
-            _text.Text = message.ToSafeText();
-            _text.CleanText = "";
-            _text.NameColor = _text.TextColor = 0x123456;
-            player.Client.SendMessage(_text);
-        }
-    }
-
     // Engine only (this engine is not part of Behavior engine, only use it to integrate both)
     public class NPCEngine : Behavior
     {
-        // NPCs declaration
-        public readonly Dictionary<string, NPC> NPCDatabase = new Dictionary<string, NPC>
-        {
-			// TODO: add new experimental NPC.
-			{ "NPC Gazer", new Gazer() }
-        };
-
         // NPC read-only variables (declaration) 
         protected List<string> _playerWelcomeMessages { get; set; }
         protected List<string> _playerLeaveMessages { get; set; }
         protected List<string> _NPCLeaveMessages { get; set; }
         protected bool _randomNPCLeaveMessages { get; set; }
         protected double _range { get; set; }
-        protected string _NPCName { get; set; } // internal set
+        protected int _NPCStars { get; set; }
+
         protected NPC _NPC { get; set; }
 
         // Engine read-only variables
@@ -109,7 +39,8 @@ namespace gameserver.logic.behaviors
             List<string> playerLeaveMessages = null,
             List<string> NPCLeaveMessages = null,
             bool randomNPCLeaveMessages = true,
-            double range = 8.00
+            double range = 4.00,
+            int NPCStars = 0
             )
         {
             _playerWelcomeMessages = playerWelcomeMessages != null ? playerWelcomeMessages : new List<string> { "hi", "hello", "hey", "good morning", "good afternoon", "good evening" };
@@ -117,6 +48,7 @@ namespace gameserver.logic.behaviors
             _NPCLeaveMessages = NPCLeaveMessages != null ? NPCLeaveMessages : new List<string> { "Farewell, {PLAYER}!", "Good bye, then...", "Cheers!", "See you soon, {PLAYER}!" };
             _randomNPCLeaveMessages = randomNPCLeaveMessages;
             _range = range;
+            _NPCStars = NPCStars;
         }
 
         // first handler, initialize engine (declarations only)
@@ -126,8 +58,11 @@ namespace gameserver.logic.behaviors
             ref object state
             )
         {
-            _NPC = NPCDatabase.ContainsKey(npc.Name) ? NPCDatabase[npc.Name] : null;
+            Log.Write($"NPC Engine for {npc.Name} has been initialized!");
+            _NPC = NPCs.Database.ContainsKey(npc.Name) ? NPCs.Database[npc.Name] : null;
             _NPC.Config(npc, _NPCLeaveMessages, _randomNPCLeaveMessages);
+            _NPC.UpdateNPCStars(_NPCStars);
+            _NPC.UpdateNPC(npc);
             state = 0;
         }
 
@@ -139,13 +74,20 @@ namespace gameserver.logic.behaviors
             )
         {
             if (_NPC == null) return;
-            Parallel.ForEach(npc.GetNearestEntities(_range * 2, null), entity =>
+            List<Entity> entities = npc.GetNearestEntities(_range * 2, null).ToList();
+            Parallel.ForEach(entities, entity =>
             {
                 Player player;
                 if (entity is Player)
                     player = entity as Player;
                 else
                     return;
+                if (_NPC.ReturnPlayersCache().Contains(player.Name) && !entities.Contains(player))
+                {
+                    _NPC.RemovePlayer(player); // Removing player into NPC's players cache.
+                    ChatManager.ChatDataCache.Remove(player.Name); // Removing player from chat data cache.
+                    return;
+                }
                 try
                 {
                     if (npc.Dist(player) > _range && _NPC.ReturnPlayersCache().Contains(player.Name))

@@ -60,7 +60,7 @@ namespace gameserver.logic
             for (int i = 0; i < fields.Length; i++)
             {
                 FieldInfo field = fields[i];
-                log.InfoFormat("Loading behavior for '{0}'({1}/{2})...", field.Name, i + 1, fields.Length);
+                log.InfoFormat("Loading behavior for '{0}' ({1}/{2})...", field.Name, i + 1, fields.Length);
                 ((_)field.GetValue(this))();
                 field.SetValue(this, null);
             }
