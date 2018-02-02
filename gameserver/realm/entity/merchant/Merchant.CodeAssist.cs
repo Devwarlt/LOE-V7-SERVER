@@ -47,7 +47,7 @@ namespace gameserver.realm.entity.merchant
                             {
                                 player.Inventory[i] = Manager.GameData.Items[(ushort)MType];
 
-                                switch(Currency)
+                                switch (Currency)
                                 {
                                     case CurrencyType.Fame:
                                         {

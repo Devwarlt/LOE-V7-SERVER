@@ -22,10 +22,10 @@ namespace gameserver.networking
         public void Handle(Client client, IncomingMessage message)
         {
             this.client = client;
-            HandleMessage(client, (T) message);
+            HandleMessage(client, (T)message);
         }
 
-        protected void SendFailure(string text) => client.SendMessage(new FAILURE {ErrorId = 0, ErrorDescription = text});
+        protected void SendFailure(string text) => client.SendMessage(new FAILURE { ErrorId = 0, ErrorDescription = text });
 
         public void NotImplementedMessageHandler() { return; }
     }

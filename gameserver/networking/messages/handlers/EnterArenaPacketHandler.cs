@@ -23,7 +23,7 @@ namespace gameserver.networking.handlers
                 {
                     client.Manager.Database.UpdateFame(client.Account, -500);
                 }
-            else
+                else
                 if (client.Account.Credits >= 50)
                 {
                     client.Manager.Database.UpdateCredit(client.Account, -50);

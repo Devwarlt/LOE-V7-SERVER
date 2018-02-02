@@ -18,12 +18,14 @@ namespace gameserver.realm.entity
         private DamageCounter counter;
         private float bleeding;
         private Position? pos;
+        private bool npc { get; set; }
 
         protected static readonly new ILog log4net = LogManager.GetLogger(typeof(Enemy));
 
-        public Enemy(RealmManager manager, ushort objType)
+        public Enemy(RealmManager manager, ushort objType, bool npc)
             : base(manager, objType, new wRandom())
         {
+            npc = this.npc;
             stat = ObjectDesc.MaxHP == 0;
             counter = new DamageCounter(this);
             LootState = "";
@@ -42,7 +44,7 @@ namespace gameserver.realm.entity
 
         public Position SpawnPoint
         {
-            get { return pos ?? new Position {X = X, Y = Y}; }
+            get { return pos ?? new Position { X = X, Y = Y }; }
         }
 
         protected override void ExportStats(IDictionary<StatsType, object> stats)
@@ -88,7 +90,7 @@ namespace gameserver.realm.entity
                 int def = ObjectDesc.Defense;
                 if (noDef)
                     def = 0;
-                dmg = (int) StatsManager.GetDefenseDamage(this, dmg, def);
+                dmg = (int)StatsManager.GetDefenseDamage(this, dmg, def);
                 int effDmg = dmg;
                 if (effDmg > HP)
                     effDmg = HP;
@@ -130,7 +132,7 @@ namespace gameserver.realm.entity
             }
             return 0;
         }
-        
+
         public override bool HitByProjectile(Projectile projectile, RealmTime time)
         {
             if (stat)
@@ -152,14 +154,14 @@ namespace gameserver.realm.entity
                 {
                     TargetId = Id,
                     Effects = projectile.ConditionEffects,
-                    Damage = (ushort) dmg,
+                    Damage = (ushort)dmg,
                     Killed = HP <= 0,
                     BulletId = projectile.ProjectileId,
                     ObjectId = projectile.ProjectileOwner.Self.Id
                 }, HP <= 0 && !IsOneHit(dmg, prevHp) ? null : projectile.ProjectileOwner as Player);
 
                 counter.HitBy(projectile.ProjectileOwner as Player, time, projectile, dmg);
-                
+
                 if (HP <= 0)
                     Death(time);
 
@@ -172,17 +174,17 @@ namespace gameserver.realm.entity
         public override void Tick(RealmTime time)
         {
             if (pos == null)
-                pos = new Position {X = X, Y = Y};
+                pos = new Position { X = X, Y = Y };
 
             if (!stat && HasConditionEffect(ConditionEffectIndex.Bleeding))
             {
                 if (bleeding > 1)
                 {
-                    HP -= (int) bleeding;
-                    bleeding -= (int) bleeding;
+                    HP -= (int)bleeding;
+                    bleeding -= (int)bleeding;
                     UpdateCount++;
                 }
-                bleeding += 28*(time.ElapsedMsDelta/1000f);
+                bleeding += 28 * (time.ElapsedMsDelta / 1000f);
             }
             base.Tick(time);
         }

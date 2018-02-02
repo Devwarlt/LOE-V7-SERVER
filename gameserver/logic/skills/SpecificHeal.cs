@@ -23,7 +23,7 @@ namespace gameserver.logic.behaviors
             Cooldown coolDown = new Cooldown()
             )
         {
-            this.range = (float) range;
+            this.range = (float)range;
             this.amount = amount;
             this.group = group;
             this.coolDown = coolDown.Normalize();
@@ -36,7 +36,7 @@ namespace gameserver.logic.behaviors
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
-            int cool = (int) state;
+            int cool = (int)state;
 
             if (cool <= 0)
             {
@@ -67,7 +67,7 @@ namespace gameserver.logic.behaviors
                 {
                     foreach (Enemy entity in host.GetNearestEntitiesByGroup(range, group).OfType<Enemy>())
                     {
-                    	int newHp = amount;
+                        int newHp = amount;
                         if (newHp != entity.HP)
                         {
                             int n = newHp;

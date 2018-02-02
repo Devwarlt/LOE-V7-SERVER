@@ -24,20 +24,20 @@ namespace terrain
                 {
                     g.FillPolygon(
                         new SolidBrush(Color.FromArgb(
-                            poly.DistanceToCoast == 0 ? 128 : (int) (poly.DistanceToCoast*255), Color.Blue)),
-                        poly.Nodes.Select(_ => new PointF((float) (_.X + 1)/2*Size, (float) (_.Y + 1)/2*Size)).ToArray());
+                            poly.DistanceToCoast == 0 ? 128 : (int)(poly.DistanceToCoast * 255), Color.Blue)),
+                        poly.Nodes.Select(_ => new PointF((float)(_.X + 1) / 2 * Size, (float)(_.Y + 1) / 2 * Size)).ToArray());
                     for (int j = 0; j < poly.Nodes.Length; j++)
                     {
                         MapNode curr = poly.Nodes[j];
                         MapNode prev = j == 0 ? poly.Nodes[poly.Nodes.Length - 1] : poly.Nodes[j - 1];
                         g.DrawLine(Pens.White,
-                            (float) (prev.X + 1)/2*Size, (float) (prev.Y + 1)/2*Size,
-                            (float) (curr.X + 1)/2*Size, (float) (curr.Y + 1)/2*Size);
+                            (float)(prev.X + 1) / 2 * Size, (float)(prev.Y + 1) / 2 * Size,
+                            (float)(curr.X + 1) / 2 * Size, (float)(curr.Y + 1) / 2 * Size);
                     }
                 }
                 if (plot != null)
                     foreach (MapNode i in plot)
-                        g.FillRectangle(Brushes.Black, (float) (i.X + 1)/2*Size - 2, (float) (i.Y + 1)/2*Size - 2, 4, 4);
+                        g.FillRectangle(Brushes.Black, (float)(i.X + 1) / 2 * Size - 2, (float)(i.Y + 1) / 2 * Size - 2, 4, 4);
             }
             Test.Show(map);
         }
@@ -118,7 +118,7 @@ namespace terrain
                 for (int x = 0; x < h; x++)
                 {
                     uint color = 0x00ffffff;
-                    color |= (uint) (tiles[x, y].Moisture*255) << 24;
+                    color |= (uint)(tiles[x, y].Moisture * 255) << 24;
                     buff[x, y] = color;
                 }
             buff.Unlock();
@@ -136,7 +136,7 @@ namespace terrain
                 for (int x = 0; x < h; x++)
                 {
                     uint color = 0x00ffffff;
-                    color |= (uint) ((byte) (tiles[x, y].Elevation*255) << 24);
+                    color |= (uint)((byte)(tiles[x, y].Elevation * 255) << 24);
                     buff[x, y] = color;
                 }
             buff.Unlock();
@@ -153,7 +153,7 @@ namespace terrain
                 for (int x = 0; x < h; x++)
                 {
                     uint color = 0x00ffffff;
-                    color |= (uint) (noise.GetNoise(x/(double) w*2, y/(double) h*2, 0)*255) << 24;
+                    color |= (uint)(noise.GetNoise(x / (double)w * 2, y / (double)h * 2, 0) * 255) << 24;
                     buff[x, y] = color;
                 }
             buff.Unlock();
@@ -174,7 +174,7 @@ namespace terrain
                 PolygonMap map = new PolygonMap(rand.Next());
 
                 Console.Out.WriteLine("Generating map...");
-                map.Generate(Size*15);
+                map.Generate(Size * 15);
 
                 Console.Out.WriteLine("Creating terrain...");
                 TerrainTile[,] dat = CreateTerrain(rand.Next(), map);
@@ -210,7 +210,7 @@ namespace terrain
             foreach (MapPolygon poly in map.Polygons.Where(_ => !_.IsWater))
             {
                 uint color = 0x00ffffff;
-                color |= (uint) (poly.DistanceToCoast*255) << 24;
+                color |= (uint)(poly.DistanceToCoast * 255) << 24;
                 rasterizer.FillPolygon(
                     poly.Nodes.SelectMany(_ =>
                     {
@@ -227,7 +227,7 @@ namespace terrain
                     new TerrainTile
                     {
                         PolygonId = poly.Id,
-                        Elevation = (float) poly.DistanceToCoast,
+                        Elevation = (float)poly.DistanceToCoast,
                         Moisture = -1,
                         TileId = TileTypes.Grass,
                         TileObj = null
@@ -254,7 +254,7 @@ namespace terrain
                 TerrainTile tile = new TerrainTile
                 {
                     PolygonId = poly.Id,
-                    Elevation = (float) poly.DistanceToCoast,
+                    Elevation = (float)poly.DistanceToCoast,
                     TileObj = null
                 };
                 if (poly.IsCoast)
@@ -304,15 +304,15 @@ namespace terrain
                 i.Key.Item2.IsWater = true;
                 i.Key.Item2.RiverValue = i.Value + 1;
                 rasterizer.DrawLineBresenham(
-                    (i.Key.Item1.X + 1)/2*Size, (i.Key.Item1.Y + 1)/2*Size,
-                    (i.Key.Item2.X + 1)/2*Size, (i.Key.Item2.Y + 1)/2*Size,
+                    (i.Key.Item1.X + 1) / 2 * Size, (i.Key.Item1.Y + 1) / 2 * Size,
+                    (i.Key.Item2.X + 1) / 2 * Size, (i.Key.Item2.Y + 1) / 2 * Size,
                     t =>
                     {
                         t.TileId = TileTypes.Water;
-                        t.Elevation = (float) (i.Key.Item1.DistanceToCoast + i.Key.Item2.DistanceToCoast)/2;
+                        t.Elevation = (float)(i.Key.Item1.DistanceToCoast + i.Key.Item2.DistanceToCoast) / 2;
                         t.Moisture = 1;
                         return t;
-                    }, 3*Math.Min(2, i.Value));
+                    }, 3 * Math.Min(2, i.Value));
             }
 
             return rasterizer.Buffer;

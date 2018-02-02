@@ -16,6 +16,7 @@ using gameserver.realm.world;
 using common.config;
 using gameserver.realm.entity.merchant;
 using static gameserver.networking.Client;
+using gameserver.realm.entity.npc;
 
 #endregion
 
@@ -192,6 +193,21 @@ namespace gameserver.realm
             Commands = new CommandManager(this);
 
             log.Info("Realm Manager initialized.");
+
+            log.Info("Initializing NPC Database...");
+
+            NPCs npcs = new NPCs();
+            npcs.Initialize(this);
+
+            int j = 1;
+
+            foreach (KeyValuePair<string, NPC> i in NPCs.Database)
+            {
+                log.InfoFormat("Loading NPC Engine for '{0}' ({1}/{2})...", i.Key, j, NPCs.Database.Count);
+                j++;
+            }
+
+            log.Info("NPC Database initialized...");
         }
 
         public Vault PlayerVault(Client processor)
@@ -233,12 +249,12 @@ namespace gameserver.realm
         public void Run()
         {
             log.Info("Starting Realm Manager...");
-            
+
             Logic = new LogicTicker(this);
             var logic = new Task(() => Logic.TickLoop(), TaskCreationOptions.LongRunning);
             logic.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
             logic.Start();
-                        
+
             Network = new NetworkTicker(this);
             var network = new Task(() => Network.TickLoop(), TaskCreationOptions.LongRunning);
             network.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
@@ -293,7 +309,7 @@ namespace gameserver.realm
 
         private void OnWorldAdded(World world)
         {
-            if(world.Manager == null)
+            if (world.Manager == null)
                 world.Manager = this;
             if (world is GameWorld)
                 Monitor.WorldAdded(world);

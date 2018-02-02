@@ -24,7 +24,7 @@ namespace gameserver.logic.behaviors
         float speedVariance;
         float radiusVariance;
         bool? orbitClockwise;
-        
+
         public Circle(
             double speed = 5,
             double radius = 5,
@@ -38,7 +38,7 @@ namespace gameserver.logic.behaviors
             this.speed = (float)speed;
             this.radius = (float)radius;
             this.sightRange = (float)sightRange;
-            this.target = target == null ? null : (ushort?) BehaviorDb.InitGameData.IdToObjectType[target];
+            this.target = target == null ? null : (ushort?)BehaviorDb.InitGameData.IdToObjectType[target];
             this.speedVariance = (float)(speedVariance ?? speed * 0.1);
             this.radiusVariance = (float)(radiusVariance ?? speed * 0.1);
             this.orbitClockwise = orbitClockwise;
@@ -50,7 +50,7 @@ namespace gameserver.logic.behaviors
             if (orbitClockwise == null)
                 orbitDir = (Random.NextDouble() > .5) ? 1 : -1;
             else
-                orbitDir = ((bool) orbitClockwise) ? 1 : -1;
+                orbitDir = ((bool)orbitClockwise) ? 1 : -1;
 
             state = new OrbitState()
             {

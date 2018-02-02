@@ -28,7 +28,8 @@ namespace gameserver.realm
                 int color = -1;
                 if (specialColors.TryGetValue(_accountType, out color))
                     return color;
-            } else
+            }
+            else
             {
                 foreach (KeyValuePair<IEnumerable<int>, int> i in regularColors)
                     if (i.Key.Contains(_stars))

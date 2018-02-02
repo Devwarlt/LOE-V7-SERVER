@@ -1,10 +1,8 @@
 #region
 
-using common.config;
 using log4net;
 using System;
 using System.IO;
-using System.Net;
 using System.Xml;
 
 #endregion
@@ -14,9 +12,6 @@ namespace appengine.mysterybox
     //scope
     internal static class CONSTANTS
     {
-        internal static readonly string appengine = Settings.NETWORKING.APPENGINE_URL;
-        internal static WebClient client = new WebClient();
-        internal static readonly string file = "/app/packages/miniGames.xml";
         internal const int GOLD = 0;
         internal const int FAME = 1;
         internal const int FORTUNETOKENS = 2;
@@ -56,7 +51,7 @@ namespace appengine.mysterybox
         {
             XmlDocument doc = new XmlDocument();
 
-            string response = CONSTANTS.client.DownloadString(CONSTANTS.appengine + CONSTANTS.file);
+            string response = File.ReadAllText("mysterybox/miniGames.xml");
 
             if (response == null)
                 return null;
@@ -175,7 +170,7 @@ namespace appengine.mysterybox
         {
             XmlDocument doc = new XmlDocument();
 
-            string response = CONSTANTS.client.DownloadString(CONSTANTS.appengine + CONSTANTS.file);
+            string response = File.ReadAllText("mysterybox/miniGames.xml");
 
             if (response == null)
                 return null;
@@ -187,7 +182,8 @@ namespace appengine.mysterybox
                 StringWriter wtr = new StringWriter();
                 doc.Save(wtr);
                 return wtr.ToString();
-            } catch (Exception error)
+            }
+            catch (Exception error)
             {
                 log.Error($"Unhandle exception: {error}.");
                 return null;
@@ -200,7 +196,7 @@ namespace appengine.mysterybox
         internal int Amount { get; set; }
         internal int Currency { get; set; }
     }
-    
+
     internal class FortuneGamePrice
     {
         internal int firstInGold { get; set; }

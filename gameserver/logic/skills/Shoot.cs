@@ -52,11 +52,11 @@ namespace gameserver.logic.behaviors
             this.rotateEffect = rotateEffect;
             this.rotateRadius = rotateRadius;
             this.rotateColor = rotateColor;
-            this.shootAngle = shoots == 1 ? 0 : (shootAngle ?? 360.0/shoots)*Math.PI/180;
-            this.direction = (float?) (direction * Math.PI / 180);
-            this.angleOffset = (float) (angleOffset * Math.PI / 180);
-            this.defaultAngle = (float?) (defaultAngle * Math.PI / 180);
-            this.rotateAngle = (float?) (rotateAngle * Math.PI / 180);
+            this.shootAngle = shoots == 1 ? 0 : (shootAngle ?? 360.0 / shoots) * Math.PI / 180;
+            this.direction = (float?)(direction * Math.PI / 180);
+            this.angleOffset = (float)(angleOffset * Math.PI / 180);
+            this.defaultAngle = (float?)(defaultAngle * Math.PI / 180);
+            this.rotateAngle = (float?)(rotateAngle * Math.PI / 180);
         }
 
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
@@ -91,7 +91,7 @@ namespace gameserver.logic.behaviors
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
-            int cool = (int?) state ?? -1;
+            int cool = (int?)state ?? -1;
             Status = CycleStatus.NotStarted;
 
             if (cool <= 0)
@@ -110,7 +110,7 @@ namespace gameserver.logic.behaviors
                                (player == null ? defaultAngle.Value : Math.Atan2(player.Y - host.Y, player.X - host.X));
                     a += angleOffset;
                     if (aim != 0 && player != null)
-                        a += Predict(host, player, desc)*aim;
+                        a += Predict(host, player, desc) * aim;
 
                     int dmg;
                     if (host is Character)
@@ -118,14 +118,14 @@ namespace gameserver.logic.behaviors
                     else
                         dmg = Random.Next(desc.MinDamage, desc.MaxDamage);
 
-                    double startAngle = a - shootAngle*(count - 1)/2;
+                    double startAngle = a - shootAngle * (count - 1) / 2;
                     byte prjId = 0;
                     Position prjPos = EnemyShootHistory(host);
                     for (int i = 0; i < count; i++)
                     {
                         Projectile prj = host.CreateProjectile(
                             desc, host.ObjectType, dmg, time.TotalElapsedMs,
-                            prjPos, (float) (startAngle + shootAngle*i));
+                            prjPos, (float)(startAngle + shootAngle * i));
                         host.Owner.EnterWorld(prj);
                         if (i == 0)
                             prjId = prj.ProjectileId;
@@ -146,14 +146,14 @@ namespace gameserver.logic.behaviors
                                 Y = player.Y,
                             };
 
-                            host.Owner.BroadcastPacket(new SHOWEFFECT
-                            {
-                                EffectType = EffectType.Coneblast,
-                                Color = new ARGB(rotateColor),
-                                TargetId = host.Id,
-                                PosA = target,
-                                PosB = new Position { X = rotateRadius }, //radius
-                            }, null);
+                        host.Owner.BroadcastPacket(new SHOWEFFECT
+                        {
+                            EffectType = EffectType.Coneblast,
+                            Color = new ARGB(rotateColor),
+                            TargetId = host.Id,
+                            PosA = target,
+                            PosB = new Position { X = rotateRadius }, //radius
+                        }, null);
                     }
 
                     host.Owner.BroadcastPacket(new ENEMYSHOOT

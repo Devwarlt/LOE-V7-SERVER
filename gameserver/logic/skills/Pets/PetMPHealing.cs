@@ -6,7 +6,7 @@ using System;
 
 namespace gameserver.logic.skills.Pets
 {
-    internal class PetMPHealing :Behavior
+    internal class PetMPHealing : Behavior
     {
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {
@@ -29,13 +29,13 @@ namespace gameserver.logic.skills.Pets
                 return;
             }
 
-            int cool = (int) state;
+            int cool = (int)state;
             if (cool <= 0)
             {
                 if (!player.HasConditionEffect(ConditionEffectIndex.Sick) && !player.HasConditionEffect(ConditionEffectIndex.PetDisable))
                 {
                     float distance = Vector2.Distance(new Vector2(pet.X, pet.Y), new Vector2(player.X, player.Y));
-                    
+
                     if (distance < 20)
                     {
                         int maxmp = player.Stats[1] + player.Boost[1];
@@ -104,11 +104,11 @@ namespace gameserver.logic.skills.Pets
 
         private static int GetMP(int tier, int stars)
         {
-            Random rnd = new Random();            
+            Random rnd = new Random();
 
             Tuple<int, int, double> formula = MinMaxBonus(tier, stars);
-            
-            return (int) (rnd.Next(formula.Item1, formula.Item2) * formula.Item3);
+
+            return (int)(rnd.Next(formula.Item1, formula.Item2) * formula.Item3);
         }
 
         public static Tuple<int, int, double> MinMaxBonus(int tier, int stars)
@@ -116,7 +116,7 @@ namespace gameserver.logic.skills.Pets
             int min = 0;
             int max = 0;
 
-            double bonus = (1 + (stars == 70 ? 0.35 : stars/200)); // at least 35% bonus
+            double bonus = (1 + (stars == 70 ? 0.35 : stars / 200)); // at least 35% bonus
 
             switch (tier)
             {
@@ -124,42 +124,50 @@ namespace gameserver.logic.skills.Pets
                     {
                         min = 1;
                         max = 2;
-                    } break;
+                    }
+                    break;
                 case 1:
                     {
                         min = 2;
                         max = 5;
-                    } break;
+                    }
+                    break;
                 case 2:
                     {
                         min = 5;
                         max = 9;
-                    } break;
+                    }
+                    break;
                 case 3:
                     {
                         min = 9;
                         max = 11;
-                    } break;
+                    }
+                    break;
                 case 4:
                     {
                         min = 11;
                         max = 17;
-                    } break;
+                    }
+                    break;
                 case 5:
                     {
                         min = 17;
                         max = 23;
-                    } break;
+                    }
+                    break;
                 case 6:
                     {
                         min = 23;
                         max = 29;
-                    } break;
+                    }
+                    break;
                 case 7:
                     {
                         min = 29;
                         max = 37;
-                    } break;
+                    }
+                    break;
             }
             return Tuple.Create(min, max, bonus);
         }

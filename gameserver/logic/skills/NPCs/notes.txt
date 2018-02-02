@@ -1,0 +1,8 @@
+/** Important Code Notes for NPC Engine (LoESoft Games)
+*/
+
+● [NPC Chat system: 1st code review] 28th January 2018 7:25 PM Brazil Regional Time (by Warlt):
+	I was adjusting the source code of our new game engine, the NPC Engine, and after that I got a forward issue whose keept me stuck without any code progress.
+	My question is related to entity and player chat interaction. Since discontinued project of Queue feature for NPC Engine, we started development of private message feature to handle chat (NPC interaction with player) discussion, the idea was grant by Seb and at this moment still solid in code progress so far.
+	Otherwise, when I was coding this part of code, the NPC class, it contains a possible null variable whose shall not be null by any circumstance, if it does being null I'm pretty sure was human mistake and bad-coded algorithm. Still talking about that variable, it does use 'Entity' reference for specific NPC whose contains the behavior and engine itself (Entity _NPC).
+	Also, I'm not sure about to handle full NPC Engine in NPCEngine.cs file only. In my opinion, it could be better to proccess only welcome messages then remove it from 'ChatData' then after that full NPC Chat discussion could be handled via specific class of NPC and using command 'Tell' with special handlers plus exceptions in new player creation to avoid duplicated names, since NPCs are entities and players are other kind of instances, so could exist similar names for NPC and player together.

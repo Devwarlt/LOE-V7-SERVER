@@ -65,14 +65,14 @@ namespace gameserver.realm.entity.player
                 if (client.Character.Pet != 0)
                 {
                     PetID = client.Character.Pet;
-                    Tuple<int, int, double> HPData = PetHPHealing.MinMaxBonus(Resolve(Manager,(ushort) PetID).ObjectDesc.HPTier, Stars);
-                    Tuple<int, int, double> MPData = PetMPHealing.MinMaxBonus(Resolve(Manager,(ushort) PetID).ObjectDesc.MPTier, Stars);
+                    Tuple<int, int, double> HPData = PetHPHealing.MinMaxBonus(Resolve(Manager, (ushort)PetID).ObjectDesc.HPTier, Stars);
+                    Tuple<int, int, double> MPData = PetMPHealing.MinMaxBonus(Resolve(Manager, (ushort)PetID).ObjectDesc.MPTier, Stars);
                     PetHealing.Add(new List<int> { HPData.Item1, HPData.Item2, (int)((HPData.Item3 - 1) * 100) });
                     PetHealing.Add(new List<int> { MPData.Item1, MPData.Item2, (int)((MPData.Item3 - 1) * 100) });
                     PetAttack.Add(7750 - Stars * 100);
                     PetAttack.Add(30 + Stars);
-                    PetAttack.Add(Resolve(Manager,(ushort) PetID).ObjectDesc.Projectiles[0].MinDamage);
-                    PetAttack.Add(Resolve(Manager,(ushort) PetID).ObjectDesc.Projectiles[0].MaxDamage);
+                    PetAttack.Add(Resolve(Manager, (ushort)PetID).ObjectDesc.Projectiles[0].MinDamage);
+                    PetAttack.Add(Resolve(Manager, (ushort)PetID).ObjectDesc.Projectiles[0].MaxDamage);
                 }
                 LootDropBoostTimeLeft = client.Character.LootDropTimer;
                 lootDropBoostFreeTimer = LootDropBoost;
@@ -85,7 +85,8 @@ namespace gameserver.realm.entity.player
                 {
                     Guild = Manager.Database.GetGuild(client.Account.GuildId).Name;
                     GuildRank = client.Account.GuildRank;
-                } else
+                }
+                else
                 {
                     Guild = "";
                     GuildRank = -1;
@@ -103,7 +104,7 @@ namespace gameserver.realm.entity.player
                 {
                     Locked = client.Account.Database.GetLockeds(client.Account);
                     Ignored = client.Account.Database.GetIgnoreds(client.Account);
-                    Muted = client.Account.Muted; 
+                    Muted = client.Account.Muted;
                 }
                 catch (Exception ex)
                 {
@@ -177,19 +178,19 @@ namespace gameserver.realm.entity.player
             switch (Owner.Name)
             {
                 case "Arena":
-                {
-                    Client.SendMessage(new ARENA_DEATH
                     {
-                        RestartPrice = 100
-                    });
-                    HP = (int)ObjectDesc.MaxHP;
-                    ApplyConditionEffect(new ConditionEffect
-                    {
-                        Effect = ConditionEffectIndex.Paused,
-                        DurationMS = -1
-                    });
-                    return;
-                }
+                        Client.SendMessage(new ARENA_DEATH
+                        {
+                            RestartPrice = 100
+                        });
+                        HP = (int)ObjectDesc.MaxHP;
+                        ApplyConditionEffect(new ConditionEffect
+                        {
+                            Effect = ConditionEffectIndex.Paused,
+                            DurationMS = -1
+                        });
+                        return;
+                    }
             }
             if (Client.State == ProtocolState.Disconnected || resurrecting)
                 return;
@@ -282,7 +283,7 @@ namespace gameserver.realm.entity.player
             if (Client.Character.Pet != 0)
             {
                 HatchlingPet = false;
-                Pet = Resolve(Manager,(ushort) PetID);
+                Pet = Resolve(Manager, (ushort)PetID);
                 Pet.Move(x, y);
                 Pet.SetPlayerOwner(this);
                 Owner.EnterWorld(Pet);
@@ -294,7 +295,7 @@ namespace gameserver.realm.entity.player
 
             CheckSetTypeSkin();
 
-            if ((accountType) AccountType == accountType.LOESOFT_ACCOUNT)
+            if ((accountType)AccountType == accountType.LOESOFT_ACCOUNT)
             {
                 ConditionEffect invincible = new ConditionEffect();
                 invincible.Effect = ConditionEffectIndex.Invincible;
@@ -397,9 +398,9 @@ namespace gameserver.realm.entity.player
                     if (!questPortraits.TryGetValue(i.ObjectDesc.ObjectId, out x)) continue;
 
                     if ((Level < x.Item2 || Level > x.Item3)) continue;
-                    var score = (20 - Math.Abs((i.ObjectDesc.Level ?? 0) - Level))*x.Item1 -
+                    var score = (20 - Math.Abs((i.ObjectDesc.Level ?? 0) - Level)) * x.Item1 -
                                 //priority * level diff
-                                Dist(this, i)/100; //minus 1 for every 100 tile distance
+                                Dist(this, i) / 100; //minus 1 for every 100 tile distance
                     if (score < 0)
                         score = 1;
                     if (!(score > bestScore)) continue;
@@ -416,7 +417,7 @@ namespace gameserver.realm.entity.player
 
         private void HandleQuest(RealmTime time)
         {
-            if (time.TickCount%500 != 0 && Quest?.Owner != null) return;
+            if (time.TickCount % 500 != 0 && Quest?.Owner != null) return;
             var newQuest = FindQuest();
             if (newQuest == null || newQuest == Quest) return;
             Owner.Timers.Add(new WorldTimer(100, (w, t) =>
@@ -432,8 +433,8 @@ namespace gameserver.realm.entity.player
         private void CalculateFame()
         {
             int newFame;
-            if (Experience < 200*1000) newFame = Experience/1000;
-            else newFame = 200 + (Experience - 200*1000)/1000;
+            if (Experience < 200 * 1000) newFame = Experience / 1000;
+            else newFame = 200 + (Experience - 200 * 1000) / 1000;
             if (newFame == Fame) return;
             Fame = newFame;
             int newGoal;
@@ -506,7 +507,7 @@ namespace gameserver.realm.entity.player
                 }, null);
             if (exp > 0)
             {
-                if(XpBoosted)
+                if (XpBoosted)
                     Experience += exp * 2;
                 else
                     Experience += exp;
@@ -535,7 +536,7 @@ namespace gameserver.realm.entity.player
         {
             ProjectileId = id;
             return CreateProjectile(desc, objType,
-                (int) StatsManager.GetAttackDamage(desc.MinDamage, desc.MaxDamage),
+                (int)StatsManager.GetAttackDamage(desc.MinDamage, desc.MaxDamage),
                 time, position, angle);
         }
 
@@ -585,7 +586,7 @@ namespace gameserver.realm.entity.player
 
             if (MP < 0)
                 MP = 0;
-            
+
             if (Owner != null)
             {
                 SendNewTick(time);

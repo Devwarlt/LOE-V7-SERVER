@@ -10,7 +10,7 @@ namespace gameserver.logic
         private _ EventBossesLordoftheLostLandsEvent = () => Behav()
             .Init("Lord of the Lost Lands",
                 new State(
-                    new DropPortalOnDeath("Ice Cave Portal",0.5),
+                    new DropPortalOnDeath("Ice Cave Portal", 0.5),
                     new State("Waiting",
                         new HpLessTransition(0.99, "Start1.0")
                         ),
@@ -100,7 +100,7 @@ namespace gameserver.logic
                         ),
                     new State("Suicide",
                         new AddCond(ConditionEffectIndex.StunImmune),
-                        new Shoot(0, 8, direction: 360/8, index: 1),
+                        new Shoot(0, 8, direction: 360 / 8, index: 1),
                         new Suicide()
                         )
                     ),
@@ -146,7 +146,7 @@ namespace gameserver.logic
                             new Chase(6, 20, 6),
                             new Wander(2)
                             ),
-                        new Shoot(10, shoots: 8, direction: 360/8, coolDown: 3000, index: 1),
+                        new Shoot(10, shoots: 8, direction: 360 / 8, coolDown: 3000, index: 1),
                         new Shoot(10, shoots: 5, shootAngle: 10, coolDown: 1500),
                         new HpLessTransition(0.25, "Low")
                         ),
@@ -155,7 +155,7 @@ namespace gameserver.logic
                             new Retreat(6, 5),
                             new Wander(2)
                             ),
-                        new Shoot(10, shoots: 8, direction: 360/8, coolDown: 3000, index: 1),
+                        new Shoot(10, shoots: 8, direction: 360 / 8, coolDown: 3000, index: 1),
                         new Shoot(10, shoots: 5, shootAngle: 10, coolDown: 1500)
                         )
                     ),

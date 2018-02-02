@@ -20,7 +20,7 @@ namespace appengine.account
                 if (status == LoginStatus.OK)
                     WriteErrorLine("Not Implemented Exception");
                 else
-                    WriteErrorLine(status.GetInfo());  
+                    WriteErrorLine(status.GetInfo());
             }
         }
     }

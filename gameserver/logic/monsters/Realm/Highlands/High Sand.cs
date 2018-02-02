@@ -6,7 +6,7 @@ namespace gameserver.logic
 {
     partial class BehaviorDb
     {
-        private _ HighlandsHighSand = () => Behav()        
+        private _ HighlandsHighSand = () => Behav()
             .Init("Flayer God",
                 new State(
                     new Spawn("Flayer", maxChildren: 2),
@@ -90,7 +90,7 @@ namespace gameserver.logic
                 new ItemLoot("Magic Potion", 0.01),
                 new TierLoot(2, ItemType.Ring, 0.04)
             )
-        
+
             .Init("Flamer",
                 new State(
                     new State("Attacking",
@@ -125,7 +125,7 @@ namespace gameserver.logic
                 new ItemLoot("Magic Potion", 0.2),
                 new TierLoot(5, ItemType.Weapon, 0.04)
             )
-        
+
             .Init("Minotaur",
                 new State(
                     new State("idle",

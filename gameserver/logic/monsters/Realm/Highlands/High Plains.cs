@@ -130,7 +130,7 @@ namespace gameserver.logic
                     ),
                 new ItemLoot("Magic Potion", 0.03)
             )
-        
+
             .Init("Shield Orc Shield",
                 new State(
                     new Prioritize(

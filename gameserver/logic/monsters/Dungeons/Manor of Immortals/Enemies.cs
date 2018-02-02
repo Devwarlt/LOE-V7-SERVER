@@ -26,7 +26,7 @@ namespace gameserver.logic
                         new TimedTransition(4000, "spooksters3")
                         ),
                     new State("spooksters3",
-                        new Heal(5, group:"Self",amount:100, coolDown: 1250),
+                        new Heal(5, group: "Self", amount: 100, coolDown: 1250),
                         new Shoot(8.4, shoots: 40, index: 1, coolDown: 2750),
                         new TimedTransition(4000, "spooksters")
                         )

@@ -24,7 +24,7 @@ namespace gameserver.networking.handlers
             client.Manager.Logic.AddPendingAction(t =>
             {
                 IContainer container = client.Player.Owner.GetEntity(message.SlotObject.ObjectId) as IContainer;
-                if(container == null)
+                if (container == null)
                     return;
                 Item item;
                 switch (message.SlotObject.SlotId)
@@ -37,7 +37,7 @@ namespace gameserver.networking.handlers
                             log4net.FatalFormat("Cheat engine detected for player {0},\nItem should be a Health Potion, but its {1}.",
                                 client.Player.Name, item.ObjectId);
                             foreach (Player player in client.Player.Owner.Players.Values)
-                                if (player.Client.Account.AccountType >= (int) common.config.accountType.TUTOR_ACCOUNT)
+                                if (player.Client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT)
                                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be a Health Potion, but its {1}.",
                                         client.Player.Name, item.ObjectId));
                             client.Disconnect(DisconnectReason.HP_POTION_CHEAT_ENGINE);
@@ -72,7 +72,8 @@ namespace gameserver.networking.handlers
                                     case 450: { client.Player.HpPotionPrice = 600; } break;
                                     case 600: break;
                                 }
-                                client.Player.Owner.Timers.Add(new WorldTimer(8000, (world, j) => {
+                                client.Player.Owner.Timers.Add(new WorldTimer(8000, (world, j) =>
+                                {
                                     switch (client.Player.HpPotionPrice)
                                     {
                                         case 5: break;
@@ -107,7 +108,7 @@ namespace gameserver.networking.handlers
                         {
                             log4net.FatalFormat("Cheat engine detected for player {0},\nItem should be a Magic Potion, but its {1}.",
                                 client.Player.Name, item.ObjectId);
-                            foreach (Player player in client.Player.Owner.Players.Values.Where(player => player.Client.Account.AccountType >= (int) common.config.accountType.TUTOR_ACCOUNT))
+                            foreach (Player player in client.Player.Owner.Players.Values.Where(player => player.Client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT))
                                 player.SendInfo($"Cheat engine detected for player {client.Player.Name},\nItem should be a Magic Potion, but its {item.ObjectId}.");
                             client.Disconnect(DisconnectReason.MP_POTION_CHEAT_ENGINE);
                             return;
@@ -141,7 +142,8 @@ namespace gameserver.networking.handlers
                                     case 450: { client.Player.MpPotionPrice = 600; } break;
                                     case 600: break;
                                 }
-                                client.Player.Owner.Timers.Add(new WorldTimer(8000, (world, j) => {
+                                client.Player.Owner.Timers.Add(new WorldTimer(8000, (world, j) =>
+                                {
                                     switch (client.Player.MpPotionPrice)
                                     {
                                         case 5: break;

@@ -25,7 +25,7 @@ namespace gameserver.logic
                         new ChangeSize(25, 250),
                         new State("nothin"),
                         new State("5",
-                            new Shoot(9 + 1/2, 1, index: 0, coolDown: 1000),
+                            new Shoot(9 + 1 / 2, 1, index: 0, coolDown: 1000),
                             new EntitiesNotExistsTransition(999, "6", "md1 Right Hand of Shaitan", "md1 Left Hand of Shaitan")
                             ),
                         new State("6",
@@ -73,7 +73,7 @@ namespace gameserver.logic
                     new State("13",
                         new AddCond(ConditionEffectIndex.Invulnerable),
                         new ReturnToSpawn(true, 0.8),
-                        new TimedTransition(2000,  "14")
+                        new TimedTransition(2000, "14")
                         ),
                     new State("14",
                         new AddCond(ConditionEffectIndex.Invulnerable),
@@ -599,7 +599,7 @@ namespace gameserver.logic
             .Init("md1 Right Burst",
                 new State(
                     new AddCond(ConditionEffectIndex.Invincible),
-                    new ChangeGroundOnDeath(new [] {"Hot Lava" }, new[] { "Earth Light"}, 6),
+                    new ChangeGroundOnDeath(new[] { "Hot Lava" }, new[] { "Earth Light" }, 6),
                     new TransformOnDeath("md1 Right Burst"),
                     new State("1"),
                     new State("2",

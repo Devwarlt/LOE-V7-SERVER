@@ -24,7 +24,7 @@ namespace gameserver.realm.entity.player
             MP -= item.MpCost;
 
             IContainer con = Owner?.GetEntity(pkt.SlotObject.ObjectId) as IContainer;
-            if(con == null)
+            if (con == null)
                 return true;
             if (CheatEngineDetectSlot(item, pkt, con)) CheatEngineDetect(item, pkt);
             if (item.IsBackpack)
@@ -42,7 +42,8 @@ namespace gameserver.realm.entity.player
             {
                 switch (eff.Effect)
                 {
-                    case ActivateEffects.BulletNova: {
+                    case ActivateEffects.BulletNova:
+                        {
                             Projectile[] prjs = new Projectile[20];
                             ProjectileDesc prjDesc = item.Projectiles[0];
                             var batch = new Message[21];
@@ -76,14 +77,16 @@ namespace gameserver.realm.entity.player
 
                             foreach (Player plr in Owner?.Players.Values.Where(p => p?.DistSqr(this) < RadiusSqr))
                                 plr?.Client.SendMessage(batch);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Shoot: Shoot(time, item, target); break;
                     case ActivateEffects.Heal:
                         {
                             List<Message> pkts = new List<Message>();
                             ActivateHealHp(this, eff.Amount, pkts);
                             Owner?.BroadcastPackets(pkts, null);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.HealNova:
                         {
                             var amountHN = eff.Amount;
@@ -93,7 +96,7 @@ namespace gameserver.realm.entity.player
                                 amountHN = (int)UseWisMod(eff.Amount, 0);
                                 rangeHN = UseWisMod(eff.Range);
                             }
-                        
+
                             List<Message> pkts = new List<Message>();
                             this?.Aoe(rangeHN, true, player => { ActivateHealHp(player as Player, amountHN, pkts); });
                             pkts.Add(new SHOWEFFECT
@@ -101,16 +104,18 @@ namespace gameserver.realm.entity.player
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
                                 Color = new ARGB(0xffffffff),
-                                PosA = new Position {X = rangeHN}
+                                PosA = new Position { X = rangeHN }
                             });
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Magic:
                         {
                             List<Message> pkts = new List<Message>();
                             ActivateHealMp(this, eff.Amount, pkts);
                             Owner?.BroadcastPackets(pkts, null);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.MagicNova:
                         {
                             List<Message> pkts = new List<Message>();
@@ -120,10 +125,11 @@ namespace gameserver.realm.entity.player
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
                                 Color = new ARGB(0xffffffff),
-                                PosA = new Position {X = eff.Range}
+                                PosA = new Position { X = eff.Range }
                             });
                             Owner?.BroadcastPackets(pkts, null);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Teleport:
                         {
                             if (Database.Names.Contains(Name))
@@ -157,7 +163,8 @@ namespace gameserver.realm.entity.player
                                     Color = new ARGB(0xFFFFFFFF)
                                 }
                             }, null);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.VampireBlast:
                         {
                             List<Message> pkts = new List<Message>();
@@ -174,7 +181,7 @@ namespace gameserver.realm.entity.player
                                 Color = new ARGB(0xFFFF0000),
                                 TargetId = Id,
                                 PosA = target,
-                                PosB = new Position {X = target.X + eff.Radius, Y = target.Y}
+                                PosB = new Position { X = target.X + eff.Radius, Y = target.Y }
                             });
 
                             int totalDmg = 0;
@@ -202,14 +209,15 @@ namespace gameserver.realm.entity.player
                                     {
                                         EffectType = EffectType.Flow,
                                         TargetId = b.Id,
-                                        PosA = new Position {X = a.X, Y = a.Y},
+                                        PosA = new Position { X = a.X, Y = a.Y },
                                         Color = new ARGB(0xffffffff)
                                     });
                                 }
                             }
 
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Trap:
                         {
                             BroadcastSync(new SHOWEFFECT
@@ -230,8 +238,10 @@ namespace gameserver.realm.entity.player
                                 trap?.Move(target.X, target.Y);
                                 world?.EnterWorld(trap);
                             }));
-                        } break;
-                    case ActivateEffects.StasisBlast: {
+                        }
+                        break;
+                    case ActivateEffects.StasisBlast:
+                        {
                             List<Message> pkts = new List<Message>();
 
                             pkts.Add(new SHOWEFFECT
@@ -239,7 +249,7 @@ namespace gameserver.realm.entity.player
                                 EffectType = EffectType.Collapse,
                                 TargetId = Id,
                                 PosA = target,
-                                PosB = new Position {X = target.X + 3, Y = target.Y},
+                                PosB = new Position { X = target.X + 3, Y = target.Y },
                                 Color = new ARGB(0xFF00D0)
                             });
                             Owner?.Aoe(target, 3, false, enemy =>
@@ -282,18 +292,20 @@ namespace gameserver.realm.entity.player
                                 }
                             });
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Decoy:
                         {
                             Decoy decoy = new Decoy(Manager, this, eff.DurationMS, StatsManager.GetSpeed());
                             decoy?.Move(X, Y);
                             Owner?.EnterWorld(decoy);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Lightning:
                         {
                             Enemy start = null;
                             double angle = Math.Atan2(target.Y - Y, target.X - X);
-                            double diff = Math.PI/3;
+                            double diff = Math.PI / 3;
                             Owner?.Aoe(target, 6, false, enemy =>
                             {
                                 if (!(enemy is Enemy)) return;
@@ -326,14 +338,14 @@ namespace gameserver.realm.entity.player
                             for (int i = 0; i < targets.Length; i++)
                             {
                                 if (targets[i] == null) break;
-                                if(targets[i].HasConditionEffect(ConditionEffectIndex.Invincible)) continue;
-                                Entity prev = i == 0 ? (Entity) this : targets[i - 1];
+                                if (targets[i].HasConditionEffect(ConditionEffectIndex.Invincible)) continue;
+                                Entity prev = i == 0 ? (Entity)this : targets[i - 1];
                                 targets[i]?.Damage(this, time, eff.TotalDamage, false);
                                 if (eff.ConditionEffect != null)
                                     targets[i].ApplyConditionEffect(new ConditionEffect
                                     {
                                         Effect = eff.ConditionEffect.Value,
-                                        DurationMS = (int) (eff.EffectDuration*1000)
+                                        DurationMS = (int)(eff.EffectDuration * 1000)
                                     });
                                 pkts.Add(new SHOWEFFECT
                                 {
@@ -345,11 +357,12 @@ namespace gameserver.realm.entity.player
                                         X = targets[i].X,
                                         Y = targets[i].Y
                                     },
-                                    PosB = new Position {X = 350}
+                                    PosB = new Position { X = 350 }
                                 });
                             }
                             BroadcastSync(pkts, p => this?.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.PoisonGrenade:
                         {
                             try
@@ -388,7 +401,8 @@ namespace gameserver.realm.entity.player
                             {
                                 log.ErrorFormat("Poisons General:\n{0}", ex);
                             }
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.RemoveNegativeConditions:
                         {
                             this?.Aoe(eff.Range / 2, true, player => ApplyConditionEffect(NegativeEffs));
@@ -397,9 +411,10 @@ namespace gameserver.realm.entity.player
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
                                 Color = new ARGB(0xffffffff),
-                                PosA = new Position {X = eff.Range/2}
+                                PosA = new Position { X = eff.Range / 2 }
                             }, p => this?.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.RemoveNegativeConditionsSelf:
                         {
                             ApplyConditionEffect(NegativeEffs);
@@ -408,9 +423,10 @@ namespace gameserver.realm.entity.player
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
                                 Color = new ARGB(0xffffffff),
-                                PosA = new Position {X = 1}
+                                PosA = new Position { X = 1 }
                             }, null);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.IncrementStat:
                         {
                             if (Database.Names.Contains(Name))
@@ -439,7 +455,8 @@ namespace gameserver.realm.entity.player
                                         .Value);
                             if (Stats[idx] > limit)
                                 Stats[idx] = limit;
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.UnlockPortal:
                         {
                             if (Database.Names.Contains(Name))
@@ -484,7 +501,8 @@ namespace gameserver.realm.entity.player
                             };
 
                             BroadcastSync(packets);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Create:
                         {
                             if (Database.Names.Contains(Name))
@@ -565,7 +583,8 @@ namespace gameserver.realm.entity.player
                             }
 
                             SaveToCharacter();
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.ShurikenAbility:
                         {
                             if (!ninjaShoot)
@@ -595,7 +614,8 @@ namespace gameserver.realm.entity.player
                                 targetlink = target;
                                 ninjaShoot = false;
                             }
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.UnlockSkin:
                         {
                             if (Database.Names.Contains(Name))
@@ -641,7 +661,8 @@ namespace gameserver.realm.entity.player
                             en?.SetPlayerOwner(this);
                             Owner?.EnterWorld(en);
                             Owner?.Timers.Add(new WorldTimer(30 * 1000, (w, t) => w.LeaveWorld(en)));
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.MysteryPortal:
                         {
                             if (Database.Names.Contains(Name))
@@ -650,7 +671,7 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            string[] dungeons = new []
+                            string[] dungeons = new[]
                             {
                                 "Pirate Cave Portal",
                                 "Forest Maze Portal",
@@ -715,14 +736,15 @@ namespace gameserver.realm.entity.player
                                     log.ErrorFormat("Couldn't despawn portal.\n{0}", ex);
                                 }
                             }));
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.GenericActivate:
                         {
                             bool targetPlayer = eff.Target.Equals("player");
                             bool centerPlayer = eff.Center.Equals("player");
                             int duration = (eff.UseWisMod) ? (int)(UseWisMod(eff.DurationSec) * 1000) : eff.DurationMS;
                             float range = (eff.UseWisMod) ? UseWisMod(eff.Range) : eff.Range;
-                        
+
                             Owner?.Aoe((eff.Center.Equals("mouse")) ? target : new Position { X = X, Y = Y }, range, targetPlayer, entity =>
                             {
                                 if (IsSpecial(entity.ObjectType)) return;
@@ -747,13 +769,14 @@ namespace gameserver.realm.entity.player
                                 PosA = centerPlayer ? new Position { X = range } : target,
                                 PosB = new Position(target.X - range, target.Y) //Its the range of the diffuse effect
                             }, p => this?.DistSqr(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.SpecialPet:
                         {
                             /// Probability:
                             /// This is a simple probability formula based in chance between
                             /// 0 to 100 when player hatch egg.
-            
+
                             if (Database.Names.Contains(Name))
                             {
                                 SendInfo("Players without valid name couldn't use this feature. Please name your character to continue.");
@@ -775,7 +798,7 @@ namespace gameserver.realm.entity.player
                                     newPetID = chance == 100 ? eff.petType : (rnd.Next(min, max) <= chance ? eff.petType : 0);
 
                                     if (PetID == 0)
-                                    {                                        
+                                    {
                                         if (newPetID != 0)
                                         {
                                             PetID = newPetID;
@@ -786,7 +809,8 @@ namespace gameserver.realm.entity.player
                                             petResolve.SetPlayerOwner(this);
                                             Owner.EnterWorld(petResolve);
                                             SendInfo(message);
-                                        } else
+                                        }
+                                        else
                                         {
                                             message = "Oh no! Your egg hatched and pet escaped.";
                                             SendHelp(message);
@@ -796,8 +820,9 @@ namespace gameserver.realm.entity.player
                                         UpdateCount++;
 
                                         return false;
-                                    } else
-                                    {                                        
+                                    }
+                                    else
+                                    {
                                         if (newPetID != 0)
                                         {
                                             PetID = newPetID;
@@ -810,7 +835,8 @@ namespace gameserver.realm.entity.player
                                             Pet.SetPlayerOwner(this);
                                             Owner.EnterWorld(Pet);
                                             SendInfo(message);
-                                        } else
+                                        }
+                                        else
                                         {
                                             message = "Oh no! Your egg hatched and pet escaped.";
                                             SendHelp(message);
@@ -821,18 +847,21 @@ namespace gameserver.realm.entity.player
 
                                         return false;
                                     }
-                                } else
+                                }
+                                else
                                 {
                                     SendInfo("You have to be in Vault to use this item.");
                                     return true;
                                 }
-                            } else
+                            }
+                            else
                             {
                                 SendInfo($"You need {minStars} star{(minStars > 1 ? "s" : "")} to use this item.");
                                 return true;
                             }
                         }
-                    case ActivateEffects.CreatePet: {
+                    case ActivateEffects.CreatePet:
+                        {
                             /// <summary>
                             /// EGG CONVERSION ALGORITHM
                             /// 
@@ -900,34 +929,39 @@ namespace gameserver.realm.entity.player
                             {
                                 case (int)EggRarity.Common:
                                     {
-                                    convertedEgg = 
-                                            chance <= success ?
-                                                common.ToList()[2] : common.ToList()[minorVariance];
-                                    } break;
+                                        convertedEgg =
+                                                chance <= success ?
+                                                    common.ToList()[2] : common.ToList()[minorVariance];
+                                    }
+                                    break;
                                 case (int)EggRarity.Uncommon:
                                     {
-                                        convertedEgg = 
+                                        convertedEgg =
                                             chance <= success ?
                                                 uncommon.ToList()[middleVariance] : uncommon.ToList()[possibleCandidate];
-                                    } break;
+                                    }
+                                    break;
                                 case (int)EggRarity.Rare:
                                     {
-                                        convertedEgg = 
+                                        convertedEgg =
                                             chance <= success ?
                                                 rare.ToList()[middleVariance] : rare.ToList()[possibleCandidate];
-                                    } break;
+                                    }
+                                    break;
                                 case (int)EggRarity.Legendary:
                                     {
-                                        convertedEgg = 
+                                        convertedEgg =
                                             chance <= success ?
                                                 legendary.ToList()[middleVariance] : legendary.ToList()[possibleCandidate];
-                                    } break;
+                                    }
+                                    break;
                                 default:
                                     {
-                                        convertedEgg = 
+                                        convertedEgg =
                                             chance <= success ?
                                                 divine.ToList()[2] : divine.ToList()[minorVariance];
-                                    } break;
+                                    }
+                                    break;
                             }
                             if (!Owner.Name.Contains("Vault"))
                             {
@@ -940,7 +974,8 @@ namespace gameserver.realm.entity.player
                             {
                                 SendHelp("Your inventory need free space to enchant this item.");
                                 return true;
-                            } else
+                            }
+                            else
                                 for (int i = 4; i < 12; i++)
                                     if (Inventory[i] == null)
                                     {
@@ -1069,7 +1104,8 @@ namespace gameserver.realm.entity.player
                                 Color = new ARGB(0xffffffff),
                                 PosA = new Position() { X = rangeSBA }
                             }, p => this?.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.ConditionEffectAura:
                         {
                             int durationCEA = eff.DurationMS;
@@ -1108,15 +1144,16 @@ namespace gameserver.realm.entity.player
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
                                 Color = new ARGB(color),
-                                PosA = new Position {X = rangeCEA}
+                                PosA = new Position { X = rangeCEA }
                             }, p => this?.Dist(p) < 25);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.ConditionEffectSelf:
                         {
                             int durationCES = eff.DurationMS;
 
                             if (eff.UseWisMod)
-                                durationCES = (int) (UseWisMod(eff.DurationSec)*1000);
+                                durationCES = (int)(UseWisMod(eff.DurationSec) * 1000);
 
                             uint color = 0xffffffff;
 
@@ -1141,9 +1178,10 @@ namespace gameserver.realm.entity.player
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
                                 Color = new ARGB(color),
-                                PosA = new Position {X = 2F}
+                                PosA = new Position { X = 2F }
                             }, null);
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.AccountLifetime:
                         {
                             if (Database.Names.Contains(Name))
@@ -1205,7 +1243,8 @@ namespace gameserver.realm.entity.player
                             _reconnect.Port = Settings.GAMESERVER.PORT;
 
                             _world.Timers.Add(new WorldTimer(2000, (w, t) => Client.Reconnect(_reconnect)));
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.Gold:
                         {
                             if (Database.Names.Contains(Name))
@@ -1213,7 +1252,8 @@ namespace gameserver.realm.entity.player
                             Credits += eff.Amount;
                             Manager.Database.UpdateCredit(Client.Account, eff.Amount);
                             UpdateCount++;
-                        } break;
+                        }
+                        break;
                     case ActivateEffects.PermaPet:
                     case ActivateEffects.PetSkin:
                     case ActivateEffects.Unlock:
@@ -1279,21 +1319,21 @@ namespace gameserver.realm.entity.player
                 player.MP = newMp;
                 player.UpdateCount++;
             }
-            
+
             return false;
         }
 
         private void Shoot(RealmTime time, Item item, Position target)
         {
-            double arcGap = item.ArcGap*Math.PI/180;
-            double startAngle = Math.Atan2(target.Y - Y, target.X - X) - (item.NumProjectiles - 1)/2*arcGap;
+            double arcGap = item.ArcGap * Math.PI / 180;
+            double startAngle = Math.Atan2(target.Y - Y, target.X - X) - (item.NumProjectiles - 1) / 2 * arcGap;
             ProjectileDesc prjDesc = item.Projectiles[0]; //Assume only one
 
             for (int i = 0; i < item.NumProjectiles; i++)
             {
                 Projectile proj = CreateProjectile(prjDesc, item.ObjectType,
-                    (int) StatsManager.GetAttackDamage(prjDesc.MinDamage, prjDesc.MaxDamage),
-                    time.TotalElapsedMs, new Position {X = X, Y = Y}, (float) (startAngle + arcGap*i));
+                    (int)StatsManager.GetAttackDamage(prjDesc.MinDamage, prjDesc.MaxDamage),
+                    time.TotalElapsedMs, new Position { X = X, Y = Y }, (float)(startAngle + arcGap * i));
                 Owner?.EnterWorld(proj);
                 FameCounter.Shoot(proj);
             }
@@ -1315,8 +1355,8 @@ namespace gameserver.realm.entity.player
                             DurationMS = (int) eff.EffectDuration
                         }
                     });
-                int remainingDmg = (int) StatsManager.GetDefenseDamage(enemy, eff.TotalDamage, enemy.ObjectDesc.Defense);
-                int perDmg = remainingDmg*1000/eff.DurationMS;
+                int remainingDmg = (int)StatsManager.GetDefenseDamage(enemy, eff.TotalDamage, enemy.ObjectDesc.Defense);
+                int perDmg = remainingDmg * 1000 / eff.DurationMS;
                 WorldTimer tmr = null;
                 int x = 0;
                 tmr = new WorldTimer(100, (w, t) =>
@@ -1329,7 +1369,7 @@ namespace gameserver.realm.entity.player
                         Color = new ARGB(0xffddff00)
                     }, null);
 
-                    if (x%10 == 0)
+                    if (x % 10 == 0)
                     {
                         int thisDmg;
                         if (remainingDmg < perDmg) thisDmg = remainingDmg;
@@ -1449,7 +1489,7 @@ namespace gameserver.realm.entity.player
         {
             return true;
         }
-        
+
         //TODO: needs implementation
         private bool Exchange()
         {
@@ -1461,7 +1501,7 @@ namespace gameserver.realm.entity.player
         {
             return true;
         }
-        
+
         //TODO: needs implementation
         private bool Unlock()
         {

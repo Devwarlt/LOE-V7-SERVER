@@ -40,7 +40,7 @@ namespace gameserver.realm.world
         public override void Tick(RealmTime time)
         {
             base.Tick(time);
-            
+
             UpdatePortals();
 
             if (validate)

@@ -58,8 +58,8 @@ namespace gameserver.logic
                             new Wander(15)
                             ),
                         new Shoot(10, shoots: 1, index: 2, coolDown: new Cooldown(2000, 500)),
-                        new Shoot(20, shoots: 5, direction: 360/5, index: 3, coolDown: 2000),
-                        new Shoot(20, shoots: 5, direction: 360/5, index: 3, coolDown: 2000, coolDownOffset: 500),
+                        new Shoot(20, shoots: 5, direction: 360 / 5, index: 3, coolDown: 2000),
+                        new Shoot(20, shoots: 5, direction: 360 / 5, index: 3, coolDown: 2000, coolDownOffset: 500),
                         new TimedTransition(15000, "Spawn Segment")
                         )
                     ),
@@ -389,7 +389,7 @@ namespace gameserver.logic
                         new TimedTransition(2000, "Explode")
                         ),
                     new State("Explode",
-                        new Shoot(0, shoots: 14, direction: 360/14, coolDown: 5000),
+                        new Shoot(0, shoots: 14, direction: 360 / 14, coolDown: 5000),
                         new Suicide()
                         )
                     )
@@ -475,4 +475,5 @@ namespace gameserver.logic
                     )
             )
         ;
-    }}
+    }
+}

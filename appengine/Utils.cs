@@ -2,8 +2,8 @@
 using System.Linq;
 
 namespace appengine
-{    
-    public class DateProvider: IFormatProvider, ICustomFormatter
+{
+    public class DateProvider : IFormatProvider, ICustomFormatter
     {
         public object GetFormat(Type formatType)
         {
@@ -17,11 +17,11 @@ namespace appengine
         {
             if (!(arg is DateTime)) throw new NotSupportedException();
 
-            DateTime dt = (DateTime) arg;
+            DateTime dt = (DateTime)arg;
 
             string suffix, _suffix;
 
-            if (new[] {11, 12, 13}.Contains(dt.Day))
+            if (new[] { 11, 12, 13 }.Contains(dt.Day))
                 suffix = "th";
             else if (dt.Day % 10 == 1)
                 suffix = "st";

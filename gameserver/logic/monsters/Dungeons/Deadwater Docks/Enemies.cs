@@ -4,7 +4,7 @@ using gameserver.logic.transitions;
 
 namespace gameserver.logic
 {
-	partial class BehaviorDb
+    partial class BehaviorDb
     {
         private _ DeadwaterDocks = () => Behav()
               .Init("Deadwater Docks Parrot",
@@ -121,7 +121,7 @@ namespace gameserver.logic
                         new TimedTransition(4500, "cannonballs")
                         ),
                     new State("cannonballs",
-                        new Circle(0.32, 8,1000),
+                        new Circle(0.32, 8, 1000),
                         new Shoot(10, shoots: 7, shootAngle: 30, index: 1, coolDown: 2150),
                         new TimedTransition(5000, "coinphase")
                         )

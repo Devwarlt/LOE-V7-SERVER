@@ -21,7 +21,7 @@ namespace gameserver.logic.behaviors
             Cooldown coolDown = new Cooldown()
             )
         {
-            this.range = (float) range;
+            this.range = (float)range;
             this.amount = amount;
             this.coolDown = coolDown.Normalize();
         }
@@ -33,7 +33,7 @@ namespace gameserver.logic.behaviors
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
-            int cool = (int) state;
+            int cool = (int)state;
 
             if (cool <= 0)
             {
@@ -60,7 +60,7 @@ namespace gameserver.logic.behaviors
                         {
                             EffectType = EffectType.Line,
                             TargetId = host.Id,
-                            PosA = new Position {X = entity.X, Y = entity.Y},
+                            PosA = new Position { X = entity.X, Y = entity.Y },
                             Color = new ARGB(0xffffffff)
                         }, null);
                         entity.Owner.BroadcastPacket(new NOTIFICATION

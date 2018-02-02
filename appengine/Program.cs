@@ -39,26 +39,26 @@ namespace appengine
             message = null;
 
             message = "Loading...";
-            
+
             //Monitor.Write("ping");
             Console.Title = message;
-            
+
             XmlConfigurator.ConfigureAndWatch(new FileInfo("_appengine.config"));
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Thread.CurrentThread.Name = "Entry";
-            
+
             using (Database = new Database())
             {
                 GameData = new EmbeddedData();
-                
+
                 autoRestart = Settings.NETWORKING.RESTART.ENABLE_RESTART;
-                
+
                 InstanceId = Guid.NewGuid().ToString();
-                
+
                 var port = Settings.IS_PRODUCTION ? Settings.APPENGINE.PRODUCTION_PORT : Settings.APPENGINE.TESTING_PORT;
 
-                while(!PortCheck(port))
+                while (!PortCheck(port))
                     ForceShutdown(port);
 
                 listener = new HttpListener();
@@ -67,7 +67,7 @@ namespace appengine
 
                 listener.BeginGetContext(ListenerCallback, null);
                 Console.CancelKeyPress += (sender, e) => e.Cancel = true;
-            
+
                 if (autoRestart)
                     restart();
 
@@ -76,9 +76,9 @@ namespace appengine
                 ISManager manager = new ISManager();
                 manager.Run();
 
-                while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+                while (Console.ReadKey(true).Key != ConsoleKey.Escape) ;
 
-                while (currentRequests.Count > 0);
+                while (currentRequests.Count > 0) ;
 
                 manager.Dispose();
                 listener?.Stop();
@@ -94,7 +94,8 @@ namespace appengine
 
         public static void restart()
         {
-            Thread parallel_thread = new Thread(() => {
+            Thread parallel_thread = new Thread(() =>
+            {
                 Thread.Sleep(ToMiliseconds(Settings.NETWORKING.RESTART.RESTART_DELAY_MINUTES));
                 int i = 5;
                 do
@@ -120,7 +121,8 @@ namespace appengine
                 var context = listener.EndGetContext(ar);
                 listener.BeginGetContext(ListenerCallback, null);
                 ProcessRequest(context);
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Logger.Error(e);
             }
@@ -139,7 +141,7 @@ namespace appengine
                     context.Response.Close();
                     return;
                 }
-                
+
                 if (RequestURL.Contains("sfx") || RequestURL.Contains("music"))
                 {
                     new Sfx().HandleRequest(context);
@@ -169,7 +171,8 @@ namespace appengine
                     else
                         (handler as RequestHandler).HandleRequest(context);
                     Logger.Info($"[{(dns == "::1" ? "localhost" : $"{dns}")}] Request\t->\t{RequestURL}");
-                } else
+                }
+                else
                     Logger.Warn($"[{(dns == "::1" ? "localhost" : $"{dns}")}] Request\t->\t{RequestURL}");
             }
             catch (Exception e)
@@ -194,7 +197,7 @@ namespace appengine
                 Console.WriteLine($"[{DateTime.Now.ToString().Split(' ')[1]}] [AppEngine] Port {port} is occupied, restarting in {i} second{(i <= 1 ? "" : "s")}...");
                 Thread.Sleep(1000);
                 i--;
-            } while(i != 0);
+            } while (i != 0);
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("AppEngine is restarting.");
