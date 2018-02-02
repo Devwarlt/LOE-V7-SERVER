@@ -42,16 +42,16 @@ namespace gameserver.realm
             manager.InterServer.AddHandler<Message>(ISManager.CHAT, HandleChat);
         }
 
-        public static Dictionary<string, List<Tuple<DateTime, string>>> ChatDataCache = new Dictionary<string, List<Tuple<DateTime, string>>>();
+        public static Dictionary<string, Tuple<DateTime, string>> ChatDataCache = new Dictionary<string, Tuple<DateTime, string>>(); // store only latest player message
 
         public void Say(Player player, string chatText)
         {
             if (!player.NameChosen)
                 return;
             if (!ChatDataCache.ContainsKey(player.Name))
-                ChatDataCache.Add(player.Name, new List<Tuple<DateTime, string>> { Tuple.Create(DateTime.Now, chatText) });
+                ChatDataCache.Add(player.Name, Tuple.Create(DateTime.Now, chatText));
             else
-                ChatDataCache[player.Name].Add(Tuple.Create(DateTime.Now, chatText));
+                ChatDataCache[player.Name] = Tuple.Create(DateTime.Now, chatText);
             ChatColor color = new ChatColor(player.Stars, player.AccountType);
             TEXT _text = new TEXT();
             _text.Name = player.Name;

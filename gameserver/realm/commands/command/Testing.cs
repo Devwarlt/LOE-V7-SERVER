@@ -25,15 +25,13 @@ namespace gameserver.realm.commands
                     {
                         // returns only your chat data
                         if (cmd == "my")
-                            foreach (Tuple<DateTime, string> messageInfo in ChatManager.ChatDataCache[player.Name])
-                                player.SendInfo($"[ChatData] [{messageInfo.Item1}] <{player.Name}> {messageInfo.Item2}");
+                            player.SendInfo($"[ChatData] [{ChatManager.ChatDataCache[player.Name].Item1}] <{player.Name}> {ChatManager.ChatDataCache[player.Name].Item2}");
 
                         // can cause lag!
                         // returns all chat data
                         if (cmd == "all")
-                            foreach (KeyValuePair<string, List<Tuple<DateTime, string>>> messageInfos in ChatManager.ChatDataCache)
-                                foreach (Tuple<DateTime, string> messageInfo in ChatManager.ChatDataCache[messageInfos.Key])
-                                    player.SendInfo($"[ChatData] [{messageInfo.Item1}] <{messageInfos.Key}> {messageInfo.Item2}");
+                            foreach (KeyValuePair<string, Tuple<DateTime, string>> messageInfos in ChatManager.ChatDataCache)
+                                player.SendInfo($"[ChatData] [{ChatManager.ChatDataCache[messageInfos.Key].Item1}] <{messageInfos.Key}> {ChatManager.ChatDataCache[messageInfos.Key].Item2}");
                     }
                     break;
                 default:

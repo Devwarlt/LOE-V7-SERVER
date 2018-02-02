@@ -139,7 +139,7 @@ namespace gameserver.logic.behaviors
             )
         {
             if (_NPC == null) return;
-            Parallel.ForEach(npc.GetNearestEntities(_range * _range, null), entity =>
+            Parallel.ForEach(npc.GetNearestEntities(_range * 2, null), entity =>
             {
                 Player player;
                 if (entity is Player)
@@ -148,31 +148,44 @@ namespace gameserver.logic.behaviors
                     return;
                 try
                 {
+                    if (npc.Dist(player) > _range && _NPC.ReturnPlayersCache().Contains(player.Name))
+                    {
+                        _NPC.RemovePlayer(player); // Removing player into NPC's players cache.
+                        _NPC.Leave(player, false); // Player sent a valid leave message (polite: false), processing NPC reply.
+                        ChatManager.ChatDataCache.Remove(player.Name); // Removing player from chat data cache.
+                        return;
+                    }
                     if (ChatManager.ChatDataCache.ContainsKey(player.Name))
                     {
-                        foreach (Tuple<DateTime, string> messageInfo in ChatManager.ChatDataCache[player.Name])
+                        //Chat data cache contains player
+                        Tuple<DateTime, string> messageInfo = ChatManager.ChatDataCache[player.Name];
+                        if (_NPC.ReturnPlayersCache().Contains(player.Name))
                         {
-                            if (_NPC.ReturnPlayersCache().Contains(player.Name))
+                            // NPC's players cache contains player.
+                            if (npc.Dist(player) <= _range)
                             {
-                                if (messageInfo.Item1.AddMilliseconds(-_delay) <= _now && _playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()) && npc.Dist(player) <= _range)
+                                if (_playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()))
                                 {
-                                    _NPC.NoRepeat(player); // if player keep repeating welcome message >.>
-                                    ChatManager.ChatDataCache[player.Name].Remove(messageInfo); // auto clean chat data cache
+                                    _NPC.NoRepeat(player); // Duplicated NPC Welcome message! Sending non-repeat message to player
+                                    ChatManager.ChatDataCache.Remove(player.Name); // Removing player from chat data cache.
+                                    return;
                                 }
-                                if (npc.Dist(player) > _range || _playerLeaveMessages.Contains(messageInfo.Item2.ToLower()))
+                                if (_playerLeaveMessages.Contains(messageInfo.Item2.ToLower()) && messageInfo.Item1 >= _now.AddMilliseconds(-_delay) && messageInfo.Item1 <= _now.AddMilliseconds(_delay))
                                 {
-                                    _NPC.RemovePlayer(player);
-                                    _NPC.Leave(player, !(npc.Dist(player) > _range));
+                                    _NPC.RemovePlayer(player); // Removing player into NPC's players cache.
+                                    _NPC.Leave(player, true); // Player sent a valid leave message (polite: true), processing NPC reply.
+                                    ChatManager.ChatDataCache.Remove(player.Name); // Removing player from chat data cache.
+                                    return;
                                 }
                             }
-                            else
+                        }
+                        else
+                        {
+                            if (_playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()) && npc.Dist(player) <= _range && messageInfo.Item1 >= _now.AddMilliseconds(-_delay) && messageInfo.Item1 <= _now.AddMilliseconds(_delay))
                             {
-                                if (messageInfo.Item1.AddMilliseconds(-_delay) <= _now && _playerWelcomeMessages.Contains(messageInfo.Item2.ToLower()) && npc.Dist(player) <= _range)
-                                {
-                                    _NPC.Welcome(player);
-                                    _NPC.AddPlayer(player);
-                                    ChatManager.ChatDataCache[player.Name].Remove(messageInfo); // auto clean chat data cache
-                                }
+                                _NPC.AddPlayer(player); // Adding player into NPC's players cache.
+                                _NPC.Welcome(player); // Processing Welcome message to player target.
+                                ChatManager.ChatDataCache.Remove(player.Name); // Removing player from chat data cache.
                             }
                         }
                     }
