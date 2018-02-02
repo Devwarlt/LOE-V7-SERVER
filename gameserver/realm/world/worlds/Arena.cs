@@ -39,7 +39,7 @@ namespace gameserver.realm.world
 
             if (Players.Count == 0)
                 return;
-            
+
             CheckOutOfBounds();
 
             InitArena(time);
@@ -122,7 +122,8 @@ namespace gameserver.realm.world
                 }
 
                 entities.Clear();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 log4net.Error($"Arena error found! Error: {e}");
             }

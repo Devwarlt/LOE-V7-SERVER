@@ -22,7 +22,7 @@ namespace terrain
         public TerrainDisplay(TerrainTile[,] tiles)
         {
             mode = Mode.Erase;
-            tilesBak = (TerrainTile[,]) tiles.Clone();
+            tilesBak = (TerrainTile[,])tiles.Clone();
             this.tiles = tiles;
             ClientSize = new Size(800, 800);
             BackColor = Color.Black;
@@ -64,7 +64,7 @@ namespace terrain
         private void pic_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             tiles[e.X, e.Y].Region = TileRegion.Spawn;
-            bmp.SetPixel(e.X, e.Y, Color.FromArgb((int) GetColor(tiles[e.X, e.Y])));
+            bmp.SetPixel(e.X, e.Y, Color.FromArgb((int)GetColor(tiles[e.X, e.Y])));
             pic.Invalidate();
             pic2.Invalidate();
         }
@@ -77,7 +77,7 @@ namespace terrain
                 for (int y = -10; y <= 10; y++)
                     for (int x = -10; x <= 10; x++)
                     {
-                        if (x*x + y*y <= 10*10)
+                        if (x * x + y * y <= 10 * 10)
                         {
                             tiles[center.X + x, center.Y + y].Terrain = TerrainType.None;
                             tiles[center.X + x, center.Y + y].Elevation = 0;
@@ -87,7 +87,7 @@ namespace terrain
                             tiles[center.X + x, center.Y + y].Region = TileRegion.None;
                             tiles[center.X + x, center.Y + y].Name = "";
                             bmp.SetPixel(center.X + x, center.Y + y, Color.FromArgb(
-                                (int) GetColor(tiles[center.X + x, center.Y + y])));
+                                (int)GetColor(tiles[center.X + x, center.Y + y])));
                         }
                     }
                 pic.Invalidate();
@@ -99,7 +99,7 @@ namespace terrain
                 Dictionary<TerrainTile, int> dict = new Dictionary<TerrainTile, int>();
                 for (int y = -10; y <= 10; y++)
                     for (int x = -10; x <= 10; x++)
-                        if (x*x + y*y <= 10*10)
+                        if (x * x + y * y <= 10 * 10)
                         {
                             TerrainTile t = tiles[center.X + x, center.Y + y];
                             if (dict.ContainsKey(t))
@@ -111,11 +111,11 @@ namespace terrain
                 TerrainTile targetTile = dict.First(t => t.Value == maxOccurance).Key;
                 for (int y = -10; y <= 10; y++)
                     for (int x = -10; x <= 10; x++)
-                        if (x*x + y*y <= 10*10)
+                        if (x * x + y * y <= 10 * 10)
                         {
                             tiles[center.X + x, center.Y + y] = targetTile;
                             bmp.SetPixel(center.X + x, center.Y + y, Color.FromArgb(
-                                (int) GetColor(tiles[center.X + x, center.Y + y])));
+                                (int)GetColor(tiles[center.X + x, center.Y + y])));
                         }
                 pic.Invalidate();
                 pic2.Invalidate();
@@ -160,7 +160,7 @@ namespace terrain
             }
             else if (e.KeyCode == Keys.R)
             {
-                tiles = (TerrainTile[,]) tilesBak.Clone();
+                tiles = (TerrainTile[,])tilesBak.Clone();
                 bmp = RenderColorBmp(tiles);
                 pic.Image = pic2.Image = bmp;
             }

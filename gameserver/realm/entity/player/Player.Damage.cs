@@ -23,7 +23,7 @@ namespace gameserver.realm.entity.player
                 {
                     if (HasConditionEffect(ConditionEffectIndex.Paused))
                         return;
-                
+
                     MP -= dmg;
 
                     UpdateCount++;
@@ -36,11 +36,13 @@ namespace gameserver.realm.entity.player
                     }, null);
 
                     SaveToCharacter();
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     log.Error("Error while processing mana drain playerDamage: ", e);
                 }
-            } else
+            }
+            else
             {
                 try
                 {

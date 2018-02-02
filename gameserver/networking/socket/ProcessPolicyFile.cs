@@ -12,8 +12,8 @@ namespace gameserver.networking
             NetworkStream s = new NetworkStream(skt);
             NWriter wtr = new NWriter(s);
             wtr.WriteNullTerminatedString(Settings.IS_PRODUCTION ? Settings.NETWORKING.INTERNAL.SELECTED_DOMAINS : Settings.NETWORKING.INTERNAL.LOCALHOST_DOMAINS);
-            wtr.Write((byte) '\r');
-            wtr.Write((byte) '\n');
+            wtr.Write((byte)'\r');
+            wtr.Write((byte)'\n');
             parent.Disconnect(DisconnectReason.PROCESS_POLICY_FILE);
         }
     }

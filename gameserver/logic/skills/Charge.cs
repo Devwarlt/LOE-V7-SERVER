@@ -20,14 +20,14 @@ namespace gameserver.logic.behaviors
             Cooldown coolDown = new Cooldown()
             )
         {
-            this.speed = (float) speed / 10;
+            this.speed = (float)speed / 10;
             this.range = range;
             this.coolDown = coolDown.Normalize(4000);
         }
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
-            ChargeState s = (state == null) ? new ChargeState() : (ChargeState) state;
+            ChargeState s = (state == null) ? new ChargeState() : (ChargeState)state;
 
             Status = CycleStatus.NotStarted;
 

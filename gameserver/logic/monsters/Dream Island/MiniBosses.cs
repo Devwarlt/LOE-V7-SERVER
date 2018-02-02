@@ -97,7 +97,7 @@
 //                    )
 //                )
 //            )
-        
+
 //            /// Berunir the Hidden Murderer
 //            /// index 0: Silencer Roar (dmg: 75)
 //            /// index 1: Silencer Slash (dmg 150)
@@ -196,7 +196,7 @@
 //                    )
 //                )
 //            )
-        
+
 //            /// Haiguz the Ancient Paladin
 //            /// index 0: Eyeguard Slash (dmg: 185-235)
 //            /// index 1: Eyeguard Megapunch (dmg: 600)
@@ -270,7 +270,7 @@
 //                    )
 //                )
 //            )
-        
+
 //            /// Chainblaze the Elder Prisoner
 //            /// index 0: Critical Slash (dmg: 150-215)
 //            /// index 1: Acid (dmg: 100)
@@ -281,7 +281,7 @@
 
 //                )
 //            )
-        
+
 //            /// Shadownzur the Unrealized Demon
 //            /// index 0: Critical Slash (dmg: 150-215)
 //            /// index 1: Acid (dmg: 100)

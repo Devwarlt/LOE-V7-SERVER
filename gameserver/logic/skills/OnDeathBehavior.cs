@@ -9,7 +9,7 @@ namespace gameserver.logic.behaviors
     public class OnDeathBehavior : Behavior
     {
         private readonly Behavior behavior;
-        
+
         public OnDeathBehavior(
             Behavior behavior
             )

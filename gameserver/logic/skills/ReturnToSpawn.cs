@@ -20,7 +20,7 @@ namespace gameserver.logic.behaviors
             double speed = 2
             )
         {
-            this.speed = (float) speed / 10;
+            this.speed = (float)speed / 10;
             this.once = once;
         }
 

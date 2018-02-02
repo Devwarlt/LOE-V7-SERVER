@@ -10,7 +10,7 @@ namespace gameserver.logic
             .Init("Septavius the Ghost God",
                 new State(
                     new RealmPortalDrop(),
-					new State(
+                    new State(
                         new PlayerWithinTransition(8, "transition1")
                         ),
                     new State(
@@ -57,7 +57,7 @@ namespace gameserver.logic
                         new TimedTransition(10000, "transition4")
                         ),
                     new State("spawn",
-						new Wander(1),
+                        new Wander(1),
                         new Spawn("Ghost Mage of Septavius", 2, 2),
                         new Spawn("Ghost Rogue of Septavius", 2, 2),
                         new Spawn("Ghost Warrior of Septavius", 2, 2),
@@ -73,11 +73,11 @@ namespace gameserver.logic
                 ),
                 new Threshold(0.1,
                     new ItemLoot("Doom Bow", 0.012),
-					  new ItemLoot("Interregnum", 0.001),
-						new ItemLoot("Edictum Praetoris", 0.001),
-						  new ItemLoot("Memento Mori", 0.001),
-							new ItemLoot("Toga Picta", 0.001),
-					new ItemLoot("Wine Cellar Incantation", 0.005),
+                      new ItemLoot("Interregnum", 0.001),
+                        new ItemLoot("Edictum Praetoris", 0.001),
+                          new ItemLoot("Memento Mori", 0.001),
+                            new ItemLoot("Toga Picta", 0.001),
+                    new ItemLoot("Wine Cellar Incantation", 0.005),
                     new TierLoot(3, ItemType.Ring, 0.2),
                     new TierLoot(4, ItemType.Ring, 0.1),
                     new TierLoot(7, ItemType.Weapon, 0.2),
@@ -157,7 +157,7 @@ namespace gameserver.logic
                     new Chase(0.75, range: 1),
                     new Wander(0.25),
                     new Shoot(8, 1, coolDown: 1000),
-                    new Heal(5,75, "Lair Ghosts", 5000)
+                    new Heal(5, 75, "Lair Ghosts", 5000)
                     ),
                 new ItemLoot("Health Potion", 0.25),
                 new ItemLoot("Magic Potion", 0.25)

@@ -6,8 +6,8 @@ namespace gameserver.logic
 {
     partial class BehaviorDb
     {
-		private const float fixedAngle_RingAttack2 = 22.5f;
-		private _ EForestMaze = () => Behav()
+        private const float fixedAngle_RingAttack2 = 22.5f;
+        private _ EForestMaze = () => Behav()
         .Init("Murderous Megamoth",
              new State(
                     new DropPortalOnDeath("Glowing Realm Portal", 100, PortalDespawnTimeSec: 360),
@@ -192,5 +192,5 @@ namespace gameserver.logic
                     )
                 )
             );
-                 }
+    }
 }

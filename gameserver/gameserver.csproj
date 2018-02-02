@@ -103,8 +103,8 @@
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1-beta3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -196,6 +196,7 @@
     <Compile Include="logic\skills\HealGroup.cs" />
     <Compile Include="logic\skills\ManaDrainBomb.cs" />
     <Compile Include="logic\skills\MoveLine.cs" />
+    <Compile Include="logic\skills\NPCs\engine\NPCEngine.cs" />
     <Compile Include="logic\skills\Pets\PetFollow.cs" />
     <Compile Include="logic\skills\Pets\PetHPHealing.cs" />
     <Compile Include="logic\skills\Pets\PetMPHealing.cs" />
@@ -401,11 +402,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="realm\ChatColor.cs" />
     <Compile Include="realm\ChatManager.cs" />
+    <Compile Include="realm\commands\command\Testing.cs" />
+    <Compile Include="realm\entity\npc\NPC.Dictionary.cs" />
+    <Compile Include="realm\entity\npc\NPC.Init.cs" />
+    <Compile Include="realm\entity\npc\npcs\NPC.Gazer.cs" />
     <Compile Include="realm\world\Collision.cs" />
-    <Compile Include="realm\commands\AdminCommands.cs" />
+    <Compile Include="realm\commands\command\AdminCommands.cs" />
     <Compile Include="realm\commands\Command.cs" />
-    <Compile Include="realm\commands\gazer\gazer.cs" />
-    <Compile Include="realm\commands\WorldCommand.cs" />
+    <Compile Include="realm\commands\command\WorldCommand.cs" />
     <Compile Include="realm\entity\character\Character.Init.cs" />
     <Compile Include="realm\entity\gameobject\GameObject.ConnectedObject.cs" />
     <Compile Include="realm\entity\gameobject\GameObject.Container.cs" />

@@ -260,8 +260,8 @@ namespace terrain
             int min = dat.Item1;
             int max = dat.Item2;
             int range = max - min;
-            int s = range/dat.Item3;
-            return min + rand.Next(0, s + 1)*dat.Item3;
+            int s = range / dat.Item3;
+            return min + rand.Next(0, s + 1) * dat.Item3;
         }
     }
 }

@@ -68,7 +68,7 @@ namespace gameserver.logic
                     ),
                 new ItemLoot("Health Potion", 0.04)
             )
-        
+
             .Init("Dwarf Mage",
                 new State(
                     new State("Default",
@@ -122,7 +122,7 @@ namespace gameserver.logic
                     ),
                 new ItemLoot("Magic Potion", 0.03)
             )
-        
+
             .Init("Dwarf Axebearer",
                 new State(
                     new Shoot(3.4),
@@ -150,7 +150,7 @@ namespace gameserver.logic
                     ),
                 new ItemLoot("Health Potion", 0.04)
             )
-        
+
             .Init("Werelion",
                 new State(
                     new DropPortalOnDeath("Spider Den Portal", 0.1),
@@ -304,7 +304,7 @@ namespace gameserver.logic
                 new TierLoot(6, ItemType.Armor, 0.015),
                 new ItemLoot("Health Potion", 0.03)
             )
-        
+
             .Init("Horned Drake",
                 new State(
                     new Spawn("Drake Baby", maxChildren: 1, initialSpawn: 1, coolDown: 50000),

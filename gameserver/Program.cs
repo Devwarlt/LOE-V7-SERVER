@@ -12,7 +12,6 @@ using gameserver.realm;
 using common.config;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using gameserver.realm.commands.gazer;
 using static gameserver.networking.Client;
 
 #endregion
@@ -28,7 +27,7 @@ namespace gameserver
 
         public static int Usage { get; private set; }
         public static bool autoRestart { get; private set; }
-        
+
         public static ChatManager chat { get; set; }
 
         public static RealmManager manager;
@@ -82,7 +81,7 @@ namespace gameserver
                     Shutdown?.Set();
                 };
 
-                while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+                while (Console.ReadKey(true).Key != ConsoleKey.Escape) ;
 
                 Logger.Info("Terminating...");
                 server?.Stop();
@@ -140,8 +139,9 @@ namespace gameserver
                     try
                     {
                         foreach (Client j in manager.Clients.Values)
-                            chat.Tell(j?.Player, Gazer_Dictionary.BOT_NAME, ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", j?.Player.Name));
-                    } catch (Exception ex)
+                            chat.Tell(j?.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", j?.Player.Name));
+                    }
+                    catch (Exception ex)
                     {
                         ForceShutdown(ex);
                     }
@@ -153,8 +153,9 @@ namespace gameserver
                 try
                 {
                     foreach (Client k in manager.Clients.Values)
-                        chat.Tell(k?.Player, Gazer_Dictionary.BOT_NAME, message);
-                } catch (Exception ex)
+                        chat.Tell(k?.Player, "(!) Notification (!)", message);
+                }
+                catch (Exception ex)
                 {
                     ForceShutdown(ex);
                 }
@@ -163,7 +164,8 @@ namespace gameserver
                 {
                     foreach (Client clients in manager.Clients.Values)
                         clients?.Disconnect(DisconnectReason.RESTART);
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     ForceShutdown(ex);
                 }

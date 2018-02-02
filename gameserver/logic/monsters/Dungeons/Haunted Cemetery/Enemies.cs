@@ -154,9 +154,9 @@ namespace gameserver.logic
                 new State("7",
                     new SetAltTexture(0),
                     new EntityOrder(100, "Arena South Gate Spawner", "Stage 1"),
-					new EntityOrder(100, "Arena West Gate Spawner", "Stage 1"),
-					new EntityOrder(100, "Arena East Gate Spawner", "Stage 1"),
-					new EntityOrder(100, "Arena North Gate Spawner", "Stage 1"),
+                    new EntityOrder(100, "Arena West Gate Spawner", "Stage 1"),
+                    new EntityOrder(100, "Arena East Gate Spawner", "Stage 1"),
+                    new EntityOrder(100, "Arena North Gate Spawner", "Stage 1"),
                     new EntityExistsTransition("Arena Skeleton", 999, "Check 1")
                     ),
                 new State("Check 1",
@@ -241,9 +241,9 @@ namespace gameserver.logic
                 new State("27",
                     new SetAltTexture(0),
                     new EntityOrder(100, "Arena South Gate Spawner", "Stage 2"),
-					new EntityOrder(100, "Arena West Gate Spawner", "Stage 2"),
-				   new EntityOrder(100, "Arena East Gate Spawner", "Stage 2"),
-					new EntityOrder(100, "Arena North Gate Spawner", "Stage 2"),
+                    new EntityOrder(100, "Arena West Gate Spawner", "Stage 2"),
+                   new EntityOrder(100, "Arena East Gate Spawner", "Stage 2"),
+                    new EntityOrder(100, "Arena North Gate Spawner", "Stage 2"),
                     new EntityExistsTransition("Arena Skeleton", 999, "Check 2")
                     ),
                 new State("Check 2",
@@ -327,8 +327,8 @@ namespace gameserver.logic
                     ),
                 new State("47",
                     new SetAltTexture(0),
-					new EntityOrder(100, "Arena South Gate Spawner", "Stage 3"),
-					new EntityOrder(100, "Arena West Gate Spawner", "Stage 3"),
+                    new EntityOrder(100, "Arena South Gate Spawner", "Stage 3"),
+                    new EntityOrder(100, "Arena West Gate Spawner", "Stage 3"),
                     new EntityOrder(100, "Arena East Gate Spawner", "Stage 3"),
                     new EntityOrder(100, "Arena North Gate Spawner", "Stage 3"),
                     new EntityExistsTransition("Arena Skeleton", 999, "Check 3")
@@ -1870,9 +1870,9 @@ namespace gameserver.logic
                     new Retreat(0.9, 7),
                     new Chase(0.4, 10, 4)
                     ),
-                new Heal(100, amount:750, coolDown: 5000),
+                new Heal(100, amount: 750, coolDown: 5000),
 
-				new Shoot(10, 1, index: 0, coolDown: 330)
+                new Shoot(10, 1, index: 0, coolDown: 330)
                 )
             )
         .Init("Arena Risen Archer",

@@ -6,7 +6,7 @@ namespace gameserver.logic
 {
     partial class BehaviorDb
     {
-        private _ MountainsSpecial = () => Behav()        
+        private _ MountainsSpecial = () => Behav()
             .Init("Arena Horseman Anchor",
                 new State(
                     new AddCond(ConditionEffectIndex.Invincible)

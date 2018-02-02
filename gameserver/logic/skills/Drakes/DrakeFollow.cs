@@ -54,7 +54,7 @@ namespace gameserver.logic.behaviors.Drakes
                     else if (vect.Length > 1)
                     {
                         float dist = host.EntitySpeed(player.Stats[4] / 10, time);
-                        
+
                         if (vect.Length > 2 && vect.Length <= 3.5)
                             dist *= 1.75f;
                         else if (vect.Length > 3.5 && vect.Length <= 5)

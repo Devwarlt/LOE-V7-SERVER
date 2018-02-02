@@ -40,7 +40,7 @@ namespace gameserver.networking.outgoing
             wtr.Write(GameId);
             wtr.Write(KeyTime);
             wtr.Write(IsFromArena);
-            wtr.Write((ushort) Key.Length);
+            wtr.Write((ushort)Key.Length);
             wtr.Write(Key);
         }
     }

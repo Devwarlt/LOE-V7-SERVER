@@ -1,10 +1,8 @@
 ﻿#region
 
-using common.config;
 using log4net;
 using System;
 using System.IO;
-using System.Net;
 using System.Xml;
 
 #endregion
@@ -13,14 +11,6 @@ namespace appengine.package
 {
     internal class getPackages : RequestHandler
     {
-        //scope
-        internal static class CONSTANTS
-        {
-            internal static readonly string appengine = Settings.NETWORKING.APPENGINE_URL;
-            internal static WebClient client = new WebClient();
-            internal static readonly string file = "/app/packages/packageResponse.xml";
-        }
-
         protected override void HandleRequest()
         {
             string response = SerializePackageResponse.Serialize();
@@ -41,20 +31,20 @@ namespace appengine.package
             internal string BgURL { get; set; }
             internal DateTime EndDate { get; set; }
             internal string Contents { get; set; }
-        
+
             internal static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
             {
                 //Unix timestamp is seconds past epoch
-                DateTime dtDateTime = new DateTime(1970,1,1,0,0,0,0,System.DateTimeKind.Utc);
-                dtDateTime = dtDateTime.AddSeconds( unixTimeStamp ).ToLocalTime();
+                DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+                dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
                 return dtDateTime;
             }
 
             internal static SerializePackageResponse GetPackage(int id)
             {
                 XmlDocument doc = new XmlDocument();
-                
-                string response = CONSTANTS.client.DownloadString(CONSTANTS.appengine + CONSTANTS.file);
+
+                string response = File.ReadAllText("package/packageResponse.xml");
 
                 if (response == null)
                     return null;
@@ -100,7 +90,7 @@ namespace appengine.package
             {
                 XmlDocument doc = new XmlDocument();
 
-                string response = CONSTANTS.client.DownloadString(CONSTANTS.appengine + CONSTANTS.file);
+                string response = File.ReadAllText("package/packageResponse.xml");
 
                 if (response == null)
                     return null;
@@ -112,7 +102,8 @@ namespace appengine.package
                     StringWriter wtr = new StringWriter();
                     doc.Save(wtr);
                     return wtr.ToString();
-                } catch (Exception error)
+                }
+                catch (Exception error)
                 {
                     log.Error($"Unhandle exception: {error}.");
                     return null;

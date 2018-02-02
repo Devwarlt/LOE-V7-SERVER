@@ -6,7 +6,7 @@ namespace gameserver.logic
 {
     partial class BehaviorDb
     {
-        private _ MountainsGods = () => Behav()        
+        private _ MountainsGods = () => Behav()
             .Init("White Demon",
                 new State(
                     new DropPortalOnDeath("Abyss of Demons Portal", .17),

@@ -125,8 +125,8 @@ namespace terrain
                 if (cornerContour[i.From] < cornerContour[i.To])
                 {
                     points[cornerContour[i.From]].Add(new Coordinate(
-                        (i.From.X + i.To.X)/2,
-                        (i.From.Y + i.To.Y)/2));
+                        (i.From.X + i.To.X) / 2,
+                        (i.From.Y + i.To.Y) / 2));
                 }
             }
             foreach (List<Coordinate> i in points)
@@ -140,7 +140,7 @@ namespace terrain
                     {
                         double dx = i[j].X - i[k].X;
                         double dy = i[j].Y - i[k].Y;
-                        double d = dx*dx + dy*dy;
+                        double d = dx * dx + dy * dy;
                         if (d < minDist)
                         {
                             minDist = d;

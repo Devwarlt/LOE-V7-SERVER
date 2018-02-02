@@ -51,7 +51,7 @@ namespace common.config
 
             public static string checkDDNS(string ddns, int srv)
             {
-                switch(ddns)
+                switch (ddns)
                 {
                     case "<crossdomain>": return NETWORKING.INTERNAL.PRODUCTION_DDNS[srv];
                     default: return ddns;
@@ -64,7 +64,8 @@ namespace common.config
                 int serverAmount = AMOUNT;
                 if (serverAmount == 1)
                 {
-                    gameserver.Add(new ServerItem() {
+                    gameserver.Add(new ServerItem()
+                    {
                         Name = SERVERS[0].Item1,
                         DNS = checkDDNS(SERVERS[0].Item2, 0),
                         Lat = 0,
@@ -75,8 +76,9 @@ namespace common.config
                 }
                 else
                 {
-                    for(int i = 0; i < serverAmount; i++)
-                        gameserver.Add(new ServerItem() {
+                    for (int i = 0; i < serverAmount; i++)
+                        gameserver.Add(new ServerItem()
+                        {
                             Name = SERVERS[i].Item1,
                             DNS = checkDDNS(SERVERS[i].Item2, i),
                             Lat = 0,
@@ -129,7 +131,8 @@ namespace common.config
 
                             return serverUsage;
                         }
-                    } catch (ObjectDisposedException) { return -1; }
+                    }
+                    catch (ObjectDisposedException) { return -1; }
                 else
                     return -1;
             }
@@ -138,13 +141,16 @@ namespace common.config
             {
                 using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                 {
-                    try {
+                    try
+                    {
                         if (!socket.BeginConnect(dns, port, null, null).AsyncWaitHandle.WaitOne(2000, true))
                         {
                             socket.Close();
                             return false;
                         }
-                    } catch (SocketException ex) {
+                    }
+                    catch (SocketException ex)
+                    {
                         if (ex.SocketErrorCode == SocketError.ConnectionRefused || ex.SocketErrorCode == SocketError.TimedOut)
                         {
                             socket.Close();

@@ -30,13 +30,13 @@ namespace gameserver.networking.handlers
             {
                 client.SendMessage(new FAILURE
                 {
-                    ErrorId = (int) FailureIDs.JSON_DIALOG,
+                    ErrorId = (int)FailureIDs.JSON_DIALOG,
                     ErrorDescription =
                         JSONErrorIDHandler.
                             FormatedJSONError(
                                 errorID: ErrorIDs.OUTDATED_CLIENT,
                                 labels: new[] { "{CLIENT_BUILD_VERSION}", "{SERVER_BUILD_VERSION}" },
-                                arguments: new [] { message.BuildVersion, checkGameVersion.Item1 }
+                                arguments: new[] { message.BuildVersion, checkGameVersion.Item1 }
                             )
                 });
                 client.Disconnect(DisconnectReason.OUTDATED_CLIENT);
@@ -49,8 +49,8 @@ namespace gameserver.networking.handlers
                 RegisterStatus s2 = client.Manager.Database.Register(message.GUID, message.Password, true, out acc); //Register guest but do not allow join game.
                 client.SendMessage(new FAILURE()
                 {
-                    ErrorId = (int) FailureIDs.JSON_DIALOG,
-                    ErrorDescription= 
+                    ErrorId = (int)FailureIDs.JSON_DIALOG,
+                    ErrorDescription =
                         JSONErrorIDHandler.
                             FormatedJSONError(
                                 errorID: ErrorIDs.DISABLE_GUEST_ACCOUNT,
@@ -65,13 +65,13 @@ namespace gameserver.networking.handlers
             {
                 client.SendMessage(new FAILURE
                 {
-                    ErrorId = (int) FailureIDs.DEFAULT,
+                    ErrorId = (int)FailureIDs.DEFAULT,
                     ErrorDescription = "Bad login."
                 });
                 client.Disconnect(DisconnectReason.BAD_LOGIN);
             }
             client.ConnectedBuild = message.BuildVersion;
-            Tuple<bool, ErrorIDs> TryConnect =  client.Manager.TryConnect(client);
+            Tuple<bool, ErrorIDs> TryConnect = client.Manager.TryConnect(client);
             if (!TryConnect.Item1)
             {
                 client.Account = null;
@@ -79,7 +79,7 @@ namespace gameserver.networking.handlers
                 string[] labels;
                 string[] arguments;
                 DisconnectReason type;
-                switch(TryConnect.Item2)
+                switch (TryConnect.Item2)
                 {
                     case ErrorIDs.SERVER_FULL:
                         {
@@ -119,7 +119,7 @@ namespace gameserver.networking.handlers
                 }
                 client.SendMessage(new FAILURE
                 {
-                    ErrorId = (int) FailureIDs.JSON_DIALOG,
+                    ErrorId = (int)FailureIDs.JSON_DIALOG,
                     ErrorDescription =
                         JSONErrorIDHandler.
                             FormatedJSONError(
@@ -146,8 +146,8 @@ namespace gameserver.networking.handlers
                     int accountInUseTime = client.Manager.Database.GetLockTime(acc);
                     client.SendMessage(new FAILURE
                     {
-                        ErrorId = (int) FailureIDs.JSON_DIALOG,
-                        ErrorDescription = 
+                        ErrorId = (int)FailureIDs.JSON_DIALOG,
+                        ErrorDescription =
                             JSONErrorIDHandler
                                 .FormatedJSONError(
                                     errorID: ErrorIDs.ACCOUNT_IN_USE,
@@ -159,7 +159,7 @@ namespace gameserver.networking.handlers
                     return;
                 }
 
-                if (acc.AccountType == (int) accountType.VIP_ACCOUNT)
+                if (acc.AccountType == (int)accountType.VIP_ACCOUNT)
                 {
                     DateTime _currentTime = DateTime.Now;
                     DateTime _vipRegistration = acc.AccountLifetime;
@@ -182,12 +182,12 @@ namespace gameserver.networking.handlers
                         return;
                     }
                 }
-                
+
                 if (world == null)
                 {
                     client.SendMessage(new FAILURE
                     {
-                        ErrorId = (int) FailureIDs.DEFAULT,
+                        ErrorId = (int)FailureIDs.DEFAULT,
                         ErrorDescription = "Invalid world."
                     });
                     client.Disconnect(DisconnectReason.INVALID_WORLD);
@@ -200,7 +200,7 @@ namespace gameserver.networking.handlers
                     {
                         client.SendMessage(new FAILURE
                         {
-                            ErrorId = (int) FailureIDs.DEFAULT,
+                            ErrorId = (int)FailureIDs.DEFAULT,
                             ErrorDescription = "Invalid portal key."
                         });
                         client.Disconnect(DisconnectReason.INVALID_PORTAL_KEY);
@@ -211,7 +211,7 @@ namespace gameserver.networking.handlers
                     {
                         client.SendMessage(new FAILURE
                         {
-                            ErrorId = (int) FailureIDs.DEFAULT,
+                            ErrorId = (int)FailureIDs.DEFAULT,
                             ErrorDescription = "Portal key expired."
                         });
                         client.Disconnect(DisconnectReason.PORTAL_KEY_EXPIRED);

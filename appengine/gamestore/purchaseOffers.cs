@@ -12,10 +12,10 @@ namespace appengine.gamestore
 
         private class Offer
         {
-            public int objectType;
-            public int price;
-            public int currencyType;
-            public int quantity;
+            public int objectType { get; set; }
+            public int price { get; set; }
+            public int currencyType { get; set; }
+            public int quantity { get; set; }
         }
 
         private enum Currency : int
@@ -36,7 +36,7 @@ namespace appengine.gamestore
 
         private bool Validate(DbAccount acc, int currency, int total)
         {
-            switch ((Currency) currency)
+            switch ((Currency)currency)
             {
                 case Currency.GOLD: return Credits(acc) >= total;
                 case Currency.FAME: return Fame(acc) >= total;
@@ -58,7 +58,7 @@ namespace appengine.gamestore
 
         private string GetCurrency(int currency)
         {
-            switch ((Currency) currency)
+            switch ((Currency)currency)
             {
                 case Currency.GOLD: return "credits";
                 case Currency.FAME: return "fame";
@@ -72,29 +72,34 @@ namespace appengine.gamestore
 
         private void Deduct(DbAccount acc, int currency, int total, List<int> objectType)
         {
-            switch ((Currency) currency)
+            switch ((Currency)currency)
             {
                 case Currency.GOLD:
                     {
                         acc.Credits -= total;
-                    } break;
+                    }
+                    break;
                 case Currency.FAME:
                     {
                         acc.Fame -= total;
                         acc.TotalFame -= total;
-                    } break;
+                    }
+                    break;
                 case Currency.GUILD_FAME:
                     {
                         acc.GuildFame -= total;
-                    } break;
+                    }
+                    break;
                 case Currency.FORTUNE_TOKENS:
                     {
                         acc.FortuneTokens -= total;
-                    } break;
+                    }
+                    break;
                 case Currency.EMPIRES_COIN:
                     {
                         acc.EmpiresCoin -= total;
-                    } break;
+                    }
+                    break;
                 case Currency.INVALID:
                 default:
                     return;
@@ -118,7 +123,8 @@ namespace appengine.gamestore
             {
                 Deduct(acc, currency, total, objectType);
                 return $"You successfully purchased: {offerNames}.";
-            } else
+            }
+            else
                 return $"An error occured during your purchase validation and our system removed: {offerNames}.";
         }
 
@@ -153,7 +159,7 @@ namespace appengine.gamestore
                         });
 
                     if (debug)
-                        foreach(Offer i in items)
+                        foreach (Offer i in items)
                             Program.Logger.Info($"[Offer] objectType: {i.objectType}, price: {i.price}, currency: {i.currencyType}, quantity: {i.quantity}.");
 
                     foreach (Offer j in items)
@@ -163,7 +169,7 @@ namespace appengine.gamestore
                     if (debug)
                         for (int j = 0; j < total.Count; j++)
                             Program.Logger.Info($"[Total] {GetCurrency(j)}: {total[j]}");
-                    
+
                     foreach (Offer k in items)
                     {
                         if (k.currencyType == (int)Currency.GOLD)

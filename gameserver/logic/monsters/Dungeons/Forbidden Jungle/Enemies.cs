@@ -15,7 +15,7 @@ namespace gameserver.logic
                         ),
                     new State("basic",
                         new Prioritize(
-                        
+
                             new Wander(1)
                             ),
                         new Shoot(10, aim: 1, coolDown: 800),
@@ -60,7 +60,7 @@ namespace gameserver.logic
                         )
                     ),
                 //LootTemplates.DefaultEggLoot(EggRarity.Legendary),
-                
+
                 new Threshold(0.025,
                     new ItemLoot("Staff of the Crystal Serpent", 0.11),
 
@@ -71,12 +71,12 @@ namespace gameserver.logic
                     new ItemLoot("Robe of the Tlatoani", 0.11)
                 )
             )
-           
+
             .Init("Mask Shaman",
                 new State(
                     new Wander(8.75),
                     new Shoot(8, 5, 10, coolDown: 1000)
-                    
+
                     )
             )
             .Init("Basilisk",
@@ -114,7 +114,7 @@ namespace gameserver.logic
                         new Wander(2.5)
                         ),
                     new Shoot(8, 1, shootAngle: 10, coolDown: 500)
-           
+
                     )
             )
             ;

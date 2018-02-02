@@ -24,9 +24,9 @@ namespace gameserver.logic.behaviors
             Cooldown coolDown = new Cooldown()
             )
         {
-            this.speed = (float) speed / 10;
-            this.sightRange = (float) sightRange;
-            this.range = (float) range;
+            this.speed = (float)speed / 10;
+            this.sightRange = (float)sightRange;
+            this.range = (float)range;
             this.duration = duration;
             this.coolDown = coolDown.Normalize(duration == 0 ? 0 : 1000);
         }
@@ -38,7 +38,7 @@ namespace gameserver.logic.behaviors
             if (state == null)
                 s = new FollowState();
             else
-                s = (FollowState) state;
+                s = (FollowState)state;
 
             Status = CycleStatus.NotStarted;
 
@@ -87,11 +87,11 @@ namespace gameserver.logic.behaviors
                     if (vect.Length > range)
                     {
                         Status = CycleStatus.InProgress;
-                        vect.X -= Random.Next(-2, 2)/2f;
-                        vect.Y -= Random.Next(-2, 2)/2f;
+                        vect.X -= Random.Next(-2, 2) / 2f;
+                        vect.Y -= Random.Next(-2, 2) / 2f;
                         vect.Normalize();
                         float dist = host.EntitySpeed(speed, time);
-                        host.ValidateAndMove(host.X + vect.X*dist, host.Y + vect.Y*dist);
+                        host.ValidateAndMove(host.X + vect.X * dist, host.Y + vect.Y * dist);
                         host.UpdateCount++;
                     }
                     else

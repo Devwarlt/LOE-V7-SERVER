@@ -18,6 +18,16 @@ using System.Threading.Tasks;
 
 public static class Utils
 {
+    public static string FirstCharToUpper(string input)
+    {
+        switch (input)
+        {
+            case null: throw new ArgumentNullException(nameof(input));
+            case "": throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
+            default: return input.First().ToString().ToUpper() + input.Substring(1);
+        }
+    }
+
     public const string BAD_WORDS = "(arse|arsehole|ass|asshat|assjabber|asspirate|assbag|assbandit|assbanger|assbite|assclown|asscock|asscracker|asses|assface|assfuck|assfucker|assgoblin|asshat|asshead|asshole|asshopper|assjacker|asslick|asslicker|assmonkey|assmunch|assmuncher|assnigger|asspirate|assshit|assshole)";
 
     public static string ToLowercaseNamingConvention(string value) => new Regex("(?<=[A-Z])(?=[A-Z][a-z]) | (?<=[^A-Z])(?=[A-Z]) | (?<=[A-Za-z])(?=[^A-Za-z])", RegexOptions.IgnorePatternWhitespace).Replace(value, " ");

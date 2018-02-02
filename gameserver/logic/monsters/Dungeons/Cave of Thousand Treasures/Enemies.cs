@@ -1,5 +1,4 @@
 ﻿using gameserver.logic.behaviors;
-using gameserver.logic.loot;
 using gameserver.logic.transitions;
 
 namespace gameserver.logic
@@ -46,13 +45,13 @@ namespace gameserver.logic
                                 ),
                             new State("Grenade",
                                 new Grenade(2, 5, 8, 225, coolDown: 1000),
-                                new Grenade(4, 5, 8,315, coolDown: 1000),
-                                new Grenade(4, 5, 8,  45, coolDown: 1000),
+                                new Grenade(4, 5, 8, 315, coolDown: 1000),
+                                new Grenade(4, 5, 8, 45, coolDown: 1000),
                                 new Grenade(4, 5, 8, 135, coolDown: 1000),
-                                new Grenade(2, 5, 2,  270, coolDown: 1300),
-                                new Grenade(4, 5, 2,  0, coolDown: 1300),
-                                new Grenade(4, 5, 2,  90, coolDown: 1300),
-                                new Grenade(4, 5, 2,  180, coolDown: 1300)
+                                new Grenade(2, 5, 2, 270, coolDown: 1300),
+                                new Grenade(4, 5, 2, 0, coolDown: 1300),
+                                new Grenade(4, 5, 2, 90, coolDown: 1300),
+                                new Grenade(4, 5, 2, 180, coolDown: 1300)
                                 )))
                        .Init("Treasure Oryx Defender",
                             new State(

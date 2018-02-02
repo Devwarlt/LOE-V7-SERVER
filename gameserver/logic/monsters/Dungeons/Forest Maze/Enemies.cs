@@ -1,10 +1,9 @@
 using gameserver.logic.behaviors;
-using gameserver.logic.loot;
 using gameserver.logic.transitions;
 
 namespace gameserver.logic
 {
-	partial class BehaviorDb             //might not be EXACT, but close enough anyway, made by hydranoid800
+    partial class BehaviorDb             //might not be EXACT, but close enough anyway, made by hydranoid800
     {
         private _ ForestMaze = () => Behav()
         .Init("Mama Megamoth",
