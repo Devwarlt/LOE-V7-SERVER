@@ -1,7 +1,6 @@
 ﻿using gameserver.networking.incoming;
 using gameserver.realm.entity.player;
 using log4net.Core;
-using System;
 using System.Collections.Generic;
 
 namespace gameserver.networking

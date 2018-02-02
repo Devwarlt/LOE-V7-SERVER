@@ -1,7 +1,6 @@
 ﻿#region
 
 using gameserver.networking.outgoing;
-using gameserver.realm.entity.npc.npcs;
 using gameserver.realm.entity.player;
 using System;
 using System.Collections.Generic;

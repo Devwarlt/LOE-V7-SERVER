@@ -1,8 +1,6 @@
 ﻿#region
 
-using common.config;
 using System.IO;
-using System.Net;
 
 #endregion
 

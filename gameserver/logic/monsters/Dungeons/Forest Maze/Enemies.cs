@@ -1,5 +1,4 @@
 using gameserver.logic.behaviors;
-using gameserver.logic.loot;
 using gameserver.logic.transitions;
 
 namespace gameserver.logic

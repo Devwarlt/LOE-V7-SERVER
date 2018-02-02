@@ -36,6 +36,11 @@ namespace common
             Open().Wait();
         }
 
+        public static readonly List<string> BlackListedNames = new List<string>
+        {
+            "NPC"
+        };
+
         public static readonly string[] Names =
         {
             "Darq", "Deyst", "Drac", "Drol",

@@ -1,6 +1,5 @@
 ﻿using gameserver.realm;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace gameserver.logic.behaviors
 {
