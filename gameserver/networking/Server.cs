@@ -15,7 +15,7 @@ namespace gameserver.networking
 {
     internal class Server
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof (Server));
+        private static readonly ILog log = LogManager.GetLogger(typeof(Server));
 
         public Server(RealmManager manager)
         {

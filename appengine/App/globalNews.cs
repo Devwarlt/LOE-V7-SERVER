@@ -1,29 +1,10 @@
-﻿#region
-
-using common.config;
-using System.Net;
-
-#endregion
+﻿using System.IO;
+using System.Text.RegularExpressions;
 
 namespace appengine.app
 {
     internal class globalNews : RequestHandler
     {
-        protected override void HandleRequest()
-        {
-            try
-            {
-                WebClient client = new WebClient();
-                string file = Context.Request.Url.LocalPath + "/globalNews.json";
-                string appengine = Settings.NETWORKING.APPENGINE_URL;
-                string response = client.DownloadString(appengine + file);
-                WriteLine(response, false);
-                client.Dispose();
-            } catch
-            {
-                Program.Logger.Error("Unreachable host, maybe caused by connection lost from user.");
-                return;
-            }
-        }
+        protected override void HandleRequest() => WriteLine(Regex.Replace(File.ReadAllText("app/globalNews/globalNews.json"), @"\r\n?|\n", string.Empty), false);
     }
 }

@@ -46,7 +46,8 @@ namespace appengine.@char
                 }
                 else
                     WriteErrorLine(status.GetInfo());
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Program.Logger.Warn(ex);
             }

@@ -36,6 +36,11 @@ namespace common
             Open().Wait();
         }
 
+        public static readonly List<string> BlackListedNames = new List<string>
+        {
+            "NPC"
+        };
+
         public static readonly string[] Names =
         {
             "Darq", "Deyst", "Drac", "Drol",
@@ -56,7 +61,7 @@ namespace common
         {
             return new DbAccount(this, "0")
             {
-                AccountType = (int) accountType.FREE_ACCOUNT,
+                AccountType = (int)accountType.FREE_ACCOUNT,
                 AccountLifetime = DateTime.MinValue,
                 UUID = uuid,
                 Name = Names[(uint)uuid.GetHashCode() % Names.Length],
@@ -253,7 +258,7 @@ namespace common
 
             acc = new DbAccount(this, newAccId.ToString())
             {
-                AccountType = (int) accountType.FREE_ACCOUNT,
+                AccountType = (int)accountType.FREE_ACCOUNT,
                 AccountLifetime = DateTime.MinValue,
                 UUID = uuid,
                 Name = Names[(uint)uuid.GetHashCode() % Names.Length],
@@ -348,7 +353,7 @@ namespace common
         {
             List<int> boxList = acc.PurchasedBoxes.ToList();
             int purchases = 0;
-            foreach(IGrouping<int, int> i in boxList.GroupBy(j => j))
+            foreach (IGrouping<int, int> i in boxList.GroupBy(j => j))
                 if (i.Key == box)
                     purchases = i.Count();
             if (purchases < total)
@@ -361,7 +366,7 @@ namespace common
         {
             List<int> packageList = acc.PurchasedPackages.ToList();
             int purchases = 0;
-            foreach(IGrouping<int, int> i in packageList.GroupBy(j => j))
+            foreach (IGrouping<int, int> i in packageList.GroupBy(j => j))
                 if (i.Key == package)
                     purchases = i.Count();
             if (purchases < maxpurchases)
@@ -421,7 +426,7 @@ namespace common
         {
             acc.AccountLifetime = DateTime.Now;
             acc.AccountLifetime = acc.AccountLifetime.AddDays(amount);
-            acc.AccountType = (int) accType;
+            acc.AccountType = (int)accType;
             Update(acc);
         }
 
@@ -620,19 +625,19 @@ namespace common
 
         public void MuteAccount(DbAccount acc)
         {
-        	Hashes.Set(0, acc.Key, "muted", "1");
+            Hashes.Set(0, acc.Key, "muted", "1");
             Update(acc);
         }
 
         public void UnmuteAccount(DbAccount acc)
         {
-        	Hashes.Set(0, acc.Key, "muted", "0");
+            Hashes.Set(0, acc.Key, "muted", "0");
             Update(acc);
         }
 
         public void BanAccount(DbAccount acc)
         {
-        	Hashes.Set(0, acc.Key, "banned", "1");
+            Hashes.Set(0, acc.Key, "banned", "1");
             Update(acc);
         }
 
@@ -801,7 +806,7 @@ namespace common
                 guild.Members = members.ToArray();
             }
 
-            guild.Flush();            
+            guild.Flush();
 
             acc.GuildId = Convert.ToString(guild.Id);
             acc.GuildRank = (founder) ? 40 : 0;

@@ -22,7 +22,7 @@ namespace gameserver.logic.behaviors
             string ground = "Shallow Water"
             )
         {
-            this.speed = (float) speed / 10;
+            this.speed = (float)speed / 10;
             this.avoidGround = avoidGround;
             this.ground = ground;
         }
@@ -34,7 +34,7 @@ namespace gameserver.logic.behaviors
             if (state == null)
                 storage = new WanderStorage();
             else
-                storage = (WanderStorage) state;
+                storage = (WanderStorage)state;
 
             Status = CycleStatus.NotStarted;
 
@@ -47,7 +47,7 @@ namespace gameserver.logic.behaviors
             {
                 storage.Direction = new Vector2(Random.Next(-1, 2), Random.Next(-1, 2));
                 storage.Direction.Normalize();
-                storage.RemainingDistance = period.Next(Random)/1000f;
+                storage.RemainingDistance = period.Next(Random) / 1000f;
                 Status = CycleStatus.Completed;
             }
 
@@ -68,7 +68,7 @@ namespace gameserver.logic.behaviors
                 }
             }
 
-            host.ValidateAndMove(host.X + storage.Direction.X*dist, host.Y + storage.Direction.Y*dist);
+            host.ValidateAndMove(host.X + storage.Direction.X * dist, host.Y + storage.Direction.Y * dist);
 
             host.UpdateCount++;
 

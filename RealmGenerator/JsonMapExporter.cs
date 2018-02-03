@@ -14,7 +14,7 @@ namespace terrain
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
-            byte[] dat = new byte[w*h*2];
+            byte[] dat = new byte[w * h * 2];
             int i = 0;
             Dictionary<TerrainTile, ushort> idxs = new Dictionary<TerrainTile, ushort>(new TileComparer());
             List<loc> dict = new List<loc>();
@@ -25,7 +25,7 @@ namespace terrain
                     ushort idx;
                     if (!idxs.TryGetValue(tile, out idx))
                     {
-                        idxs.Add(tile, idx = (ushort) dict.Count);
+                        idxs.Add(tile, idx = (ushort)dict.Count);
                         dict.Add(new loc
                         {
                             ground = TileTypes.id[tile.TileId],
@@ -50,8 +50,8 @@ namespace terrain
                                 : null
                         });
                     }
-                    dat[i + 1] = (byte) (idx & 0xff);
-                    dat[i] = (byte) (idx >> 8);
+                    dat[i + 1] = (byte)(idx & 0xff);
+                    dat[i] = (byte)(idx >> 8);
                     i += 2;
                 }
             json_dat ret = new json_dat
@@ -73,8 +73,8 @@ namespace terrain
 
             public int GetHashCode(TerrainTile obj)
             {
-                return obj.TileId*13 +
-                       (obj.TileObj == null ? 0 : obj.TileObj.GetHashCode()*obj.Name.GetHashCode()*29);
+                return obj.TileId * 13 +
+                       (obj.TileObj == null ? 0 : obj.TileObj.GetHashCode() * obj.Name.GetHashCode() * 29);
             }
         }
 

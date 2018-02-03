@@ -26,7 +26,7 @@ namespace gameserver.networking.handlers
             if (target == null)
                 return;
 
-            if(client.Account.AccountId == target.AccountId)
+            if (client.Account.AccountId == target.AccountId)
             {
                 SendFailure("You cannot do that with yourself.");
                 return;

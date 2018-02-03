@@ -10,7 +10,7 @@ namespace gameserver.logic
             .Init("Skull Shrine",
                 new State(
                     new State("initial",
-                        new Shoot(30, 9, 10, coolDown: 750,aim:1), // add prediction after fixing it...
+                        new Shoot(30, 9, 10, coolDown: 750, aim: 1), // add prediction after fixing it...
                         new Reproduce("Red Flaming Skull", 40, 20, coolDown: 500),
                         new Reproduce("Blue Flaming Skull", 40, 20, coolDown: 500),
                         new HpLessTransition(0.35, "flashing")
@@ -22,7 +22,7 @@ namespace gameserver.logic
                         ),
                     new State("final",
                         new RemCond(ConditionEffectIndex.Invulnerable),
-                        new Shoot(30, 9, 10, coolDown: 750,aim:1), // add prediction after fixing it...
+                        new Shoot(30, 9, 10, coolDown: 750, aim: 1), // add prediction after fixing it...
                         new Reproduce("Red Flaming Skull", 40, 20, coolDown: 500),
                         new Reproduce("Blue Flaming Skull", 40, 20, coolDown: 500),
                         new Flashing(0xFF0000, 0.5, int.MaxValue / 2)

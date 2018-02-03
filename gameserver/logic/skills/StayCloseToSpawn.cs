@@ -17,7 +17,7 @@ namespace gameserver.logic.behaviors
             int range = 5
             )
         {
-            this.speed = (float) speed / 10;
+            this.speed = (float)speed / 10;
             this.range = range;
         }
 
@@ -33,14 +33,14 @@ namespace gameserver.logic.behaviors
 
             if (host.HasConditionEffect(ConditionEffectIndex.Paralyzed)) return;
 
-            Vector2 vect = (Vector2) state;
+            Vector2 vect = (Vector2)state;
             var l = (vect - new Vector2(host.X, host.Y)).Length;
             if (l > range)
             {
                 vect -= new Vector2(host.X, host.Y);
                 vect.Normalize();
                 float dist = host.EntitySpeed(speed, time);
-                host.ValidateAndMove(host.X + vect.X*dist, host.Y + vect.Y*dist);
+                host.ValidateAndMove(host.X + vect.X * dist, host.Y + vect.Y * dist);
                 host.UpdateCount++;
 
                 Status = CycleStatus.InProgress;

@@ -74,7 +74,7 @@ namespace gameserver.logic.loot
             Dictionary<Player, IList<Item>> loots = enemy.DamageCounter.GetPlayerData().ToDictionary(
                 d => d.Item1, d => (IList<Item>)new List<Item>());
 
-            foreach (Item loot in sharedLoots.Where(item => item.Soulbound))
+            foreach (Item loot in sharedLoots.Where(item => item.BagType > 1)) //Hope fixed item doesn't need to be soulbound only
                 loots[dats[rand.Next(dats.Length)].Item1].Add(loot);
 
             foreach (Tuple<Player, int> dat in dats)

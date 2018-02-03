@@ -8,14 +8,14 @@ namespace gameserver.logic
         private _ SetpieceBossesKageKamiSetpiece = () => Behav()
             .Init("Kage Kami",
                 new State(
-                    new DropPortalOnDeath("Manor of the Immortals Portal",0.5),
+                    new DropPortalOnDeath("Manor of the Immortals Portal", 0.5),
                     // Bug
                     //new State("Grave",
                     //    new SetAltTexture(0),
                     //    new HpLessTransition(.90,"yay i am good")
                     //    ),
                     new State("yay i am good",
-                        new Taunt(0.5,"Kyoufu no kage!"),
+                        new Taunt(0.5, "Kyoufu no kage!"),
                         new AddCond(ConditionEffectIndex.Invincible),
                         new ChangeSize(20, 120),
                         new SetAltTexture(1),
@@ -25,7 +25,7 @@ namespace gameserver.logic
                         new Wander(),
                         new SetAltTexture(1),
                         new TimedTransition(5000, "Charge"),
-                        new TossObject("Specter Mine",coolDown:2000),
+                        new TossObject("Specter Mine", coolDown: 2000),
                         new State("Shoot1",
                             new Shoot(0, shoots: 1, defaultAngle: 0, rotateAngle: 30, coolDown: 300, index: 1),
                             new Shoot(0, shoots: 1, defaultAngle: 180, rotateAngle: 30, coolDown: 300, index: 1),

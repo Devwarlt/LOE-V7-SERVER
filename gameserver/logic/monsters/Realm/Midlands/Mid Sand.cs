@@ -6,7 +6,7 @@ namespace gameserver.logic
 {
     partial class BehaviorDb
     {
-        private _ MidlandMidSand = () => Behav()            
+        private _ MidlandMidSand = () => Behav()
             .Init("Tawny Warg",
                 new State(
                     new Shoot(3.4),
@@ -61,7 +61,7 @@ namespace gameserver.logic
                 new TierLoot(1, ItemType.Ability, 0.38),
                 new ItemLoot("Magic Potion", 0.03)
             )
-        
+
             .Init("Fire Golem",
                 new State(
                     new State("idle",

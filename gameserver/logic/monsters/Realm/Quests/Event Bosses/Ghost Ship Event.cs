@@ -83,7 +83,7 @@ namespace gameserver.logic
                                     ),
                                 new State("Attack1.4",
                                     new AddCond(ConditionEffectIndex.Invulnerable),
-                                    new Shoot(0, shoots: 12, direction: 360/12, coolDown: 3000),
+                                    new Shoot(0, shoots: 12, direction: 360 / 12, coolDown: 3000),
                                     new TimedTransition(1500, "Attack1.5")
                                     ),
                                 new State("Attack1.5",
@@ -110,7 +110,7 @@ namespace gameserver.logic
                                     )))
                         ),
                     new State("Phase3",
-                        new Shoot(0, 4, direction: 360/4, rotateAngle: 35, coolDown: 1000),
+                        new Shoot(0, 4, direction: 360 / 4, rotateAngle: 35, coolDown: 1000),
                         new Shoot(10, shoots: 1, index: 1, coolDown: 1400, aim: 1),
                         new Reproduce("Vengeful Spirit", 20, 4, coolDown: 4000),
                         new Reproduce("Water Mine", 20, 5, coolDown: 3000),
@@ -158,7 +158,7 @@ namespace gameserver.logic
                         ),
                     new State("Phase5",
                         new EntityOrder(100, "Beach Spectre Spawner", "Active"),
-                        new Shoot(0, 4, direction: 360/4, rotateAngle: 35, coolDown: 1000),
+                        new Shoot(0, 4, direction: 360 / 4, rotateAngle: 35, coolDown: 1000),
                         new Shoot(10, shoots: 1, index: 1, coolDown: 1400, aim: 1),
                         new Reproduce("Vengeful Spirit", 20, 4, coolDown: 4000),
                         new Reproduce("Water Mine", 20, 5, coolDown: 3000),
@@ -274,7 +274,7 @@ namespace gameserver.logic
                         new Prioritize(
                             new Circle(4, 8, 20, "Ghost Ship")
                             ),
-                        new Shoot(0, shoots: 10, direction: 360/10, coolDown: 700),
+                        new Shoot(0, shoots: 10, direction: 360 / 10, coolDown: 700),
                         new EntityNotExistsTransition("Ghost Ship", 30, "Die")
                         ),
                     new State("Die",
@@ -336,7 +336,7 @@ namespace gameserver.logic
                         new PlayerWithinTransition(3, "BOOOM")
                         ),
                     new State("BOOOM",
-                        new Shoot(0, shoots: 10, direction: 360/10),
+                        new Shoot(0, shoots: 10, direction: 360 / 10),
                         new Suicide()
                         )
                     )

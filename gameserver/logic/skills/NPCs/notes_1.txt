@@ -1,0 +1,6 @@
+● [NPC Chat system: 2nd code review] 29th January 2018 6:53 PM Brazil Regional Time (by Warlt):
+	I got new suggestion for NPC Chat system feature, in order as chart how it'll work:
+	1) Initialize Behavior engine;
+	2) Set variable '_NPC' (static and read-only with type Entity) of NPC class (assume only one) for all declared NPCs (aka 'NPCDatabase' dictionary);
+	3) Finish settings and handlers of NPC Engine properly, so when requested to NPC it can handle new discussion properly.
+	Note: I suppose we are going to place only one NPC per server (max by default), because greater than one NPC could result in weird performance for chat interaction, since we aren't planing to code this exception yet.

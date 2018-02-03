@@ -15,7 +15,7 @@ namespace gameserver.logic
             public static int muscle_shuriken = 1;
             public static int nightmare_blasterball = 2;
         }
-        
+
         /// Guzzlereaper
         /// index 0: Muscle Ball (dmg: 135 -190)
         /// index 1: Muscle Shuriken (dmg: 115)
@@ -28,7 +28,7 @@ namespace gameserver.logic
             public static int nightmare_blasterball = 2;
             public static int heavy_nightmare_blasterball = 3;
         }
-        
+
         /// Silencer
         /// index 0: Silencer Roar (dmg: 75)
         /// index 1: Silencer Slash (dmg 150)
@@ -99,7 +99,7 @@ namespace gameserver.logic
                             new Protect(speed: 8, target: "Guzzlereaper", protectRange: 2),
                             new Chase(speed: 6),
                             new Wander(speed: 2)
-                        ),                    
+                        ),
                         new Heal(range: 0, amount: 250, coolDown: 7500),
                         new Shoot(range: 6, index: Muzzlereaper.muscle_ball, coolDown: 1000),
                         new Shoot(range: 4, shoots: 3, shootAngle: 10, index: Muzzlereaper.muscle_shuriken, coolDown: 2350),
@@ -132,7 +132,7 @@ namespace gameserver.logic
                     )
                 )
             )
-        
+
             .Init("Silencer",
                 new State(
                     new State("idle",
@@ -161,7 +161,7 @@ namespace gameserver.logic
                     )
                 )
             )
-        
+
             .Init("Eyeguard of Surrender",
                 new State(
                     new State("idle",
@@ -191,7 +191,7 @@ namespace gameserver.logic
                     )
                 )
             )
-        
+
             .Init("Lost Prisoner Soul",
                 new State(
                     new State("idle",
@@ -219,7 +219,7 @@ namespace gameserver.logic
                     )
                 )
             )
-        
+
             .Init("Nightmare",
                 new State(
                     new State("idle",

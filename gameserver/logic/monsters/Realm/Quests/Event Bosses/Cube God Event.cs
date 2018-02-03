@@ -67,7 +67,7 @@ namespace gameserver.logic
                     new Shoot(10, index: 1, coolDown: 1500)
                     ),
                 new Threshold(.01,
-                    new ItemLoot ("Fire Sword", .05)
+                    new ItemLoot("Fire Sword", .05)
                     )
             )
 

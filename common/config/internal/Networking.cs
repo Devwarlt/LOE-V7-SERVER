@@ -58,7 +58,7 @@ namespace common.config
                 /// <summary>
                 /// Use program "crossdomain.exe" to generate correct crossdomain template
                 /// </summary>
-                public static readonly string SELECTED_DOMAINS = 
+                public static readonly string SELECTED_DOMAINS =
                     @"<cross-domain-policy>
                         <policy-file-request/>
                         <site-control permitted-cross-domain-policies=""master-only""/>

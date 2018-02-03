@@ -58,7 +58,7 @@ namespace appengine.account
                         data.Add(data[12].Replace("{FORMAT_CREDITS}", user.formatCredits()));
                         data.Add(data[13].Replace("{FORMAT_FAME}", user.formatFame()));
                         data.Add(data[14].Replace("{AUTH_TOKEN}", user.authenticationToken));
-                        
+
                         wtr.Write(JsonConvert.DeserializeObject<List<AccountInformationMessages>>(data[data.Count - 1])[0].message);
                     }
                     else

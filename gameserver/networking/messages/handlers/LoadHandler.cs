@@ -24,7 +24,7 @@ namespace gameserver.networking.handlers
                 {
                     client.SendMessage(new FAILURE
                     {
-                        ErrorId = (int) FailureIDs.DEFAULT,
+                        ErrorId = (int)FailureIDs.DEFAULT,
                         ErrorDescription = "Character is dead."
                     });
                     client.Disconnect(DisconnectReason.CHARACTER_IS_DEAD);
@@ -46,7 +46,7 @@ namespace gameserver.networking.handlers
             {
                 client.SendMessage(new FAILURE
                 {
-                    ErrorId = (int) FailureIDs.DEFAULT,
+                    ErrorId = (int)FailureIDs.DEFAULT,
                     ErrorDescription = "Failed to Load character."
                 });
                 client.Disconnect(DisconnectReason.FAILED_TO_LOAD_CHARACTER);

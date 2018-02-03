@@ -31,10 +31,10 @@ namespace gameserver.logic.behaviors
             int effectDuration = -1
             )
         {
-            this.radius = (float) radius;
+            this.radius = (float)radius;
             this.damage = damage;
             this.range = range;
-            this.direction = direction*Math.PI/180;
+            this.direction = direction * Math.PI / 180;
             this.coolDown = coolDown.Normalize();
             this.color = color;
             this.effect = effect;
@@ -48,7 +48,7 @@ namespace gameserver.logic.behaviors
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
-            int cool = (int) state;
+            int cool = (int)state;
 
             if (cool <= 0)
             {
@@ -61,8 +61,8 @@ namespace gameserver.logic.behaviors
                     if (direction != null)
                         target = new Position
                         {
-                            X = host.X + (float)(range*Math.Cos(direction.Value)),
-                            Y = host.Y + (float)(range*Math.Sin(direction.Value)),
+                            X = host.X + (float)(range * Math.Cos(direction.Value)),
+                            Y = host.Y + (float)(range * Math.Sin(direction.Value)),
                         };
                     else
                         target = new Position
@@ -89,7 +89,8 @@ namespace gameserver.logic.behaviors
                             OriginType = (short)host.ObjectType,
                             Color = new ARGB(color)
                         }, null);
-                        world.Aoe(target, radius, true, p => {
+                        world.Aoe(target, radius, true, p =>
+                        {
                             if (effect != ConditionEffectIndex.Hidden && effectDuration != -1)
                                 (p as Player).ApplyConditionEffect(new ConditionEffect
                                 {

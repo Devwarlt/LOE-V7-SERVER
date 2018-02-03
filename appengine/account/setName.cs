@@ -24,6 +24,12 @@ namespace appengine.account
                 WriteErrorLine("Invalid name");
             else
             {
+                foreach (string i in Database.BlackListedNames)
+                    if (name == i)
+                    {
+                        WriteErrorLine("Invalid name");
+                        return;
+                    }
                 string key = Database.NAME_LOCK;
                 string lockToken = null;
                 try
