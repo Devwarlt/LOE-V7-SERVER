@@ -1,5 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
+	<Object type="0x510f" id="The Egyptian's Crook" spritePeriod="4" spriteFile="lofiObj5" spriteArray="200-201">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>200</Index>
+		</Texture>
+		<SlotType>8</SlotType>
+		<LT/>
+		<Blue/>
+		<Description>Recovered in the sands of the desert aroud King Tut's tomb after it been looted.Seems like it retains magical properties.</Description>
+		<RateOfFire>1</RateOfFire>
+		<Sound>weapon/wand_of_death</Sound>
+		<Projectile>
+			<ObjectId>Spirit Bolt</ObjectId>
+			<Speed>100</Speed>
+			<LifetimeMS>900</LifetimeMS>
+			<MinDamage>100</MinDamage>
+			<MaxDamage>115</MaxDamage>
+			<Size>120</Size>
+			<MultiHit />
+		</Projectile>
+		<BagType>6</BagType>
+		<FameBonus>4</FameBonus>
+		<OldSound>magicShoot</OldSound>
+		<feedPower>450</feedPower>
+	</Object>
+	<Object type="0x510e" id="Crown of the Frog King">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xb9</Index>
+		</Texture>
+		<SlotType>9</SlotType>
+		<Green/>
+		<SRT/>
+		<Description>After the Frog King's Death, you took it's crown;Turns out this Crown is the source of the Frog Kings Power! </Description>
+		<ActivateOnEquip stat="0" amount="50">IncrementStat</ActivateOnEquip>
+		<ActivateOnEquip stat="20" amount="10">IncrementStat</ActivateOnEquip>
+		<ActivateOnEquip stat="28" amount="5">IncrementStat</ActivateOnEquip>
+		<ActivateOnEquip stat="21" amount="-10">IncrementStat</ActivateOnEquip>
+		<BagType>6</BagType>
+		<feedPower>3400</feedPower>
+		<Soulbound/>
+	</Object>
 	<Object type="0x510d" id="Edge of Time">
     <Class>Equipment</Class>
     <Item />
@@ -14,7 +60,7 @@
     <RateOfFire>1</RateOfFire>
     <Sound>weapon/missile_wand</Sound>
     <Projectile>
-      <ObjectId>Icecream Bulet</ObjectId>
+      <ObjectId>Icecream Bullet</ObjectId>
       <Speed>100</Speed>
       <MinDamage>80</MinDamage>
       <MaxDamage>95</MaxDamage>

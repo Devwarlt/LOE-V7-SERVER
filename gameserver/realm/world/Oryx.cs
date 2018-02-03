@@ -34,7 +34,7 @@ namespace gameserver.realm
             //"Hermit God",
             //"Ghost Ship",
             Tuple.Create("Cube God", (MapSetPiece) new CubeGod()),
-			 Tuple.Create("Frog King", (MapSetPiece) new Frog()),
+			 Tuple.Create("Frog King", (MapSetPiece) new FrogKing()),
 		};
 
         private readonly Random rand = new Random();
