@@ -19,9 +19,9 @@ namespace gameserver.realm.world
 
         public const string WINTER_RESOURCE = "nexus_winter";
         public const string SUMMER_RESOURCE = "nexus_summer";
-		public const string LoE_RESOURCE = "LoE-test";
+        public const string LoE_RESOURCE = "LoE-test";
 
-		public Nexus()
+        public Nexus()
         {
             Id = NEXUS_ID;
             Name = "Nexus";
