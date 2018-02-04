@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
-	<Object type="0x5155" id="K is Bae Skin">
-		<Class>Equipment</Class>
-		<Item/>
-		<AnimatedTexture>
-			<File>playerskins</File>
-			<Index>99</Index>
-		</AnimatedTexture>
-		<SlotType>10</SlotType>
 
-		<Description>K is Bae! Thanks to: Devwarlt.</Description>
-		<Activate skinType="20822">UnlockSkin</Activate>
-		<Consumable/>
-		<BagType>6</BagType>
-		<DisplayId>K is Bae Skin</DisplayId>
-	</Object>
-	<Object type="0x5157" id="Deverino Skin">
-		<Class>Equipment</Class>
-		<Item/>
-		<AnimatedTexture>
-			<File>playerskins</File>
-			<Index>100</Index>
-		</AnimatedTexture>
-		<SlotType>10</SlotType>
-		<LT/>
-		<Description>Rare skin around the LoE Realm! Thanks to: Devwarlt.</Description>
-		<Activate skinType="20824">UnlockSkin</Activate>
-		<Consumable/>
-		<BagType>6</BagType>
-		<DisplayId>Deverino Skin</DisplayId>
-	</Object>
   <Object type="0xc85" id="Common Feline Egg">
     <Class>Equipment</Class>
     <Item />
