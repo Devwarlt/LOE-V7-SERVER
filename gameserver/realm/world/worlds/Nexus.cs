@@ -19,8 +19,9 @@ namespace gameserver.realm.world
 
         public const string WINTER_RESOURCE = "nexus_winter";
         public const string SUMMER_RESOURCE = "nexus_summer";
+		public const string LoE_RESOURCE = "LoE-test";
 
-        public Nexus()
+		public Nexus()
         {
             Id = NEXUS_ID;
             Name = "Nexus";
@@ -34,7 +35,7 @@ namespace gameserver.realm.world
 
         protected override void Init()
         {
-            LoadMap(WINTER_RESOURCE, MapType.Json);
+            LoadMap(LoE_RESOURCE, MapType.Json);
         }
 
         public override void Tick(RealmTime time)

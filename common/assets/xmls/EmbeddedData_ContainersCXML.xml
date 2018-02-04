@@ -206,4 +206,60 @@
 		<Size>80</Size>
 		<SlotTypes>0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
 	</Object>
+	<Object type="0x0512" id="Christmas Bag">
+		<DisplayId>Loot Bag</DisplayId>
+		<Class>Container</Class>
+		<Container />
+		<CanPutNormalObjects />
+		<CanPutSoulboundObjects />
+		<Loot />
+		<Texture>
+			<File>lofiObj4</File>
+			<Index>0x9f</Index>
+		</Texture>
+		<Size>80</Size>
+		<SlotTypes>0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+	</Object>
+	<Object type="0x0513" id="Legendary Bag">
+		<DisplayId>Loot Bag</DisplayId>
+		<Class>Container</Class>
+		<Container />
+		<CanPutNormalObjects />
+		<CanPutSoulboundObjects />
+		<Loot />
+		<Texture>
+			<File>lofiObj4</File>
+			<Index>0xbc</Index>
+		</Texture>
+		<Size>80</Size>
+		<SlotTypes>0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+	</Object>
+	<Object type="0x0514" id="Mystical Bag">
+		<DisplayId>Loot Bag</DisplayId>
+		<Class>Container</Class>
+		<Container />
+		<CanPutNormalObjects />
+		<CanPutSoulboundObjects />
+		<Loot />
+		<Texture>
+			<File>lofiObj4</File>
+			<Index>0xbd</Index>
+		</Texture>
+		<Size>80</Size>
+		<SlotTypes>0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+	</Object>
+	<Object type="0x0515" id="Divine Bag">
+		<DisplayId>Loot Bag</DisplayId>
+		<Class>Container</Class>
+		<Container />
+		<CanPutNormalObjects />
+		<CanPutSoulboundObjects />
+		<Loot />
+		<Texture>
+			<File>lofiObj4</File>
+			<Index>0xbe</Index>
+		</Texture>
+		<Size>80</Size>
+		<SlotTypes>0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+	</Object>
 </Objects>

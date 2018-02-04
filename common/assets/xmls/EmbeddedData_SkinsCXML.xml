@@ -1,27 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
-	<Object type="0x5156" id="K is Bae">
-		<Skin/>
-		<Class>Skin</Class>
-		<AnimatedTexture>
-			<File>playerskins</File>
-			<Index>99</Index>
-		</AnimatedTexture>
-		<PlayerClassType>0x0307</PlayerClassType>
-		<UnlockSpecial>Skin of Admin K</UnlockSpecial>
-		<DisplayId>K is Bae</DisplayId>
-	</Object>
-	<Object type="0x5158" id="Deverino">
-		<Skin/>
-		<Class>Skin</Class>
-		<AnimatedTexture>
-			<File>playerskins</File>
-			<Index>100</Index>
-		</AnimatedTexture>
-		<PlayerClassType>0x0324</PlayerClassType>
-		<UnlockSpecial>Skin of Admin and Founder Devwarlt</UnlockSpecial>
-		<DisplayId>Deverino</DisplayId>
-	</Object>
 	<Object type="0x0342" id="Bandit">
 		<Skin />
 		<Class>Skin</Class>

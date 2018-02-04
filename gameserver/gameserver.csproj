@@ -151,6 +151,8 @@
     <Compile Include="logic\monsters\Dungeons\Spider Den\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\The Forgotten King.cs" />
+    <Compile Include="logic\monsters\Frog of Filisha[BETA FOR Edition 3]\Frog of Filisha.cs" />
+    <Compile Include="logic\monsters\Miscellaneous\NexusCrier.cs" />
     <Compile Include="logic\monsters\Dungeons\Undead Lair\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\Woodland Lybrinth\BehaviorDb.EpicForestMaze.cs" />
     <Compile Include="logic\monsters\Pets\Limited Pets.cs" />
@@ -402,6 +404,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="realm\ChatColor.cs" />
     <Compile Include="realm\ChatManager.cs" />
+    <Compile Include="realm\mapsetpiece\setpieces\Frog.cs" />
     <Compile Include="realm\commands\command\Testing.cs" />
     <Compile Include="realm\entity\npc\NPC.Dictionary.cs" />
     <Compile Include="realm\entity\npc\NPC.Init.cs" />
@@ -707,6 +710,7 @@
     <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_4.json" />
     <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_5.json" />
     <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_1.json" />
+    <EmbeddedResource Include="realm\world\maps\json\LoE-test.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="realm\world\maps\json\dungeons\spider den\" />
