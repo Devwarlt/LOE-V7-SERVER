@@ -34,8 +34,8 @@ namespace gameserver.realm
             //"Hermit God",
             //"Ghost Ship",
             Tuple.Create("Cube God", (MapSetPiece) new CubeGod()),
-			 Tuple.Create("Frog King", (MapSetPiece) new FrogKing()),
-		};
+             Tuple.Create("Frog King", (MapSetPiece) new FrogKing()),
+        };
 
         private readonly Random rand = new Random();
         private GameWorld world;
@@ -224,7 +224,7 @@ namespace gameserver.realm
         public bool CheckFinalQuests()
         {
             if (CountEnemies(
-                "Lich","Frog King", "Actual Lich",
+                "Lich", "Frog King", "Actual Lich",
                 "Ent Ancient", "Actual Ent Ancient",
                 "Phoenix Reborn",
                 "Oasis Giant", "Ghost King", "Cyclops God", "Red Demon",
@@ -245,8 +245,8 @@ namespace gameserver.realm
             {
                 foreach (var i in world.Players.Values)
                 {
-                    if (ocWorld == null) i.Client.Disconnect(DisconnectReason.RECONNECT_TO_CASTLE);
-                    i.Client.SendMessage(new RECONNECT
+                    if (ocWorld == null) i.client.Disconnect(DisconnectReason.RECONNECT_TO_CASTLE);
+                    i.client.SendMessage(new RECONNECT
                     {
                         Host = "",
                         Port = Settings.GAMESERVER.PORT,
@@ -261,7 +261,7 @@ namespace gameserver.realm
                 SendMsg(i, "MY MINIONS HAVE FAILED ME!", "#Oryx the Mad God");
                 SendMsg(i, "BUT NOW YOU SHALL FEEL MY WRATH!", "#Oryx the Mad God");
                 SendMsg(i, "COME MEET YOUR DOOM AT THE WALLS OF MY CASTLE!", "#Oryx the Mad God");
-                i.Client.SendMessage(new SHOWEFFECT
+                i.client.SendMessage(new SHOWEFFECT
                 {
                     EffectType = EffectType.Jitter
                 });
@@ -546,7 +546,7 @@ namespace gameserver.realm
         //tick of 10 seconds
         private void SendMsg(Player player, string message, string src = "")
         {
-            player.Client.SendMessage(new TEXT
+            player.client.SendMessage(new TEXT
             {
                 Name = src,
                 ObjectId = -1,
@@ -888,30 +888,30 @@ namespace gameserver.realm
                     "The spirits of the sea will seek revenge on your worthless soul, {PLAYER}!"
                 }
             }),
-			   Tuple.Create("Frog King", new TauntData
-			{
-				spawn = new[]
-				{
-					"Behold! My Frog King will take care of the likeness of you!"
-				},
-				numberOfEnemies = new[]
-				{
-					"Stupid Mortal! My {COUNT} Frog Kings will annihilate you!",
-					"My {COUNT} Frog Kings will be enough to destroy the likeness of you fools!",
-					"Defiance is useless! My {COUNT} Frog Kings will crush you!"
-				},
-				final = new[]
-				{
-					"Short-Sighted Noobs! A Frog King will guard me to the very end!"
-				},
-				killed = new[]
-				{
-					"REEEEEE!! WHY TF DID YOU KILL MY FROG KING, {PLAYER}!",
-					"IDIOT!NOW FILISHA HIMSELF WILL COME AFTER YOU FOR KILLING HIS PET FROG, {PLAYER}!"
+               Tuple.Create("Frog King", new TauntData
+            {
+                spawn = new[]
+                {
+                    "Behold! My Frog King will take care of the likeness of you!"
+                },
+                numberOfEnemies = new[]
+                {
+                    "Stupid Mortal! My {COUNT} Frog Kings will annihilate you!",
+                    "My {COUNT} Frog Kings will be enough to destroy the likeness of you fools!",
+                    "Defiance is useless! My {COUNT} Frog Kings will crush you!"
+                },
+                final = new[]
+                {
+                    "Short-Sighted Noobs! A Frog King will guard me to the very end!"
+                },
+                killed = new[]
+                {
+                    "REEEEEE!! WHY TF DID YOU KILL MY FROG KING, {PLAYER}!",
+                    "IDIOT!NOW FILISHA HIMSELF WILL COME AFTER YOU FOR KILLING HIS PET FROG, {PLAYER}!"
 
-				}
-			})
-		};
+                }
+            })
+        };
 
         #endregion "Taunt data"
 

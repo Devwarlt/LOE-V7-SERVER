@@ -11,8 +11,8 @@ namespace gameserver.networking.outgoing
         public string AccountId { get; set; }
         public int CharId { get; set; }
         public string Killer { get; set; }
-        public int obf0 { get; set; }
-        public int obf1 { get; set; }
+        public int zombieId { get; set; }
+        public int zombieType { get; set; }
 
         public override MessageID ID => MessageID.DEATH;
 
@@ -23,8 +23,8 @@ namespace gameserver.networking.outgoing
             AccountId = rdr.ReadUTF();
             CharId = rdr.ReadInt32();
             Killer = rdr.ReadUTF();
-            obf0 = rdr.ReadInt32();
-            obf1 = rdr.ReadInt32();
+            zombieType = rdr.ReadInt32();
+            zombieId = rdr.ReadInt32();
         }
 
         protected override void Write(NWriter wtr)
@@ -32,8 +32,8 @@ namespace gameserver.networking.outgoing
             wtr.WriteUTF(AccountId);
             wtr.Write(CharId);
             wtr.WriteUTF(Killer);
-            wtr.Write(obf0);
-            wtr.Write(obf1);
+            wtr.Write(zombieType);
+            wtr.Write(zombieId);
         }
     }
 }

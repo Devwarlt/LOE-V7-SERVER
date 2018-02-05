@@ -161,7 +161,7 @@ namespace gameserver.logic.behaviors
             else
                 foreach (Player i in host.Owner.PlayersCollision.HitTest(host.X, host.Y, 15).OfType<Player>())
                     if (host.Dist(i) < 15)
-                        i.Client.SendMessage(packet);
+                        i.client.SendMessage(packet);
         }
     }
 }

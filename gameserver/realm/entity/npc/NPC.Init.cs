@@ -67,7 +67,7 @@ namespace gameserver.realm.entity.npc
             _text.Text = message.ToSafeText();
             _text.CleanText = "";
             _text.NameColor = _text.TextColor = 0x123456;
-            player.Client.SendMessage(_text);
+            player.client.SendMessage(_text);
         }
     }
 }

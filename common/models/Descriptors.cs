@@ -619,8 +619,8 @@ public enum ActivateEffects
     MysteryDyes,
     Exchange,
     SpecialPet,
-	Donor,
-	AccountLifetime,
+    Donor,
+    AccountLifetime,
     Gold
 }
 

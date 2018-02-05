@@ -161,7 +161,7 @@ namespace gameserver.realm.terrain
             return new ObjectDef
             {
                 ObjectType = ObjType,
-                Stats = new ObjectStats
+                Stats = new ObjectStatusData
                 {
                     Id = ObjId,
                     Position = new Position

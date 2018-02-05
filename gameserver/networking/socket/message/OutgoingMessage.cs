@@ -25,8 +25,10 @@ namespace gameserver.networking
                 switch (_outgoingState)
                 {
                     case OutgoingState.ReceivingHdr:
+                        // maybe ignore this bellow?
                         if (e.BytesTransferred < 5)
                         {
+                            // Log.Write($"Bytes transferred: {e.BytesTransferred}.");
                             parent.Disconnect(DisconnectReason.RECEIVING_HDR);
                             return;
                         }
@@ -49,18 +51,18 @@ namespace gameserver.networking
                             IPAddress.NetworkToHostOrder(BitConverter.ToInt32(e.Buffer, 0)) - 5;
                         if (len < 0 || len > BUFFER_SIZE)
                             throw new InternalBufferOverflowException();
-                        Message packet = null;
                         try
                         {
-                            packet = Message.Packets[(MessageID)e.Buffer[4]].CreateInstance();
+                            Message message = Message.Messages[(MessageID)e.Buffer[4]].CreateInstance();
+                            (e.UserToken as IncomingToken).Packet = message;
                         }
                         catch
                         {
                             log.ErrorFormat("Packet ID not found: {0}", e.Buffer[4]);
                         }
-                        (e.UserToken as IncomingToken).Packet = packet;
 
                         _outgoingState = OutgoingState.ReceivingBody;
+
                         e.SetBuffer(0, len);
                         skt.ReceiveAsync(e);
                         break;

@@ -29,7 +29,7 @@ namespace gameserver.realm.commands
 
         protected abstract bool Process(Player player, RealmTime time, string[] args);
 
-        private static int GetPermissionLevel(Player player) => player.Client.Account.AccountType;
+        private static int GetPermissionLevel(Player player) => player.client.Account.AccountType;
 
         public bool HasPermission(Player player)
         {

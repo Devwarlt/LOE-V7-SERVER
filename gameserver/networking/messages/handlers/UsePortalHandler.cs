@@ -10,6 +10,7 @@ using gameserver.realm.entity;
 using gameserver.realm.world;
 using FAILURE = gameserver.networking.outgoing.FAILURE;
 using gameserver.realm.entity.player;
+using System.Collections.Generic;
 
 #endregion
 
@@ -20,6 +21,11 @@ namespace gameserver.networking.handlers
         public override MessageID ID => MessageID.USEPORTAL;
 
         protected override void HandleMessage(Client client, USEPORTAL message) => client.Manager.Logic.AddPendingAction(t => Handle(client, client.Player, message), PendingPriority.Networking);
+
+        private readonly List<string> Blacklist = new List<string>
+        {
+            "Cloth Bazaar"
+        };
 
         private void Handle(Client client, Player player, USEPORTAL message)
         {
@@ -55,6 +61,11 @@ namespace gameserver.networking.handlers
                 }
                 else
                 {
+                    if (Blacklist.Contains(desc.DungeonName))
+                    {
+                        player.SendHelp($"'{desc.DungeonName}' is under maintenance and disabled to access until further notice from LoESoft Games.");
+                        return;
+                    }
                     switch (portal.ObjectType)
                     {
                         case 0x0720:

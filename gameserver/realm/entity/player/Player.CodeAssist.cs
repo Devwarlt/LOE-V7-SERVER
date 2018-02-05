@@ -110,7 +110,7 @@ namespace gameserver.realm.entity.player
             return PlayerShootStatus.OK;
         }
 
-        public void DropNextRandom() => Client.Random.NextInt();
+        public void DropNextRandom() => client.Random.NextInt();
 
         public static class Resize16x16Skins
         {
@@ -203,7 +203,7 @@ namespace gameserver.realm.entity.player
 
         public void SaveToCharacter()
         {
-            var chr = Client.Character;
+            var chr = client.Character;
             chr.Experience = Experience;
             chr.Level = Level;
             chr.Tex1 = Texture1;
@@ -264,7 +264,7 @@ namespace gameserver.realm.entity.player
                     NameColor = 0x123456,
                     TextColor = 0x123456
                 }, null);
-                Client.Reconnect(new RECONNECT
+                client.Reconnect(new RECONNECT
                 {
                     Host = "",
                     Port = Settings.GAMESERVER.PORT,
@@ -394,7 +394,7 @@ namespace gameserver.realm.entity.player
         {
             try
             {
-                if (Client == null)
+                if (client == null)
                     return false;
 
                 if (_pingTime == -1)
@@ -407,12 +407,12 @@ namespace gameserver.realm.entity.player
                 {
 
                     string[] labels = new string[] { "{CLIENT_NAME}" };
-                    string[] arguments = new string[] { (Client?.Account?.Name == null ? "_null_" : Client?.Account?.Name) };
+                    string[] arguments = new string[] { (client?.Account?.Name == null ? "_null_" : client?.Account?.Name) };
 
                     if (arguments == new string[] { "_null_" })
                         return false;
                     else
-                        Client?.SendMessage(new FAILURE
+                        client?.SendMessage(new FAILURE
                         {
                             ErrorId = (int)FailureIDs.JSON_DIALOG,
                             ErrorDescription =
@@ -431,7 +431,7 @@ namespace gameserver.realm.entity.player
 
                 _pingTime = time.TotalElapsedMs;
 
-                Client.SendMessage(new PING()
+                client.SendMessage(new PING()
                 {
                     Serial = (int)time.TotalElapsedMs
                 });
@@ -455,8 +455,7 @@ namespace gameserver.realm.entity.player
             }
             catch
             {
-                Log.Write(nameof(Player), $"Ping error! Forcing save method.");
-                Client?.Save();
+                client?.Save();
                 return false;
             }
         }
@@ -523,7 +522,7 @@ namespace gameserver.realm.entity.player
             for (var i = 0; i < list.Count; i++)
                 list[i] = list[i].Trim();
 
-            Client.SendMessage(new ACCOUNTLIST
+            client.SendMessage(new ACCOUNTLIST
             {
                 AccountListId = id,
                 AccountIds = list.ToArray(),
@@ -559,7 +558,7 @@ namespace gameserver.realm.entity.player
             {
                 foreach (var i in Owner.Players.Values)
                     foreach (var j in pendingPackets.Where(j => j.Item2(i)))
-                        i.Client.SendMessage(j.Item1);
+                        i.client.SendMessage(j.Item1);
             }
             pendingPackets.Clear();
         }

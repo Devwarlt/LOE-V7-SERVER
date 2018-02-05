@@ -61,55 +61,47 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            if (player.Owner.Name != "Nexus")
+            int num;
+            if (args.Length > 0 && int.TryParse(args[0], out num)) //multi
             {
-                int num;
-                if (args.Length > 0 && int.TryParse(args[0], out num)) //multi
+                string name = string.Join(" ", args.Skip(1).ToArray());
+                ushort objType;
+                //creates a new case insensitive dictionary based on the XmlDatas
+                Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
+                    player.Manager.GameData.IdToObjectType,
+                    StringComparer.OrdinalIgnoreCase);
+                if (!icdatas.TryGetValue(name, out objType) ||
+                    !player.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
-                    string name = string.Join(" ", args.Skip(1).ToArray());
-                    ushort objType;
-                    //creates a new case insensitive dictionary based on the XmlDatas
-                    Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                        player.Manager.GameData.IdToObjectType,
-                        StringComparer.OrdinalIgnoreCase);
-                    if (!icdatas.TryGetValue(name, out objType) ||
-                        !player.Manager.GameData.ObjectDescs.ContainsKey(objType))
-                    {
-                        player.SendInfo("Unknown entity!");
-                        return false;
-                    }
-                    int c = int.Parse(args[0]);
-                    for (int i = 0; i < num; i++)
-                    {
-                        Entity entity = Entity.Resolve(player.Manager, objType);
-                        entity.Move(player.X, player.Y);
-                        player.Owner.EnterWorld(entity);
-                    }
-                    player.SendInfo("Success!");
+                    player.SendInfo("Unknown entity!");
+                    return false;
                 }
-                else
+                int c = int.Parse(args[0]);
+                for (int i = 0; i < num; i++)
                 {
-                    string name = string.Join(" ", args);
-                    ushort objType;
-                    //creates a new case insensitive dictionary based on the XmlDatas
-                    Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                        player.Manager.GameData.IdToObjectType,
-                        StringComparer.OrdinalIgnoreCase);
-                    if (!icdatas.TryGetValue(name, out objType) ||
-                        !player.Manager.GameData.ObjectDescs.ContainsKey(objType))
-                    {
-                        player.SendHelp("Usage: /spawn <entityname>");
-                        return false;
-                    }
                     Entity entity = Entity.Resolve(player.Manager, objType);
                     entity.Move(player.X, player.Y);
                     player.Owner.EnterWorld(entity);
                 }
+                player.SendInfo("Success!");
             }
             else
             {
-                player.SendInfo("You cannot spawn in Nexus.");
-                return false;
+                string name = string.Join(" ", args);
+                ushort objType;
+                //creates a new case insensitive dictionary based on the XmlDatas
+                Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
+                    player.Manager.GameData.IdToObjectType,
+                    StringComparer.OrdinalIgnoreCase);
+                if (!icdatas.TryGetValue(name, out objType) ||
+                    !player.Manager.GameData.ObjectDescs.ContainsKey(objType))
+                {
+                    player.SendHelp("Usage: /spawn <entityname>");
+                    return false;
+                }
+                Entity entity = Entity.Resolve(player.Manager, objType);
+                entity.Move(player.X, player.Y);
+                player.Owner.EnterWorld(entity);
             }
             return true;
         }
@@ -195,7 +187,7 @@ namespace gameserver.realm.commands
                 player.SendError("Unknown type!");
                 return false;
             }
-            if (!player.Manager.GameData.Items[objType].Secret || player.Client.Account.Admin)
+            if (!player.Manager.GameData.Items[objType].Secret || player.client.Account.Admin)
             {
                 for (int i = 4; i < player.Inventory.Length; i++)
                     if (player.Inventory[i] == null)
@@ -302,7 +294,7 @@ namespace gameserver.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         player.SendInfo($"Player {i.Value.Name} has been disconnected!");
-                        i.Value.Client.Disconnect(DisconnectReason.PLAYER_KICK);
+                        i.Value.client.Disconnect(DisconnectReason.PLAYER_KICK);
                     }
                 }
             }
@@ -493,6 +485,7 @@ namespace gameserver.realm.commands
                     Y = player.Quest.Y
                 }
             }, null);
+            player.Pet.Move(player.X, player.Y);
             player.SendInfo("Success!");
             return true;
         }
@@ -513,11 +506,11 @@ namespace gameserver.realm.commands
                 }
                 if (args.Length == 1)
                 {
-                    player.Client.Character.Level = (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.Client.Character.Level;
-                    player.Client.Player.Level = (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.Client.Player.Level;
+                    player.client.Character.Level = (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.client.Character.Level;
+                    player.client.Player.Level = (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.client.Player.Level;
                     player.UpdateCount++;
                     player.SendInfo(string.Format("Success! Level changed from level {0} to level {1}.",
-                        player.Client.Player.Level, (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.Client.Player.Level));
+                        player.client.Player.Level, (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.client.Player.Level));
                 }
             }
             catch
@@ -732,7 +725,7 @@ namespace gameserver.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         i.Value.Muted = true;
-                        i.Value.Client.Manager.Database.MuteAccount(i.Value.Client.Account);
+                        i.Value.client.Manager.Database.MuteAccount(i.Value.client.Account);
                         player.SendInfo("Player Muted.");
                     }
                 }
@@ -759,7 +752,7 @@ namespace gameserver.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         i.Value.Muted = false;
-                        i.Value.Client.Manager.Database.UnmuteAccount(i.Value.Client.Account);
+                        i.Value.client.Manager.Database.UnmuteAccount(i.Value.client.Account);
                         player.SendInfo("Player Unmuted.");
                     }
                 }
@@ -787,8 +780,8 @@ namespace gameserver.realm.commands
                     player.SendError("Player not found");
                     return false;
                 }
-                p.Client.Manager.Database.BanAccount(p.Client.Account);
-                p.Client.Disconnect(DisconnectReason.PLAYER_BANNED);
+                p.client.Manager.Database.BanAccount(p.client.Account);
+                p.client.Disconnect(DisconnectReason.PLAYER_BANNED);
                 return true;
             }
             catch

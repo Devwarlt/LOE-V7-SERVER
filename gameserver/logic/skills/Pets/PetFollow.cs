@@ -41,22 +41,6 @@ namespace gameserver.logic.skills.Pets
 
             Vector2 vect = new Vector2(player.X - pet.X, player.Y - pet.Y);
 
-            if (vect.Length > 20)
-            {
-                Position _player = new Position();
-                _player.X = player.X;
-                _player.Y = player.Y;
-
-                pet.Move(player.X, player.Y);
-
-                GOTO _goto = new GOTO();
-                _goto.ObjectId = player.Id;
-                _goto.Position = _player;
-
-                pet.Owner.BroadcastPacket(_goto, null);
-                pet.UpdateCount++;
-            }
-
             switch (s.State)
             {
                 case F.DontKnowWhere:

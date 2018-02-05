@@ -114,7 +114,7 @@ namespace gameserver.realm.entity.merchant
                 list = region7list;
             else if (Owner.Map[(int)X, (int)Y].Region == TileRegion.Store_8)
                 list = region8list;
-            else if (Owner.Map[(int)X, (int)Y].Region == TileRegion.Store_12)
+            /*else if (Owner.Map[(int)X, (int)Y].Region == TileRegion.Store_12)
                 list = accessorylist;
             else if (Owner.Map[(int)X, (int)Y].Region == TileRegion.Store_13)
                 list = largeclothlist;
@@ -129,7 +129,8 @@ namespace gameserver.realm.entity.merchant
             else if (Owner.Map[(int)X, (int)Y].Region == TileRegion.Store_18)
                 list = smallclothlist;
             else if (Owner.Map[(int)X, (int)Y].Region == TileRegion.Store_19)
-                list = clothinglist;
+                list = clothinglist*/
+            ;
 
             if (AddedTypes == null) AddedTypes = new List<KeyValuePair<string, int>>();
             list.Shuffle();

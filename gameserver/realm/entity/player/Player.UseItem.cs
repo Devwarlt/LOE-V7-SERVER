@@ -76,7 +76,7 @@ namespace gameserver.realm.entity.player
                             };
 
                             foreach (Player plr in Owner?.Players.Values.Where(p => p?.DistSqr(this) < RadiusSqr))
-                                plr?.Client.SendMessage(batch);
+                                plr?.client.SendMessage(batch);
                         }
                         break;
                     case ActivateEffects.Shoot: Shoot(time, item, target); break;
@@ -568,7 +568,7 @@ namespace gameserver.realm.entity.player
                                 {
                                     Color = c,
                                     Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Opened by " + Name + "\"}}",
-                                    ObjectId = Client.Player.Id
+                                    ObjectId = client.Player.Id
                                 }, null);
 
                                 w.BroadcastPacket(new TEXT
@@ -602,24 +602,25 @@ namespace gameserver.realm.entity.player
                         }
                     case ActivateEffects.Dye:
                         {
-                            if (Database.Names.Contains(Name))
-                            {
-                                SendInfo("Players without valid name couldn't use this feature. Please name your character to continue.");
-                                return true;
-                            }
+                            SendHelp("Feature temporarly disabled until further notice from LoESoft Games.");
+                            return true;
+                            //if (Database.Names.Contains(Name))
+                            //{
+                            //    SendInfo("Players without valid name couldn't use this feature. Please name your character to continue.");
+                            //    return true;
+                            //}
 
-                            if (item.Texture1 != 0)
-                            {
-                                Texture1 = item.Texture1;
-                            }
-                            if (item.Texture2 != 0)
-                            {
-                                Texture2 = item.Texture2;
-                            }
+                            //if (item.Texture1 != 0)
+                            //{
+                            //    Texture1 = item.Texture1;
+                            //}
+                            //if (item.Texture2 != 0)
+                            //{
+                            //    Texture2 = item.Texture2;
+                            //}
 
-                            SaveToCharacter();
+                            //SaveToCharacter();
                         }
-                        break;
                     case ActivateEffects.ShurikenAbility:
                         {
                             if (!ninjaShoot)
@@ -659,13 +660,13 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            if (Client.Player.Owner.Name == "Vault")
+                            if (client.Player.Owner.Name == "Vault")
                             {
-                                if (!Client.Account.OwnedSkins.Contains(item.ActivateEffects[0].SkinType))
+                                if (!client.Account.OwnedSkins.Contains(item.ActivateEffects[0].SkinType))
                                 {
-                                    Manager.Database.AddSkin(Client.Account, item.ActivateEffects[0].SkinType);
+                                    Manager.Database.AddSkin(client.Account, item.ActivateEffects[0].SkinType);
                                     SendInfo("New skin unlocked successfully. Change skins in your Vault, or start a new character to use.");
-                                    Client.SendMessage(new RESKIN_UNLOCK
+                                    client.SendMessage(new RESKIN_UNLOCK
                                     {
                                         SkinID = item.ActivateEffects[0].SkinType
                                     });
@@ -741,13 +742,13 @@ namespace gameserver.realm.entity.player
                             por?.Move(X, Y);
                             Owner?.EnterWorld(por);
 
-                            Client?.SendMessage(new NOTIFICATION
+                            client?.SendMessage(new NOTIFICATION
                             {
                                 Color = new ARGB(0x00FF00),
                                 Text =
                                     "{\"key\":\"blank\",\"tokens\":{\"data\":\"Opened by " +
-                                    Client.Account.Name + "\"}}",
-                                ObjectId = Client.Player.Id
+                                    client.Account.Name + "\"}}",
+                                ObjectId = client.Player.Id
                             });
 
                             Owner?.BroadcastPacket(new TEXT
@@ -1239,7 +1240,7 @@ namespace gameserver.realm.entity.player
 
                             List<Message> _outgoing = new List<Message>();
                             World _world = Manager.GetWorld(Owner.Id);
-                            DbAccount acc = Client.Account;
+                            DbAccount acc = client.Account;
                             int days = eff.Amount;
 
                             SendInfo($"Success! You received {eff.Amount} day{(eff.Amount > 1 ? "s" : "")} as account lifetime to your VIP account type when {item.DisplayId} was consumed!");
@@ -1277,7 +1278,7 @@ namespace gameserver.realm.entity.player
                             _reconnect.Name = "Nexus";
                             _reconnect.Port = Settings.GAMESERVER.PORT;
 
-                            _world.Timers.Add(new WorldTimer(2000, (w, t) => Client.Reconnect(_reconnect)));
+                            _world.Timers.Add(new WorldTimer(2000, (w, t) => client.Reconnect(_reconnect)));
                         }
                         break;
                     case ActivateEffects.Gold:
@@ -1285,7 +1286,7 @@ namespace gameserver.realm.entity.player
                             if (Database.Names.Contains(Name))
                                 return true;
                             Credits += eff.Amount;
-                            Manager.Database.UpdateCredit(Client.Account, eff.Amount);
+                            Manager.Database.UpdateCredit(client.Account, eff.Amount);
                             UpdateCount++;
                         }
                         break;
@@ -1435,10 +1436,10 @@ namespace gameserver.realm.entity.player
             log.FatalFormat("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId);
             foreach (Player player in Owner?.Players.Values)
-                if (player?.Client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
+                if (player?.client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId));
-            Client?.Disconnect(DisconnectReason.CHEAT_ENGINE_DETECTED);
+            client?.Disconnect(DisconnectReason.CHEAT_ENGINE_DETECTED);
             return true;
         }
 
@@ -1446,10 +1447,10 @@ namespace gameserver.realm.entity.player
         {
             if (HasBackpack)
                 return true;
-            Client.Character.Backpack = new[] { -1, -1, -1, -1, -1, -1, -1, -1 };
+            client.Character.Backpack = new[] { -1, -1, -1, -1, -1, -1, -1, -1 };
             HasBackpack = true;
-            Client.Character.HasBackpack = true;
-            Client?.Save();
+            client.Character.HasBackpack = true;
+            client?.Save();
             Array.Resize(ref inventory, 20);
             int[] slotTypes =
                 Utils.FromCommaSepString32(

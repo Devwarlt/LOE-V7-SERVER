@@ -165,7 +165,7 @@ namespace gameserver.realm.entity.player
                 NewObjects = sendEntities.Select(_ => _.ToDefinition()).Concat(newStatics.ToArray()).ToArray(),
                 RemovedObjectIds = dropEntities.Concat(removedIds).ToArray()
             };
-            Client.SendMessage(packet);
+            client.SendMessage(packet);
             UpdatesSend++;
         }
 
@@ -190,11 +190,11 @@ namespace gameserver.realm.entity.player
                 sendEntities.Add(Quest);
                 lastUpdate[Quest] = Quest.UpdateCount;
             }
-            Client.SendMessage(new NEWTICK()
+            client.SendMessage(new NEWTICK()
             {
                 TickId = tickId++,
                 TickTime = time.ElapsedMsDelta,
-                UpdateStatuses = sendEntities.Select(_ => _.ExportStats()).ToArray()
+                Statuses = sendEntities.Select(_ => _.ExportStats()).ToArray()
             });
             blocksight.Clear();
             AwaitMove(tickId);

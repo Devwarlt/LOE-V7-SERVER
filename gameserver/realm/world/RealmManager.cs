@@ -129,9 +129,9 @@ namespace gameserver.realm
             Monitor.WorldRemoved(world);
         }
 
-        public void Disconnect(Client client)
+        public void Disconnect(Client client, DisconnectReason reason = DisconnectReason.UNKNOW_ERROR_INSTANCE)
         {
-            client?.Disconnect(DisconnectReason.REALM_MANAGER_DISCONNECT);
+            client?.Disconnect(reason == DisconnectReason.UNKNOW_ERROR_INSTANCE ? DisconnectReason.REALM_MANAGER_DISCONNECT : reason);
             Clients.TryRemove(client?.Id.ToString(), out client);
             client?.Dispose();
         }
@@ -144,7 +144,7 @@ namespace gameserver.realm
             return (from i in Worlds
                     where i.Key != 0
                     from e in i.Value.Players
-                    where string.Equals(e.Value.Client.Account.Name, name, StringComparison.CurrentCultureIgnoreCase)
+                    where string.Equals(e.Value.client.Account.Name, name, StringComparison.CurrentCultureIgnoreCase)
                     select e.Value).FirstOrDefault();
         }
 

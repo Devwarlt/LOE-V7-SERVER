@@ -41,7 +41,7 @@ namespace gameserver.realm.entity.player
                 AccountPerks = new AccountTypePerks(AccountType);
                 AccountLifetime = client.Account.AccountLifetime;
                 isVip = AccountLifetime != DateTime.MinValue;
-                Client = client;
+                this.client = client;
                 Manager = client.Manager;
                 StatsManager = new StatsManager(this, client.Random.CurrentSeed);
                 Name = client.Account.Name;
@@ -60,10 +60,12 @@ namespace gameserver.realm.entity.player
                 NameChosen = client.Account.NameChosen;
                 CurrentFame = client.Account.Fame;
                 Fame = client.Character.Fame;
-                PetHealing = new List<List<int>>();
-                PetAttack = new List<int>();
+                PetHealing = null;
+                PetAttack = null;
                 if (client.Character.Pet != 0)
                 {
+                    PetHealing = new List<List<int>>();
+                    PetAttack = new List<int>();
                     PetID = client.Character.Pet;
                     Tuple<int, int, double> HPData = PetHPHealing.MinMaxBonus(Resolve(Manager, (ushort)PetID).ObjectDesc.HPTier, Stars);
                     Tuple<int, int, double> MPData = PetMPHealing.MinMaxBonus(Resolve(Manager, (ushort)PetID).ObjectDesc.MPTier, Stars);
@@ -96,7 +98,7 @@ namespace gameserver.realm.entity.player
                 ConditionEffects = 0;
                 OxygenBar = 100;
                 HasBackpack = client.Character.HasBackpack == true;
-                PlayerSkin = Client.Account.OwnedSkins.Contains(Client.Character.Skin) ? Client.Character.Skin : 0;
+                PlayerSkin = this.client.Account.OwnedSkins.Contains(this.client.Character.Skin) ? this.client.Character.Skin : 0;
                 HealthPotions = client.Character.HealthPotions < 0 ? 0 : client.Character.HealthPotions;
                 MagicPotions = client.Character.MagicPotions < 0 ? 0 : client.Character.MagicPotions;
 
@@ -158,7 +160,7 @@ namespace gameserver.realm.entity.player
                 for (var i = 0; i < SlotTypes.Length; i++)
                     if (SlotTypes[i] == 0) SlotTypes[i] = 10;
 
-                if (Client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
+                if (this.client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
                     return;
 
                 for (var i = 0; i < 4; i++)
@@ -179,7 +181,7 @@ namespace gameserver.realm.entity.player
             {
                 case "Arena":
                     {
-                        Client.SendMessage(new ARENA_DEATH
+                        client.SendMessage(new ARENA_DEATH
                         {
                             RestartPrice = 100
                         });
@@ -192,14 +194,14 @@ namespace gameserver.realm.entity.player
                         return;
                     }
             }
-            if (Client.State == ProtocolState.Disconnected || resurrecting)
+            if (client.State == ProtocolState.Disconnected || resurrecting)
                 return;
             if (CheckResurrection())
                 return;
 
-            if (Client.Character.Dead)
+            if (client.Character.Dead)
             {
-                Client.Disconnect(DisconnectReason.CHARACTER_IS_DEAD);
+                client.Disconnect(DisconnectReason.CHARACTER_IS_DEAD);
                 return;
             }
             GenerateGravestone();
@@ -229,26 +231,32 @@ namespace gameserver.realm.entity.player
 
             try
             {
-                Client.Character.Dead = true;
+                client.Character.Dead = true;
                 SaveToCharacter();
-                Manager.Database.SaveCharacter(Client.Account, Client.Character, true);
+                Manager.Database.SaveCharacter(client.Account, client.Character, true);
 
-                Manager.Database.Death(Manager.GameData, Client.Account, Client.Character, FameCounter.Stats, killer);
+                Manager.Database.Death(Manager.GameData, client.Account, client.Character, FameCounter.Stats, killer);
                 if (Owner.Id != -6)
                 {
-                    Client.SendMessage(new DEATH
-                    {
-                        AccountId = AccountId,
-                        CharId = Client.Character.CharId,
-                        Killer = killer,
-                        obf0 = -1,
-                        obf1 = -1,
-                    });
-                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => Client.Disconnect(DisconnectReason.CHARACTER_IS_DEAD)));
+                    DEATH _death = new DEATH();
+                    _death.AccountId = AccountId;
+                    _death.CharId = client.Character.CharId;
+                    _death.Killer = killer;
+                    _death.zombieId = -1;
+                    _death.zombieType = -1;
+
+                    client.SendMessage(_death);
+
+                    Log.Write($"Message details type '{_death.ID}':\n{_death}");
+
+                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => Manager.Disconnect(client, DisconnectReason.CHARACTER_IS_DEAD)));
+
+                    Log.Write($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
+
                     Owner.LeaveWorld(this);
                 }
                 else
-                    Client.Disconnect(DisconnectReason.CHARACTER_IS_DEAD_ERROR);
+                    Manager.Disconnect(client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
             }
             catch (Exception e)
             {
@@ -271,16 +279,16 @@ namespace gameserver.realm.entity.player
             tiles = new byte[owner.Map.Width, owner.Map.Height];
             SetNewbiePeriod();
             base.Init(owner);
-            List<int> gifts = Client.Account.Gifts.ToList();
+            List<int> gifts = client.Account.Gifts.ToList();
             if (owner.Id == World.NEXUS_ID || owner.Name == "Vault")
             {
-                Client.SendMessage(new GLOBAL_NOTIFICATION
+                client.SendMessage(new GLOBAL_NOTIFICATION
                 {
                     Type = 0,
                     Text = gifts.Count > 0 ? "giftChestOccupied" : "giftChestEmpty"
                 });
             }
-            if (Client.Character.Pet != 0)
+            if (client.Character.Pet != 0)
             {
                 HatchlingPet = false;
                 Pet = Resolve(Manager, (ushort)PetID);
@@ -315,7 +323,7 @@ namespace gameserver.realm.entity.player
 
         public void Teleport(RealmTime time, TELEPORT packet)
         {
-            var obj = Client.Player.Owner.GetEntity(packet.ObjectId);
+            var obj = client.Player.Owner.GetEntity(packet.ObjectId);
             try
             {
                 if (obj == null) return;
@@ -422,7 +430,7 @@ namespace gameserver.realm.entity.player
             if (newQuest == null || newQuest == Quest) return;
             Owner.Timers.Add(new WorldTimer(100, (w, t) =>
             {
-                Client.SendMessage(new QUESTOBJID
+                client.SendMessage(new QUESTOBJID
                 {
                     ObjectId = newQuest.Id
                 });
@@ -542,7 +550,7 @@ namespace gameserver.realm.entity.player
 
         public override void Tick(RealmTime time)
         {
-            if (Client == null)
+            if (client == null)
                 return;
 
             if (!KeepAlive(time))
@@ -550,7 +558,7 @@ namespace gameserver.realm.entity.player
 
             try
             {
-                if (Client.State == ProtocolState.Disconnected)
+                if (client.State == ProtocolState.Disconnected)
                 {
                     if (Owner != null)
                         Owner.LeaveWorld(this);

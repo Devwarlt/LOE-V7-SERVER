@@ -45,7 +45,7 @@ namespace gameserver.realm.entity
 
         protected virtual bool TryDeduct(Player player)
         {
-            DbAccount acc = player.Client.Account;
+            DbAccount acc = player.client.Account;
             if (!player.NameChosen) return false;
             if (player.Stars < RankReq) return false;
 
@@ -64,12 +64,12 @@ namespace gameserver.realm.entity
             {
                 if (TryDeduct(player))
                 {
-                    Manager.Database.UpdateCredit(player.Client.Account, -Price);
-                    player.Credits = player.Client.Account.Credits;
+                    Manager.Database.UpdateCredit(player.client.Account, -Price);
+                    player.Credits = player.client.Account.Credits;
                     player.UpdateCount++;
                     player.SaveToCharacter();
                     (Owner as Vault).AddChest(this);
-                    player.Client.SendMessage(new BUYRESULT
+                    player.client.SendMessage(new BUYRESULT
                     {
                         Result = 0,
                         Message = "{\"key\":\"server.buy_success\"}"
@@ -77,7 +77,7 @@ namespace gameserver.realm.entity
                 }
                 else
                 {
-                    player.Client.SendMessage(new BUYRESULT
+                    player.client.SendMessage(new BUYRESULT
                     {
                         Result = BUY_NO_GOLD,
                         Message = "{\"key\":\"server.not_enough_gold\"}"
@@ -86,7 +86,7 @@ namespace gameserver.realm.entity
             }
             if (ObjectType == 0x0736)
             {
-                player.Client.SendMessage(new BUYRESULT()
+                player.client.SendMessage(new BUYRESULT()
                 {
                     Result = 9,
                     Message = "{\"key\":\"server.not_enough_game\"}"

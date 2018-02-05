@@ -99,23 +99,15 @@ namespace gameserver.realm.entity
             bool penetrateObsta = ProjDesc.PassesCover;
             bool penetrateEnemy = ProjDesc.MultiHit;
             Move(entity.X, entity.Y);
-            //_("Checking projectile hit...");
             if (entity.HitByProjectile(this, time))
             {
                 if ((entity is Enemy && penetrateEnemy) || (entity is GameObject && (entity as GameObject).Static && !(entity is Wall) && penetrateObsta))
-                {
-                    //_("Adding hit to entity.");
                     hitted.Add(entity);
-                }
                 else
-                {
-                    //_("Destroying projectile!");
                     Destroy();
-                }
+
                 ProjectileOwner.Self.ProjectileHit(this, entity);
             }
-            //else
-            //    _("Invalid projectile hit!");
         }
     }
 }

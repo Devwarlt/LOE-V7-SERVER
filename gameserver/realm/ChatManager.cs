@@ -57,7 +57,7 @@ namespace gameserver.realm
             _text.Name = player.Name;
             _text.ObjectId = player.Id;
             _text.Stars = player.Stars;
-            _text.Admin = player.Client.Account.Admin ? 1 : 0;
+            _text.Admin = player.client.Account.Admin ? 1 : 0;
             _text.BubbleTime = 5;
             _text.Recipient = "";
             _text.Text = chatText;
@@ -110,7 +110,7 @@ namespace gameserver.realm
                 _text.TextColor = 0x123456;
                 _text.Text = text.ToSafeText();
 
-                player.Client.SendMessage(_text);
+                player.client.SendMessage(_text);
             }
         }
 
@@ -126,7 +126,7 @@ namespace gameserver.realm
             _text.Text = callback.ToSafeText();
             _text.CleanText = "";
             _text.NameColor = _text.TextColor = 0x123456;
-            player.Client.SendMessage(_text);
+            player.client.SendMessage(_text);
         }
 
         private void HandleChat(object sender, InterServerEventArgs<Message> e)

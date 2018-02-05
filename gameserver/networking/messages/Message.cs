@@ -15,7 +15,7 @@ namespace gameserver.networking
 {
     public abstract class Message
     {
-        public static Dictionary<MessageID, Message> Packets = new Dictionary<MessageID, Message>();
+        public static Dictionary<MessageID, Message> Messages = new Dictionary<MessageID, Message>();
 
         static Message()
         {
@@ -24,9 +24,11 @@ namespace gameserver.networking
                 {
                     Message pkt = (Message)Activator.CreateInstance(i);
                     if (!(pkt is OutgoingMessage))
-                        //if (!Packets.ContainsKey(pkt.ID))
-                        Packets.Add(pkt.ID, pkt);
+                        Messages.Add(pkt.ID, pkt);
                 }
+            int j = 1;
+            foreach (KeyValuePair<MessageID, Message> message in Messages)
+                Log.Write($"({j++}/{Messages.Count}) Message ID '{message.Key}' has been added.", ConsoleColor.Gray);
         }
 
         public abstract MessageID ID { get; }

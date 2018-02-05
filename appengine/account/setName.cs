@@ -25,7 +25,7 @@ namespace appengine.account
             else
             {
                 foreach (string i in Database.BlackListedNames)
-                    if (name == i)
+                    if (name.ToLower() == i.ToLower())
                     {
                         WriteErrorLine("Invalid name");
                         return;

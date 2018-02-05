@@ -51,25 +51,25 @@ namespace gameserver.realm.entity.merchant
                                 {
                                     case CurrencyType.Fame:
                                         {
-                                            Manager.Database.UpdateFame(player.Client.Account, -Price);
-                                            player.CurrentFame = player.Client.Account.Fame;
+                                            Manager.Database.UpdateFame(player.client.Account, -Price);
+                                            player.CurrentFame = player.client.Account.Fame;
                                         }
                                         break;
                                     case CurrencyType.Gold:
                                         {
-                                            Manager.Database.UpdateCredit(player.Client.Account, -Price);
-                                            player.Credits = player.Client.Account.Credits;
+                                            Manager.Database.UpdateCredit(player.client.Account, -Price);
+                                            player.Credits = player.client.Account.Credits;
                                         }
                                         break;
                                     case CurrencyType.FortuneTokens:
                                         {
-                                            Manager.Database.UpdateTokens(player.Client.Account, -Price);
-                                            player.Tokens = player.Client.Account.FortuneTokens;
+                                            Manager.Database.UpdateTokens(player.client.Account, -Price);
+                                            player.Tokens = player.client.Account.FortuneTokens;
                                         }
                                         break;
                                     default: break;
                                 }
-                                player.Client.SendMessage(new BUYRESULT
+                                player.client.SendMessage(new BUYRESULT
                                 {
                                     Result = 0,
                                     Message = "{\"key\":\"server.buy_success\"}"
@@ -86,7 +86,7 @@ namespace gameserver.realm.entity.merchant
                             log.Error(e);
                         }
                     }
-                    player.Client.SendMessage(new BUYRESULT
+                    player.client.SendMessage(new BUYRESULT
                     {
                         Result = 0,
                         Message = "{\"key\":\"server.inventory_full\"}"
@@ -96,7 +96,7 @@ namespace gameserver.realm.entity.merchant
                 {
                     if (player.Stars < RankReq)
                     {
-                        player.Client.SendMessage(new BUYRESULT
+                        player.client.SendMessage(new BUYRESULT
                         {
                             Result = 0,
                             Message = "{\"key\":\"server.not_enough_star\"}"
@@ -106,7 +106,7 @@ namespace gameserver.realm.entity.merchant
                     switch (Currency)
                     {
                         case CurrencyType.Gold:
-                            player.Client.SendMessage(new BUYRESULT
+                            player.client.SendMessage(new BUYRESULT
                             {
                                 Result = BUY_NO_GOLD,
                                 Message = "{\"key\":\"server.not_enough_gold\"}"
@@ -114,7 +114,7 @@ namespace gameserver.realm.entity.merchant
                             break;
 
                         case CurrencyType.Fame:
-                            player.Client.SendMessage(new BUYRESULT
+                            player.client.SendMessage(new BUYRESULT
                             {
                                 Result = BUY_NO_FAME,
                                 Message = "{\"key\":\"server.not_enough_fame\"}"
@@ -122,7 +122,7 @@ namespace gameserver.realm.entity.merchant
                             break;
 
                         case CurrencyType.FortuneTokens:
-                            player.Client.SendMessage(new BUYRESULT
+                            player.client.SendMessage(new BUYRESULT
                             {
                                 Result = BUY_NO_FORTUNETOKENS,
                                 Message = "{\"key\":\"server.not_enough_fortunetokens\"}"
@@ -135,7 +135,7 @@ namespace gameserver.realm.entity.merchant
 
         protected override bool TryDeduct(Player player)
         {
-            var acc = player.Client.Account;
+            var acc = player.client.Account;
             if (player.Stars < RankReq) return false;
 
             if (Currency == CurrencyType.Fame)
