@@ -25,7 +25,7 @@ namespace gameserver.realm.entity.player
                 SendInfo("{\"key\":\"server.trade_needs_their_name\"}");
                 return;
             }
-            if (Client.Player == target)
+            if (client.Player == target)
             {
                 SendInfo("{\"key\":\"server.self_trade\"}");
                 return;
@@ -63,14 +63,14 @@ namespace gameserver.realm.entity.player
                     };
                 }
 
-                Client.SendMessage(new TRADESTART
+                client.SendMessage(new TRADESTART
                 {
                     MyItems = myItems,
                     YourItems = yourItems,
                     YourName = target.Name
                 });
 
-                target.Client.SendMessage(new TRADESTART
+                target.client.SendMessage(new TRADESTART
                 {
                     MyItems = yourItems,
                     YourItems = myItems,
@@ -86,7 +86,7 @@ namespace gameserver.realm.entity.player
                 SendInfo("{\"key\":\"server.trade_requested\",\"tokens\":{\"player\":\"" + target.Name + "\"}}");
                 //todo
                 //if (target.Ignored.Contains(Client.Account.AccountId)) return;
-                target.Client.SendMessage(new TRADEREQUESTED
+                target.client.SendMessage(new TRADEREQUESTED
                 {
                     Name = Name
                 });

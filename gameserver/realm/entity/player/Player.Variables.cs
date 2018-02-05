@@ -53,7 +53,7 @@ namespace gameserver.realm.entity.player
         public string AccountId { get; }
         public int[] Boost { get; private set; }
         public ActivateBoost[] ActivateBoost { get; private set; }
-        public Client Client { get; }
+        public Client client { get; }
         public int Credits { get; set; }
         public int Tokens { get; set; }
         public int CurrentFame { get; set; }

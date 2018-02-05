@@ -229,13 +229,13 @@ namespace gameserver
     public struct ObjectDef
     {
         public ushort ObjectType;
-        public ObjectStats Stats;
+        public ObjectStatusData Stats;
 
         public static ObjectDef Read(NReader rdr)
         {
             ObjectDef ret = new ObjectDef();
             ret.ObjectType = (ushort)rdr.ReadInt16();
-            ret.Stats = ObjectStats.Read(rdr);
+            ret.Stats = ObjectStatusData.Read(rdr);
             return ret;
         }
 
@@ -246,15 +246,15 @@ namespace gameserver
         }
     }
 
-    public struct ObjectStats
+    public struct ObjectStatusData
     {
         public int Id;
         public Position Position;
         public KeyValuePair<StatsType, object>[] Stats;
 
-        public static ObjectStats Read(NReader rdr)
+        public static ObjectStatusData Read(NReader rdr)
         {
-            ObjectStats ret = new ObjectStats();
+            ObjectStatusData ret = new ObjectStatusData();
             ret.Id = rdr.ReadInt32();
             ret.Position = Position.Read(rdr);
             ret.Stats = new KeyValuePair<StatsType, object>[rdr.ReadInt16()];

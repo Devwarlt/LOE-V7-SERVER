@@ -61,9 +61,9 @@ namespace gameserver.realm.world
 
                     foreach (KeyValuePair<int, Player> i in Players)
                     {
-                        if (i.Value.Client == null)
+                        if (i.Value.client == null)
                             continue;
-                        i.Value.Client.SendMessage(new IMMINENT_ARENA_WAVE
+                        i.Value.client.SendMessage(new IMMINENT_ARENA_WAVE
                         {
                             CurrentRuntime = time.ElapsedMsDelta,
                             Wave = wave

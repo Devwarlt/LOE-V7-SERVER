@@ -50,7 +50,7 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            player.Client.Reconnect(new RECONNECT
+            player.client.Reconnect(new RECONNECT
             {
                 Host = "",
                 Port = Settings.GAMESERVER.PORT,
@@ -254,7 +254,7 @@ namespace gameserver.realm.commands
             {
                 if (i.Account.NameChosen && i.Account.Name.EqualsIgnoreCase(playername))
                 {
-                    player.Client.SendMessage(new TEXT()
+                    player.client.SendMessage(new TEXT()
                     {
                         ObjectId = player.Id,
                         BubbleTime = 10,

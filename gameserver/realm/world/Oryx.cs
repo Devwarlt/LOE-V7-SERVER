@@ -245,8 +245,8 @@ namespace gameserver.realm
             {
                 foreach (var i in world.Players.Values)
                 {
-                    if (ocWorld == null) i.Client.Disconnect(DisconnectReason.RECONNECT_TO_CASTLE);
-                    i.Client.SendMessage(new RECONNECT
+                    if (ocWorld == null) i.client.Disconnect(DisconnectReason.RECONNECT_TO_CASTLE);
+                    i.client.SendMessage(new RECONNECT
                     {
                         Host = "",
                         Port = Settings.GAMESERVER.PORT,
@@ -261,7 +261,7 @@ namespace gameserver.realm
                 SendMsg(i, "MY MINIONS HAVE FAILED ME!", "#Oryx the Mad God");
                 SendMsg(i, "BUT NOW YOU SHALL FEEL MY WRATH!", "#Oryx the Mad God");
                 SendMsg(i, "COME MEET YOUR DOOM AT THE WALLS OF MY CASTLE!", "#Oryx the Mad God");
-                i.Client.SendMessage(new SHOWEFFECT
+                i.client.SendMessage(new SHOWEFFECT
                 {
                     EffectType = EffectType.Jitter
                 });
@@ -546,7 +546,7 @@ namespace gameserver.realm
         //tick of 10 seconds
         private void SendMsg(Player player, string message, string src = "")
         {
-            player.Client.SendMessage(new TEXT
+            player.client.SendMessage(new TEXT
             {
                 Name = src,
                 ObjectId = -1,

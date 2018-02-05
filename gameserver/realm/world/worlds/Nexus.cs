@@ -59,9 +59,9 @@ namespace gameserver.realm.world
                             {
                                 try
                                 {
-                                    if (y.Value.Client != null)
+                                    if (y.Value.client != null)
                                     {
-                                        y.Value.Client.SendMessage(new FAILURE
+                                        y.Value.client.SendMessage(new FAILURE
                                         {
                                             ErrorId = (int)FailureIDs.JSON_DIALOG,
                                             ErrorDescription =
@@ -69,10 +69,10 @@ namespace gameserver.realm.world
                                                     FormatedJSONError(
                                                         errorID: ErrorIDs.LOST_CONNECTION,
                                                         labels: new[] { "{CLIENT_NAME}" },
-                                                        arguments: new[] { y.Value.Client.Account.Name }
+                                                        arguments: new[] { y.Value.client.Account.Name }
                                                     )
                                         });
-                                        y.Value.Client.Disconnect(DisconnectReason.DUPER_DISCONNECT);
+                                        y.Value.client.Disconnect(DisconnectReason.DUPER_DISCONNECT);
                                     }
                                 }
                                 catch
@@ -82,9 +82,9 @@ namespace gameserver.realm.world
                                 }
                                 try
                                 {
-                                    if (z.Value.Client != null)
+                                    if (z.Value.client != null)
                                     {
-                                        z.Value.Client.SendMessage(new FAILURE
+                                        z.Value.client.SendMessage(new FAILURE
                                         {
                                             ErrorId = (int)FailureIDs.JSON_DIALOG,
                                             ErrorDescription =
@@ -92,10 +92,10 @@ namespace gameserver.realm.world
                                                     FormatedJSONError(
                                                         errorID: ErrorIDs.LOST_CONNECTION,
                                                         labels: new[] { "{CLIENT_NAME}" },
-                                                        arguments: new[] { z.Value.Client.Account.Name }
+                                                        arguments: new[] { z.Value.client.Account.Name }
                                                     )
                                         });
-                                        z.Value.Client.Disconnect(DisconnectReason.DUPER_DISCONNECT);
+                                        z.Value.client.Disconnect(DisconnectReason.DUPER_DISCONNECT);
                                     }
                                 }
                                 catch

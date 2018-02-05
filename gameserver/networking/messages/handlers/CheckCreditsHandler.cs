@@ -19,7 +19,7 @@ namespace gameserver.networking.handlers
             client.Account.Reload();
             client.Manager.Logic.AddPendingAction(t =>
             {
-                client.Player.Credits = client.Player.Client.Account.Credits;
+                client.Player.Credits = client.Player.client.Account.Credits;
                 client.Player.UpdateCount++;
             }, PendingPriority.Networking);
         }

@@ -24,7 +24,7 @@ namespace gameserver.logic.behaviors
         {
             foreach (var i in host.GetNearestEntities(25, null).OfType<Player>())
             {
-                i.Client.SendMessage(new PLAYSOUND
+                i.client.SendMessage(new PLAYSOUND
                 {
                     OwnerId = host.Id,
                     SoundId = soundId

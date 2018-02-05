@@ -21,8 +21,8 @@ namespace gameserver.logic
         public FameCounter(Player player)
         {
             this.player = player;
-            Stats = FameStats.Read(player.Client.Character.FameStats);
-            ClassStats = new DbClassStats(player.Client.Account);
+            Stats = FameStats.Read(player.client.Character.FameStats);
+            ClassStats = new DbClassStats(player.client.Account);
         }
 
         private HashSet<Projectile> projs = new HashSet<Projectile>();

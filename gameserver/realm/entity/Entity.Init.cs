@@ -478,11 +478,11 @@ namespace gameserver.realm
             stats[StatsType.NEW_CON_STAT] = _conditionEffects2;
         }
 
-        public virtual ObjectStats ExportStats()
+        public virtual ObjectStatusData ExportStats()
         {
             var stats = new Dictionary<StatsType, object>();
             ExportStats(stats);
-            return new ObjectStats
+            return new ObjectStatusData
             {
                 Id = Id,
                 Position = new Position { X = X, Y = Y },

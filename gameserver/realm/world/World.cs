@@ -355,25 +355,25 @@ namespace gameserver.realm
         public void BroadcastPacket(Message pkt, Player exclude)
         {
             foreach (var i in Players.Where(i => i.Value != exclude))
-                i.Value.Client.SendMessage(pkt);
+                i.Value.client.SendMessage(pkt);
         }
 
         public void BroadcastPacketSync(Message pkt, Predicate<Player> exclude)
         {
             foreach (var i in Players.Where(i => exclude(i.Value)))
-                i.Value.Client.SendMessage(pkt);
+                i.Value.client.SendMessage(pkt);
         }
 
         public void BroadcastPackets(IEnumerable<Message> pkts, Player exclude)
         {
             foreach (var i in Players.Where(i => i.Value != exclude))
-                i.Value.Client.SendMessage(pkts);
+                i.Value.client.SendMessage(pkts);
         }
 
         public void BroadcastPacketsSync(IEnumerable<Message> pkts, Predicate<Player> exclude)
         {
             foreach (var i in Players.Where(i => exclude(i.Value)))
-                i.Value.Client.SendMessage(pkts);
+                i.Value.client.SendMessage(pkts);
         }
 
         public virtual void Tick(RealmTime time)

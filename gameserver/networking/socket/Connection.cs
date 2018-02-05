@@ -59,14 +59,6 @@ namespace gameserver.networking
             UNKNOW_ERROR_INSTANCE = 255
         }
 
-        public void _(string accId, Socket skt, DisconnectReason type)
-        {
-            string response = $"[{time[1]}] [{nameof(Client)}] [({(int)type}) {type.ToString()}] Disconnect\t->\tplayer id {accId} to {skt.RemoteEndPoint.ToString().Split(':')[0]}";
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(response);
-            Console.ResetColor();
-        }
-
         public async void Reconnect(RECONNECT msg)
         {
             if (this == null)
@@ -123,21 +115,7 @@ namespace gameserver.networking
             }
         }
 
-        private async void Disconnect(Client client)
-        {
-            if (client == null)
-                return;
-
-            Save();
-
-            await task;
-
-            task.Dispose();
-
-            Manager.Disconnect(this);
-        }
-
-        public async void Disconnect(DisconnectReason type)
+        public async void Disconnect(DisconnectReason reason)
         {
             try
             {
@@ -147,21 +125,14 @@ namespace gameserver.networking
 
                 task.Dispose();
 
-                if (State == ProtocolState.Disconnected)
+                if (Socket == null || Account == null || State == ProtocolState.Disconnected)
                     return;
 
-                if (Socket == null)
-                    return;
-
-                if (Account == null)
-                    return;
-
-                _(Account.AccountId, Socket, type);
+                Log.Write($"[({(int)reason}) {reason.ToString()}] Disconnect player '{Account.Name} (Account ID: {Account.AccountId})' from IP '{Socket.RemoteEndPoint.ToString().Split(':')[0]}'.");
 
                 State = ProtocolState.Disconnected;
 
-                if (Account != null)
-                    Disconnect(this);
+                Manager.Disconnect(this);
 
                 Socket?.Close();
             }

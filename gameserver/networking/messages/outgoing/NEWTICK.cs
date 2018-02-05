@@ -10,7 +10,7 @@ namespace gameserver.networking.outgoing
     {
         public int TickId { get; set; }
         public int TickTime { get; set; }
-        public ObjectStats[] UpdateStatuses { get; set; }
+        public ObjectStatusData[] Statuses { get; set; }
 
         public override MessageID ID => MessageID.NEWTICK;
 
@@ -21,9 +21,9 @@ namespace gameserver.networking.outgoing
             TickId = rdr.ReadInt32();
             TickTime = rdr.ReadInt32();
 
-            UpdateStatuses = new ObjectStats[rdr.ReadInt16()];
-            for (int i = 0; i < UpdateStatuses.Length; i++)
-                UpdateStatuses[i] = ObjectStats.Read(rdr);
+            Statuses = new ObjectStatusData[rdr.ReadInt16()];
+            for (int i = 0; i < Statuses.Length; i++)
+                Statuses[i] = ObjectStatusData.Read(rdr);
         }
 
         protected override void Write(NWriter wtr)
@@ -31,8 +31,8 @@ namespace gameserver.networking.outgoing
             wtr.Write(TickId);
             wtr.Write(TickTime);
 
-            wtr.Write((ushort)UpdateStatuses.Length);
-            foreach (ObjectStats i in UpdateStatuses)
+            wtr.Write((ushort)Statuses.Length);
+            foreach (ObjectStatusData i in Statuses)
                 i.Write(wtr);
         }
     }
