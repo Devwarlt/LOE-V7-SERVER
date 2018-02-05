@@ -60,10 +60,12 @@ namespace gameserver.realm.entity.player
                 NameChosen = client.Account.NameChosen;
                 CurrentFame = client.Account.Fame;
                 Fame = client.Character.Fame;
-                PetHealing = new List<List<int>>();
-                PetAttack = new List<int>();
+                PetHealing = null;
+                PetAttack = null;
                 if (client.Character.Pet != 0)
                 {
+                    PetHealing = new List<List<int>>();
+                    PetAttack = new List<int>();
                     PetID = client.Character.Pet;
                     Tuple<int, int, double> HPData = PetHPHealing.MinMaxBonus(Resolve(Manager, (ushort)PetID).ObjectDesc.HPTier, Stars);
                     Tuple<int, int, double> MPData = PetMPHealing.MinMaxBonus(Resolve(Manager, (ushort)PetID).ObjectDesc.MPTier, Stars);

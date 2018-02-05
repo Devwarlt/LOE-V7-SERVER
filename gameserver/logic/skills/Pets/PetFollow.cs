@@ -39,6 +39,8 @@ namespace gameserver.logic.skills.Pets
                 return;
             }
 
+            Vector2 vect = new Vector2(player.X - pet.X, player.Y - pet.Y);
+
             switch (s.State)
             {
                 case F.DontKnowWhere:
@@ -57,15 +59,24 @@ namespace gameserver.logic.skills.Pets
                     if (s.RemainingTime > 0)
                         s.RemainingTime -= time.ElapsedMsDelta;
 
-                    var vect = new Vector2(player.X - pet.X, player.Y - pet.Y);
+                    vect = new Vector2(player.X - pet.X, player.Y - pet.Y);
 
                     if (vect.Length > 20)
                     {
-                        pet.Move(player.X, player.Y); //TOFIX..
+                        Position _player = new Position();
+                        _player.X = player.X;
+                        _player.Y = player.Y;
+
+                        pet.Move(player.X, player.Y);
+
+                        GOTO _goto = new GOTO();
+                        _goto.ObjectId = player.Id;
+                        _goto.Position = _player;
+
+                        pet.Owner.BroadcastPacket(_goto, null);
                         pet.UpdateCount++;
                     }
-
-                    else if (vect.Length > 1)
+                    else if (vect.Length > 1 && vect.Length <= 20)
                     {
                         float dist = host.EntitySpeed(player.Stats[4] / 10, time);
 

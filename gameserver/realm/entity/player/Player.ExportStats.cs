@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Collections.Generic;
 
 #endregion
@@ -106,16 +107,26 @@ namespace gameserver.realm.entity.player
             stats[StatsType.PET_OBJECT_ID] = PetID;
             if (PetID != 0)
             {
-                stats[StatsType.PET_HP_HEALING_AVERAGE_MIN] = PetHealing[0][0];
-                stats[StatsType.PET_HP_HEALING_AVERAGE_MAX] = PetHealing[0][1];
-                stats[StatsType.PET_HP_HEALING_AVERAGE_BONUS] = PetHealing[0][2];
-                stats[StatsType.PET_MP_HEALING_AVERAGE_MIN] = PetHealing[1][0];
-                stats[StatsType.PET_MP_HEALING_AVERAGE_MAX] = PetHealing[1][1];
-                stats[StatsType.PET_MP_HEALING_AVERAGE_BONUS] = PetHealing[1][2];
-                stats[StatsType.PET_ATTACK_COOLDOWN] = PetAttack[0];
-                stats[StatsType.PET_ATTACK_CHANCE] = PetAttack[1];
-                stats[StatsType.PET_ATTACK_DAMAGE_MIN] = PetAttack[2];
-                stats[StatsType.PET_ATTACK_DAMAGE_MAX] = PetAttack[3];
+                try
+                {
+                    if (PetHealing != null)
+                    {
+                        stats[StatsType.PET_HP_HEALING_AVERAGE_MIN] = PetHealing[0][0];
+                        stats[StatsType.PET_HP_HEALING_AVERAGE_MAX] = PetHealing[0][1];
+                        stats[StatsType.PET_HP_HEALING_AVERAGE_BONUS] = PetHealing[0][2];
+                        stats[StatsType.PET_MP_HEALING_AVERAGE_MIN] = PetHealing[1][0];
+                        stats[StatsType.PET_MP_HEALING_AVERAGE_MAX] = PetHealing[1][1];
+                        stats[StatsType.PET_MP_HEALING_AVERAGE_BONUS] = PetHealing[1][2];
+                    }
+                    if (PetAttack != null)
+                    {
+                        stats[StatsType.PET_ATTACK_COOLDOWN] = PetAttack[0];
+                        stats[StatsType.PET_ATTACK_CHANCE] = PetAttack[1];
+                        stats[StatsType.PET_ATTACK_DAMAGE_MIN] = PetAttack[2];
+                        stats[StatsType.PET_ATTACK_DAMAGE_MAX] = PetAttack[3];
+                    }
+                }
+                catch (ArgumentOutOfRangeException) { } // just don't return errors, hold this exception without export any value
             }
         }
     }

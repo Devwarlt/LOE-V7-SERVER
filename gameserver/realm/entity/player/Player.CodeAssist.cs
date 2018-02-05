@@ -455,7 +455,6 @@ namespace gameserver.realm.entity.player
             }
             catch
             {
-                Log.Write(nameof(Player), $"Ping error! Forcing save method.");
                 client?.Save();
                 return false;
             }
