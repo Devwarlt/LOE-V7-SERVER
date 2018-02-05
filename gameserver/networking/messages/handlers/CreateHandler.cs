@@ -23,18 +23,18 @@ namespace gameserver.networking.handlers
         {
             int skin = client.Account.OwnedSkins.Contains(message.SkinType) ? message.SkinType : 0;
             DbChar character;
-            CreateStatus status = client.Manager.Database.CreateCharacter(client.Manager.GameData, client.Account, (ushort)message.ClassType, skin, out character);
+            CreateStatus status = Manager.Database.CreateCharacter(Manager.GameData, client.Account, (ushort)message.ClassType, skin, out character);
             if (status == CreateStatus.ReachCharLimit)
             {
                 client.SendMessage(new FAILURE
                 {
                     ErrorDescription = "Failed to Load character."
                 });
-                client.Disconnect(DisconnectReason.FAILED_TO_LOAD_CHARACTER);
+                Manager.TryDisconnect(client, DisconnectReason.FAILED_TO_LOAD_CHARACTER);
                 return;
             }
             client.Character = character;
-            World target = client.Manager.Worlds[client.TargetWorld];
+            World target = Manager.Worlds[client.TargetWorld];
             target.Timers.Add(new WorldTimer(5000, (w, t) =>
             {
                 if (status == CreateStatus.OK)
@@ -43,8 +43,8 @@ namespace gameserver.networking.handlers
                     {
                         CharacterID = client.Character.CharId,
                         ObjectID =
-                            client.Manager.Worlds[client.TargetWorld].EnterWorld(
-                                client.Player = new Player(client.Manager, client))
+                           Manager.Worlds[client.TargetWorld].EnterWorld(
+                                client.Player = new Player(Manager, client))
                     });
                     client.State = ProtocolState.Ready;
                 }

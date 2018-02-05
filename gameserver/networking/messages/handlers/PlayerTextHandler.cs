@@ -12,7 +12,7 @@ namespace gameserver.networking.handlers
 
         protected override void HandleMessage(Client client, PLAYERTEXT message)
         {
-            client.Manager.Logic.AddPendingAction(t =>
+            Manager.Logic.AddPendingAction(t =>
             {
                 if (client.Player.Owner == null) return;
 

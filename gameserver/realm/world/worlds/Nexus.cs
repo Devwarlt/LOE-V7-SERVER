@@ -15,7 +15,7 @@ namespace gameserver.realm.world
 {
     public class Nexus : World
     {
-        private bool validate = true;
+        private bool validate = false;
 
         public const string WINTER_RESOURCE = "nexus_winter";
         public const string SUMMER_RESOURCE = "nexus_summer";
@@ -41,71 +41,7 @@ namespace gameserver.realm.world
         public override void Tick(RealmTime time)
         {
             base.Tick(time);
-
             UpdatePortals();
-
-            if (validate)
-                Overseer();
-        }
-
-        private async void Overseer()
-        {
-            validate = false;
-            foreach (KeyValuePair<int, World> w in Manager.Worlds)
-                foreach (KeyValuePair<int, World> x in Manager.Worlds)
-                    foreach (KeyValuePair<int, Player> y in w.Value.Players)
-                        foreach (KeyValuePair<int, Player> z in x.Value.Players)
-                            if (y.Value.AccountId == z.Value.AccountId && y.Value != z.Value)
-                            {
-                                try
-                                {
-                                    if (y.Value.client != null)
-                                    {
-                                        y.Value.client.SendMessage(new FAILURE
-                                        {
-                                            ErrorId = (int)FailureIDs.JSON_DIALOG,
-                                            ErrorDescription =
-                                                JSONErrorIDHandler.
-                                                    FormatedJSONError(
-                                                        errorID: ErrorIDs.LOST_CONNECTION,
-                                                        labels: new[] { "{CLIENT_NAME}" },
-                                                        arguments: new[] { y.Value.client.Account.Name }
-                                                    )
-                                        });
-                                        y.Value.client.Disconnect(DisconnectReason.DUPER_DISCONNECT);
-                                    }
-                                }
-                                catch
-                                {
-                                    Log.Write(nameof(Nexus), "Client is null.");
-                                    return;
-                                }
-                                try
-                                {
-                                    if (z.Value.client != null)
-                                    {
-                                        z.Value.client.SendMessage(new FAILURE
-                                        {
-                                            ErrorId = (int)FailureIDs.JSON_DIALOG,
-                                            ErrorDescription =
-                                                JSONErrorIDHandler.
-                                                    FormatedJSONError(
-                                                        errorID: ErrorIDs.LOST_CONNECTION,
-                                                        labels: new[] { "{CLIENT_NAME}" },
-                                                        arguments: new[] { z.Value.client.Account.Name }
-                                                    )
-                                        });
-                                        z.Value.client.Disconnect(DisconnectReason.DUPER_DISCONNECT);
-                                    }
-                                }
-                                catch
-                                {
-                                    Log.Write("Client is null.");
-                                    return;
-                                }
-                            }
-            await Task.Delay(500);
-            validate = true;
         }
 
         private void UpdatePortals()

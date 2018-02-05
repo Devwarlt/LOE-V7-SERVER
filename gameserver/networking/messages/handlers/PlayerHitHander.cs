@@ -13,7 +13,7 @@ namespace gameserver.networking.handlers
     {
         public override MessageID ID => MessageID.PLAYERHIT;
 
-        protected override void HandleMessage(Client client, PLAYERHIT message) => client.Manager.Logic.AddPendingAction(t => Handle(client.Player, message));
+        protected override void HandleMessage(Client client, PLAYERHIT message) => Manager.Logic.AddPendingAction(t => Handle(client.Player, message));
 
         private void Handle(Player player, PLAYERHIT message)
         {

@@ -2,6 +2,7 @@
 using common.config;
 using System.Collections.Generic;
 using System;
+using gameserver.networking;
 
 namespace gameserver.realm.commands
 {
@@ -32,6 +33,12 @@ namespace gameserver.realm.commands
                         if (cmd == "all")
                             foreach (KeyValuePair<string, Tuple<DateTime, string>> messageInfos in ChatManager.ChatDataCache)
                                 player.SendInfo($"[ChatData] [{ChatManager.ChatDataCache[messageInfos.Key].Item1}] <{messageInfos.Key}> {ChatManager.ChatDataCache[messageInfos.Key].Item2}");
+                    }
+                    break;
+                case "clients":
+                    {
+                        foreach (KeyValuePair<string, Tuple<Client, DateTime>> i in Program.manager.Clients)
+                            player.SendInfo($"[Clients] [ID: {i.Key}] Client '{i.Value.Item1.Account.Name}' joined network at {i.Value.Item2}.");
                     }
                     break;
                 default:

@@ -17,7 +17,7 @@ namespace gameserver.networking.handlers
 
         protected override void HandleMessage(Client client, LOAD message)
         {
-            client.Character = client.Manager.Database.LoadCharacter(client.Account, message.CharacterId);
+            client.Character = Manager.Database.LoadCharacter(client.Account, message.CharacterId);
             if (client.Character != null)
             {
                 if (client.Character.Dead)
@@ -27,17 +27,15 @@ namespace gameserver.networking.handlers
                         ErrorId = (int)FailureIDs.DEFAULT,
                         ErrorDescription = "Character is dead."
                     });
-                    client.Disconnect(DisconnectReason.CHARACTER_IS_DEAD);
+                    Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD);
                 }
                 else
                 {
-                    World target = client.Manager.Worlds[client.TargetWorld];
+                    World target = Manager.Worlds[client.TargetWorld];
                     client.SendMessage(new CREATE_SUCCESS
                     {
                         CharacterID = client.Character.CharId,
-                        ObjectID =
-                                client.Manager.Worlds[client.TargetWorld].EnterWorld(
-                                    client.Player = new Player(client.Manager, client))
+                        ObjectID = Manager.Worlds[client.TargetWorld].EnterWorld(client.Player = new Player(Manager, client))
                     });
                     client.State = ProtocolState.Ready;
                 }
@@ -49,7 +47,7 @@ namespace gameserver.networking.handlers
                     ErrorId = (int)FailureIDs.DEFAULT,
                     ErrorDescription = "Failed to Load character."
                 });
-                client.Disconnect(DisconnectReason.FAILED_TO_LOAD_CHARACTER);
+                Manager.TryDisconnect(client, DisconnectReason.FAILED_TO_LOAD_CHARACTER);
             }
         }
     }

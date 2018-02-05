@@ -44,7 +44,7 @@ namespace gameserver.networking.handlers
 
             DbGuild guild;
 
-            GuildCreateStatus gstatus = client.Manager.Database.CreateGuild(name, out guild);
+            GuildCreateStatus gstatus = Manager.Database.CreateGuild(name, out guild);
 
             if (gstatus != GuildCreateStatus.OK)
             {
@@ -52,7 +52,7 @@ namespace gameserver.networking.handlers
                 return;
             }
 
-            AddGuildMemberStatus mstatus = client.Manager.Database.AddGuildMember(guild, acc, true);
+            AddGuildMemberStatus mstatus = Manager.Database.AddGuildMember(guild, acc, true);
 
             if (mstatus != AddGuildMemberStatus.OK)
             {
@@ -60,7 +60,7 @@ namespace gameserver.networking.handlers
                 return;
             }
 
-            client.Manager.Database.UpdateFame(acc, -1000);
+            Manager.Database.UpdateFame(acc, -1000);
             client.Player.CurrentFame = acc.Fame;
             client.Player.Guild = guild.Name;
             client.Player.GuildRank = 40;

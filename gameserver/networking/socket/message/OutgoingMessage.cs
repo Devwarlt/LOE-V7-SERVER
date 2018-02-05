@@ -15,7 +15,7 @@ namespace gameserver.networking
             {
                 if (!skt.Connected)
                 {
-                    parent.Disconnect(DisconnectReason.SOCKET_IS_NOT_CONNECTED);
+                    Manager.TryDisconnect(client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
                     return;
                 }
 
@@ -29,13 +29,13 @@ namespace gameserver.networking
                         if (e.BytesTransferred < 5)
                         {
                             // Log.Write($"Bytes transferred: {e.BytesTransferred}.");
-                            parent.Disconnect(DisconnectReason.RECEIVING_HDR);
+                            Manager.TryDisconnect(client, DisconnectReason.RECEIVING_HDR);
                             return;
                         }
 
                         if (e.Buffer[0] == 0xae && e.Buffer[1] == 0x7a && e.Buffer[2] == 0xf2 && e.Buffer[3] == 0xb2 && e.Buffer[4] == 0x95)
                         {
-                            byte[] c = Encoding.ASCII.GetBytes($"{parent.Manager.MaxClients}:{Program.Usage}");
+                            byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{Program.Usage}");
                             skt.Send(c);
                             return;
                         }
@@ -69,12 +69,12 @@ namespace gameserver.networking
                     case OutgoingState.ReceivingBody:
                         if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
                         {
-                            parent.Disconnect(DisconnectReason.RECEIVING_BODY);
+                            Manager.TryDisconnect(client, DisconnectReason.RECEIVING_BODY);
                             return;
                         }
 
                         Message pkt = (e.UserToken as IncomingToken).Packet;
-                        pkt.Read(parent, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
+                        pkt.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
 
                         _outgoingState = OutgoingState.Processing;
                         bool cont = IncomingMessageReceived(pkt);

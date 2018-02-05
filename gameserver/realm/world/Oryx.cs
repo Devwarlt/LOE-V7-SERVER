@@ -245,7 +245,7 @@ namespace gameserver.realm
             {
                 foreach (var i in world.Players.Values)
                 {
-                    if (ocWorld == null) i.client.Disconnect(DisconnectReason.RECONNECT_TO_CASTLE);
+                    if (ocWorld == null) Program.manager.TryDisconnect(i.client, DisconnectReason.RECONNECT_TO_CASTLE);
                     i.client.SendMessage(new RECONNECT
                     {
                         Host = "",

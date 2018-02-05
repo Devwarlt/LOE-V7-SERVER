@@ -8,9 +8,9 @@ namespace gameserver.networking
     {
         private bool IncomingMessageReceived(Message pkt)
         {
-            if (parent.IsReady())
+            if (client.IsReady())
             {
-                parent.Manager.Network.AddPendingPacket(parent, pkt);
+                Manager.Network.AddPendingPacket(client, pkt);
                 return true;
             }
             return false;
@@ -26,7 +26,7 @@ namespace gameserver.networking
                 switch (_incomingState)
                 {
                     case IncomingStage.Ready:
-                        len = (e.UserToken as OutgoingToken).Packet.Write(parent, _incomingBuff, 0);
+                        len = (e.UserToken as OutgoingToken).Packet.Write(client, _incomingBuff, 0);
 
                         _incomingState = IncomingStage.Sending;
                         e.SetBuffer(0, len);
@@ -39,7 +39,7 @@ namespace gameserver.networking
 
                         if (IncomingMessage(e, true))
                         {
-                            len = (e.UserToken as OutgoingToken).Packet.Write(parent, _incomingBuff, 0);
+                            len = (e.UserToken as OutgoingToken).Packet.Write(client, _incomingBuff, 0);
 
                             _incomingState = IncomingStage.Sending;
                             e.SetBuffer(0, len);
@@ -81,7 +81,7 @@ namespace gameserver.networking
             pendingPackets.Enqueue(msg);
             if (IncomingMessage(_incoming, false))
             {
-                int len = (_incoming.UserToken as OutgoingToken).Packet.Write(parent, _incomingBuff, 0);
+                int len = (_incoming.UserToken as OutgoingToken).Packet.Write(client, _incomingBuff, 0);
 
                 _incomingState = IncomingStage.Sending;
                 _incoming.SetBuffer(_incomingBuff, 0, len);
@@ -97,7 +97,7 @@ namespace gameserver.networking
                 pendingPackets.Enqueue(i);
             if (IncomingMessage(_incoming, false))
             {
-                int len = (_incoming.UserToken as OutgoingToken).Packet.Write(parent, _incomingBuff, 0);
+                int len = (_incoming.UserToken as OutgoingToken).Packet.Write(client, _incomingBuff, 0);
 
                 _incomingState = IncomingStage.Sending;
                 _incoming.SetBuffer(_incomingBuff, 0, len);

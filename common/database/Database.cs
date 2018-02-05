@@ -127,13 +127,13 @@ namespace common
 
         public int GetLockTime(string accId) => (int)Keys.TimeToLive(1, $"lock.{accId}").Exec();
 
-        public bool RenewLock(DbAccount acc)
+        public bool RenewLock(DbAccount acc, int sec = 60)
         {
             string key = $"lock.{acc.AccountId}";
             using (var trans = CreateTransaction())
             {
                 trans.AddCondition(Condition.KeyEquals(1, key, acc.LockToken));
-                Keys.Expire(1, key, 60);
+                Keys.Expire(1, key, sec);
                 return trans.Execute().Exec();
             }
         }

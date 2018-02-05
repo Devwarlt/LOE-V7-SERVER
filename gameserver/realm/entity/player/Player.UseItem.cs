@@ -1439,7 +1439,7 @@ namespace gameserver.realm.entity.player
                 if (player?.client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId));
-            client?.Disconnect(DisconnectReason.CHEAT_ENGINE_DETECTED);
+            Manager.TryDisconnect(client, DisconnectReason.CHEAT_ENGINE_DETECTED);
             return true;
         }
 

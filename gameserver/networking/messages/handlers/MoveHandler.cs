@@ -13,7 +13,7 @@ namespace gameserver.networking.handlers
     {
         public override MessageID ID => MessageID.MOVE;
 
-        protected override void HandleMessage(Client client, MOVE message) => client.Manager.Logic.AddPendingAction(t => Handle(client.Player, t, message), PendingPriority.Networking);
+        protected override void HandleMessage(Client client, MOVE message) => Manager.Logic.AddPendingAction(t => Handle(client.Player, t, message), PendingPriority.Networking);
 
         private void Handle(Player player, RealmTime time, MOVE message)
         {

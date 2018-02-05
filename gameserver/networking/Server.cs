@@ -58,10 +58,10 @@ namespace gameserver.networking
         public void Stop()
         {
             log.Info("Stoping server...");
-            foreach (Client i in Manager.Clients.Values.ToArray())
+            foreach (Tuple<Client, DateTime> i in Manager.Clients.Values.ToArray())
             {
-                i.Save();
-                i.Disconnect(DisconnectReason.STOPING_SERVER);
+                i.Item1.Save();
+                Manager.TryDisconnect(i.Item1, DisconnectReason.STOPING_SERVER);
             }
             Socket.Close();
         }

@@ -52,7 +52,7 @@ namespace gameserver.realm
 
         private static readonly ILog log = LogManager.GetLogger(typeof(RealmManager));
 
-        public ConcurrentDictionary<string, Client> Clients { get; private set; }
+        public ConcurrentDictionary<string, Tuple<Client, DateTime>> Clients { get; private set; }
         public ConcurrentDictionary<int, World> Worlds { get; private set; }
         public ConcurrentDictionary<string, World> LastWorld { get; private set; }
 
@@ -70,7 +70,7 @@ namespace gameserver.realm
         {
             MaxClients = Settings.NETWORKING.MAX_CONNECTIONS;
             TPS = Settings.GAMESERVER.TICKETS_PER_SECOND;
-            Clients = new ConcurrentDictionary<string, Client>();
+            Clients = new ConcurrentDictionary<string, Tuple<Client, DateTime>>();
             Worlds = new ConcurrentDictionary<int, World>();
             LastWorld = new ConcurrentDictionary<string, World>();
             vaults = new ConcurrentDictionary<string, Vault>();
@@ -127,13 +127,6 @@ namespace gameserver.realm
         public void CloseWorld(World world)
         {
             Monitor.WorldRemoved(world);
-        }
-
-        public void Disconnect(Client client, DisconnectReason reason = DisconnectReason.UNKNOW_ERROR_INSTANCE)
-        {
-            client?.Disconnect(reason == DisconnectReason.UNKNOW_ERROR_INSTANCE ? DisconnectReason.REALM_MANAGER_DISCONNECT : reason);
-            Clients.TryRemove(client?.Id.ToString(), out client);
-            client?.Dispose();
         }
 
         public Player FindPlayer(string name)
@@ -269,10 +262,10 @@ namespace gameserver.realm
 
             Terminating = true;
             List<Client> saveAccountUnlock = new List<Client>();
-            foreach (Client c in Clients.Values)
+            foreach (Tuple<Client, DateTime> client in Clients.Values)
             {
-                saveAccountUnlock?.Add(c);
-                c?.Disconnect(DisconnectReason.STOPPING_REALM_MANAGER);
+                saveAccountUnlock.Add(client.Item1);
+                TryDisconnect(client.Item1, DisconnectReason.STOPPING_REALM_MANAGER);
             }
 
             GameData?.Dispose();
@@ -293,18 +286,51 @@ namespace gameserver.realm
             client.Id = Interlocked.Increment(ref nextClientId);
             if (Clients.ContainsKey(client.Id.ToString()))
             {
-                Client c = Clients[client.Id.ToString()];
-                if (c != null)
+                if (client != null)
                 {
-                    Disconnect(Clients[client.Id.ToString()]);
+                    TryDisconnect(client);
                     //Dispatch ErrorID: normal connection with reconnect type.
-                    return Tuple.Create(Clients.TryAdd(client.Id.ToString(), client), ErrorIDs.UNKNOWN);
+                    return Tuple.Create(Clients.TryAdd(client.Id.ToString(), Tuple.Create(client, DateTime.Now)), ErrorIDs.UNKNOWN);
                 }
                 //Dispatch ErrorID: user drop connection to reconnect again.
                 return Tuple.Create(false, ErrorIDs.LOST_CONNECTION);
             }
             //Dispatch ErrorID: normal connection.
-            return Tuple.Create(Clients.TryAdd(client.Id.ToString(), client), ErrorIDs.UNKNOWN);
+            return Tuple.Create(Clients.TryAdd(client.Id.ToString(), Tuple.Create(client, DateTime.Now)), ErrorIDs.UNKNOWN);
+        }
+
+        public void TryDisconnect(Client client, DisconnectReason reason = DisconnectReason.UNKNOW_ERROR_INSTANCE)
+        {
+            if (client == null)
+                return;
+            DisconnectHandler(client, reason == DisconnectReason.UNKNOW_ERROR_INSTANCE ? DisconnectReason.REALM_MANAGER_DISCONNECT : reason);
+        }
+
+        public void DisconnectHandler(Client client, DisconnectReason reason)
+        {
+            try
+            {
+                if (client.Socket == null || client.Account == null || client.State == ProtocolState.Disconnected)
+                    return;
+
+                Log.Write($"[({(int)reason}) {reason.ToString()}] Disconnect player '{client.Account.Name} (Account ID: {client.Account.AccountId})' from IP '{client.Socket.RemoteEndPoint.ToString().Split(':')[0]}'.");
+
+                Tuple<Client, DateTime> disposableClient = null;
+
+                Clients.TryRemove(client.Id.ToString(), out disposableClient);
+
+                if (disposableClient.Item1 == null)
+                    return;
+
+                disposableClient.Item1.Save();
+                disposableClient.Item1.State = ProtocolState.Disconnected;
+                disposableClient.Item1.Socket.Close();
+                disposableClient.Item1.Dispose();
+            }
+            catch (Exception e)
+            {
+                Program.Logger.Error($"[{nameof(RealmManager)}] Disconnect Handler exception:\n{e}");
+            }
         }
 
         private void OnWorldAdded(World world)

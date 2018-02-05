@@ -16,7 +16,7 @@ namespace gameserver.networking.handlers
         protected override void HandleMessage(Client client, ACCEPT_ARENA_DEATH message)
         {
             if (client.Player.Owner == null) return;
-            World world = client.Manager.GetWorld(client.Player.Owner.Id);
+            World world = Manager.GetWorld(client.Player.Owner.Id);
             if (world.Id == World.NEXUS_ID)
             {
                 client.SendMessage(new TEXT

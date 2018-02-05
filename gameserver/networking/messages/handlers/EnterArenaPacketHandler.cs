@@ -19,15 +19,19 @@ namespace gameserver.networking.handlers
         private void Handle(Client client, ENTER_ARENA message)
         {
             if (message.Currency == 1)
+            {
                 if (client.Account.Fame >= 500)
                 {
-                    client.Manager.Database.UpdateFame(client.Account, -500);
+                    Manager.Database.UpdateFame(client.Account, -500);
                 }
-                else
+            }
+            else
+            {
                 if (client.Account.Credits >= 50)
                 {
-                    client.Manager.Database.UpdateCredit(client.Account, -50);
+                    Manager.Database.UpdateCredit(client.Account, -50);
                 }
+            }
             client.Player.UpdateCount++;
             client.Player.SaveToCharacter();
             World world = client.Player.Manager.AddWorld(new Arena());

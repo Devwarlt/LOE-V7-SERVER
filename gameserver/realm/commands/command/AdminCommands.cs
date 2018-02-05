@@ -294,7 +294,7 @@ namespace gameserver.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         player.SendInfo($"Player {i.Value.Name} has been disconnected!");
-                        i.Value.client.Disconnect(DisconnectReason.PLAYER_KICK);
+                        Program.manager.TryDisconnect(i.Value.client, DisconnectReason.PLAYER_KICK);
                     }
                 }
             }
@@ -397,9 +397,9 @@ namespace gameserver.realm.commands
             }
             string saytext = string.Join(" ", args);
 
-            foreach (Client i in player.Manager.Clients.Values)
+            foreach (Tuple<Client, DateTime> i in player.Manager.Clients.Values)
             {
-                i.SendMessage(new TEXT
+                i.Item1.SendMessage(new TEXT
                 {
                     BubbleTime = 0,
                     Stars = -1,
@@ -419,13 +419,13 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            foreach (Client i in player.Manager.Clients.Values)
+            foreach (Tuple<Client, DateTime> i in player.Manager.Clients.Values)
             {
-                if (i.Account.Name.EqualsIgnoreCase(args[0]))
+                if (i.Item1.Account.Name.EqualsIgnoreCase(args[0]))
                 {
-                    i.Player.HP = 0;
-                    i.Player.Death("server.game_admin");
-                    player.SendInfo($"Player {i.Account.Name} has been killed!");
+                    i.Item1.Player.HP = 0;
+                    i.Item1.Player.Death("server.game_admin");
+                    player.SendInfo($"Player {i.Item1.Account.Name} has been killed!");
                     return true;
                 }
             }
@@ -588,9 +588,9 @@ namespace gameserver.realm.commands
             }
             else if (args.Length == 3)
             {
-                foreach (Client i in player.Manager.Clients.Values)
+                foreach (Tuple<Client, DateTime> i in player.Manager.Clients.Values)
                 {
-                    if (i.Account.Name.EqualsIgnoreCase(args[0]))
+                    if (i.Item1.Account.Name.EqualsIgnoreCase(args[0]))
                     {
                         try
                         {
@@ -600,36 +600,36 @@ namespace gameserver.realm.commands
                             {
                                 case "health":
                                 case "hp":
-                                    i.Player.Stats[0] = amount;
+                                    i.Item1.Player.Stats[0] = amount;
                                     break;
                                 case "mana":
                                 case "mp":
-                                    i.Player.Stats[1] = amount;
+                                    i.Item1.Player.Stats[1] = amount;
                                     break;
                                 case "att":
                                 case "atk":
                                 case "attack":
-                                    i.Player.Stats[2] = amount;
+                                    i.Item1.Player.Stats[2] = amount;
                                     break;
                                 case "def":
                                 case "defence":
-                                    i.Player.Stats[3] = amount;
+                                    i.Item1.Player.Stats[3] = amount;
                                     break;
                                 case "spd":
                                 case "speed":
-                                    i.Player.Stats[4] = amount;
+                                    i.Item1.Player.Stats[4] = amount;
                                     break;
                                 case "vit":
                                 case "vitality":
-                                    i.Player.Stats[5] = amount;
+                                    i.Item1.Player.Stats[5] = amount;
                                     break;
                                 case "wis":
                                 case "wisdom":
-                                    i.Player.Stats[6] = amount;
+                                    i.Item1.Player.Stats[6] = amount;
                                     break;
                                 case "dex":
                                 case "dexterity":
-                                    i.Player.Stats[7] = amount;
+                                    i.Item1.Player.Stats[7] = amount;
                                     break;
                                 default:
                                     player.SendError("Invalid Stat");
@@ -637,8 +637,8 @@ namespace gameserver.realm.commands
                                     player.SendHelp("Shortcuts: Hp, Mp, Atk, Def, Spd, Vit, Wis, Dex");
                                     return false;
                             }
-                            i.Player.SaveToCharacter();
-                            i.Player.UpdateCount++;
+                            i.Item1.Player.SaveToCharacter();
+                            i.Item1.Player.UpdateCount++;
                             player.SendInfo("Success");
                         }
                         catch
@@ -781,7 +781,7 @@ namespace gameserver.realm.commands
                     return false;
                 }
                 p.client.Manager.Database.BanAccount(p.client.Account);
-                p.client.Disconnect(DisconnectReason.PLAYER_BANNED);
+                Program.manager.TryDisconnect(p.client, DisconnectReason.PLAYER_BANNED);
                 return true;
             }
             catch

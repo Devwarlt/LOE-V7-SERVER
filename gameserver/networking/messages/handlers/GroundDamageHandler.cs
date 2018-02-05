@@ -15,7 +15,7 @@ namespace gameserver.networking.handlers
 
         protected override void HandleMessage(Client client, GROUNDDAMAGE message)
         {
-            client.Manager.Logic.AddPendingAction(t =>
+            Manager.Logic.AddPendingAction(t =>
             {
                 if (client.Player.HasConditionEffect(ConditionEffectIndex.Paused) ||
                     client.Player.HasConditionEffect(ConditionEffectIndex.Invincible) ||
@@ -26,8 +26,8 @@ namespace gameserver.networking.handlers
                 {
                     if (client.Player.Owner == null) return;
                     WmapTile tile = client.Player.Owner.Map[(int)message.Position.X, (int)message.Position.Y];
-                    ObjectDesc objDesc = tile.ObjType == 0 ? null : client.Manager.GameData.ObjectDescs[tile.ObjType];
-                    TileDesc tileDesc = client.Manager.GameData.Tiles[tile.TileId];
+                    ObjectDesc objDesc = tile.ObjType == 0 ? null : Manager.GameData.ObjectDescs[tile.ObjType];
+                    TileDesc tileDesc = Manager.GameData.Tiles[tile.TileId];
                     if (tileDesc.Damaging && (objDesc == null || !objDesc.ProtectFromGroundDamage))
                     {
                         int dmg = (int)client.Player.StatsManager.Random.obf6((uint)tileDesc.MinDamage, (uint)tileDesc.MaxDamage);

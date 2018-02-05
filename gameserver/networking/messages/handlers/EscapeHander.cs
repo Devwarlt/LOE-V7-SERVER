@@ -20,7 +20,7 @@ namespace gameserver.networking.handlers
             if (client.Player.Owner == null)
                 return;
 
-            var world = client.Manager.GetWorld(client.Player.Owner.Id);
+            var world = Manager.GetWorld(client.Player.Owner.Id);
 
             if (world.Id == World.NEXUS_ID)
             {

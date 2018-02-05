@@ -138,8 +138,8 @@ namespace gameserver
                     Logger.Info(message);
                     try
                     {
-                        foreach (Client j in manager.Clients.Values)
-                            chat.Tell(j?.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", j?.Player.Name));
+                        foreach (Tuple<Client, DateTime> j in manager.Clients.Values)
+                            chat.Tell(j.Item1.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", j.Item1.Player.Name));
                     }
                     catch (Exception ex)
                     {
@@ -152,8 +152,8 @@ namespace gameserver
                 Logger.Warn(message);
                 try
                 {
-                    foreach (Client k in manager.Clients.Values)
-                        chat.Tell(k?.Player, "(!) Notification (!)", message);
+                    foreach (Tuple<Client, DateTime> k in manager.Clients.Values)
+                        chat.Tell(k.Item1.Player, "(!) Notification (!)", message);
                 }
                 catch (Exception ex)
                 {
@@ -162,8 +162,8 @@ namespace gameserver
                 Thread.Sleep(2000);
                 try
                 {
-                    foreach (Client clients in manager.Clients.Values)
-                        clients?.Disconnect(DisconnectReason.RESTART);
+                    foreach (Tuple<Client, DateTime> client in manager.Clients.Values)
+                        manager.TryDisconnect(client.Item1, DisconnectReason.RESTART);
                 }
                 catch (Exception ex)
                 {

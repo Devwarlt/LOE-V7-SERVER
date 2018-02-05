@@ -53,7 +53,7 @@ namespace gameserver.realm
 
                             if (work.Item1.State == ProtocolState.Disconnected)
                             {
-                                Client client;
+                                Tuple<Client, DateTime> client;
                                 Manager.Clients.TryRemove(work.Item1.Id.ToString(), out client);
                                 continue;
                             }
