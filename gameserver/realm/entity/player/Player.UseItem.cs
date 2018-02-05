@@ -602,24 +602,25 @@ namespace gameserver.realm.entity.player
                         }
                     case ActivateEffects.Dye:
                         {
-                            if (Database.Names.Contains(Name))
-                            {
-                                SendInfo("Players without valid name couldn't use this feature. Please name your character to continue.");
-                                return true;
-                            }
+                            SendHelp("Feature temporarly disabled until further notice from LoESoft Games.");
+                            return true;
+                            //if (Database.Names.Contains(Name))
+                            //{
+                            //    SendInfo("Players without valid name couldn't use this feature. Please name your character to continue.");
+                            //    return true;
+                            //}
 
-                            if (item.Texture1 != 0)
-                            {
-                                Texture1 = item.Texture1;
-                            }
-                            if (item.Texture2 != 0)
-                            {
-                                Texture2 = item.Texture2;
-                            }
+                            //if (item.Texture1 != 0)
+                            //{
+                            //    Texture1 = item.Texture1;
+                            //}
+                            //if (item.Texture2 != 0)
+                            //{
+                            //    Texture2 = item.Texture2;
+                            //}
 
-                            SaveToCharacter();
+                            //SaveToCharacter();
                         }
-                        break;
                     case ActivateEffects.ShurikenAbility:
                         {
                             if (!ninjaShoot)
