@@ -4,13 +4,13 @@
     {
         public static class REDIS_DATABASE
         {
-            public static string HOST = "localhost";
-            public static int PORT = 6379;
-            public static int IO_TIMEOUT = -1;
-            public static string PASSWORD = "";
-            public static int MAX_UNSENT = int.MaxValue;
-            public static bool ALLOW_ADMIN = false;
-            public static int SYNC_TIMEOUT = 120000;
+            public static readonly string HOST = "localhost";
+            public static readonly int PORT = 6379;
+            public static readonly int IO_TIMEOUT = -1;
+            public static readonly string PASSWORD = "";
+            public static readonly int MAX_UNSENT = int.MaxValue;
+            public static readonly bool ALLOW_ADMIN = false;
+            public static readonly int SYNC_TIMEOUT = 120000;
         }
     }
 }

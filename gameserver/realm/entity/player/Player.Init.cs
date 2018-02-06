@@ -42,7 +42,7 @@ namespace gameserver.realm.entity.player
                 AccountLifetime = client.Account.AccountLifetime;
                 isVip = AccountLifetime != DateTime.MinValue;
                 this.client = client;
-                Manager = client.Manager;
+                Manager = manager;
                 StatsManager = new StatsManager(this, client.Random.CurrentSeed);
                 Name = client.Account.Name;
                 AccountId = client.Account.AccountId;
@@ -201,7 +201,7 @@ namespace gameserver.realm.entity.player
 
             if (client.Character.Dead)
             {
-                client.Disconnect(DisconnectReason.CHARACTER_IS_DEAD);
+                Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD);
                 return;
             }
             GenerateGravestone();
@@ -249,14 +249,14 @@ namespace gameserver.realm.entity.player
 
                     Log.Write($"Message details type '{_death.ID}':\n{_death}");
 
-                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => Manager.Disconnect(client, DisconnectReason.CHARACTER_IS_DEAD)));
+                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD)));
 
                     Log.Write($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
 
                     Owner.LeaveWorld(this);
                 }
                 else
-                    Manager.Disconnect(client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
+                    Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
             }
             catch (Exception e)
             {

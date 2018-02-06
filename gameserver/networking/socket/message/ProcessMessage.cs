@@ -1,6 +1,5 @@
 ﻿using gameserver.networking.incoming;
 using gameserver.realm.entity.player;
-using log4net.Core;
 using System;
 using System.Collections.Generic;
 
@@ -15,8 +14,6 @@ namespace gameserver.networking
         {
             try
             {
-                // Log.Write($"Handling message '{msg}'...");
-
                 if (msg.ID == (MessageID)255)
                     return;
 
@@ -27,10 +24,9 @@ namespace gameserver.networking
                 else
                     handler.Handle(this, (IncomingMessage)msg);
             }
-            catch (Exception ex)
+            catch (NullReferenceException)
             {
-                Log.Write($"An error occurred while handling message '{msg.ID}':\n{ex}", ConsoleColor.Red);
-                Disconnect(DisconnectReason.ERROR_WHEN_HANDLING_MESSAGE);
+                Manager.TryDisconnect(this, DisconnectReason.ERROR_WHEN_HANDLING_MESSAGE);
             }
         }
 

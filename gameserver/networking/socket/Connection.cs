@@ -1,7 +1,6 @@
 ﻿using gameserver.networking.error;
 using gameserver.networking.outgoing;
 using System;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using FAILURE = gameserver.networking.outgoing.FAILURE;
 
@@ -83,7 +82,7 @@ namespace gameserver.networking
 
                 await task;
 
-                Disconnect(DisconnectReason.LOST_CONNECTION);
+                Manager.TryDisconnect(this, DisconnectReason.LOST_CONNECTION);
                 return;
             }
 
@@ -112,33 +111,6 @@ namespace gameserver.networking
             catch (Exception ex)
             {
                 Program.Logger.Error($"[{nameof(Client)}] Save exception:\n{ex}");
-            }
-        }
-
-        public async void Disconnect(DisconnectReason reason)
-        {
-            try
-            {
-                Save();
-
-                await task;
-
-                task.Dispose();
-
-                if (Socket == null || Account == null || State == ProtocolState.Disconnected)
-                    return;
-
-                Log.Write($"[({(int)reason}) {reason.ToString()}] Disconnect player '{Account.Name} (Account ID: {Account.AccountId})' from IP '{Socket.RemoteEndPoint.ToString().Split(':')[0]}'.");
-
-                State = ProtocolState.Disconnected;
-
-                Manager.Disconnect(this);
-
-                Socket?.Close();
-            }
-            catch (Exception e)
-            {
-                Program.Logger.Error($"[{nameof(Client)}] Disconnect exception:\n{e}");
             }
         }
     }

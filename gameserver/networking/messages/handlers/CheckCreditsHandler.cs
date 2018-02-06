@@ -17,7 +17,7 @@ namespace gameserver.networking.handlers
         {
             client.Account.Flush();
             client.Account.Reload();
-            client.Manager.Logic.AddPendingAction(t =>
+            Manager.Logic.AddPendingAction(t =>
             {
                 client.Player.Credits = client.Player.client.Account.Credits;
                 client.Player.UpdateCount++;

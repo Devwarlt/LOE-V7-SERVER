@@ -30,9 +30,9 @@ namespace gameserver.networking.handlers
                 string lockToken = null;
                 try
                 {
-                    while ((lockToken = client.Manager.Database.AcquireLock(key)) == null) ;
+                    while ((lockToken = Manager.Database.AcquireLock(key)) == null) ;
 
-                    if (client.Manager.Database.Hashes.Exists(0, "names", name.ToUpperInvariant()).Exec())
+                    if (Manager.Database.Hashes.Exists(0, "names", name.ToUpperInvariant()).Exec())
                     {
                         client.SendMessage(new NAMERESULT
                         {
@@ -51,8 +51,8 @@ namespace gameserver.networking.handlers
                     else
                     {
                         if (client.Account.NameChosen)
-                            client.Manager.Database.UpdateCredit(client.Account, -1000);
-                        while (!client.Manager.Database.RenameIGN(client.Account, name, lockToken)) ;
+                            Manager.Database.UpdateCredit(client.Account, -1000);
+                        while (!Manager.Database.RenameIGN(client.Account, name, lockToken)) ;
                         client.Player.Name = client.Account.Name;
                         client.Player.UpdateCount++;
                         client.SendMessage(new NAMERESULT
@@ -65,7 +65,7 @@ namespace gameserver.networking.handlers
                 finally
                 {
                     if (lockToken != null)
-                        client.Manager.Database.ReleaseLock(key, lockToken);
+                        Manager.Database.ReleaseLock(key, lockToken);
                 }
             }
         }

@@ -12,7 +12,7 @@ namespace gameserver.networking.handlers
     {
         public override MessageID ID => MessageID.EDITACCOUNTLIST;
 
-        protected override void HandleMessage(Client client, EDITACCOUNTLIST message) => client.Manager.Logic.AddPendingAction(t => Handle(client, message));
+        protected override void HandleMessage(Client client, EDITACCOUNTLIST message) => Manager.Logic.AddPendingAction(t => Handle(client, message));
 
         private void Handle(Client client, EDITACCOUNTLIST message)
         {

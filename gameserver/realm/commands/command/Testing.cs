@@ -34,8 +34,14 @@ namespace gameserver.realm.commands
                                 player.SendInfo($"[ChatData] [{ChatManager.ChatDataCache[messageInfos.Key].Item1}] <{messageInfos.Key}> {ChatManager.ChatDataCache[messageInfos.Key].Item2}");
                     }
                     break;
+                case "clients":
+                    {
+                        foreach (KeyValuePair<string, ClientData> i in Program.manager.ClientManager)
+                            player.SendInfo($"[Clients] [ID: {i.Key}] Client '{i.Value.client.Account.Name}' joined network at {i.Value.registered}.");
+                    }
+                    break;
                 default:
-                    player.SendHelp("Available testing commands: 'chatdata' (my / all).");
+                    player.SendHelp("Available testing commands: 'chatdata' (my / all) and 'clients'.");
                     break;
             }
             return true;

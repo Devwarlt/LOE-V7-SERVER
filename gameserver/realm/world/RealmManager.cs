@@ -22,55 +22,49 @@ using gameserver.realm.entity.npc;
 
 namespace gameserver.realm
 {
-    public enum PendingPriority
-    {
-        Emergent,
-        Destruction,
-        Networking,
-        Normal,
-        Creation,
-    }
-
-    public struct RealmTime
-    {
-        public long TickCount { get; set; }
-        public long TotalElapsedMs { get; set; }
-        public int TickDelta { get; set; }
-        public int ElapsedMsDelta { get; set; }
-    }
-
     public class RealmManager
     {
-        public static List<string> Realms = new List<string>(44)
+        public static List<string> CurrentRealmNames = new List<string>();
+        public static List<string> Realms = new List<string>
         {
             "Djinn",
             "Medusa",
             "Beholder",
         };
-        public static List<string> CurrentRealmNames = new List<string>();
+
         public const int MAX_REALM_PLAYERS = 85;
+        
+        public ConcurrentDictionary<string, ClientData> ClientManager { get; private set; }
+        public ConcurrentDictionary<int, World> Worlds { get; private set; }
+        public ConcurrentDictionary<string, World> LastWorld { get; private set; }
+        public Random Random { get; }
+        public BehaviorDb Behaviors { get; private set; }
+        public ChatManager Chat { get; private set; }
+        public ISManager InterServer { get; private set; }
+        public CommandManager Commands { get; private set; }
+        public EmbeddedData GameData { get; private set; }
+        public string InstanceId { get; private set; }
+        public LogicTicker Logic { get; private set; }
+        public int MaxClients { get; private set; }
+        public RealmPortalMonitor Monitor { get; private set; }
+        public NetworkTicker Network { get; private set; }
+        public Database Database { get; private set; }
+        public bool Terminating { get; private set; }
+        public int TPS { get; private set; }
 
         private static readonly ILog log = LogManager.GetLogger(typeof(RealmManager));
 
-        public ConcurrentDictionary<string, Client> Clients { get; private set; }
-        public ConcurrentDictionary<int, World> Worlds { get; private set; }
-        public ConcurrentDictionary<string, World> LastWorld { get; private set; }
-
-        private ConcurrentDictionary<string, Vault> vaults;
-
-        public Random Random { get; }
+        private ConcurrentDictionary<string, Vault> vaults { get; set; }
 
         private Thread logic;
         private Thread network;
-        private int nextClientId;
-
         private int nextWorldId;
 
         public RealmManager(Database db)
         {
             MaxClients = Settings.NETWORKING.MAX_CONNECTIONS;
             TPS = Settings.GAMESERVER.TICKETS_PER_SECOND;
-            Clients = new ConcurrentDictionary<string, Client>();
+            ClientManager = new ConcurrentDictionary<string, ClientData>();
             Worlds = new ConcurrentDictionary<int, World>();
             LastWorld = new ConcurrentDictionary<string, World>();
             vaults = new ConcurrentDictionary<string, Vault>();
@@ -78,93 +72,7 @@ namespace gameserver.realm
             Database = db;
         }
 
-        public BehaviorDb Behaviors { get; private set; }
-
-        public ChatManager Chat { get; private set; }
-
-        public ISManager InterServer { get; private set; }
-
-        public CommandManager Commands { get; private set; }
-
-        public EmbeddedData GameData { get; private set; }
-
-        public string InstanceId { get; private set; }
-
-        public LogicTicker Logic { get; private set; }
-
-        public int MaxClients { get; private set; }
-
-        public RealmPortalMonitor Monitor { get; private set; }
-
-        public NetworkTicker Network { get; private set; }
-
-        public Database Database { get; private set; }
-
-        public bool Terminating { get; private set; }
-
-        public int TPS { get; private set; }
-
-        public World AddWorld(int id, World world)
-        {
-            if (world.Manager != null)
-                throw new InvalidOperationException("World already added.");
-            world.Id = id;
-            Worlds[id] = world;
-            OnWorldAdded(world);
-            return world;
-        }
-
-        public World AddWorld(World world)
-        {
-            if (world.Manager != null)
-                throw new InvalidOperationException("World already added.");
-            world.Id = Interlocked.Increment(ref nextWorldId);
-            Worlds[world.Id] = world;
-            OnWorldAdded(world);
-            return world;
-        }
-
-        public void CloseWorld(World world)
-        {
-            Monitor.WorldRemoved(world);
-        }
-
-        public void Disconnect(Client client, DisconnectReason reason = DisconnectReason.UNKNOW_ERROR_INSTANCE)
-        {
-            client?.Disconnect(reason == DisconnectReason.UNKNOW_ERROR_INSTANCE ? DisconnectReason.REALM_MANAGER_DISCONNECT : reason);
-            Clients.TryRemove(client?.Id.ToString(), out client);
-            client?.Dispose();
-        }
-
-        public Player FindPlayer(string name)
-        {
-            if (name.Split(' ').Length > 1)
-                name = name.Split(' ')[1];
-
-            return (from i in Worlds
-                    where i.Key != 0
-                    from e in i.Value.Players
-                    where string.Equals(e.Value.client.Account.Name, name, StringComparison.CurrentCultureIgnoreCase)
-                    select e.Value).FirstOrDefault();
-        }
-
-        public Player FindPlayerRough(string name)
-        {
-            Player dummy;
-            foreach (KeyValuePair<int, World> i in Worlds)
-                if (i.Key != 0)
-                    if ((dummy = i.Value.GetUniqueNamedPlayerRough(name)) != null)
-                        return dummy;
-            return null;
-        }
-
-        public World GetWorld(int id)
-        {
-            World ret;
-            if (!Worlds.TryGetValue(id, out ret)) return null;
-            if (ret.Id == 0) return null;
-            return ret;
-        }
+        #region "Initialize, Run and Stop"
 
         public void Initialize()
         {
@@ -210,42 +118,6 @@ namespace gameserver.realm
             log.Info("NPC Database initialized...");
         }
 
-        public Vault PlayerVault(Client processor)
-        {
-            Vault v;
-            if (!vaults.TryGetValue(processor.Account.AccountId, out v))
-                vaults.TryAdd(processor.Account.AccountId, v = (Vault)AddWorld(new Vault(false, processor)));
-            else
-                v.Reload(processor);
-            return v;
-        }
-
-        public bool RemoveVault(string accountId)
-        {
-            Vault dummy;
-            return vaults.TryRemove(accountId, out dummy);
-        }
-
-        public bool RemoveWorld(World world)
-        {
-            if (world.Manager == null)
-                throw new InvalidOperationException("World is not added.");
-            World dummy;
-            if (Worlds.TryRemove(world.Id, out dummy))
-            {
-                try
-                {
-                    OnWorldRemoved(world);
-                    world.Dispose();
-                    GC.Collect();
-                }
-                catch (Exception e)
-                { log.Fatal(e); }
-                return true;
-            }
-            return false;
-        }
-
         public void Run()
         {
             log.Info("Starting Realm Manager...");
@@ -269,10 +141,10 @@ namespace gameserver.realm
 
             Terminating = true;
             List<Client> saveAccountUnlock = new List<Client>();
-            foreach (Client c in Clients.Values)
+            foreach (ClientData cData in ClientManager.Values)
             {
-                saveAccountUnlock?.Add(c);
-                c?.Disconnect(DisconnectReason.STOPPING_REALM_MANAGER);
+                saveAccountUnlock.Add(cData.client);
+                TryDisconnect(cData.client, DisconnectReason.STOPPING_REALM_MANAGER);
             }
 
             GameData?.Dispose();
@@ -282,29 +154,145 @@ namespace gameserver.realm
             log.Info("Realm Manager stopped.");
         }
 
-        public Tuple<bool, ErrorIDs> TryConnect(Client client)
+        #endregion
+
+        #region "Connection handlers"
+
+        public ConnectionProtocol TryConnect(Client client)
         {
-            //UNKNOWN ErrorID is declared in normal connections to handle if client get any error during reconnec/disconnect.
-            DbAccount acc = client.Account;
-            //Dispatch ErrorID: when server is full.
-            if (Clients.Count >= MaxClients) return Tuple.Create(false, ErrorIDs.SERVER_FULL);
-            //Dispatch ErrorID: when client is banned.
-            //if (acc.Banned) return Tuple.Create(false, ErrorIDs.ACCOUNT_BANNED);
-            client.Id = Interlocked.Increment(ref nextClientId);
-            if (Clients.ContainsKey(client.Id.ToString()))
+            try
             {
-                Client c = Clients[client.Id.ToString()];
-                if (c != null)
+                ClientData _cData = new ClientData();
+                _cData.ID = client.Account.AccountId;
+                _cData.client = client;
+                _cData.DNS = client.Socket.RemoteEndPoint.ToString().Split(':')[0];
+                _cData.registered = DateTime.Now;
+
+                if (ClientManager.Count >= MaxClients) // When server is full.
+                    return new ConnectionProtocol(false, ErrorIDs.SERVER_FULL);
+                
+                if (ClientManager.ContainsKey(_cData.ID))
                 {
-                    Disconnect(Clients[client.Id.ToString()]);
-                    //Dispatch ErrorID: normal connection with reconnect type.
-                    return Tuple.Create(Clients.TryAdd(client.Id.ToString(), client), ErrorIDs.UNKNOWN);
+                    if (_cData.client != null)
+                    {
+                        TryDisconnect(ClientManager[_cData.ID].client); // Old client.
+
+                        return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.
+                    }
+                    
+                    return new ConnectionProtocol(false, ErrorIDs.LOST_CONNECTION); // User dropped connection while reconnect.
                 }
-                //Dispatch ErrorID: user drop connection to reconnect again.
-                return Tuple.Create(false, ErrorIDs.LOST_CONNECTION);
+                
+                return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.
             }
-            //Dispatch ErrorID: normal connection.
-            return Tuple.Create(Clients.TryAdd(client.Id.ToString(), client), ErrorIDs.UNKNOWN);
+            catch (Exception e)
+            {
+                Log.Write($"An error occurred.\n{e}", ConsoleColor.Red);
+            }
+
+            return new ConnectionProtocol(false, ErrorIDs.LOST_CONNECTION); // User dropped connection while reconnect.
+        }
+
+        public void TryDisconnect(Client client, DisconnectReason reason = DisconnectReason.UNKNOW_ERROR_INSTANCE)
+        {
+            if (client == null)
+                return;
+            DisconnectHandler(client, reason == DisconnectReason.UNKNOW_ERROR_INSTANCE ? DisconnectReason.REALM_MANAGER_DISCONNECT : reason);
+        }
+
+        public void DisconnectHandler(Client client, DisconnectReason reason)
+        {
+            try
+            {
+                if (ClientManager.ContainsKey(client.Account.AccountId))
+                {
+                    ClientData _disposableCData;
+
+                    ClientManager.TryRemove(client.Account.AccountId, out _disposableCData);
+
+                    Log.Write($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.client.Account.Name} (Account ID: {_disposableCData.client.Account.AccountId})'.");
+
+                    _disposableCData.client.Save();
+                    _disposableCData.client.State = ProtocolState.Disconnected;
+                    _disposableCData.client.Socket.Close();
+                    _disposableCData.client.Dispose();
+                }
+                else
+                {
+                    Log.Write($"[({(int)reason}) {reason.ToString()}] Disconnect player '{client.Account.Name} (Account ID: {client.Account.AccountId})'.");
+
+                    client.Save();
+                    client.State = ProtocolState.Disconnected;
+                    client.Dispose();
+                }
+            }
+            catch (Exception e)
+            {
+                Program.Logger.Error($"[{nameof(RealmManager)}] Disconnect Handler exception:\n{e}");
+            }
+        }
+
+        #endregion
+
+        #region "World Utils"
+
+        public World AddWorld(int id, World world)
+        {
+            if (world.Manager != null)
+                throw new InvalidOperationException("World already added.");
+            world.Id = id;
+            Worlds[id] = world;
+            OnWorldAdded(world);
+            return world;
+        }
+
+        public World AddWorld(World world)
+        {
+            if (world.Manager != null)
+                throw new InvalidOperationException("World already added.");
+            world.Id = Interlocked.Increment(ref nextWorldId);
+            Worlds[world.Id] = world;
+            OnWorldAdded(world);
+            return world;
+        }
+
+        public bool RemoveWorld(World world)
+        {
+            if (world.Manager == null)
+                throw new InvalidOperationException("World is not added.");
+            World dummy;
+            if (Worlds.TryRemove(world.Id, out dummy))
+            {
+                try
+                {
+                    OnWorldRemoved(world);
+                    world.Dispose();
+                    GC.Collect();
+                }
+                catch (Exception e)
+                { log.Fatal(e); }
+                return true;
+            }
+            return false;
+        }
+
+        public void CloseWorld(World world)
+        {
+            Monitor.WorldRemoved(world);
+        }
+
+        public World GetWorld(int id)
+        {
+            World ret;
+            if (!Worlds.TryGetValue(id, out ret)) return null;
+            if (ret.Id == 0) return null;
+            return ret;
+        }
+
+        public bool RemoveVault(string accountId)
+        {
+            Vault dummy;
+            return vaults.TryRemove(accountId, out dummy);
         }
 
         private void OnWorldAdded(World world)
@@ -323,6 +311,61 @@ namespace gameserver.realm
                 Monitor.WorldRemoved(world);
             log.InfoFormat("World {0}({1}) removed.", world.Id, world.Name);
         }
+
+        #endregion
+
+        #region "Player Utils"
+
+        public Player FindPlayer(string name)
+        {
+            if (name.Split(' ').Length > 1)
+                name = name.Split(' ')[1];
+
+            return (from i in Worlds
+                    where i.Key != 0
+                    from e in i.Value.Players
+                    where string.Equals(e.Value.client.Account.Name, name, StringComparison.CurrentCultureIgnoreCase)
+                    select e.Value).FirstOrDefault();
+        }
+
+        public Player FindPlayerRough(string name)
+        {
+            Player dummy;
+            foreach (KeyValuePair<int, World> i in Worlds)
+                if (i.Key != 0)
+                    if ((dummy = i.Value.GetUniqueNamedPlayerRough(name)) != null)
+                        return dummy;
+            return null;
+        }
+
+        public Vault PlayerVault(Client processor)
+        {
+            Vault v;
+            if (!vaults.TryGetValue(processor.Account.AccountId, out v))
+                vaults.TryAdd(processor.Account.AccountId, v = (Vault)AddWorld(new Vault(false, processor)));
+            else
+                v.Reload(processor);
+            return v;
+        }
+
+        #endregion
+    }
+
+    public enum PendingPriority
+    {
+        Emergent,
+        Destruction,
+        Networking,
+        Normal,
+        Creation,
+    }
+
+    public struct RealmTime
+    {
+        public long TickCount { get; set; }
+        public long TotalElapsedMs { get; set; }
+        public int TickDelta { get; set; }
+        public int ElapsedMsDelta { get; set; }
     }
 
     public class TimeEventArgs : EventArgs
@@ -333,5 +376,28 @@ namespace gameserver.realm
         }
 
         public RealmTime Time { get; private set; }
+    }
+
+    public class ConnectionProtocol
+    {
+        public bool connected { get; private set; }
+        public ErrorIDs errorID { get; private set; }
+
+        public ConnectionProtocol(
+            bool connected,
+            ErrorIDs errorID
+            )
+        {
+            this.connected = connected;
+            this.errorID = errorID;
+        }
+    }
+
+    public class ClientData
+    {
+        public string ID { get; set; }
+        public Client client { get; set; }
+        public string DNS { get; set; }
+        public DateTime registered { get; set; }
     }
 }

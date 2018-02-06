@@ -13,7 +13,7 @@ namespace gameserver.networking
         ACCOUNT_BANNED = 3,
         INVALID_DISCONNECT_KEY = 4,
         LOST_CONNECTION = 5,
-        UNKNOWN = 6,
+        NORMAL_CONNECTION = 6,
         OUTDATED_INTERNAL_CLIENT = 7,
         VIP_ACCOUNT_OVER = 8,
         ACCOUNT_IN_USE = 9

@@ -21,7 +21,7 @@ namespace gameserver.networking.handlers
             if (client.Player.Owner == null)
                 return;
 
-            client.Manager.Logic.AddPendingAction(t =>
+            Manager.Logic.AddPendingAction(t =>
             {
                 IContainer container = client.Player.Owner.GetEntity(message.SlotObject.ObjectId) as IContainer;
                 if (container == null)
@@ -40,7 +40,7 @@ namespace gameserver.networking.handlers
                                 if (player.client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT)
                                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be a Health Potion, but its {1}.",
                                         client.Player.Name, item.ObjectId));
-                            client.Disconnect(DisconnectReason.HP_POTION_CHEAT_ENGINE);
+                            Manager.TryDisconnect(client, DisconnectReason.HP_POTION_CHEAT_ENGINE);
                             return;
                         }
 
@@ -110,7 +110,7 @@ namespace gameserver.networking.handlers
                                 client.Player.Name, item.ObjectId);
                             foreach (Player player in client.Player.Owner.Players.Values.Where(player => player.client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT))
                                 player.SendInfo($"Cheat engine detected for player {client.Player.Name},\nItem should be a Magic Potion, but its {item.ObjectId}.");
-                            client.Disconnect(DisconnectReason.MP_POTION_CHEAT_ENGINE);
+                            Manager.TryDisconnect(client, DisconnectReason.MP_POTION_CHEAT_ENGINE);
                             return;
                         }
 

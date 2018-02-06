@@ -20,7 +20,8 @@ namespace gameserver.networking.handlers
         protected override void HandleMessage(Client client, INVSWAP message)
         {
             if (client.Player.Owner == null) return;
-            client.Manager.Logic.AddPendingAction(t =>
+
+            Manager.Logic.AddPendingAction(t =>
             {
                 Entity en1 = client.Player.Owner.GetEntity(message.SlotObject1.ObjectId);
                 Entity en2 = client.Player.Owner.GetEntity(message.SlotObject2.ObjectId);
@@ -129,7 +130,7 @@ namespace gameserver.networking.handlers
 
                 if (en1 is Player && en2 is Player & en1.Id != en2.Id)
                 {
-                    client.Manager.Chat.Announce($"{en1.Name} just tried to steal items from {en2.Name}'s inventory, GTFO YOU GOD DAMN FEGIT!!!!11111oneoneoneeleven");
+                    Manager.Chat.Announce($"{en1.Name} just tried to steal items from {en2.Name}'s inventory, GTFO YOU GOD DAMN FEGIT!!!!11111oneoneoneeleven");
                     return;
                 };
                 con1.Inventory[message.SlotObject1.SlotId] = item2;
@@ -190,11 +191,11 @@ namespace gameserver.networking.handlers
                 if (!ret)
                 {
                     log4net.FatalFormat("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
-                            client.Player.Name, client.Manager.GameData.Items[packet.SlotObject1.ObjectType].ObjectId, item1.ObjectId);
+                            client.Player.Name, Manager.GameData.Items[packet.SlotObject1.ObjectType].ObjectId, item1.ObjectId);
                     foreach (Player player in client.Player.Owner.Players.Values)
                         if (player.client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT)
                             player.SendInfo(string.Format("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
-                                client.Player.Name, client.Manager.GameData.Items[packet.SlotObject1.ObjectType].ObjectId, item1.ObjectId));
+                                client.Player.Name, Manager.GameData.Items[packet.SlotObject1.ObjectType].ObjectId, item1.ObjectId));
                 }
             }
             if (con1 is Player && con2 is Player)
@@ -204,11 +205,11 @@ namespace gameserver.networking.handlers
                 if (!ret)
                 {
                     log4net.FatalFormat("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
-                            client.Player.Name, item1.ObjectId, client.Manager.GameData.Items[packet.SlotObject2.ObjectType].ObjectId);
+                            client.Player.Name, item1.ObjectId, Manager.GameData.Items[packet.SlotObject2.ObjectType].ObjectId);
                     foreach (Player player in client.Player.Owner.Players.Values)
                         if (player.client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT)
                             player.SendInfo(string.Format("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
-                                client.Player.Name, item1.ObjectId, client.Manager.GameData.Items[packet.SlotObject2.ObjectType].ObjectId));
+                                client.Player.Name, item1.ObjectId, Manager.GameData.Items[packet.SlotObject2.ObjectType].ObjectId));
                 }
             }
 

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using gameserver.networking;
 using gameserver.networking.outgoing;
 using gameserver.realm.entity.player;
 using gameserver.realm.mapsetpiece;
@@ -294,7 +293,7 @@ namespace gameserver.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         player.SendInfo($"Player {i.Value.Name} has been disconnected!");
-                        i.Value.client.Disconnect(DisconnectReason.PLAYER_KICK);
+                        Program.manager.TryDisconnect(i.Value.client, DisconnectReason.PLAYER_KICK);
                     }
                 }
             }
@@ -397,9 +396,9 @@ namespace gameserver.realm.commands
             }
             string saytext = string.Join(" ", args);
 
-            foreach (Client i in player.Manager.Clients.Values)
+            foreach (ClientData cData in player.Manager.ClientManager.Values)
             {
-                i.SendMessage(new TEXT
+                cData.client.SendMessage(new TEXT
                 {
                     BubbleTime = 0,
                     Stars = -1,
@@ -419,13 +418,13 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            foreach (Client i in player.Manager.Clients.Values)
+            foreach (ClientData cData in player.Manager.ClientManager.Values)
             {
-                if (i.Account.Name.EqualsIgnoreCase(args[0]))
+                if (cData.client.Account.Name.EqualsIgnoreCase(args[0]))
                 {
-                    i.Player.HP = 0;
-                    i.Player.Death("server.game_admin");
-                    player.SendInfo($"Player {i.Account.Name} has been killed!");
+                    cData.client.Player.HP = 0;
+                    cData.client.Player.Death("server.game_admin");
+                    player.SendInfo($"Player {cData.client.Account.Name} has been killed!");
                     return true;
                 }
             }
@@ -588,9 +587,9 @@ namespace gameserver.realm.commands
             }
             else if (args.Length == 3)
             {
-                foreach (Client i in player.Manager.Clients.Values)
+                foreach (ClientData cData in player.Manager.ClientManager.Values)
                 {
-                    if (i.Account.Name.EqualsIgnoreCase(args[0]))
+                    if (cData.client.Account.Name.EqualsIgnoreCase(args[0]))
                     {
                         try
                         {
@@ -600,36 +599,36 @@ namespace gameserver.realm.commands
                             {
                                 case "health":
                                 case "hp":
-                                    i.Player.Stats[0] = amount;
+                                    cData.client.Player.Stats[0] = amount;
                                     break;
                                 case "mana":
                                 case "mp":
-                                    i.Player.Stats[1] = amount;
+                                    cData.client.Player.Stats[1] = amount;
                                     break;
                                 case "att":
                                 case "atk":
                                 case "attack":
-                                    i.Player.Stats[2] = amount;
+                                    cData.client.Player.Stats[2] = amount;
                                     break;
                                 case "def":
                                 case "defence":
-                                    i.Player.Stats[3] = amount;
+                                    cData.client.Player.Stats[3] = amount;
                                     break;
                                 case "spd":
                                 case "speed":
-                                    i.Player.Stats[4] = amount;
+                                    cData.client.Player.Stats[4] = amount;
                                     break;
                                 case "vit":
                                 case "vitality":
-                                    i.Player.Stats[5] = amount;
+                                    cData.client.Player.Stats[5] = amount;
                                     break;
                                 case "wis":
                                 case "wisdom":
-                                    i.Player.Stats[6] = amount;
+                                    cData.client.Player.Stats[6] = amount;
                                     break;
                                 case "dex":
                                 case "dexterity":
-                                    i.Player.Stats[7] = amount;
+                                    cData.client.Player.Stats[7] = amount;
                                     break;
                                 default:
                                     player.SendError("Invalid Stat");
@@ -637,8 +636,8 @@ namespace gameserver.realm.commands
                                     player.SendHelp("Shortcuts: Hp, Mp, Atk, Def, Spd, Vit, Wis, Dex");
                                     return false;
                             }
-                            i.Player.SaveToCharacter();
-                            i.Player.UpdateCount++;
+                            cData.client.Player.SaveToCharacter();
+                            cData.client.Player.UpdateCount++;
                             player.SendInfo("Success");
                         }
                         catch
@@ -781,7 +780,7 @@ namespace gameserver.realm.commands
                     return false;
                 }
                 p.client.Manager.Database.BanAccount(p.client.Account);
-                p.client.Disconnect(DisconnectReason.PLAYER_BANNED);
+                Program.manager.TryDisconnect(p.client, DisconnectReason.PLAYER_BANNED);
                 return true;
             }
             catch

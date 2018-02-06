@@ -20,7 +20,7 @@ namespace gameserver.networking.handlers
     {
         public override MessageID ID => MessageID.USEPORTAL;
 
-        protected override void HandleMessage(Client client, USEPORTAL message) => client.Manager.Logic.AddPendingAction(t => Handle(client, client.Player, message), PendingPriority.Networking);
+        protected override void HandleMessage(Client client, USEPORTAL message) => Manager.Logic.AddPendingAction(t => Handle(client, client.Player, message), PendingPriority.Networking);
 
         private readonly List<string> Blacklist = new List<string>
         {
@@ -120,7 +120,7 @@ namespace gameserver.networking.handlers
                                 {
                                     try
                                     {
-                                        world = client.Manager.AddWorld((World)Activator.CreateInstance(worldType,
+                                        world = Manager.AddWorld((World)Activator.CreateInstance(worldType,
                                         System.Reflection.BindingFlags.CreateInstance, null, null,
                                         CultureInfo.InvariantCulture, null));
                                     }

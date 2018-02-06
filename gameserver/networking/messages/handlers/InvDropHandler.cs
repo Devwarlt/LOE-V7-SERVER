@@ -23,7 +23,7 @@ namespace gameserver.networking.handlers
             if (client.Player.Owner == null) return;
             if (message.SlotObject.ObjectId != client.Player.Id) return;
 
-            client.Manager.Logic.AddPendingAction(t =>
+            Manager.Logic.AddPendingAction(t =>
             {
                 //TODO: locker again
                 const ushort NORM_BAG = 0x0500;

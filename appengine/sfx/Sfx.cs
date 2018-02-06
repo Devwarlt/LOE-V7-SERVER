@@ -11,9 +11,8 @@ namespace appengine.sfx
         protected override void HandleRequest()
         {
             string file = Context.Request.Url.LocalPath;
-            string appengine = Settings.NETWORKING.APPENGINE_URL;
             if (file.StartsWith("/music") || file.StartsWith("/sfx"))
-                Context.Response.Redirect(appengine + file);
+                Context.Response.Redirect(Settings.NETWORKING.APPENGINE_URL + file);
         }
     }
 }

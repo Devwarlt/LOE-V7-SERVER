@@ -102,7 +102,7 @@ namespace gameserver
                 do
                 {
                     Thread.Sleep(ToMiliseconds(Settings.GAMESERVER.TTL) / 60);
-                    Usage = manager.Clients.Keys.Count;
+                    Usage = manager.ClientManager.Count;
                 } while (true);
             });
 
@@ -138,8 +138,8 @@ namespace gameserver
                     Logger.Info(message);
                     try
                     {
-                        foreach (Client j in manager.Clients.Values)
-                            chat.Tell(j?.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", j?.Player.Name));
+                        foreach (ClientData cData in manager.ClientManager.Values)
+                            chat.Tell(cData.client.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", cData.client.Player.Name));
                     }
                     catch (Exception ex)
                     {
@@ -152,8 +152,8 @@ namespace gameserver
                 Logger.Warn(message);
                 try
                 {
-                    foreach (Client k in manager.Clients.Values)
-                        chat.Tell(k?.Player, "(!) Notification (!)", message);
+                    foreach (ClientData cData in manager.ClientManager.Values)
+                        chat.Tell(cData.client.Player, "(!) Notification (!)", message);
                 }
                 catch (Exception ex)
                 {
@@ -162,8 +162,8 @@ namespace gameserver
                 Thread.Sleep(2000);
                 try
                 {
-                    foreach (Client clients in manager.Clients.Values)
-                        clients?.Disconnect(DisconnectReason.RESTART);
+                    foreach (ClientData cData in manager.ClientManager.Values)
+                        manager.TryDisconnect(cData.client, DisconnectReason.RESTART);
                 }
                 catch (Exception ex)
                 {

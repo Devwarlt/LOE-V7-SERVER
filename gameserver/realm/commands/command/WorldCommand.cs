@@ -10,6 +10,8 @@ using gameserver.realm.entity.player;
 using common.config;
 using gameserver.realm.entity.npc;
 using gameserver.logic;
+using gameserver.networking;
+using System;
 
 #endregion
 
@@ -250,9 +252,9 @@ namespace gameserver.realm.commands
                 }
             }
 
-            foreach (var i in player.Manager.Clients.Values)
+            foreach (ClientData cData in player.Manager.ClientManager.Values)
             {
-                if (i.Account.NameChosen && i.Account.Name.EqualsIgnoreCase(playername))
+                if (cData.client.Account.NameChosen && cData.client.Account.Name.EqualsIgnoreCase(playername))
                 {
                     player.client.SendMessage(new TEXT()
                     {
@@ -261,21 +263,21 @@ namespace gameserver.realm.commands
                         Stars = player.Stars,
                         Name = player.Name,
                         Admin = 0,
-                        Recipient = i.Account.Name,
+                        Recipient = cData.client.Account.Name,
                         Text = msg.ToSafeText(),
                         CleanText = "",
                         TextColor = 0x123456,
                         NameColor = 0x123456
                     });
 
-                    i.SendMessage(new TEXT()
+                    cData.client.SendMessage(new TEXT()
                     {
-                        ObjectId = i.Player.Owner.Id,
+                        ObjectId = cData.client.Player.Owner.Id,
                         BubbleTime = 10,
                         Stars = player.Stars,
                         Name = player.Name,
                         Admin = 0,
-                        Recipient = i.Account.Name,
+                        Recipient = cData.client.Account.Name,
                         Text = msg.ToSafeText(),
                         CleanText = "",
                         TextColor = 0x123456,

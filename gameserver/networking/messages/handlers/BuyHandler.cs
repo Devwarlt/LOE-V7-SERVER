@@ -13,7 +13,7 @@ namespace gameserver.networking.handlers
     {
         public override MessageID ID => MessageID.BUY;
 
-        protected override void HandleMessage(Client client, BUY message) => client.Manager.Logic.AddPendingAction(t => Handle(client.Player, message.ObjectId, message.Quantity), PendingPriority.Networking);
+        protected override void HandleMessage(Client client, BUY message) => Manager.Logic.AddPendingAction(t => Handle(client.Player, message.ObjectId, message.Quantity), PendingPriority.Networking);
 
         private void Handle(Player player, int objectId, int quantity)
         {

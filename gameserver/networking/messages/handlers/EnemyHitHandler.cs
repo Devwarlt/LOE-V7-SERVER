@@ -4,7 +4,6 @@ using gameserver.networking.incoming;
 using gameserver.realm;
 using gameserver.realm.entity;
 using gameserver.realm.entity.player;
-using System;
 
 #endregion
 
@@ -14,7 +13,7 @@ namespace gameserver.networking.handlers
     {
         public override MessageID ID => MessageID.ENEMYHIT;
 
-        protected override void HandleMessage(Client client, ENEMYHIT message) => client.Manager.Logic.AddPendingAction(t => Handle(client.Player, t, message));
+        protected override void HandleMessage(Client client, ENEMYHIT message) => Manager.Logic.AddPendingAction(t => Handle(client.Player, t, message));
 
         private void Handle(Player player, RealmTime time, ENEMYHIT message)
         {

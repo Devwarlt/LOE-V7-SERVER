@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using log4net;
 using common.config;
 using static gameserver.networking.Client;
+using gameserver.realm;
 
 namespace gameserver.networking
 {
@@ -13,7 +14,8 @@ namespace gameserver.networking
 
         private static readonly ILog log = LogManager.GetLogger(typeof(NetworkHandler));
 
-        private readonly Client parent;
+        private readonly RealmManager Manager = Program.manager;
+        private readonly Client client;
         private readonly ConcurrentQueue<Message> pendingPackets = new ConcurrentQueue<Message>();
         private readonly object sendLock = new object();
         private readonly Socket skt;
@@ -26,9 +28,9 @@ namespace gameserver.networking
         private byte[] _outgoingBuff;
         private OutgoingState _outgoingState = OutgoingState.Awaiting;
 
-        public NetworkHandler(Client parent, Socket skt)
+        public NetworkHandler(Client client, Socket skt)
         {
-            this.parent = parent;
+            this.client = client;
             this.skt = skt;
         }
 
@@ -58,7 +60,7 @@ namespace gameserver.networking
         private void OnError(Exception ex)
         {
             log.Error("Socket error detected: ", ex);
-            parent.Disconnect(DisconnectReason.SOCKET_ERROR_DETECTED);
+            Manager.TryDisconnect(client, DisconnectReason.SOCKET_ERROR_DETECTED);
         }
 
         public void Dispose()

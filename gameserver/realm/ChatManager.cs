@@ -2,10 +2,8 @@
 
 using common;
 using log4net;
-using System.Linq;
 using gameserver.networking.outgoing;
 using gameserver.realm.entity.player;
-using gameserver.networking;
 using System.Collections.Generic;
 using System;
 
@@ -93,9 +91,9 @@ namespace gameserver.realm
         {
             if (announce)
             {
-                foreach (Client i in player.Manager.Clients.Values)
-                    if (i != null)
-                        i.Player.SendInfo(text.ToSafeText());
+                foreach (ClientData cData in player.Manager.ClientManager.Values)
+                    if (cData.client != null)
+                        cData.client.Player.SendInfo(text.ToSafeText());
             }
             else
             {
@@ -129,51 +127,6 @@ namespace gameserver.realm
             player.client.SendMessage(_text);
         }
 
-        private void HandleChat(object sender, InterServerEventArgs<Message> e)
-        {
-            switch (e.Content.Type)
-            {
-                case TELL:
-                    {
-                        string from = manager.Database.ResolveIgn(e.Content.From);
-                        string to = manager.Database.ResolveIgn(e.Content.To);
-                        foreach (var i in manager.Clients.Values
-                            .Where(x => x.Player != null)
-                            .Where(x => x.Account.AccountId == e.Content.From ||
-                                        x.Account.AccountId == e.Content.To)
-                            .Select(x => x.Player))
-                        {
-                            //i.TellReceived(
-                            //    e.Content.Inst == manager.InstanceId ? e.Content.ObjId : -1,
-                            //    e.Content.Stars, from, to, e.Content.Text);
-                        }
-                    }
-                    break;
-                case GUILD:
-                    {
-                        string from = manager.Database.ResolveIgn(e.Content.From);
-                        foreach (var i in manager.Clients.Values
-                            .Where(x => x.Player != null)
-                            .Where(x => x.Account.GuildId == e.Content.To)
-                            .Select(x => x.Player))
-                        {
-                            // i.GuildReceived(
-                            //     e.Content.Inst == manager.InstanceId ? e.Content.ObjId : -1,
-                            //     e.Content.Stars, from, e.Content.Text);
-                        }
-                    }
-                    break;
-                case ANNOUNCE:
-                    {
-                        foreach (var i in manager.Clients.Values
-                            .Where(x => x.Player != null)
-                            .Select(x => x.Player))
-                        {
-                            //  i.AnnouncementReceived(e.Content.Text);
-                        }
-                    }
-                    break;
-            }
-        }
+        private void HandleChat(object sender, InterServerEventArgs<Message> e) { }
     }
 }
