@@ -16,12 +16,13 @@ namespace common.config
             public static readonly int TTL = 1;
             public static readonly int PRODUCTION_PORT = 5555;
             public static readonly int TESTING_PORT = 3000;
-            public static readonly int AMOUNT = SERVERS.Count;
 
             public static readonly List<Tuple<string, string, double>> SERVERS = new List<Tuple<string, string, double>> {
                 Tuple.Create("Test Server", "<crossdomain>", 0.0),
                 Tuple.Create("Localhost", "127.0.0.1", 0.8)
             };
+
+            public static readonly int AMOUNT = SERVERS.Count;
 
             public class ServerItem
             {
