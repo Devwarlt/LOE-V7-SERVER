@@ -4,7 +4,6 @@ using gameserver.networking.incoming;
 using gameserver.realm;
 using gameserver.realm.entity;
 using gameserver.realm.entity.player;
-using System;
 
 #endregion
 

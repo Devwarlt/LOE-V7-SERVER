@@ -71,15 +71,16 @@ namespace gameserver.networking.handlers
                 Manager.TryDisconnect(client, DisconnectReason.BAD_LOGIN);
             }
             client.ConnectedBuild = message.BuildVersion;
-            Tuple<bool, ErrorIDs> TryConnect = Manager.TryConnect(client);
-            if (!TryConnect.Item1)
+            client.Account = acc;
+            ConnectionProtocol TryConnect = Manager.TryConnect(client);
+            if (!TryConnect.connected)
             {
                 client.Account = null;
-                ErrorIDs errorID = TryConnect.Item2;
+                ErrorIDs errorID = TryConnect.errorID;
                 string[] labels;
                 string[] arguments;
                 DisconnectReason reason;
-                switch (TryConnect.Item2)
+                switch (errorID)
                 {
                     case ErrorIDs.SERVER_FULL:
                         {
@@ -223,8 +224,7 @@ namespace gameserver.networking.handlers
 
                 if (world.IsLimbo)
                     world = world.GetInstance(client);
-
-                client.Account = acc;
+                
                 client.Random = new wRandom(world.Seed);
                 client.TargetWorld = world.Id;
                 client.SendMessage(new MAPINFO

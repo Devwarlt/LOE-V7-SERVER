@@ -44,7 +44,7 @@ namespace gameserver.networking
 
         public wRandom Random { get; internal set; }
 
-        public int Id { get; internal set; }
+        public int ID { get; internal set; }
         public int TargetWorld { get; internal set; }
         public string ConnectedBuild { get; internal set; }
 

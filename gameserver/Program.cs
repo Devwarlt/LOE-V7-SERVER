@@ -102,7 +102,7 @@ namespace gameserver
                 do
                 {
                     Thread.Sleep(ToMiliseconds(Settings.GAMESERVER.TTL) / 60);
-                    Usage = manager.Clients.Keys.Count;
+                    Usage = manager.ClientManager.Count;
                 } while (true);
             });
 
@@ -138,8 +138,8 @@ namespace gameserver
                     Logger.Info(message);
                     try
                     {
-                        foreach (Tuple<Client, DateTime> j in manager.Clients.Values)
-                            chat.Tell(j.Item1.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", j.Item1.Player.Name));
+                        foreach (ClientData cData in manager.ClientManager.Values)
+                            chat.Tell(cData.client.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", cData.client.Player.Name));
                     }
                     catch (Exception ex)
                     {
@@ -152,8 +152,8 @@ namespace gameserver
                 Logger.Warn(message);
                 try
                 {
-                    foreach (Tuple<Client, DateTime> k in manager.Clients.Values)
-                        chat.Tell(k.Item1.Player, "(!) Notification (!)", message);
+                    foreach (ClientData cData in manager.ClientManager.Values)
+                        chat.Tell(cData.client.Player, "(!) Notification (!)", message);
                 }
                 catch (Exception ex)
                 {
@@ -162,8 +162,8 @@ namespace gameserver
                 Thread.Sleep(2000);
                 try
                 {
-                    foreach (Tuple<Client, DateTime> client in manager.Clients.Values)
-                        manager.TryDisconnect(client.Item1, DisconnectReason.RESTART);
+                    foreach (ClientData cData in manager.ClientManager.Values)
+                        manager.TryDisconnect(cData.client, DisconnectReason.RESTART);
                 }
                 catch (Exception ex)
                 {

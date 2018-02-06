@@ -1,7 +1,6 @@
 ﻿using gameserver.networking.error;
 using gameserver.networking.outgoing;
 using System;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using FAILURE = gameserver.networking.outgoing.FAILURE;
 

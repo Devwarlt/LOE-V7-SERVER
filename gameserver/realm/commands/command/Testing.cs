@@ -2,7 +2,6 @@
 using common.config;
 using System.Collections.Generic;
 using System;
-using gameserver.networking;
 
 namespace gameserver.realm.commands
 {
@@ -37,12 +36,12 @@ namespace gameserver.realm.commands
                     break;
                 case "clients":
                     {
-                        foreach (KeyValuePair<string, Tuple<Client, DateTime>> i in Program.manager.Clients)
-                            player.SendInfo($"[Clients] [ID: {i.Key}] Client '{i.Value.Item1.Account.Name}' joined network at {i.Value.Item2}.");
+                        foreach (KeyValuePair<string, ClientData> i in Program.manager.ClientManager)
+                            player.SendInfo($"[Clients] [ID: {i.Key}] Client '{i.Value.client.Account.Name}' joined network at {i.Value.registered}.");
                     }
                     break;
                 default:
-                    player.SendHelp("Available testing commands: 'chatdata' (my / all).");
+                    player.SendHelp("Available testing commands: 'chatdata' (my / all) and 'clients'.");
                     break;
             }
             return true;

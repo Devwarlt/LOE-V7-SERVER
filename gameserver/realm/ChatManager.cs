@@ -2,10 +2,8 @@
 
 using common;
 using log4net;
-using System.Linq;
 using gameserver.networking.outgoing;
 using gameserver.realm.entity.player;
-using gameserver.networking;
 using System.Collections.Generic;
 using System;
 
@@ -93,9 +91,9 @@ namespace gameserver.realm
         {
             if (announce)
             {
-                foreach (Tuple<Client, DateTime> i in player.Manager.Clients.Values)
-                    if (i.Item1 != null)
-                        i.Item1.Player.SendInfo(text.ToSafeText());
+                foreach (ClientData cData in player.Manager.ClientManager.Values)
+                    if (cData.client != null)
+                        cData.client.Player.SendInfo(text.ToSafeText());
             }
             else
             {

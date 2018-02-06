@@ -49,7 +49,7 @@ namespace gameserver.networking.handlers
                 return;
             }
 
-            Client targetClient = (from newClient in Manager.Clients.Values where newClient.Item1.Account != null where newClient.Item1.Account.AccountId == targetAccId.ToString() select newClient.Item1).FirstOrDefault();
+            Client targetClient = (from newClient in Manager.ClientManager.Values where newClient.client.Account != null where newClient.client.Account.AccountId == targetAccId.ToString() select newClient.client).FirstOrDefault();
 
             if (targetClient != null)
             {

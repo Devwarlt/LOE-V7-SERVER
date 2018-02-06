@@ -1,13 +1,6 @@
 ﻿#region
 
-using gameserver.networking;
-using gameserver.networking.error;
-using gameserver.networking.outgoing;
 using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using static gameserver.networking.Client;
 
 #endregion
 

@@ -252,9 +252,9 @@ namespace gameserver.realm.commands
                 }
             }
 
-            foreach (Tuple<Client, DateTime> i in player.Manager.Clients.Values)
+            foreach (ClientData cData in player.Manager.ClientManager.Values)
             {
-                if (i.Item1.Account.NameChosen && i.Item1.Account.Name.EqualsIgnoreCase(playername))
+                if (cData.client.Account.NameChosen && cData.client.Account.Name.EqualsIgnoreCase(playername))
                 {
                     player.client.SendMessage(new TEXT()
                     {
@@ -263,21 +263,21 @@ namespace gameserver.realm.commands
                         Stars = player.Stars,
                         Name = player.Name,
                         Admin = 0,
-                        Recipient = i.Item1.Account.Name,
+                        Recipient = cData.client.Account.Name,
                         Text = msg.ToSafeText(),
                         CleanText = "",
                         TextColor = 0x123456,
                         NameColor = 0x123456
                     });
 
-                    i.Item1.SendMessage(new TEXT()
+                    cData.client.SendMessage(new TEXT()
                     {
-                        ObjectId = i.Item1.Player.Owner.Id,
+                        ObjectId = cData.client.Player.Owner.Id,
                         BubbleTime = 10,
                         Stars = player.Stars,
                         Name = player.Name,
                         Admin = 0,
-                        Recipient = i.Item1.Account.Name,
+                        Recipient = cData.client.Account.Name,
                         Text = msg.ToSafeText(),
                         CleanText = "",
                         TextColor = 0x123456,
