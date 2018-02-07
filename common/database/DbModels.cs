@@ -579,6 +579,12 @@ namespace common
             set { SetValue("fameStats", value); }
         }
 
+        public byte[] TaskStats
+        {
+            get { return GetValue("taskStats", new byte[] { }); }
+            set { SetValue("taskStats", value); }
+        }
+
         public DateTime CreateTime
         {
             get { return GetValue("createTime", DateTime.Now); }

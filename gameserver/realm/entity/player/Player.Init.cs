@@ -47,6 +47,7 @@ namespace gameserver.realm.entity.player
                 Name = client.Account.Name;
                 AccountId = client.Account.AccountId;
                 FameCounter = new FameCounter(this);
+                TaskManager = new TaskManager(this);
                 Tokens = client.Account.FortuneTokens;
                 HpPotionPrice = 5;
                 MpPotionPrice = 5;
