@@ -129,7 +129,9 @@
   <ItemGroup>
     <Compile Include="Log.cs" />
     <Compile Include="logic\engine\Behavior.cs" />
-    <Compile Include="logic\engine\TaskManager.cs" />
+    <Compile Include="logic\engine\task\TaskManager.Dictionary.cs" />
+    <Compile Include="logic\engine\task\TaskManager.Init.cs" />
+    <Compile Include="logic\engine\task\TaskManager.Instances.cs" />
     <Compile Include="logic\monsters\Dream Island\Enemies.cs" />
     <Compile Include="logic\monsters\Dream Island\MiniBosses.cs" />
     <Compile Include="logic\monsters\Dungeons\Abyss of the Demons\Enemies.cs" />

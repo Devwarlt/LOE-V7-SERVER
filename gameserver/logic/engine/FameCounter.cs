@@ -12,8 +12,7 @@ namespace gameserver.logic
 {
     public class FameCounter
     {
-        private Player player;
-        public Player Host { get { return player; } }
+        protected Player player { get; set; }
 
         public FameStats Stats { get; private set; }
         public DbClassStats ClassStats { get; private set; }
@@ -59,8 +58,12 @@ namespace gameserver.logic
 
                 if (enemy.ObjectDesc.Cube)
                     Stats.CubeKills++;
+
                 if (enemy.ObjectDesc.Oryx)
                     Stats.OryxKills++;
+
+                if (enemy.ObjectDesc.TaskID != -1)
+                    player.TaskManager.ProcessTask(enemy.ObjectDesc.TaskID);
             }
         }
 

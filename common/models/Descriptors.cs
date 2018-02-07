@@ -1039,6 +1039,8 @@ public class ObjectDesc
             NewExperience = false;
 
         Connects = elem.Element("Connects") != null;
+        
+        TaskID = (n = elem.Element("Task")) != null ? (n.Attribute("id") != null ? Utils.FromString(n.Attribute("id").Value) : -1) : -1;
     }
 
     public bool NPC { get; private set; }
@@ -1111,6 +1113,8 @@ public class ObjectDesc
     public bool Pet { get; private set; }
     public int HPTier { get; private set; }
     public int MPTier { get; private set; }
+
+    public int TaskID { get; private set; }
 }
 
 public class TagList : List<Tag>

@@ -579,9 +579,9 @@ namespace common
             set { SetValue("fameStats", value); }
         }
 
-        public byte[] TaskStats
+        public string TaskStats
         {
-            get { return GetValue("taskStats", new byte[] { }); }
+            get { return GetValue("taskStats", string.Empty); }
             set { SetValue("taskStats", value); }
         }
 

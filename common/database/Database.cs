@@ -507,7 +507,7 @@ namespace common
                 Skin = skin,
                 Pet = 0,
                 FameStats = new byte[0],
-                TaskStats = new byte[0],
+                TaskStats = string.Empty,
                 CreateTime = DateTime.Now,
                 LastSeen = DateTime.Now
             };
