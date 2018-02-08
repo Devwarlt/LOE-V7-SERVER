@@ -33,7 +33,7 @@ namespace gameserver.realm
         };
 
         public const int MAX_REALM_PLAYERS = 85;
-        
+
         public ConcurrentDictionary<string, ClientData> ClientManager { get; private set; }
         public ConcurrentDictionary<int, World> Worlds { get; private set; }
         public ConcurrentDictionary<string, World> LastWorld { get; private set; }
@@ -158,6 +158,11 @@ namespace gameserver.realm
 
         #region "Connection handlers"
 
+        /** Disconnect Handler (LoESoft Games)
+	    * Author: DV
+	    * Original Idea: Miniguy
+	    */
+
         public ConnectionProtocol TryConnect(Client client)
         {
             try
@@ -170,7 +175,7 @@ namespace gameserver.realm
 
                 if (ClientManager.Count >= MaxClients) // When server is full.
                     return new ConnectionProtocol(false, ErrorIDs.SERVER_FULL);
-                
+
                 if (ClientManager.ContainsKey(_cData.ID))
                 {
                     if (_cData.client != null)
@@ -179,10 +184,10 @@ namespace gameserver.realm
 
                         return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.
                     }
-                    
+
                     return new ConnectionProtocol(false, ErrorIDs.LOST_CONNECTION); // User dropped connection while reconnect.
                 }
-                
+
                 return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.
             }
             catch (Exception e)

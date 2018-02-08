@@ -579,6 +579,12 @@ namespace common
             set { SetValue("fameStats", value); }
         }
 
+        public string TaskStats
+        {
+            get { return GetValue("taskStats", string.Empty); }
+            set { SetValue("taskStats", value); }
+        }
+
         public DateTime CreateTime
         {
             get { return GetValue("createTime", DateTime.Now); }

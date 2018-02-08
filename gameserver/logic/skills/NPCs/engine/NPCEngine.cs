@@ -13,7 +13,7 @@ using System.Linq;
 namespace gameserver.logic.behaviors
 {
     /** NPC Engine (LoESoft Games)
-	* Author: Warlt
+	* Author: DV
 	* Code Review: Sebafra
 	*/
 
