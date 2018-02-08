@@ -8,6 +8,7 @@ using gameserver.realm.entity;
 using gameserver.realm.entity.player;
 using gameserver.realm.world;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 #endregion
 
@@ -93,6 +94,35 @@ namespace gameserver.networking.handlers
                 //    return;
                 //}
 
+                if (item1 != null && item2 != null && item1.Quantity > 0 && item2.Quantity > 0 && en1 is Player && en2 is Player && en1 == en2 && message.SlotObject1.SlotId != message.SlotObject2.SlotId)
+                {
+                    int quantity = item1.Quantity;
+
+                    for (int i = 1; i <= quantity; i++)
+                    {
+                        string name2 = Regex.Replace(item2.ObjectId, "\\d+", "") + (item2.Quantity + 1);
+                        ushort objType;
+
+                        if (Manager.GameData.IdToObjectType.TryGetValue(name2, out objType))
+                        {
+                            string name1 = Regex.Replace(item1.ObjectId, "\\d+", "") + (item1.Quantity - 1);
+
+                            item2 = client.Manager.GameData.Items[Manager.GameData.IdToObjectType[name2]];
+                            item1 = Manager.GameData.IdToObjectType.TryGetValue(name1, out objType) == true ? client.Manager.GameData.Items[Manager.GameData.IdToObjectType[name1]] : null;
+
+                            con1.Inventory[message.SlotObject1.SlotId] = item1;
+                            con2.Inventory[message.SlotObject2.SlotId] = item2;
+
+                            (en1 as Player).CalculateBoost();
+                            client.Player.SaveToCharacter();
+                            client.Save();
+                            en1.UpdateCount++;
+                        }
+                        else break;
+                    }
+                    return;
+                }
+
                 if (con2 is OneWayContainer)
                 {
                     con1.Inventory[message.SlotObject1.SlotId] = null;
@@ -130,7 +160,7 @@ namespace gameserver.networking.handlers
 
                 if (en1 is Player && en2 is Player & en1.Id != en2.Id)
                 {
-                    Manager.Chat.Announce($"{en1.Name} just tried to steal items from {en2.Name}'s inventory, GTFO YOU GOD DAMN FEGIT!!!!11111oneoneoneeleven");
+                    Manager.Chat.Announce($"{en1.Name} just tried to steal items from {en2.Name}'s inventory!");
                     return;
                 };
                 con1.Inventory[message.SlotObject1.SlotId] = item2;
