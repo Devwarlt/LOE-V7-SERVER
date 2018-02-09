@@ -1041,7 +1041,7 @@ public class ObjectDesc
             NewExperience = false;
 
         Connects = elem.Element("Connects") != null;
-        
+
         TaskID = (n = elem.Element("Task")) != null ? (n.Attribute("id") != null ? Utils.FromString(n.Attribute("id").Value) : -1) : -1;
     }
 

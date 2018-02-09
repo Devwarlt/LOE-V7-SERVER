@@ -10,7 +10,7 @@
             .Init("Fiery Twin Succubus",
                 new State()
             )
-        
+
             .Init("Icy Succubus",
                 new State()
             )
