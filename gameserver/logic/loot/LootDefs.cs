@@ -20,6 +20,59 @@ namespace gameserver.logic.loot
             Random rand, string lootState, IList<LootDef> lootDefs);
     }
 
+    public class ProcessWhiteBag : ILootDef
+    {
+        private readonly bool eventChest;
+        private readonly ILootDef[] loot;
+
+        public string Lootstate { get; set; }
+
+        public ProcessWhiteBag(bool eventChest = false, params ILootDef[] loot)
+        {
+            this.eventChest = eventChest;
+            this.loot = loot;
+        }
+
+        public void Populate(
+            RealmManager manager,
+            Enemy enemy,
+            Tuple<Player, int> playerData,
+            Random rnd,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
+        {
+            Lootstate = lootState;
+
+            if (playerData == null)
+                return;
+
+            Tuple<Player, int>[] enemyData = enemy.DamageCounter.GetPlayerData();
+
+            int damageData = GetDamageData(enemyData);
+            double enemyHP = enemy.ObjectDesc.MaxHP;
+
+            if (damageData >= enemyHP * .2)
+            {
+                double chance = eventChest ? .01 : .05;
+                double rng = rnd.NextDouble();
+
+                if (rng <= chance)
+                    foreach (ILootDef i in loot)
+                        i.Populate(manager, enemy, playerData, rnd, Lootstate, lootDefs);
+            }
+        }
+
+        private int GetDamageData(IEnumerable<Tuple<Player, int>> data)
+        {
+            List<int> damages = data.Select(_ => _.Item2).ToList();
+            int totalDamage = 0;
+            for (int i = 0; i < damages.Count; i++)
+                totalDamage += damages[i];
+            return totalDamage;
+        }
+    }
+
     public class WhiteBag : ILootDef
     {
         private readonly bool eventChest;
@@ -27,10 +80,10 @@ namespace gameserver.logic.loot
 
         public string Lootstate { get; set; }
 
-        public WhiteBag(bool eventChest = false, params ILootDef[] loot)
+        public WhiteBag(string itemName, bool eventChest = false)
         {
             this.eventChest = eventChest;
-            this.loot = loot;
+            loot = new ILootDef[] { new MostDamagers(5, new ItemLoot(itemName, eventChest ? .01 : .05)) };
         }
 
         public void Populate(
