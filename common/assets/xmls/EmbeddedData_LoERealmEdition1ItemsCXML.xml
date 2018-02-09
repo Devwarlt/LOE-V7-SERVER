@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Object>
+  <Object type="0x5110" id="The Succubus Bloodstone">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LREE</File>
+      <Index>0</Index>
+    </Texture>
+    <SlotType>9</SlotType>
+    <Description>A magical stone that comes from the legendary Succubus, Wingus. It hints at power, but also contains a breath of life that challenges the makings of mortals.</Description>
+    <ActivateOnEquip stat="20" amount="4">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="28" amount="4">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="0" amount="125">IncrementStat</ActivateOnEquip>
+    <BagType>6</BagType>
+    <FameBonus>5</FameBonus>
+    <Soulbound/>
+  </Object>
+</Object>
