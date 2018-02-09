@@ -86,6 +86,18 @@ namespace gameserver.logic.loot
             loot = new ILootDef[] { new MostDamagers(5, new ItemLoot(itemName, eventChest ? .01 : .05)) };
         }
 
+        public WhiteBag(string[] itemNames, bool eventChest = false)
+        {
+            this.eventChest = eventChest;
+            loot = new ILootDef[] { new MostDamagers(5, new ItemLoot(ProcessOnlyOne(itemNames), eventChest ? .01 : .05)) };
+        }
+
+        private string ProcessOnlyOne(string[] itemNames)
+        {
+            List<string> items = itemNames.ToList();
+            return items[new Random().Next(0, items.Count)];
+        }
+
         public void Populate(
             RealmManager manager,
             Enemy enemy,
