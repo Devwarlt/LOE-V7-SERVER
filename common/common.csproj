@@ -203,7 +203,7 @@
     <Content Include="assets\xmls\EmbeddedData_LairOfShaitanCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\xmls\EmbeddedData_LoE-EncounterCXML.xml">
+    <Content Include="assets\xmls\EmbeddedData_LoEEncounterCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmDreamIslandEncountersCXML.xml">
