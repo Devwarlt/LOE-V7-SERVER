@@ -215,6 +215,9 @@
     <Content Include="assets\xmls\EmbeddedData_LoERealmDreamIslandProjectilesCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\xmls\EmbeddedData_LoERealmEdition1ItemsCXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmEdition1ObjectsCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
