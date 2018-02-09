@@ -1,6 +1,7 @@
 ﻿using gameserver.logic.behaviors;
 using gameserver.logic.transitions;
 using gameserver.logic.loot;
+using gameserver.logic;
 
 namespace gameserver.logic
 {
@@ -137,15 +138,14 @@ namespace gameserver.logic
                         new Suicide()
                   )
               ),
-              new Threshold(0.01,
+			  new Threshold(0.01,
                   new ItemLoot("Potion of Life", 0.5),
                   new ItemLoot("Potion of Mana", 0.5),
                   new ItemLoot("Potion of Vitality", 1),
                   new ItemLoot("Potion of Defense", 1),
-                  new ItemLoot("Frog King Skin", 0.001),
-                  new ItemLoot("Crown of the Frog King", 0.001),
+				  new WhiteBag("Frog King Skin", eventChest: false),
 
-                  new TierLoot(10, ItemType.Weapon, 0.3),
+				  new TierLoot(10, ItemType.Weapon, 0.3),
                   new TierLoot(11, ItemType.Weapon, 0.2),
                   new TierLoot(12, ItemType.Weapon, 0.1),
 

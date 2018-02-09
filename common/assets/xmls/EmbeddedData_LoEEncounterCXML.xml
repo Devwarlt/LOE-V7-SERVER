@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Object>
 	<Object type="0x670a" id="Frog Bomb">
 		<DisplayId>Frog Bomb</DisplayId>
@@ -32,10 +32,10 @@
 		<DisplayId>Frog Minion</DisplayId>
 		<Enemy/>
 		<Class>Character</Class>
-		<Texture>
+		<AnimatedTexture>
 			<File>chars8x8dBeach</File>
 			<Index>4</Index>
-		</Texture>
+		</AnimatedTexture>
 		<HitSound>monster/pythons_hit</HitSound>
 		<DeathSound>monster/pythons_death</DeathSound>
 		<Size>100</Size>
@@ -87,10 +87,10 @@
 		<DisplayId>Frog King</DisplayId>
 		<Enemy/>
 		<Class>Character</Class>
-		<Texture>
+		<AnimatedTexture>
 			<File>chars16x16dMountains1</File>
 			<Index>0x08</Index>
-		</Texture>
+		</AnimatedTexture>
 		<HitSound>monster/pythons_hit</HitSound>
 		<DeathSound>monster/pythons_death</DeathSound>
 		<Size>110</Size>
