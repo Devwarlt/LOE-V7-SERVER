@@ -205,6 +205,7 @@
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoEEncounterCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmDreamIslandEncountersCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -230,8 +231,13 @@
     <Content Include="assets\xmls\EmbeddedData_LoERealmGoldenCrownsCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\xmls\EmbeddedData_DrrItemsCXML.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmItemsCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmLegendaryTierCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

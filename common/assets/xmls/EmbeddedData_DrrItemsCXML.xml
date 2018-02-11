@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Object>
 	<Object type="0x510f" id="The Egyptian's Crook" spritePeriod="4" spriteFile="lofiObj5" spriteArray="200-201">
 		<Class>Equipment</Class>
