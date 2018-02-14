@@ -31,7 +31,7 @@ namespace gameserver.realm.entity.player
 
     public partial class Player : Character, IContainer, IPlayer
     {
-        public Player(RealmManager manager, Client client) : base(manager, client.Character.ObjectType, client.Random)
+        public Player(Client client) : base(client.Character.ObjectType, client.Random)
         {
             try
             {
@@ -42,7 +42,6 @@ namespace gameserver.realm.entity.player
                 AccountLifetime = client.Account.AccountLifetime;
                 isVip = AccountLifetime != DateTime.MinValue;
                 this.client = client;
-                Manager = manager;
                 StatsManager = new StatsManager(this, client.Random.CurrentSeed);
                 Name = client.Account.Name;
                 AccountId = client.Account.AccountId;
@@ -68,14 +67,14 @@ namespace gameserver.realm.entity.player
                     PetHealing = new List<List<int>>();
                     PetAttack = new List<int>();
                     PetID = client.Character.Pet;
-                    Tuple<int, int, double> HPData = PetHPHealing.MinMaxBonus(Resolve(Manager, (ushort)PetID).ObjectDesc.HPTier, Stars);
-                    Tuple<int, int, double> MPData = PetMPHealing.MinMaxBonus(Resolve(Manager, (ushort)PetID).ObjectDesc.MPTier, Stars);
+                    Tuple<int, int, double> HPData = PetHPHealing.MinMaxBonus(Resolve((ushort)PetID).ObjectDesc.HPTier, Stars);
+                    Tuple<int, int, double> MPData = PetMPHealing.MinMaxBonus(Resolve((ushort)PetID).ObjectDesc.MPTier, Stars);
                     PetHealing.Add(new List<int> { HPData.Item1, HPData.Item2, (int)((HPData.Item3 - 1) * 100) });
                     PetHealing.Add(new List<int> { MPData.Item1, MPData.Item2, (int)((MPData.Item3 - 1) * 100) });
                     PetAttack.Add(7750 - Stars * 100);
                     PetAttack.Add(30 + Stars);
-                    PetAttack.Add(Resolve(Manager, (ushort)PetID).ObjectDesc.Projectiles[0].MinDamage);
-                    PetAttack.Add(Resolve(Manager, (ushort)PetID).ObjectDesc.Projectiles[0].MaxDamage);
+                    PetAttack.Add(Resolve((ushort)PetID).ObjectDesc.Projectiles[0].MinDamage);
+                    PetAttack.Add(Resolve((ushort)PetID).ObjectDesc.Projectiles[0].MaxDamage);
                 }
                 LootDropBoostTimeLeft = client.Character.LootDropTimer;
                 lootDropBoostFreeTimer = LootDropBoost;
@@ -83,10 +82,10 @@ namespace gameserver.realm.entity.player
                 lootTierBoostFreeTimer = LootTierBoost;
                 FameGoal = (AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : GetFameGoal(FameCounter.ClassStats[ObjectType].BestFame);
                 Glowing = false;
-                DbGuild guild = Manager.Database.GetGuild(client.Account.GuildId);
+                DbGuild guild = Program.Manager.Database.GetGuild(client.Account.GuildId);
                 if (guild != null)
                 {
-                    Guild = Manager.Database.GetGuild(client.Account.GuildId).Name;
+                    Guild = Program.Manager.Database.GetGuild(client.Account.GuildId).Name;
                     GuildRank = client.Account.GuildRank;
                 }
                 else
@@ -120,18 +119,18 @@ namespace gameserver.realm.entity.player
                             _ =>
                                 _ == -1
                                     ? null
-                                    : (Manager.GameData.Items.ContainsKey((ushort)_) ? Manager.GameData.Items[(ushort)_] : null))
+                                    : (Program.Manager.GameData.Items.ContainsKey((ushort)_) ? Program.Manager.GameData.Items[(ushort)_] : null))
                             .ToArray();
                     Item[] backpack =
                         client.Character.Backpack.Select(
                             _ =>
                                 _ == -1
                                     ? null
-                                    : (Manager.GameData.Items.ContainsKey((ushort)_) ? Manager.GameData.Items[(ushort)_] : null))
+                                    : (Program.Manager.GameData.Items.ContainsKey((ushort)_) ? Program.Manager.GameData.Items[(ushort)_] : null))
                             .ToArray();
 
                     Inventory = inv.Concat(backpack).ToArray();
-                    XElement xElement = Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
+                    XElement xElement = Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
                     if (xElement != null)
                     {
                         int[] slotTypes =
@@ -148,9 +147,9 @@ namespace gameserver.realm.entity.player
                                 _ =>
                                     _ == -1
                                         ? null
-                                        : (Manager.GameData.Items.ContainsKey((ushort)_) ? Manager.GameData.Items[(ushort)_] : null))
+                                        : (Program.Manager.GameData.Items.ContainsKey((ushort)_) ? Program.Manager.GameData.Items[(ushort)_] : null))
                                 .ToArray();
-                    XElement xElement = Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
+                    XElement xElement = Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
                     if (xElement != null)
                         SlotTypes =
                             Utils.FromCommaSepString32(
@@ -202,7 +201,7 @@ namespace gameserver.realm.entity.player
 
             if (client.Character.Dead)
             {
-                Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD);
+                Program.Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD);
                 return;
             }
             GenerateGravestone();
@@ -233,10 +232,12 @@ namespace gameserver.realm.entity.player
             try
             {
                 client.Character.Dead = true;
-                SaveToCharacter();
-                Manager.Database.SaveCharacter(client.Account, client.Character, true);
 
-                Manager.Database.Death(Manager.GameData, client.Account, client.Character, FameCounter.Stats, killer);
+                SaveToCharacter();
+
+                Program.Manager.Database.SaveCharacter(client.Account, client.Character, true);
+                Program.Manager.Database.Death(Program.Manager.GameData, client.Account, client.Character, FameCounter.Stats, killer);
+
                 if (Owner.Id != -6)
                 {
                     DEATH _death = new DEATH();
@@ -250,14 +251,14 @@ namespace gameserver.realm.entity.player
 
                     Log.Write($"Message details type '{_death.ID}':\n{_death}");
 
-                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD)));
+                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => Program.Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD)));
 
                     Log.Write($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
 
                     Owner.LeaveWorld(this);
                 }
                 else
-                    Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
+                    Program.Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
             }
             catch (Exception e)
             {
@@ -292,7 +293,7 @@ namespace gameserver.realm.entity.player
             if (client.Character.Pet != 0)
             {
                 HatchlingPet = false;
-                Pet = Resolve(Manager, (ushort)PetID);
+                Pet = Resolve((ushort)PetID);
                 Pet.Move(x, y);
                 Pet.SetPlayerOwner(this);
                 Owner.EnterWorld(Pet);
@@ -472,12 +473,12 @@ namespace gameserver.realm.entity.player
             {
                 Level++;
                 ExperienceGoal = GetExpGoal(Level);
-                foreach (var i in Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease"))
+                foreach (var i in Program.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease"))
                 {
                     var rand = new Random();
                     var min = int.Parse(i.Attribute("min").Value);
                     var max = int.Parse(i.Attribute("max").Value) + 1;
-                    var xElement = Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value);
+                    var xElement = Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value);
                     if (xElement == null) continue;
                     var limit =
                         int.Parse(

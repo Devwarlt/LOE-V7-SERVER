@@ -64,7 +64,7 @@ namespace gameserver.realm.mapsetpiece
                 t = SetPieces.rotateCW(t);
             int w = t.GetLength(0), h = t.GetLength(1);
 
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < w; x++) //Rendering
                 for (int y = 0; y < h; y++)
                 {
@@ -88,7 +88,7 @@ namespace gameserver.realm.mapsetpiece
                         WmapTile tile = world.Map[x + pos.X, y + pos.Y].Clone();
                         tile.TileId = dat.IdToTileType[Floor];
                         world.Map[x + pos.X, y + pos.Y] = tile;
-                        Entity wall = Entity.Resolve(world.Manager, dat.IdToObjectType[WallB]);
+                        Entity wall = Entity.Resolve(dat.IdToObjectType[WallB]);
                         wall.Move(x + pos.X + 0.5f, y + pos.Y + 0.5f);
                         world.EnterWorld(wall);
                     }
@@ -111,7 +111,7 @@ namespace gameserver.realm.mapsetpiece
                 }
 
             //Boss
-            Entity lich = Entity.Resolve(world.Manager, "Lich");
+            Entity lich = Entity.Resolve("Lich");
             lich.Move(pos.X + Size / 2, pos.Y + Size / 2);
             world.EnterWorld(lich);
         }

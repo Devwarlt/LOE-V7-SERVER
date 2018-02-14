@@ -36,7 +36,7 @@ namespace gameserver.realm.commands
                     break;
                 case "clients":
                     {
-                        foreach (KeyValuePair<string, ClientData> i in Program.manager.ClientManager)
+                        foreach (KeyValuePair<string, ClientData> i in Program.Manager.ClientManager)
                             player.SendInfo($"[Clients] [ID: {i.Key}] Client '{i.Value.client.Account.Name}' joined network at {i.Value.registered}.");
                     }
                     break;

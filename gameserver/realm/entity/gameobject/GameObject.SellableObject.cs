@@ -14,8 +14,8 @@ namespace gameserver.realm.entity
     {
         private const int BUY_NO_GOLD = 3;
 
-        public SellableObject(RealmManager manager, ushort objType)
-            : base(manager, objType, null, true, false, false)
+        public SellableObject(ushort objType)
+            : base(objType, null, true, false, false)
         {
             if (objType == 0x0505) //Vault chest
             {
@@ -64,7 +64,7 @@ namespace gameserver.realm.entity
             {
                 if (TryDeduct(player))
                 {
-                    Manager.Database.UpdateCredit(player.client.Account, -Price);
+                    Program.Manager.Database.UpdateCredit(player.client.Account, -Price);
                     player.Credits = player.client.Account.Credits;
                     player.UpdateCount++;
                     player.SaveToCharacter();

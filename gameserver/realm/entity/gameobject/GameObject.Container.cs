@@ -17,8 +17,8 @@ namespace gameserver.realm.entity
 
     partial class Container : GameObject, IContainer
     {
-        public Container(RealmManager manager, ushort objType, int? life, bool dying)
-            : base(manager, objType, life, false, dying, false)
+        public Container(ushort objType, int? life, bool dying)
+            : base(objType, life, false, dying, false)
         {
             Inventory = new Item[8];
             SlotTypes = new int[8];
@@ -27,8 +27,8 @@ namespace gameserver.realm.entity
                 if (SlotTypes[i] == 0) SlotTypes[i] = 10;
         }
 
-        public Container(RealmManager manager, XElement node)
-            : base(manager, (ushort)Utils.FromString(node.Attribute("type").Value), null, false, false, false)
+        public Container(XElement node)
+            : base((ushort)Utils.FromString(node.Attribute("type").Value), null, false, false, false)
         {
             SlotTypes = Utils.FromCommaSepString32(node.Element("SlotTypes").Value);
             XElement eq = node.Element("Equipment");
@@ -36,7 +36,7 @@ namespace gameserver.realm.entity
             {
                 Item[] inv =
                     Utils.FromCommaSepString16(eq.Value)
-                        .Select(_ => _ == -1 ? null : manager.GameData.Items[(ushort)_])
+                        .Select(_ => _ == -1 ? null : Program.Manager.GameData.Items[(ushort)_])
                         .ToArray();
                 Array.Resize(ref inv, 8);
                 Inventory = inv;
@@ -87,9 +87,6 @@ namespace gameserver.realm.entity
             base.Tick(time);
         }
 
-        public override bool HitByProjectile(Projectile projectile, RealmTime time)
-        {
-            return false;
-        }
+        public override bool HitByProjectile(Projectile projectile, RealmTime time) => false;
     }
 }

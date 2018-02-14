@@ -24,8 +24,9 @@ namespace gameserver.networking
                 else
                     handler.Handle(this, (IncomingMessage)msg);
             }
-            catch (NullReferenceException)
+            catch (Exception e)
             {
+                Log.Write($"An error occurred!\nError: {e}", ConsoleColor.Yellow);
                 Manager.TryDisconnect(this, DisconnectReason.ERROR_WHEN_HANDLING_MESSAGE);
             }
         }

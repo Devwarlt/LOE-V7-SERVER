@@ -109,6 +109,9 @@
     <Content Include="assets\xmls\Additions.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\xmls\EmbeddedData_LoERealmEdition1EncountersCXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\xmls\EmbeddedData_AbyssOfDemonsCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -200,8 +203,9 @@
     <Content Include="assets\xmls\EmbeddedData_LairOfShaitanCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\xmls\EmbeddedData_LoE-EncounterCXML.xml">
+    <Content Include="assets\xmls\EmbeddedData_LoEEncounterCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmDreamIslandEncountersCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -212,19 +216,36 @@
     <Content Include="assets\xmls\EmbeddedData_LoERealmDreamIslandProjectilesCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\xmls\EmbeddedData_LoERealmEdition1ItemsCXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\xmls\EmbeddedData_LoERealmEdition1ObjectsCXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\xmls\EmbeddedData_LoERealmEdition1GroundsCXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmEggsCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmGoldenCrownsCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\xmls\EmbeddedData_DrrItemsCXML.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmItemsCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmLegendaryTierCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmPetsCXML.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\xmls\EmbeddedData_LoERealmEdition1ProjectilesCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmProjectilesCXML.xml">

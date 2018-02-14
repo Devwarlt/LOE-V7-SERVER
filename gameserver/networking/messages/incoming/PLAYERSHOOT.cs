@@ -13,6 +13,8 @@ namespace gameserver.networking.incoming
         public short ContainerType { get; set; }
         public Position Position { get; set; }
         public float Angle { get; set; }
+        public float AttackPeriod { get; set; }
+        public int AttackAmount { get; set; }
 
         public override MessageID ID => MessageID.PLAYERSHOOT;
 
@@ -25,6 +27,8 @@ namespace gameserver.networking.incoming
             ContainerType = rdr.ReadInt16();
             Position = Position.Read(rdr);
             Angle = rdr.ReadSingle();
+            AttackPeriod = rdr.ReadSingle();
+            AttackAmount = rdr.ReadInt32();
         }
 
         protected override void Write(NWriter wtr)
@@ -34,6 +38,8 @@ namespace gameserver.networking.incoming
             wtr.Write(ContainerType);
             Position.Write(wtr);
             wtr.Write(Angle);
+            wtr.Write(AttackPeriod);
+            wtr.Write(AttackAmount);
         }
     }
 }

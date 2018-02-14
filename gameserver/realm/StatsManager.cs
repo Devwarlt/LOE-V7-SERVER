@@ -234,18 +234,18 @@ namespace gameserver.realm
 
             public uint obf2()
             {
-                return this.obf3();
+                return obf3();
             }
 
             public float obf4()
             {
-                return this.obf3() / 2147483647;
+                return obf3() / 2147483647;
             }
 
             public float obf5(float param1 = 0.0f, float param2 = 1.0f)
             {
-                float _loc3_ = this.obf3() / 2147483647;
-                float _loc4_ = this.obf3() / 2147483647;
+                float _loc3_ = obf3() / 2147483647;
+                float _loc4_ = obf3() / 2147483647;
                 float _loc5_ = (float)Math.Sqrt(-2 * (float)Math.Log(_loc3_)) * (float)Math.Cos(2 * _loc4_ * Math.PI);
                 return param1 + _loc5_ * param2;
             }
@@ -256,27 +256,27 @@ namespace gameserver.realm
                 {
                     return param1;
                 }
-                return param1 + this.obf3() % (param2 - param1);
+                return param1 + obf3() % (param2 - param1);
             }
 
             public float obf7(float param1, float param2)
             {
-                return param1 + (param2 - param1) * this.obf4();
+                return param1 + (param2 - param1) * obf4();
             }
 
             private uint obf3()
             {
                 uint _loc1_ = 0;
                 uint _loc2_ = 0;
-                _loc2_ = 16807 * (this.Seed & 65535);
-                _loc1_ = 16807 * (this.Seed >> 16);
+                _loc2_ = 16807 * (Seed & 65535);
+                _loc1_ = 16807 * (Seed >> 16);
                 _loc2_ = _loc2_ + ((_loc1_ & 32767) << 16);
                 _loc2_ = _loc2_ + (_loc1_ >> 15);
                 if (_loc2_ > 2147483647)
                 {
                     _loc2_ = _loc2_ - 2147483647;
                 }
-                return this.Seed = _loc2_;
+                return Seed = _loc2_;
             }
         }
     }

@@ -2,7 +2,6 @@
 
 using Mono.Game;
 using System;
-using gameserver.realm.entity.player;
 
 #endregion
 
@@ -17,17 +16,7 @@ namespace gameserver.realm.entity
         private Vector2 GetRandDirection()
         {
             double angle = rand.NextDouble() * 2 * Math.PI;
-            return new Vector2(
-                (float)Math.Cos(angle),
-                (float)Math.Sin(angle)
-                );
-        }
-
-        public static Decoy DecoyRandom(RealmManager manager, Player player, int duration, float tps)
-        {
-            Decoy d = new Decoy(manager, player, duration, tps);
-            d.direction = d.GetRandDirection();
-            return d;
+            return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
         }
     }
 }

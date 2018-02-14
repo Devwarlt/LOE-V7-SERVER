@@ -55,7 +55,7 @@ namespace gameserver.realm.mapsetpiece
         public override void RenderSetPiece(World world, IntPoint pos)
         {
             int pillar = 1;
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < Size; x++)
             {
                 for (int y = 0; y < Size; y++)
@@ -89,14 +89,14 @@ namespace gameserver.realm.mapsetpiece
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
 
-                        Entity killerPillar = Entity.Resolve(world.Manager, "shtrs Pillar " + pillar);
+                        Entity killerPillar = Entity.Resolve("shtrs Pillar " + pillar);
                         killerPillar.Move(pos.X + x + 0.5f, pos.Y + y + 0.5f);
                         world.EnterWorld(killerPillar);
                         pillar++;
                     }
                 }
             }
-            Entity avatar = Entity.Resolve(world.Manager, "shtrs Defense System"); //Avatar of the Forgotten King
+            Entity avatar = Entity.Resolve("shtrs Defense System"); //Avatar of the Forgotten King
             avatar.Move(pos.X + 15.5f, pos.Y + 15.5f);
             world.EnterWorld(avatar);
         }

@@ -296,7 +296,7 @@ namespace gameserver.realm.entity.player
                         break;
                     case ActivateEffects.Decoy:
                         {
-                            Decoy decoy = new Decoy(Manager, this, eff.DurationMS, StatsManager.GetSpeed());
+                            Decoy decoy = new Decoy(this, eff.DurationMS, StatsManager.GetSpeed());
                             decoy?.Move(X, Y);
                             Owner?.EnterWorld(decoy);
                         }
@@ -374,7 +374,7 @@ namespace gameserver.realm.entity.player
                                     TargetId = Id,
                                     PosA = target
                                 }, p => this?.Dist(p) < 25);
-                                Placeholder x = new Placeholder(Manager, 1500);
+                                Placeholder x = new Placeholder(1500);
                                 x.Move(target.X, target.Y);
                                 Owner?.EnterWorld(x);
                                 try
@@ -431,7 +431,7 @@ namespace gameserver.realm.entity.player
                                 for (int i = 4; i < 12; i++)
                                     if (Inventory[i] == null)
                                     {
-                                        Inventory[i] = Manager.GameData.Items[reward];
+                                        Inventory[i] = Program.Manager.GameData.Items[reward];
                                         UpdateCount++;
                                         SaveToCharacter();
                                         return false;
@@ -484,7 +484,7 @@ namespace gameserver.realm.entity.player
                             Stats[idx] += eff.Amount;
                             int limit =
                                 int.Parse(
-                                    Manager.GameData.ObjectTypeToElement[ObjectType].Element(
+                                    Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element(
                                         StatsManager.StatsIndexToName(idx))
                                         .Attribute("max")
                                         .Value);
@@ -500,7 +500,7 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            Portal portal = this.GetNearestEntity(5, Manager.GameData.IdToObjectType[eff.LockedName]) as Portal;
+                            Portal portal = this.GetNearestEntity(5, Program.Manager.GameData.IdToObjectType[eff.LockedName]) as Portal;
 
                             Message[] packets = new Message[3];
                             packets[0] = new SHOWEFFECT
@@ -549,15 +549,15 @@ namespace gameserver.realm.entity.player
                             if (Stars >= 10 || AccountPerks.ByPassKeysRequirements())
                             {
                                 ushort objType;
-                                if (!Manager.GameData.IdToObjectType.TryGetValue(eff.Id, out objType) || !Manager.GameData.Portals.ContainsKey(objType))
+                                if (!Program.Manager.GameData.IdToObjectType.TryGetValue(eff.Id, out objType) || !Program.Manager.GameData.Portals.ContainsKey(objType))
                                 {
                                     SendHelp("Dungeon not implemented yet.");
                                     return true;
                                 }
-                                Entity entity = Resolve(Manager, objType);
-                                World w = Manager.GetWorld(Owner.Id); //can't use Owner here, as it goes out of scope
-                                int TimeoutTime = Manager.GameData.Portals[objType].TimeoutTime;
-                                string DungName = Manager.GameData.Portals[objType].DungeonName;
+                                Entity entity = Resolve(objType);
+                                World w = Program.Manager.GetWorld(Owner.Id); //can't use Owner here, as it goes out of scope
+                                int TimeoutTime = Program.Manager.GameData.Portals[objType].TimeoutTime;
+                                string DungName = Program.Manager.GameData.Portals[objType].DungeonName;
 
                                 ARGB c = new ARGB(0x00FF00);
 
@@ -641,7 +641,7 @@ namespace gameserver.realm.entity.player
                                     DurationMS = 0
                                 });
                                 ushort obj;
-                                Manager.GameData.IdToObjectType.TryGetValue(item.ObjectId, out obj);
+                                Program.Manager.GameData.IdToObjectType.TryGetValue(item.ObjectId, out obj);
                                 if (MP >= item.MpEndCost)
                                 {
                                     Shoot(time, item, pkt.ItemUsePos);
@@ -664,7 +664,7 @@ namespace gameserver.realm.entity.player
                             {
                                 if (!client.Account.OwnedSkins.Contains(item.ActivateEffects[0].SkinType))
                                 {
-                                    Manager.Database.AddSkin(client.Account, item.ActivateEffects[0].SkinType);
+                                    Program.Manager.Database.AddSkin(client.Account, item.ActivateEffects[0].SkinType);
                                     SendInfo("New skin unlocked successfully. Change skins in your Vault, or start a new character to use.");
                                     client.SendMessage(new RESKIN_UNLOCK
                                     {
@@ -692,7 +692,7 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            Entity en = Resolve(Manager, eff.ObjectId);
+                            Entity en = Resolve(eff.ObjectId);
                             en?.Move(X, Y);
                             en?.SetPlayerOwner(this);
                             Owner?.EnterWorld(en);
@@ -736,9 +736,9 @@ namespace gameserver.realm.entity.player
                                 "Lair of Shaitan Portal"
                             };
 
-                            PortalDesc[] descs = Manager.GameData.Portals.Where(_ => dungeons.Contains(_.Value.ObjectId)).Select(_ => _.Value).ToArray();
+                            PortalDesc[] descs = Program.Manager.GameData.Portals.Where(_ => dungeons.Contains(_.Value.ObjectId)).Select(_ => _.Value).ToArray();
                             PortalDesc portalDesc = descs[Random.Next(0, descs.Count())];
-                            Entity por = Resolve(Manager, portalDesc.ObjectId);
+                            Entity por = Resolve(portalDesc.ObjectId);
                             por?.Move(X, Y);
                             Owner?.EnterWorld(por);
 
@@ -840,7 +840,7 @@ namespace gameserver.realm.entity.player
                                             PetID = newPetID;
                                             HatchlingPet = true;
                                             message = "Congratulations! You received a new pet.";
-                                            Entity petResolve = Resolve(Manager, eff.petType);
+                                            Entity petResolve = Resolve(eff.petType);
                                             petResolve.Move(X, Y);
                                             petResolve.SetPlayerOwner(this);
                                             Owner.EnterWorld(petResolve);
@@ -866,7 +866,7 @@ namespace gameserver.realm.entity.player
                                             Owner.LeaveWorld(Pet);
                                             Pet.Dispose();
                                             message = "Congratulations! You received a new pet.";
-                                            Pet = Resolve(Manager, eff.petType);
+                                            Pet = Resolve(eff.petType);
                                             Pet.Move(X, Y);
                                             Pet.SetPlayerOwner(this);
                                             Owner.EnterWorld(Pet);
@@ -1015,7 +1015,7 @@ namespace gameserver.realm.entity.player
                                 for (int i = 4; i < 12; i++)
                                     if (Inventory[i] == null)
                                     {
-                                        Inventory[i] = Manager.GameData.Items[convertedEgg];
+                                        Inventory[i] = Program.Manager.GameData.Items[convertedEgg];
                                         UpdateCount++;
                                         SaveToCharacter();
                                         return false;
@@ -1239,7 +1239,7 @@ namespace gameserver.realm.entity.player
                             }
 
                             List<Message> _outgoing = new List<Message>();
-                            World _world = Manager.GetWorld(Owner.Id);
+                            World _world = Program.Manager.GetWorld(Owner.Id);
                             DbAccount acc = client.Account;
                             int days = eff.Amount;
 
@@ -1286,7 +1286,7 @@ namespace gameserver.realm.entity.player
                             if (Database.Names.Contains(Name))
                                 return true;
                             Credits += eff.Amount;
-                            Manager.Database.UpdateCredit(client.Account, eff.Amount);
+                            Program.Manager.Database.UpdateCredit(client.Account, eff.Amount);
                             UpdateCount++;
                         }
                         break;
@@ -1419,7 +1419,7 @@ namespace gameserver.realm.entity.player
 
                     tmr.Reset();
 
-                    Manager.Logic.AddPendingAction(_ => w.Timers.Add(tmr), PendingPriority.Creation);
+                    Program.Manager.Logic.AddPendingAction(_ => w.Timers.Add(tmr), PendingPriority.Creation);
                 });
                 Owner?.Timers.Add(tmr);
             }
@@ -1439,7 +1439,7 @@ namespace gameserver.realm.entity.player
                 if (player?.client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId));
-            Manager.TryDisconnect(client, DisconnectReason.CHEAT_ENGINE_DETECTED);
+            Program.Manager.TryDisconnect(client, DisconnectReason.CHEAT_ENGINE_DETECTED);
             return true;
         }
 
@@ -1454,7 +1454,7 @@ namespace gameserver.realm.entity.player
             Array.Resize(ref inventory, 20);
             int[] slotTypes =
                 Utils.FromCommaSepString32(
-                    Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes").Value);
+                    Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes").Value);
             Array.Resize(ref slotTypes, 20);
             for (int i = 0; i < slotTypes.Length; i++)
                 if (slotTypes[i] == 0) slotTypes[i] = 10;

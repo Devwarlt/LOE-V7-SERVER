@@ -47,7 +47,7 @@ namespace gameserver.realm.entity.npc.npcs
                 case "online":
                     {
                         int serverMaxUsage = Settings.NETWORKING.MAX_CONNECTIONS;
-                        int serverCurrentUsage = player.Manager.ClientManager.Count;
+                        int serverCurrentUsage = Program.Manager.ClientManager.Count;
                         int worldCurrentUsage = player.Owner.Players.Keys.Count;
                         callback = $"Server: {serverCurrentUsage}/{serverMaxUsage} player{(serverCurrentUsage > 1 ? "s" : "")} | {player.Owner.Name}: {worldCurrentUsage} player{(worldCurrentUsage > 1 ? "s" : "")}.";
                     }

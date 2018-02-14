@@ -53,7 +53,7 @@ namespace gameserver.logic.behaviors
             if (CheckHp(host, threshold))
             {
                 if (targetState == null)
-                    targetState = FindState(host.Manager.Behaviors.Definitions[children].Item1, targetStateName);
+                    targetState = FindState(Program.Manager.Behaviors.Definitions[children].Item1, targetStateName);
                 foreach (Entity i in host.GetNearestEntities(dist, children))
                     if (!i.CurrentState.Is(targetState))
                         i.SwitchTo(targetState);

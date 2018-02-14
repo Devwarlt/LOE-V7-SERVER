@@ -1,10 +1,4 @@
-﻿#region
-
-using gameserver.networking;
-
-#endregion
-
-namespace gameserver.realm.world
+﻿namespace gameserver.realm.world
 {
     public class SnakePit : World
     {
@@ -17,14 +11,6 @@ namespace gameserver.realm.world
             AllowTeleport = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap("snakepit", MapType.Wmap);
-        }
-
-        public override World GetInstance(Client client)
-        {
-            return Manager.AddWorld(new SnakePit());
-        }
+        protected override void Init() => LoadMap("snakepit", MapType.Wmap);
     }
 }

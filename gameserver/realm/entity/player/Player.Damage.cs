@@ -9,7 +9,7 @@ namespace gameserver.realm.entity.player
 {
     partial class Player
     {
-        public void ForceDamage(int dmg, Entity chr, bool NoDef)
+        public void ForceHit(int dmg, Entity chr, bool NoDef)
         {
             if (chr != null)
                 Damage(dmg, chr, NoDef);

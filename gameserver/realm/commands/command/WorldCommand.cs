@@ -10,8 +10,6 @@ using gameserver.realm.entity.player;
 using common.config;
 using gameserver.realm.entity.npc;
 using gameserver.logic;
-using gameserver.networking;
-using System;
 
 #endregion
 
@@ -41,7 +39,7 @@ namespace gameserver.realm.commands
                 return false;
             }
 
-            player.Manager.Chat.Guild(player, string.Join(" ", args));
+            Program.Manager.Chat.Guild(player, string.Join(" ", args));
             return true;
         }
     }
@@ -252,7 +250,7 @@ namespace gameserver.realm.commands
                 }
             }
 
-            foreach (ClientData cData in player.Manager.ClientManager.Values)
+            foreach (ClientData cData in Program.Manager.ClientManager.Values)
             {
                 if (cData.client.Account.NameChosen && cData.client.Account.Name.EqualsIgnoreCase(playername))
                 {

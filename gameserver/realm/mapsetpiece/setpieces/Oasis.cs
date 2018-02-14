@@ -89,7 +89,7 @@ namespace gameserver.realm.mapsetpiece
             foreach (IntPoint i in trees)
                 t[i.X, i.Y] = 3;
 
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < Size; x++)
                 for (int y = 0; y < Size; y++)
                 {
@@ -118,12 +118,12 @@ namespace gameserver.realm.mapsetpiece
                     }
                 }
 
-            Entity giant = Entity.Resolve(world.Manager, "Oasis Giant");
+            Entity giant = Entity.Resolve("Oasis Giant");
             giant.Move(pos.X + 15.5f, pos.Y + 15.5f);
             world.EnterWorld(giant);
 
-            Container container = new Container(world.Manager, 0x0501, null, false);
-            Item[] items = chest.GetLoots(world.Manager, 5, 8).ToArray();
+            Container container = new Container(0x0501, null, false);
+            Item[] items = chest.GetLoots(5, 8).ToArray();
             for (int i = 0; i < items.Length; i++)
                 container.Inventory[i] = items[i];
             container.Move(pos.X + 15.5f, pos.Y + 15.5f);

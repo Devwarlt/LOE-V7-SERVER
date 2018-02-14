@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GroundTypes>
+	<Ground type="0x6711" id="Bloody Ground">
+		<Texture>
+			<File>LREEO8x8</File>
+			<Index>0</Index>
+		</Texture>
+		<Sink />
+		<BlendPriority>2</BlendPriority>
+		<Speed>0.7</Speed>
+	</Ground>
+</GroundTypes>

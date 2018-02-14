@@ -281,7 +281,7 @@ namespace gameserver.realm.entity.player
 
         private void GenerateGravestone()
         {
-            var maxed = (from i in Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease") let xElement = Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value) where xElement != null let limit = int.Parse(xElement.Attribute("max").Value) let idx = StatsManager.StatsNameToIndex(i.Value) where Stats[idx] >= limit select limit).Count();
+            var maxed = (from i in Program.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease") let xElement = Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value) where xElement != null let limit = int.Parse(xElement.Attribute("max").Value) let idx = StatsManager.StatsNameToIndex(i.Value) where Stats[idx] >= limit select limit).Count();
 
             ushort objType;
             int? time;
@@ -301,7 +301,7 @@ namespace gameserver.realm.entity.player
                     else { objType = 0x0725; time = 5 * 60 * 1000; }
                     break;
             }
-            var obj = new GameObject(Manager, objType, time, true, time != null, false);
+            var obj = new GameObject(objType, time, true, time != null, false);
             obj.Move(X, Y);
             obj.Name = Name;
             Owner.EnterWorld(obj);

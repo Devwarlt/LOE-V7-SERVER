@@ -45,7 +45,7 @@ namespace gameserver.realm.mapsetpiece
             foreach (IntPoint i in trees)
                 t[i.X, i.Y] = 2;
 
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < Size; x++)
                 for (int y = 0; y < Size; y++)
                 {
@@ -67,7 +67,7 @@ namespace gameserver.realm.mapsetpiece
                     }
                 }
 
-            Entity ent = Entity.Resolve(world.Manager, "Ent Ancient");
+            Entity ent = Entity.Resolve("Ent Ancient");
             ent.Size = 140;
             ent.Move(pos.X + Size / 2 + 1, pos.Y + Size / 2 + 1);
             world.EnterWorld(ent);

@@ -154,7 +154,10 @@
     <Compile Include="logic\monsters\Dungeons\Spider Den\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\The Forgotten King.cs" />
-    <Compile Include="logic\monsters\Frog of Filisha[BETA FOR Edition 3]\Frog of Filisha.cs" />
+    <Compile Include="logic\monsters\Editions\Edition 1\Bosses.cs" />
+    <Compile Include="logic\monsters\Editions\Edition 1\MiniBosses.cs" />
+    <Compile Include="logic\monsters\Editions\Edition 1\Minions.cs" />
+    <Compile Include="logic\monsters\Editions\Edition 1\Frog King\Frog of Filisha.cs" />
     <Compile Include="logic\monsters\Miscellaneous\NexusCrier.cs" />
     <Compile Include="logic\monsters\Dungeons\Undead Lair\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\Woodland Lybrinth\BehaviorDb.EpicForestMaze.cs" />
@@ -289,6 +292,7 @@
     <Compile Include="logic\transitions\PlayerWithinTransition.cs" />
     <Compile Include="logic\transitions\HpLessTransition.cs" />
     <Compile Include="logic\transitions\TimedTransition.cs" />
+    <Compile Include="networking\messages\handlers\hack\DexterityHackModHandler.cs" />
     <Compile Include="networking\messages\incoming\ACCEPTTRADE.cs" />
     <Compile Include="networking\messages\incoming\AOEACK.cs" />
     <Compile Include="networking\messages\incoming\BUY.cs" />

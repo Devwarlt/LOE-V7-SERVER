@@ -231,10 +231,7 @@ namespace gameserver.realm
                     client.Dispose();
                 }
             }
-            catch (Exception e)
-            {
-                Program.Logger.Error($"[{nameof(RealmManager)}] Disconnect Handler exception:\n{e}");
-            }
+            catch (NullReferenceException) { }
         }
 
         #endregion

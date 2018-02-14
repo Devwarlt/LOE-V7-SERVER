@@ -1,10 +1,4 @@
-﻿#region
-
-using gameserver.networking;
-
-#endregion
-
-namespace gameserver.realm.world
+﻿namespace gameserver.realm.world
 {
     public class WineCellar : World
     {
@@ -17,14 +11,6 @@ namespace gameserver.realm.world
             Dungeon = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap("winecellar", MapType.Wmap);
-        }
-
-        public override World GetInstance(Client psr)
-        {
-            return Manager.AddWorld(new WineCellar());
-        }
+        protected override void Init() => LoadMap("winecellar", MapType.Wmap);
     }
 }

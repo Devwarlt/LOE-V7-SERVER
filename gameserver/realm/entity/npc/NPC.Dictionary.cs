@@ -28,7 +28,7 @@ namespace gameserver.logic
 
             // Process all NPCs creating new instance for each one
             foreach (KeyValuePair<string, NPC> i in Database)
-                i.Value.Config(Entity.Resolve(manager, i.Key), null, false);
+                i.Value.Config(Entity.Resolve(i.Key), null, false);
         }
     }
 

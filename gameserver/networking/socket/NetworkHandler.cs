@@ -14,7 +14,7 @@ namespace gameserver.networking
 
         private static readonly ILog log = LogManager.GetLogger(typeof(NetworkHandler));
 
-        private readonly RealmManager Manager = Program.manager;
+        private readonly RealmManager Manager = Program.Manager;
         private readonly Client client;
         private readonly ConcurrentQueue<Message> pendingPackets = new ConcurrentQueue<Message>();
         private readonly object sendLock = new object();

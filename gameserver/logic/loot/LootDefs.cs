@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using common;
-using gameserver.realm;
 using gameserver.realm.entity;
 using gameserver.realm.entity.player;
 
@@ -16,25 +15,29 @@ namespace gameserver.logic.loot
     {
         string Lootstate { get; set; }
 
-        void Populate(RealmManager manager, Enemy enemy, Tuple<Player, int> playerDat,
-            Random rand, string lootState, IList<LootDef> lootDefs);
+        void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerDat,
+            Random rand,
+            string lootState,
+            IList<LootDef> lootDefs
+            );
     }
 
-    public class WhiteBag : ILootDef
+    public class ProcessWhiteBag : ILootDef
     {
         private readonly bool eventChest;
         private readonly ILootDef[] loot;
 
         public string Lootstate { get; set; }
 
-        public WhiteBag(bool eventChest = false, params ILootDef[] loot)
+        public ProcessWhiteBag(bool eventChest = false, params ILootDef[] loot)
         {
             this.eventChest = eventChest;
             this.loot = loot;
         }
 
         public void Populate(
-            RealmManager manager,
             Enemy enemy,
             Tuple<Player, int> playerData,
             Random rnd,
@@ -59,7 +62,71 @@ namespace gameserver.logic.loot
 
                 if (rng <= chance)
                     foreach (ILootDef i in loot)
-                        i.Populate(manager, enemy, playerData, rnd, Lootstate, lootDefs);
+                        i.Populate(enemy, playerData, rnd, Lootstate, lootDefs);
+            }
+        }
+
+        private int GetDamageData(IEnumerable<Tuple<Player, int>> data)
+        {
+            List<int> damages = data.Select(_ => _.Item2).ToList();
+            int totalDamage = 0;
+            for (int i = 0; i < damages.Count; i++)
+                totalDamage += damages[i];
+            return totalDamage;
+        }
+    }
+
+    public class WhiteBag : ILootDef
+    {
+        private readonly bool eventChest;
+        private readonly ILootDef[] loot;
+
+        public string Lootstate { get; set; }
+
+        public WhiteBag(string itemName, bool eventChest = false)
+        {
+            this.eventChest = eventChest;
+            loot = new ILootDef[] { new MostDamagers(5, new ItemLoot(itemName, eventChest ? .01 : .05)) };
+        }
+
+        public WhiteBag(string[] itemNames, bool eventChest = false)
+        {
+            this.eventChest = eventChest;
+            loot = new ILootDef[] { new MostDamagers(5, new ItemLoot(ProcessOnlyOne(itemNames), eventChest ? .01 : .05)) };
+        }
+
+        private string ProcessOnlyOne(string[] itemNames)
+        {
+            List<string> items = itemNames.ToList();
+            return items[new Random().Next(0, items.Count)];
+        }
+
+        public void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerData,
+            Random rnd,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
+        {
+            Lootstate = lootState;
+
+            if (playerData == null)
+                return;
+
+            Tuple<Player, int>[] enemyData = enemy.DamageCounter.GetPlayerData();
+
+            int damageData = GetDamageData(enemyData);
+            double enemyHP = enemy.ObjectDesc.MaxHP;
+
+            if (damageData >= enemyHP * .2)
+            {
+                double chance = eventChest ? .01 : .05;
+                double rng = rnd.NextDouble();
+
+                if (rng <= chance)
+                    foreach (ILootDef i in loot)
+                        i.Populate(enemy, playerData, rnd, Lootstate, lootDefs);
             }
         }
 
@@ -86,12 +153,17 @@ namespace gameserver.logic.loot
             this.probability = probability;
         }
 
-        public void Populate(RealmManager manager, Enemy enemy, Tuple<Player, int> playerDat,
-            Random rand, string lootState, IList<LootDef> lootDefs)
+        public void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerDat,
+            Random rand,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
         {
             Lootstate = lootState;
             if (playerDat != null) return;
-            EmbeddedData dat = manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             lootDefs.Add(new LootDef(dat.Items[dat.IdToObjectType[item]], probability, lootState));
         }
     }
@@ -108,10 +180,16 @@ namespace gameserver.logic.loot
             Lootstate = subState;
         }
 
-        public void Populate(RealmManager manager, Enemy enemy, Tuple<Player, int> playerDat, Random rand, string lootState, IList<LootDef> lootDefs)
+        public void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerDat,
+            Random rand,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
         {
             foreach (ILootDef i in children)
-                i.Populate(manager, enemy, playerDat, rand, Lootstate, lootDefs);
+                i.Populate(enemy, playerDat, rand, Lootstate, lootDefs);
         }
     }
 
@@ -147,12 +225,17 @@ namespace gameserver.logic.loot
             this.rarity = rarity;
         }
 
-        public void Populate(RealmManager manager, Enemy enemy, Tuple<Player, int> playerDat,
-            Random rand, string lootState, IList<LootDef> lootDefs)
+        public void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerDat,
+            Random rand,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
         {
             Lootstate = lootState;
             if (playerDat != null) return;
-            Item[] candidates = manager.GameData.Items
+            Item[] candidates = Program.Manager.GameData.Items
                 .Where(item => item.Value.SlotType == 9000)
                 .Where(item => item.Value.minStars <= (int)rarity)
                 .Select(item => item.Value)
@@ -164,11 +247,11 @@ namespace gameserver.logic.loot
 
     public class TierLoot : ILootDef
     {
-        public static readonly int[] WeaponT = { 1, 2, 3, 8, 17, 24 };
-        public static readonly int[] AbilityT = { 4, 5, 11, 12, 13, 15, 16, 18, 19, 20, 21, 22, 23, 25 };
-        public static readonly int[] ArmorT = { 6, 7, 14 };
-        public static readonly int[] RingT = { 9 };
-        public static readonly int[] PotionT = { 10 };
+        public static readonly int[] WeaponSlotType = { 1, 2, 3, 8, 17, 24 };
+        public static readonly int[] AbilitySlotType = { 4, 5, 11, 12, 13, 15, 16, 18, 19, 20, 21, 22, 23, 25 };
+        public static readonly int[] ArmorSlotType = { 6, 7, 14 };
+        public static readonly int[] RingSlotType = { 9 };
+        public static readonly int[] PotionSlotType = { 10 };
         private readonly double probability;
 
         private readonly byte tier;
@@ -182,19 +265,19 @@ namespace gameserver.logic.loot
             switch (type)
             {
                 case ItemType.Weapon:
-                    types = WeaponT;
+                    types = WeaponSlotType;
                     break;
                 case ItemType.Ability:
-                    types = AbilityT;
+                    types = AbilitySlotType;
                     break;
                 case ItemType.Armor:
-                    types = ArmorT;
+                    types = ArmorSlotType;
                     break;
                 case ItemType.Ring:
-                    types = RingT;
+                    types = RingSlotType;
                     break;
                 case ItemType.Potion:
-                    types = PotionT;
+                    types = PotionSlotType;
                     break;
                 default:
                     throw new NotSupportedException(type.ToString());
@@ -216,12 +299,17 @@ namespace gameserver.logic.loot
             return probability;
         }
 
-        public void Populate(RealmManager manager, Enemy enemy, Tuple<Player, int> playerDat,
-            Random rand, string lootState, IList<LootDef> lootDefs)
+        public void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerDat,
+            Random rand,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
         {
             Lootstate = lootState;
             if (playerDat != null) return;
-            Item[] candidates = manager.GameData.Items
+            Item[] candidates = Program.Manager.GameData.Items
                 .Where(item => Array.IndexOf(types, item.Value.SlotType) != -1)
                 .Where(item => item.Value.Tier == tier)
                 .Select(item => item.Value)
@@ -244,14 +332,19 @@ namespace gameserver.logic.loot
             this.children = children;
         }
 
-        public void Populate(RealmManager manager, Enemy enemy, Tuple<Player, int> playerDat, Random rand,
-            string lootState, IList<LootDef> lootDefs)
+        public void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerDat,
+            Random rand,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
         {
             Lootstate = lootState;
             if (playerDat != null && playerDat.Item2 / enemy.ObjectDesc.MaxHP >= threshold)
             {
                 foreach (ILootDef i in children)
-                    i.Populate(manager, enemy, null, rand, lootState, lootDefs);
+                    i.Populate(enemy, null, rand, lootState, lootDefs);
             }
         }
     }
@@ -267,14 +360,19 @@ namespace gameserver.logic.loot
             this.children = children;
         }
 
-        public void Populate(RealmManager manager, Enemy enemy, Tuple<Player, int> playerDat, Random rand,
-            string lootState, IList<LootDef> lootDefs)
+        public void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerDat,
+            Random rand,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
         {
             Lootstate = lootState;
             if (playerDat != null)
             {
                 foreach (ILootDef i in children)
-                    i.Populate(manager, enemy, null, rand, lootState, lootDefs);
+                    i.Populate(enemy, null, rand, lootState, lootDefs);
             }
         }
     }
@@ -292,12 +390,18 @@ namespace gameserver.logic.loot
 
         public string Lootstate { get; set; }
 
-        public void Populate(RealmManager manager, Enemy enemy, Tuple<Player, int> playerDat, Random rand, string lootState, IList<LootDef> lootDefs)
+        public void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerDat,
+            Random rand,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
         {
             var data = enemy.DamageCounter.GetPlayerData();
             var mostDamage = GetMostDamage(data);
             foreach (var loot in mostDamage.Where(pl => pl.Equals(playerDat)).SelectMany(pl => loots))
-                loot.Populate(manager, enemy, null, rand, lootState, lootDefs);
+                loot.Populate(enemy, null, rand, lootState, lootDefs);
         }
 
         private IEnumerable<Tuple<Player, int>> GetMostDamage(IEnumerable<Tuple<Player, int>> data)
@@ -324,9 +428,15 @@ namespace gameserver.logic.loot
 
         public string Lootstate { get; set; }
 
-        public void Populate(RealmManager manager, Enemy enemy, Tuple<Player, int> playerDat, Random rand, string lootState, IList<LootDef> lootDefs)
+        public void Populate(
+            Enemy enemy,
+            Tuple<Player, int> playerDat,
+            Random rand,
+            string lootState,
+            IList<LootDef> lootDefs
+            )
         {
-            loots[rand.Next(0, loots.Length)].Populate(manager, enemy, playerDat, rand, lootState, lootDefs);
+            loots[rand.Next(0, loots.Length)].Populate(enemy, playerDat, rand, lootState, lootDefs);
         }
     }
 

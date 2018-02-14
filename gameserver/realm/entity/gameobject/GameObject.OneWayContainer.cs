@@ -8,8 +8,8 @@ namespace gameserver.realm.entity
 {
     partial class OneWayContainer : GameObject, IContainer
     {
-        public OneWayContainer(RealmManager manager, ushort objType, int? life, bool dying)
-            : base(manager, objType, life, false, dying, false)
+        public OneWayContainer(ushort objType, int? life, bool dying)
+            : base(objType, life, false, dying, false)
         {
             Inventory = new Item[8];
             SlotTypes = new int[8];
@@ -46,7 +46,7 @@ namespace gameserver.realm.entity
 
             if (!hasItem)
             {
-                GameObject obj = new GameObject(Manager, 0x0743, null, false, false, false);
+                GameObject obj = new GameObject(0x0743, null, false, false, false);
                 obj.Move(X, Y);
                 World w = Owner;
                 Owner.LeaveWorld(this);

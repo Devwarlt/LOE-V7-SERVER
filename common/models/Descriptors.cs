@@ -793,6 +793,7 @@ public class Item : IFeedable
             Usable = elem.Element("Usable") != null;
             BagType = (n = elem.Element("BagType")) != null ? Utils.FromString(n.Value) : 0;
             MpCost = (n = elem.Element("MpCost")) != null ? Utils.FromString(n.Value) : 0;
+            Quantity = (n = elem.Element("Quantity")) != null ? Utils.FromString(n.Value) : 0;
             FeedPower = (n = elem.Element("feedPower")) != null ? (ushort)Utils.FromString(n.Value) : (ushort)0;
             FameBonus = (n = elem.Element("FameBonus")) != null ? Utils.FromString(n.Value) : 0;
             NumProjectiles = (n = elem.Element("NumProjectiles")) != null ? Utils.FromString(n.Value) : 1;
@@ -858,6 +859,7 @@ public class Item : IFeedable
     public bool Usable { get; private set; }
     public int BagType { get; private set; }
     public int MpCost { get; private set; }
+    public int Quantity { get; private set; }
     public int FameBonus { get; private set; }
     public int NumProjectiles { get; private set; }
     public float ArcGap { get; private set; }
@@ -1039,7 +1041,7 @@ public class ObjectDesc
             NewExperience = false;
 
         Connects = elem.Element("Connects") != null;
-        
+
         TaskID = (n = elem.Element("Task")) != null ? (n.Attribute("id") != null ? Utils.FromString(n.Attribute("id").Value) : -1) : -1;
     }
 

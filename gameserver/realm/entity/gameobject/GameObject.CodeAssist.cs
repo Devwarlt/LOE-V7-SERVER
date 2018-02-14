@@ -22,10 +22,10 @@ namespace gameserver.realm.entity
             return null;
         }
 
-        private static bool IsInteractive(RealmManager manager, ushort objType)
+        private static bool IsInteractive(ushort objType)
         {
             ObjectDesc desc;
-            if (manager.GameData.ObjectDescs.TryGetValue(objType, out desc))
+            if (Program.Manager.GameData.ObjectDescs.TryGetValue(objType, out desc))
             {
                 if (desc.Class != null)
                     if (desc.Class == "Container" || desc.Class.ContainsIgnoreCase("wall") ||

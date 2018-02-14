@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Object>
+	<Object type="0x5110" id="The Succubus Bloodstone">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>0</Index>
+		</Texture>
+		<SlotType>9</SlotType>
+		<Description>A magical stone that comes from the legendary Succubus, Wingus. It hints at power, but also contains a breath of life that challenges the makings of mortals.</Description>
+		<ActivateOnEquip stat="20" amount="4">IncrementStat</ActivateOnEquip>
+		<ActivateOnEquip stat="28" amount="4">IncrementStat</ActivateOnEquip>
+		<ActivateOnEquip stat="0" amount="125">IncrementStat</ActivateOnEquip>
+		<BagType>6</BagType>
+		<FameBonus>5</FameBonus>
+		<Soulbound />
+	</Object>
+	<Object type="0x5111" id="Succubus Horn x 1">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>1</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x5112" id="Succubus Horn x 2">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>2</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x5113" id="Succubus Horn x 3">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>3</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x5114" id="Succubus Horn x 4">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>4</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x5115" id="Succubus Horn x 5">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>5</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x5116" id="Succubus Horn x 6">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>6</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x5117" id="Succubus Horn x 7">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>7</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x5118" id="Succubus Horn x 8">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>8</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x5119" id="Succubus Horn x 9">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>9</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x511a" id="Succubus Horn x 10">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>10</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x511b" id="Succubus Horn x 11">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>11</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x511c" id="Succubus Horn x 12">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>12</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x511d" id="Succubus Horn x 13">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>13</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x511e" id="Succubus Horn x 14">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>14</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>7</BagType>
+	</Object>
+	<Object type="0x511f" id="Succubus Horn x 15">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>15</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>4</BagType>
+	</Object>
+	<Object type="0x5120" id="Succubus Horn x 16">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>16</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>4</BagType>
+	</Object>
+	<Object type="0x5121" id="Succubus Horn x 17">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>17</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>4</BagType>
+	</Object>
+	<Object type="0x5122" id="Succubus Horn x 18">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>18</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>4</BagType>
+	</Object>
+	<Object type="0x5123" id="Succubus Horn x 19">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>19</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Collect 20 succubus horns to receive new skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>4</BagType>
+	</Object>
+	<Object type="0x5124" id="Succubus Horn x 20">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LREE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A horn from succubus herself.</Description>
+		<Quantity>20</Quantity>
+		<ExtraTooltipData>
+			<EffectInfo name="Stack limit" description="20" />
+			<EffectInfo name="Edition" description="1" />
+			<EffectInfo name="" description="Use to unlock Twin Succubus Skin." />
+		</ExtraTooltipData>
+		<Soulbound />
+		<BagType>4</BagType>
+		<Track />
+	</Object>
+</Object>

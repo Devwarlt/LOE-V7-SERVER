@@ -42,7 +42,7 @@ namespace gameserver.logic.behaviors
                 int count = host.CountEntity(range, name ?? host.ObjectType);
                 if (count < max)
                 {
-                    Entity entity = Entity.Resolve(host.Manager, name ?? host.ObjectType);
+                    Entity entity = Entity.Resolve(name ?? host.ObjectType);
 
                     double targetX = host.X;
                     double targetY = host.Y;

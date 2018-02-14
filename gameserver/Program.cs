@@ -30,7 +30,7 @@ namespace gameserver
 
         public static ChatManager chat { get; set; }
 
-        public static RealmManager manager;
+        public static RealmManager Manager;
 
         public static DateTime WhiteListTurnOff { get; private set; }
 
@@ -47,14 +47,14 @@ namespace gameserver
             {
                 Usage = -1;
 
-                manager = new RealmManager(db);
+                Manager = new RealmManager(db);
 
                 autoRestart = Settings.NETWORKING.RESTART.ENABLE_RESTART;
 
-                manager.Initialize();
-                manager.Run();
+                Manager.Initialize();
+                Manager.Run();
 
-                Server server = new Server(manager);
+                Server server = new Server(Manager);
                 PolicyServer policy = new PolicyServer();
 
                 Console.CancelKeyPress += (sender, e) => e.Cancel = true;
@@ -64,7 +64,7 @@ namespace gameserver
 
                 if (autoRestart)
                 {
-                    chat = manager.Chat;
+                    chat = Manager.Chat;
                     uptime = DateTime.Now;
                     restart();
                     usage();
@@ -86,7 +86,7 @@ namespace gameserver
                 Logger.Info("Terminating...");
                 server?.Stop();
                 policy?.Stop();
-                manager?.Stop();
+                Manager?.Stop();
                 Shutdown?.Dispose();
                 Logger.Info("Server terminated.");
                 Environment.Exit(0);
@@ -102,7 +102,7 @@ namespace gameserver
                 do
                 {
                     Thread.Sleep(ToMiliseconds(Settings.GAMESERVER.TTL) / 60);
-                    Usage = manager.ClientManager.Count;
+                    Usage = Manager.ClientManager.Count;
                 } while (true);
             });
 
@@ -138,7 +138,7 @@ namespace gameserver
                     Logger.Info(message);
                     try
                     {
-                        foreach (ClientData cData in manager.ClientManager.Values)
+                        foreach (ClientData cData in Manager.ClientManager.Values)
                             chat.Tell(cData.client.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", cData.client.Player.Name));
                     }
                     catch (Exception ex)
@@ -152,7 +152,7 @@ namespace gameserver
                 Logger.Warn(message);
                 try
                 {
-                    foreach (ClientData cData in manager.ClientManager.Values)
+                    foreach (ClientData cData in Manager.ClientManager.Values)
                         chat.Tell(cData.client.Player, "(!) Notification (!)", message);
                 }
                 catch (Exception ex)
@@ -162,8 +162,8 @@ namespace gameserver
                 Thread.Sleep(2000);
                 try
                 {
-                    foreach (ClientData cData in manager.ClientManager.Values)
-                        manager.TryDisconnect(cData.client, DisconnectReason.RESTART);
+                    foreach (ClientData cData in Manager.ClientManager.Values)
+                        Manager.TryDisconnect(cData.client, DisconnectReason.RESTART);
                 }
                 catch (Exception ex)
                 {

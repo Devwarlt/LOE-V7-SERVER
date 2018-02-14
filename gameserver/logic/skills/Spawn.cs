@@ -36,7 +36,7 @@ namespace gameserver.logic.behaviors
             };
             for (int i = 0; i < initialSpawn; i++)
             {
-                Entity entity = Entity.Resolve(host.Manager, children);
+                Entity entity = Entity.Resolve(children);
 
                 entity.Move(
                     host.X + (float)(Random.NextDouble() * 0.5),
@@ -53,7 +53,7 @@ namespace gameserver.logic.behaviors
 
             if (spawn.RemainingTime <= 0 && spawn.CurrentNumber < maxChildren)
             {
-                Entity entity = Entity.Resolve(host.Manager, children);
+                Entity entity = Entity.Resolve(children);
 
                 entity.Move(host.X, host.Y);
                 if (host is Enemy)

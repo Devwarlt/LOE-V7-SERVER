@@ -68,7 +68,7 @@ namespace gameserver.realm.mapsetpiece
             t[26, 40] = t[27, 40] = t[27, 39] = t[27, 41] = 4;
             t[54, 40] = t[53, 40] = t[53, 39] = t[53, 41] = 4;
 
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < Size; x++) //Rendering
                 for (int y = 0; y < Size; y++)
                     if (t[x, y] == 1)
@@ -104,7 +104,7 @@ namespace gameserver.realm.mapsetpiece
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
 
-            Entity sphinx = Entity.Resolve(world.Manager, "Grand Sphinx");
+            Entity sphinx = Entity.Resolve("Grand Sphinx");
             sphinx.Move(pos.X + 40.5f, pos.Y + 40.5f);
             world.EnterWorld(sphinx);
         }

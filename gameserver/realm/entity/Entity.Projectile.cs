@@ -17,8 +17,8 @@ namespace gameserver.realm.entity
     {
         private readonly HashSet<Entity> hitted = new HashSet<Entity>();
 
-        public Projectile(RealmManager manager, ProjectileDesc desc)
-            : base(manager, manager.GameData.IdToObjectType[desc.ObjectId])
+        public Projectile(ProjectileDesc desc)
+            : base(Program.Manager.GameData.IdToObjectType[desc.ObjectId])
         {
             ProjDesc = desc;
         }
@@ -27,11 +27,9 @@ namespace gameserver.realm.entity
         public new byte ProjectileId { get; set; }
         public short Container { get; set; }
         public int Damage { get; set; }
-
         public long BeginTime { get; set; }
         public Position BeginPos { get; set; }
         public float Angle { get; set; }
-
         public ProjectileDesc ProjDesc { get; set; }
 
         public void Destroy() => Owner?.LeaveWorld(this);
@@ -91,8 +89,6 @@ namespace gameserver.realm.entity
 
             base.Tick(time);
         }
-
-        private void _(string message) => Log.Write(nameof(Entity), message, System.ConsoleColor.White);
 
         public void ForceHit(Entity entity, RealmTime time)
         {

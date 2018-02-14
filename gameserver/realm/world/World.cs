@@ -41,7 +41,7 @@ namespace gameserver.realm
             Players = new ConcurrentDictionary<int, Player>();
             Enemies = new ConcurrentDictionary<int, Enemy>();
             Quests = new ConcurrentDictionary<int, Enemy>();
-            Projectiles = new ConcurrentDictionary<Tuple<int, byte>, Projectile>();
+            Projectiles = new ConcurrentDictionary<KeyValuePair<int, byte>, Projectile>();
             StaticObjects = new ConcurrentDictionary<int, GameObject>();
             Timers = new List<WorldTimer>();
             ClientXml = ExtraXml = Empty<string>.Array;
@@ -89,7 +89,12 @@ namespace gameserver.realm
 
         public ConcurrentDictionary<int, Player> Players { get; private set; }
         public ConcurrentDictionary<int, Enemy> Enemies { get; private set; }
-        public ConcurrentDictionary<Tuple<int, byte>, Projectile> Projectiles { get; private set; }
+
+        public ConcurrentDictionary<KeyValuePair<int, byte>, Projectile> Projectiles { get; set; }
+        public Projectile GetProjectileFromId(int hostId, byte bulletId) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)];
+        public void AddProjectileFromId(int hostId, byte bulletId, Projectile proj) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)] = proj;
+        public void RemoveProjectileFromId(int hostId, byte bulletId) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)] = null;
+
         public ConcurrentDictionary<int, GameObject> StaticObjects { get; private set; }
         public List<WorldTimer> Timers { get; }
         public int Background { get; protected set; }
@@ -126,7 +131,7 @@ namespace gameserver.realm
             ObjectDesc desc;
             if (tile.TileDesc.NoWalk)
                 return false;
-            if (Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out desc))
+            if (Program.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out desc))
             {
                 if (!desc.Static)
                     return false;
@@ -190,7 +195,7 @@ namespace gameserver.realm
 
         private void FromWorldMap(Stream dat)
         {
-            var map = new Wmap(Manager.GameData);
+            var map = new Wmap(Program.Manager.GameData);
             Map = map;
             entityInc = 0;
             entityInc += Map.Load(dat, 0);
@@ -204,9 +209,9 @@ namespace gameserver.realm
                     {
                         var tile = Map[x, y];
                         ObjectDesc desc;
-                        if (Manager.GameData.Tiles[tile.TileId].NoWalk)
+                        if (Program.Manager.GameData.Tiles[tile.TileId].NoWalk)
                             Obstacles[x, y] = 3;
-                        if (Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out desc))
+                        if (Program.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out desc))
                         {
                             if (desc.Class == "Wall" ||
                                 desc.Class == "ConnectedWall" ||
@@ -228,7 +233,7 @@ namespace gameserver.realm
             StaticObjects.Clear();
             Enemies.Clear();
             Players.Clear();
-            foreach (var i in Map.InstantiateEntities(Manager))
+            foreach (var i in Map.InstantiateEntities(Program.Manager))
             {
                 if (i.ObjectDesc != null &&
                     (i.ObjectDesc.OccupySquare || i.ObjectDesc.EnemyOccupySquare))
@@ -272,8 +277,7 @@ namespace gameserver.realm
                     if (projectile != null)
                     {
                         projectile.Init(this);
-                        var prj = projectile;
-                        Projectiles[new Tuple<int, byte>(prj.ProjectileOwner.Self.Id, prj.ProjectileId)] = prj;
+                        AddProjectileFromId(projectile.ProjectileOwner.Self.Id, projectile.ProjectileId, projectile);
                     }
                     else
                     {
@@ -319,10 +323,7 @@ namespace gameserver.realm
             {
                 var projectile = entity as Projectile;
                 if (projectile != null)
-                {
-                    var p = projectile;
-                    Projectiles.TryRemove(new Tuple<int, byte>(p.ProjectileOwner.Self.Id, p.ProjectileId), out p);
-                }
+                    RemoveProjectileFromId(projectile.ProjectileOwner.Self.Id, projectile.ProjectileId);
                 else if (entity is GameObject)
                 {
                     GameObject dummy;
@@ -413,19 +414,19 @@ namespace gameserver.realm
                 else
                 {
                     foreach (var i in Enemies)
-                        i.Value.Tick(time);
+                        i.Value?.Tick(time);
                     foreach (var i in StaticObjects)
-                        i.Value.Tick(time);
+                        i.Value?.Tick(time);
                 }
                 foreach (var i in Projectiles)
-                    i.Value.Tick(time);
+                    i.Value?.Tick(time);
 
                 if (Players.Count != 0 || !canBeClosed || !IsDungeon())
                     return;
                 var vault = this as Vault;
                 if (vault != null)
-                    Manager.RemoveVault(vault.AccountId);
-                Manager.RemoveWorld(this);
+                    Program.Manager.RemoveVault(vault.AccountId);
+                Program.Manager.RemoveWorld(this);
             }
             catch (Exception e)
             {
@@ -454,7 +455,7 @@ namespace gameserver.realm
                     FromWorldMap(stream);
                     break;
                 case MapType.Json:
-                    FromWorldMap(new MemoryStream(Json2Wmap.Convert(Manager.GameData, new StreamReader(stream).ReadToEnd())));
+                    FromWorldMap(new MemoryStream(Json2Wmap.Convert(Program.Manager.GameData, new StreamReader(stream).ReadToEnd())));
                     break;
                 default:
                     throw new ArgumentException("Invalid MapType");
@@ -463,7 +464,7 @@ namespace gameserver.realm
 
         protected void LoadMap(string json)
         {
-            FromWorldMap(new MemoryStream(Json2Wmap.Convert(Manager.GameData, json)));
+            FromWorldMap(new MemoryStream(Json2Wmap.Convert(Program.Manager.GameData, json)));
         }
 
         public void ChatReceived(string text)

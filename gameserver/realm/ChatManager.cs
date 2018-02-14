@@ -91,7 +91,7 @@ namespace gameserver.realm
         {
             if (announce)
             {
-                foreach (ClientData cData in player.Manager.ClientManager.Values)
+                foreach (ClientData cData in Program.Manager.ClientManager.Values)
                     if (cData.client != null)
                         cData.client.Player.SendInfo(text.ToSafeText());
             }

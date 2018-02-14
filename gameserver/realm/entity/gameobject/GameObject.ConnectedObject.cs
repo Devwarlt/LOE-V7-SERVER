@@ -113,10 +113,8 @@ namespace gameserver.realm.entity
 
     partial class ConnectedObject : GameObject
     {
-        public ConnectedObject(RealmManager manager, ushort objType)
-            : base(manager, objType, null, true, false, true)
-        {
-        }
+        public ConnectedObject(ushort objType)
+            : base(objType, null, true, false, true) { }
 
         public ConnectionInfo Connection { get; set; }
 
@@ -127,9 +125,6 @@ namespace gameserver.realm.entity
         }
 
 
-        public override bool HitByProjectile(Projectile projectile, RealmTime time)
-        {
-            return true;
-        }
+        public override bool HitByProjectile(Projectile projectile, RealmTime time) => true;
     }
 }

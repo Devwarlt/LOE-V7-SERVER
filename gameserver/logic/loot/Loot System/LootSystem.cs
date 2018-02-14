@@ -73,7 +73,7 @@ namespace gameserver.logic.loot.Loot_System
         {
             List<ILootDef> acquireLoot = new List<ILootDef>();
             for (int i = 0; i < itemName.Count; i++)
-                acquireLoot.Add(new WhiteBag(false, new MostDamagers(5, new ItemLoot(itemName[i], eventChest ? .01 : .05))));
+                acquireLoot.Add(new ProcessWhiteBag(false, new MostDamagers(5, new ItemLoot(itemName[i], eventChest ? .01 : .05))));
             return acquireLoot.ToArray();
         }
 

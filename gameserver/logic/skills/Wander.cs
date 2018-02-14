@@ -55,7 +55,7 @@ namespace gameserver.logic.behaviors
 
             if (avoidGround)
             {
-                EmbeddedData data = host.Manager.GameData;
+                EmbeddedData data = Program.Manager.GameData;
                 float x = host.X + storage.Direction.X * dist;
                 float y = host.Y + storage.Direction.Y * dist;
                 WmapTile tile = host.Owner.Map[(int)x, (int)y];

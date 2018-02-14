@@ -13,7 +13,7 @@ namespace gameserver.logic.behaviors
             parent.Death += (e, s) =>
             {
                 Entity en = s.Host.GetNearestEntity(100, 0x5e4b);
-                Entity portal = Entity.Resolve(s.Host.Manager, "Realm Portal");
+                Entity portal = Entity.Resolve("Realm Portal");
 
                 if (en != null)
                     portal.Move(en.X, en.Y);
@@ -27,7 +27,7 @@ namespace gameserver.logic.behaviors
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {
             if (host.GetNearestEntity(100, 0x5e4b) != null) return;
-            Entity opener = Entity.Resolve(host.Manager, "Realm Portal Opener");
+            Entity opener = Entity.Resolve("Realm Portal Opener");
             host.Owner.EnterWorld(opener);
             opener.Move(host.X, host.Y);
         }

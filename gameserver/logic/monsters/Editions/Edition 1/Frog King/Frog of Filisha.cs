@@ -142,8 +142,7 @@ namespace gameserver.logic
                   new ItemLoot("Potion of Mana", 0.5),
                   new ItemLoot("Potion of Vitality", 1),
                   new ItemLoot("Potion of Defense", 1),
-                  new ItemLoot("Frog King Skin", 0.001),
-                  new ItemLoot("Crown of the Frog King", 0.001),
+                  new WhiteBag("Frog King Skin", eventChest: false),
 
                   new TierLoot(10, ItemType.Weapon, 0.3),
                   new TierLoot(11, ItemType.Weapon, 0.2),

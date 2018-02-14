@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Object>
 	<Object type="0x670a" id="Frog Bomb">
 		<DisplayId>Frog Bomb</DisplayId>
 		<Class>Character</Class>
-		<Enemy/>
+		<Enemy />
 		<AnimatedTexture>
 			<File>chars8x8dBeach</File>
 			<Index>3</Index>
@@ -13,10 +13,10 @@
 		<Size>100</Size>
 		<MaxHitPoints>10000</MaxHitPoints>
 		<Defense>10</Defense>
-		<StasisImmune/>
-		<StunImmune/>
-		<ParalyzeImmune/>
-		<DazedImmune/>
+		<StasisImmune />
+		<StunImmune />
+		<ParalyzeImmune />
+		<DazedImmune />
 		<Projectile id="0">
 			<ObjectId>Poison Fireball</ObjectId>
 			<Speed>50</Speed>
@@ -24,18 +24,18 @@
 			<ConditionEffect duration="10">Confused</ConditionEffect>
 			<LifetimeMS>4000</LifetimeMS>
 			<Size>100</Size>
-			<MultiHit/>
-			<ArmorPiercing/>
+			<MultiHit />
+			<ArmorPiercing />
 		</Projectile>
 	</Object>
 	<Object type="0x6708" id="Frog Minion">
 		<DisplayId>Frog Minion</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		<Texture>
+		<AnimatedTexture>
 			<File>chars8x8dBeach</File>
 			<Index>4</Index>
-		</Texture>
+		</AnimatedTexture>
 		<HitSound>monster/pythons_hit</HitSound>
 		<DeathSound>monster/pythons_death</DeathSound>
 		<Size>100</Size>
@@ -50,7 +50,7 @@
 			<Amplitude>2.9</Amplitude>
 			<Frequency>2.5</Frequency>
 			<Size>100</Size>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<Projectile id="1">
 			<ObjectId>Green Star</ObjectId>
@@ -60,8 +60,8 @@
 			<Amplitude>1</Amplitude>
 			<Frequency>2.5</Frequency>
 			<Size>100</Size>
-			<MultiHit/>
-			<PassesCover/>
+			<MultiHit />
+			<PassesCover />
 		</Projectile>
 		<Projectile id="2">
 			<ObjectId>Green Spinner</ObjectId>
@@ -70,8 +70,8 @@
 			<LifetimeMS>750</LifetimeMS>
 			<ConditionEffect duration="10">Confused</ConditionEffect>
 			<Size>100</Size>
-			<MultiHit/>
-			<PassesCover/>
+			<MultiHit />
+			<PassesCover />
 		</Projectile>
 		<Projectile id="3">
 			<ObjectId>Green Missile</ObjectId>
@@ -79,18 +79,18 @@
 			<Damage>150</Damage>
 			<LifetimeMS>3000</LifetimeMS>
 			<Size>100</Size>
-			<MultiHit/>
-			<PassesCover/>
+			<MultiHit />
+			<PassesCover />
 		</Projectile>
 	</Object>
 	<Object type="0x6707" id="Frog King">
 		<DisplayId>Frog King</DisplayId>
-		<Enemy/>
+		<Enemy />
 		<Class>Character</Class>
-		<Texture>
+		<AnimatedTexture>
 			<File>chars16x16dMountains1</File>
 			<Index>0x08</Index>
-		</Texture>
+		</AnimatedTexture>
 		<HitSound>monster/pythons_hit</HitSound>
 		<DeathSound>monster/pythons_death</DeathSound>
 		<Size>110</Size>
@@ -105,7 +105,7 @@
 			<Amplitude>2.9</Amplitude>
 			<Frequency>2.5</Frequency>
 			<Size>100</Size>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<Projectile id="1">
 			<ObjectId>Green Star</ObjectId>
@@ -115,8 +115,8 @@
 			<Amplitude>1</Amplitude>
 			<Frequency>2.5</Frequency>
 			<Size>100</Size>
-			<MultiHit/>
-			<PassesCover/>
+			<MultiHit />
+			<PassesCover />
 		</Projectile>
 		<Projectile id="2">
 			<ObjectId>Green Spinner</ObjectId>
@@ -125,8 +125,8 @@
 			<LifetimeMS>750</LifetimeMS>
 			<ConditionEffect duration="10">Confused</ConditionEffect>
 			<Size>100</Size>
-			<MultiHit/>
-			<PassesCover/>
+			<MultiHit />
+			<PassesCover />
 		</Projectile>
 		<Projectile id="3">
 			<ObjectId>Green Missile</ObjectId>
@@ -134,8 +134,8 @@
 			<Damage>150</Damage>
 			<LifetimeMS>3000</LifetimeMS>
 			<Size>100</Size>
-			<MultiHit/>
-			<PassesCover/>
+			<MultiHit />
+			<PassesCover />
 		</Projectile>
 	</Object>
 	<!--0x6706-->

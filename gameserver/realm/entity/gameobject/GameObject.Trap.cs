@@ -21,7 +21,7 @@ namespace gameserver.realm.entity
         private int t;
 
         public Trap(Player player, float radius, int dmg, ConditionEffectIndex eff, float effDuration)
-            : base(player.Manager, 0x0711, LIFETIME * 1000, true, true, false)
+            : base(0x0711, LIFETIME * 1000, true, true, false)
         {
             this.player = player;
             this.radius = radius;

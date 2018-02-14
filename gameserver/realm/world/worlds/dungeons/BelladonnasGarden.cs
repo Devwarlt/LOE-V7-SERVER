@@ -11,9 +11,6 @@
             Difficulty = 5;
         }
 
-        protected override void Init()
-        {
-            LoadMap("belladonnasGarden", MapType.Wmap);
-        }
+        protected override void Init() => LoadMap("belladonnasGarden", MapType.Wmap);
     }
 }

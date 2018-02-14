@@ -10,8 +10,8 @@ namespace gameserver.realm.entity
 {
     partial class Decoy : GameObject, IPlayer
     {
-        public Decoy(RealmManager manager, Player player, int duration, float tps)
-            : base(manager, 0x0715, duration, true, true, true)
+        public Decoy(Player player, int duration, float tps)
+            : base(0x0715, duration, true, true, true)
         {
             this.player = player;
             this.duration = duration;
@@ -34,7 +34,7 @@ namespace gameserver.realm.entity
         {
             if (HP > duration / 2)
             {
-                this.ValidateAndMove(
+                ValidateAndMove(
                     X + direction.X * speed * time.ElapsedMsDelta / 1000,
                     Y + direction.Y * speed * time.ElapsedMsDelta / 1000
                 );

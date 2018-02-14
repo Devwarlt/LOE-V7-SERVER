@@ -16,7 +16,7 @@ namespace gameserver.logic.transitions
             : base(targetState)
         {
             this.texts = texts ?? Empty<string>.Array;
-            this.transit = false;
+            transit = false;
         }
 
         protected override bool TickCore(Entity host, RealmTime time, ref object state)

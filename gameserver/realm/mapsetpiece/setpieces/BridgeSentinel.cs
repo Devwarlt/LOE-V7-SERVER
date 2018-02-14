@@ -6,19 +6,19 @@
 
         public override void RenderSetPiece(World world, IntPoint pos)
         {
-            Entity boss = Entity.Resolve(world.Manager, "shtrs Bridge Sentinel");
+            Entity boss = Entity.Resolve("shtrs Bridge Sentinel");
             boss.Move(pos.X, pos.Y);
 
-            Entity chestSpawner = Entity.Resolve(world.Manager, "shtrs encounterchestspawner");
+            Entity chestSpawner = Entity.Resolve("shtrs encounterchestspawner");
             chestSpawner.Move(pos.X, pos.Y + 5f);
 
-            Entity blobombSpawner1 = Entity.Resolve(world.Manager, "shtrs blobomb maker");
+            Entity blobombSpawner1 = Entity.Resolve("shtrs blobomb maker");
             blobombSpawner1.Move(pos.X, pos.Y + 5f);
 
-            Entity blobombSpawner2 = Entity.Resolve(world.Manager, "shtrs blobomb maker");
+            Entity blobombSpawner2 = Entity.Resolve("shtrs blobomb maker");
             blobombSpawner2.Move(pos.X + 5f, pos.Y + 5f);
 
-            Entity blobombSpawner3 = Entity.Resolve(world.Manager, "shtrs blobomb maker");
+            Entity blobombSpawner3 = Entity.Resolve("shtrs blobomb maker");
             blobombSpawner3.Move(pos.X - 5f, pos.Y + 5f);
 
             world.EnterWorld(boss);

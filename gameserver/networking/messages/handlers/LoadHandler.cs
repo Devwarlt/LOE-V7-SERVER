@@ -35,7 +35,7 @@ namespace gameserver.networking.handlers
                     client.SendMessage(new CREATE_SUCCESS
                     {
                         CharacterID = client.Character.CharId,
-                        ObjectID = Manager.Worlds[client.TargetWorld].EnterWorld(client.Player = new Player(Manager, client))
+                        ObjectID = Manager.Worlds[client.TargetWorld].EnterWorld(client.Player = new Player(client))
                     });
                     client.State = ProtocolState.Ready;
                 }

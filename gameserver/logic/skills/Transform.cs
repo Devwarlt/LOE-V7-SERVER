@@ -19,7 +19,7 @@ namespace gameserver.logic.behaviors
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
-            Entity entity = Entity.Resolve(host.Manager, target);
+            Entity entity = Entity.Resolve(target);
 
             entity.Move(host.X, host.Y);
             host.Owner.EnterWorld(entity);

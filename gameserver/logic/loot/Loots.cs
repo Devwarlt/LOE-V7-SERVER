@@ -34,11 +34,11 @@ namespace gameserver.logic.loot
             AddRange(lootDefs);
         }
 
-        public IEnumerable<Item> GetLoots(RealmManager manager, int min, int max) //For independent loots(e.g. chests)
+        public IEnumerable<Item> GetLoots(int min, int max) //For independent loots(e.g. chests)
         {
             List<LootDef> consideration = new List<LootDef>();
             foreach (ILootDef i in this)
-                i.Populate(manager, null, null, rand, "", consideration);
+                i.Populate(null, null, rand, "", consideration);
 
             int retCount = rand.Next(min, max);
             foreach (LootDef i in consideration)
@@ -60,7 +60,7 @@ namespace gameserver.logic.loot
 
             List<Item> sharedLoots = new List<Item>();
             foreach (ILootDef i in this)
-                i.Populate(enemy.Manager, enemy, null, rand, i.Lootstate, consideration);
+                i.Populate(enemy, null, rand, i.Lootstate, consideration);
             foreach (LootDef i in consideration)
             {
                 if (i.LootState == enemy.LootState || i.LootState == null)
@@ -81,7 +81,7 @@ namespace gameserver.logic.loot
             {
                 consideration.Clear();
                 foreach (ILootDef i in this)
-                    i.Populate(enemy.Manager, enemy, dat, rand, i.Lootstate, consideration);
+                    i.Populate(enemy, dat, rand, i.Lootstate, consideration);
 
                 IList<Item> playerLoot = loots[dat.Item1];
                 foreach (LootDef i in consideration)
@@ -92,7 +92,7 @@ namespace gameserver.logic.loot
                         if (rand.NextDouble() < prob)
                         {
                             if (dat.Item1.LootTierBoost)
-                                playerLoot.Add(IncreaseTier(enemy.Manager, i.Item, consideration));
+                                playerLoot.Add(IncreaseTier(Program.Manager, i.Item, consideration));
                             else
                                 playerLoot.Add(i.Item);
                         }
@@ -187,7 +187,7 @@ namespace gameserver.logic.loot
                     break;
             }
 
-            Container container = new Container(enemy.Manager, bag, 1000 * 30, true);
+            Container container = new Container(bag, 1000 * 30, true);
             for (int j = 0; j < 8; j++)
                 container.Inventory[j] = items[j];
             container.BagOwners = owners;

@@ -12,9 +12,6 @@
             AllowTeleport = false;
         }
 
-        protected override void Init()
-        {
-            LoadMap("beachzone", MapType.Wmap);
-        }
+        protected override void Init() => LoadMap("beachzone", MapType.Wmap);
     }
 }

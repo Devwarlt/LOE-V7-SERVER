@@ -23,7 +23,7 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            Entity en = Entity.Resolve(player.Manager, "Zombie Wizard");
+            Entity en = Entity.Resolve("Zombie Wizard");
             en.Move(player.X, player.Y);
             player.Owner.EnterWorld(en);
             player.UpdateCount++;
@@ -48,7 +48,7 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => player.Manager.AddWorld(_.Result), TaskScheduler.Default);
+            Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => Program.Manager.AddWorld(_.Result), TaskScheduler.Default);
             return true;
         }
     }
@@ -67,10 +67,10 @@ namespace gameserver.realm.commands
                 ushort objType;
                 //creates a new case insensitive dictionary based on the XmlDatas
                 Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                    player.Manager.GameData.IdToObjectType,
+                    Program.Manager.GameData.IdToObjectType,
                     StringComparer.OrdinalIgnoreCase);
                 if (!icdatas.TryGetValue(name, out objType) ||
-                    !player.Manager.GameData.ObjectDescs.ContainsKey(objType))
+                    !Program.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendInfo("Unknown entity!");
                     return false;
@@ -78,7 +78,7 @@ namespace gameserver.realm.commands
                 int c = int.Parse(args[0]);
                 for (int i = 0; i < num; i++)
                 {
-                    Entity entity = Entity.Resolve(player.Manager, objType);
+                    Entity entity = Entity.Resolve(objType);
                     entity.Move(player.X, player.Y);
                     player.Owner.EnterWorld(entity);
                 }
@@ -90,15 +90,15 @@ namespace gameserver.realm.commands
                 ushort objType;
                 //creates a new case insensitive dictionary based on the XmlDatas
                 Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                    player.Manager.GameData.IdToObjectType,
+                    Program.Manager.GameData.IdToObjectType,
                     StringComparer.OrdinalIgnoreCase);
                 if (!icdatas.TryGetValue(name, out objType) ||
-                    !player.Manager.GameData.ObjectDescs.ContainsKey(objType))
+                    !Program.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendHelp("Usage: /spawn <entityname>");
                     return false;
                 }
-                Entity entity = Entity.Resolve(player.Manager, objType);
+                Entity entity = Entity.Resolve(objType);
                 entity.Move(player.X, player.Y);
                 player.Owner.EnterWorld(entity);
             }
@@ -179,19 +179,19 @@ namespace gameserver.realm.commands
             }
             string name = string.Join(" ", args.ToArray()).Trim();
             ushort objType;
-            Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(player.Manager.GameData.IdToObjectType,
+            Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(Program.Manager.GameData.IdToObjectType,
                 StringComparer.OrdinalIgnoreCase);
             if (!icdatas.TryGetValue(name, out objType))
             {
                 player.SendError("Unknown type!");
                 return false;
             }
-            if (!player.Manager.GameData.Items[objType].Secret || player.client.Account.Admin)
+            if (!Program.Manager.GameData.Items[objType].Secret || player.client.Account.Admin)
             {
                 for (int i = 4; i < player.Inventory.Length; i++)
                     if (player.Inventory[i] == null)
                     {
-                        player.Inventory[i] = player.Manager.GameData.Items[objType];
+                        player.Inventory[i] = Program.Manager.GameData.Items[objType];
                         player.UpdateCount++;
                         player.SaveToCharacter();
                         player.SendInfo("Success!");
@@ -293,7 +293,7 @@ namespace gameserver.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         player.SendInfo($"Player {i.Value.Name} has been disconnected!");
-                        Program.manager.TryDisconnect(i.Value.client, DisconnectReason.PLAYER_KICK);
+                        Program.Manager.TryDisconnect(i.Value.client, DisconnectReason.PLAYER_KICK);
                     }
                 }
             }
@@ -360,7 +360,7 @@ namespace gameserver.realm.commands
         {
             StringBuilder sb = new StringBuilder("Online at this moment: ");
 
-            foreach (KeyValuePair<int, World> w in player.Manager.Worlds)
+            foreach (KeyValuePair<int, World> w in Program.Manager.Worlds)
             {
                 World world = w.Value;
                 if (w.Key != 0)
@@ -396,7 +396,7 @@ namespace gameserver.realm.commands
             }
             string saytext = string.Join(" ", args);
 
-            foreach (ClientData cData in player.Manager.ClientManager.Values)
+            foreach (ClientData cData in Program.Manager.ClientManager.Values)
             {
                 cData.client.SendMessage(new TEXT
                 {
@@ -418,7 +418,7 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            foreach (ClientData cData in player.Manager.ClientManager.Values)
+            foreach (ClientData cData in Program.Manager.ClientManager.Values)
             {
                 if (cData.client.Account.Name.EqualsIgnoreCase(args[0]))
                 {
@@ -439,7 +439,7 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            foreach (KeyValuePair<int, World> w in player.Manager.Worlds)
+            foreach (KeyValuePair<int, World> w in Program.Manager.Worlds)
             {
                 World world = w.Value;
                 if (w.Key != 0)
@@ -587,7 +587,7 @@ namespace gameserver.realm.commands
             }
             else if (args.Length == 3)
             {
-                foreach (ClientData cData in player.Manager.ClientManager.Values)
+                foreach (ClientData cData in Program.Manager.ClientManager.Values)
                 {
                     if (cData.client.Account.Name.EqualsIgnoreCase(args[0]))
                     {
@@ -773,14 +773,14 @@ namespace gameserver.realm.commands
         {
             try
             {
-                Player p = player.Manager.FindPlayer(args[0]);
+                Player p = Program.Manager.FindPlayer(args[0]);
                 if (p == null)
                 {
                     player.SendError("Player not found");
                     return false;
                 }
                 p.client.Manager.Database.BanAccount(p.client.Account);
-                Program.manager.TryDisconnect(p.client, DisconnectReason.PLAYER_BANNED);
+                Program.Manager.TryDisconnect(p.client, DisconnectReason.PLAYER_BANNED);
                 return true;
             }
             catch

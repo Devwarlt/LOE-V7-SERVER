@@ -11,9 +11,6 @@
             Difficulty = -1;
         }
 
-        protected override void Init()
-        {
-            LoadMap("dailyQuest", MapType.Wmap);
-        }
+        protected override void Init() => LoadMap("dailyQuest", MapType.Wmap);
     }
 }

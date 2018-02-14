@@ -224,7 +224,7 @@ namespace gameserver.networking.handlers
 
                 if (world.IsLimbo)
                     world = world.GetInstance(client);
-                
+
                 client.Random = new wRandom(world.Seed);
                 client.TargetWorld = world.Id;
                 client.SendMessage(new MAPINFO

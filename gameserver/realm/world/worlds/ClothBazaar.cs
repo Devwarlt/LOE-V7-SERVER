@@ -13,9 +13,6 @@
             SafePlace = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap("bazzar", MapType.Wmap);
-        }
+        protected override void Init() => LoadMap("bazzar", MapType.Wmap);
     }
 }

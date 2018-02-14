@@ -54,7 +54,7 @@ namespace gameserver.realm.mapsetpiece
 
         public override void RenderSetPiece(World world, IntPoint pos)
         {
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < Size; x++)
             {
                 for (int y = 0; y < Size; y++)
@@ -93,7 +93,7 @@ namespace gameserver.realm.mapsetpiece
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
 
-                        Entity hermit = Entity.Resolve(world.Manager, "Hermit God");
+                        Entity hermit = Entity.Resolve("Hermit God");
                         hermit.Move(pos.X + x + 0.5f, pos.Y + y + 0.5f);
                         world.EnterWorld(hermit);
                     }

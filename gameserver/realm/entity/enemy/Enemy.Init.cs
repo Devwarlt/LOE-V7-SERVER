@@ -22,8 +22,8 @@ namespace gameserver.realm.entity
 
         protected static readonly new ILog log4net = LogManager.GetLogger(typeof(Enemy));
 
-        public Enemy(RealmManager manager, ushort objType, bool npc)
-            : base(manager, objType, new wRandom())
+        public Enemy(ushort objType, bool npc)
+            : base(objType, new wRandom())
         {
             npc = this.npc;
             stat = ObjectDesc.MaxHP == 0;
@@ -33,9 +33,7 @@ namespace gameserver.realm.entity
         }
 
         public DamageCounter DamageCounter
-        {
-            get { return counter; }
-        }
+        { get { return counter; } }
 
         public WmapTerrain Terrain { get; set; }
 
@@ -43,9 +41,7 @@ namespace gameserver.realm.entity
         public string LootState { get; set; }
 
         public Position SpawnPoint
-        {
-            get { return pos ?? new Position { X = X, Y = Y }; }
-        }
+        { get { return pos ?? new Position { X = X, Y = Y }; } }
 
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {

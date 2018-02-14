@@ -55,6 +55,7 @@ namespace gameserver.networking
             DUPER_DISCONNECT = 31,
             ACCESS_DENIED = 32,
             VIP_ACCOUNT_OVER = 33,
+            DEXTERITY_HACK_MOD = 34,
             UNKNOW_ERROR_INSTANCE = 255
         }
 

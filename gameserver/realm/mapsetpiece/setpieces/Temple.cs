@@ -35,7 +35,7 @@ namespace gameserver.realm.mapsetpiece
 
         protected static void Render(Temple temple, World world, IntPoint pos, int[,] ground, int[,] objs)
         {
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < temple.Size; x++) //Rendering
                 for (int y = 0; y < temple.Size; y++)
                 {

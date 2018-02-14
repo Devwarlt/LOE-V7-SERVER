@@ -15,8 +15,7 @@ namespace gameserver.realm.world
 {
     public class Vault : World
     {
-        private readonly ConcurrentDictionary<Tuple<Container, int>, int> _vaultChests =
-            new ConcurrentDictionary<Tuple<Container, int>, int>();
+        private readonly ConcurrentDictionary<Tuple<Container, int>, int> _vaultChests = new ConcurrentDictionary<Tuple<Container, int>, int>();
 
         private readonly bool isLimbo;
         private Client psr;
@@ -91,11 +90,11 @@ namespace gameserver.realm.world
                 gifts.Shuffle();
                 for (int i = 0; i < gifts.Count(); i++)
                 {
-                    if (Manager.GameData.Items.ContainsKey((ushort)gifts[i]))
+                    if (Program.Manager.GameData.Items.ContainsKey((ushort)gifts[i]))
                     {
                         if (c.Items.Count < 8)
                         {
-                            c.Items.Add(Manager.GameData.Items[(ushort)gifts[i]]);
+                            c.Items.Add(Program.Manager.GameData.Items[(ushort)gifts[i]]);
                             wasLastElse = false;
                         }
                         else
@@ -103,7 +102,7 @@ namespace gameserver.realm.world
                             giftChests.Add(c);
                             c = new GiftChest();
                             c.Items = new List<Item>(8);
-                            c.Items.Add(Manager.GameData.Items[(ushort)gifts[i]]);
+                            c.Items.Add(Program.Manager.GameData.Items[(ushort)gifts[i]]);
                             wasLastElse = true;
                         }
                     }
@@ -116,7 +115,7 @@ namespace gameserver.realm.world
                     if (giftChestPosition.Count == 0) break;
                     while (chest.Items.Count < 8)
                         chest.Items.Add(null);
-                    OneWayContainer con = new OneWayContainer(Manager, 0x0744, null, false);
+                    OneWayContainer con = new OneWayContainer(0x0744, null, false);
                     List<Item> inv = chest.Items;
                     for (int j = 0; j < 8; j++)
                         con.Inventory[j] = inv[j];
@@ -129,8 +128,8 @@ namespace gameserver.realm.world
             for (int i = 0; i < psr.Account.VaultCount; i++)
             {
                 if (vaultChestPosition.Count == 0) break;
-                Container con = new Container(Manager, 0x0504, null, false);
-                var inv = dbVault[i].Select(_ => _ == -1 ? null : (Manager.GameData.Items.ContainsKey((ushort)_) ? Manager.GameData.Items[(ushort)_] : null)).ToArray();
+                Container con = new Container(0x0504, null, false);
+                var inv = dbVault[i].Select(_ => _ == -1 ? null : (Program.Manager.GameData.Items.ContainsKey((ushort)_) ? Program.Manager.GameData.Items[(ushort)_] : null)).ToArray();
                 for (int j = 0; j < 8; j++)
                     con.Inventory[j] = inv[j];
                 con.Move(vaultChestPosition[0].X + 0.5f, vaultChestPosition[0].Y + 0.5f);
@@ -142,14 +141,14 @@ namespace gameserver.realm.world
 
             foreach (IntPoint i in giftChestPosition)
             {
-                GameObject x = new GameObject(Manager, 0x0743, null, true, false, false);
+                GameObject x = new GameObject(0x0743, null, true, false, false);
                 x.Move(i.X + 0.5f, i.Y + 0.5f);
                 EnterWorld(x);
             }
 
             foreach (IntPoint i in vaultChestPosition)
             {
-                SellableObject x = new SellableObject(Manager, 0x0505);
+                SellableObject x = new SellableObject(0x0505);
                 x.Move(i.X + 0.5f, i.Y + 0.5f);
                 EnterWorld(x);
             }
@@ -157,9 +156,9 @@ namespace gameserver.realm.world
 
         public void AddChest(Entity original)
         {
-            Container con = new Container(Manager, 0x0504, null, false);
-            int index = Manager.Database.CreateChest(dbVault);
-            var inv = dbVault[index].Select(_ => _ == -1 ? null : (Manager.GameData.Items.ContainsKey((ushort)_) ? Manager.GameData.Items[(ushort)_] : null)).ToArray();
+            Container con = new Container(0x0504, null, false);
+            int index = Program.Manager.Database.CreateChest(dbVault);
+            var inv = dbVault[index].Select(_ => _ == -1 ? null : (Program.Manager.GameData.Items.ContainsKey((ushort)_) ? Program.Manager.GameData.Items[(ushort)_] : null)).ToArray();
             for (int j = 0; j < 8; j++)
                 con.Inventory[j] = inv[j];
             con.Move(original.X, original.Y);
@@ -169,10 +168,7 @@ namespace gameserver.realm.world
             _vaultChests[Tuple.Create(con, index)] = con.UpdateCount;
         }
 
-        public override World GetInstance(Client psr)
-        {
-            return Manager.AddWorld(new Vault(false, psr));
-        }
+        public override World GetInstance(Client psr) => Program.Manager.AddWorld(new Vault(false, psr));
 
         public override void Tick(RealmTime time)
         {

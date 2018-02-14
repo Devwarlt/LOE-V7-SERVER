@@ -1,10 +1,4 @@
-﻿#region
-
-using gameserver.networking;
-
-#endregion
-
-namespace gameserver.realm.world
+﻿namespace gameserver.realm.world
 {
     public class OryxCastle : World
     {
@@ -18,14 +12,6 @@ namespace gameserver.realm.world
 
         public override bool NeedsPortalKey => true;
 
-        protected override void Init()
-        {
-            LoadMap("OryxCastle", MapType.Wmap);
-        }
-
-        public override World GetInstance(Client psr)
-        {
-            return Manager.AddWorld(new OryxCastle());
-        }
+        protected override void Init() => LoadMap("OryxCastle", MapType.Wmap);
     }
 }

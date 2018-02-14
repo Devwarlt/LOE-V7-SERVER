@@ -39,7 +39,7 @@ namespace gameserver.logic.behaviors
             var hx = (int)host.X;
             var hy = (int)host.Y;
 
-            var tileType = host.Manager.GameData.IdToTileType[_tileId];
+            var tileType = Program.Manager.GameData.IdToTileType[_tileId];
 
             var tiles = new List<TileState>();
 
