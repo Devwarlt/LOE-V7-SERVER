@@ -47,7 +47,7 @@ namespace gameserver.logic
             catch (Exception e)
             {
                 log.ErrorFormat("BehaviorException:\nHost: {0}\nState: {1}\nInternalExeption:\n{2}",
-                    host.Manager.GameData.ObjectTypeToId[host.ObjectType], state, e);
+                    Program.Manager.GameData.ObjectTypeToId[host.ObjectType], state, e);
             }
         }
 

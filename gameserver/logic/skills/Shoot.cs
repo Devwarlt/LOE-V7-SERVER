@@ -97,7 +97,7 @@ namespace gameserver.logic.behaviors
             if (cool <= 0)
             {
                 if (host.HasConditionEffect(ConditionEffectIndex.Stunned)) return;
-                int count = this.shoots;
+                int count = shoots;
                 if (host.HasConditionEffect(ConditionEffectIndex.Dazed))
                     count = Math.Max(1, count / 2);
 

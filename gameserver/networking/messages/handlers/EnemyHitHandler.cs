@@ -24,7 +24,7 @@ namespace gameserver.networking.handlers
 
             if (entity != null)
             {
-                
+
                 if (message.Killed)
                     player.ClientKilledEntity.Enqueue(entity);
 

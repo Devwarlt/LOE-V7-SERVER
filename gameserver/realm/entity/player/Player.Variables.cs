@@ -82,7 +82,6 @@ namespace gameserver.realm.entity.player
         public ushort MpPotionPrice { get; set; }
         public bool HpFirstPurchaseTime { get; set; }
         public bool MpFirstPurchaseTime { get; set; }
-        public new RealmManager Manager { get; }
         public int MaxHp { get; set; }
         public int MaxMp { get; set; }
         public int MP { get; set; }

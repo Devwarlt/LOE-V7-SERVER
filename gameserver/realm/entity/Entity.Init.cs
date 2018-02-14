@@ -9,7 +9,6 @@ using gameserver.realm.entity;
 using gameserver.realm.entity.player;
 using gameserver.logic.transitions;
 using gameserver.realm.entity.merchant;
-using System.Collections.Concurrent;
 
 #endregion
 
@@ -35,30 +34,30 @@ namespace gameserver.realm
         private Player playerOwner; //For Drakes
 
         private Projectile[] projectiles;
+        public int numProjs = 0;
 
         Entity IProjectileOwner.Self => this;
         Projectile[] IProjectileOwner.Projectiles => projectiles;
 
         public wRandom Random { get; private set; }
 
-        public Entity(RealmManager manager, ushort objType)
-            : this(manager, objType, true, false, false) { }
+        public Entity(ushort objType)
+            : this(objType, true, false, false) { }
 
-        public Entity(RealmManager manager, ushort objType, bool interactive)
-            : this(manager, objType, interactive, false, false) { }
+        public Entity(ushort objType, bool interactive)
+            : this(objType, interactive, false, false) { }
 
-        protected Entity(RealmManager manager, ushort objType, bool interactive, bool isPet, bool npc)
+        protected Entity(ushort objType, bool interactive, bool isPet, bool npc)
         {
-            Manager = manager;
             ObjectType = objType;
             Name = "";
             Usable = false;
             BagDropped = false;
             NPC = npc;
             IsPet = isPet;
-            Manager.Behaviors.ResolveBehavior(this);
-            Manager.GameData.ObjectDescs.TryGetValue(objType, out desc);
-            Size = desc != null ? manager.GameData.ObjectDescs[objType].MaxSize : 100;
+            Program.Manager.Behaviors.ResolveBehavior(this);
+            Program.Manager.GameData.ObjectDescs.TryGetValue(objType, out desc);
+            Size = desc != null ? Program.Manager.GameData.ObjectDescs[objType].MaxSize : 100;
 
             if (interactive)
             {
@@ -434,13 +433,13 @@ namespace gameserver.realm
 
             var tile = map[x_, y_];
 
-            var tileDesc = Manager.GameData.Tiles[tile.TileId];
+            var tileDesc = Program.Manager.GameData.Tiles[tile.TileId];
             if (tileDesc?.NoWalk == true)
                 return true;
 
             if (tile.ObjType != 0)
             {
-                var objDesc = Manager.GameData.ObjectDescs[tile.ObjType];
+                var objDesc = Program.Manager.GameData.ObjectDescs[tile.ObjType];
                 if (objDesc?.EnemyOccupySquare == true)
                     return true;
             }
@@ -460,7 +459,7 @@ namespace gameserver.realm
 
             if (tile.ObjType != 0)
             {
-                var objDesc = Manager.GameData.ObjectDescs[tile.ObjType];
+                var objDesc = Program.Manager.GameData.ObjectDescs[tile.ObjType];
                 if (objDesc?.FullOccupy == true)
                     return true;
             }
@@ -513,7 +512,7 @@ namespace gameserver.realm
 
             if (ObjectType == 0x0754)
             {
-                var en = new GameObject(Manager, 0x1942, null, true, false, true);
+                var en = new GameObject(0x1942, null, true, false, true);
                 en.Move(X, Y);
                 owner.EnterWorld(en);
             }
@@ -540,23 +539,23 @@ namespace gameserver.realm
         public Position? TryGetHistory(long timeAgo)
         {
             if (posHistory == null) return null;
-            var tickPast = timeAgo * Manager.TPS / 1000;
+            var tickPast = timeAgo * Program.Manager.TPS / 1000;
             if (tickPast > 255) return null;
             return posHistory[(byte)(posIdx - 2)];
         }
 
-        public static Entity Resolve(RealmManager manager, string name)
+        public static Entity Resolve(string name)
         {
             ushort id;
-            if (!manager.GameData.IdToObjectType.TryGetValue(name, out id))
+            if (!Program.Manager.GameData.IdToObjectType.TryGetValue(name, out id))
                 return null;
 
-            return Resolve(manager, id);
+            return Resolve(id);
         }
 
-        public static Entity Resolve(RealmManager manager, ushort id)
+        public static Entity Resolve(ushort id)
         {
-            var node = manager.GameData.ObjectTypeToElement[id];
+            var node = Program.Manager.GameData.ObjectTypeToElement[id];
             var cls = node.Element("Class");
             var npc = node.Element("NPC") != null;
             if (cls == null) throw new ArgumentException("Invalid XML Element, field class is missing");
@@ -567,39 +566,39 @@ namespace gameserver.realm
                 case "Projectile":
                     throw new Exception("Projectile should not instantiated using Entity.Resolve");
                 case "Sign":
-                    return new Sign(manager, id);
+                    return new Sign(id);
                 case "Wall":
                 case "DoubleWall":
-                    return new Wall(manager, id, node);
+                    return new Wall(id, node);
                 case "ConnectedWall":
                 case "CaveWall":
-                    return new ConnectedObject(manager, id);
+                    return new ConnectedObject(id);
                 case "GameObject":
                 case "CharacterChanger":
                 case "MoneyChanger":
                 case "NameChanger":
-                    return new GameObject(manager, id, GameObject.GetHP(node), GameObject.GetStatic(node), false, true);
+                    return new GameObject(id, GameObject.GetHP(node), GameObject.GetStatic(node), false, true);
                 case "GuildRegister":
                 case "GuildChronicle":
                 case "GuildBoard":
-                    return new GameObject(manager, id, null, false, false, false);
+                    return new GameObject(id, null, false, false, false);
                 case "Container":
-                    return new Container(manager, node);
+                    return new Container(node);
                 case "Player":
                     throw new Exception("Player should not instantiated using Entity.Resolve");
                 case "Character": //Other characters means enemy
-                    return new Enemy(manager, id, npc);
+                    return new Enemy(id, npc);
                 case "Portal":
                 case "GuildHallPortal":
-                    return new Portal(manager, id, null);
+                    return new Portal(id, null);
                 case "ClosedVaultChest":
                 case "ClosedVaultChestGold":
                 case "ClosedGiftChest":
                 case "VaultChest":
                 case "Merchant":
-                    return new Merchant(manager, id);
+                    return new Merchant(id);
                 case "GuildMerchant":
-                    return new GuildMerchant(manager, id);
+                    return new GuildMerchant(id);
                 case "ArenaGuard":
                 case "ArenaPortal":
                 case "MysteryBoxGround":
@@ -609,24 +608,25 @@ namespace gameserver.realm
                 case "YardUpgrader":
                 case "FortuneGround":
                 case "QuestRewards":
-                    return new GameObject(manager, id, null, true, false, false);
+                    return new GameObject(id, null, true, false, false);
                 case "Pet":
                     throw new Exception("Pets should not instantiated using Entity.Resolve");
                 default:
                     log4net.Warn("Not supported type: " + type);
-                    return new Entity(manager, id);
+                    return new Entity(id);
             }
         }
 
         public Projectile CreateProjectile(ProjectileDesc desc, ushort container, int dmg, long time, Position pos,
-            float angle)
+            float angle, bool shouldIncProjCount = false)
         {
-            Projectile _projectile = new Projectile(Manager, desc)
+            Projectile _projectile = new Projectile(desc)
             {
                 ProjectileOwner = this,
                 ProjectileId = ProjectileId++,
                 Container = (short)container,
                 Damage = dmg,
+                ShouldIncProjCount = shouldIncProjCount,
                 BeginTime = time,
                 BeginPos = pos,
                 Angle = angle,
@@ -635,11 +635,15 @@ namespace gameserver.realm
             };
 
             Projectile _projectileSample;
+
             if (Owner.Projectiles.TryGetValue(new KeyValuePair<int, byte>(Id, _projectile.ProjectileId), out _projectileSample))
                 if (_projectileSample != null)
                     Owner.RemoveProjectileFromId(Id, _projectileSample.ProjectileId);
 
             Owner.AddProjectileFromId(Id, _projectile.ProjectileId, _projectile);
+
+            if (shouldIncProjCount)
+                numProjs++;
 
             return _projectile;
         }
@@ -749,7 +753,6 @@ namespace gameserver.realm
 
         public virtual void Dispose()
         {
-            Manager = null;
             Owner = null;
             WorldInstance = null;
             Name = null;

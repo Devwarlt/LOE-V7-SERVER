@@ -15,7 +15,7 @@ namespace gameserver.realm.entity.merchant
         {
             try
             {
-                var mrc = new Merchant(Manager, x.ObjectType, x.Owner);
+                var mrc = new Merchant(x.ObjectType, x.Owner);
                 mrc.Move(x.X, x.Y);
                 var w = Owner;
                 Owner.LeaveWorld(this);
@@ -39,31 +39,31 @@ namespace gameserver.realm.entity.merchant
                         try
                         {
                             XElement ist;
-                            Manager.GameData.ObjectTypeToElement.TryGetValue((ushort)MType, out ist);
+                            Program.Manager.GameData.ObjectTypeToElement.TryGetValue((ushort)MType, out ist);
                             if (player.Inventory[i] == null &&
                                 (player.SlotTypes[i] == 10 ||
                                  player.SlotTypes[i] == Convert.ToInt16(ist.Element("SlotType").Value)))
                             // Exploit fix - No more mnovas as weapons!
                             {
-                                player.Inventory[i] = Manager.GameData.Items[(ushort)MType];
+                                player.Inventory[i] = Program.Manager.GameData.Items[(ushort)MType];
 
                                 switch (Currency)
                                 {
                                     case CurrencyType.Fame:
                                         {
-                                            Manager.Database.UpdateFame(player.client.Account, -Price);
+                                            Program.Manager.Database.UpdateFame(player.client.Account, -Price);
                                             player.CurrentFame = player.client.Account.Fame;
                                         }
                                         break;
                                     case CurrencyType.Gold:
                                         {
-                                            Manager.Database.UpdateCredit(player.client.Account, -Price);
+                                            Program.Manager.Database.UpdateCredit(player.client.Account, -Price);
                                             player.Credits = player.client.Account.Credits;
                                         }
                                         break;
                                     case CurrencyType.FortuneTokens:
                                         {
-                                            Manager.Database.UpdateTokens(player.client.Account, -Price);
+                                            Program.Manager.Database.UpdateTokens(player.client.Account, -Price);
                                             player.Tokens = player.client.Account.FortuneTokens;
                                         }
                                         break;

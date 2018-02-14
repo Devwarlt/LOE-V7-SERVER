@@ -25,7 +25,7 @@ namespace gameserver.logic.behaviors
         {
             Entity[] ens = host.GetNearestEntities(dist).ToArray();
             foreach (Entity e in ens)
-                if (e.ObjectType == host.Manager.GameData.IdToObjectType[children])
+                if (e.ObjectType == Program.Manager.GameData.IdToObjectType[children])
                     host.Owner.LeaveWorld(e);
         }
 

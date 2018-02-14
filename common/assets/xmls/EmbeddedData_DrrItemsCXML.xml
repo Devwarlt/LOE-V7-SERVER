@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Object>
 	<Object type="0x510f" id="The Egyptian's Crook" spritePeriod="4" spriteFile="lofiObj5" spriteArray="200-201">
 		<Class>Equipment</Class>
@@ -8,8 +8,8 @@
 			<Index>200</Index>
 		</Texture>
 		<SlotType>8</SlotType>
-		<LT/>
-		<Blue/>
+		<LT />
+		<Blue />
 		<Description>Recovered in the sands of the desert aroud King Tut's tomb after it been looted.Seems like it retains magical properties.</Description>
 		<RateOfFire>1</RateOfFire>
 		<Sound>weapon/wand_of_death</Sound>
@@ -35,8 +35,8 @@
 			<Index>0xb9</Index>
 		</Texture>
 		<SlotType>9</SlotType>
-		<Green/>
-		<FT/>
+		<Green />
+		<FT />
 		<Description>After the Frog King's Death, you took it's crown;Turns out this Crown is the source of the Frog Kings Power! </Description>
 		<ActivateOnEquip stat="0" amount="100">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="20" amount="30">IncrementStat</ActivateOnEquip>
@@ -44,7 +44,7 @@
 		<ActivateOnEquip stat="21" amount="100">IncrementStat</ActivateOnEquip>
 		<BagType>6</BagType>
 		<feedPower>3400</feedPower>
-		<Soulbound/>
+		<Soulbound />
 	</Object>
 	<Object type="0x510d" id="Edge of Time">
 		<Class>Equipment</Class>
@@ -54,8 +54,8 @@
 			<Index>0xb8</Index>
 		</Texture>
 		<SlotType>17</SlotType>
-		<Green/>
-		<LT/>
+		<Green />
+		<LT />
 		<Description>A staff that was made by the fabrics of time and space.Thanks to: Life</Description>
 		<RateOfFire>1</RateOfFire>
 		<Sound>weapon/missile_wand</Sound>
@@ -65,10 +65,10 @@
 			<MinDamage>80</MinDamage>
 			<MaxDamage>95</MaxDamage>
 			<LifetimeMS>600</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<ExtraTooltipData>
-			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series."/>
+			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series." />
 		</ExtraTooltipData>
 		<NumProjectiles>2</NumProjectiles>
 		<BagType>8</BagType>
@@ -83,11 +83,11 @@
 			<Index>0xac</Index>
 		</Texture>
 		<SlotType>14</SlotType>
-		<Green/>
-		<LT/>
+		<Green />
+		<LT />
 		<Description>A robe only given to the best of the best wizards who are the masters of the Elements.Thanks to: Life.</Description>
 		<ExtraTooltipData>
-			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series."/>
+			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series." />
 		</ExtraTooltipData>
 		<ActivateOnEquip stat="21" amount="15">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="28" amount="5">IncrementStat</ActivateOnEquip>
@@ -105,11 +105,11 @@
 			<Index>0xab</Index>
 		</Texture>
 		<SlotType>21</SlotType>
-		<Green/>
-		<LT/>
+		<Green />
+		<LT />
 		<Description>After obtaining this Orb, you will have power to control time itself! Thanks to: Life.</Description>
 		<ExtraTooltipData>
-			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series."/>
+			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series." />
 		</ExtraTooltipData>
 		<ActivateOnEquip stat="20" amount="2">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="28" amount="2">IncrementStat</ActivateOnEquip>
@@ -132,7 +132,7 @@
 			<Index>0x9a</Index>
 		</Texture>
 		<SlotType>11</SlotType>
-		<LT/>
+		<LT />
 		<Description>The wizards came together and made all the energy on earth come into a single spell. Thanks to: Life</Description>
 		<Sound>spell/magic_nova</Sound>
 		<Projectile>
@@ -141,15 +141,15 @@
 			<MinDamage>80</MinDamage>
 			<MaxDamage>120</MaxDamage>
 			<LifetimeMS>1000</LifetimeMS>
-			<Wavy/>
+			<Wavy />
 		</Projectile>
 		<ExtraTooltipData>
-			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series."/>
+			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series." />
 		</ExtraTooltipData>
 		<ActivateOnEquip stat="21" amount="5">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="3" amount="10">IncrementStat</ActivateOnEquip>
 		<Usable />
-		<Green/>
+		<Green />
 		<BagType>6</BagType>
 		<FameBonus>4</FameBonus>
 		<MpCost>80</MpCost>
@@ -158,13 +158,13 @@
 	</Object>
 	<Object type="0x5109" id="Rainbow Sword">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<Texture>
 			<File>lofiObj5</File>
 			<Index>0xa9</Index>
 		</Texture>
 		<SlotType>1</SlotType>
-		<LT/>
+		<LT />
 		<Description> After meeting the Rainbow God, Hemdiall, You were bestowed with this sword! Thanks to: Life.</Description>
 		<RateOfFire>0.8</RateOfFire>
 		<Sound>weapon/mithril_sword</Sound>
@@ -179,10 +179,10 @@
 			<Size>100</Size>
 		</Projectile>
 		<ExtraTooltipData>
-			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series."/>
+			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series." />
 		</ExtraTooltipData>
-		<Green/>
-		<Soulbound/>
+		<Green />
+		<Soulbound />
 		<BagType>4</BagType>
 		<FameBonus>4</FameBonus>
 		<OldSound>bladeSwing</OldSound>
@@ -197,7 +197,7 @@
 			<Index>0xa8</Index>
 		</Texture>
 		<SlotType>22</SlotType>
-		<LT/>
+		<LT />
 		<Description> A prism able to bent light into all sorts of color. Thanks to: Six.</Description>
 		<Projectile>
 			<ObjectId>Rainbow Brick</ObjectId>
@@ -208,9 +208,9 @@
 			<Size>100</Size>
 		</Projectile>
 		<ExtraTooltipData>
-			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series."/>
+			<EffectInfo name="Rainbow Series" description="This item is a part of the Rainbow Series." />
 		</ExtraTooltipData>
-		<Green/>
+		<Green />
 		<ActivateOnEquip stat="22" amount="3">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="21" amount="5">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="0" amount="-10">IncrementStat</ActivateOnEquip>
@@ -224,7 +224,7 @@
 	</Object>
 	<Object type="0x5107" id="K is Bae Skin">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<AnimatedTexture>
 			<File>playerskins</File>
 			<Index>166</Index>
@@ -232,22 +232,22 @@
 		<SlotType>10</SlotType>
 		<Description>K is Bae! Thanks to: Devwarlt (and the frog).</Description>
 		<Activate skinType="36865">UnlockSkin</Activate>
-		<Consumable/>
+		<Consumable />
 		<BagType>6</BagType>
 		<DisplayId>K is Bae Skin</DisplayId>
 	</Object>
 	<Object type="0x5106" id="Deverino Skin">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<AnimatedTexture>
 			<File>playerskins</File>
 			<Index>167</Index>
 		</AnimatedTexture>
 		<SlotType>10</SlotType>
-		<LT/>
+		<LT />
 		<Description>Rare skin around the LoE Realm! Thanks to: Devwarlt(and the frog).</Description>
 		<Activate skinType="36864">UnlockSkin</Activate>
-		<Consumable/>
+		<Consumable />
 		<BagType>6</BagType>
 		<DisplayId>Deverino Skin</DisplayId>
 	</Object>
@@ -259,7 +259,7 @@
 			<Index>0xfd</Index>
 		</Texture>
 		<SlotType>9</SlotType>
-		<Green/>
+		<Green />
 		<Description>After the Dragon King died,you take the remains of it's eyeball and make this jewel.</Description>
 		<ActivateOnEquip stat="0" amount="60">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="20" amount="15">IncrementStat</ActivateOnEquip>
@@ -275,7 +275,7 @@
 			<Index>0xfc</Index>
 		</Texture>
 		<SlotType>7</SlotType>
-		<Red/>
+		<Red />
 		<Description>Compete in the Chinese Festival.Winner gets this op armor!</Description>
 		<ActivateOnEquip stat="21" amount="45">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="3" amount="-50">IncrementStat</ActivateOnEquip>
@@ -283,7 +283,7 @@
 		<BagType>10</BagType>
 		<FameBonus>6</FameBonus>
 		<feedPower>500</feedPower>
-		<Soulbound/>
+		<Soulbound />
 	</Object>
 	<Object type="0x5103" id="Helmet of the Dragon King" setType="0x0009" setName="Chinese Dragon Warrior Set">
 		<Class>Equipment</Class>
@@ -293,7 +293,7 @@
 			<Index>0xfb</Index>
 		</Texture>
 		<SlotType>16</SlotType>
-		<Green/>
+		<Green />
 		<Description>Defeating the Dragon King,you were rewarded with this ancient chinese helmet.</Description>
 		<ActivateOnEquip stat="21" amount="5">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="28" amount="-5">IncrementStat</ActivateOnEquip>
@@ -309,13 +309,13 @@
 	</Object>
 	<Object type="0x5102" id="Sword of the Chinese Dragon" setType="0x0009" setName="Chinese Dragon Warrior Set">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<Texture>
 			<File>lofiObj5</File>
 			<Index>0xfa</Index>
 		</Texture>
 		<SlotType>1</SlotType>
-		<Red/>
+		<Red />
 		<Description>Bestowed by the Annual Chinese New Year!</Description>
 		<RateOfFire>1</RateOfFire>
 		<Sound>weapon/mithril_sword</Sound>
@@ -334,14 +334,14 @@
 	</Object>
 	<Object type="0x5101" id="Scepter of Combustion" spritePeriod="4" spriteFile="lofiObj5" spriteArray="248-249">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<Texture>
 			<File>lofiObj5</File>
 			<Index>248</Index>
 		</Texture>
 		<SlotType>23</SlotType>
-		<LT/>
-		<Red/>
+		<LT />
+		<Red />
 		<Description>A scepter so Hot to the touch, it will instantly Burn whoever touches it.</Description>
 		<Sound>spell/magic_nova</Sound>
 		<ActivateOnEquip stat="20" amount="-5">IncrementStat</ActivateOnEquip>
@@ -364,14 +364,14 @@
 		<SlotType>10</SlotType>
 		<Description>Donor Perks.</Description>
 		<ExtraTooltipData>
-			<EffectInfo name="Bonus" description="This item grant a random item when consumed. Warning: DO NOT USE IN NEXUS! IT WILL DISAPPEAR"/>
+			<EffectInfo name="Bonus" description="This item grant a random item when consumed. Warning: DO NOT USE IN NEXUS! IT WILL DISAPPEAR" />
 		</ExtraTooltipData>
 		<Sound>use_potion</Sound>
 		<Activate gifts="">Donor</Activate>
-		<Consumable/>
+		<Consumable />
 		<BagType>11</BagType>
 		<DisplayId>Lootbox of Luck</DisplayId>
-		<Soulbound/>
+		<Soulbound />
 	</Object>
 	<Object type="0x5099" id="Staff of Neo">
 		<Class>Equipment</Class>
@@ -381,8 +381,8 @@
 			<Index>0xc9</Index>
 		</Texture>
 		<SlotType>17</SlotType>
-		<Red/>
-		<L/>
+		<Red />
+		<L />
 		<Description>A bright blue staff that gains its power from absorbing light.</Description>
 		<RateOfFire>1</RateOfFire>
 		<Sound>weapon/missile_wand</Sound>
@@ -392,7 +392,7 @@
 			<MinDamage>90</MinDamage>
 			<MaxDamage>130</MaxDamage>
 			<LifetimeMS>1200</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<NumProjectiles>2</NumProjectiles>
 		<BagType>8</BagType>
@@ -407,8 +407,8 @@
 			<Index>0xe6</Index>
 		</Texture>
 		<SlotType>9</SlotType>
-		<Red/>
-		<L/>
+		<Red />
+		<L />
 		<Description>A ring that contains the blood of their enemies. The crystal contains a very ominous red glow...</Description>
 		<ActivateOnEquip stat="0" amount="160">IncrementStat</ActivateOnEquip>
 		<BagType>8</BagType>
@@ -422,8 +422,8 @@
 			<Index>0xe5</Index>
 		</Texture>
 		<SlotType>14</SlotType>
-		<Red/>
-		<L/>
+		<Red />
+		<L />
 		<Description>A ritual robe used to steal the lives of anything that stands in the way of the ritual.</Description>
 		<ActivateOnEquip stat="21" amount="14">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="0" amount="80">IncrementStat</ActivateOnEquip>
@@ -439,8 +439,8 @@
 			<Index>0xe4</Index>
 		</Texture>
 		<SlotType>21</SlotType>
-		<Red/>
-		<L/>
+		<Red />
+		<L />
 		<Description>This orb was used by a bloodthirsty being used to capture other souls. You can hear their souls screaming for help...</Description>
 		<ActivateOnEquip stat="20" amount="2">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="28" amount="2">IncrementStat</ActivateOnEquip>
@@ -463,8 +463,8 @@
 			<Index>0xe3</Index>
 		</Texture>
 		<SlotType>17</SlotType>
-		<Red/>
-		<L/>
+		<Red />
+		<L />
 		<Description>A staff, that steals the blood of their victims, along with their soul.</Description>
 		<RateOfFire>1.25</RateOfFire>
 		<Sound>weapon/missile_wand</Sound>
@@ -474,7 +474,7 @@
 			<MinDamage>90</MinDamage>
 			<MaxDamage>130</MaxDamage>
 			<LifetimeMS>1200</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<NumProjectiles>2</NumProjectiles>
 		<BagType>8</BagType>
@@ -489,8 +489,8 @@
 			<Index>0xd6</Index>
 		</Texture>
 		<SlotType>9</SlotType>
-		<Blue/>
-		<LT/>
+		<Blue />
+		<LT />
 		<Description>A ring mysteriously made from ice that never melts. It's perfect shape it maintains, but also grants bliss to whoever wears it</Description>
 		<ActivateOnEquip stat="21" amount="3">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="0" amount="60">IncrementStat</ActivateOnEquip>
@@ -505,8 +505,8 @@
 			<Index>0xd4</Index>
 		</Texture>
 		<SlotType>23</SlotType>
-		<LT/>
-		<Blue/>
+		<LT />
+		<Blue />
 		<Description>A scepter so cold to the touch, it will instantly freeze whoever touches it.</Description>
 		<Sound>spell/magic_nova</Sound>
 		<ActivateOnEquip stat="20" amount="1">IncrementStat</ActivateOnEquip>
@@ -527,8 +527,8 @@
 			<Index>0xd5</Index>
 		</Texture>
 		<SlotType>14</SlotType>
-		<Blue/>
-		<LT/>
+		<Blue />
+		<LT />
 		<Description>A robe which grants the user an immunity to cold weather, by being one with it.</Description>
 		<ActivateOnEquip stat="21" amount="13">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="26" amount="10">IncrementStat</ActivateOnEquip>
@@ -546,8 +546,8 @@
 			<Index>0xd3</Index>
 		</Texture>
 		<SlotType>8</SlotType>
-		<LT/>
-		<Blue/>
+		<LT />
+		<Blue />
 		<Description>A wand created by a powerful sorcerer, turns anything into ice.</Description>
 		<RateOfFire>1</RateOfFire>
 		<Sound>weapon/wand_of_death</Sound>
@@ -572,8 +572,8 @@
 			<Index>0xe0</Index>
 		</Texture>
 		<SlotType>17</SlotType>
-		<Blue/>
-		<L/>
+		<Blue />
+		<L />
 		<Description>A mysterious ominous staff, nobody knows about. No one will ever know it's history...</Description>
 		<RateOfFire>0.55</RateOfFire>
 		<Sound>weapon/missile_wand</Sound>
@@ -583,7 +583,7 @@
 			<MinDamage>100</MinDamage>
 			<MaxDamage>120</MaxDamage>
 			<LifetimeMS>1200</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<NumProjectiles>3</NumProjectiles>
 		<BagType>8</BagType>
@@ -636,7 +636,7 @@
 			<Index>0xf6</Index>
 		</Texture>
 		<SlotType>25</SlotType>
-		<LT/>
+		<LT />
 		<Description>Left behind from the Forgotten Kuncoichi,this star holds incredible power.</Description>
 		<Sound>spell/fire_spray</Sound>
 		<ExtraTooltipData>
@@ -675,7 +675,7 @@
 			<Index>0xf5</Index>
 		</Texture>
 		<SlotType>25</SlotType>
-		<LT/>
+		<LT />
 		<Description>A legendary shuriken that absorbs the light around it and turns it into darkness.</Description>
 		<Sound>spell/fire_spray</Sound>
 		<ExtraTooltipData>
@@ -696,8 +696,8 @@
 			<PassesCover />
 		</Projectile>
 		<ExtraTooltipData>
-			<EffectInfo name="Additional Info" description="This item is a Super Rare version of Midnight Star."/>
-			<EffectInfo name="Black Bag Item" description="This stuff give +50% additional bonus original equipment stats and +1% fame bonus."/>
+			<EffectInfo name="Additional Info" description="This item is a Super Rare version of Midnight Star." />
+			<EffectInfo name="Black Bag Item" description="This stuff give +50% additional bonus original equipment stats and +1% fame bonus." />
 		</ExtraTooltipData>
 		<ConditionEffect duration="8">Paralyzed</ConditionEffect>
 		<Usable />
@@ -713,7 +713,7 @@
 	<!--0x5085-->
 	<Object type="0x5084" id="Arm of Beast">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<Texture>
 			<File>lofiObj5</File>
 			<Index>0xf1</Index>
@@ -736,12 +736,12 @@
 		<NumProjectiles>1</NumProjectiles>
 		<OldSound>arrowShoot</OldSound>
 		<feedPower>1300</feedPower>
-		<Soulbound/>
+		<Soulbound />
 		<DisplayId> Arm of Beast</DisplayId>
 	</Object>
 	<Object type="0x5083" id="Happy Clown Skin">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<AnimatedTexture>
 			<File>playerskins</File>
 			<Index>168</Index>
@@ -749,7 +749,7 @@
 		<SlotType>10</SlotType>
 		<Description>It's time to play and to laugh! Have fun with your friends using this incredible and cheerful skin. Thanks to: NPEtoPPEx.</Description>
 		<Activate skinType="36869">UnlockSkin</Activate>
-		<Consumable/>
+		<Consumable />
 		<BagType>6</BagType>
 		<DisplayId>Happy Clown Skin</DisplayId>
 	</Object>
@@ -770,8 +770,8 @@
 			<MinDamage>150</MinDamage>
 			<MaxDamage>200</MaxDamage>
 			<Boomerang />
-			<MultiHit/>
-			<PassesCover/>
+			<MultiHit />
+			<PassesCover />
 			<LifetimeMS>500</LifetimeMS>
 			<Size>180</Size>
 		</Projectile>
@@ -853,7 +853,7 @@
 			<MinDamage>50</MinDamage>
 			<MaxDamage>70</MaxDamage>
 			<LifetimeMS>1200</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<NumProjectiles>2</NumProjectiles>
 		<BagType>6</BagType>
@@ -868,7 +868,7 @@
 			<Index>0xe6</Index>
 		</Texture>
 		<SlotType>9</SlotType>
-		<LT/>
+		<LT />
 		<Description>The expo modified!!!</Description>
 		<ActivateOnEquip stat="0" amount="120">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="3" amount="120">IncrementStat</ActivateOnEquip>
@@ -885,7 +885,7 @@
 			<Index>0xe5</Index>
 		</Texture>
 		<SlotType>6</SlotType>
-		<LT/>
+		<LT />
 		<Description>Made in China.</Description>
 		<ActivateOnEquip stat="21" amount="20">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="0" amount="50">IncrementStat</ActivateOnEquip>
@@ -893,7 +893,7 @@
 		<BagType>9</BagType>
 		<FameBonus>6</FameBonus>
 		<feedPower>500</feedPower>
-		<Soulbound/>
+		<Soulbound />
 	</Object>
 	<Object type="0x5075" id="Phantom Light-X">
 		<Class>Equipment</Class>
@@ -903,7 +903,7 @@
 			<Index>0xe4</Index>
 		</Texture>
 		<SlotType>15</SlotType>
-		<LT/>
+		<LT />
 		<Description>Made by the materials of a nuclear bomb,this quiver is just as deadly...</Description>
 		<Sound>spell/fire_spray</Sound>
 		<Projectile>
@@ -932,12 +932,12 @@
 	</Object>
 	<Object type="0x5074" id="Phantom Strike-400">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<Texture>
 			<File>lofiObj5</File>
 			<Index>0xe3</Index>
 		</Texture>
-		<LT/>
+		<LT />
 		<SlotType>3</SlotType>
 		<Description>The most modern bow of all,fear the latest techonolgy of CHINA.</Description>
 		<RateOfFire>1.5</RateOfFire>
@@ -948,19 +948,19 @@
 			<MinDamage>50</MinDamage>
 			<MaxDamage>350</MaxDamage>
 			<LifetimeMS>1000</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<BagType>9</BagType>
 		<FameBonus>8</FameBonus>
 		<NumProjectiles>5</NumProjectiles>
 		<OldSound>arrowShoot</OldSound>
 		<feedPower>1000</feedPower>
-		<Soulbound/>
+		<Soulbound />
 		<DisplayId>Phantom Strike-400</DisplayId>
 	</Object>
 	<Object type="0x5073" id="Uzumaki Naruto Skin">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<AnimatedTexture>
 			<File>playerskins</File>
 			<Index>169</Index>
@@ -968,7 +968,7 @@
 		<SlotType>10</SlotType>
 		<Description>Only the strongest of all ninja is worthy of this skin! Thanks to: NPEtoPPEx and Devwarlt(and the frog).</Description>
 		<Activate skinType="36870">UnlockSkin</Activate>
-		<Consumable/>
+		<Consumable />
 		<BagType>6</BagType>
 		<DisplayId>Uzumaki Naruto Skin</DisplayId>
 	</Object>
@@ -980,8 +980,8 @@
 			<Index>0xdf</Index>
 		</Texture>
 		<SlotType>6</SlotType>
-		<SRT/>
-		<Blue/>
+		<SRT />
+		<Blue />
 		<Description>One of Dr.Terrible's inventions.</Description>
 		<ActivateOnEquip stat="21" amount="15">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="20" amount="10">IncrementStat</ActivateOnEquip>
@@ -989,7 +989,7 @@
 		<BagType>10</BagType>
 		<FameBonus>6</FameBonus>
 		<feedPower>500</feedPower>
-		<Soulbound/>
+		<Soulbound />
 	</Object>
 	<Object type="0x5071" id="Quiver of the Frozen North">
 		<Class>Equipment</Class>
@@ -999,7 +999,7 @@
 			<Index>0xdd</Index>
 		</Texture>
 		<SlotType>15</SlotType>
-		<L/>
+		<L />
 		<Description>After digging around in the Ice mountains of the Artic,they found this.</Description>
 		<Sound>spell/fire_spray</Sound>
 		<Projectile>
@@ -1029,12 +1029,12 @@
 	</Object>
 	<Object type="0x5070" id="Crossbow of the Frozen North">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<Texture>
 			<File>lofiObj5</File>
 			<Index>0xe1</Index>
 		</Texture>
-		<L/>
+		<L />
 		<SlotType>3</SlotType>
 		<Description>Along with the quiver,this bow is slow, but does OP damage.</Description>
 		<RateOfFire>0.5</RateOfFire>
@@ -1045,14 +1045,14 @@
 			<MinDamage>100</MinDamage>
 			<MaxDamage>200</MaxDamage>
 			<LifetimeMS>900</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<BagType>8</BagType>
 		<FameBonus>12</FameBonus>
 		<NumProjectiles>4</NumProjectiles>
 		<OldSound>arrowShoot</OldSound>
 		<feedPower>1000</feedPower>
-		<Soulbound/>
+		<Soulbound />
 		<DisplayId>Crossbow of the Frozen North</DisplayId>
 	</Object>
 	<Object type="0x5069" id="The Forgotten Monk's Robe">
@@ -1063,8 +1063,8 @@
 			<Index>0xdc</Index>
 		</Texture>
 		<SlotType>14</SlotType>
-		<SRT/>
-		<Green/>
+		<SRT />
+		<Green />
 		<Description>After the Heavenly Monk passed,its robe was left behind.</Description>
 		<ActivateOnEquip stat="21" amount="30">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="28" amount="-5">IncrementStat</ActivateOnEquip>
@@ -1084,8 +1084,8 @@
 			<Index>0xdb</Index>
 		</Texture>
 		<SlotType>12</SlotType>
-		<SRT/>
-		<Blue/>
+		<SRT />
+		<Blue />
 		<Description>Able to read the thoughts of your mind,this seal will control you.</Description>
 		<Sound>spell/light_heal</Sound>
 		<ActivateOnEquip stat="26" amount="7">IncrementStat</ActivateOnEquip>
@@ -1105,7 +1105,7 @@
 	</Object>
 	<Object type="0x5067" id="Dragon Skin">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<AnimatedTexture>
 			<File>playerskins</File>
 			<Index>171</Index>
@@ -1113,13 +1113,13 @@
 		<SlotType>10</SlotType>
 		<Description>Customize your Wizard with the Dragon Skin.</Description>
 		<Activate skinType="36867">UnlockSkin</Activate>
-		<Consumable/>
+		<Consumable />
 		<BagType>6</BagType>
 		<DisplayId>Dragon Skin</DisplayId>
 	</Object>
 	<Object type="0x5066" id="Frog King Skin">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<AnimatedTexture>
 			<File>playerskins</File>
 			<Index>172</Index>
@@ -1127,13 +1127,13 @@
 		<SlotType>10</SlotType>
 		<Description>Customize your Assassin with the Frog King Skin.</Description>
 		<Activate skinType="36871">UnlockSkin</Activate>
-		<Consumable/>
+		<Consumable />
 		<BagType>6</BagType>
 		<DisplayId>Frog King Skin</DisplayId>
 	</Object>
 	<Object type="0x5065" id="Lil'Athena Skin">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<AnimatedTexture>
 			<File>playerskins</File>
 			<Index>170</Index>
@@ -1141,7 +1141,7 @@
 		<SlotType>10</SlotType>
 		<Description>Only the strongest of all Palidin can attain this! Thanks to:Filisha.</Description>
 		<Activate skinType="36866">UnlockSkin</Activate>
-		<Consumable/>
+		<Consumable />
 		<BagType>6</BagType>
 		<DisplayId>Lil'Athena Skin</DisplayId>
 	</Object>
@@ -1152,9 +1152,9 @@
 			<File>lofiObj5</File>
 			<Index>0x8b</Index>
 		</Texture>
-		<SRT/>
+		<SRT />
 		<SlotType>5</SlotType>
-		<Red/>
+		<Red />
 		<Description>A shield from a place beyond the gates of war and peace.Protected the mightest Angels against the Darkness.</Description>
 		<Sound>spell/fire_spray</Sound>
 		<Projectile>
@@ -1169,7 +1169,7 @@
 			<ConditionEffect duration="10">Stunned</ConditionEffect>
 			<MultiHit />
 			<PassesCover />
-			<Stun/>
+			<Stun />
 			<ArmorPiercing />
 			<ParticleTrail lifetimeMS="100">0xb40e0e</ParticleTrail>
 		</Projectile>
@@ -1195,8 +1195,8 @@
 			<Index>0x8a</Index>
 		</Texture>
 		<SlotType>7</SlotType>
-		<SRT/>
-		<Red/>
+		<SRT />
+		<Red />
 		<Description>Worn by the Angel of Light,this armor holds amazing power.</Description>
 		<ActivateOnEquip stat="21" amount="35">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="3" amount="50">IncrementStat</ActivateOnEquip>
@@ -1204,7 +1204,7 @@
 		<BagType>6</BagType>
 		<FameBonus>6</FameBonus>
 		<feedPower>500</feedPower>
-		<Soulbound/>
+		<Soulbound />
 	</Object>
 	<Object type="0x5062" id="Doom Spoon">
 		<Class>Equipment</Class>
@@ -1214,8 +1214,8 @@
 			<Index>0x89</Index>
 		</Texture>
 		<SlotType>2</SlotType>
-		<SRT/>
-		<Blue/>
+		<SRT />
+		<Blue />
 		<Description>The bane of one's childhood..</Description>
 		<RateOfFire>.5</RateOfFire>
 		<Sound>weapon/dirk</Sound>
@@ -1230,7 +1230,7 @@
 		<OldSound>daggerSwing</OldSound>
 		<FameBonus>6</FameBonus>
 		<feedPower>600</feedPower>
-		<Soulbound/>
+		<Soulbound />
 	</Object>
 	<Object type="0x5061" id="Spell of Alantis">
 		<Class>Equipment</Class>
@@ -1240,8 +1240,8 @@
 			<Index>0x88</Index>
 		</Texture>
 		<SlotType>11</SlotType>
-		<SRT/>
-		<Blue/>
+		<SRT />
+		<Blue />
 		<Description>A horrifically dangerous spell, made in Alantis by Posideon himself containing godly power.</Description>
 		<Sound>spell/magic_nova</Sound>
 		<Projectile>
@@ -1250,7 +1250,7 @@
 			<MinDamage>50</MinDamage>
 			<MaxDamage>400</MaxDamage>
 			<LifetimeMS>1000</LifetimeMS>
-			<Wavy/>
+			<Wavy />
 		</Projectile>
 		<ActivateOnEquip stat="21" amount="2">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="20" amount="2">IncrementStat</ActivateOnEquip>
@@ -1269,12 +1269,12 @@
 			<Index>0x9c</Index>
 		</Texture>
 		<SlotType>9</SlotType>
-		<LT/>
+		<LT />
 		<Description>Cut from a fallen star, Fell by the feet of Filisha who fused it to make a ring of awesomeness.</Description>
 		<ActivateOnEquip stat="0" amount="320">IncrementStat</ActivateOnEquip>
 		<ExtraTooltipData>
-			<EffectInfo name="Additional Info" description="This item is a super rare version of Ring of Decades."/>
-			<EffectInfo name="On Equip" description="+130 Heathpoint"/>
+			<EffectInfo name="Additional Info" description="This item is a super rare version of Ring of Decades." />
+			<EffectInfo name="On Equip" description="+130 Heathpoint" />
 		</ExtraTooltipData>
 		<BagType>4</BagType>
 		<FameBonus>5</FameBonus>
@@ -1288,7 +1288,7 @@
 			<Index>0x9b</Index>
 		</Texture>
 		<SlotType>9</SlotType>
-		<LT/>
+		<LT />
 		<Description>A ring forged by the mad god in the sorrows of man's anger. Its magic protects its owner from some harm. Original Design by DieGo.</Description>
 		<ActivateOnEquip stat="21" amount="8">IncrementStat</ActivateOnEquip>
 		<BagType>6</BagType>
@@ -1305,7 +1305,7 @@
 			<Index>0x9a</Index>
 		</Texture>
 		<SlotType>6</SlotType>
-		<LT/>
+		<LT />
 		<ActivateOnEquip stat="21" amount="10">IncrementStat</ActivateOnEquip>
 		<ActivateOnEquip stat="0" amount="150">IncrementStat</ActivateOnEquip>
 		<BagType>6</BagType>
@@ -1320,7 +1320,7 @@
 			<Index>0x99</Index>
 		</Texture>
 		<SlotType>15</SlotType>
-		<LT/>
+		<LT />
 		<Description>Corrupted by creatures of the netherworld, its arrows will slacken assailants promptly.</Description>
 		<Sound>spell/fire_spray</Sound>
 		<Projectile>
@@ -1350,13 +1350,13 @@
 	</Object>
 	<Object type="0x5056" id="Bow of the Ghostly Hallows">
 		<Class>Equipment</Class>
-		<Item/>
+		<Item />
 		<Texture>
 			<File>lofiObj5</File>
 			<Index>0x98</Index>
 		</Texture>
 		<SlotType>3</SlotType>
-		<LT/>
+		<LT />
 		<Description>A bow half ressurected,exsisting only as a mirage and a weapon.</Description>
 		<RateOfFire>1.50</RateOfFire>
 		<Sound>weapon/double_bow</Sound>
@@ -1366,14 +1366,14 @@
 			<MinDamage>80</MinDamage>
 			<MaxDamage>95</MaxDamage>
 			<LifetimeMS>1500</LifetimeMS>
-			<MultiHit/>
+			<MultiHit />
 		</Projectile>
 		<BagType>6</BagType>
 		<FameBonus>6</FameBonus>
 		<NumProjectiles>2</NumProjectiles>
 		<OldSound>arrowShoot</OldSound>
 		<feedPower>1200</feedPower>
-		<Soulbound/>
+		<Soulbound />
 		<DisplayId>Bow of the Ghostly Hallows</DisplayId>
 	</Object>
 	<Object type="0x5055" id="Galatic Axe">
@@ -1384,8 +1384,8 @@
 			<Index>0xb5</Index>
 		</Texture>
 		<SlotType>1</SlotType>
-		<SRT/>
-		<Blue/>
+		<SRT />
+		<Blue />
 		<Description>Aliens from outer space donated this weapon as part of the treaty that ended the Space Wars.</Description>
 		<RateOfFire>.5</RateOfFire>
 		<Sound>weapon/mithril_sword</Sound>
@@ -1395,8 +1395,8 @@
 			<MinDamage>400</MinDamage>
 			<MaxDamage>450</MaxDamage>
 			<Boomerang />
-			<MultiHit/>
-			<PassesCover/>
+			<MultiHit />
+			<PassesCover />
 			<LifetimeMS>825</LifetimeMS>
 			<Size>90</Size>
 		</Projectile>

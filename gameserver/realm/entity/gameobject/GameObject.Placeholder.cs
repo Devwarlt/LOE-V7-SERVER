@@ -2,8 +2,8 @@
 {
     internal class Placeholder : GameObject
     {
-        public Placeholder(RealmManager manager, int life)
-            : base(manager, 0x070f, life, true, true, false)
+        public Placeholder(int life)
+            : base(0x070f, life, true, true, false)
         {
             Size = 0;
         }

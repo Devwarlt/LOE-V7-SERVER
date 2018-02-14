@@ -19,10 +19,7 @@ namespace gameserver.realm.world
             AllowTeleport = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap("vault", MapType.Wmap);
-        }
+        protected override void Init() => LoadMap("vault", MapType.Wmap);
 
         public override int EnterWorld(Entity entity)
         {

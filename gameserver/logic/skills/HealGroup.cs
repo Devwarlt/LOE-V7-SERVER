@@ -19,7 +19,7 @@ namespace gameserver.logic.behaviors
             this.range = (float)range;
             this.group = group;
             this.coolDown = coolDown.Normalize();
-            this.amount = healAmount;
+            amount = healAmount;
         }
 
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)

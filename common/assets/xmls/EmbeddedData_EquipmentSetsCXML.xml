@@ -86,7 +86,7 @@
 		<Setpiece slot="1" itemtype="0x5117">Equipment</Setpiece>
 		<Setpiece slot="2" itemtype="0x5118">Equipment</Setpiece>
 		<Setpiece slot="3" itemtype="0x5119">Equipment</Setpiece>
-		<ActivateOnEquipAll skinType="0x9997" size="110" color="0x92A9BA" >ChangeSkin</ActivateOnEquipAll>
+		<ActivateOnEquipAll skinType="0x9997" size="110" color="0x92A9BA">ChangeSkin</ActivateOnEquipAll>
 		<ActivateOnEquipAll stat="0" amount="30">IncrementStat</ActivateOnEquipAll>
 		<ActivateOnEquipAll stat="3" amount="30">IncrementStat</ActivateOnEquipAll>
 		<ActivateOnEquipAll stat="28" amount="10">IncrementStat</ActivateOnEquipAll>

@@ -1,10 +1,4 @@
-﻿#region
-
-using gameserver.networking;
-
-#endregion
-
-namespace gameserver.realm.world
+﻿namespace gameserver.realm.world
 {
     public class AbyssofDemons : World
     {
@@ -17,11 +11,6 @@ namespace gameserver.realm.world
             AllowTeleport = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap("abyss", MapType.Wmap);
-        }
-
-        public override World GetInstance(Client psr) => Manager.AddWorld(new AbyssofDemons());
+        protected override void Init() => LoadMap("abyss", MapType.Wmap);
     }
 }

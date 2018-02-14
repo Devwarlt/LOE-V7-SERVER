@@ -20,7 +20,7 @@ namespace gameserver.realm.mapsetpiece
 
         public override void RenderSetPiece(World world, IntPoint pos)
         {
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
 
             IntPoint p = new IntPoint
             {
@@ -47,7 +47,7 @@ namespace gameserver.realm.mapsetpiece
                         tile.ObjType = 0;
                         world.Map[x + p.X, y + p.Y] = tile;
 
-                        Entity en = Entity.Resolve(world.Manager, "Realm Portal");
+                        Entity en = Entity.Resolve("Realm Portal");
                         en.Move(x + p.X + 0.5f, y + p.Y + 0.5f);
                         world.EnterWorld(en);
                     }

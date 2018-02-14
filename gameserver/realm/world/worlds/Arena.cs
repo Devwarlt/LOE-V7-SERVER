@@ -13,7 +13,6 @@ namespace gameserver.realm.world
 {
     public class Arena : World
     {
-        private bool debug = false;
         private bool ready = true;
         private bool waiting = false;
         public int wave = 1;
@@ -28,10 +27,7 @@ namespace gameserver.realm.world
             AllowTeleport = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap("arena", MapType.Wmap);
-        }
+        protected override void Init() => LoadMap("arena", MapType.Wmap);
 
         public override void Tick(RealmTime time)
         {
@@ -56,9 +52,6 @@ namespace gameserver.realm.world
 
                     ready = false;
 
-                    if (debug)
-                        _($"Initializing wave {wave}...");
-
                     foreach (KeyValuePair<int, Player> i in Players)
                     {
                         if (i.Value.client == null)
@@ -71,9 +64,6 @@ namespace gameserver.realm.world
                     }
 
                     waiting = true;
-
-                    if (debug)
-                        _($"Populating wave {wave}...");
 
                     Timers.Add(new WorldTimer(5000, (world, t) =>
                     {
@@ -112,10 +102,7 @@ namespace gameserver.realm.world
                 foreach (string entity in entities)
                 {
                     Position position = new Position { X = rng.Next(12, Map.Width) - 6, Y = rng.Next(12, Map.Height) - 6 };
-                    Entity enemy = Entity.Resolve(Manager, Manager.GameData.IdToObjectType[entity]);
-
-                    if (debug)
-                        _($"Moving entity '{entity}' to X: {position.X} / Y: {position.Y}.");
+                    Entity enemy = Entity.Resolve(Program.Manager.GameData.IdToObjectType[entity]);
 
                     enemy.Move(position.X, position.Y);
                     EnterWorld(enemy);
@@ -136,13 +123,6 @@ namespace gameserver.realm.world
             foreach (Enemy enemy in Enemies.Values)
                 if (enemy.IsPet)
                     quantity--;
-            if (debug)
-            {
-                List<string> enemies = new List<string>();
-                foreach (Enemy enemy in Enemies.Values)
-                    enemies.Add($"Is pet? {enemy.IsPet} / {enemy.Name} ({enemy.Id})");
-                _($"Quantity: {quantity} / {Enemies.Count} [{string.Join(", ", enemies.ToArray())}].");
-            }
             return quantity;
         }
 
@@ -156,8 +136,6 @@ namespace gameserver.realm.world
                 if (OutOfBounds(i.Value.X, i.Value.Y))
                     LeaveWorld(i.Value);
         }
-
-        private void _(string msg) => Log.Write($"[Arena] {msg}");
 
         #region "Entities"
 

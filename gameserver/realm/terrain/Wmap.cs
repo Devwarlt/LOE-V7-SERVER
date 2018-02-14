@@ -293,7 +293,7 @@ namespace gameserver.realm.terrain
         {
             foreach (Tuple<IntPoint, ushort, string> i in entities)
             {
-                Entity entity = Entity.Resolve(manager, i.Item2);
+                Entity entity = Entity.Resolve(i.Item2);
                 entity.Move(i.Item1.X + 0.5f, i.Item1.Y + 0.5f);
                 if (i.Item3 != null)
                     foreach (string item in i.Item3.Split(';'))

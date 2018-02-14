@@ -81,7 +81,7 @@ namespace gameserver.realm.mapsetpiece
                 t = SetPieces.rotateCW(t);
             int w = t.GetLength(0), h = t.GetLength(1);
 
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < w; x++) //Rendering
                 for (int y = 0; y < h; y++)
                 {
@@ -105,7 +105,7 @@ namespace gameserver.realm.mapsetpiece
                         WmapTile tile = world.Map[x + pos.X, y + pos.Y].Clone();
                         tile.TileId = dat.IdToTileType[Floor];
                         world.Map[x + pos.X, y + pos.Y] = tile;
-                        Entity wall = Entity.Resolve(world.Manager, dat.IdToObjectType[WallB]);
+                        Entity wall = Entity.Resolve(dat.IdToObjectType[WallB]);
                         wall.Move(x + pos.X + 0.5f, y + pos.Y + 0.5f);
                         world.EnterWorld(wall);
                     }
@@ -119,8 +119,8 @@ namespace gameserver.realm.mapsetpiece
                     }
                     else if (t[x, y] == 5)
                     {
-                        Container container = new Container(world.Manager, 0x0501, null, false);
-                        Item[] items = chest.GetLoots(world.Manager, 3, 8).ToArray();
+                        Container container = new Container(0x0501, null, false);
+                        Item[] items = chest.GetLoots(3, 8).ToArray();
                         for (int i = 0; i < items.Length; i++)
                             container.Inventory[i] = items[i];
                         container.Move(pos.X + x + 0.5f, pos.Y + y + 0.5f);
@@ -128,7 +128,7 @@ namespace gameserver.realm.mapsetpiece
                     }
                     else if (t[x, y] == 6)
                     {
-                        Entity mage = Entity.Resolve(world.Manager, "Deathmage");
+                        Entity mage = Entity.Resolve("Deathmage");
                         mage.Move(pos.X + x, pos.Y + y);
                         world.EnterWorld(mage);
                     }

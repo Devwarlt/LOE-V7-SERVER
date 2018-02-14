@@ -35,12 +35,12 @@ namespace gameserver.networking.handlers
                 if (message.SlotObject.SlotId == 254)
                 {
                     client.Player.HealthPotions--;
-                    item = client.Player.Manager.GameData.Items[0xa22];
+                    item = Program.Manager.GameData.Items[0xa22];
                 }
                 else if (message.SlotObject.SlotId == 255)
                 {
                     client.Player.MagicPotions--;
-                    item = client.Player.Manager.GameData.Items[0xa23];
+                    item = Program.Manager.GameData.Items[0xa23];
                 }
                 else
                 {
@@ -56,14 +56,14 @@ namespace gameserver.networking.handlers
                     Container container;
                     if (item.Soulbound)
                     {
-                        container = new Container(client.Player.Manager, SOUL_BAG, 1000 * 30, true)
+                        container = new Container(SOUL_BAG, 1000 * 30, true)
                         {
                             BagOwners = new string[1] { client.Player.AccountId }
                         };
                     }
                     else
                     {
-                        container = new Container(client.Player.Manager, NORM_BAG, 1000 * 30, true);
+                        container = new Container(NORM_BAG, 1000 * 30, true);
                     }
                     float bagx = entity.X + (float)((invRand.NextDouble() * 2 - 1) * 0.5);
                     float bagy = entity.Y + (float)((invRand.NextDouble() * 2 - 1) * 0.5);

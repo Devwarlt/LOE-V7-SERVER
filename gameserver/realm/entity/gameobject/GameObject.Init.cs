@@ -10,8 +10,8 @@ namespace gameserver.realm.entity
     public partial class GameObject : Entity
     {
         //Stats
-        public GameObject(RealmManager manager, ushort objType, int? lifeTime, bool stat, bool dying, bool hittestable)
-            : base(manager, objType, IsInteractive(manager, objType))
+        public GameObject(ushort objType, int? lifeTime, bool stat, bool dying, bool hittestable)
+            : base(objType, IsInteractive(objType))
         {
             if (Vulnerable = lifeTime.HasValue)
                 HP = lifeTime.Value;

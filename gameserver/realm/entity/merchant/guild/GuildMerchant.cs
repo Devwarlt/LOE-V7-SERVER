@@ -15,8 +15,8 @@ namespace gameserver.realm.entity
         public const int UP3 = 0x0738;
         public const int UP3C = 250000;
 
-        public GuildMerchant(RealmManager manager, ushort objType)
-            : base(manager, objType)
+        public GuildMerchant(ushort objType)
+            : base(objType)
         {
             RankReq = 0;
             Currency = CurrencyType.GuildFame;

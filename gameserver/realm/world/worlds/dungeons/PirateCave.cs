@@ -11,9 +11,6 @@
             AllowTeleport = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap("pcave", MapType.Wmap);
-        }
+        protected override void Init() => LoadMap("pcave", MapType.Wmap);
     }
 }

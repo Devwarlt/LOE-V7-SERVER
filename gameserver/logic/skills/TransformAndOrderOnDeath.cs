@@ -34,7 +34,7 @@ namespace gameserver.logic.behaviors
             this.max = max;
             this.probability = (float)probability;
             this.returnToSpawn = returnToSpawn;
-            this.targetStateName = targetState;
+            targetStateName = targetState;
             this.range = range;
         }
 
@@ -48,7 +48,7 @@ namespace gameserver.logic.behaviors
                     int count = Random.Next(min, max + 1);
                     for (int i = 0; i < count; i++)
                     {
-                        Entity entity = Entity.Resolve(e.Host.Manager, target);
+                        Entity entity = Entity.Resolve(target);
 
                         if (returnToSpawn)
                             entity.Move((e.Host as Enemy).SpawnPoint.X, (e.Host as Enemy).SpawnPoint.Y);
@@ -76,7 +76,7 @@ namespace gameserver.logic.behaviors
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
             if (targetState == null)
-                targetState = FindState(host.Manager.Behaviors.Definitions[target].Item1, targetStateName);
+                targetState = FindState(Program.Manager.Behaviors.Definitions[target].Item1, targetStateName);
             foreach (Entity i in host.GetNearestEntities(range, target))
                 if (!i.CurrentState.Is(targetState))
                     i.SwitchTo(targetState);

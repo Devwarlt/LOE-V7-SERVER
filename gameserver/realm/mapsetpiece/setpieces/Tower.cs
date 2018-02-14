@@ -83,7 +83,7 @@ namespace gameserver.realm.mapsetpiece
 
             t[13 + 6, 13] = 3;
 
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < 27; x++) //Rendering
                 for (int y = 0; y < 27; y++)
                 {
@@ -105,7 +105,7 @@ namespace gameserver.realm.mapsetpiece
 
                     else if (t[x, y] == 3)
                     {
-                        Entity cyclops = Entity.Resolve(world.Manager, 0x0928);
+                        Entity cyclops = Entity.Resolve(0x0928);
                         cyclops.Move(pos.X + x, pos.Y + y);
                         world.EnterWorld(cyclops);
                     }

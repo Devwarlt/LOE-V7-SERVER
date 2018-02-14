@@ -19,7 +19,7 @@ namespace gameserver.realm.mapsetpiece
         Random rand = new Random();
         public override void RenderSetPiece(World world, IntPoint pos)
         {
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             int DarkGrassradiu = 17;
             int sandRadius = 17;
             int waterRadius = 14;
@@ -93,11 +93,11 @@ namespace gameserver.realm.mapsetpiece
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
                 }
-            Entity gship = Entity.Resolve(world.Manager, "Ghost Ship");
+            Entity gship = Entity.Resolve("Ghost Ship");
             gship.Move(pos.X + Size / 2f, pos.Y + Size / 2f);
             world.EnterWorld(gship);
 
-            Entity gshipanchor = Entity.Resolve(world.Manager, "Ghost Ship Anchor");
+            Entity gshipanchor = Entity.Resolve("Ghost Ship Anchor");
             gshipanchor.Move(pos.X + Size / 2f, pos.Y + Size / 2f);
             world.EnterWorld(gshipanchor);
         }

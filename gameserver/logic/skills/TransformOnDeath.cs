@@ -40,7 +40,7 @@ namespace gameserver.logic.behaviors
                     int count = Random.Next(min, max + 1);
                     for (int i = 0; i < count; i++)
                     {
-                        Entity entity = Entity.Resolve(e.Host.Manager, target);
+                        Entity entity = Entity.Resolve(target);
 
                         if (returnToSpawn)
                             entity.Move((e.Host as Enemy).SpawnPoint.X, (e.Host as Enemy).SpawnPoint.Y);

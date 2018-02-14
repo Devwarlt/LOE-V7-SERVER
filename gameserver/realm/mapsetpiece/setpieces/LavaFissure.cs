@@ -65,7 +65,7 @@ namespace gameserver.realm.mapsetpiece
                 p = SetPieces.rotateCW(p);
             p[20, 20] = 2;
 
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < Size; x++) //Rendering
                 for (int y = 0; y < Size; y++)
                 {
@@ -87,12 +87,12 @@ namespace gameserver.realm.mapsetpiece
                 }
 
 
-            Entity demon = Entity.Resolve(world.Manager, "Red Demon");
+            Entity demon = Entity.Resolve("Red Demon");
             demon.Move(pos.X + 20.5f, pos.Y + 20.5f);
             world.EnterWorld(demon);
 
-            Container container = new Container(world.Manager, 0x0501, null, false);
-            Item[] items = chest.GetLoots(world.Manager, 5, 8).ToArray();
+            Container container = new Container(0x0501, null, false);
+            Item[] items = chest.GetLoots(5, 8).ToArray();
             for (int i = 0; i < items.Length; i++)
                 container.Inventory[i] = items[i];
             container.Move(pos.X + 20.5f, pos.Y + 20.5f);

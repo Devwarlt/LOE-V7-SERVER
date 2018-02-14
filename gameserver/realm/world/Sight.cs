@@ -44,7 +44,7 @@ namespace gameserver.realm
                     {
                         RayTiles.Add(new IntPoint(x, y));
                         ObjectDesc desc;
-                        player.Manager.GameData.ObjectDescs.TryGetValue(player.Owner.Map[(int)player.X + x, (int)player.Y + y].ObjType, out desc);
+                        Program.Manager.GameData.ObjectDescs.TryGetValue(player.Owner.Map[(int)player.X + x, (int)player.Y + y].ObjType, out desc);
                         if (desc != null && desc.BlocksSight)
                             break;
                         RayTiles.Add(new IntPoint(x, y));

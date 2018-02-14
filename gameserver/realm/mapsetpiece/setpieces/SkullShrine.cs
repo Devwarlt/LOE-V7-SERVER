@@ -73,7 +73,7 @@ namespace gameserver.realm.mapsetpiece
                     if (noise.GetNoise(x / 33f * 8, y / 33f * 8, .5f) < 0.2)
                         t[x, y] = 0;
 
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < 33; x++) //Rendering
                 for (int y = 0; y < 33; y++)
                 {
@@ -123,7 +123,7 @@ namespace gameserver.realm.mapsetpiece
                     }
                 }
 
-            Entity skull = Entity.Resolve(world.Manager, "Skull Shrine"); //Skulls!
+            Entity skull = Entity.Resolve("Skull Shrine"); //Skulls!
             skull.Move(pos.X + Size / 2f, pos.Y + Size / 2f);
             world.EnterWorld(skull);
         }

@@ -2,8 +2,8 @@
 {
     public abstract class Character : Entity
     {
-        public Character(RealmManager manager, ushort objType, wRandom rand)
-            : base(manager, objType)
+        public Character(ushort objType, wRandom rand)
+            : base(objType)
         {
             Random = rand;
 
@@ -21,7 +21,7 @@
             HP = (int)ObjectDesc.MaxHP;
         }
 
-        public wRandom Random { get; private set; }
+        public new wRandom Random { get; private set; }
 
         public int HP { get; set; }
     }

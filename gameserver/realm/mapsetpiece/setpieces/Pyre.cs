@@ -35,7 +35,7 @@ namespace gameserver.realm.mapsetpiece
 
         public override void RenderSetPiece(World world, IntPoint pos)
         {
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < Size; x++)
                 for (int y = 0; y < Size; y++)
                 {
@@ -51,12 +51,12 @@ namespace gameserver.realm.mapsetpiece
                     }
                 }
 
-            Entity lord = Entity.Resolve(world.Manager, "Phoenix Lord");
+            Entity lord = Entity.Resolve("Phoenix Lord");
             lord.Move(pos.X + 15.5f, pos.Y + 15.5f);
             world.EnterWorld(lord);
 
-            Container container = new Container(world.Manager, 0x0501, null, false);
-            Item[] items = chest.GetLoots(world.Manager, 5, 8).ToArray();
+            Container container = new Container(0x0501, null, false);
+            Item[] items = chest.GetLoots(5, 8).ToArray();
             for (int i = 0; i < items.Length; i++)
                 container.Inventory[i] = items[i];
             container.Move(pos.X + 15.5f, pos.Y + 15.5f);

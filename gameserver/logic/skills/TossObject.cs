@@ -88,7 +88,7 @@ namespace gameserver.logic.behaviors
                     }, null);
                 host.Owner.Timers.Add(new WorldTimer(1500, (world, t) =>
                 {
-                    Entity entity = Entity.Resolve(world.Manager, child);
+                    Entity entity = Entity.Resolve(child);
                     entity.Move(target.X, target.Y);
                     if (entity is Enemy && host is Enemy)
                         (entity as Enemy).Terrain = (host as Enemy).Terrain;

@@ -8,16 +8,16 @@ namespace gameserver.realm.entity
 {
     public partial class Portal : GameObject
     {
-        public Portal(RealmManager manager, ushort objType, int? life)
-            : base(manager, objType, life, false, true, false)
+        public Portal(ushort objType, int? life)
+            : base(objType, life, false, true, false)
         {
             Usable = objType != 0x0721;
-            ObjectDesc = Manager.GameData.Portals[objType];
-            Name = manager.GameData.Portals[objType].DisplayId;
+            ObjectDesc = Program.Manager.GameData.Portals[objType];
+            Name = Program.Manager.GameData.Portals[objType].DisplayId;
         }
 
-        private Portal(RealmManager manager, PortalDesc desc, int? life)
-            : base(manager, desc.ObjectType, life, false, true, false)
+        private Portal(PortalDesc desc, int? life)
+            : base(desc.ObjectType, life, false, true, false)
         {
             ObjectDesc = desc;
             Name = desc.DisplayId;
@@ -64,9 +64,9 @@ namespace gameserver.realm.entity
 
         public Portal Unlock(string dungeonName)
         {
-            var desc = Manager.GameData.Portals[0x0700];
+            var desc = Program.Manager.GameData.Portals[0x0700];
             desc.DungeonName = dungeonName;
-            var portal = new Portal(Manager, desc, desc.TimeoutTime * 1000);
+            var portal = new Portal(desc, desc.TimeoutTime * 1000);
             portal.Move(X, Y);
             portal.Usable = true;
             Owner.EnterWorld(portal);

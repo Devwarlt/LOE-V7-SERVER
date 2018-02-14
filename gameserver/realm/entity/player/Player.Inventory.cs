@@ -12,7 +12,7 @@
             {
                 SetTypeSkin setType = null;
                 var item = Inventory[0];
-                if (item != null && !Manager.GameData.SetTypeSkins.TryGetValue((ushort)item.SetType, out setType)) return;
+                if (item != null && !Program.Manager.GameData.SetTypeSkins.TryGetValue((ushort)item.SetType, out setType)) return;
 
                 setTypeSkin = setType;
                 if (setTypeBoosts != null || setTypeSkin == null) return;
@@ -50,7 +50,7 @@
                 soulbound = true;
             }
 
-            var container = new Container(Manager, bagId, 1000 * 60, true);
+            var container = new Container(bagId, 1000 * 60, true);
             if (soulbound)
                 container.BagOwners = new[] { AccountId };
             container.Inventory[0] = i;

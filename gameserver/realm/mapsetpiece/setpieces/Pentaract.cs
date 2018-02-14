@@ -44,7 +44,7 @@ namespace gameserver.realm.mapsetpiece
             }
             t[20, 20] = 3;
 
-            EmbeddedData data = world.Manager.GameData;
+            EmbeddedData data = Program.Manager.GameData;
             for (int x = 0; x < 40; x++)
                 for (int y = 0; y < 40; y++)
                 {
@@ -62,13 +62,13 @@ namespace gameserver.realm.mapsetpiece
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
 
-                        Entity penta = Entity.Resolve(world.Manager, 0x0d5e);
+                        Entity penta = Entity.Resolve(0x0d5e);
                         penta.Move(pos.X + x + .5f, pos.Y + y + .5f);
                         world.EnterWorld(penta);
                     }
                     else if (t[x, y] == 3)
                     {
-                        Entity penta = Entity.Resolve(world.Manager, "Pentaract");
+                        Entity penta = Entity.Resolve("Pentaract");
                         penta.Move(pos.X + x + .5f, pos.Y + y + .5f);
                         world.EnterWorld(penta);
                     }

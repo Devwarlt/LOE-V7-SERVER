@@ -95,14 +95,14 @@ namespace gameserver.realm.mapsetpiece
             Render(this, world, pos, t, o);
 
             //Boss & Chest
-            Container container = new Container(world.Manager, 0x0501, null, false);
-            Item[] items = chest.GetLoots(world.Manager, 3, 8).ToArray();
+            Container container = new Container(0x0501, null, false);
+            Item[] items = chest.GetLoots(3, 8).ToArray();
             for (int i = 0; i < items.Length; i++)
                 container.Inventory[i] = items[i];
             container.Move(pos.X + Size / 2, pos.Y + Size / 2);
             world.EnterWorld(container);
 
-            Entity snake = Entity.Resolve(world.Manager, 0x0dc2);
+            Entity snake = Entity.Resolve(0x0dc2);
             snake.Move(pos.X + Size / 2, pos.Y + Size / 2);
             world.EnterWorld(snake);
         }

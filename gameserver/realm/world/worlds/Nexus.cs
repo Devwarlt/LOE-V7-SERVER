@@ -8,8 +8,6 @@ namespace gameserver.realm.world
 {
     public class Nexus : World
     {
-        private bool validate = false;
-
         public const string WINTER_RESOURCE = "nexus_winter";
         public const string SUMMER_RESOURCE = "nexus_summer";
         public const string LoE_RESOURCE = "LoE-test";
@@ -26,10 +24,7 @@ namespace gameserver.realm.world
             SafePlace = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap(LoE_RESOURCE, MapType.Json);
-        }
+        protected override void Init() => LoadMap(WINTER_RESOURCE, MapType.Json);
 
         public override void Tick(RealmTime time)
         {
@@ -39,7 +34,7 @@ namespace gameserver.realm.world
 
         private void UpdatePortals()
         {
-            foreach (var i in Manager.Monitor.portals)
+            foreach (var i in Program.Manager.Monitor.portals)
             {
                 foreach (var j in RealmManager.CurrentRealmNames)
                 {

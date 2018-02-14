@@ -12,8 +12,8 @@ namespace gameserver.realm.entity.merchant
 {
     partial class Merchant : SellableObject
     {
-        public Merchant(RealmManager manager, ushort objType, World owner = null)
-            : base(manager, objType)
+        public Merchant(ushort objType, World owner = null)
+            : base(objType)
         {
             MType = -1;
             Size = MERCHANT_SIZE;
@@ -46,7 +46,7 @@ namespace gameserver.realm.entity.merchant
                 if (!closing)
                 {
                     tickcount++;
-                    if (tickcount % (Manager?.TPS * 60) == 0) //once per minute after spawning
+                    if (tickcount % (Program.Manager.TPS * 60) == 0) //once per minute after spawning
                     {
                         MTime--;
                         UpdateCount++;

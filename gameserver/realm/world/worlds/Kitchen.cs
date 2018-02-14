@@ -9,9 +9,6 @@
             Background = 0;
         }
 
-        protected override void Init()
-        {
-            LoadMap("kitchen", MapType.Wmap);
-        }
+        protected override void Init() => LoadMap("kitchen", MapType.Wmap);
     }
 }

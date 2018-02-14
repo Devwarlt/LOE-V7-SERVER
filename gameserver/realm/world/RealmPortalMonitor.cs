@@ -54,7 +54,7 @@ namespace gameserver.realm
             lock (worldLock)
             {
                 Position pos = GetRandPosition();
-                Portal portal = new Portal(manager, 0x0712, null)
+                Portal portal = new Portal(0x0712, null)
                 {
                     Size = 80,
                     WorldInstance = world,
@@ -99,7 +99,7 @@ namespace gameserver.realm
             lock (worldLock)
             {
                 Position pos = GetRandPosition();
-                Portal portal = new Portal(manager, 0x71c, null)
+                Portal portal = new Portal(0x71c, null)
                 {
                     Size = 150,
                     WorldInstance = world,

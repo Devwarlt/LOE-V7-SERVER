@@ -45,7 +45,7 @@ namespace gameserver.realm.mapsetpiece.special
 
             bool done = false; // when setpiece is done after all stages
 
-            EmbeddedData dat = world.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
 
             IntPoint p = new IntPoint
             {

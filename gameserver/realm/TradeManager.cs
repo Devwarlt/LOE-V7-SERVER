@@ -35,8 +35,8 @@ namespace gameserver.realm
 
         public TradeManager(Player player1, Player player2)
         {
-            this.player1Trades = new bool[12];
-            this.player2Trades = new bool[12];
+            player1Trades = new bool[12];
+            player2Trades = new bool[12];
             this.player1 = player1;
             this.player2 = player2;
             TradingPlayers.Add(player1);

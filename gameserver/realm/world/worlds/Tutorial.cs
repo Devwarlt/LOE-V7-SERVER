@@ -22,14 +22,9 @@ namespace gameserver.realm.world
         protected override void Init()
         {
             if (!(IsLimbo = isLimbo))
-            {
                 LoadMap("tutorial", MapType.Wmap);
-            }
         }
 
-        public override World GetInstance(Client psr)
-        {
-            return Manager.AddWorld(new Tutorial(false));
-        }
+        public override World GetInstance(Client psr) => Program.Manager.AddWorld(new Tutorial(false));
     }
 }

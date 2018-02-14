@@ -1,10 +1,4 @@
-﻿#region
-
-using gameserver.networking;
-
-#endregion
-
-namespace gameserver.realm.world
+﻿namespace gameserver.realm.world
 {
     public class UndeadLair : World
     {
@@ -17,14 +11,6 @@ namespace gameserver.realm.world
             AllowTeleport = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap("UDL1", MapType.Wmap);
-        }
-
-        public override World GetInstance(Client psr)
-        {
-            return Manager.AddWorld(new UndeadLair());
-        }
+        protected override void Init() => LoadMap("UDL1", MapType.Wmap);
     }
 }

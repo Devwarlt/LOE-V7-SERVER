@@ -238,14 +238,14 @@ namespace gameserver.realm
             World ocWorld = null;
             world.Timers.Add(new WorldTimer(2000, (w, t) =>
             {
-                ocWorld = world.Manager.AddWorld(new OryxCastle());
-                ocWorld.Manager = world.Manager;
+                ocWorld = Program.Manager.AddWorld(new OryxCastle());
+                ocWorld.Manager = Program.Manager;
             }));
             world.Timers.Add(new WorldTimer(8000, (w, t) =>
             {
                 foreach (var i in world.Players.Values)
                 {
-                    if (ocWorld == null) Program.manager.TryDisconnect(i.client, DisconnectReason.RECONNECT_TO_CASTLE);
+                    if (ocWorld == null) Program.Manager.TryDisconnect(i.client, DisconnectReason.RECONNECT_TO_CASTLE);
                     i.client.SendMessage(new RECONNECT
                     {
                         Host = "",
@@ -266,7 +266,7 @@ namespace gameserver.realm
                     EffectType = EffectType.Jitter
                 });
             }
-            world.Timers.Add(new WorldTimer(10000, (w, t) => w.Manager.RemoveWorld(w)));
+            world.Timers.Add(new WorldTimer(10000, (w, t) => Program.Manager.RemoveWorld(w)));
         }
 
         public int CountEnemies(params string[] enemies)
@@ -276,7 +276,7 @@ namespace gameserver.realm
             {
                 try
                 {
-                    enemyList.Add(world.Manager.GameData.IdToObjectType[i]);
+                    enemyList.Add(Program.Manager.GameData.IdToObjectType[i]);
                 }
                 catch (Exception ex)
                 {
@@ -288,7 +288,6 @@ namespace gameserver.realm
 
         public void Init()
         {
-            log.InfoFormat("Oryx is controlling world {0}({1})...", world.Id, world.Name);
             var w = world.Map.Width;
             var h = world.Map.Height;
             var stats = new int[12];
@@ -299,8 +298,6 @@ namespace gameserver.realm
                     if (tile.Terrain != WmapTerrain.None)
                         stats[(int)tile.Terrain - 1]++;
                 }
-
-            log.Info("Spawning minions...");
             foreach (var i in spawn)
             {
                 var terrain = i.Key;
@@ -313,11 +310,10 @@ namespace gameserver.realm
                     var objType = GetRandomObjType(i.Value.Item2);
                     if (objType == 0) continue;
 
-                    enemyCounts[idx] += Spawn(world.Manager.GameData.ObjectDescs[objType], terrain, w, h);
+                    enemyCounts[idx] += Spawn(Program.Manager.GameData.ObjectDescs[objType], terrain, w, h);
                     if (enemyCounts[idx] >= enemyCount) break;
                 }
             }
-            log.Info("Oryx is done.");
         }
 
         public void InitCloseRealm()
@@ -330,8 +326,8 @@ namespace gameserver.realm
                 SendMsg(i, "YOU WILL NOT LIVE TO SEE THE LIGHT OF DAY!", "#Oryx the Mad God");
             }
             world.Timers.Add(new WorldTimer(120000, (ww, tt) => { CloseRealm(); }));
-            world.Manager.GetWorld(World.NEXUS_ID).Timers.Add(new WorldTimer(130000, (w, t) => Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => w.Manager.AddWorld(_.Result), TaskScheduler.Default)));
-            world.Manager.CloseWorld(world);
+            Program.Manager.GetWorld(World.NEXUS_ID).Timers.Add(new WorldTimer(130000, (w, t) => Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => Program.Manager.AddWorld(_.Result), TaskScheduler.Default)));
+            Program.Manager.CloseWorld(world);
         }
 
         public void OnEnemyKilled(Enemy enemy, Player killer)
@@ -361,7 +357,7 @@ namespace gameserver.realm
                 {
                     var evt = events[rand.Next(0, events.Count)];
                     if (
-                        world.Manager.GameData.ObjectDescs[world.Manager.GameData.IdToObjectType[evt.Item1]].PerRealmMax ==
+                        Program.Manager.GameData.ObjectDescs[Program.Manager.GameData.IdToObjectType[evt.Item1]].PerRealmMax ==
                         1)
                         events.Remove(evt);
                     SpawnEvent(evt.Item1, evt.Item2);
@@ -419,14 +415,10 @@ namespace gameserver.realm
             }
         }
 
-        private void BroadcastMsg(string message)
-        {
-            world.Manager.Chat.Oryx(world, message);
-        }
+        private void BroadcastMsg(string message) => Program.Manager.Chat.Oryx(world, message);
 
         private void EnsurePopulation()
         {
-            log.Info("Oryx is controlling population...");
             RecalculateEnemyCount();
             var state = new int[12];
             var diff = new int[12];
@@ -478,13 +470,13 @@ namespace gameserver.realm
                     var objType = GetRandomObjType(spawn[t].Item2);
                     if (objType == 0) continue;
 
-                    j += Spawn(world.Manager.GameData.ObjectDescs[objType], t, w, h);
+                    j += Spawn(Program.Manager.GameData.ObjectDescs[objType], t, w, h);
                 }
             }
+
             RecalculateEnemyCount();
 
             GC.Collect();
-            log.Info("Oryx is back to sleep.");
         }
 
         private ushort GetRandomObjType(Tuple<string, double>[] dat)
@@ -497,7 +489,7 @@ namespace gameserver.realm
                 n += k.Item2;
                 if (n > p)
                 {
-                    objType = world.Manager.GameData.IdToObjectType[k.Item1];
+                    objType = Program.Manager.GameData.IdToObjectType[k.Item1];
                     break;
                 }
             }
@@ -581,7 +573,7 @@ namespace gameserver.realm
 
                 for (var k = 0; k < num; k++)
                 {
-                    entity = Entity.Resolve(world.Manager, desc.ObjectType);
+                    entity = Entity.Resolve(desc.ObjectType);
                     entity.Move(
                         pt.X + (float)(rand.NextDouble() * 2 - 1) * 5,
                         pt.Y + (float)(rand.NextDouble() * 2 - 1) * 5);
@@ -601,7 +593,7 @@ namespace gameserver.realm
                          !world.IsPassable(pt.X, pt.Y) ||
                          world.AnyPlayerNearby(pt.X, pt.Y));
 
-                entity = Entity.Resolve(world.Manager, desc.ObjectType);
+                entity = Entity.Resolve(desc.ObjectType);
                 entity.Move(pt.X, pt.Y);
                 (entity as Enemy).Terrain = terrain;
                 world.EnterWorld(entity);
@@ -624,8 +616,10 @@ namespace gameserver.realm
 
             pt.X -= (setpiece.Size - 1) / 2;
             pt.Y -= (setpiece.Size - 1) / 2;
+
             setpiece.RenderSetPiece(world, pt);
-            log.InfoFormat("Oryx spawned {0} at ({1}, {2}).", name, pt.X, pt.Y);
+
+            log.Info($"Oryx spawned '{name}' at (X: {pt.X}, Y: {pt.Y}).");
         }
 
         private struct TauntData

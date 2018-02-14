@@ -1,191 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
-    <Object type="0x570e" id="l dblade prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>72</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x570f" id="l dbow prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>64</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x5710" id="l ep prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>65</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x5711" id="l cwand prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>66</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x5712" id="l cdirk prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>68</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-        <Rotation>185</Rotation>
-    </Object>
-    <Object type="0x5713" id="l ass prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>70</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x5714" id="l bulwark prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>70</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-        <Rotation>185</Rotation>
-    </Object>
-    <Object type="0x5715" id="l csword prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>69</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x5716" id="l cbow prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>67</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x5717" id="srt mg prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>73</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-        <Rotation>185</Rotation>
-    </Object>
-    <Object type="0x5718" id="inf cwhole prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>74</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x5719" id="inf acclaim prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>75</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x571a" id="inf covert prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>76</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x571b" id="inf foul prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>77</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x571c" id="inf masa prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>78</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-        <Rotation>185</Rotation>
-    </Object>
-    <Object type="0x571d" id="inf recomp prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>79</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x571e" id="umbral staff prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>81</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x571f" id="umbral wand prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>91</Index>
-        </Texture>
-    </Object>
-    <Object type="0x5720" id="umbral sword prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>83</Index>
-        </Texture>
-    </Object>
-    <Object type="0x5721" id="umbral bow prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>85</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x5722" id="umbral dagger prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>87</Index>
-        </Texture>
-    </Object>
-    <Object type="0x5723" id="umbral katana prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>89</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-    </Object>
-    <Object type="0x5724" id="slvrdllr prj">
-        <Class>Projectile</Class>
-        <Texture>
-            <File>LRE</File>
-            <Index>102</Index>
-        </Texture>
-        <AngleCorrection>1</AngleCorrection>
-        <Rotation>185</Rotation>
-    </Object>
+	<Object type="0x570e" id="l dblade prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>72</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x570f" id="l dbow prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>64</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5710" id="l ep prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>65</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5711" id="l cwand prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>66</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5712" id="l cdirk prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>68</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+		<Rotation>185</Rotation>
+	</Object>
+	<Object type="0x5713" id="l ass prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>70</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5714" id="l bulwark prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>70</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+		<Rotation>185</Rotation>
+	</Object>
+	<Object type="0x5715" id="l csword prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>69</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5716" id="l cbow prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>67</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5717" id="srt mg prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>73</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+		<Rotation>185</Rotation>
+	</Object>
+	<Object type="0x5718" id="inf cwhole prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>74</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5719" id="inf acclaim prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>75</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x571a" id="inf covert prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>76</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x571b" id="inf foul prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>77</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x571c" id="inf masa prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>78</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+		<Rotation>185</Rotation>
+	</Object>
+	<Object type="0x571d" id="inf recomp prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>79</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x571e" id="umbral staff prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>81</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x571f" id="umbral wand prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>91</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5720" id="umbral sword prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>83</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5721" id="umbral bow prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>85</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5722" id="umbral dagger prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>87</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5723" id="umbral katana prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>89</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5724" id="slvrdllr prj">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRE</File>
+			<Index>102</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+		<Rotation>185</Rotation>
+	</Object>
 	<Object type="0x5725" id="l mg prj">
 		<Class>Projectile</Class>
 		<Texture>

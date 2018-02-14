@@ -62,7 +62,7 @@
 		<UnlockSpecial>Skin of Filisha!</UnlockSpecial>
 	</Object>
 	<Object type="0x9001" id="K is Bae">
-		<Skin/>
+		<Skin />
 		<Class>Skin</Class>
 		<AnimatedTexture>
 			<File>playerskins</File>
@@ -73,7 +73,7 @@
 		<DisplayId>K is Bae</DisplayId>
 	</Object>
 	<Object type="0x9000" id="Deverino">
-		<Skin/>
+		<Skin />
 		<Class>Skin</Class>
 		<AnimatedTexture>
 			<File>playerskins</File>

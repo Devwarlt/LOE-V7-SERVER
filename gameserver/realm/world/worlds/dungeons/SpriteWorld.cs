@@ -19,9 +19,6 @@ namespace gameserver.realm.world
             AllowTeleport = true;
         }
 
-        protected override void Init()
-        {
-            LoadMap($"dungeons.sprite_world.Sprite_World_{r.Next(1, 5).ToString()}", MapType.Json);
-        }
+        protected override void Init() => LoadMap($"dungeons.sprite_world.Sprite_World_{r.Next(1, 5).ToString()}", MapType.Json);
     }
 }
