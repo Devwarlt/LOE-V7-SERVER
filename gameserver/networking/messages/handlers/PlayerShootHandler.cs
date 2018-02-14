@@ -25,25 +25,30 @@ namespace gameserver.networking.handlers
 
             if (!Program.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out item))
                 return;
+            
+            DexterityHackModHandler cheatHandler = new DexterityHackModHandler(player, message.ContainerType, TierLoot.AbilitySlotType.ToList().Contains(item.SlotType), message.AttackPeriod, message.AttackAmount);
 
-            bool isAbility = TierLoot.AbilitySlotType.ToList().Contains(item.SlotType);
+            cheatHandler.Validate();
 
-            DexterityHackModHandler dexMod = new DexterityHackModHandler(player, message.ContainerType, isAbility);
-            dexMod.Validate();
-
-            Projectile prj = player.PlayerShootProjectile(
-                message.BulletId, item.Projectiles[0], item.ObjectType,
-                message.Time, message.Position, message.Angle, !isAbility);
+            Projectile prj = player.
+                PlayerShootProjectile(
+                    message.BulletId,
+                    item.Projectiles[0],
+                    item.ObjectType,
+                    message.Time,
+                    message.Position,
+                    message.Angle
+                );
 
             player.Owner.EnterWorld(prj);
 
-            player.BroadcastSync(new ALLYSHOOT()
-            {
-                OwnerId = player.Id,
-                Angle = message.Angle,
-                ContainerType = message.ContainerType,
-                BulletId = message.BulletId
-            }, p => p != player && p.Dist(player) <= 12);
+            ALLYSHOOT _allyShoot = new ALLYSHOOT();
+            _allyShoot.Angle = message.Angle;
+            _allyShoot.BulletId = message.BulletId;
+            _allyShoot.ContainerType = message.ContainerType;
+            _allyShoot.OwnerId = player.Id;
+
+            player.BroadcastSync(_allyShoot, p => p != player && p.Dist(player) <= 12);
 
             player.FameCounter.Shoot(prj);
         }

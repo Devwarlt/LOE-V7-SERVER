@@ -542,12 +542,12 @@ namespace gameserver.realm.entity.player
 
         internal Projectile PlayerShootProjectile(
             byte id, ProjectileDesc desc, ushort objType,
-            int time, Position position, float angle, bool shouldIncProjCount = false)
+            int time, Position position, float angle)
         {
             ProjectileId = id;
             return CreateProjectile(desc, objType,
                 (int)StatsManager.GetAttackDamage(desc.MinDamage, desc.MaxDamage),
-                time, position, angle, shouldIncProjCount);
+                time, position, angle);
         }
 
         public override void Tick(RealmTime time)

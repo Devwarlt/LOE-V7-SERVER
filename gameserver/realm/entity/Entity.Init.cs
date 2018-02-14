@@ -34,7 +34,6 @@ namespace gameserver.realm
         private Player playerOwner; //For Drakes
 
         private Projectile[] projectiles;
-        public int numProjs = 0;
 
         Entity IProjectileOwner.Self => this;
         Projectile[] IProjectileOwner.Projectiles => projectiles;
@@ -617,8 +616,14 @@ namespace gameserver.realm
             }
         }
 
-        public Projectile CreateProjectile(ProjectileDesc desc, ushort container, int dmg, long time, Position pos,
-            float angle, bool shouldIncProjCount = false)
+        public Projectile CreateProjectile(
+            ProjectileDesc desc,
+            ushort container,
+            int dmg,
+            long time,
+            Position pos,
+            float angle
+            )
         {
             Projectile _projectile = new Projectile(desc)
             {
@@ -626,7 +631,6 @@ namespace gameserver.realm
                 ProjectileId = ProjectileId++,
                 Container = (short)container,
                 Damage = dmg,
-                ShouldIncProjCount = shouldIncProjCount,
                 BeginTime = time,
                 BeginPos = pos,
                 Angle = angle,
@@ -642,9 +646,6 @@ namespace gameserver.realm
 
             Owner.AddProjectileFromId(Id, _projectile.ProjectileId, _projectile);
 
-            if (shouldIncProjCount)
-                numProjs++;
-
             return _projectile;
         }
 
@@ -652,6 +653,7 @@ namespace gameserver.realm
         {
             if (ObjectDesc == null)
                 return true;
+
             return ObjectDesc.Enemy || ObjectDesc.Player;
         }
 

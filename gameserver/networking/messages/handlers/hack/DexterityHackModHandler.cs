@@ -15,48 +15,43 @@ namespace gameserver.networking.messages.handlers.hack
         protected int dexterity { get; set; }
         protected bool isAbility { get; set; }
         protected bool byPass { get; set; }
-        protected bool hasBeserk { get; set; }
-        protected float minAttackFrequency { get; set; }
-        protected float maxAttackFrequency { get; set; }
-        protected float attackVariance { get; set; }
+        protected double attackPeriod { get; set; }
+        protected int attackAmount { get; set; }
 
         public DexterityHackModHandler(
             Player _player,
             short _item,
-            bool _isAbility
+            bool _isAbility,
+            float _attackPeriod,
+            int _attackAmount
             )
         {
             player = _player;
             item = Program.Manager.GameData.Items[(ushort)_item];
             dexterity = _player.StatsManager.GetStats(7);
             isAbility = _isAbility;
+            attackPeriod = (1 / Math.Round(_attackPeriod, 4));
+            attackAmount = _attackAmount;
             byPass = _player.AccountType == (int)accountType.LOESOFT_ACCOUNT;
-            hasBeserk = _player.HasConditionEffect(ConditionEffectIndex.Berserk);
-            minAttackFrequency = .0015f;
-            maxAttackFrequency = .008f;
-            attackVariance = .25f;
         }
 
         public void Validate()
         {
             if (item == player.Inventory[1] || item == player.Inventory[2] || item == player.Inventory[3])
                 return;
-
-            if (isAbility && !byPass)
+            
+            if (isAbility)
                 return;
-
-            if (player.numProjs + 1 > ProcessRateOfFire())
+            
+            if ((attackPeriod > ProcessAttackPeriod() || attackAmount != item.NumProjectiles) && !byPass)
+            {
+                Program.Manager.TryDisconnect(player.client, Client.DisconnectReason.DEXTERITY_HACK_MOD);
                 return;
+            }
         }
 
-        private float ProcessRateOfFire() =>
-            item.NumProjectiles
-            * (item.RateOfFire == 0 ? 1 : item.RateOfFire)
-            * ((hasBeserk ? 1.5f : 1)
-            * (minAttackFrequency
-            + (dexterity / 75f)
-            * (maxAttackFrequency - minAttackFrequency)))
-            + (float)Math.Round((item.Projectiles[0].LifetimeMS / 1000), 1)
-            + attackVariance;
+        private double ProcessAttackPeriod() =>
+            1 / Math.Round((1 / player.StatsManager.GetAttackFrequency())
+            * (1 / item.RateOfFire), 4);
     }
 }

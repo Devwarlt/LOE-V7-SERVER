@@ -31,14 +31,8 @@ namespace gameserver.realm.entity
         public Position BeginPos { get; set; }
         public float Angle { get; set; }
         public ProjectileDesc ProjDesc { get; set; }
-        public bool ShouldIncProjCount { get; set; }
 
-        public void Destroy()
-        {
-            if (ShouldIncProjCount)
-                ProjectileOwner.Self.numProjs--;
-            Owner?.LeaveWorld(this);
-        }
+        public void Destroy() => Owner?.LeaveWorld(this);
 
         public Position GetPosition(long elapsedTicks)
         {
