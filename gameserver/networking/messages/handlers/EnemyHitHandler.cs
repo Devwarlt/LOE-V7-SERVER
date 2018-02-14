@@ -17,18 +17,23 @@ namespace gameserver.networking.handlers
 
         private void Handle(Player player, RealmTime time, ENEMYHIT message)
         {
-            if (player?.Owner == null) return;
+            if (player == null)
+                return;
 
             Entity entity = player.Owner.GetEntity(message.TargetId);
 
             if (entity != null)
             {
-                Projectile prj = (player as IProjectileOwner).Projectiles[message.BulletId];
-
-                prj?.ForceHit(entity, time);
-
+                
                 if (message.Killed)
                     player.ClientKilledEntity.Enqueue(entity);
+
+                Projectile prj = entity.Owner.GetProjectileFromId(player.Id, message.BulletId);
+
+                if (prj == null)
+                    return;
+
+                prj.ForceHit(entity, time);
             }
         }
     }

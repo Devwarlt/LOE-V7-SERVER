@@ -23,25 +23,26 @@ namespace gameserver.networking.handlers
             if (player.Owner == null)
                 return;
 
-            Entity enemy = player.Owner.GetEntity(message.ObjectId);
+            Entity entity = player.Owner.GetEntity(message.ObjectId);
 
-            if (enemy == null)
+            if (entity == null)
                 return;
 
-            Projectile proj = (enemy as IProjectileOwner).Projectiles[message.BulletId];
+            Projectile prj = (entity as IProjectileOwner).Projectiles[message.BulletId];
 
-            if (proj == null)
+            if (prj == null)
                 return;
 
-            foreach (ConditionEffect effect in proj.ProjDesc.Effects)
-            {
-                if (effect.Target == 1)
-                    continue;
-                else
-                    player.ApplyConditionEffect(effect);
-            }
+            entity.Owner.AddProjectileFromId(player.Id, message.BulletId, prj);
 
-            player.ForceDamage(proj.Damage, proj.ProjectileOwner.Self, proj.ProjDesc.ArmorPiercing);
+            if (prj.ProjDesc.Effects.Length != 0)
+                foreach (ConditionEffect effect in prj.ProjDesc.Effects)
+                    if (effect.Target == 1)
+                        continue;
+                    else
+                        player.ApplyConditionEffect(effect);
+
+            player.ForceHit(prj.Damage, prj.ProjectileOwner.Self, prj.ProjDesc.ArmorPiercing);
         }
     }
 }

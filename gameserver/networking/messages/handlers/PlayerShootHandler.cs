@@ -22,14 +22,15 @@ namespace gameserver.networking.handlers
             if (!player.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out item))
                 return;
 
-            if (item == player.Inventory[1])
+            if (item == player.Inventory[1] || item == player.Inventory[2] || item == player.Inventory[3])
                 return;
-
-            var prjDesc = item.Projectiles[0];
+            
             Projectile prj = player.PlayerShootProjectile(
-                message.BulletId, prjDesc, item.ObjectType,
+                message.BulletId, item.Projectiles[0], item.ObjectType,
                 message.Time, message.Position, message.Angle);
+
             player.Owner.EnterWorld(prj);
+
             player.BroadcastSync(new ALLYSHOOT()
             {
                 OwnerId = player.Id,
@@ -37,6 +38,7 @@ namespace gameserver.networking.handlers
                 ContainerType = message.ContainerType,
                 BulletId = message.BulletId
             }, p => p != player && p.Dist(player) <= 12);
+
             player.FameCounter.Shoot(prj);
         }
     }

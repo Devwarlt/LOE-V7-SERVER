@@ -9,6 +9,7 @@ using gameserver.realm.entity;
 using gameserver.realm.entity.player;
 using gameserver.logic.transitions;
 using gameserver.realm.entity.merchant;
+using System.Collections.Concurrent;
 
 #endregion
 
@@ -22,7 +23,6 @@ namespace gameserver.realm
         private readonly ObjectDesc desc;
         private readonly int[] effects;
         private Position[] posHistory;
-        private Projectile[] projectiles;
         public bool BagDropped;
         public TagList Tags;
         public bool IsPet = false;
@@ -34,17 +34,18 @@ namespace gameserver.realm
         private bool tickingEffects;
         private Player playerOwner; //For Drakes
 
+        private Projectile[] projectiles;
+
+        Entity IProjectileOwner.Self => this;
+        Projectile[] IProjectileOwner.Projectiles => projectiles;
+
         public wRandom Random { get; private set; }
 
         public Entity(RealmManager manager, ushort objType)
-            : this(manager, objType, true, false, false)
-        {
-        }
+            : this(manager, objType, true, false, false) { }
 
         public Entity(RealmManager manager, ushort objType, bool interactive)
-            : this(manager, objType, interactive, false, false)
-        {
-        }
+            : this(manager, objType, interactive, false, false) { }
 
         protected Entity(RealmManager manager, ushort objType, bool interactive, bool isPet, bool npc)
         {
@@ -126,10 +127,6 @@ namespace gameserver.realm
 
         public CollisionNode<Entity> CollisionNode { get; set; }
         public CollisionMap<Entity> Parent { get; set; }
-
-        Entity IProjectileOwner.Self => this;
-
-        Projectile[] IProjectileOwner.Projectiles => projectiles;
 
         public void SwitchTo(State state)
         {
@@ -624,7 +621,7 @@ namespace gameserver.realm
         public Projectile CreateProjectile(ProjectileDesc desc, ushort container, int dmg, long time, Position pos,
             float angle)
         {
-            var ret = new Projectile(Manager, desc) //Assume only one
+            Projectile _projectile = new Projectile(Manager, desc)
             {
                 ProjectileOwner = this,
                 ProjectileId = ProjectileId++,
@@ -636,10 +633,15 @@ namespace gameserver.realm
                 X = pos.X,
                 Y = pos.Y
             };
-            if (projectiles[ret.ProjectileId] != null)
-                projectiles[ret.ProjectileId].Destroy();
-            projectiles[ret.ProjectileId] = ret;
-            return ret;
+
+            Projectile _projectileSample;
+            if (Owner.Projectiles.TryGetValue(new KeyValuePair<int, byte>(Id, _projectile.ProjectileId), out _projectileSample))
+                if (_projectileSample != null)
+                    Owner.RemoveProjectileFromId(Id, _projectileSample.ProjectileId);
+
+            Owner.AddProjectileFromId(Id, _projectile.ProjectileId, _projectile);
+
+            return _projectile;
         }
 
         public virtual bool HitByProjectile(Projectile projectile, RealmTime time)

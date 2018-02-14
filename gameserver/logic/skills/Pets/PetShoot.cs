@@ -141,7 +141,6 @@ namespace gameserver.logic.skills.Pets
                         prjPos, (float)startAngle);
 
                     player.Owner.EnterWorld(prj);
-                    player.FameCounter.Shoot(prj);
 
                     SERVERPLAYERSHOOT _shoot = new SERVERPLAYERSHOOT();
                     _shoot.BulletId = prj.ProjectileId;
@@ -152,6 +151,8 @@ namespace gameserver.logic.skills.Pets
                     _shoot.Damage = (short)prj.Damage;
 
                     player.Owner.BroadcastPacket(_shoot, null);
+
+                    player.FameCounter.Shoot(prj);
 
                     Status = CycleStatus.Completed;
                 }

@@ -92,8 +92,6 @@ namespace gameserver.realm.entity
             base.Tick(time);
         }
 
-        private void _(string message) => Log.Write(nameof(Entity), message, System.ConsoleColor.White);
-
         public void ForceHit(Entity entity, RealmTime time)
         {
             bool penetrateObsta = ProjDesc.PassesCover;
