@@ -26,13 +26,17 @@ namespace gameserver.networking.handlers
             if (!Program.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out item))
                 return;
             
-            DexterityHackModHandler cheatHandler = new DexterityHackModHandler(player, message.ContainerType, TierLoot.AbilitySlotType.ToList().Contains(item.SlotType), message.AttackPeriod, message.AttackAmount);
+            DexterityHackModHandler _cheatHandler = new DexterityHackModHandler();
+            _cheatHandler.SetPlayer(player);
+            _cheatHandler.SetItem(item);
+            _cheatHandler.SetAbility(TierLoot.AbilitySlotType.ToList().Contains(item.SlotType));
+            _cheatHandler.SetPeriod(message.AttackPeriod);
+            _cheatHandler.SetAmount(message.AttackAmount);
+            _cheatHandler.Validate();
 
-            cheatHandler.Validate();
+            Projectile _projectile = player.PlayerShootProjectile(message.BulletId, item.Projectiles[0], item.ObjectType, Manager.Logic.CurrentTime.TotalElapsedMs, message.Position, message.Angle);
 
-            Projectile prj = player.PlayerShootProjectile(message.BulletId, item.Projectiles[0], item.ObjectType, Manager.Logic.CurrentTime.TotalElapsedMs, message.Position, message.Angle);
-
-            player.Owner.EnterWorld(prj);
+            player.Owner.EnterWorld(_projectile);
 
             ALLYSHOOT _allyShoot = new ALLYSHOOT();
             _allyShoot.Angle = message.Angle;
@@ -42,7 +46,7 @@ namespace gameserver.networking.handlers
 
             player.BroadcastSync(_allyShoot, p => p != player && p.Dist(player) <= 12);
 
-            player.FameCounter.Shoot(prj);
+            player.FameCounter.Shoot(_projectile);
         }
     }
 }
