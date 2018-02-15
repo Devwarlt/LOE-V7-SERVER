@@ -140,6 +140,10 @@ namespace gameserver.logic.skills.Pets
                         desc, pet.ObjectType, dmg, time.TotalElapsedMs,
                         prjPos, (float)startAngle);
 
+                    Log.Write($"Projectile ID: {prj.ProjectileId}.");
+
+                    player.Owner.AddProjectileFromId(player.Id, prj.ProjectileId, prj);
+
                     player.Owner.EnterWorld(prj);
 
                     SERVERPLAYERSHOOT _shoot = new SERVERPLAYERSHOOT();

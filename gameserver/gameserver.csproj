@@ -293,6 +293,7 @@
     <Compile Include="logic\transitions\HpLessTransition.cs" />
     <Compile Include="logic\transitions\TimedTransition.cs" />
     <Compile Include="networking\messages\handlers\hack\DexterityHackModHandler.cs" />
+    <Compile Include="networking\messages\handlers\hack\GodHackModHandler.cs" />
     <Compile Include="networking\messages\incoming\ACCEPTTRADE.cs" />
     <Compile Include="networking\messages\incoming\AOEACK.cs" />
     <Compile Include="networking\messages\incoming\BUY.cs" />
@@ -412,7 +413,7 @@
     <Compile Include="realm\ChatColor.cs" />
     <Compile Include="realm\ChatManager.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Frog.cs" />
-    <Compile Include="realm\commands\command\Testing.cs" />
+    <Compile Include="realm\commands\command\TestingCommands.cs" />
     <Compile Include="realm\entity\npc\NPC.Dictionary.cs" />
     <Compile Include="realm\entity\npc\NPC.Init.cs" />
     <Compile Include="realm\entity\npc\npcs\NPC.Gazer.cs" />

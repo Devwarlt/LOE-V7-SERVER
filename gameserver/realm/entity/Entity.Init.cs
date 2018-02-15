@@ -80,8 +80,6 @@ namespace gameserver.realm
 
         public bool NPC { get; private set; }
 
-        public RealmManager Manager { get; private set; }
-
         public ObjectDesc ObjectDesc => desc;
 
         public World Owner { get; internal set; }

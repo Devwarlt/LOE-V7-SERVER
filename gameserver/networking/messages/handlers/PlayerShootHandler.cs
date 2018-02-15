@@ -30,15 +30,7 @@ namespace gameserver.networking.handlers
 
             cheatHandler.Validate();
 
-            Projectile prj = player.
-                PlayerShootProjectile(
-                    message.BulletId,
-                    item.Projectiles[0],
-                    item.ObjectType,
-                    message.Time,
-                    message.Position,
-                    message.Angle
-                );
+            Projectile prj = player.PlayerShootProjectile(message.BulletId, item.Projectiles[0], item.ObjectType, Manager.Logic.CurrentTime.TotalElapsedMs, message.Position, message.Angle);
 
             player.Owner.EnterWorld(prj);
 

@@ -24,14 +24,17 @@ namespace gameserver.networking.handlers
 
             if (entity != null)
             {
-
                 if (message.Killed)
                     player.ClientKilledEntity.Enqueue(entity);
 
                 Projectile prj = entity.Owner.GetProjectileFromId(player.Id, message.BulletId);
 
+                Log.Write($"Receiving new projectile:\n\t- Player: {player.Name}\n\t- Target: {entity.Name}\n\t- Bullet ID: {message.BulletId}\n\t- Killed? {message.Killed}");
+
                 if (prj == null)
                     return;
+
+                Log.Write($"\t- Damage: {prj.Damage}");
 
                 prj.ForceHit(entity, time);
             }
