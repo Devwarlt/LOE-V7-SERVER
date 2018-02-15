@@ -39,21 +39,18 @@ namespace appengine
             message = null;
 
             message = "Loading...";
-
-            //Monitor.Write("ping");
+            
             Console.Title = message;
 
             XmlConfigurator.ConfigureAndWatch(new FileInfo("_appengine.config"));
-
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            
             Thread.CurrentThread.Name = "Entry";
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
             using (Database = new Database())
             {
                 GameData = new EmbeddedData();
-
                 autoRestart = Settings.NETWORKING.RESTART.ENABLE_RESTART;
-
                 InstanceId = Guid.NewGuid().ToString();
 
                 var port = Settings.IS_PRODUCTION ? Settings.APPENGINE.PRODUCTION_PORT : Settings.APPENGINE.TESTING_PORT;

@@ -148,6 +148,7 @@
     <Compile Include="account\setName.cs" />
     <Compile Include="account\validateEmail.cs" />
     <Compile Include="account\verifyage.cs" />
+    <Compile Include="AppEngine.cs" />
     <Compile Include="app\inGameNews\getNews.cs" />
     <Compile Include="char\delete.cs" />
     <Compile Include="char\fame.cs" />
