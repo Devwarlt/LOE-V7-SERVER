@@ -4,6 +4,7 @@ using System;
 using System.Xml.Linq;
 using gameserver.networking.outgoing;
 using gameserver.realm.entity.player;
+using System.Collections.Generic;
 
 #endregion
 
@@ -31,7 +32,8 @@ namespace gameserver.realm.entity.merchant
         {
             if (ObjectType == 0x01ca) //Merchant
             {
-                Price *= player.AccountPerks.MerchantDiscount();
+                int originalPrice = Price;
+                Price = (int) (Price * player.AccountPerks.MerchantDiscount());
                 if (TryDeduct(player))
                 {
                     for (var i = 4; i < player.Inventory.Length; i++)
@@ -46,6 +48,8 @@ namespace gameserver.realm.entity.merchant
                             // Exploit fix - No more mnovas as weapons!
                             {
                                 player.Inventory[i] = Program.Manager.GameData.Items[(ushort)MType];
+                                
+                                KeyValuePair<string, int> currency = new KeyValuePair<string, int>(null, -1);
 
                                 switch (Currency)
                                 {
@@ -53,22 +57,27 @@ namespace gameserver.realm.entity.merchant
                                         {
                                             Program.Manager.Database.UpdateFame(player.client.Account, -Price);
                                             player.CurrentFame = player.client.Account.Fame;
+                                            currency = new KeyValuePair<string, int>("fame", player.CurrentFame);
                                         }
                                         break;
                                     case CurrencyType.Gold:
                                         {
                                             Program.Manager.Database.UpdateCredit(player.client.Account, -Price);
                                             player.Credits = player.client.Account.Credits;
+                                            currency = new KeyValuePair<string, int>("gold", player.Credits);
                                         }
                                         break;
                                     case CurrencyType.FortuneTokens:
                                         {
                                             Program.Manager.Database.UpdateTokens(player.client.Account, -Price);
                                             player.Tokens = player.client.Account.FortuneTokens;
+                                            currency = new KeyValuePair<string, int>("fortune token", player.Tokens);
                                         }
                                         break;
                                     default: break;
                                 }
+                                if (1 - player.AccountPerks.MerchantDiscount() > 0 && (currency.Key != null && currency.Value != -1))
+                                    player.SendInfo($"You saved {originalPrice - Price} {currency.Key}{(currency.Value > 1 ? "s" : "")} ({1 - player.AccountPerks.MerchantDiscount()}% off)!");
                                 player.client.SendMessage(new BUYRESULT
                                 {
                                     Result = 0,
