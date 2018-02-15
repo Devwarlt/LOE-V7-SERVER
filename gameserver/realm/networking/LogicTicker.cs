@@ -16,8 +16,12 @@ namespace gameserver.realm
     public class LogicTicker
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(LogicTicker));
-        public static RealmTime CurrentTime;
         private readonly ConcurrentQueue<Action<RealmTime>>[] pendings;
+
+        public RealmTime CurrentTime
+        { get { return currentTime; } }
+
+        private RealmTime currentTime { get; set; }
 
         public int MsPT;
         public int TPS;
@@ -103,7 +107,7 @@ namespace gameserver.realm
 
         private void TickWorlds1(RealmTime t) //Continous simulation
         {
-            CurrentTime = t;
+            currentTime = t;
             foreach (World i in Manager.Worlds.Values.Distinct())
                 i.Tick(t);
         }

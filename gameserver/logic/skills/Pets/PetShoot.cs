@@ -136,9 +136,9 @@ namespace gameserver.logic.skills.Pets
 
                     Position prjPos = new Position() { X = pet.X, Y = pet.Y };
 
-                    Projectile prj = player.CreateProjectile(
-                        desc, pet.ObjectType, dmg, time.TotalElapsedMs,
-                        prjPos, (float)startAngle);
+                    Projectile prj = player.CreateProjectile(desc, pet.ObjectType, dmg, time.TotalElapsedMs, prjPos, (float)startAngle);
+
+                    player.Owner.AddProjectileFromId(player.Id, prj.ProjectileId, prj);
 
                     player.Owner.EnterWorld(prj);
 

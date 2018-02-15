@@ -50,11 +50,13 @@ namespace gameserver.realm.entity.player
 
                             for (var i = 0; i < 20; i++)
                             {
-                                Projectile proj = CreateProjectile(prjDesc, item.ObjectType,
-                                    Random.Next(prjDesc.MinDamage, prjDesc.MaxDamage),
-                                    time.TotalElapsedMs, target, (float)(i * (Math.PI * 2) / 20));
+                                Projectile proj = CreateProjectile(prjDesc, item.ObjectType, Random.Next(prjDesc.MinDamage, prjDesc.MaxDamage), time.TotalElapsedMs, target, (float)(i * (Math.PI * 2) / 20));
+
+                                Owner.AddProjectileFromId(Id, proj.ProjectileId, proj);
+
                                 Owner?.EnterWorld(proj);
                                 FameCounter.Shoot(proj);
+
                                 batch[i] = new SERVERPLAYERSHOOT()
                                 {
                                     BulletId = proj.ProjectileId,

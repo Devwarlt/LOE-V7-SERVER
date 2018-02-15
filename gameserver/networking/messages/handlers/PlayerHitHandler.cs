@@ -13,14 +13,11 @@ namespace gameserver.networking.handlers
     {
         public override MessageID ID => MessageID.PLAYERHIT;
 
-        protected override void HandleMessage(Client client, PLAYERHIT message) => Manager.Logic.AddPendingAction(t => Handle(client.Player, message));
+        protected override void HandleMessage(Client client, PLAYERHIT message) => Handle(client.Player, message);
 
         private void Handle(Player player, PLAYERHIT message)
         {
             if (player == null)
-                return;
-
-            if (player.Owner == null)
                 return;
 
             Entity entity = player.Owner.GetEntity(message.ObjectId);
@@ -42,7 +39,7 @@ namespace gameserver.networking.handlers
                     else
                         player.ApplyConditionEffect(effect);
 
-            player.ForceHit(prj.Damage, prj.ProjectileOwner.Self, prj.ProjDesc.ArmorPiercing);
+            player.ForceHit(prj.Damage, entity, prj.ProjDesc.ArmorPiercing);
         }
     }
 }

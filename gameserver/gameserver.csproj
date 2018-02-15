@@ -363,7 +363,7 @@
     <Compile Include="networking\messages\handlers\ShootAckHandler.cs" />
     <Compile Include="networking\messages\handlers\SquareHitHandler.cs" />
     <Compile Include="networking\messages\handlers\OtherHitHandler.cs" />
-    <Compile Include="networking\messages\handlers\PlayerHitHander.cs" />
+    <Compile Include="networking\messages\handlers\PlayerHitHandler.cs" />
     <Compile Include="networking\messages\handlers\PlayerShootHandler.cs" />
     <Compile Include="networking\messages\handlers\PlayerTextHandler.cs" />
     <Compile Include="networking\messages\handlers\PongHandler.cs" />
@@ -412,7 +412,7 @@
     <Compile Include="realm\ChatColor.cs" />
     <Compile Include="realm\ChatManager.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Frog.cs" />
-    <Compile Include="realm\commands\command\Testing.cs" />
+    <Compile Include="realm\commands\command\TestingCommands.cs" />
     <Compile Include="realm\entity\npc\NPC.Dictionary.cs" />
     <Compile Include="realm\entity\npc\NPC.Init.cs" />
     <Compile Include="realm\entity\npc\npcs\NPC.Gazer.cs" />
