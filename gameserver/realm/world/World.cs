@@ -91,9 +91,14 @@ namespace gameserver.realm
         public ConcurrentDictionary<int, Enemy> Enemies { get; private set; }
 
         public ConcurrentDictionary<KeyValuePair<int, byte>, Projectile> Projectiles { get; set; }
+
         public Projectile GetProjectileFromId(int hostId, byte bulletId) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)];
         public void AddProjectileFromId(int hostId, byte bulletId, Projectile proj) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)] = proj;
-        public void RemoveProjectileFromId(int hostId, byte bulletId) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)] = null;
+        public void RemoveProjectileFromId(int hostId, byte bulletId)
+        {
+            Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)].Destroy();
+            Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)] = null;
+        }
 
         public ConcurrentDictionary<int, GameObject> StaticObjects { get; private set; }
         public List<WorldTimer> Timers { get; }

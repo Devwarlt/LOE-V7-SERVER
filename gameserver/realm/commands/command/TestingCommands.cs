@@ -27,7 +27,7 @@ namespace gameserver.realm.commands
                         // returns only your chat data
                         if (cmd == "my")
                             player.SendInfo($"[ChatData] [{ChatManager.ChatDataCache[player.Name].Item1}] <{player.Name}> {ChatManager.ChatDataCache[player.Name].Item2}");
-                        
+
                         if (cmd == "all")
                             foreach (KeyValuePair<string, Tuple<DateTime, string>> messageInfos in ChatManager.ChatDataCache)
                                 player.SendInfo($"[ChatData] [{ChatManager.ChatDataCache[messageInfos.Key].Item1}] <{messageInfos.Key}> {ChatManager.ChatDataCache[messageInfos.Key].Item2}");
@@ -50,8 +50,19 @@ namespace gameserver.realm.commands
                                 player.SendInfo($"[Projectiles] [Player ID: {i.Key.Key} / Projectile ID: {i.Key.Value} / Damage: {i.Value}]");
                     }
                     break;
+                case "id":
+                    {
+                        if (cmd == "mine")
+                            player.SendInfo($"Your ID is: {player.Id}");
+
+                        if (cmd == "pet" && player.Pet != null)
+                            player.SendInfo($"Your Pet ID is: {player.Pet.Id}");
+                        else
+                            player.SendInfo($"You don't have any pet yet.");
+                    }
+                    break;
                 default:
-                    player.SendHelp("Available testing commands: 'chatdata' (my / all), 'clients' and 'projectiles (ids / all)'.");
+                    player.SendHelp("Available testing commands: 'chatdata' (my / all), 'clients', 'projectiles' (ids / all) and 'id' (mine / pet).");
                     break;
             }
             return true;
