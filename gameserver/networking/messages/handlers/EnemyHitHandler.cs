@@ -22,22 +22,24 @@ namespace gameserver.networking.handlers
 
             Entity entity = player.Owner.GetEntity(message.TargetId);
 
-            if (entity != null)
-            {
-                if (message.Killed)
-                    player.ClientKilledEntity.Enqueue(entity);
+            if (entity == null)
+                return;
 
-                Projectile prj = entity.Owner.GetProjectileFromId(player.Id, message.BulletId);
+            Projectile prj = player.Owner.GetProjectileFromId(player.Id, message.BulletId);
 
-                Log.Write($"Receiving new projectile:\n\t- Player: {player.Name}\n\t- Target: {entity.Name}\n\t- Bullet ID: {message.BulletId}\n\t- Killed? {message.Killed}");
+            if (prj == null)
+                return;
 
-                if (prj == null)
-                    return;
+            entity.Owner.RemoveProjectileFromId(player.Id, message.BulletId);
 
-                Log.Write($"\t- Damage: {prj.Damage}");
+            if (prj.ProjDesc.Effects.Length != 0)
+                foreach (ConditionEffect effect in prj.ProjDesc.Effects)
+                    if (effect.Target == 1)
+                        continue;
+                    else
+                        entity.ApplyConditionEffect(effect);
 
-                prj.ForceHit(entity, time);
-            }
+            prj.ForceHit(entity, time);
         }
     }
 }

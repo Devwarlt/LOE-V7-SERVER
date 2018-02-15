@@ -39,7 +39,7 @@ namespace gameserver.networking.handlers
                     else
                         player.ApplyConditionEffect(effect);
 
-            prj.ForcePlayerHit(player, entity, Manager.Logic.CurrentTime);
+            player.ForceHit(prj.Damage, entity, prj.ProjDesc.ArmorPiercing);
         }
     }
 }
