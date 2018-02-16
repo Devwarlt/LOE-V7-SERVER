@@ -51,7 +51,7 @@ namespace appengine
         public string name;
         public int rank;
         public int guildFame;
-        public Int32 lastSeen;
+        public int lastSeen;
 
         public static GuildMember FromDb(DbAccount acc)
         {

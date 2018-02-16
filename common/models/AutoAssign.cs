@@ -1,7 +1,12 @@
-﻿using log4net;
+﻿#region
+
+using common.models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.IO;
+
+#endregion
 
 namespace common
 {
@@ -29,7 +34,7 @@ namespace common
                         int i = line.IndexOf(":");
                         if (i == -1)
                         {
-                            Logger.Info($"Invalid settings at line {lineNum}.");
+                            Log.Info($"Invalid settings at line {lineNum}.");
                             throw new ArgumentException("Invalid settings.");
                         }
                         string val = line.Substring(i + 1);
@@ -62,7 +67,7 @@ namespace common
             {
                 if (ifNull == null)
                 {
-                    Logger.Error($"Attempt to access nonexistant settings \"{key}\".");
+                    Log.Error($"Attempt to access nonexistant settings \"{key}\".");
                     throw new ArgumentException($"\"{key}\" does not exist in settings.");
                 }
                 ret = values[key] = ifNull;

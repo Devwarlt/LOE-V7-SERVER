@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using common.config;
+using common.models;
 
 #endregion
 
@@ -78,7 +79,7 @@ namespace appengine
                 Log.Warn("Terminating AppEngine, disposing all instances.");
                 
                 IAsyncResult webSocketIAsyncResult = new WebSocketDelegate(appEngine.SafeShutdown).BeginInvoke(new AsyncCallback(appEngine.SafeDispose), null);
-                webSocketIAsyncResult.AsyncWaitHandle.WaitOne(AppEngine.ToMiliseconds(5), true);
+                webSocketIAsyncResult.AsyncWaitHandle.WaitOne();
             }
         }
     }
