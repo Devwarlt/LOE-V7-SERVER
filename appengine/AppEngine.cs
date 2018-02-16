@@ -18,41 +18,122 @@ namespace appengine
 {
     public class AppEngine
     {
-        public static int PORT = Settings.IS_PRODUCTION ? Settings.APPENGINE.PRODUCTION_PORT : Settings.APPENGINE.TESTING_PORT;
-        public static HttpListener _websocket { get; set; }
-        public static Queue<HttpListenerContext> _webqueue { get; set; }
-        public static ManualResetEvent _webevent { get; set; }
-        private static Thread[] _webthread { get; set; }
-        private static object _weblock { get; set; }
-        public static bool shutdown { get; set; }
+        public int PORT
+        { get { return Settings.IS_PRODUCTION ? Settings.APPENGINE.PRODUCTION_PORT : Settings.APPENGINE.TESTING_PORT; } }
 
-        public static void Start()
+        public HttpListener _websocket
+        { get; private set; }
+
+        public Queue<HttpListenerContext> _webqueue
+        { get; private set; }
+
+        public ManualResetEvent _webevent
+        { get; private set; }
+
+        private Thread[] _webthread
+        { get; set; }
+
+        private object _weblock
+        { get; set; }
+
+        public bool _shutdown
+        { get; set; }
+
+        public bool _isCompleted
+        { get; private set; }
+
+        protected bool _restart
+        { get; set; }
+
+        public delegate bool WebSocketDelegate();
+
+        public AppEngine(
+            bool restart
+            )
+        {
+            _restart = restart;
+        }
+
+        public void Start()
         {
             Thread.CurrentThread.Name = "Entry";
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
-            Log.Info("Initializing AppEngine... OK!");
+            if (!IPGlobalProperties.GetIPGlobalProperties().GetActiveTcpConnections().All(_ => _.LocalEndPoint.Port != PORT) && IPGlobalProperties.GetIPGlobalProperties().GetActiveTcpListeners().All(_ => _.Port != PORT))
+            {
+                ForceShutdown();
+                return;
+            }
 
-            shutdown = false;
+            if (_restart)
+                RestartThread();
+
+            _shutdown = false;
+            _isCompleted = false;
 
             _webthread = new Thread[5];
             _webqueue = new Queue<HttpListenerContext>();
             _webevent = new ManualResetEvent(false);
             _weblock = new object();
 
-            Log.Info("Initializing WebSocket...");
-
-            if (!IPGlobalProperties.GetIPGlobalProperties().GetActiveTcpConnections().All(_ => _.LocalEndPoint.Port != PORT) && IPGlobalProperties.GetIPGlobalProperties().GetActiveTcpListeners().All(_ => _.Port != PORT))
-                ForceShutdown();
-
             WebSocket();
 
-            Log.Info("Initializing WebSocket... OK!");
+            Log.Info("Initializing AppEngine... OK!");
+        }
+        
+        public static int ToMiliseconds(int minutes) => minutes * 60 * 1000;
+
+        private void RestartThread()
+        {
+            Thread parallel_thread = new Thread(() =>
+            {
+                Thread.Sleep(ToMiliseconds(Settings.NETWORKING.RESTART.RESTART_DELAY_MINUTES));
+                int i = 5;
+                do
+                {
+                    Log.Info($"AppEngine is restarting in {i} second{(i > 1 ? "s" : "")}...");
+                    Thread.Sleep(1000);
+                    i--;
+                } while (i != 0);
+
+                IAsyncResult webSocketIAsyncResult = new WebSocketDelegate(SafeShutdown).BeginInvoke(new AsyncCallback(SafeDispose), null);
+                webSocketIAsyncResult.AsyncWaitHandle.WaitOne(ToMiliseconds(5), true);
+            });
+
+            parallel_thread.Start();
         }
 
-        private static void ForceShutdown()
+        public bool SafeShutdown()
         {
-            shutdown = true;
+            do
+            {
+                Log.Info($"Awaiting {_webqueue.Count} queued item{(_webqueue.Count > 1 ? "s" : "")} to dispose, retrying in 1 second...", ConsoleColor.Green);
+                Thread.Sleep(1000);
+            } while (_webqueue.Count > 0);
+
+            return _isCompleted = true;
+        }
+
+        public void SafeDispose(IAsyncResult webSocketIAsyncResult)
+        {
+            while (!_isCompleted) ;
+
+            _websocket.Stop();
+            _webevent.Set();
+
+            Program.GameData?.Dispose();
+            Program.Manager?.Dispose();
+
+            Log.Warn("Terminated WebServer.");
+
+            Thread.Sleep(1000);
+
+            Environment.Exit(0);
+        }
+
+        private void ForceShutdown()
+        {
+            _shutdown = true;
 
             int i = 3;
 
@@ -63,7 +144,7 @@ namespace appengine
                 i--;
             } while (i != 0);
 
-            Log.Warn("Terminated WebServer.");
+            Log.Warn("Terminated AppEngine.");
 
             Thread.Sleep(1000);
 
@@ -72,7 +153,7 @@ namespace appengine
             Environment.Exit(0);
         }
 
-        private static void WebSocket()
+        private void WebSocket()
         {
             string _webaddress = $"http://{(Settings.IS_PRODUCTION ? "*" : "localhost")}:{PORT}/";
 
@@ -97,7 +178,7 @@ namespace appengine
             } while (i < _webthread.Length);
         }
 
-        private static void WebSocketAddAddress(string address, string domain, string user)
+        private void WebSocketAddAddress(string address, string domain, string user)
         {
             string args = string.Format(@"http add urlacl url={0}", address) + " user=\"" + domain + "\\" + user + "\"";
 
@@ -110,7 +191,7 @@ namespace appengine
             Process.Start(psi).WaitForExit();
         }
 
-        private static void WebSocketCallback(IAsyncResult response)
+        private void WebSocketCallback(IAsyncResult response)
         {
             if (!_websocket.IsListening)
                 return;
@@ -126,11 +207,11 @@ namespace appengine
             }
         }
 
-        private static void WebSocketThread()
+        private void WebSocketThread()
         {
             do
             {
-                if (shutdown)
+                if (_shutdown)
                     return;
 
                 HttpListenerContext _webcontext;
@@ -149,7 +230,8 @@ namespace appengine
                 try
                 {
                     WebSocketHandler(_webcontext);
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     Log.Error("WebSocketThread", "Unhandled exception");
                     Log.Error($"Bad data processing:\n{e}");
@@ -158,7 +240,7 @@ namespace appengine
             } while (_webevent.WaitOne());
         }
 
-        private static void WebSocketHandler(HttpListenerContext _webcontext)
+        private void WebSocketHandler(HttpListenerContext _webcontext)
         {
             try
             {
@@ -186,17 +268,33 @@ namespace appengine
                 Type _type = Type.GetType(_path);
 
                 if (_type != null)
-                    Log.Info($"{(_webcontext.Request.RemoteEndPoint.Address.ToString() == "::1" ? "localhost" : $"{_webcontext.Request.RemoteEndPoint.Address.ToString()}")}", _webcontext.Request.Url.LocalPath);
+                {
+                    object _webhandler = Activator.CreateInstance(_type, null, null);
+
+                    if (!(_webhandler is RequestHandler))
+                    {
+                        if (_webhandler == null)
+                            using (var wtr = new StreamWriter(_webcontext.Response.OutputStream))
+                                wtr.Write($"<Error>Class \"{_type.FullName}\" not found.</Error>");
+                        else
+                            using (var wtr = new StreamWriter(_webcontext.Response.OutputStream))
+                                wtr.Write($"<Error>Class \"{_type.FullName}\" is not of the type RequestHandler.</Error>");
+                    }
+                    else
+                        (_webhandler as RequestHandler).HandleRequest(_webcontext);
+                    Log.Info($"[{(_webcontext.Request.RemoteEndPoint.Address.ToString() == "::1" ? "localhost" : $"{_webcontext.Request.RemoteEndPoint.Address.ToString()}")}] Request\t->\t{_webcontext.Request.Url.LocalPath}");
+                }
                 else
-                    Log.Warn($"{(_webcontext.Request.RemoteEndPoint.Address.ToString() == "::1" ? "localhost" : $"{_webcontext.Request.RemoteEndPoint.Address.ToString()}")}", _webcontext.Request.Url.LocalPath);
-            } catch (Exception e)
+                    Log.Warn($"[{(_webcontext.Request.RemoteEndPoint.Address.ToString() == "::1" ? "localhost" : $"{_webcontext.Request.RemoteEndPoint.Address.ToString()}")}] Request\t->\t{_webcontext.Request.Url.LocalPath}");
+            }
+            catch (Exception e)
             {
                 _webcontext = _webqueue.Dequeue();
 
                 using (StreamWriter stream = new StreamWriter(_webcontext.Response.OutputStream))
                     stream.Write($"<h1>Bad request!</h1>\n{_webcontext.Request.Url.LocalPath}");
 
-                    Log.Error("WebSocketHandler", "Unhandled exception");
+                Log.Error("WebSocketHandler", "Unhandled exception");
                 Log.Error(e.ToString());
             }
 

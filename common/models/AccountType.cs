@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace common.config
+﻿namespace common.config
 {
     public enum accountType : int
     {

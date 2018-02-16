@@ -33,8 +33,6 @@ namespace appengine
 
         public ISManager() : base(Program.Database, Program.InstanceId)
         {
-            log.Info($"Server's ID is {Program.InstanceId}");
-
             AddHandler<NetworkMsg>(NETWORK, HandleNetwork);
             AddHandler<Message>(CHAT, HandleChat);
 
@@ -65,8 +63,6 @@ namespace appengine
                 {
                     int val;
                     availableInstance.TryRemove(i, out val);
-                    //race condition may occur, but dc for 10 sec...well let it be
-                    log.Info($"Server \"{i}\" timed out.");
                 }
             }
         }
@@ -84,7 +80,6 @@ namespace appengine
                 case NetworkCode.JOIN:
                     if (availableInstance.TryAdd(e.InstanceId, 5))
                     {
-                        log.Info($"Server \"{e.InstanceId}\" ({e.Content.Type}) joined the network.");
                         Publish(NETWORK, new NetworkMsg()   //for the new instances
                         {
                             Code = NetworkCode.JOIN,
@@ -95,14 +90,11 @@ namespace appengine
                         availableInstance[e.InstanceId] = 5;
                     break;
                 case NetworkCode.PING:
-                    if (!availableInstance.ContainsKey(e.InstanceId))
-                        log.Info($"Server \"{e.InstanceId}\" re-joined the network.");
                     availableInstance[e.InstanceId] = 5;
                     break;
                 case NetworkCode.QUIT:
                     int dummy;
                     availableInstance.TryRemove(e.InstanceId, out dummy);
-                    log.Info($"Server \"{e.InstanceId}\" quited the network.");
                     break;
             }
         }
