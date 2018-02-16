@@ -90,6 +90,7 @@
     <Compile Include="models\IFeedable.cs" />
     <Compile Include="database\NWriter.cs" />
     <Compile Include="database\NReader.cs" />
+    <Compile Include="models\Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="models\AutoAssign.cs" />
     <Compile Include="database\TaskUtils.cs" />

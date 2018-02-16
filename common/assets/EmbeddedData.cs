@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using log4net;
+using common.models;
 
 #endregion
 
@@ -19,6 +20,15 @@ namespace common
         private static readonly ILog log = LogManager.GetLogger(typeof(EmbeddedData));
 
         private readonly XElement addition;
+
+        private int LoEObjectAmount = 0;
+        private int EggAmount = 0;
+        private int EnemyAmount = 0;
+        private int ProjectileAmount = 0;
+        private int GroundAmount = 0;
+        private int EquipmentAmount = 0;
+        private int PetAmount = 0;
+        private int SkinAmount = 0;
 
         private readonly Dictionary<string, ushort> id2type_obj;
         private readonly Dictionary<string, ushort> id2type_tile;
@@ -34,20 +44,51 @@ namespace common
         private readonly Dictionary<ushort, string> type2id_tile;
         private readonly Dictionary<ushort, SetTypeSkin> setTypeSkins;
 
+        public IDictionary<ushort, XElement> ObjectTypeToElement
+        { get; private set; }
+
+        public IDictionary<ushort, string> ObjectTypeToId
+        { get; private set; }
+
+        public IDictionary<string, ushort> IdToObjectType
+        { get; private set; }
+
+        public IDictionary<ushort, XElement> TileTypeToElement
+        { get; private set; }
+
+        public IDictionary<ushort, string> TileTypeToId
+        { get; private set; }
+
+        public IDictionary<string, ushort> IdToTileType
+        { get; private set; }
+
+        public IDictionary<ushort, TileDesc> Tiles
+        { get; private set; }
+
+        public IDictionary<ushort, Item> Items
+        { get; private set; }
+
+        public IDictionary<ushort, ObjectDesc> ObjectDescs
+        { get; private set; }
+
+        public IDictionary<ushort, PortalDesc> Portals
+        { get; private set; }
+
+        public IDictionary<ushort, PetStruct> TypeToPet
+        { get; private set; }
+
+        public IDictionary<string, PetSkin> IdToPetSkin
+        { get; private set; }
+
+        public IDictionary<ushort, SetTypeSkin> SetTypeSkins
+        { get; private set; }
+
         private string[] addXml;
         private int prevUpdateCount = -1;
         private int updateCount;
         private AutoAssign assign;
 
-        public string[] time => DateTime.Now.ToString().Split(' ');
-
-        public void _(string mainFolder, int total)
-        {
-            string response = $"[{time[1]}] [GameAssets] Assets \t->\tLoaded {total} {mainFolder}.";
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(response);
-            Console.ResetColor();
-        }
+        private void _(string mainFolder, int total, bool regular = true, string init = "\t- ", string remains = "\t", string end = ".") => Log.Info($"{init}{total}{remains}{Utils.FirstCharToUpper(mainFolder)}{(regular ? (total > 1 ? "s" : "") : "")}{end}");
 
         public EmbeddedData(string path = "assets/xmls")
         {
@@ -85,47 +126,27 @@ namespace common
             }
             catch (Exception ex)
             {
-                log.Error(ex);
+                Log.Error(ex.ToString());
             }
 
             if (!loaded)
                 return;
 
-            _(path, xmls.Length);
-            _($"addition{(addition.Elements().Count() > 1 ? "s" : "")}", addition.Elements().Count());
-            _($"item{(items.Count > 1 ? "s" : "")}", items.Count);
-            _($"tile{(tiles.Count > 1 ? "s" : "")}", tiles.Count);
-            _($"object{(objDescs.Count > 1 ? "s" : "")}", objDescs.Count);
-            _($"portal{(portals.Count > 1 ? "s" : "")}", portals.Count);
-            _($"pet{(type2pet.Count > 1 ? "s" : "")}", type2pet.Count);
-            _($"pet skin{(id2pet_skin.Count > 1 ? "s" : "")}", id2pet_skin.Count);
-            _($"special themed item{(setTypeSkins.Count > 1 ? "s" : "")}", setTypeSkins.Count);
+            _("assets", xmls.Length, false, "Loaded ", " ", ".");
+            _($"custom object{(LoEObjectAmount > 1 ? "s" : "")} of {objDescs.Count} object{(objDescs.Count > 1 ? "s" : "")}", LoEObjectAmount, false);
+            _($"custom egg", EggAmount);
+            _($"custom enem{(EnemyAmount > 1 ? "ies" : "y")}", EnemyAmount, false);
+            _($"custom projectile", ProjectileAmount);
+            _($"custom ground", GroundAmount);
+            _($"custom equipment", EquipmentAmount);
+            _($"custom pet", PetAmount);
+            _($"custom skin", SkinAmount);
+            _($"portal", portals.Count);
+            _($"special themed item", setTypeSkins.Count);
         }
 
         private static string AssemblyDirectory
-        {
-            get { return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location); }
-        }
-
-
-        public IDictionary<ushort, XElement> ObjectTypeToElement { get; private set; }
-
-        public IDictionary<ushort, string> ObjectTypeToId { get; private set; }
-        public IDictionary<string, ushort> IdToObjectType { get; private set; }
-
-        public IDictionary<ushort, XElement> TileTypeToElement { get; private set; }
-
-        public IDictionary<ushort, string> TileTypeToId { get; private set; }
-        public IDictionary<string, ushort> IdToTileType { get; private set; }
-
-        public IDictionary<ushort, TileDesc> Tiles { get; private set; }
-        public IDictionary<ushort, Item> Items { get; private set; }
-        public IDictionary<ushort, ObjectDesc> ObjectDescs { get; private set; }
-        public IDictionary<ushort, PortalDesc> Portals { get; private set; }
-        public IDictionary<ushort, PetStruct> TypeToPet { get; private set; }
-        public IDictionary<string, PetSkin> IdToPetSkin { get; private set; }
-        public IDictionary<ushort, SetTypeSkin> SetTypeSkins { get; private set; }
-
+        { get { return Path.GetDirectoryName(Assembly.GetEntryAssembly().Location); } }
 
         public string[] AdditionXml
         {
@@ -163,43 +184,161 @@ namespace common
             }
         }
 
+        /* LoE Object:
+         * - element 'File' of element 'AnimatedTexture' contains: LR or
+         * element 'File' of element 'Texture' contains: LR
+         */
+        private bool isLoEObject(XElement e)
+        {
+            if (e.Element("AnimatedTexture") != null)
+                return e.Element("AnimatedTexture").Element("File").Value.ToLower().StartsWith("lr");
+            if (e.Element("Texture") != null)
+                return e.Element("Texture").Element("File").Value.ToLower().StartsWith("lr");
+            return false;
+        }
+
+        /* Eggs:
+         * - is LoE Object
+         * - attribute 'id' contains: lcp egg
+         * - attribute 'successChance'
+         * - attribute 'minStars'
+         * - element 'SlotType' is: 9000
+         * - element 'Activate' is: SpecialPet
+         */
+        private bool isEgg(XElement e) =>
+            isLoEObject(e)
+            && e.Attribute("id").Value.Contains("lcp egg")
+            && e.Attribute("successChance") != null
+            && e.Attribute("minStars") != null
+            && Utils.FromString(e.Element("SlotType").Value) == 9000
+            && e.Element("Activate").Value == "SpecialPet";
+
+        /* Enemies:
+         * - is LoE Object
+         * - element 'Enemy'
+         * - element 'Class' is: Character
+         */
+        private bool isEnemy(XElement e) =>
+           isLoEObject(e)
+           && e.Element("Enemy") != null
+           && e.Element("Class").Value == "Character";
+
+        /* Projectiles:
+         * - is LoE Object
+         * - element 'Class' is: Projectile
+         */
+        private bool isProjectile(XElement e) =>
+           isLoEObject(e)
+           && e.Element("Class").Value == "Projectile";
+
+        /* Grounds:
+         * - is LoE Object
+         * - element 'Ground'
+         */
+        private bool isGround(XElement e) =>
+           isLoEObject(e);
+
+        /* Equipments:
+         * - is LoE Object
+         * - element 'Class' is: Equipment
+         * - element 'Item'
+         */
+        private bool isEquipment(XElement e) =>
+           isLoEObject(e)
+           && e.Element("Class").Value == "Equipment"
+           && e.Element("Item") != null;
+
+        /* Pets:
+         * - is LoE Object
+         * - element 'NewPet'
+         * - element 'Class' is: Character
+         */
+        private bool isPet(XElement e) =>
+           isLoEObject(e)
+           && e.Element("NewPet") != null
+           && e.Element("Class").Value == "Character";
+
+        /* Skins:
+         * - is LoE Object
+         * - element 'Skin'
+         */
+        private bool isSkin(XElement e) =>
+           isLoEObject(e)
+           && e.Element("Skin") != null;
+
         public void AddObjects(XElement root)
         {
-            foreach (XElement elem in root.XPathSelectElements("//Object"))
+            foreach (XElement e in root.XPathSelectElements("//Object"))
             {
-                if (elem.Element("Class") == null) continue;
-                string cls = elem.Element("Class").Value;
-                string id = elem.Attribute("id").Value;
+                if (e.Element("Class") == null) continue;
+                string cls = e.Element("Class").Value;
+                string id = e.Attribute("id").Value;
+
+                if (isEgg(e))
+                {
+                    LoEObjectAmount++;
+                    EggAmount++;
+                }
+
+                if (isEnemy(e))
+                {
+                    LoEObjectAmount++;
+                    EnemyAmount++;
+                }
+
+                if (isProjectile(e))
+                {
+                    LoEObjectAmount++;
+                    ProjectileAmount++;
+                }
+
+                if (isEquipment(e))
+                {
+                    LoEObjectAmount++;
+                    EquipmentAmount++;
+                }
+
+                if (isPet(e))
+                {
+                    LoEObjectAmount++;
+                    PetAmount++;
+                }
+
+                if (isSkin(e))
+                {
+                    LoEObjectAmount++;
+                    SkinAmount++;
+                }
 
                 ushort type;
-                XAttribute typeAttr = elem.Attribute("type");
+                XAttribute typeAttr = e.Attribute("type");
                 if (typeAttr == null)
-                    type = (ushort)assign.Assign(id, elem);
+                    type = (ushort)assign.Assign(id, e);
                 else
                     type = (ushort)Utils.FromString(typeAttr.Value);
 
                 if (cls == "PetBehavior" || cls == "PetAbility") continue;
 
                 if (type2id_obj.ContainsKey(type))
-                    log.WarnFormat("'{0}' and '{1}' has the same ID of 0x{2:x4}!", id, type2id_obj[type], type);
+                    Log.Warn($"'{id}' and '{type2id_obj[type]}' has the same ID of 0x{type:x4}!");
                 if (id2type_obj.ContainsKey(id))
-                    log.WarnFormat("0x{0:x4} and 0x{1:x4} has the same name of {2}!", type, id2type_obj[id], id);
+                    Log.Warn($"0x{type:x4} and 0x{id2type_obj[id]:x4} has the same name of {id}!");
 
                 type2id_obj[type] = id;
                 id2type_obj[id] = type;
-                type2elem_obj[type] = elem;
+                type2elem_obj[type] = e;
 
                 switch (cls)
                 {
                     case "Equipment":
                     case "Dye":
-                        items[type] = new Item(type, elem);
+                        items[type] = new Item(type, e);
                         break;
                     case "Portal":
                     case "GuildHallPortal":
                         try
                         {
-                            portals[type] = new PortalDesc(type, elem);
+                            portals[type] = new PortalDesc(type, e);
                         }
                         catch
                         {
@@ -209,26 +348,26 @@ namespace common
                         }
                         break;
                     case "Pet":
-                        type2pet[type] = new PetStruct(type, elem);
+                        type2pet[type] = new PetStruct(type, e);
                         break;
                     case "PetSkin":
-                        id2pet_skin[id] = new PetSkin(type, elem);
+                        id2pet_skin[id] = new PetSkin(type, e);
                         break;
                     case "PetBehavior":
                     case "PetAbility":
                         break;
                     default:
-                        objDescs[type] = new ObjectDesc(type, elem);
+                        objDescs[type] = new ObjectDesc(type, e);
                         break;
                 }
 
-                XAttribute extAttr = elem.Attribute("ext");
+                XAttribute extAttr = e.Attribute("ext");
                 bool ext;
                 if (extAttr != null && bool.TryParse(extAttr.Value, out ext) && ext)
                 {
-                    if (elem.Attribute("type") == null)
-                        elem.Add(new XAttribute("type", type));
-                    addition.Add(elem);
+                    if (e.Attribute("type") == null)
+                        e.Add(new XAttribute("type", type));
+                    addition.Add(e);
                     updateCount++;
                 }
             }
@@ -236,33 +375,39 @@ namespace common
 
         public void AddGrounds(XElement root)
         {
-            foreach (XElement elem in root.XPathSelectElements("//Ground"))
+            foreach (XElement e in root.XPathSelectElements("//Ground"))
             {
-                string id = elem.Attribute("id").Value;
+                if (isGround(e))
+                {
+                    LoEObjectAmount++;
+                    GroundAmount++;
+                }
+
+                string id = e.Attribute("id").Value;
 
                 ushort type;
-                XAttribute typeAttr = elem.Attribute("type");
+                XAttribute typeAttr = e.Attribute("type");
                 if (typeAttr == null)
-                    type = (ushort)assign.Assign(id, elem);
+                    type = (ushort)assign.Assign(id, e);
                 else
                     type = (ushort)Utils.FromString(typeAttr.Value);
 
                 if (type2id_tile.ContainsKey(type))
-                    log.WarnFormat("'{0}' and '{1}' has the same ID of 0x{2:x4}!", id, type2id_tile[type], type);
+                    Log.Warn($"'{id}' and '{type2id_tile[type]}' has the same ID of 0x{type:x4}!");
                 if (id2type_tile.ContainsKey(id))
-                    log.WarnFormat("0x{0:x4} and 0x{1:x4} has the same name of {2}!", type, id2type_tile[id], id);
+                    Log.Warn($"0x{type:x4} and 0x{id2type_tile[id]:x4} has the same name of {id}!");
 
                 type2id_tile[type] = id;
                 id2type_tile[id] = type;
-                type2elem_tile[type] = elem;
+                type2elem_tile[type] = e;
 
-                tiles[type] = new TileDesc(type, elem);
+                tiles[type] = new TileDesc(type, e);
 
-                XAttribute extAttr = elem.Attribute("ext");
+                XAttribute extAttr = e.Attribute("ext");
                 bool ext;
                 if (extAttr != null && bool.TryParse(extAttr.Value, out ext) && ext)
                 {
-                    addition.Add(elem);
+                    addition.Add(e);
                     updateCount++;
                 }
             }
@@ -316,7 +461,8 @@ namespace common
                         SetValue("nextSigned", nextSignedId.ToString());
                     }
                     SetValue(id, type.ToString());
-                    log.InfoFormat("Auto assigned '{0}' to 0x{1:x4}", id, type);
+
+                    Log.Info($"Auto assigned '{id}' to 0x{type:x4}");
                 }
                 return type;
             }

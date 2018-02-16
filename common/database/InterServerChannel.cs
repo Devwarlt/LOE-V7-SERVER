@@ -44,13 +44,20 @@ namespace common
 
         public void Publish<T>(string channel, T val, string target = null) where T : struct
         {
-            var message = new Message<T>()
+            Message<T> message = new Message<T>()
             {
                 InstId = InstanceId,
                 TargetInst = target,
                 Content = val
             };
-            Database.Publish(channel, JsonConvert.SerializeObject(message));
+            try
+            {
+                Database?.Publish(channel, JsonConvert.SerializeObject(message));
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         public void AddHandler<T>(string channel, EventHandler<InterServerEventArgs<T>> handler) where T : struct
