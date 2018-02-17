@@ -25,12 +25,12 @@ namespace gameserver.networking.handlers
             if (entity == null)
                 return;
 
-            Projectile prj = (entity as IProjectileOwner).Projectiles[message.BulletId];
+            Projectile prj = entity.Owner.GetProjectileFromId(message.ObjectId, message.BulletId);
 
             if (prj == null)
                 return;
 
-            entity.Owner.AddProjectileFromId(player.Id, message.BulletId, prj);
+            prj.Owner.RemoveProjectileFromId(message.ObjectId, message.BulletId);
 
             if (prj.ProjDesc.Effects.Length != 0)
                 foreach (ConditionEffect effect in prj.ProjDesc.Effects)

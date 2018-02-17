@@ -19,8 +19,6 @@ namespace gameserver.networking.handlers
 {
     internal class HelloHandler : MessageHandlers<HELLO>
     {
-        private void _(string msg) => Log.Write(nameof(HelloHandler), msg);
-
         public override MessageID ID => MessageID.HELLO;
 
         protected override void HandleMessage(Client client, HELLO message)

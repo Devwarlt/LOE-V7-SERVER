@@ -13,6 +13,7 @@ using common.config;
 using static gameserver.networking.Client;
 using common;
 using gameserver.logic.skills.Pets;
+using common.models;
 
 #endregion
 
@@ -249,11 +250,11 @@ namespace gameserver.realm.entity.player
 
                     client.SendMessage(_death);
 
-                    Log.Write($"Message details type '{_death.ID}':\n{_death}");
+                    Log.Info($"Message details type '{_death.ID}':\n{_death}");
 
                     Owner.Timers.Add(new WorldTimer(1000, (w, t) => Program.Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD)));
 
-                    Log.Write($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
+                    Log.Info($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
 
                     Owner.LeaveWorld(this);
                 }

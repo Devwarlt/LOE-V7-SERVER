@@ -8,7 +8,7 @@ using System;
 
 namespace gameserver.networking.messages.handlers.hack
 {
-    public class DexterityHackModHandler
+    public class DexterityCheatHandler : ICheatHandler
     {
         protected Player player { get; set; }
         protected Item item { get; set; }
@@ -16,7 +16,7 @@ namespace gameserver.networking.messages.handlers.hack
         protected double attackPeriod { get; set; }
         protected int attackAmount { get; set; }
 
-        public DexterityHackModHandler() { }
+        public DexterityCheatHandler() { }
 
         public void SetPlayer(Player player) => this.player = player;
 
@@ -31,7 +31,10 @@ namespace gameserver.networking.messages.handlers.hack
         private bool byPass
         { get { return player.AccountType == (int)accountType.LOESOFT_ACCOUNT; } }
 
-        public void Validate()
+        CheatID ICheatHandler.ID
+        { get { return CheatID.DEXTERITY; } }
+
+        public void Handler()
         {
             if (item == player.Inventory[1] || item == player.Inventory[2] || item == player.Inventory[3])
                 return;

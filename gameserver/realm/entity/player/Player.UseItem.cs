@@ -866,7 +866,6 @@ namespace gameserver.realm.entity.player
                                             PetID = newPetID;
                                             HatchlingPet = true;
                                             Owner.LeaveWorld(Pet);
-                                            Pet.Dispose();
                                             message = "Congratulations! You received a new pet.";
                                             Pet = Resolve(eff.petType);
                                             Pet.Move(X, Y);

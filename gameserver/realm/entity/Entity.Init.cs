@@ -15,7 +15,7 @@ using gameserver.realm.entity.merchant;
 namespace gameserver.realm
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-    public class Entity : IProjectileOwner, ICollidable<Entity>, IDisposable
+    public class Entity : ICollidable<Entity>
     {
         private const int EFFECT_COUNT = 56;
         public bool Spawned;
@@ -35,25 +35,21 @@ namespace gameserver.realm
         private Player playerOwner; //For Drakes
 
         private Projectile[] projectiles;
-
-        Entity IProjectileOwner.Self => this;
-        Projectile[] IProjectileOwner.Projectiles => projectiles;
-
+        
         public wRandom Random { get; private set; }
 
         public Entity(ushort objType)
-            : this(objType, true, false, false) { }
+            : this(objType, true, false) { }
 
         public Entity(ushort objType, bool interactive)
-            : this(objType, interactive, false, false) { }
+            : this(objType, interactive, false) { }
 
-        protected Entity(ushort objType, bool interactive, bool isPet, bool npc)
+        protected Entity(ushort objType, bool interactive, bool isPet)
         {
             ObjectType = objType;
             Name = "";
             Usable = false;
             BagDropped = false;
-            NPC = npc;
             IsPet = isPet;
             Program.Manager.Behaviors.ResolveBehavior(this);
             Program.Manager.GameData.ObjectDescs.TryGetValue(objType, out desc);
@@ -78,8 +74,6 @@ namespace gameserver.realm
                     DurationMS = -1
                 });
         }
-
-        public bool NPC { get; private set; }
 
         public ObjectDesc ObjectDesc => desc;
 
@@ -750,20 +744,6 @@ namespace gameserver.realm
                 return false;
 
             return effect != ConditionEffectIndex.Slowed || !HasConditionEffect(ConditionEffects.SlowedImmune);
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-        public virtual void Dispose()
-        {
-            Owner = null;
-            WorldInstance = null;
-            Name = null;
-            states = null;
-            CurrentState = null;
-            CollisionNode = null;
-            Parent = null;
-            projectiles = null;
-            posHistory = null;
         }
     }
 }

@@ -26,13 +26,13 @@ namespace gameserver.networking.handlers
             if (!Program.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out item))
                 return;
             
-            DexterityHackModHandler _cheatHandler = new DexterityHackModHandler();
+            DexterityCheatHandler _cheatHandler = new DexterityCheatHandler();
             _cheatHandler.SetPlayer(player);
             _cheatHandler.SetItem(item);
             _cheatHandler.SetAbility(TierLoot.AbilitySlotType.ToList().Contains(item.SlotType));
             _cheatHandler.SetPeriod(message.AttackPeriod);
             _cheatHandler.SetAmount(message.AttackAmount);
-            _cheatHandler.Validate();
+            _cheatHandler.Handler();
 
             Projectile _projectile = player.PlayerShootProjectile(message.BulletId, item.Projectiles[0], item.ObjectType, Manager.Logic.CurrentTime.TotalElapsedMs, message.Position, message.Angle);
 

@@ -30,7 +30,7 @@ namespace gameserver.networking.handlers
             if (prj == null)
                 return;
 
-            entity.Owner.RemoveProjectileFromId(player.Id, message.BulletId);
+            prj.Owner.RemoveProjectileFromId(player.Id, message.BulletId);
 
             if (prj.ProjDesc.Effects.Length != 0)
                 foreach (ConditionEffect effect in prj.ProjDesc.Effects)
@@ -39,7 +39,7 @@ namespace gameserver.networking.handlers
                     else
                         entity.ApplyConditionEffect(effect);
 
-            prj.ForceHit(entity, time);
+            prj.ForceHit(entity, time, message.Killed);
         }
     }
 }

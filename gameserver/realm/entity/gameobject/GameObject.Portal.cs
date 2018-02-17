@@ -73,12 +73,5 @@ namespace gameserver.realm.entity
             Owner.LeaveWorld(this);
             return portal;
         }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-        public override void Dispose()
-        {
-            WorldInstance = null;
-            base.Dispose();
-        }
     }
 }

@@ -359,10 +359,7 @@ namespace gameserver.realm.entity.player
         public bool TPCooledDown() => CanTPCooldownTime > 0 ? false : true;
 
         public string ResolveGuildChatName() => Name;
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-        public new void Dispose() => tiles = null;
-
+        
         public bool HasSlot(int slot) => Inventory[slot] != null;
 
         public void AwaitMove(int tickId) => _move.Enqueue(tickId);
@@ -478,10 +475,7 @@ namespace gameserver.realm.entity.player
 
                 _pongTime = time.TotalElapsedMs;
             }
-            catch (Exception ex)
-            {
-                Log.Write(nameof(Player), $"Pong:\n{ex}");
-            }
+            catch (Exception) { }
         }
 
         private static int GetExpGoal(int level) => 50 + (level - 1) * 100;

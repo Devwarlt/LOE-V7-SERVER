@@ -127,7 +127,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Log.cs" />
     <Compile Include="logic\engine\Behavior.cs" />
     <Compile Include="logic\engine\task\TaskManager.Dictionary.cs" />
     <Compile Include="logic\engine\task\TaskManager.Init.cs" />
@@ -292,7 +291,9 @@
     <Compile Include="logic\transitions\PlayerWithinTransition.cs" />
     <Compile Include="logic\transitions\HpLessTransition.cs" />
     <Compile Include="logic\transitions\TimedTransition.cs" />
-    <Compile Include="networking\messages\handlers\hack\DexterityHackModHandler.cs" />
+    <Compile Include="networking\messages\handlers\hack\GodCheatHandler.cs" />
+    <Compile Include="networking\messages\handlers\hack\ICheatHandler.cs" />
+    <Compile Include="networking\messages\handlers\hack\DexterityCheatHandler.cs" />
     <Compile Include="networking\messages\incoming\ACCEPTTRADE.cs" />
     <Compile Include="networking\messages\incoming\AOEACK.cs" />
     <Compile Include="networking\messages\incoming\BUY.cs" />

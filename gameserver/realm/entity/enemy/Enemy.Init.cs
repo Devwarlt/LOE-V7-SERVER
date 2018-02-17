@@ -63,9 +63,14 @@ namespace gameserver.realm.entity
 
         public void Death(RealmTime time)
         {
+            if (this == null
+                || counter == null
+                || CurrentState == null
+                || Owner == null)
+                return;
             counter.Death(time);
-            CurrentState?.OnDeath(new BehaviorEventArgs(this, time));
-            Owner?.LeaveWorld(this);
+            CurrentState.OnDeath(new BehaviorEventArgs(this, time));
+            Owner.LeaveWorld(this);
         }
 
         public void SetDamageCounter(DamageCounter counter, Enemy enemy)
@@ -153,7 +158,7 @@ namespace gameserver.realm.entity
                     Damage = (ushort)dmg,
                     Killed = HP <= 0,
                     BulletId = projectile.ProjectileId,
-                    ObjectId = projectile.ProjectileOwner.Self.Id
+                    ObjectId = projectile.ProjectileOwner.Id
                 }, HP <= 0 && !IsOneHit(dmg, prevHp) ? null : projectile.ProjectileOwner as Player);
 
                 counter.HitBy(projectile.ProjectileOwner as Player, time, projectile, dmg);
@@ -183,13 +188,6 @@ namespace gameserver.realm.entity
                 bleeding += 28 * (time.ElapsedMsDelta / 1000f);
             }
             base.Tick(time);
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-        public override void Dispose()
-        {
-            counter = null;
-            base.Dispose();
         }
     }
 }

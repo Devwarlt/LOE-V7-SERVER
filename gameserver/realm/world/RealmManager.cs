@@ -17,6 +17,7 @@ using common.config;
 using gameserver.realm.entity.merchant;
 using static gameserver.networking.Client;
 using gameserver.realm.entity.npc;
+using common.models;
 
 #endregion
 
@@ -196,7 +197,7 @@ namespace gameserver.realm
             }
             catch (Exception e)
             {
-                Log.Write($"An error occurred.\n{e}", ConsoleColor.Red);
+                Log.Error($"An error occurred.\n{e}");
             }
 
             return new ConnectionProtocol(false, ErrorIDs.LOST_CONNECTION); // User dropped connection while reconnect.
@@ -219,7 +220,7 @@ namespace gameserver.realm
 
                     ClientManager.TryRemove(client.Account.AccountId, out _disposableCData);
 
-                    Log.Write($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.client.Account.Name} (Account ID: {_disposableCData.client.Account.AccountId})'.");
+                    Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.client.Account.Name} (Account ID: {_disposableCData.client.Account.AccountId})'.");
 
                     _disposableCData.client.Save();
                     _disposableCData.client.State = ProtocolState.Disconnected;
@@ -228,7 +229,7 @@ namespace gameserver.realm
                 }
                 else
                 {
-                    Log.Write($"[({(int)reason}) {reason.ToString()}] Disconnect player '{client.Account.Name} (Account ID: {client.Account.AccountId})'.");
+                    Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{client.Account.Name} (Account ID: {client.Account.AccountId})'.");
 
                     client.Save();
                     client.State = ProtocolState.Disconnected;

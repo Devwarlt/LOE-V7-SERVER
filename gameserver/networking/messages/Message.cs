@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using gameserver.networking.outgoing;
 using common;
+using common.models;
 
 #endregion
 
@@ -28,7 +29,7 @@ namespace gameserver.networking
                 }
             int j = 1;
             foreach (KeyValuePair<MessageID, Message> message in Messages)
-                Log.Write($"({j++}/{Messages.Count}) Message ID '{message.Key}' has been added.", ConsoleColor.Gray);
+                Log.Info($"({j++}/{Messages.Count}) Message ID '{message.Key}' has been added.");
         }
 
         public abstract MessageID ID { get; }

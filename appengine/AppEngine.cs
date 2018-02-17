@@ -81,7 +81,7 @@ namespace appengine
 
             Log.Info("Initializing AppEngine... OK!");
         }
-        
+
         public static int ToMiliseconds(int minutes) => minutes * 60 * 1000;
 
         private void RestartThread()
@@ -108,7 +108,7 @@ namespace appengine
         {
             do
             {
-                Log.Info($"Awaiting {_webqueue.Count} queued item{(_webqueue.Count > 1 ? "s" : "")} to dispose, retrying in 1 second...", ConsoleColor.Green);
+                Log.Warn($"Awaiting {_webqueue.Count} queued item{(_webqueue.Count > 1 ? "s" : "")} to dispose, retrying in 1 second...");
                 Thread.Sleep(1000);
             } while (_webqueue.Count > 0);
 
@@ -164,7 +164,14 @@ namespace appengine
             _websocket.Prefixes.Add(_webaddress);
             _websocket.Start();
 
-            _websocket.BeginGetContext(WebSocketCallback, null);
+            try
+            {
+                _websocket.BeginGetContext(WebSocketCallback, null);
+            }
+            catch (Exception)
+            {
+                return;
+            }
 
             int i = 0;
 
@@ -194,18 +201,22 @@ namespace appengine
 
         private void WebSocketCallback(IAsyncResult response)
         {
-            if (!_websocket.IsListening)
-                return;
-
-            HttpListenerContext _webcontext = _websocket.EndGetContext(response);
-
-            _websocket.BeginGetContext(WebSocketCallback, null);
-
-            lock (_weblock)
+            try
             {
-                _webqueue.Enqueue(_webcontext);
-                _webevent.Set();
+                if (!_websocket.IsListening)
+                    return;
+
+                HttpListenerContext _webcontext = _websocket.EndGetContext(response);
+
+                _websocket.BeginGetContext(WebSocketCallback, null);
+
+                lock (_weblock)
+                {
+                    _webqueue.Enqueue(_webcontext);
+                    _webevent.Set();
+                }
             }
+            catch (Exception) { }
         }
 
         private void WebSocketThread()

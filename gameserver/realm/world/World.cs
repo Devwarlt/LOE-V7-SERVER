@@ -13,6 +13,7 @@ using gameserver.realm.entity;
 using gameserver.realm.entity.player;
 using gameserver.realm.world;
 using gameserver.realm.terrain;
+using common.models;
 
 #endregion
 
@@ -278,7 +279,7 @@ namespace gameserver.realm
                     if (projectile != null)
                     {
                         projectile.Init(this);
-                        AddProjectileFromId(projectile.ProjectileOwner.Self.Id, projectile.ProjectileId, projectile);
+                        AddProjectileFromId(projectile.ProjectileOwner.Id, projectile.ProjectileId, projectile);
                     }
                     else
                     {
@@ -303,40 +304,79 @@ namespace gameserver.realm
             return entity.Id;
         }
 
+        private void TryRemove(Player player)
+        {
+            Player dummy;
+
+            if (!Players.TryRemove(player.Id, out dummy))
+            {
+                Log.Error($"Player '{player.Name}' wasn't removed from World '{Name}'.");
+                return;
+            }
+
+            dummy = null;
+
+            PlayersCollision.Remove(player);
+        }
+
+        private void TryRemove(Enemy enemy)
+        {
+            Enemy dummy;
+
+            if (!Enemies.TryRemove(enemy.Id, out dummy))
+            {
+                Log.Error($"Enemy '{enemy.Name}' wasn't removed from World '{Name}'.");
+                return;
+            }
+
+            if (enemy.ObjectDesc.Quest)
+                if (!Quests.TryRemove(enemy.Id, out dummy))
+                {
+                    Log.Error($"Enemy Quest '{enemy.Name}' wasn't removed from World '{Name}'.");
+                    return;
+                }
+
+            dummy = null;
+
+            EnemiesCollision.Remove(enemy);
+
+            Log.Warn($"Enemy '{enemy.Name}' was successfully removed from World '{Name}'.");
+        }
+
+        private void TryRemove(Projectile projectile) => RemoveProjectileFromId(projectile.ProjectileOwner.Id, projectile.ProjectileId);
+
+        private void TryRemove(GameObject gameObject)
+        {
+            GameObject dummy;
+
+            if (gameObject.Name == "")
+                return;
+
+            if (!StaticObjects.TryRemove(gameObject.Id, out dummy))
+            {
+                Log.Error($"Game Object '{gameObject.Name}' wasn't removed from World '{Name}'.");
+                return;
+            }
+
+            dummy = null;
+        }
+
         public virtual void LeaveWorld(Entity entity)
         {
             if (entity is Player)
-            {
-                Player dummy;
-                if (!Players.TryRemove(entity.Id, out dummy))
-                    log4net.WarnFormat("Could not remove {0} from world {1}", entity.Name, Name);
-                PlayersCollision?.Remove(entity);
-            }
-            else if (entity is Enemy)
-            {
-                Enemy dummy;
-                Enemies.TryRemove(entity.Id, out dummy);
-                EnemiesCollision?.Remove(entity);
-                if (entity.ObjectDesc.Quest)
-                    Quests.TryRemove(entity.Id, out dummy);
-            }
+                TryRemove(entity as Player);
+            if (entity is Enemy)
+                TryRemove(entity as Enemy);
+            if (entity is Projectile)
+                TryRemove(entity as Projectile);
+            if (entity is GameObject)
+                TryRemove(entity as GameObject);
+            if (entity is Decoy)
+                PlayersCollision.Remove(entity);
             else
-            {
-                var projectile = entity as Projectile;
-                if (projectile != null)
-                    RemoveProjectileFromId(projectile.ProjectileOwner.Self.Id, projectile.ProjectileId);
-                else if (entity is GameObject)
-                {
-                    GameObject dummy;
-                    StaticObjects.TryRemove(entity.Id, out dummy);
-                    if (entity is Decoy)
-                        PlayersCollision?.Remove(entity);
-                    else
-                        EnemiesCollision?.Remove(entity);
-                }
-            }
-            entity.Owner = null;
-            entity?.Dispose();
+                EnemiesCollision.Remove(entity);
+
+            entity = null;
         }
 
         public Entity GetEntity(int id)

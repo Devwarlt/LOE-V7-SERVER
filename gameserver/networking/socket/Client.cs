@@ -73,7 +73,8 @@ namespace gameserver.networking
             Socket = null;
             Character = null;
             Account = null;
-            Player?.Dispose();
+            if (Player.PetID != 0 && Player.Pet != null)
+                Player.Owner.LeaveWorld(Player.Pet);
             Player = null;
             Random = null;
             ConnectedBuild = null;

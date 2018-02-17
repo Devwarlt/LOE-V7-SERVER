@@ -52,7 +52,7 @@ namespace gameserver.realm.entity
                     Damage = (ushort)dmg,
                     Killed = HP <= 0 || dmg >= HP,
                     BulletId = projectile.ProjectileId,
-                    ObjectId = projectile.ProjectileOwner.Self.Id
+                    ObjectId = projectile.ProjectileOwner.Id
                 }, projectile.ProjectileOwner as Player);
 
                 if (HP <= 0 || dmg >= HP)

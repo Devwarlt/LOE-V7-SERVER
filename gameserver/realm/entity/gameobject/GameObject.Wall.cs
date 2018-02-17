@@ -31,7 +31,7 @@ namespace gameserver.realm.entity
                 Damage = (ushort)dmg,
                 Killed = !CheckHP(),
                 BulletId = projectile.ProjectileId,
-                ObjectId = projectile.ProjectileOwner.Self.Id
+                ObjectId = projectile.ProjectileOwner.Id
             }, HP < 0 && !IsOneHit(dmg, prevHp) ? null : projectile.ProjectileOwner as Player);
 
             return true;
