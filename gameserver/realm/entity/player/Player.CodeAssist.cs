@@ -126,6 +126,7 @@ namespace gameserver.realm.entity.player
             public static bool IsSkin16x16Type(int objectId) => RotMGSkins16x16.Contains(objectId);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         ~Player()
         {
             WorldInstance = null;
@@ -359,6 +360,7 @@ namespace gameserver.realm.entity.player
 
         public string ResolveGuildChatName() => Name;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public new void Dispose() => tiles = null;
 
         public bool HasSlot(int slot) => Inventory[slot] != null;

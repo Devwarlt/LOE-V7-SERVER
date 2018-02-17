@@ -6,6 +6,7 @@ using FAILURE = gameserver.networking.outgoing.FAILURE;
 
 namespace gameserver.networking
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public partial class Client
     {
         public Task task = Task.Delay(250);

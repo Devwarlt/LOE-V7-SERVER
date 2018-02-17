@@ -140,6 +140,7 @@ namespace gameserver.realm
 
         public bool IsUTF() => UTF.Contains(this) ? true : false;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
         public static implicit operator StatsType(int type)
         {
             if (type > byte.MaxValue) throw new Exception("Not a valid StatData number.");
@@ -148,6 +149,7 @@ namespace gameserver.realm
 
         public static implicit operator StatsType(byte type) => new StatsType(type);
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
         public static bool operator ==(StatsType type, int id)
         {
             if (id > byte.MaxValue) throw new Exception("Not a valid StatData number.");
@@ -156,6 +158,7 @@ namespace gameserver.realm
 
         public static bool operator ==(StatsType type, byte id) => type._type == id;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
         public static bool operator !=(StatsType type, int id)
         {
             if (id > byte.MaxValue) throw new Exception("Not a valid StatData number.");

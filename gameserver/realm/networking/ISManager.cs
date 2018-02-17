@@ -9,6 +9,7 @@ using System.Collections.Concurrent;
 
 namespace gameserver.realm
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class ISManager : InterServerChannel, IDisposable
     {
         private ILog log = LogManager.GetLogger(nameof(ISManager));
@@ -70,6 +71,7 @@ namespace gameserver.realm
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public void Dispose()
         {
             Publish(NETWORK, new NetworkMsg() { Code = NetworkCode.QUIT });

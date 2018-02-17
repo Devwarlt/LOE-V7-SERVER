@@ -74,6 +74,7 @@ namespace gameserver.realm.entity
             return portal;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public override void Dispose()
         {
             WorldInstance = null;

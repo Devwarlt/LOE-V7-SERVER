@@ -56,8 +56,12 @@ namespace gameserver.realm
 
         private ConcurrentDictionary<string, Vault> vaults { get; set; }
 
+#pragma warning disable CS0649 // Field 'RealmManager.logic' is never assigned to, and will always have its default value null
         private Thread logic;
+#pragma warning restore CS0649 // Field 'RealmManager.logic' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'RealmManager.network' is never assigned to, and will always have its default value null
         private Thread network;
+#pragma warning restore CS0649 // Field 'RealmManager.network' is never assigned to, and will always have its default value null
         private int nextWorldId;
 
         public RealmManager(Database db)

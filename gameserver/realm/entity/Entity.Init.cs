@@ -14,6 +14,7 @@ using gameserver.realm.entity.merchant;
 
 namespace gameserver.realm
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class Entity : IProjectileOwner, ICollidable<Entity>, IDisposable
     {
         private const int EFFECT_COUNT = 56;
@@ -751,6 +752,7 @@ namespace gameserver.realm
             return effect != ConditionEffectIndex.Slowed || !HasConditionEffect(ConditionEffects.SlowedImmune);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public virtual void Dispose()
         {
             Owner = null;

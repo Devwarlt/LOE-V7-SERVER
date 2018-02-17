@@ -185,6 +185,7 @@ namespace gameserver.realm.entity
             base.Tick(time);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public override void Dispose()
         {
             counter = null;

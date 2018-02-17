@@ -18,7 +18,9 @@ namespace gameserver.realm.entity.merchant
         private bool closing;
         private bool newMerchant;
         private int tickcount;
+#pragma warning disable CS0108 // 'Merchant.Random' hides inherited member 'Entity.Random'. Use the new keyword if hiding was intended.
         public static Random Random { get; private set; }
+#pragma warning restore CS0108 // 'Merchant.Random' hides inherited member 'Entity.Random'. Use the new keyword if hiding was intended.
         private static List<KeyValuePair<string, int>> AddedTypes { get; set; }
         public bool Custom { get; set; }
         public int MType { get; set; }

@@ -95,8 +95,12 @@ namespace terrain
         public TerrainType Terrain;
         public ushort TileId;
         public string TileObj;
+#pragma warning disable CS0649 // Field 'TerrainTile.X' is never assigned to, and will always have its default value 0
         public int X;
+#pragma warning restore CS0649 // Field 'TerrainTile.X' is never assigned to, and will always have its default value 0
+#pragma warning disable CS0649 // Field 'TerrainTile.Y' is never assigned to, and will always have its default value 0
         public int Y;
+#pragma warning restore CS0649 // Field 'TerrainTile.Y' is never assigned to, and will always have its default value 0
 
         public bool Equals(TerrainTile other)
         {

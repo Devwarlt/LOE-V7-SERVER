@@ -476,6 +476,7 @@ namespace gameserver.realm
                 en.Value.OnChatTextReceived(text);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public virtual void Dispose()
         {
             Map.Dispose();
