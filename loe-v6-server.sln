@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "appengine", "appengine\appe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gameserver", "gameserver\gameserver.csproj", "{D791B2A2-F79D-4872-B6FF-EF5B4FE52ADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DungeonGenerator", "DungeonGenerator\DungeonGenerator.csproj", "{31593F12-283B-4C87-8AEB-4312531A7533}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dungeon", "dungeon\dungeon.csproj", "{31593F12-283B-4C87-8AEB-4312531A7533}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealmGenerator", "RealmGenerator\RealmGenerator.csproj", "{C400FDD3-6250-4F9B-9516-B3463D6761F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realm", "realm\realm.csproj", "{C400FDD3-6250-4F9B-9516-B3463D6761F5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generators", "Generators", "{8FDA27C5-057C-4BF7-A62E-B2B86138989C}"
 EndProject
