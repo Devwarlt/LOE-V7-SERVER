@@ -7,7 +7,7 @@ using System.Linq;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
     internal class MapFeatures
     {

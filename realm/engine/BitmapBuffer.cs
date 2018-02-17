@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
     internal unsafe class BitmapBuffer
     {

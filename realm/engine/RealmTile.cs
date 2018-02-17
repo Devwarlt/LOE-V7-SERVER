@@ -4,9 +4,9 @@ using System;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
-    public enum TerrainType : byte
+    public enum RealmTerrainType : byte
     {
         None,
         Mountains,
@@ -23,7 +23,7 @@ namespace terrain
         ShorePlains
     }
 
-    public enum TileRegion : byte
+    public enum RealmTileRegion : byte
     {
         None,
         Spawn,
@@ -84,25 +84,25 @@ namespace terrain
         Store_40
     }
 
-    internal struct TerrainTile : IEquatable<TerrainTile>
+    internal struct RealmTile : IEquatable<RealmTile>
     {
         public string Biome;
         public float Elevation;
         public float Moisture;
         public string Name;
         public int PolygonId;
-        public TileRegion Region;
-        public TerrainType Terrain;
+        public RealmTileRegion Region;
+        public RealmTerrainType Terrain;
         public ushort TileId;
         public string TileObj;
-#pragma warning disable CS0649 // Field 'TerrainTile.X' is never assigned to, and will always have its default value 0
+#pragma warning disable CS0649 // Field 'RealmTile.X' is never assigned to, and will always have its default value 0
         public int X;
-#pragma warning restore CS0649 // Field 'TerrainTile.X' is never assigned to, and will always have its default value 0
-#pragma warning disable CS0649 // Field 'TerrainTile.Y' is never assigned to, and will always have its default value 0
+#pragma warning restore CS0649 // Field 'RealmTile.X' is never assigned to, and will always have its default value 0
+#pragma warning disable CS0649 // Field 'RealmTile.Y' is never assigned to, and will always have its default value 0
         public int Y;
-#pragma warning restore CS0649 // Field 'TerrainTile.Y' is never assigned to, and will always have its default value 0
+#pragma warning restore CS0649 // Field 'RealmTile.Y' is never assigned to, and will always have its default value 0
 
-        public bool Equals(TerrainTile other)
+        public bool Equals(RealmTile other)
         {
             return
                 TileId == other.TileId &&

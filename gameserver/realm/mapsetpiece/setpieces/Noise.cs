@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace terrain
+namespace realm
 {
     public class Noise
     {

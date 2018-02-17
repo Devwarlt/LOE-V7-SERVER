@@ -1,8 +1,9 @@
 ﻿using System;
-using DungeonGenerator.Dungeon;
+using dungeon.utils;
 using RotMG.Common.Rasterizer;
+using dungeon.engine;
 
-namespace DungeonGenerator.Templates.Difficult_1.Pirate_Cave
+namespace dungeon.templates.Difficult_1.Pirate_Cave
 {
     internal class BossRoom : Room
     {

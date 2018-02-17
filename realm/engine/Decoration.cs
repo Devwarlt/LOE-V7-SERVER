@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
     internal class Decoration
     {

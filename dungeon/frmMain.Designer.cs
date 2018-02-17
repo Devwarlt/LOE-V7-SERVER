@@ -1,4 +1,4 @@
-﻿namespace DungeonGenerator
+﻿namespace dungeon
 {
     partial class frmMain
     {

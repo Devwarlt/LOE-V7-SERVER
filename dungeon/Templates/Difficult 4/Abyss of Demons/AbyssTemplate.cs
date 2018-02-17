@@ -1,7 +1,8 @@
-﻿using DungeonGenerator.Dungeon;
+﻿using dungeon.engine;
+using dungeon.utils;
 using RotMG.Common;
 
-namespace DungeonGenerator.Templates.Difficult_4.Abyss_of_Demons
+namespace dungeon.templates.Difficult_4.Abyss_of_Demons
 {
     public class AbyssTemplate : DungeonTemplate
     {

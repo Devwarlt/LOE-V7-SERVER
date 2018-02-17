@@ -9,9 +9,9 @@ using NetTopologySuite.GeometriesGraph;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
-    internal class Terrain
+    internal class Realm
     {
         public const int Size = 2048;
 
@@ -39,7 +39,7 @@ namespace terrain
                     foreach (MapNode i in plot)
                         g.FillRectangle(Brushes.Black, (float)(i.X + 1) / 2 * Size - 2, (float)(i.Y + 1) / 2 * Size - 2, 4, 4);
             }
-            Test.Show(map);
+            Program.Show(map);
         }
 
         private static int MinDistToMapEdge(PlanarGraph graph, Node n, int limit)
@@ -77,7 +77,7 @@ namespace terrain
             return ret;
         }
 
-        private static Bitmap RenderColorBmp(TerrainTile[,] tiles)
+        private static Bitmap RenderColorBmp(RealmTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -86,12 +86,12 @@ namespace terrain
             buff.Lock();
             for (int y = 0; y < w; y++)
                 for (int x = 0; x < h; x++)
-                    buff[x, y] = TileTypes.color[tiles[x, y].TileId];
+                    buff[x, y] = RealmTileTypes.color[tiles[x, y].TileId];
             buff.Unlock();
             return bmp;
         }
 
-        private static Bitmap RenderTerrainBmp(TerrainTile[,] tiles)
+        private static Bitmap RenderTerrainBmp(RealmTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -101,13 +101,13 @@ namespace terrain
             for (int y = 0; y < w; y++)
                 for (int x = 0; x < h; x++)
                 {
-                    buff[x, y] = TileTypes.terrainColor[tiles[x, y].Terrain];
+                    buff[x, y] = RealmTileTypes.terrainColor[tiles[x, y].Terrain];
                 }
             buff.Unlock();
             return bmp;
         }
 
-        private static Bitmap RenderMoistBmp(TerrainTile[,] tiles)
+        private static Bitmap RenderMoistBmp(RealmTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -125,7 +125,7 @@ namespace terrain
             return bmp;
         }
 
-        private static Bitmap RenderEvalBmp(TerrainTile[,] tiles)
+        private static Bitmap RenderEvalBmp(RealmTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -177,13 +177,13 @@ namespace terrain
                 map.Generate(Size * 15);
 
                 Console.Out.WriteLine("Creating terrain...");
-                TerrainTile[,] dat = CreateTerrain(rand.Next(), map);
+                RealmTile[,] dat = CreateTerrain(rand.Next(), map);
 
                 Console.Out.WriteLine("Computing biomes...");
                 new Biome(rand.Next(), map).ComputeBiomes(dat);
 
 
-                new TerrainDisplay(dat).ShowDialog();
+                new RealmDisplay(dat).ShowDialog();
                 //Test.Show(RenderMoistBmp(dat));
                 //Test.Show(RenderEvalBmp(dat));
 
@@ -194,16 +194,16 @@ namespace terrain
             }
         }
 
-        private static TerrainTile[,] CreateTerrain(int seed, PolygonMap map)
+        private static RealmTile[,] CreateTerrain(int seed, PolygonMap map)
         {
-            Rasterizer<TerrainTile> rasterizer = new Rasterizer<TerrainTile>(Size, Size);
+            Rasterizer<RealmTile> rasterizer = new Rasterizer<RealmTile>(Size, Size);
             //Set all to ocean
-            rasterizer.Clear(new TerrainTile
+            rasterizer.Clear(new RealmTile
             {
                 PolygonId = -1,
                 Elevation = 0,
                 Moisture = 1,
-                TileId = TileTypes.DeepWater,
+                TileId = RealmTileTypes.DeepWater,
                 TileObj = null
             });
             //Render lands poly
@@ -224,12 +224,12 @@ namespace terrain
                         (poly.Nodes[0].X + 1)/2*Size,
                         (poly.Nodes[0].Y + 1)/2*Size
                     }).ToArray(),
-                    new TerrainTile
+                    new RealmTile
                     {
                         PolygonId = poly.Id,
                         Elevation = (float)poly.DistanceToCoast,
                         Moisture = -1,
-                        TileId = TileTypes.Grass,
+                        TileId = RealmTileTypes.Grass,
                         TileObj = null
                     });
             }
@@ -244,14 +244,14 @@ namespace terrain
                 }).ToArray(),
                     1, t =>
                     {
-                        t.TileId = TileTypes.Road;
+                        t.TileId = RealmTileTypes.Road;
                         return t;
                     }, 3);
             }
             //Render waters poly
             foreach (MapPolygon poly in map.Polygons.Where(_ => _.IsWater))
             {
-                TerrainTile tile = new TerrainTile
+                RealmTile tile = new RealmTile
                 {
                     PolygonId = poly.Id,
                     Elevation = (float)poly.DistanceToCoast,
@@ -259,12 +259,12 @@ namespace terrain
                 };
                 if (poly.IsCoast)
                 {
-                    tile.TileId = TileTypes.MovingWater;
+                    tile.TileId = RealmTileTypes.MovingWater;
                     tile.Moisture = 0;
                 }
                 else
                 {
-                    tile.TileId = TileTypes.DeepWater;
+                    tile.TileId = RealmTileTypes.DeepWater;
                     tile.Moisture = 1;
                 }
                 rasterizer.FillPolygon(
@@ -308,7 +308,7 @@ namespace terrain
                     (i.Key.Item2.X + 1) / 2 * Size, (i.Key.Item2.Y + 1) / 2 * Size,
                     t =>
                     {
-                        t.TileId = TileTypes.Water;
+                        t.TileId = RealmTileTypes.Water;
                         t.Elevation = (float)(i.Key.Item1.DistanceToCoast + i.Key.Item2.DistanceToCoast) / 2;
                         t.Moisture = 1;
                         return t;

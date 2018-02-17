@@ -1,8 +1,9 @@
 ﻿using System;
-using DungeonGenerator.Dungeon;
+using dungeon.utils;
 using RotMG.Common.Rasterizer;
+using dungeon.engine;
 
-namespace DungeonGenerator.Templates.Difficult_5.Mad_Lab
+namespace dungeon.templates.Difficult_5.Mad_Lab
 {
     internal class BossRoom : FixedRoom
     {

@@ -113,24 +113,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Biome.cs" />
-    <Compile Include="BitmapBuffer.cs" />
-    <Compile Include="Decoration.cs" />
-    <Compile Include="Json2Wmap.cs" />
-    <Compile Include="JsonMapExporter.cs" />
-    <Compile Include="MapFeatures.cs" />
-    <Compile Include="PolygonMap.cs" />
-    <Compile Include="Rasterizer.cs" />
-    <Compile Include="Noise.cs" />
+    <Compile Include="engine\Biome.cs" />
+    <Compile Include="engine\BitmapBuffer.cs" />
+    <Compile Include="engine\Decoration.cs" />
+    <Compile Include="engine\Json2Wmap.cs" />
+    <Compile Include="engine\JsonMapExporter.cs" />
+    <Compile Include="engine\MapFeatures.cs" />
+    <Compile Include="engine\PolygonMap.cs" />
+    <Compile Include="engine\Rasterizer.cs" />
+    <Compile Include="engine\Noise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Terrain.cs" />
-    <Compile Include="TerrainDisplay.cs">
+    <Compile Include="engine\Realm.cs" />
+    <Compile Include="RealmDisplay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TerrainTile.cs" />
-    <Compile Include="Test.cs" />
-    <Compile Include="TileType.cs" />
-    <Compile Include="WorldMapExporter.cs" />
+    <Compile Include="engine\RealmTile.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="engine\RealmTileType.cs" />
+    <Compile Include="engine\WorldMapExporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

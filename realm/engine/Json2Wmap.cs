@@ -10,7 +10,7 @@ using common;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
     public class Json2Wmap
     {
@@ -19,21 +19,21 @@ namespace terrain
             var obj = JsonConvert.DeserializeObject<json_dat>(json);
             var dat = ZlibStream.UncompressBuffer(obj.data);
 
-            Dictionary<short, TerrainTile> tileDict = new Dictionary<short, TerrainTile>();
+            Dictionary<short, RealmTile> tileDict = new Dictionary<short, RealmTile>();
             for (int i = 0; i < obj.dict.Length; i++)
             {
                 var o = obj.dict[i];
-                tileDict[(short)i] = new TerrainTile()
+                tileDict[(short)i] = new RealmTile()
                 {
                     TileId = o.ground == null ? (ushort)0xff : data.IdToTileType[o.ground],
                     TileObj = o.objs == null ? null : o.objs[0].id,
                     Name = o.objs == null ? "" : o.objs[0].name ?? "",
-                    Terrain = TerrainType.None,
-                    Region = o.regions == null ? TileRegion.None : (TileRegion)Enum.Parse(typeof(TileRegion), o.regions[0].id.Replace(' ', '_'))
+                    Terrain = RealmTerrainType.None,
+                    Region = o.regions == null ? RealmTileRegion.None : (RealmTileRegion)Enum.Parse(typeof(RealmTileRegion), o.regions[0].id.Replace(' ', '_'))
                 };
             }
 
-            var tiles = new TerrainTile[obj.width, obj.height];
+            var tiles = new RealmTile[obj.width, obj.height];
             ushort objType;
             //creates a new case insensitive dictionary based on the XmlDatas
             Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(

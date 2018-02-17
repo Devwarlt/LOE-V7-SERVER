@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
-    internal class TileTypes
+    internal class RealmTileTypes
     {
         public const ushort DeepWater = 0xbc;
         public const ushort Water = 0x73;
@@ -63,21 +63,21 @@ namespace terrain
             {0xd0, 0xFF9C5000},
         };
 
-        public static readonly Dictionary<TerrainType, uint> terrainColor = new Dictionary<TerrainType, uint>
+        public static readonly Dictionary<RealmTerrainType, uint> terrainColor = new Dictionary<RealmTerrainType, uint>
         {
-            {TerrainType.None, 0xFF000000},
-            {TerrainType.Mountains, 0xFF5E5E5E},
-            {TerrainType.ShorePlains, 0xFF0000FF},
-            {TerrainType.HighForest, 0xFF969648},
-            {TerrainType.HighSand, 0xFFF7F7BA},
-            {TerrainType.HighPlains, 0xFF4FCF00},
-            {TerrainType.LowPlains, 0xFF6FEF20},
-            {TerrainType.LowForest, 0xFFC3E612},
-            {TerrainType.LowSand, 0xFFB3D602},
-            {TerrainType.MidForest, 0xFF107D1D},
-            {TerrainType.MidSand, 0xFF10517D},
-            {TerrainType.MidPlains, 0xFFFFFFFF},
-            {TerrainType.ShoreSand, 0xFFCCCCCC},
+            {RealmTerrainType.None, 0xFF000000},
+            {RealmTerrainType.Mountains, 0xFF5E5E5E},
+            {RealmTerrainType.ShorePlains, 0xFF0000FF},
+            {RealmTerrainType.HighForest, 0xFF969648},
+            {RealmTerrainType.HighSand, 0xFFF7F7BA},
+            {RealmTerrainType.HighPlains, 0xFF4FCF00},
+            {RealmTerrainType.LowPlains, 0xFF6FEF20},
+            {RealmTerrainType.LowForest, 0xFFC3E612},
+            {RealmTerrainType.LowSand, 0xFFB3D602},
+            {RealmTerrainType.MidForest, 0xFF107D1D},
+            {RealmTerrainType.MidSand, 0xFF10517D},
+            {RealmTerrainType.MidPlains, 0xFFFFFFFF},
+            {RealmTerrainType.ShoreSand, 0xFFCCCCCC},
         };
     }
 }

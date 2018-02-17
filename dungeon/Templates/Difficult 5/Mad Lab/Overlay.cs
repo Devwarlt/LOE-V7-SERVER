@@ -1,6 +1,6 @@
-﻿using DungeonGenerator.Dungeon;
+﻿using dungeon.utils;
 
-namespace DungeonGenerator.Templates.Difficult_5.Mad_Lab
+namespace dungeon.templates.Difficult_5.Mad_Lab
 {
     internal class Overlay : MapRender
     {

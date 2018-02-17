@@ -1,5 +1,6 @@
 ﻿#region
 
+using realm.engine;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,22 +8,22 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace terrain
+namespace realm
 {
-    internal class TerrainDisplay : Form
+    internal class RealmDisplay : Form
     {
         private readonly PictureBox pic;
         private readonly PictureBox pic2;
-        private readonly TerrainTile[,] tilesBak;
+        private readonly RealmTile[,] tilesBak;
         private Bitmap bmp;
         private Mode mode;
         private Panel panel;
-        private TerrainTile[,] tiles;
+        private RealmTile[,] tiles;
 
-        public TerrainDisplay(TerrainTile[,] tiles)
+        public RealmDisplay(RealmTile[,] tiles)
         {
             mode = Mode.Erase;
-            tilesBak = (TerrainTile[,])tiles.Clone();
+            tilesBak = (RealmTile[,])tiles.Clone();
             this.tiles = tiles;
             ClientSize = new Size(800, 800);
             BackColor = Color.Black;
@@ -63,7 +64,7 @@ namespace terrain
 
         private void pic_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            tiles[e.X, e.Y].Region = TileRegion.Spawn;
+            tiles[e.X, e.Y].Region = RealmTileRegion.Spawn;
             bmp.SetPixel(e.X, e.Y, Color.FromArgb((int)GetColor(tiles[e.X, e.Y])));
             pic.Invalidate();
             pic2.Invalidate();
@@ -79,12 +80,12 @@ namespace terrain
                     {
                         if (x * x + y * y <= 10 * 10)
                         {
-                            tiles[center.X + x, center.Y + y].Terrain = TerrainType.None;
+                            tiles[center.X + x, center.Y + y].Terrain = RealmTerrainType.None;
                             tiles[center.X + x, center.Y + y].Elevation = 0;
                             tiles[center.X + x, center.Y + y].Biome = "ocean";
                             tiles[center.X + x, center.Y + y].TileObj = "";
-                            tiles[center.X + x, center.Y + y].TileId = TileTypes.DeepWater;
-                            tiles[center.X + x, center.Y + y].Region = TileRegion.None;
+                            tiles[center.X + x, center.Y + y].TileId = RealmTileTypes.DeepWater;
+                            tiles[center.X + x, center.Y + y].Region = RealmTileRegion.None;
                             tiles[center.X + x, center.Y + y].Name = "";
                             bmp.SetPixel(center.X + x, center.Y + y, Color.FromArgb(
                                 (int)GetColor(tiles[center.X + x, center.Y + y])));
@@ -96,19 +97,19 @@ namespace terrain
             else if (mode == Mode.Average && (MouseButtons & MouseButtons.Left) != 0)
             {
                 Point center = e.Location;
-                Dictionary<TerrainTile, int> dict = new Dictionary<TerrainTile, int>();
+                Dictionary<RealmTile, int> dict = new Dictionary<RealmTile, int>();
                 for (int y = -10; y <= 10; y++)
                     for (int x = -10; x <= 10; x++)
                         if (x * x + y * y <= 10 * 10)
                         {
-                            TerrainTile t = tiles[center.X + x, center.Y + y];
+                            RealmTile t = tiles[center.X + x, center.Y + y];
                             if (dict.ContainsKey(t))
                                 dict[t]++;
                             else
                                 dict[t] = 0;
                         }
                 int maxOccurance = dict.Values.Max();
-                TerrainTile targetTile = dict.First(t => t.Value == maxOccurance).Key;
+                RealmTile targetTile = dict.First(t => t.Value == maxOccurance).Key;
                 for (int y = -10; y <= 10; y++)
                     for (int x = -10; x <= 10; x++)
                         if (x * x + y * y <= 10 * 10)
@@ -122,14 +123,14 @@ namespace terrain
             }
         }
 
-        private static uint GetColor(TerrainTile tile)
+        private static uint GetColor(RealmTile tile)
         {
-            if (tile.Region == TileRegion.Spawn)
+            if (tile.Region == RealmTileRegion.Spawn)
                 return 0xffff0000;
-            return TileTypes.color[tile.TileId];
+            return RealmTileTypes.color[tile.TileId];
         }
 
-        private static Bitmap RenderColorBmp(TerrainTile[,] tiles)
+        private static Bitmap RenderColorBmp(RealmTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -160,7 +161,7 @@ namespace terrain
             }
             else if (e.KeyCode == Keys.R)
             {
-                tiles = (TerrainTile[,])tilesBak.Clone();
+                tiles = (RealmTile[,])tilesBak.Clone();
                 bmp = RenderColorBmp(tiles);
                 pic.Image = pic2.Image = bmp;
             }

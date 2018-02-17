@@ -25,10 +25,11 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using DungeonGenerator.Dungeon;
-using DungeonGenerator.Templates;
+using dungeon.utils;
+using dungeon.templates;
+using dungeon.engine;
 
-namespace DungeonGenerator
+namespace dungeon
 {
     public partial class frmMain : Form
     {

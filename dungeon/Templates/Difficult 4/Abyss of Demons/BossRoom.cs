@@ -1,8 +1,9 @@
 ﻿using System;
-using DungeonGenerator.Dungeon;
+using dungeon.utils;
 using RotMG.Common.Rasterizer;
+using dungeon.engine;
 
-namespace DungeonGenerator.Templates.Difficult_4.Abyss_of_Demons
+namespace dungeon.templates.Difficult_4.Abyss_of_Demons
 {
     internal class BossRoom : Room
     {

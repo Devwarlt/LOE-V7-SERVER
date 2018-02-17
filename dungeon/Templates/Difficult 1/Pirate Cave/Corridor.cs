@@ -1,7 +1,7 @@
-﻿using DungeonGenerator.Dungeon;
+﻿using dungeon.utils;
 using RotMG.Common.Rasterizer;
 
-namespace DungeonGenerator.Templates.Difficult_1.Pirate_Cave
+namespace dungeon.templates.Difficult_1.Pirate_Cave
 {
     internal class Corridor : MapCorridor
     {

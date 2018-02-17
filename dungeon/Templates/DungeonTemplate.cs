@@ -20,10 +20,11 @@
 
 using System;
 using System.IO;
-using DungeonGenerator.Dungeon;
+using dungeon.utils;
 using RotMG.Common;
+using dungeon.engine;
 
-namespace DungeonGenerator.Templates
+namespace dungeon.templates
 {
     public abstract class DungeonTemplate
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using DungeonGenerator.Dungeon;
+using dungeon.utils;
 using RotMG.Common.Rasterizer;
 
-namespace DungeonGenerator
+namespace dungeon.engine
 {
     public static class Extensions
     {

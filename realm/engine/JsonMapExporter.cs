@@ -6,29 +6,29 @@ using Newtonsoft.Json;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
     internal class JsonMapExporter
     {
-        public string Export(TerrainTile[,] tiles)
+        public string Export(RealmTile[,] tiles)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
             byte[] dat = new byte[w * h * 2];
             int i = 0;
-            Dictionary<TerrainTile, ushort> idxs = new Dictionary<TerrainTile, ushort>(new TileComparer());
+            Dictionary<RealmTile, ushort> idxs = new Dictionary<RealmTile, ushort>(new TileComparer());
             List<loc> dict = new List<loc>();
             for (int y = 0; y < h; y++)
                 for (int x = 0; x < w; x++)
                 {
-                    TerrainTile tile = tiles[x, y];
+                    RealmTile tile = tiles[x, y];
                     ushort idx;
                     if (!idxs.TryGetValue(tile, out idx))
                     {
                         idxs.Add(tile, idx = (ushort)dict.Count);
                         dict.Add(new loc
                         {
-                            ground = TileTypes.id[tile.TileId],
+                            ground = RealmTileTypes.id[tile.TileId],
                             objs = tile.TileObj == null
                                 ? null
                                 : new[]
@@ -39,7 +39,7 @@ namespace terrain
                                         name = tile.Name == null ? null : tile.Name
                                     }
                                 },
-                            regions = tile.TileId == TileTypes.Beach
+                            regions = tile.TileId == RealmTileTypes.Beach
                                 ? new[]
                                 {
                                     new obj
@@ -64,14 +64,14 @@ namespace terrain
             return JsonConvert.SerializeObject(ret);
         }
 
-        private struct TileComparer : IEqualityComparer<TerrainTile>
+        private struct TileComparer : IEqualityComparer<RealmTile>
         {
-            public bool Equals(TerrainTile x, TerrainTile y)
+            public bool Equals(RealmTile x, RealmTile y)
             {
                 return x.TileId == y.TileId && x.TileObj == y.TileObj;
             }
 
-            public int GetHashCode(TerrainTile obj)
+            public int GetHashCode(RealmTile obj)
             {
                 return obj.TileId * 13 +
                        (obj.TileObj == null ? 0 : obj.TileObj.GetHashCode() * obj.Name.GetHashCode() * 29);

@@ -6,7 +6,7 @@ using System.Linq;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
     internal class Biome
     {
@@ -24,7 +24,7 @@ namespace terrain
             this.map = map;
         }
 
-        public void ComputeBiomes(TerrainTile[,] buff)
+        public void ComputeBiomes(RealmTile[,] buff)
         {
             Dictionary<MapNode, double> nodeMoist = ComputeMoisture();
             Dictionary<MapPolygon, double> polyMoist = RedistributeMoisture(nodeMoist);
@@ -136,86 +136,86 @@ namespace terrain
             switch (biome)
             {
                 case "road":
-                    return TileTypes.Road;
+                    return RealmTileTypes.Road;
                 case "river":
-                    return TileTypes.Water;
+                    return RealmTileTypes.Water;
 
                 case "beach":
-                    return TileTypes.Beach;
+                    return RealmTileTypes.Beach;
 
                 case "snowy":
-                    return TileTypes.SnowRock;
+                    return RealmTileTypes.SnowRock;
                 case "mountain":
-                    return TileTypes.Rock;
+                    return RealmTileTypes.Rock;
 
                 case "taiga":
-                    return TileTypes.BrightGrass;
+                    return RealmTileTypes.BrightGrass;
                 case "shrub":
-                    return TileTypes.LightGrass;
+                    return RealmTileTypes.LightGrass;
 
                 case "rainforest":
-                    return TileTypes.BlueGrass;
+                    return RealmTileTypes.BlueGrass;
                 case "forest":
-                    return TileTypes.DarkGrass;
+                    return RealmTileTypes.DarkGrass;
                 case "grassland":
-                    return TileTypes.Grass;
+                    return RealmTileTypes.Grass;
 
                 case "dryland":
-                    return TileTypes.YellowGrass;
+                    return RealmTileTypes.YellowGrass;
                 case "desert":
-                    return TileTypes.Sand;
+                    return RealmTileTypes.Sand;
             }
             return 0;
         }
 
-        private TerrainType GetBiomeTerrain(TerrainTile tile)
+        private RealmTerrainType GetBiomeTerrain(RealmTile tile)
         {
             if (tile.PolygonId == -1 ||
-                tile.TileId == TileTypes.Road ||
-                tile.TileId == TileTypes.Water) return TerrainType.None;
+                tile.TileId == RealmTileTypes.Road ||
+                tile.TileId == RealmTileTypes.Water) return RealmTerrainType.None;
             MapPolygon poly = map.Polygons[tile.PolygonId];
 
             if (!poly.IsWater && beaches.Contains(poly))
-                return TerrainType.ShoreSand;
+                return RealmTerrainType.ShoreSand;
             if (poly.IsWater)
-                return TerrainType.None;
+                return RealmTerrainType.None;
             if (tile.Elevation >= elevationThreshold[3])
-                return TerrainType.Mountains;
+                return RealmTerrainType.Mountains;
             if (tile.Elevation > elevationThreshold[2])
             {
                 if (tile.Moisture > moistureThreshold[4])
-                    return TerrainType.HighPlains;
+                    return RealmTerrainType.HighPlains;
                 if (tile.Moisture > moistureThreshold[2])
-                    return TerrainType.HighForest;
-                return TerrainType.HighSand;
+                    return RealmTerrainType.HighForest;
+                return RealmTerrainType.HighSand;
             }
             if (tile.Elevation > elevationThreshold[1])
             {
                 if (tile.Moisture > moistureThreshold[4])
-                    return TerrainType.MidForest;
+                    return RealmTerrainType.MidForest;
                 if (tile.Moisture > moistureThreshold[2])
-                    return TerrainType.MidPlains;
-                return TerrainType.MidSand;
+                    return RealmTerrainType.MidPlains;
+                return RealmTerrainType.MidSand;
             }
             if (poly.Neighbour.Any(_ => beaches.Contains(_)))
             {
                 if (tile.Moisture > moistureThreshold[2])
-                    return TerrainType.ShorePlains;
+                    return RealmTerrainType.ShorePlains;
             }
 
             if (tile.Moisture > moistureThreshold[3])
-                return TerrainType.LowForest;
+                return RealmTerrainType.LowForest;
             if (tile.Moisture > moistureThreshold[2])
-                return TerrainType.LowPlains;
-            return TerrainType.LowSand;
+                return RealmTerrainType.LowPlains;
+            return RealmTerrainType.LowSand;
             //return TerrainType.None;
         }
 
-        private string GetBiome(TerrainTile tile)
+        private string GetBiome(RealmTile tile)
         {
             if (tile.PolygonId == -1) return "unknown";
-            if (tile.TileId == TileTypes.Road) return "road";
-            if (tile.TileId == TileTypes.Water) return "river";
+            if (tile.TileId == RealmTileTypes.Road) return "road";
+            if (tile.TileId == RealmTileTypes.Water) return "river";
             MapPolygon poly = map.Polygons[tile.PolygonId];
 
             if (tile.TileId == 0xb4) return "towel";
@@ -260,7 +260,7 @@ namespace terrain
             //return "unknown";
         }
 
-        private void AddNoiseAndBiome(TerrainTile[,] buff, Dictionary<MapPolygon, double> moist)
+        private void AddNoiseAndBiome(RealmTile[,] buff, Dictionary<MapPolygon, double> moist)
         {
             int w = buff.GetLength(0);
             int h = buff.GetLength(1);
@@ -271,7 +271,7 @@ namespace terrain
             for (int y = 0; y < w; y++)
                 for (int x = 0; x < h; x++)
                 {
-                    TerrainTile tile = buff[x, y];
+                    RealmTile tile = buff[x, y];
                     if (tile.PolygonId != -1)
                     {
                         MapPolygon poly = map.Polygons[tile.PolygonId];
@@ -298,33 +298,33 @@ namespace terrain
                 }
         }
 
-        private void Randomize(TerrainTile[,] buff)
+        private void Randomize(RealmTile[,] buff)
         {
             int w = buff.GetLength(0);
             int h = buff.GetLength(1);
-            TerrainTile[,] tmp = (TerrainTile[,])buff.Clone();
+            RealmTile[,] tmp = (RealmTile[,])buff.Clone();
             for (int y = 10; y < h - 10; y++)
                 for (int x = 10; x < w - 10; x++)
                 {
-                    TerrainTile tile = buff[x, y];
+                    RealmTile tile = buff[x, y];
 
-                    if (tile.TileId == TileTypes.Water && tile.Elevation >= elevationThreshold[3])
-                        tile.TileId = TileTypes.SnowRock;
-                    else if (tile.TileId != TileTypes.Water && tile.TileId != TileTypes.Road &&
-                             tile.TileId != TileTypes.Beach && tile.TileId != TileTypes.MovingWater &&
-                             tile.TileId != TileTypes.DeepWater)
+                    if (tile.TileId == RealmTileTypes.Water && tile.Elevation >= elevationThreshold[3])
+                        tile.TileId = RealmTileTypes.SnowRock;
+                    else if (tile.TileId != RealmTileTypes.Water && tile.TileId != RealmTileTypes.Road &&
+                             tile.TileId != RealmTileTypes.Beach && tile.TileId != RealmTileTypes.MovingWater &&
+                             tile.TileId != RealmTileTypes.DeepWater)
                     {
                         ushort id = tmp[x + rand.Next(-3, 4), y + rand.Next(-3, 4)].TileId;
-                        while (id == TileTypes.Water || id == TileTypes.Road ||
-                               id == TileTypes.Beach || id == TileTypes.MovingWater ||
-                               id == TileTypes.DeepWater)
+                        while (id == RealmTileTypes.Water || id == RealmTileTypes.Road ||
+                               id == RealmTileTypes.Beach || id == RealmTileTypes.MovingWater ||
+                               id == RealmTileTypes.DeepWater)
                             id = tmp[x + rand.Next(-3, 4), y + rand.Next(-3, 4)].TileId;
                         tile.TileId = id;
                     }
 
                     string biome = tile.Biome;
-                    if (tile.TileId == TileTypes.Beach) biome = "beach";
-                    else if (tile.TileId == TileTypes.MovingWater) biome = "coast";
+                    if (tile.TileId == RealmTileTypes.Beach) biome = "beach";
+                    else if (tile.TileId == RealmTileTypes.MovingWater) biome = "coast";
 
                     string biomeObj = Decoration.GetDecor(biome, rand);
                     if (biomeObj != null)
@@ -350,14 +350,14 @@ namespace terrain
                 }
         }
 
-        private void ComputeSpawnTerrains(TerrainTile[,] buff)
+        private void ComputeSpawnTerrains(RealmTile[,] buff)
         {
             int w = buff.GetLength(0);
             int h = buff.GetLength(1);
             for (int y = 0; y < w; y++)
                 for (int x = 0; x < h; x++)
                 {
-                    TerrainTile tile = buff[x, y];
+                    RealmTile tile = buff[x, y];
                     tile.Terrain = GetBiomeTerrain(tile);
 
                     buff[x, y] = tile;
@@ -368,7 +368,7 @@ namespace terrain
         //https://code.google.com/p/imagelibrary/source/browse/trunk/Filters/GaussianBlurFilter.cs
         //Blur the elevation
 
-        private static void BlurElevation(TerrainTile[,] tiles, double radius)
+        private static void BlurElevation(RealmTile[,] tiles, double radius)
         {
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);

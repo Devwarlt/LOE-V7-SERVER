@@ -1,8 +1,9 @@
 ﻿using System;
-using DungeonGenerator.Dungeon;
+using dungeon.utils;
 using RotMG.Common;
+using dungeon.engine;
 
-namespace DungeonGenerator.Templates.Difficult_1.Pirate_Cave
+namespace dungeon.templates.Difficult_1.Pirate_Cave
 {
     public class PirateCaveTemplate : DungeonTemplate
     {

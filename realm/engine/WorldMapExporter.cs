@@ -7,17 +7,17 @@ using Ionic.Zlib;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
     internal class WorldMapExporter
     {
-        public static void Export(TerrainTile[,] tiles, string path)
+        public static void Export(RealmTile[,] tiles, string path)
         {
             File.WriteAllBytes(path, Export(tiles));
         }
-        public static byte[] Export(TerrainTile[,] tiles)
+        public static byte[] Export(RealmTile[,] tiles)
         {
-            List<TerrainTile> dict = new List<TerrainTile>();
+            List<RealmTile> dict = new List<RealmTile>();
 
             int w = tiles.GetLength(0);
             int h = tiles.GetLength(1);
@@ -26,7 +26,7 @@ namespace terrain
             for (int y = 0; y < h; y++)
                 for (int x = 0; x < w; x++)
                 {
-                    TerrainTile tile = tiles[x, y];
+                    RealmTile tile = tiles[x, y];
                     short i = (short)dict.IndexOf(tile);
                     if (i == -1)
                     {

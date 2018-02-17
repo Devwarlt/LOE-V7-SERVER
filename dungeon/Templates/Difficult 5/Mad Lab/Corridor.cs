@@ -1,7 +1,7 @@
-﻿using DungeonGenerator.Dungeon;
+﻿using dungeon.utils;
 using RotMG.Common.Rasterizer;
 
-namespace DungeonGenerator.Templates.Difficult_5.Mad_Lab
+namespace dungeon.templates.Difficult_5.Mad_Lab
 {
     internal class Corridor : MapCorridor
     {

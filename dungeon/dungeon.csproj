@@ -44,52 +44,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dungeon\DungeonGraph.cs" />
-    <Compile Include="Dungeon\DungeonObject.cs" />
-    <Compile Include="Dungeon\DungeonTile.cs" />
-    <Compile Include="Dungeon\Edge.cs" />
-    <Compile Include="Dungeon\FixedRoom.cs" />
-    <Compile Include="Dungeon\Room.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="utils\DungeonGraph.cs" />
+    <Compile Include="utils\DungeonObject.cs" />
+    <Compile Include="utils\DungeonTile.cs" />
+    <Compile Include="utils\Edge.cs" />
+    <Compile Include="utils\FixedRoom.cs" />
+    <Compile Include="utils\Room.cs" />
+    <Compile Include="engine\Extensions.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generator.cs" />
+    <Compile Include="engine\Generator.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="JsonMap.cs" />
+    <Compile Include="engine\JsonMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Range.cs" />
-    <Compile Include="Rasterizer.cs" />
-    <Compile Include="RoomCollision.cs" />
-    <Compile Include="SimpleJson.cs" />
-    <Compile Include="Templates\Difficult 4\Abyss of Demons\AbyssTemplate.cs" />
-    <Compile Include="Templates\Difficult 4\Abyss of Demons\BossRoom.cs" />
-    <Compile Include="Templates\Difficult 4\Abyss of Demons\Corridor.cs" />
-    <Compile Include="Templates\Difficult 4\Abyss of Demons\NormalRoom.cs" />
-    <Compile Include="Templates\Difficult 4\Abyss of Demons\Overlay.cs" />
-    <Compile Include="Templates\Difficult 4\Abyss of Demons\StartRoom.cs" />
-    <Compile Include="Templates\Difficult 4\Abyss of Demons\TreasureRoom.cs" />
-    <Compile Include="Templates\DungeonTemplate.cs" />
-    <Compile Include="Templates\Difficult 5\Mad Lab\BossRoom.cs" />
-    <Compile Include="Templates\Difficult 5\Mad Lab\Corridor.cs" />
-    <Compile Include="Templates\Difficult 5\Mad Lab\LabTemplate.cs" />
-    <Compile Include="Templates\Difficult 5\Mad Lab\NormalRoom.cs" />
-    <Compile Include="Templates\Difficult 5\Mad Lab\Overlay.cs" />
-    <Compile Include="Templates\Difficult 5\Mad Lab\StartRoom.cs" />
-    <Compile Include="Templates\MapCorridor.cs" />
-    <Compile Include="Templates\MapRender.cs" />
-    <Compile Include="Templates\Difficult 1\Pirate Cave\Background.cs" />
-    <Compile Include="Templates\Difficult 1\Pirate Cave\BossRoom.cs" />
-    <Compile Include="Templates\Difficult 1\Pirate Cave\Corridor.cs" />
-    <Compile Include="Templates\Difficult 1\Pirate Cave\NormalRoom.cs" />
-    <Compile Include="Templates\Difficult 1\Pirate Cave\Overlay.cs" />
-    <Compile Include="Templates\Difficult 1\Pirate Cave\PirateCaveTemplate.cs" />
-    <Compile Include="Templates\Difficult 1\Pirate Cave\StartRoom.cs" />
-    <Compile Include="Zlib.cs" />
+    <Compile Include="engine\Range.cs" />
+    <Compile Include="engine\Rasterizer.cs" />
+    <Compile Include="engine\RoomCollision.cs" />
+    <Compile Include="engine\SimpleJson.cs" />
+    <Compile Include="templates\Difficult 4\Abyss of Demons\AbyssTemplate.cs" />
+    <Compile Include="templates\Difficult 4\Abyss of Demons\BossRoom.cs" />
+    <Compile Include="templates\Difficult 4\Abyss of Demons\Corridor.cs" />
+    <Compile Include="templates\Difficult 4\Abyss of Demons\NormalRoom.cs" />
+    <Compile Include="templates\Difficult 4\Abyss of Demons\Overlay.cs" />
+    <Compile Include="templates\Difficult 4\Abyss of Demons\StartRoom.cs" />
+    <Compile Include="templates\Difficult 4\Abyss of Demons\TreasureRoom.cs" />
+    <Compile Include="templates\DungeonTemplate.cs" />
+    <Compile Include="templates\Difficult 5\Mad Lab\BossRoom.cs" />
+    <Compile Include="templates\Difficult 5\Mad Lab\Corridor.cs" />
+    <Compile Include="templates\Difficult 5\Mad Lab\LabTemplate.cs" />
+    <Compile Include="templates\Difficult 5\Mad Lab\NormalRoom.cs" />
+    <Compile Include="templates\Difficult 5\Mad Lab\Overlay.cs" />
+    <Compile Include="templates\Difficult 5\Mad Lab\StartRoom.cs" />
+    <Compile Include="templates\MapCorridor.cs" />
+    <Compile Include="templates\MapRender.cs" />
+    <Compile Include="templates\Difficult 1\Pirate Cave\Background.cs" />
+    <Compile Include="templates\Difficult 1\Pirate Cave\BossRoom.cs" />
+    <Compile Include="templates\Difficult 1\Pirate Cave\Corridor.cs" />
+    <Compile Include="templates\Difficult 1\Pirate Cave\NormalRoom.cs" />
+    <Compile Include="templates\Difficult 1\Pirate Cave\Overlay.cs" />
+    <Compile Include="templates\Difficult 1\Pirate Cave\PirateCaveTemplate.cs" />
+    <Compile Include="templates\Difficult 1\Pirate Cave\StartRoom.cs" />
+    <Compile Include="engine\Zlib.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmMain.resx">
@@ -97,30 +97,30 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Templates\Difficult 4\Abyss of Demons\template.jm" />
+    <EmbeddedResource Include="templates\Difficult 4\Abyss of Demons\template.jm" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Templates\Difficult 5\Mad Lab\template.jm" />
+    <EmbeddedResource Include="templates\Difficult 5\Mad Lab\template.jm" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Templates\Difficult 1\Forest Maze\" />
-    <Folder Include="Templates\Difficult 1\Snake Pit\" />
-    <Folder Include="Templates\Difficult 1\Spider Den\" />
-    <Folder Include="Templates\Difficult 2\Forbidden Jungle\" />
-    <Folder Include="Templates\Difficult 2\Sprite World\" />
-    <Folder Include="Templates\Difficult 3\Candyland Hunting Grounds\" />
-    <Folder Include="Templates\Difficult 3\Cave of a Thousand Treasures\" />
-    <Folder Include="Templates\Difficult 3\Undead Lair\" />
-    <Folder Include="Templates\Difficult 4\Davy Jones%27s Locker\" />
-    <Folder Include="Templates\Difficult 4\Manor of the Immortals\" />
-    <Folder Include="Templates\Difficult 4\The Puppet Master%27s Theatre\" />
-    <Folder Include="Templates\Difficult 4\Toxic Sewers\" />
-    <Folder Include="Templates\Difficult 5\Deadwater Docks\" />
-    <Folder Include="Templates\Difficult 5\Ice Cave\" />
-    <Folder Include="Templates\Difficult 5\Ocean Trench\" />
-    <Folder Include="Templates\Difficult 5\The Crawling Depths\" />
-    <Folder Include="Templates\Difficult 5\Tomb of the Ancients\" />
-    <Folder Include="Templates\Difficult 5\Woodland Labyrinth\" />
+    <Folder Include="templates\Difficult 1\Forest Maze\" />
+    <Folder Include="templates\Difficult 1\Snake Pit\" />
+    <Folder Include="templates\Difficult 1\Spider Den\" />
+    <Folder Include="templates\Difficult 2\Forbidden Jungle\" />
+    <Folder Include="templates\Difficult 2\Sprite World\" />
+    <Folder Include="templates\Difficult 3\Candyland Hunting Grounds\" />
+    <Folder Include="templates\Difficult 3\Cave of a Thousand Treasures\" />
+    <Folder Include="templates\Difficult 3\Undead Lair\" />
+    <Folder Include="templates\Difficult 4\Davy Jones%27s Locker\" />
+    <Folder Include="templates\Difficult 4\Manor of the Immortals\" />
+    <Folder Include="templates\Difficult 4\The Puppet Master%27s Theatre\" />
+    <Folder Include="templates\Difficult 4\Toxic Sewers\" />
+    <Folder Include="templates\Difficult 5\Deadwater Docks\" />
+    <Folder Include="templates\Difficult 5\Ice Cave\" />
+    <Folder Include="templates\Difficult 5\Ocean Trench\" />
+    <Folder Include="templates\Difficult 5\The Crawling Depths\" />
+    <Folder Include="templates\Difficult 5\Tomb of the Ancients\" />
+    <Folder Include="templates\Difficult 5\Woodland Labyrinth\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

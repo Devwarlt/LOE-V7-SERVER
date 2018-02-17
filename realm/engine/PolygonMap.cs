@@ -11,7 +11,7 @@ using NetTopologySuite.Triangulate;
 
 #endregion
 
-namespace terrain
+namespace realm.engine
 {
     internal struct MapEdge
     {

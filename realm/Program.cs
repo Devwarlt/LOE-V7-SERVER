@@ -1,20 +1,21 @@
 ﻿#region
 
+using realm.engine;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 #endregion
 
-namespace terrain
+namespace realm
 {
-    internal class Test
+    internal class Program
     {
         [STAThread]
         private static void Main()
         {
             Console.Out.WriteLine("Doing shit");
-            Terrain.Generate();
+            Realm.Generate();
             Console.Out.WriteLine("Done shit");
         }
 
