@@ -224,3 +224,7 @@ pip-log.txt
 .mr.developer.cfg
 dump.rdb
 Game Launcher/flashplayer_28_sa.exe
+.vs/loe-v6-server/v15/Server/sqlite3/storage.ide-shm
+.vs/loe-v6-server/v15/Server/sqlite3/storage.ide-wal
+.vs/loe-v6-server/v15/sqlite3/storage.ide-shm
+.vs/loe-v6-server/v15/sqlite3/storage.ide-wal
