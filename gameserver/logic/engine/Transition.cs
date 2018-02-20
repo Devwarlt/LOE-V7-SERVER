@@ -32,8 +32,7 @@ namespace gameserver.logic
 
         public bool Tick(Entity host, RealmTime time)
         {
-            object state;
-            if (!host.StateStorage.TryGetValue(this, out state))
+            if (!host.StateStorage.TryGetValue(this, out object state))
                 state = null;
 
             bool ret = TickCore(host, time, ref state);

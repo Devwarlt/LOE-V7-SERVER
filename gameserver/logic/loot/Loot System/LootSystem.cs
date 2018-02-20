@@ -1,4 +1,5 @@
-﻿using System;
+﻿using common.models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -115,7 +116,7 @@ namespace gameserver.logic.loot.Loot_System
             public static void PopulateLoot()
             {
                 string[] lootAssets = Directory.EnumerateFiles("logic/loot/Loot System/xmls", "*.xml", SearchOption.AllDirectories).ToArray();
-                Log.Write("Loots", $"Loaded {lootAssets.Length} enem{(lootAssets.Length > 1 ? "ies" : "y")} loot{(lootAssets.Length > 1 ? "s" : "")}.", ConsoleColor.Green);
+                Log.Info("Loots", $"Loaded {lootAssets.Length} enem{(lootAssets.Length > 1 ? "ies" : "y")} loot{(lootAssets.Length > 1 ? "s" : "")}.");
                 for (int j = 0; j < lootAssets.Length; j++)
                 {
                     XmlDocument xmldoc = new XmlDocument();

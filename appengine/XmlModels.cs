@@ -51,7 +51,9 @@ namespace appengine
         public string name;
         public int rank;
         public int guildFame;
+#pragma warning disable CS0649 // Field 'GuildMember.lastSeen' is never assigned to, and will always have its default value 0
         public int lastSeen;
+#pragma warning restore CS0649 // Field 'GuildMember.lastSeen' is never assigned to, and will always have its default value 0
 
         public static GuildMember FromDb(DbAccount acc)
         {

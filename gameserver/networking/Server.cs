@@ -60,8 +60,8 @@ namespace gameserver.networking
             log.Info("Stoping server...");
             foreach (ClientData cData in Manager.ClientManager.Values.ToArray())
             {
-                cData.client.Save();
-                Manager.TryDisconnect(cData.client, DisconnectReason.STOPING_SERVER);
+                cData.Client.Save();
+                Manager.TryDisconnect(cData.Client, DisconnectReason.STOPING_SERVER);
             }
             Socket.Close();
         }

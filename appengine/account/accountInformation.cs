@@ -150,8 +150,12 @@ namespace appengine.account
 
         private struct AccountInformationMessages
         {
+#pragma warning disable CS0649 // Field 'accountInformation.AccountInformationMessages.message' is never assigned to, and will always have its default value null
             public string message;
+#pragma warning restore CS0649 // Field 'accountInformation.AccountInformationMessages.message' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'accountInformation.AccountInformationMessages.error' is never assigned to, and will always have its default value null
             public string error;
+#pragma warning restore CS0649 // Field 'accountInformation.AccountInformationMessages.error' is never assigned to, and will always have its default value null
         }
     }
 }

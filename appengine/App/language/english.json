@@ -1783,7 +1783,7 @@
   [ "ProTipText.text", "Tip: {tip}", "en" ],
   [ "KeyCodeBox.hitKey", "[Hit Key]", "en" ],
   [ "GameObject.immune", "Immune", "en" ],
-  [ "Player.exp", "+{exp}XP", "en" ],
+  [ "Player.exp", "+{exp} EXP", "en" ],
   [ "Player.levelUp", "Level Up!", "en" ],
   [ "Player.NewClassUnlocked", "New Class Unlocked!", "en" ],
   [ "ConfirmDelete.verifyDeletion", "Verify Deletion", "en" ],

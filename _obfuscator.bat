@@ -1,4 +1,4 @@
 @echo off
-cd .net_obfuscator\ConfuserEx
+cd documents\.net_obfuscator\ConfuserEx
 start ConfuserEx.exe
 exit

@@ -18,14 +18,14 @@ namespace gameserver.realm.entity
         private DamageCounter counter;
         private float bleeding;
         private Position? pos;
-        private bool npc { get; set; }
+        private bool Npc { get; set; }
 
         protected static readonly new ILog log4net = LogManager.GetLogger(typeof(Enemy));
 
         public Enemy(ushort objType, bool npc)
             : base(objType, new wRandom())
         {
-            npc = this.npc;
+            npc = Npc;
             stat = ObjectDesc.MaxHP == 0;
             counter = new DamageCounter(this);
             LootState = "";
@@ -63,9 +63,14 @@ namespace gameserver.realm.entity
 
         public void Death(RealmTime time)
         {
+            if (this == null
+                || counter == null
+                || CurrentState == null
+                || Owner == null)
+                return;
             counter.Death(time);
-            CurrentState?.OnDeath(new BehaviorEventArgs(this, time));
-            Owner?.LeaveWorld(this);
+            CurrentState.OnDeath(new BehaviorEventArgs(this, time));
+            Owner.LeaveWorld(this);
         }
 
         public void SetDamageCounter(DamageCounter counter, Enemy enemy)
@@ -153,7 +158,7 @@ namespace gameserver.realm.entity
                     Damage = (ushort)dmg,
                     Killed = HP <= 0,
                     BulletId = projectile.ProjectileId,
-                    ObjectId = projectile.ProjectileOwner.Self.Id
+                    ObjectId = projectile.ProjectileOwner.Id
                 }, HP <= 0 && !IsOneHit(dmg, prevHp) ? null : projectile.ProjectileOwner as Player);
 
                 counter.HitBy(projectile.ProjectileOwner as Player, time, projectile, dmg);
@@ -183,12 +188,6 @@ namespace gameserver.realm.entity
                 bleeding += 28 * (time.ElapsedMsDelta / 1000f);
             }
             base.Tick(time);
-        }
-
-        public override void Dispose()
-        {
-            counter = null;
-            base.Dispose();
         }
     }
 }

@@ -40,8 +40,7 @@ namespace gameserver.logic
 
         public void HitBy(Player player, RealmTime time, Projectile projectile, int dmg)
         {
-            int totalDmg;
-            if (!hitters.TryGetValue(player, out totalDmg))
+            if (!hitters.TryGetValue(player, out int totalDmg))
                 totalDmg = 0;
             totalDmg += dmg;
             hitters[player] = totalDmg;

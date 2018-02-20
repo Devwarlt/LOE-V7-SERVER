@@ -1,24 +1,15 @@
-﻿using gameserver.networking.error;
+﻿using common.models;
+using gameserver.networking.error;
 using gameserver.networking.outgoing;
 using System;
-using System.Threading.Tasks;
 using FAILURE = gameserver.networking.outgoing.FAILURE;
 
 namespace gameserver.networking
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public partial class Client
     {
-        public Task task = Task.Delay(250);
-
         public string[] time => DateTime.Now.ToString().Split(' ');
-
-        public void _(string accId, RECONNECT msg)
-        {
-            string response = $"[{time[1]}] [{nameof(Client)}] Reconnect\t->\tplayer id {accId} to {msg.Name}";
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine(response);
-            Console.ResetColor();
-        }
 
         public enum DisconnectReason : byte
         {
@@ -56,10 +47,11 @@ namespace gameserver.networking
             ACCESS_DENIED = 32,
             VIP_ACCOUNT_OVER = 33,
             DEXTERITY_HACK_MOD = 34,
+            RECONNECT = 35,
             UNKNOW_ERROR_INSTANCE = 255
         }
 
-        public async void Reconnect(RECONNECT msg)
+        public void Reconnect(RECONNECT msg)
         {
             if (this == null)
                 return;
@@ -81,19 +73,13 @@ namespace gameserver.networking
                             )
                 });
 
-                await task;
-
                 Manager.TryDisconnect(this, DisconnectReason.LOST_CONNECTION);
                 return;
             }
 
-            _(Account.AccountId, msg);
+            Log.Info($"[({(int)DisconnectReason.RECONNECT}) {DisconnectReason.RECONNECT.ToString()}] Reconnect player '{Account.Name} (Account ID: {Account.AccountId})' to {msg.Name}.");
 
             Save();
-
-            await task;
-
-            task.Dispose();
 
             SendMessage(msg);
         }

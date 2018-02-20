@@ -30,9 +30,8 @@ namespace gameserver.logic
 
         public void Tick(Entity host, RealmTime time)
         {
-            object state;
 
-            if (!host.StateStorage.TryGetValue(this, out state))
+            if (!host.StateStorage.TryGetValue(this, out object state))
                 state = null;
 
             try
@@ -55,8 +54,7 @@ namespace gameserver.logic
 
         public void OnStateEntry(Entity host, RealmTime time)
         {
-            object state;
-            if (!host.StateStorage.TryGetValue(this, out state))
+            if (!host.StateStorage.TryGetValue(this, out object state))
                 state = null;
 
             OnStateEntry(host, time, ref state);
@@ -73,8 +71,7 @@ namespace gameserver.logic
 
         public void OnStateExit(Entity host, RealmTime time)
         {
-            object state;
-            if (!host.StateStorage.TryGetValue(this, out state))
+            if (!host.StateStorage.TryGetValue(this, out object state))
                 state = null;
 
             OnStateExit(host, time, ref state);

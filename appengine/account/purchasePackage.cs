@@ -84,9 +84,15 @@ namespace appengine.account
 
         struct PackageContent
         {
+#pragma warning disable CS0649 // Field 'purchasePackage.PackageContent.items' is never assigned to, and will always have its default value null
             public List<int> items;
+#pragma warning restore CS0649 // Field 'purchasePackage.PackageContent.items' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'purchasePackage.PackageContent.vaultChests' is never assigned to, and will always have its default value 0
             public int vaultChests;
+#pragma warning restore CS0649 // Field 'purchasePackage.PackageContent.vaultChests' is never assigned to, and will always have its default value 0
+#pragma warning disable CS0649 // Field 'purchasePackage.PackageContent.charSlots' is never assigned to, and will always have its default value 0
             public int charSlots;
+#pragma warning restore CS0649 // Field 'purchasePackage.PackageContent.charSlots' is never assigned to, and will always have its default value 0
         }
     }
 }

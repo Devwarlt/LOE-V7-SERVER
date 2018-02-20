@@ -1,3 +1,3 @@
 cd bin-maps/dungeons
-start DungeonGenerator.exe
+start dungeon.exe
 exit

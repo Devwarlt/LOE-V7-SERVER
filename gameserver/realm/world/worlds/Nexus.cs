@@ -14,7 +14,7 @@ namespace gameserver.realm.world
 
         public Nexus()
         {
-            Id = NEXUS_ID;
+            Id = (int)WorldID.NEXUS_ID;
             Name = "Nexus";
             ClientWorldName = "server.nexus";
             Background = 2;

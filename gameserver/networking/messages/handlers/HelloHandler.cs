@@ -19,8 +19,6 @@ namespace gameserver.networking.handlers
 {
     internal class HelloHandler : MessageHandlers<HELLO>
     {
-        private void _(string msg) => Log.Write(nameof(HelloHandler), msg);
-
         public override MessageID ID => MessageID.HELLO;
 
         protected override void HandleMessage(Client client, HELLO message)
@@ -42,8 +40,7 @@ namespace gameserver.networking.handlers
                 Manager.TryDisconnect(client, DisconnectReason.OUTDATED_CLIENT);
                 return;
             }
-            DbAccount acc;
-            LoginStatus s1 = Manager.Database.Verify(message.GUID, message.Password, out acc);
+            LoginStatus s1 = Manager.Database.Verify(message.GUID, message.Password, out DbAccount acc);
             if (s1 == LoginStatus.AccountNotExists)
             {
                 RegisterStatus s2 = Manager.Database.Register(message.GUID, message.Password, true, out acc); //Register guest but do not allow join game.
@@ -73,10 +70,10 @@ namespace gameserver.networking.handlers
             client.ConnectedBuild = message.BuildVersion;
             client.Account = acc;
             ConnectionProtocol TryConnect = Manager.TryConnect(client);
-            if (!TryConnect.connected)
+            if (!TryConnect.Connected)
             {
                 client.Account = null;
-                ErrorIDs errorID = TryConnect.errorID;
+                ErrorIDs errorID = TryConnect.ErrorID;
                 string[] labels;
                 string[] arguments;
                 DisconnectReason reason;
@@ -134,12 +131,12 @@ namespace gameserver.networking.handlers
             }
             else
             {
-                if (message.GameId == World.NEXUS_LIMBO)
-                    message.GameId = World.NEXUS_ID;
+                if (message.GameId == (int)WorldID.NEXUS_LIMBO)
+                    message.GameId = (int)WorldID.NEXUS_ID;
 
                 World world = Manager.GetWorld(message.GameId);
 
-                if (world == null && message.GameId == World.TUT_ID)
+                if (world == null && message.GameId == (int)WorldID.TUT_ID)
                     world = Manager.AddWorld(new Tutorial(false));
 
                 if (!Manager.Database.AcquireLock(acc))
@@ -169,15 +166,17 @@ namespace gameserver.networking.handlers
                         acc.AccountType = (int)accountType.FREE_ACCOUNT;
                         acc.Flush();
                         acc.Reload();
-                        FAILURE _failure = new FAILURE();
-                        _failure.ErrorId = (int)FailureIDs.JSON_DIALOG;
-                        _failure.ErrorDescription =
+                        FAILURE _failure = new FAILURE
+                        {
+                            ErrorId = (int)FailureIDs.JSON_DIALOG,
+                            ErrorDescription =
                             JSONErrorIDHandler
                                 .FormatedJSONError(
                                     errorID: ErrorIDs.VIP_ACCOUNT_OVER,
                                     labels: new[] { "{CLIENT_NAME}", "{SERVER_TIME}", "{REGISTRATION_TIME}", "{CURRENT_TIME}" },
                                     arguments: new[] { acc.Name, string.Format(new DateProvider(), "{0}", DateTime.Now), string.Format(new DateProvider(), "{0}", acc.AccountLifetime.AddDays(-30)), string.Format(new DateProvider(), "{0}", acc.AccountLifetime) }
-                                );
+                                )
+                        };
                         client.SendMessage(_failure);
                         Manager.TryDisconnect(client, DisconnectReason.VIP_ACCOUNT_OVER);
                         return;

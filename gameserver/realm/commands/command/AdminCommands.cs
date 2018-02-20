@@ -60,16 +60,14 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            int num;
-            if (args.Length > 0 && int.TryParse(args[0], out num)) //multi
+            if (args.Length > 0 && int.TryParse(args[0], out int num)) //multi
             {
                 string name = string.Join(" ", args.Skip(1).ToArray());
-                ushort objType;
                 //creates a new case insensitive dictionary based on the XmlDatas
                 Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
                     Program.Manager.GameData.IdToObjectType,
                     StringComparer.OrdinalIgnoreCase);
-                if (!icdatas.TryGetValue(name, out objType) ||
+                if (!icdatas.TryGetValue(name, out ushort objType) ||
                     !Program.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendInfo("Unknown entity!");
@@ -87,12 +85,11 @@ namespace gameserver.realm.commands
             else
             {
                 string name = string.Join(" ", args);
-                ushort objType;
                 //creates a new case insensitive dictionary based on the XmlDatas
                 Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
                     Program.Manager.GameData.IdToObjectType,
                     StringComparer.OrdinalIgnoreCase);
-                if (!icdatas.TryGetValue(name, out objType) ||
+                if (!icdatas.TryGetValue(name, out ushort objType) ||
                     !Program.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendHelp("Usage: /spawn <entityname>");
@@ -178,10 +175,9 @@ namespace gameserver.realm.commands
                 return false;
             }
             string name = string.Join(" ", args.ToArray()).Trim();
-            ushort objType;
             Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(Program.Manager.GameData.IdToObjectType,
                 StringComparer.OrdinalIgnoreCase);
-            if (!icdatas.TryGetValue(name, out objType))
+            if (!icdatas.TryGetValue(name, out ushort objType))
             {
                 player.SendError("Unknown type!");
                 return false;
@@ -398,7 +394,7 @@ namespace gameserver.realm.commands
 
             foreach (ClientData cData in Program.Manager.ClientManager.Values)
             {
-                cData.client.SendMessage(new TEXT
+                cData.Client.SendMessage(new TEXT
                 {
                     BubbleTime = 0,
                     Stars = -1,
@@ -420,11 +416,11 @@ namespace gameserver.realm.commands
         {
             foreach (ClientData cData in Program.Manager.ClientManager.Values)
             {
-                if (cData.client.Account.Name.EqualsIgnoreCase(args[0]))
+                if (cData.Client.Account.Name.EqualsIgnoreCase(args[0]))
                 {
-                    cData.client.Player.HP = 0;
-                    cData.client.Player.Death("server.game_admin");
-                    player.SendInfo($"Player {cData.client.Account.Name} has been killed!");
+                    cData.Client.Player.HP = 0;
+                    cData.Client.Player.Death("server.game_admin");
+                    player.SendInfo($"Player {cData.Client.Account.Name} has been killed!");
                     return true;
                 }
             }
@@ -589,7 +585,7 @@ namespace gameserver.realm.commands
             {
                 foreach (ClientData cData in Program.Manager.ClientManager.Values)
                 {
-                    if (cData.client.Account.Name.EqualsIgnoreCase(args[0]))
+                    if (cData.Client.Account.Name.EqualsIgnoreCase(args[0]))
                     {
                         try
                         {
@@ -599,36 +595,36 @@ namespace gameserver.realm.commands
                             {
                                 case "health":
                                 case "hp":
-                                    cData.client.Player.Stats[0] = amount;
+                                    cData.Client.Player.Stats[0] = amount;
                                     break;
                                 case "mana":
                                 case "mp":
-                                    cData.client.Player.Stats[1] = amount;
+                                    cData.Client.Player.Stats[1] = amount;
                                     break;
                                 case "att":
                                 case "atk":
                                 case "attack":
-                                    cData.client.Player.Stats[2] = amount;
+                                    cData.Client.Player.Stats[2] = amount;
                                     break;
                                 case "def":
                                 case "defence":
-                                    cData.client.Player.Stats[3] = amount;
+                                    cData.Client.Player.Stats[3] = amount;
                                     break;
                                 case "spd":
                                 case "speed":
-                                    cData.client.Player.Stats[4] = amount;
+                                    cData.Client.Player.Stats[4] = amount;
                                     break;
                                 case "vit":
                                 case "vitality":
-                                    cData.client.Player.Stats[5] = amount;
+                                    cData.Client.Player.Stats[5] = amount;
                                     break;
                                 case "wis":
                                 case "wisdom":
-                                    cData.client.Player.Stats[6] = amount;
+                                    cData.Client.Player.Stats[6] = amount;
                                     break;
                                 case "dex":
                                 case "dexterity":
-                                    cData.client.Player.Stats[7] = amount;
+                                    cData.Client.Player.Stats[7] = amount;
                                     break;
                                 default:
                                     player.SendError("Invalid Stat");
@@ -636,8 +632,8 @@ namespace gameserver.realm.commands
                                     player.SendHelp("Shortcuts: Hp, Mp, Atk, Def, Spd, Vit, Wis, Dex");
                                     return false;
                             }
-                            cData.client.Player.SaveToCharacter();
-                            cData.client.Player.UpdateCount++;
+                            cData.Client.Player.SaveToCharacter();
+                            cData.Client.Player.UpdateCount++;
                             player.SendInfo("Success");
                         }
                         catch

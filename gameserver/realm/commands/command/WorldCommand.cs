@@ -54,7 +54,7 @@ namespace gameserver.realm.commands
             {
                 Host = "",
                 Port = Settings.GAMESERVER.PORT,
-                GameId = World.TUT_ID,
+                GameId = (int)WorldID.TUT_ID,
                 Name = "Tutorial",
                 Key = Empty<byte>.Array,
             });
@@ -252,7 +252,7 @@ namespace gameserver.realm.commands
 
             foreach (ClientData cData in Program.Manager.ClientManager.Values)
             {
-                if (cData.client.Account.NameChosen && cData.client.Account.Name.EqualsIgnoreCase(playername))
+                if (cData.Client.Account.NameChosen && cData.Client.Account.Name.EqualsIgnoreCase(playername))
                 {
                     player.client.SendMessage(new TEXT()
                     {
@@ -261,21 +261,21 @@ namespace gameserver.realm.commands
                         Stars = player.Stars,
                         Name = player.Name,
                         Admin = 0,
-                        Recipient = cData.client.Account.Name,
+                        Recipient = cData.Client.Account.Name,
                         Text = msg.ToSafeText(),
                         CleanText = "",
                         TextColor = 0x123456,
                         NameColor = 0x123456
                     });
 
-                    cData.client.SendMessage(new TEXT()
+                    cData.Client.SendMessage(new TEXT()
                     {
-                        ObjectId = cData.client.Player.Owner.Id,
+                        ObjectId = cData.Client.Player.Owner.Id,
                         BubbleTime = 10,
                         Stars = player.Stars,
                         Name = player.Name,
                         Admin = 0,
-                        Recipient = cData.client.Account.Name,
+                        Recipient = cData.Client.Account.Name,
                         Text = msg.ToSafeText(),
                         CleanText = "",
                         TextColor = 0x123456,

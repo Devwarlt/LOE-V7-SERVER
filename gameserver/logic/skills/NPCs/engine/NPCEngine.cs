@@ -7,6 +7,7 @@ using gameserver.realm.entity.player;
 using System.Threading.Tasks;
 using gameserver.realm.entity.npc;
 using System.Linq;
+using common.models;
 
 #endregion
 
@@ -58,7 +59,7 @@ namespace gameserver.logic.behaviors
             ref object state
             )
         {
-            Log.Write($"NPC Engine for {npc.Name} has been initialized!");
+            Log.Info($"NPC Engine for {npc.Name} has been initialized!");
             _NPC = NPCs.Database.ContainsKey(npc.Name) ? NPCs.Database[npc.Name] : null;
             _NPC.Config(npc, _NPCLeaveMessages, _randomNPCLeaveMessages);
             _NPC.UpdateNPCStars(_NPCStars);

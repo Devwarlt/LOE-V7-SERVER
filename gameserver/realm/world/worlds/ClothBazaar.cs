@@ -4,7 +4,7 @@
     {
         public ClothBazaar()
         {
-            Id = MARKET;
+            Id = (int)WorldID.MARKET;
             Name = "Cloth Bazaar";
             ClientWorldName = "nexus.Cloth_Bazaar";
             Background = 2;

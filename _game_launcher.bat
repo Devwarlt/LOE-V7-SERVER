@@ -1,4 +1,4 @@
 @echo off
-cd Game Launcher\bin\Debug
+cd documents\game launcher\bin\Debug
 start LoEGL.exe
 exit

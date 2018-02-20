@@ -59,6 +59,8 @@ namespace gameserver.networking
             return Tuple.Create(gameVersions[gameVersions.Count - 1].version, true);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "handler")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public void Dispose()
         {
             if (disposed)
@@ -71,7 +73,8 @@ namespace gameserver.networking
             Socket = null;
             Character = null;
             Account = null;
-            Player?.Dispose();
+            if (Player.PetID != 0 && Player.Pet != null)
+                Player.Owner.LeaveWorld(Player.Pet);
             Player = null;
             Random = null;
             ConnectedBuild = null;

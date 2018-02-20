@@ -159,8 +159,7 @@ namespace gameserver.realm.entity.merchant
                     Discount = 10;
                 else Discount = 0;
 
-                Tuple<int, CurrencyType> price;
-                if (prices.TryGetValue(MType, out price))
+                if (prices.TryGetValue(MType, out Tuple<int, CurrencyType> price))
                 {
                     if (Discount != 0)
                         Price = (int)(price.Item1 - (price.Item1 * ((double)Discount / 100))) < 1 ?

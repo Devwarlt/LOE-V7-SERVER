@@ -14,7 +14,8 @@ using gameserver.realm.entity.merchant;
 
 namespace gameserver.realm
 {
-    public class Entity : IProjectileOwner, ICollidable<Entity>, IDisposable
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
+    public class Entity : ICollidable<Entity>, IDisposable
     {
         private const int EFFECT_COUNT = 56;
         public bool Spawned;
@@ -35,24 +36,20 @@ namespace gameserver.realm
 
         private Projectile[] projectiles;
 
-        Entity IProjectileOwner.Self => this;
-        Projectile[] IProjectileOwner.Projectiles => projectiles;
-
         public wRandom Random { get; private set; }
 
         public Entity(ushort objType)
-            : this(objType, true, false, false) { }
+            : this(objType, true, false) { }
 
         public Entity(ushort objType, bool interactive)
-            : this(objType, interactive, false, false) { }
+            : this(objType, interactive, false) { }
 
-        protected Entity(ushort objType, bool interactive, bool isPet, bool npc)
+        protected Entity(ushort objType, bool interactive, bool isPet)
         {
             ObjectType = objType;
             Name = "";
             Usable = false;
             BagDropped = false;
-            NPC = npc;
             IsPet = isPet;
             Program.Manager.Behaviors.ResolveBehavior(this);
             Program.Manager.GameData.ObjectDescs.TryGetValue(objType, out desc);
@@ -77,8 +74,6 @@ namespace gameserver.realm
                     DurationMS = -1
                 });
         }
-
-        public bool NPC { get; private set; }
 
         public ObjectDesc ObjectDesc => desc;
 
@@ -118,8 +113,8 @@ namespace gameserver.realm
         public float X { get; private set; }
         public float Y { get; private set; }
 
-        public float lastX { get; private set; }
-        public float lastY { get; private set; }
+        public float LastX { get; private set; }
+        public float LastY { get; private set; }
 
         public CollisionNode<Entity> CollisionNode { get; set; }
         public CollisionMap<Entity> Parent { get; set; }
@@ -543,8 +538,7 @@ namespace gameserver.realm
 
         public static Entity Resolve(string name)
         {
-            ushort id;
-            if (!Program.Manager.GameData.IdToObjectType.TryGetValue(name, out id))
+            if (!Program.Manager.GameData.IdToObjectType.TryGetValue(name, out ushort id))
                 return null;
 
             return Resolve(id);
@@ -636,9 +630,8 @@ namespace gameserver.realm
                 Y = pos.Y
             };
 
-            Projectile _projectileSample;
 
-            if (Owner.Projectiles.TryGetValue(new KeyValuePair<int, byte>(Id, _projectile.ProjectileId), out _projectileSample))
+            if (Owner.Projectiles.TryGetValue(new KeyValuePair<int, byte>(Id, _projectile.ProjectileId), out Projectile _projectileSample))
                 if (_projectileSample != null)
                     Owner.RemoveProjectileFromId(Id, _projectileSample.ProjectileId);
 
@@ -654,8 +647,6 @@ namespace gameserver.realm
 
             return ObjectDesc.Enemy || ObjectDesc.Player;
         }
-
-        public virtual void ProjectileHit(Projectile projectile, Entity target) { }
 
         public bool IsOneHit(int dmg, int hpBeforeHit)
         {
@@ -751,17 +742,9 @@ namespace gameserver.realm
             return effect != ConditionEffectIndex.Slowed || !HasConditionEffect(ConditionEffects.SlowedImmune);
         }
 
-        public virtual void Dispose()
+        public void Dispose()
         {
             Owner = null;
-            WorldInstance = null;
-            Name = null;
-            states = null;
-            CurrentState = null;
-            CollisionNode = null;
-            Parent = null;
-            projectiles = null;
-            posHistory = null;
         }
     }
 }

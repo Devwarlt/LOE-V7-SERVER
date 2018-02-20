@@ -126,6 +126,7 @@ namespace gameserver.realm.entity.player
             public static bool IsSkin16x16Type(int objectId) => RotMGSkins16x16.Contains(objectId);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         ~Player()
         {
             WorldInstance = null;
@@ -268,7 +269,7 @@ namespace gameserver.realm.entity.player
                 {
                     Host = "",
                     Port = Settings.GAMESERVER.PORT,
-                    GameId = World.NEXUS_ID,
+                    GameId = (int)WorldID.NEXUS_ID,
                     Name = "Nexus",
                     Key = Empty<byte>.Array,
                 });
@@ -359,8 +360,6 @@ namespace gameserver.realm.entity.player
 
         public string ResolveGuildChatName() => Name;
 
-        public new void Dispose() => tiles = null;
-
         public bool HasSlot(int slot) => Inventory[slot] != null;
 
         public void AwaitMove(int tickId) => _move.Enqueue(tickId);
@@ -384,8 +383,7 @@ namespace gameserver.realm.entity.player
 
             if (_clientTimeLog.Count > 30)
             {
-                int ignore;
-                _clientTimeLog.TryDequeue(out ignore);
+                _clientTimeLog.TryDequeue(out int ignore);
                 _serverTimeLog.TryDequeue(out ignore);
             }
         }
@@ -407,7 +405,7 @@ namespace gameserver.realm.entity.player
                 {
 
                     string[] labels = new string[] { "{CLIENT_NAME}" };
-                    string[] arguments = new string[] { (client?.Account?.Name == null ? "_null_" : client?.Account?.Name) };
+                    string[] arguments = new string[] { (client?.Account?.Name ?? "_null_") };
 
                     if (arguments == new string[] { "_null_" })
                         return false;
@@ -476,10 +474,7 @@ namespace gameserver.realm.entity.player
 
                 _pongTime = time.TotalElapsedMs;
             }
-            catch (Exception ex)
-            {
-                Log.Write(nameof(Player), $"Pong:\n{ex}");
-            }
+            catch (Exception) { }
         }
 
         private static int GetExpGoal(int level) => 50 + (level - 1) * 100;

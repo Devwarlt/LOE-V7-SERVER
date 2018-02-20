@@ -147,7 +147,7 @@ namespace gameserver.logic
                                       new ItemLoot("Potion of Mana", 0.5),
                                       new ItemLoot("Potion of Defense", 0.8),
                                       new ItemLoot("Potion of Speed", 0.8)
-                                     ///		  new ItemLoot("Succubus Horn", 0.3)
+                                    ///		  new ItemLoot("Succubus Horn", 0.3)
                                     ),
                                    new Threshold(1,
                     new TierLoot(12, ItemType.Armor, 0.5),

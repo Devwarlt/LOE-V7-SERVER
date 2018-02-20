@@ -1,3 +1,3 @@
-cd bin-maps/dungeons
-start DungeonGenerator.exe
+cd bin-maps/realms
+start realm.exe
 exit

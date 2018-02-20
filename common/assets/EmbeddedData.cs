@@ -175,8 +175,7 @@ namespace common
                     type = (ushort)Utils.FromString(typeAttr.Value);
                 setTypeSkins[type] = new SetTypeSkin(elem, type);
                 XAttribute extAttr = elem.Attribute("ext");
-                bool ext;
-                if (extAttr != null && bool.TryParse(extAttr.Value, out ext) && ext)
+                if (extAttr != null && bool.TryParse(extAttr.Value, out bool ext) && ext)
                 {
                     addition.Add(elem);
                     updateCount++;
@@ -362,8 +361,7 @@ namespace common
                 }
 
                 XAttribute extAttr = e.Attribute("ext");
-                bool ext;
-                if (extAttr != null && bool.TryParse(extAttr.Value, out ext) && ext)
+                if (extAttr != null && bool.TryParse(extAttr.Value, out bool ext) && ext)
                 {
                     if (e.Attribute("type") == null)
                         e.Add(new XAttribute("type", type));
@@ -404,8 +402,7 @@ namespace common
                 tiles[type] = new TileDesc(type, e);
 
                 XAttribute extAttr = e.Attribute("ext");
-                bool ext;
-                if (extAttr != null && bool.TryParse(extAttr.Value, out ext) && ext)
+                if (extAttr != null && bool.TryParse(extAttr.Value, out bool ext) && ext)
                 {
                     addition.Add(e);
                     updateCount++;

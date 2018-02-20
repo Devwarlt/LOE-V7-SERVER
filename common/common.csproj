@@ -31,7 +31,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin-server\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -83,6 +83,7 @@
     <Compile Include="config\internal\Networking.cs" />
     <Compile Include="config\internal\Database.cs" />
     <Compile Include="config\internal\GameServer.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="models\AccountType.cs" />
     <Compile Include="config\settings.cs" />
     <Compile Include="assets\EmbeddedData.cs" />

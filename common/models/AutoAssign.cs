@@ -62,8 +62,7 @@ namespace common
 
         public T GetValue<T>(string key, string ifNull = null)
         {
-            string ret;
-            if (!values.TryGetValue(key, out ret))
+            if (!values.TryGetValue(key, out string ret))
             {
                 if (ifNull == null)
                 {

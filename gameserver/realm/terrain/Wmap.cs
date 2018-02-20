@@ -191,6 +191,7 @@ namespace gameserver.realm.terrain
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class Wmap : IDisposable
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(Wmap));
@@ -339,6 +340,7 @@ namespace gameserver.realm.terrain
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public void Dispose()
         {
             entities = null;

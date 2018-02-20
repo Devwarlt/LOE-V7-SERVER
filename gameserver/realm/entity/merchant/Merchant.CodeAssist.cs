@@ -33,22 +33,21 @@ namespace gameserver.realm.entity.merchant
             if (ObjectType == 0x01ca) //Merchant
             {
                 int originalPrice = Price;
-                Price = (int) (Price * player.AccountPerks.MerchantDiscount());
+                Price = (int)(Price * player.AccountPerks.MerchantDiscount());
                 if (TryDeduct(player))
                 {
                     for (var i = 4; i < player.Inventory.Length; i++)
                     {
                         try
                         {
-                            XElement ist;
-                            Program.Manager.GameData.ObjectTypeToElement.TryGetValue((ushort)MType, out ist);
+                            Program.Manager.GameData.ObjectTypeToElement.TryGetValue((ushort)MType, out XElement ist);
                             if (player.Inventory[i] == null &&
                                 (player.SlotTypes[i] == 10 ||
                                  player.SlotTypes[i] == Convert.ToInt16(ist.Element("SlotType").Value)))
                             // Exploit fix - No more mnovas as weapons!
                             {
                                 player.Inventory[i] = Program.Manager.GameData.Items[(ushort)MType];
-                                
+
                                 KeyValuePair<string, int> currency = new KeyValuePair<string, int>(null, -1);
 
                                 switch (Currency)

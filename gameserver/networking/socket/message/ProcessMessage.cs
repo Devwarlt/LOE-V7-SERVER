@@ -1,4 +1,5 @@
-﻿using gameserver.networking.incoming;
+﻿using common.models;
+using gameserver.networking.incoming;
 using gameserver.realm.entity.player;
 using System;
 using System.Collections.Generic;
@@ -17,10 +18,9 @@ namespace gameserver.networking
                 if (msg.ID == (MessageID)255)
                     return;
 
-                IMessage handler;
 
-                if (!MessageHandler.Handlers.TryGetValue(msg.ID, out handler))
-                    Log.Write($"Unhandled message ID '{msg.ID}'.", ConsoleColor.Yellow);
+                if (!MessageHandler.Handlers.TryGetValue(msg.ID, out IMessage handler))
+                    Log.Warn($"Unhandled message ID '{msg.ID}'.");
                 else
                     handler.Handle(this, (IncomingMessage)msg);
             }

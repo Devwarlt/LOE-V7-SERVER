@@ -2,7 +2,7 @@
 
 using System;
 using common;
-using terrain;
+using realm;
 using gameserver.realm.terrain;
 
 #endregion

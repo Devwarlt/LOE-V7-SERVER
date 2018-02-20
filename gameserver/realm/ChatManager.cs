@@ -22,11 +22,19 @@ namespace gameserver.realm
             public char Type;
             public string Inst;
 
+#pragma warning disable CS0649 // Field 'ChatManager.Message.ObjId' is never assigned to, and will always have its default value 0
             public int ObjId;
+#pragma warning restore CS0649 // Field 'ChatManager.Message.ObjId' is never assigned to, and will always have its default value 0
+#pragma warning disable CS0649 // Field 'ChatManager.Message.Stars' is never assigned to, and will always have its default value 0
             public int Stars;
+#pragma warning restore CS0649 // Field 'ChatManager.Message.Stars' is never assigned to, and will always have its default value 0
+#pragma warning disable CS0649 // Field 'ChatManager.Message.From' is never assigned to, and will always have its default value null
             public string From;
+#pragma warning restore CS0649 // Field 'ChatManager.Message.From' is never assigned to, and will always have its default value null
 
+#pragma warning disable CS0649 // Field 'ChatManager.Message.To' is never assigned to, and will always have its default value null
             public string To;
+#pragma warning restore CS0649 // Field 'ChatManager.Message.To' is never assigned to, and will always have its default value null
             public string Text;
         }
 
@@ -92,8 +100,8 @@ namespace gameserver.realm
             if (announce)
             {
                 foreach (ClientData cData in Program.Manager.ClientManager.Values)
-                    if (cData.client != null)
-                        cData.client.Player.SendInfo(text.ToSafeText());
+                    if (cData.Client != null)
+                        cData.Client.Player.SendInfo(text.ToSafeText());
             }
             else
             {

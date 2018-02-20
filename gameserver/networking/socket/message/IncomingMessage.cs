@@ -63,8 +63,7 @@ namespace gameserver.networking
                 if (_incomingState == IncomingStage.Ready ||
                     (!ignoreSending && _incomingState == IncomingStage.Sending))
                     return false;
-                Message packet;
-                if (pendingPackets.TryDequeue(out packet))
+                if (pendingPackets.TryDequeue(out Message packet))
                 {
                     (e.UserToken as OutgoingToken).Packet = packet;
                     _incomingState = IncomingStage.Ready;

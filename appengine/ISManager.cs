@@ -70,6 +70,7 @@ namespace appengine
         public void Dispose()
         {
             tmr.Stop();
+            tmr.Dispose();
             Publish(NETWORK, new NetworkMsg() { Code = NetworkCode.QUIT });
         }
 

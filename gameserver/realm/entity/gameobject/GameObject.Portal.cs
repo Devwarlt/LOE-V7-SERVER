@@ -73,11 +73,5 @@ namespace gameserver.realm.entity
             Owner.LeaveWorld(this);
             return portal;
         }
-
-        public override void Dispose()
-        {
-            WorldInstance = null;
-            base.Dispose();
-        }
     }
 }

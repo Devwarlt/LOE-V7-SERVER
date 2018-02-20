@@ -24,7 +24,7 @@ namespace gameserver.realm.world
 
         public Vault(bool isLimbo, Client psr = null)
         {
-            Id = VAULT_ID;
+            Id = (int)WorldID.VAULT_ID;
             Name = "Vault";
             ClientWorldName = "server.Vault";
             Background = 2;

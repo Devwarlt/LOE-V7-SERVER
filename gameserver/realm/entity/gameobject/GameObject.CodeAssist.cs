@@ -24,8 +24,7 @@ namespace gameserver.realm.entity
 
         private static bool IsInteractive(ushort objType)
         {
-            ObjectDesc desc;
-            if (Program.Manager.GameData.ObjectDescs.TryGetValue(objType, out desc))
+            if (Program.Manager.GameData.ObjectDescs.TryGetValue(objType, out ObjectDesc desc))
             {
                 if (desc.Class != null)
                     if (desc.Class == "Container" || desc.Class.ContainsIgnoreCase("wall") ||

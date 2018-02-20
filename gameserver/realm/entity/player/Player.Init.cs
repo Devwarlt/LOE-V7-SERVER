@@ -13,6 +13,7 @@ using common.config;
 using static gameserver.networking.Client;
 using common;
 using gameserver.logic.skills.Pets;
+using common.models;
 
 #endregion
 
@@ -240,20 +241,22 @@ namespace gameserver.realm.entity.player
 
                 if (Owner.Id != -6)
                 {
-                    DEATH _death = new DEATH();
-                    _death.AccountId = AccountId;
-                    _death.CharId = client.Character.CharId;
-                    _death.Killer = killer;
-                    _death.zombieId = -1;
-                    _death.zombieType = -1;
+                    DEATH _death = new DEATH
+                    {
+                        AccountId = AccountId,
+                        CharId = client.Character.CharId,
+                        Killer = killer,
+                        zombieId = -1,
+                        zombieType = -1
+                    };
 
                     client.SendMessage(_death);
 
-                    Log.Write($"Message details type '{_death.ID}':\n{_death}");
+                    Log.Info($"Message details type '{_death.ID}':\n{_death}");
 
                     Owner.Timers.Add(new WorldTimer(1000, (w, t) => Program.Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD)));
 
-                    Log.Write($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
+                    Log.Info($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
 
                     Owner.LeaveWorld(this);
                 }
@@ -282,7 +285,7 @@ namespace gameserver.realm.entity.player
             SetNewbiePeriod();
             base.Init(owner);
             List<int> gifts = client.Account.Gifts.ToList();
-            if (owner.Id == World.NEXUS_ID || owner.Name == "Vault")
+            if (owner.Id == (int)WorldID.NEXUS_ID || owner.Name == "Vault")
             {
                 client.SendMessage(new GLOBAL_NOTIFICATION
                 {
@@ -307,15 +310,19 @@ namespace gameserver.realm.entity.player
 
             if ((accountType)AccountType == accountType.LOESOFT_ACCOUNT)
             {
-                ConditionEffect invincible = new ConditionEffect();
-                invincible.Effect = ConditionEffectIndex.Invincible;
-                invincible.DurationMS = -1;
+                ConditionEffect invincible = new ConditionEffect
+                {
+                    Effect = ConditionEffectIndex.Invincible,
+                    DurationMS = -1
+                };
 
                 ApplyConditionEffect(invincible);
 
-                ConditionEffect invulnerable = new ConditionEffect();
-                invulnerable.Effect = ConditionEffectIndex.Invulnerable;
-                invulnerable.DurationMS = -1;
+                ConditionEffect invulnerable = new ConditionEffect
+                {
+                    Effect = ConditionEffectIndex.Invulnerable,
+                    DurationMS = -1
+                };
 
                 ApplyConditionEffect(invulnerable);
             }
@@ -344,8 +351,7 @@ namespace gameserver.realm.entity.player
                     SendError("server.no_teleport_to_paused");
                     return;
                 }
-                var player = obj as Player;
-                if (player != null && !player.NameChosen)
+                if (obj is Player player && !player.NameChosen)
                 {
                     SendError("server.teleport_needs_name");
                     return;
@@ -404,8 +410,7 @@ namespace gameserver.realm.entity.player
                 foreach (var i in Owner.Quests.Values
                     .OrderBy(quest => MathsUtils.DistSqr(quest.X, quest.Y, X, Y)).Where(i => i.ObjectDesc != null && i.ObjectDesc.Quest))
                 {
-                    Tuple<int, int, int> x;
-                    if (!questPortraits.TryGetValue(i.ObjectDesc.ObjectId, out x)) continue;
+                    if (!questPortraits.TryGetValue(i.ObjectDesc.ObjectId, out Tuple<int, int, int> x)) continue;
 
                     if ((Level < x.Item2 || Level > x.Item3)) continue;
                     var score = (20 - Math.Abs((i.ObjectDesc.Level ?? 0) - Level)) * x.Item1 -

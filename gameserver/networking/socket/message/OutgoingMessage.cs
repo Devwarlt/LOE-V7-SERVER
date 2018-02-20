@@ -25,17 +25,15 @@ namespace gameserver.networking
                 switch (_outgoingState)
                 {
                     case OutgoingState.ReceivingHdr:
-                        // maybe ignore this bellow?
                         if (e.BytesTransferred < 5)
                         {
-                            // Log.Write($"Bytes transferred: {e.BytesTransferred}.");
                             Manager.TryDisconnect(client, DisconnectReason.RECEIVING_HDR);
                             return;
                         }
 
                         if (e.Buffer[0] == 0xae && e.Buffer[1] == 0x7a && e.Buffer[2] == 0xf2 && e.Buffer[3] == 0xb2 && e.Buffer[4] == 0x95)
                         {
-                            byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{Program.Usage}");
+                            byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{Program.GameUsage}");
                             skt.Send(c);
                             return;
                         }

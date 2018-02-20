@@ -85,24 +85,24 @@ namespace gameserver.networking.handlers
                                     if (w != null && Program.Manager.Worlds.ContainsKey(w.Id))
                                         world = w;
                                     else
-                                        world = Program.Manager.GetWorld(World.NEXUS_ID);
+                                        world = Program.Manager.GetWorld((int)WorldID.NEXUS_ID);
                                 }
                                 else
-                                    world = Program.Manager.GetWorld(World.NEXUS_ID);
+                                    world = Program.Manager.GetWorld((int)WorldID.NEXUS_ID);
                                 setWorldInstance = false;
                             }
                             break;
                         case 0x0750:
-                            world = Program.Manager.GetWorld(World.MARKET);
+                            world = Program.Manager.GetWorld((int)WorldID.MARKET);
                             break;
                         case 0x071d:
-                            world = Program.Manager.GetWorld(World.NEXUS_ID);
+                            world = Program.Manager.GetWorld((int)WorldID.NEXUS_ID);
                             break;
                         case 0x0712:
-                            world = Program.Manager.GetWorld(World.NEXUS_ID);
+                            world = Program.Manager.GetWorld((int)WorldID.NEXUS_ID);
                             break;
                         case 0x1756:
-                            world = Program.Manager.GetWorld(World.DAILY_QUEST_ID);
+                            world = Program.Manager.GetWorld((int)WorldID.DAILY_QUEST_ID);
                             break;
                         case 0x072f:
                             if (player.Guild != null)
@@ -149,8 +149,7 @@ namespace gameserver.networking.handlers
 
                 if (Program.Manager.LastWorld.ContainsKey(player.AccountId))
                 {
-                    World dummy;
-                    Program.Manager.LastWorld.TryRemove(player.AccountId, out dummy);
+                    Program.Manager.LastWorld.TryRemove(player.AccountId, out World dummy);
                 }
                 if (player.Owner is Nexus || player.Owner is GameWorld)
                     Program.Manager.LastWorld.TryAdd(player.AccountId, player.Owner);

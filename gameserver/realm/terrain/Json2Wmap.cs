@@ -15,21 +15,39 @@ namespace gameserver.realm.terrain
     {
         private struct obj
         {
+#pragma warning disable CS0649 // Field 'Json2Wmap.obj.name' is never assigned to, and will always have its default value null
             public string name;
+#pragma warning restore CS0649 // Field 'Json2Wmap.obj.name' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Json2Wmap.obj.id' is never assigned to, and will always have its default value null
             public string id;
+#pragma warning restore CS0649 // Field 'Json2Wmap.obj.id' is never assigned to, and will always have its default value null
         }
         private struct loc
         {
+#pragma warning disable CS0649 // Field 'Json2Wmap.loc.ground' is never assigned to, and will always have its default value null
             public string ground;
+#pragma warning restore CS0649 // Field 'Json2Wmap.loc.ground' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Json2Wmap.loc.objs' is never assigned to, and will always have its default value null
             public obj[] objs;
+#pragma warning restore CS0649 // Field 'Json2Wmap.loc.objs' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Json2Wmap.loc.regions' is never assigned to, and will always have its default value null
             public obj[] regions;
+#pragma warning restore CS0649 // Field 'Json2Wmap.loc.regions' is never assigned to, and will always have its default value null
         }
         private struct json_dat
         {
+#pragma warning disable CS0649 // Field 'Json2Wmap.json_dat.data' is never assigned to, and will always have its default value null
             public byte[] data;
+#pragma warning restore CS0649 // Field 'Json2Wmap.json_dat.data' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Json2Wmap.json_dat.width' is never assigned to, and will always have its default value 0
             public int width;
+#pragma warning restore CS0649 // Field 'Json2Wmap.json_dat.width' is never assigned to, and will always have its default value 0
+#pragma warning disable CS0649 // Field 'Json2Wmap.json_dat.height' is never assigned to, and will always have its default value 0
             public int height;
+#pragma warning restore CS0649 // Field 'Json2Wmap.json_dat.height' is never assigned to, and will always have its default value 0
+#pragma warning disable CS0649 // Field 'Json2Wmap.json_dat.dict' is never assigned to, and will always have its default value null
             public loc[] dict;
+#pragma warning restore CS0649 // Field 'Json2Wmap.json_dat.dict' is never assigned to, and will always have its default value null
         }
 
         public static void Convert(EmbeddedData data, string from, string to)

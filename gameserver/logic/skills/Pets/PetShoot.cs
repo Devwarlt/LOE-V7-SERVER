@@ -1,10 +1,14 @@
-﻿using gameserver.networking;
+﻿#region
+
+using gameserver.networking;
 using gameserver.networking.outgoing;
 using gameserver.realm;
 using gameserver.realm.entity;
 using gameserver.realm.entity.player;
 using System;
 using System.Collections.Generic;
+
+#endregion
 
 namespace gameserver.logic.skills.Pets
 {
@@ -44,8 +48,6 @@ namespace gameserver.logic.skills.Pets
         }
 
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state) => state = special ? coolDownOffset : 0;
-
-        private void _(string message) => Log.Write(nameof(PetShoot), message, ConsoleColor.DarkYellow);
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {

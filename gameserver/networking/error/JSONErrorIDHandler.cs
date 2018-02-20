@@ -66,9 +66,15 @@ namespace gameserver.networking.error
 
         private struct JSONError
         {
+#pragma warning disable CS0649 // Field 'JSONErrorIDHandler.JSONError.title' is never assigned to, and will always have its default value null
             public string title;
+#pragma warning restore CS0649 // Field 'JSONErrorIDHandler.JSONError.title' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'JSONErrorIDHandler.JSONError.titleColor' is never assigned to, and will always have its default value 0
             public uint titleColor;
+#pragma warning restore CS0649 // Field 'JSONErrorIDHandler.JSONError.titleColor' is never assigned to, and will always have its default value 0
+#pragma warning disable CS0649 // Field 'JSONErrorIDHandler.JSONError.description' is never assigned to, and will always have its default value null
             public string description;
+#pragma warning restore CS0649 // Field 'JSONErrorIDHandler.JSONError.description' is never assigned to, and will always have its default value null
         }
     }
 }
