@@ -169,22 +169,24 @@ namespace gameserver.realm.entity.player
                         break;
                     case ActivateEffects.VampireBlast:
                         {
-                            List<Message> pkts = new List<Message>();
-                            pkts.Add(new SHOWEFFECT
+                            List<Message> pkts = new List<Message>
                             {
-                                EffectType = EffectType.Line,
-                                TargetId = Id,
-                                PosA = target,
-                                Color = new ARGB(0xFFFF0000)
-                            });
-                            pkts.Add(new SHOWEFFECT
-                            {
-                                EffectType = EffectType.Burst,
-                                Color = new ARGB(0xFFFF0000),
-                                TargetId = Id,
-                                PosA = target,
-                                PosB = new Position { X = target.X + eff.Radius, Y = target.Y }
-                            });
+                                new SHOWEFFECT
+                                {
+                                    EffectType = EffectType.Line,
+                                    TargetId = Id,
+                                    PosA = target,
+                                    Color = new ARGB(0xFFFF0000)
+                                },
+                                new SHOWEFFECT
+                                {
+                                    EffectType = EffectType.Burst,
+                                    Color = new ARGB(0xFFFF0000),
+                                    TargetId = Id,
+                                    PosA = target,
+                                    PosB = new Position { X = target.X + eff.Radius, Y = target.Y }
+                                }
+                            };
 
                             int totalDmg = 0;
                             List<Enemy> enemies = new List<Enemy>();
@@ -244,16 +246,17 @@ namespace gameserver.realm.entity.player
                         break;
                     case ActivateEffects.StasisBlast:
                         {
-                            List<Message> pkts = new List<Message>();
-
-                            pkts.Add(new SHOWEFFECT
+                            List<Message> pkts = new List<Message>
                             {
-                                EffectType = EffectType.Collapse,
-                                TargetId = Id,
-                                PosA = target,
-                                PosB = new Position { X = target.X + 3, Y = target.Y },
-                                Color = new ARGB(0xFF00D0)
-                            });
+                                new SHOWEFFECT
+                                {
+                                    EffectType = EffectType.Collapse,
+                                    TargetId = Id,
+                                    PosA = target,
+                                    PosB = new Position { X = target.X + 3, Y = target.Y },
+                                    Color = new ARGB(0xFF00D0)
+                                }
+                            };
                             Owner?.Aoe(target, 3, false, enemy =>
                             {
                                 if (IsSpecial(enemy.ObjectType)) return;
@@ -950,10 +953,11 @@ namespace gameserver.realm.entity.player
                             int _rangedVariance = rnd.Next(__min, __max); // values between 0-1
                             int __rangedVariance = rnd.Next(___min, ___max); // values between 3-5
 
-                            List<int> candidates = new List<int>();
-
-                            candidates.Add(_rangedVariance);
-                            candidates.Add(__rangedVariance);
+                            List<int> candidates = new List<int>
+                            {
+                                _rangedVariance,
+                                __rangedVariance
+                            };
 
                             int possibleCandidate = rnd.Next(min, candidates.Count);
 
@@ -1244,17 +1248,21 @@ namespace gameserver.realm.entity.player
 
                             SendInfo($"Success! You received {eff.Amount} day{(eff.Amount > 1 ? "s" : "")} as account lifetime to your VIP account type when {item.DisplayId} was consumed!");
 
-                            NOTIFICATION _notification = new NOTIFICATION();
-                            _notification.Color = new ARGB(0xFFFFFF);
-                            _notification.ObjectId = Id;
-                            _notification.Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Success!\"}}";
+                            NOTIFICATION _notification = new NOTIFICATION
+                            {
+                                Color = new ARGB(0xFFFFFF),
+                                ObjectId = Id,
+                                Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Success!\"}}"
+                            };
 
                             _outgoing.Add(_notification);
 
-                            SHOWEFFECT _showeffect = new SHOWEFFECT();
-                            _showeffect.Color = new ARGB(0xffddff00);
-                            _showeffect.EffectType = EffectType.Nova;
-                            _showeffect.PosA = new Position { X = 2 };
+                            SHOWEFFECT _showeffect = new SHOWEFFECT
+                            {
+                                Color = new ARGB(0xffddff00),
+                                EffectType = EffectType.Nova,
+                                PosA = new Position { X = 2 }
+                            };
 
                             _outgoing.Add(_showeffect);
 
@@ -1270,12 +1278,14 @@ namespace gameserver.realm.entity.player
 
                             SendInfo("Reconnecting...");
 
-                            RECONNECT _reconnect = new RECONNECT();
-                            _reconnect.GameId = World.NEXUS_ID; // change to Drasta Citadel in future versions!
-                            _reconnect.Host = string.Empty;
-                            _reconnect.Key = Empty<byte>.Array;
-                            _reconnect.Name = "Nexus";
-                            _reconnect.Port = Settings.GAMESERVER.PORT;
+                            RECONNECT _reconnect = new RECONNECT
+                            {
+                                GameId = (int)WorldID.NEXUS_ID, // change to Drasta Citadel in future versions!
+                                Host = string.Empty,
+                                Key = Empty<byte>.Array,
+                                Name = "Nexus",
+                                Port = Settings.GAMESERVER.PORT
+                            };
 
                             _world.Timers.Add(new WorldTimer(2000, (w, t) => client.Reconnect(_reconnect)));
                         }

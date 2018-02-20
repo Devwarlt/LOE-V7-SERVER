@@ -139,7 +139,7 @@ namespace gameserver
                     try
                     {
                         foreach (ClientData cData in Manager.ClientManager.Values)
-                            Chat.Tell(cData.client.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", cData.client.Player.Name));
+                            Chat.Tell(cData.Client.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", cData.Client.Player.Name));
                     }
                     catch (Exception ex)
                     {
@@ -153,7 +153,7 @@ namespace gameserver
                 try
                 {
                     foreach (ClientData cData in Manager.ClientManager.Values)
-                        Chat.Tell(cData.client.Player, "(!) Notification (!)", message);
+                        Chat.Tell(cData.Client.Player, "(!) Notification (!)", message);
                 }
                 catch (Exception ex)
                 {
@@ -163,7 +163,7 @@ namespace gameserver
                 try
                 {
                     foreach (ClientData cData in Manager.ClientManager.Values)
-                        Manager.TryDisconnect(cData.client, DisconnectReason.RESTART);
+                        Manager.TryDisconnect(cData.Client, DisconnectReason.RESTART);
                 }
                 catch (Exception ex)
                 {

@@ -326,7 +326,7 @@ namespace gameserver.realm
                 SendMsg(i, "YOU WILL NOT LIVE TO SEE THE LIGHT OF DAY!", "#Oryx the Mad God");
             }
             world.Timers.Add(new WorldTimer(120000, (ww, tt) => { CloseRealm(); }));
-            Program.Manager.GetWorld(World.NEXUS_ID).Timers.Add(new WorldTimer(130000, (w, t) => Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => Program.Manager.AddWorld(_.Result), TaskScheduler.Default)));
+            Program.Manager.GetWorld((int)WorldID.NEXUS_ID).Timers.Add(new WorldTimer(130000, (w, t) => Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => Program.Manager.AddWorld(_.Result), TaskScheduler.Default)));
             Program.Manager.CloseWorld(world);
         }
 

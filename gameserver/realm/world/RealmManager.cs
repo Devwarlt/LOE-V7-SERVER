@@ -55,7 +55,7 @@ namespace gameserver.realm
 
         private static readonly ILog log = LogManager.GetLogger(typeof(RealmManager));
 
-        private ConcurrentDictionary<string, Vault> vaults { get; set; }
+        private ConcurrentDictionary<string, Vault> Vaults { get; set; }
 
 #pragma warning disable CS0649 // Field 'RealmManager.logic' is never assigned to, and will always have its default value null
         private Thread logic;
@@ -72,7 +72,7 @@ namespace gameserver.realm
             ClientManager = new ConcurrentDictionary<string, ClientData>();
             Worlds = new ConcurrentDictionary<int, World>();
             LastWorld = new ConcurrentDictionary<string, World>();
-            vaults = new ConcurrentDictionary<string, Vault>();
+            Vaults = new ConcurrentDictionary<string, Vault>();
             Random = new Random();
             Database = db;
         }
@@ -90,11 +90,11 @@ namespace gameserver.realm
             Behaviors = new BehaviorDb(this);
             Merchant.InitMerchatLists(GameData);
 
-            AddWorld(World.NEXUS_ID, Worlds[0] = new Nexus());
-            AddWorld(World.MARKET, new ClothBazaar());
-            AddWorld(World.TEST_ID, new Test());
-            AddWorld(World.TUT_ID, new Tutorial(true));
-            AddWorld(World.DAILY_QUEST_ID, new DailyQuestRoom());
+            AddWorld((int)WorldID.NEXUS_ID, Worlds[0] = new Nexus());
+            AddWorld((int)WorldID.MARKET, new ClothBazaar());
+            AddWorld((int)WorldID.TEST_ID, new Test());
+            AddWorld((int)WorldID.TUT_ID, new Tutorial(true));
+            AddWorld((int)WorldID.DAILY_QUEST_ID, new DailyQuestRoom());
             Monitor = new RealmPortalMonitor(this);
 
             Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => AddWorld(_.Result), TaskScheduler.Default);
@@ -148,8 +148,8 @@ namespace gameserver.realm
             List<Client> saveAccountUnlock = new List<Client>();
             foreach (ClientData cData in ClientManager.Values)
             {
-                saveAccountUnlock.Add(cData.client);
-                TryDisconnect(cData.client, DisconnectReason.STOPPING_REALM_MANAGER);
+                saveAccountUnlock.Add(cData.Client);
+                TryDisconnect(cData.Client, DisconnectReason.STOPPING_REALM_MANAGER);
             }
 
             GameData?.Dispose();
@@ -172,20 +172,22 @@ namespace gameserver.realm
         {
             try
             {
-                ClientData _cData = new ClientData();
-                _cData.ID = client.Account.AccountId;
-                _cData.client = client;
-                _cData.DNS = client.Socket.RemoteEndPoint.ToString().Split(':')[0];
-                _cData.registered = DateTime.Now;
+                ClientData _cData = new ClientData
+                {
+                    ID = client.Account.AccountId,
+                    Client = client,
+                    DNS = client.Socket.RemoteEndPoint.ToString().Split(':')[0],
+                    Registered = DateTime.Now
+                };
 
                 if (ClientManager.Count >= MaxClients) // When server is full.
                     return new ConnectionProtocol(false, ErrorIDs.SERVER_FULL);
 
                 if (ClientManager.ContainsKey(_cData.ID))
                 {
-                    if (_cData.client != null)
+                    if (_cData.Client != null)
                     {
-                        TryDisconnect(ClientManager[_cData.ID].client); // Old client.
+                        TryDisconnect(ClientManager[_cData.ID].Client); // Old client.
 
                         return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.
                     }
@@ -219,12 +221,12 @@ namespace gameserver.realm
 
                     ClientManager.TryRemove(client.Account.AccountId, out ClientData _disposableCData);
 
-                    Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.client.Account.Name} (Account ID: {_disposableCData.client.Account.AccountId})'.");
+                    Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.Client.Account.Name} (Account ID: {_disposableCData.Client.Account.AccountId})'.");
 
-                    _disposableCData.client.Save();
-                    _disposableCData.client.State = ProtocolState.Disconnected;
-                    _disposableCData.client.Socket.Close();
-                    _disposableCData.client.Dispose();
+                    _disposableCData.Client.Save();
+                    _disposableCData.Client.State = ProtocolState.Disconnected;
+                    _disposableCData.Client.Socket.Close();
+                    _disposableCData.Client.Dispose();
                 }
                 else
                 {
@@ -295,7 +297,7 @@ namespace gameserver.realm
 
         public bool RemoveVault(string accountId)
         {
-            return vaults.TryRemove(accountId, out Vault dummy);
+            return Vaults.TryRemove(accountId, out Vault dummy);
         }
 
         private void OnWorldAdded(World world)
@@ -343,8 +345,8 @@ namespace gameserver.realm
 
         public Vault PlayerVault(Client processor)
         {
-            if (!vaults.TryGetValue(processor.Account.AccountId, out Vault v))
-                vaults.TryAdd(processor.Account.AccountId, v = (Vault)AddWorld(new Vault(false, processor)));
+            if (!Vaults.TryGetValue(processor.Account.AccountId, out Vault v))
+                Vaults.TryAdd(processor.Account.AccountId, v = (Vault)AddWorld(new Vault(false, processor)));
             else
                 v.Reload(processor);
             return v;
@@ -382,24 +384,24 @@ namespace gameserver.realm
 
     public class ConnectionProtocol
     {
-        public bool connected { get; private set; }
-        public ErrorIDs errorID { get; private set; }
+        public bool Connected { get; private set; }
+        public ErrorIDs ErrorID { get; private set; }
 
         public ConnectionProtocol(
             bool connected,
             ErrorIDs errorID
             )
         {
-            this.connected = connected;
-            this.errorID = errorID;
+            Connected = connected;
+            ErrorID = errorID;
         }
     }
 
     public class ClientData
     {
         public string ID { get; set; }
-        public Client client { get; set; }
+        public Client Client { get; set; }
         public string DNS { get; set; }
-        public DateTime registered { get; set; }
+        public DateTime Registered { get; set; }
     }
 }

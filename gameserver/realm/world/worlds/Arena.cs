@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using common.models;
 using gameserver.networking.outgoing;
 using gameserver.realm.entity;
 using gameserver.realm.entity.player;
@@ -21,7 +22,7 @@ namespace gameserver.realm.world
 
         public Arena()
         {
-            Id = ARENA;
+            Id = (int)WorldID.ARENA;
             Name = "Arena";
             Background = 0;
             AllowTeleport = true;
@@ -112,7 +113,7 @@ namespace gameserver.realm.world
             }
             catch (Exception e)
             {
-                log4net.Error($"Arena error found! Error: {e}");
+                Log.Error($"Arena error found! Error: {e}");
             }
         }
 

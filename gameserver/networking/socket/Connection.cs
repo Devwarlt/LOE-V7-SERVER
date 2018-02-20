@@ -2,7 +2,6 @@
 using gameserver.networking.error;
 using gameserver.networking.outgoing;
 using System;
-using System.Threading.Tasks;
 using FAILURE = gameserver.networking.outgoing.FAILURE;
 
 namespace gameserver.networking

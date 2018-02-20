@@ -25,10 +25,8 @@ namespace gameserver.networking
                 switch (_outgoingState)
                 {
                     case OutgoingState.ReceivingHdr:
-                        // maybe ignore this bellow?
                         if (e.BytesTransferred < 5)
                         {
-                            // Log.Write($"Bytes transferred: {e.BytesTransferred}.");
                             Manager.TryDisconnect(client, DisconnectReason.RECEIVING_HDR);
                             return;
                         }

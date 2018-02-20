@@ -22,7 +22,7 @@ namespace gameserver.networking.handlers
 
             var world = Manager.GetWorld(client.Player.Owner.Id);
 
-            if (world.Id == World.NEXUS_ID)
+            if (world.Id == (int)WorldID.NEXUS_ID)
             {
                 client.SendMessage(new TEXT
                 {
@@ -39,7 +39,7 @@ namespace gameserver.networking.handlers
             {
                 Host = "",
                 Port = Settings.GAMESERVER.PORT,
-                GameId = World.NEXUS_ID,
+                GameId = (int)WorldID.NEXUS_ID,
                 Name = "Nexus",
                 Key = Empty<byte>.Array,
             });

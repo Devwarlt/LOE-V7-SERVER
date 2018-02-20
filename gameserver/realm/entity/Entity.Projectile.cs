@@ -16,11 +16,11 @@ namespace gameserver.realm.entity
             : base(Program.Manager.GameData.IdToObjectType[desc.ObjectId])
         {
             ProjDesc = desc;
-            cheatHandler = new GodCheatHandler();
-            cheatHandler.SetProjectile(this);
+            CheatHandler = new GodCheatHandler();
+            CheatHandler.SetProjectile(this);
         }
 
-        private GodCheatHandler cheatHandler { get; set; }
+        private GodCheatHandler CheatHandler { get; set; }
 
         public Entity ProjectileOwner { get; set; }
         public new byte ProjectileId { get; set; }
@@ -40,7 +40,7 @@ namespace gameserver.realm.entity
             base.Tick(time);
         }
 
-        public bool isValidType(Entity entity) =>
+        public bool IsValidType(Entity entity) =>
             (entity is Enemy
             && ProjDesc.MultiHit)
             || (entity is GameObject
@@ -59,7 +59,7 @@ namespace gameserver.realm.entity
 
             if (entity.HitByProjectile(this, time))
             {
-                if (isValidType(entity))
+                if (IsValidType(entity))
                     hitted.Add(entity);
                 else
                     Destroy();

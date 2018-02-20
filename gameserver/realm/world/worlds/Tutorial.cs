@@ -12,7 +12,7 @@ namespace gameserver.realm.world
 
         public Tutorial(bool isLimbo)
         {
-            Id = TUT_ID;
+            Id = (int)WorldID.TUT_ID;
             Name = "Tutorial";
             ClientWorldName = "server.tutorial";
             Background = 0;

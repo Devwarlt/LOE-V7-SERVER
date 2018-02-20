@@ -269,7 +269,7 @@ namespace gameserver.realm.entity.player
                 {
                     Host = "",
                     Port = Settings.GAMESERVER.PORT,
-                    GameId = World.NEXUS_ID,
+                    GameId = (int)WorldID.NEXUS_ID,
                     Name = "Nexus",
                     Key = Empty<byte>.Array,
                 });
@@ -405,7 +405,7 @@ namespace gameserver.realm.entity.player
                 {
 
                     string[] labels = new string[] { "{CLIENT_NAME}" };
-                    string[] arguments = new string[] { (client?.Account?.Name == null ? "_null_" : client?.Account?.Name) };
+                    string[] arguments = new string[] { (client?.Account?.Name ?? "_null_") };
 
                     if (arguments == new string[] { "_null_" })
                         return false;

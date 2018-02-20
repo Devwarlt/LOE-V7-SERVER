@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using log4net;
 using gameserver.networking;
 using gameserver.networking.outgoing;
 using gameserver.realm.entity;
@@ -19,19 +18,22 @@ using common.models;
 
 namespace gameserver.realm
 {
+    public enum WorldID : int
+    {
+        TUT_ID = -1,
+        NEXUS_ID = -2,
+        NEXUS_LIMBO = -3,
+        VAULT_ID = -5,
+        TEST_ID = -6,
+        GAUNTLET = -7,
+        WC = -8,
+        ARENA = -9,
+        MARKET = -11,
+        DAILY_QUEST_ID = -13
+    }
+
     public abstract class World : IDisposable
     {
-        public const int TUT_ID = -1;
-        public const int NEXUS_ID = -2;
-        public const int NEXUS_LIMBO = -3;
-        public const int VAULT_ID = -5;
-        public const int TEST_ID = -6;
-        public const int GAUNTLET = -7;
-        public const int WC = -8;
-        public const int ARENA = -9;
-        public const int MARKET = -11;
-        public const int DAILY_QUEST_ID = -13;
-        protected static readonly ILog log4net = LogManager.GetLogger(typeof(World));
         public string ExtraVar = "Default";
         private int entityInc;
         private RealmManager manager;
@@ -63,8 +65,6 @@ namespace gameserver.realm
             }));
         }
 
-        public bool IsLimbo { get; protected set; }
-
         public RealmManager Manager
         {
             get { return manager; }
@@ -78,6 +78,7 @@ namespace gameserver.realm
             }
         }
 
+        public bool IsLimbo { get; protected set; }
         public int Id { get; internal set; }
         public int Difficulty { get; protected set; }
         public string Name { get; protected set; }
@@ -85,45 +86,35 @@ namespace gameserver.realm
         public byte[] PortalKey { get; private set; }
         public bool PortalKeyExpired { get; private set; }
         public uint Seed { get; private set; }
-
         public virtual bool NeedsPortalKey => false;
-
         public ConcurrentDictionary<int, Player> Players { get; private set; }
         public ConcurrentDictionary<int, Enemy> Enemies { get; private set; }
-
         public ConcurrentDictionary<KeyValuePair<int, byte>, Projectile> Projectiles { get; set; }
-
-        public Projectile GetProjectileFromId(int hostId, byte bulletId) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)];
-        public void AddProjectileFromId(int hostId, byte bulletId, Projectile proj) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)] = proj;
-        public void RemoveProjectileFromId(int hostId, byte bulletId) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)] = null;
-
         public ConcurrentDictionary<int, GameObject> StaticObjects { get; private set; }
         public List<WorldTimer> Timers { get; }
         public int Background { get; protected set; }
-
         public CollisionMap<Entity> EnemiesCollision { get; private set; }
         public CollisionMap<Entity> PlayersCollision { get; private set; }
         public byte[,] Obstacles { get; private set; }
-
         public bool SafePlace { get; protected set; }
         public bool AllowTeleport { get; protected set; }
         public bool ShowDisplays { get; protected set; }
         public string[] ClientXml { get; protected set; }
         public string[] ExtraXml { get; protected set; }
-
         public bool Dungeon { get; protected set; }
         public bool Cave { get; protected set; }
         public bool Shaking { get; protected set; }
-
         public int MaxPlayers { get; protected set; }
-
         public Wmap Map { get; private set; }
         public ConcurrentDictionary<int, Enemy> Quests { get; }
 
-        public virtual World GetInstance(Client psr)
-        {
-            return null;
-        }
+        public virtual World GetInstance(Client psr) => null;
+
+        public Projectile GetProjectileFromId(int hostId, byte bulletId) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)];
+
+        public void AddProjectileFromId(int hostId, byte bulletId, Projectile proj) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)] = proj;
+
+        public void RemoveProjectileFromId(int hostId, byte bulletId) => Projectiles[new KeyValuePair<int, byte>(hostId, bulletId)] = null;
 
         public bool IsPassable(int x, int y)
         {
@@ -142,10 +133,7 @@ namespace gameserver.realm
             return true;
         }
 
-        public int GetNextEntityId()
-        {
-            return Interlocked.Increment(ref entityInc);
-        }
+        public int GetNextEntityId() => Interlocked.Increment(ref entityInc);
 
         public bool Delete()
         {
@@ -221,9 +209,9 @@ namespace gameserver.realm
                                 Obstacles[x, y] = 1;
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception e)
                     {
-                        log4net.Error(ex);
+                        Log.Error(e.ToString());
                     }
                 }
             EnemiesCollision = new CollisionMap<Entity>(0, w, h);
@@ -255,7 +243,7 @@ namespace gameserver.realm
                 }
                 catch (Exception e)
                 {
-                    log4net.Error(e);
+                    Log.Error(e.ToString());
                 }
             }
             else
@@ -350,12 +338,16 @@ namespace gameserver.realm
         {
             if (entity is Player)
                 TryRemove(entity as Player);
+
             if (entity is Enemy)
                 TryRemove(entity as Enemy);
+
             if (entity is Projectile)
                 TryRemove(entity as Projectile);
+
             if (entity is GameObject)
                 TryRemove(entity as GameObject);
+
             if (entity is Decoy)
                 PlayersCollision.Remove(entity);
             else
@@ -367,15 +359,29 @@ namespace gameserver.realm
 
         public Entity GetEntity(int id)
         {
-            if (Players.TryGetValue(id, out Player ret1)) return ret1;
-            if (Enemies.TryGetValue(id, out Enemy ret2)) return ret2;
-            if (StaticObjects.TryGetValue(id, out GameObject ret3)) return ret3;
+            if (Players.TryGetValue(id, out Player ret1))
+                return ret1;
+
+            if (Enemies.TryGetValue(id, out Enemy ret2))
+                return ret2;
+
+            if (StaticObjects.TryGetValue(id, out GameObject ret3))
+                return ret3;
+
             return null;
         }
 
-        public Player GetPlayerByName(string name) => (from i in Players where i.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase) select i.Value).FirstOrDefault();
+        public Player GetPlayerByName(string name) =>
+            (from i in Players
+             where i.Value.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)
+             select i.Value)
+            .FirstOrDefault();
 
-        public Player GetUniqueNamedPlayerRough(string name) => (from i in Players where i.Value.CompareName(name) select i.Value).FirstOrDefault();
+        public Player GetUniqueNamedPlayerRough(string name) =>
+            (from i in Players
+             where i.Value.CompareName(name)
+             select i.Value)
+            .FirstOrDefault();
 
         public void BroadcastPacket(Message pkt, Player exclude)
         {
@@ -453,7 +459,7 @@ namespace gameserver.realm
             }
             catch (Exception e)
             {
-                log4net.Error("World: " + Name + "\n" + e);
+                Log.Error("World: " + Name + "\n" + e);
             }
         }
 

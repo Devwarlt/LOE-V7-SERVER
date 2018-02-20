@@ -241,12 +241,14 @@ namespace gameserver.realm.entity.player
 
                 if (Owner.Id != -6)
                 {
-                    DEATH _death = new DEATH();
-                    _death.AccountId = AccountId;
-                    _death.CharId = client.Character.CharId;
-                    _death.Killer = killer;
-                    _death.zombieId = -1;
-                    _death.zombieType = -1;
+                    DEATH _death = new DEATH
+                    {
+                        AccountId = AccountId,
+                        CharId = client.Character.CharId,
+                        Killer = killer,
+                        zombieId = -1,
+                        zombieType = -1
+                    };
 
                     client.SendMessage(_death);
 
@@ -283,7 +285,7 @@ namespace gameserver.realm.entity.player
             SetNewbiePeriod();
             base.Init(owner);
             List<int> gifts = client.Account.Gifts.ToList();
-            if (owner.Id == World.NEXUS_ID || owner.Name == "Vault")
+            if (owner.Id == (int)WorldID.NEXUS_ID || owner.Name == "Vault")
             {
                 client.SendMessage(new GLOBAL_NOTIFICATION
                 {
@@ -308,15 +310,19 @@ namespace gameserver.realm.entity.player
 
             if ((accountType)AccountType == accountType.LOESOFT_ACCOUNT)
             {
-                ConditionEffect invincible = new ConditionEffect();
-                invincible.Effect = ConditionEffectIndex.Invincible;
-                invincible.DurationMS = -1;
+                ConditionEffect invincible = new ConditionEffect
+                {
+                    Effect = ConditionEffectIndex.Invincible,
+                    DurationMS = -1
+                };
 
                 ApplyConditionEffect(invincible);
 
-                ConditionEffect invulnerable = new ConditionEffect();
-                invulnerable.Effect = ConditionEffectIndex.Invulnerable;
-                invulnerable.DurationMS = -1;
+                ConditionEffect invulnerable = new ConditionEffect
+                {
+                    Effect = ConditionEffectIndex.Invulnerable,
+                    DurationMS = -1
+                };
 
                 ApplyConditionEffect(invulnerable);
             }

@@ -14,7 +14,7 @@ namespace gameserver.realm.world
 
         public Test()
         {
-            Id = TEST_ID;
+            Id = (int)WorldID.TEST_ID;
             Name = "Test";
             Background = 0;
             Dungeon = true;

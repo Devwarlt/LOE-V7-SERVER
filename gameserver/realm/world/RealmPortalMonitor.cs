@@ -26,7 +26,7 @@ namespace gameserver.realm
         {
             log.Info("Initalizing Portal Monitor...");
             this.manager = manager;
-            nexus = manager.Worlds[World.NEXUS_ID] as Nexus;
+            nexus = manager.Worlds[(int)WorldID.NEXUS_ID] as Nexus;
             lock (worldLock)
                 foreach (KeyValuePair<int, World> i in manager.Worlds)
                 {
@@ -118,7 +118,7 @@ namespace gameserver.realm
             {
                 World[] worlds = portals.Keys.ToArray();
                 if (worlds.Length == 0)
-                    return manager.Worlds[World.NEXUS_ID];
+                    return manager.Worlds[(int)WorldID.NEXUS_ID];
                 return worlds[Environment.TickCount % worlds.Length];
             }
         }
