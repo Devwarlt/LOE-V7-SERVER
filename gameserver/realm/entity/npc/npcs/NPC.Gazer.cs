@@ -22,7 +22,7 @@ namespace gameserver.realm.entity.npc.npcs
                 #region "Uptime"
                 case "uptime":
                     {
-                        TimeSpan uptime = DateTime.Now - Program.uptime;
+                        TimeSpan uptime = DateTime.Now - Program.Uptime;
                         double thisUptime = uptime.TotalMinutes;
                         if (thisUptime <= 1)
                             callback = "Server started recently.";

@@ -20,15 +20,15 @@ namespace gameserver
 {
     internal static class Program
     {
-        public static DateTime uptime { get; private set; }
+        public static DateTime Uptime { get; private set; }
         public static readonly ILog Logger = LogManager.GetLogger("Server");
 
         private static readonly ManualResetEvent Shutdown = new ManualResetEvent(false);
 
-        public static int Usage { get; private set; }
-        public static bool autoRestart { get; private set; }
+        public static int GameUsage { get; private set; }
+        public static bool AutoRestart { get; private set; }
 
-        public static ChatManager chat { get; set; }
+        public static ChatManager Chat { get; set; }
 
         public static RealmManager Manager;
 
@@ -45,11 +45,11 @@ namespace gameserver
 
             using (var db = new Database())
             {
-                Usage = -1;
+                GameUsage = -1;
 
                 Manager = new RealmManager(db);
 
-                autoRestart = Settings.NETWORKING.RESTART.ENABLE_RESTART;
+                AutoRestart = Settings.NETWORKING.RESTART.ENABLE_RESTART;
 
                 Manager.Initialize();
                 Manager.Run();
@@ -62,12 +62,12 @@ namespace gameserver
                 policy.Start();
                 server.Start();
 
-                if (autoRestart)
+                if (AutoRestart)
                 {
-                    chat = Manager.Chat;
-                    uptime = DateTime.Now;
-                    restart();
-                    usage();
+                    Chat = Manager.Chat;
+                    Uptime = DateTime.Now;
+                    Restart();
+                    Usage();
                 }
 
                 Console.Title = Settings.GAMESERVER.TITLE;
@@ -95,14 +95,14 @@ namespace gameserver
 
         static int ToMiliseconds(int minutes) => minutes * 60 * 1000;
 
-        public static void usage()
+        public static void Usage()
         {
             Thread parallel_thread = new Thread(() =>
             {
                 do
                 {
                     Thread.Sleep(ToMiliseconds(Settings.GAMESERVER.TTL) / 60);
-                    Usage = Manager.ClientManager.Count;
+                    GameUsage = Manager.ClientManager.Count;
                 } while (true);
             });
 
@@ -125,7 +125,7 @@ namespace gameserver
                 Logger.Error(ex);
         }
 
-        public static void restart()
+        public static void Restart()
         {
             Thread parallel_thread = new Thread(() =>
             {
@@ -139,7 +139,7 @@ namespace gameserver
                     try
                     {
                         foreach (ClientData cData in Manager.ClientManager.Values)
-                            chat.Tell(cData.client.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", cData.client.Player.Name));
+                            Chat.Tell(cData.client.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", cData.client.Player.Name));
                     }
                     catch (Exception ex)
                     {
@@ -153,7 +153,7 @@ namespace gameserver
                 try
                 {
                     foreach (ClientData cData in Manager.ClientManager.Values)
-                        chat.Tell(cData.client.Player, "(!) Notification (!)", message);
+                        Chat.Tell(cData.client.Player, "(!) Notification (!)", message);
                 }
                 catch (Exception ex)
                 {
