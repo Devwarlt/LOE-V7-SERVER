@@ -16,7 +16,7 @@ namespace gameserver.realm.entity.player
             {
                 if (Owner.Name == "Ocean Trench")
                 {
-                    if (!(Owner.StaticObjects.Where(i => i.Value.ObjectType == 0x0731).Count(i => (X - i.Value.X) * (X - i.Value.X) + (Y - i.Value.Y) * (Y - i.Value.Y) < 1) > 0))
+                    if (!(Owner.GameObjects.Where(i => i.Value.ObjectType == 0x0731).Count(i => (X - i.Value.X) * (X - i.Value.X) + (Y - i.Value.Y) * (Y - i.Value.Y) < 1) > 0))
                     {
                         if (OxygenBar == 0)
                             HP -= 2;

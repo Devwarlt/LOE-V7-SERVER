@@ -34,18 +34,14 @@ namespace gameserver.realm
 
     public abstract class World : IDisposable
     {
-        public string ExtraVar = "Default";
-        private int entityInc;
-        private RealmManager manager;
-        private bool canBeClosed;
-
         protected World()
         {
             Players = new ConcurrentDictionary<int, Player>();
             Enemies = new ConcurrentDictionary<int, Enemy>();
+            Entities = new ConcurrentDictionary<int, Entity>();
             Quests = new ConcurrentDictionary<int, Enemy>();
             Projectiles = new ConcurrentDictionary<KeyValuePair<int, byte>, Projectile>();
-            StaticObjects = new ConcurrentDictionary<int, GameObject>();
+            GameObjects = new ConcurrentDictionary<int, GameObject>();
             Timers = new List<WorldTimer>();
             ClientXml = ExtraXml = Empty<string>.Array;
             SafePlace = false;
@@ -78,6 +74,10 @@ namespace gameserver.realm
             }
         }
 
+        private int entityInc;
+        private RealmManager manager;
+        private bool canBeClosed;
+        public string ExtraVar = "Default";
         public bool IsLimbo { get; protected set; }
         public int Id { get; internal set; }
         public int Difficulty { get; protected set; }
@@ -87,10 +87,11 @@ namespace gameserver.realm
         public bool PortalKeyExpired { get; private set; }
         public uint Seed { get; private set; }
         public virtual bool NeedsPortalKey => false;
+        public ConcurrentDictionary<int, Entity> Entities { get; private set; }
         public ConcurrentDictionary<int, Player> Players { get; private set; }
         public ConcurrentDictionary<int, Enemy> Enemies { get; private set; }
         public ConcurrentDictionary<KeyValuePair<int, byte>, Projectile> Projectiles { get; set; }
-        public ConcurrentDictionary<int, GameObject> StaticObjects { get; private set; }
+        public ConcurrentDictionary<int, GameObject> GameObjects { get; private set; }
         public List<WorldTimer> Timers { get; }
         public int Background { get; protected set; }
         public CollisionMap<Entity> EnemiesCollision { get; private set; }
@@ -145,8 +146,9 @@ namespace gameserver.realm
             Map = null;
             Players = null;
             Enemies = null;
+            Entities = null;
             Projectiles = null;
-            StaticObjects = null;
+            GameObjects = null;
             return true;
         }
 
@@ -218,9 +220,10 @@ namespace gameserver.realm
             PlayersCollision = new CollisionMap<Entity>(1, w, h);
 
             Projectiles.Clear();
-            StaticObjects.Clear();
+            GameObjects.Clear();
             Enemies.Clear();
             Players.Clear();
+            Entities.Clear();
             foreach (var i in Map.InstantiateEntities(Program.Manager))
             {
                 if (i.ObjectDesc != null &&
@@ -233,62 +236,84 @@ namespace gameserver.realm
         public virtual int EnterWorld(Entity entity)
         {
             if (entity is Player player)
-            {
-                try
-                {
-                    player.Id = GetNextEntityId();
-                    entity.Init(this);
-                    Players.TryAdd(player.Id, player);
-                    PlayersCollision.Insert(player);
-                }
-                catch (Exception e)
-                {
-                    Log.Error(e.ToString());
-                }
-            }
+                TryAdd(player);
             else
             {
                 if (entity is Enemy enemy)
-                {
-                    enemy.Id = GetNextEntityId();
-                    entity.Init(this);
-                    Enemies.TryAdd(enemy.Id, enemy);
-                    EnemiesCollision.Insert(enemy);
-                    if (enemy.ObjectDesc.Quest)
-                        Quests.TryAdd(enemy.Id, enemy);
-                }
+                    TryAdd(enemy);
                 else
                 {
                     if (entity is Projectile projectile)
-                    {
-                        projectile.Init(this);
-                        AddProjectileFromId(projectile.ProjectileOwner.Id, projectile.ProjectileId, projectile);
-                    }
+                        TryAdd(projectile);
                     else
                     {
-                        if (entity is GameObject staticObject)
+                        if (entity is GameObject gameObject)
                         {
-                            staticObject.Id = GetNextEntityId();
-                            staticObject.Init(this);
-                            StaticObjects.TryAdd(staticObject.Id, staticObject);
+                            TryAdd(gameObject);
+
                             if (entity is Decoy)
-                                PlayersCollision.Insert(staticObject);
+                                PlayersCollision.Insert(entity);
                             else
-                                EnemiesCollision.Insert(staticObject);
+                                EnemiesCollision.Insert(entity);
                         }
                         else
-                        {
                             return entity.Id;
+                    }
+                }
+            }
+
+            return entity.Id;
+        }
+
+        public virtual void LeaveWorld(Entity entity)
+        {
+            if (entity is Player)
+                TryRemove(entity as Player);
+            else
+            {
+                if (entity is Enemy)
+                    TryRemove(entity as Enemy);
+                else
+                {
+                    if (entity is Projectile)
+                        TryRemove(entity as Projectile);
+                    else
+                    {
+                        if (entity is GameObject)
+                        {
+                            TryRemove(entity as GameObject);
+
+                            if (entity is Decoy)
+                                PlayersCollision.Remove(entity);
+                            else
+                                EnemiesCollision.Remove(entity);
                         }
                     }
                 }
             }
-            return entity.Id;
+
+            entity.Dispose();
+
+            entity = null;
+        }
+
+        private void TryAdd(Player player)
+        {
+            player.Id = GetNextEntityId();
+
+            if (!Players.TryAdd(player.Id, player) || !Entities.TryAdd(player.Id, player))
+            {
+                Log.Error($"Player '{player.Name}' wasn't added to World '{Name}'.");
+                return;
+            }
+
+            player.Init(this);
+
+            PlayersCollision.Insert(player);
         }
 
         private void TryRemove(Player player)
         {
-
             if (!Players.TryRemove(player.Id, out Player dummy))
             {
                 Log.Error($"Player '{player.Name}' wasn't removed from World '{Name}'.");
@@ -296,6 +321,28 @@ namespace gameserver.realm
             }
 
             PlayersCollision.Remove(dummy);
+        }
+
+        private void TryAdd(Enemy enemy)
+        {
+            enemy.Id = GetNextEntityId();
+
+            if (!Enemies.TryAdd(enemy.Id, enemy) || !Entities.TryAdd(enemy.Id, enemy))
+            {
+                Log.Error($"Enemy '{enemy.Name}' wasn't added to World '{Name}'.");
+                return;
+            }
+
+            if (enemy.ObjectDesc.Quest)
+                if (!Quests.TryAdd(enemy.Id, enemy))
+                {
+                    Log.Error($"Enemy Quest '{enemy.Name}' wasn't added to World '{Name}'.");
+                    return;
+                }
+
+            enemy.Init(this);
+
+            EnemiesCollision.Insert(enemy);
         }
 
         private void TryRemove(Enemy enemy)
@@ -319,7 +366,26 @@ namespace gameserver.realm
             Log.Warn($"Enemy '{dummy.Name}' was successfully removed from World '{Name}'.");
         }
 
+        private void TryAdd(Projectile projectile)
+        {
+            projectile.Init(this);
+            AddProjectileFromId(projectile.ProjectileOwner.Id, projectile.ProjectileId, projectile);
+        }
+
         private void TryRemove(Projectile projectile) => RemoveProjectileFromId(projectile.ProjectileOwner.Id, projectile.ProjectileId);
+
+        private void TryAdd(GameObject gameObject)
+        {
+            gameObject.Id = GetNextEntityId();
+
+            if (!GameObjects.TryAdd(gameObject.Id, gameObject) || !Entities.TryAdd(gameObject.Id, gameObject))
+            {
+                Log.Error($"Game Object '{gameObject.Name}' wasn't added to World '{Name}'.");
+                return;
+            }
+
+            gameObject.Init(this);
+        }
 
         private void TryRemove(GameObject gameObject)
         {
@@ -327,34 +393,11 @@ namespace gameserver.realm
             if (string.IsNullOrEmpty(gameObject.Name) || string.IsNullOrWhiteSpace(gameObject.Name))
                 return;
 
-            if (!StaticObjects.TryRemove(gameObject.Id, out GameObject dummy))
+            if (!GameObjects.TryRemove(gameObject.Id, out GameObject dummy))
             {
                 Log.Error($"Game Object '{gameObject.Name}' wasn't removed from World '{Name}'.");
                 return;
             }
-        }
-
-        public virtual void LeaveWorld(Entity entity)
-        {
-            if (entity is Player)
-                TryRemove(entity as Player);
-
-            if (entity is Enemy)
-                TryRemove(entity as Enemy);
-
-            if (entity is Projectile)
-                TryRemove(entity as Projectile);
-
-            if (entity is GameObject)
-                TryRemove(entity as GameObject);
-
-            if (entity is Decoy)
-                PlayersCollision.Remove(entity);
-            else
-                EnemiesCollision.Remove(entity);
-
-            entity.Dispose();
-            entity = null;
         }
 
         public Entity GetEntity(int id)
@@ -365,7 +408,7 @@ namespace gameserver.realm
             if (Enemies.TryGetValue(id, out Enemy ret2))
                 return ret2;
 
-            if (StaticObjects.TryGetValue(id, out GameObject ret3))
+            if (GameObjects.TryGetValue(id, out GameObject ret3))
                 return ret3;
 
             return null;
@@ -438,14 +481,14 @@ namespace gameserver.realm
                 {
                     foreach (var i in EnemiesCollision.GetActiveChunks(PlayersCollision))
                         i.Tick(time);
-                    foreach (var i in StaticObjects.Where(x => x.Value is Decoy))
+                    foreach (var i in GameObjects.Where(x => x.Value is Decoy))
                         i.Value.Tick(time);
                 }
                 else
                 {
                     foreach (var i in Enemies)
                         i.Value?.Tick(time);
-                    foreach (var i in StaticObjects)
+                    foreach (var i in GameObjects)
                         i.Value?.Tick(time);
                 }
                 foreach (var i in Projectiles)
@@ -500,7 +543,7 @@ namespace gameserver.realm
         {
             foreach (var en in Enemies)
                 en.Value.OnChatTextReceived(text);
-            foreach (var en in StaticObjects)
+            foreach (var en in GameObjects)
                 en.Value.OnChatTextReceived(text);
         }
 
@@ -512,7 +555,7 @@ namespace gameserver.realm
             Enemies.Clear();
             Quests.Clear();
             Projectiles.Clear();
-            StaticObjects.Clear();
+            GameObjects.Clear();
             Timers.Clear();
             EnemiesCollision = null;
             PlayersCollision = null;

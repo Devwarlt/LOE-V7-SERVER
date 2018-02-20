@@ -91,9 +91,6 @@ namespace gameserver.realm
 
         public void Insert(T obj)
         {
-            if (obj.CollisionNode != null)
-                throw new InvalidOperationException("Object already added into collision map.");
-
             int x = (int)(obj.X / CHUNK_SIZE);
             int y = (int)(obj.Y / CHUNK_SIZE);
             obj.CollisionNode = new CollisionNode<T>
@@ -116,8 +113,6 @@ namespace gameserver.realm
                 Insert(obj);
                 return;
             }
-            if (obj.Parent != this)
-                throw new InvalidOperationException("Cannot move object accoss different map.");
 
             int x = (int)(newX / CHUNK_SIZE);
             int y = (int)(newY / CHUNK_SIZE);
