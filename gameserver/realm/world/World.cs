@@ -307,9 +307,7 @@ namespace gameserver.realm
                 return;
             }
 
-            dummy = null;
-
-            PlayersCollision.Remove(player);
+            PlayersCollision.Remove(dummy);
         }
 
         private void TryRemove(Enemy enemy)
@@ -324,15 +322,13 @@ namespace gameserver.realm
             if (enemy.ObjectDesc.Quest)
                 if (!Quests.TryRemove(enemy.Id, out dummy))
                 {
-                    Log.Error($"Enemy Quest '{enemy.Name}' wasn't removed from World '{Name}'.");
+                    Log.Error($"Enemy Quest '{dummy.Name}' wasn't removed from World '{Name}'.");
                     return;
                 }
 
-            dummy = null;
+            EnemiesCollision.Remove(dummy);
 
-            EnemiesCollision.Remove(enemy);
-
-            Log.Warn($"Enemy '{enemy.Name}' was successfully removed from World '{Name}'.");
+            Log.Warn($"Enemy '{dummy.Name}' was successfully removed from World '{Name}'.");
         }
 
         private void TryRemove(Projectile projectile) => RemoveProjectileFromId(projectile.ProjectileOwner.Id, projectile.ProjectileId);
@@ -340,7 +336,7 @@ namespace gameserver.realm
         private void TryRemove(GameObject gameObject)
         {
 
-            if (gameObject.Name == "")
+            if (string.IsNullOrEmpty(gameObject.Name) || string.IsNullOrWhiteSpace(gameObject.Name))
                 return;
 
             if (!StaticObjects.TryRemove(gameObject.Id, out GameObject dummy))
@@ -348,8 +344,6 @@ namespace gameserver.realm
                 Log.Error($"Game Object '{gameObject.Name}' wasn't removed from World '{Name}'.");
                 return;
             }
-
-            dummy = null;
         }
 
         public virtual void LeaveWorld(Entity entity)
@@ -367,6 +361,7 @@ namespace gameserver.realm
             else
                 EnemiesCollision.Remove(entity);
 
+            entity.Dispose();
             entity = null;
         }
 

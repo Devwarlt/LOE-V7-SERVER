@@ -143,8 +143,6 @@ namespace gameserver.realm
         {
             if (obj.CollisionNode == null)
                 return;
-            if (obj.Parent != this)
-                throw new InvalidOperationException("Cannot remove object accoss different map.");
 
             int x = (int)(obj.X / CHUNK_SIZE);
             int y = (int)(obj.Y / CHUNK_SIZE);

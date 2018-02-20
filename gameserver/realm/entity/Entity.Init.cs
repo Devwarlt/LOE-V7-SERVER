@@ -15,7 +15,7 @@ using gameserver.realm.entity.merchant;
 namespace gameserver.realm
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
-    public class Entity : ICollidable<Entity>
+    public class Entity : ICollidable<Entity>, IDisposable
     {
         private const int EFFECT_COUNT = 56;
         public bool Spawned;
@@ -113,8 +113,8 @@ namespace gameserver.realm
         public float X { get; private set; }
         public float Y { get; private set; }
 
-        public float lastX { get; private set; }
-        public float lastY { get; private set; }
+        public float LastX { get; private set; }
+        public float LastY { get; private set; }
 
         public CollisionNode<Entity> CollisionNode { get; set; }
         public CollisionMap<Entity> Parent { get; set; }
@@ -742,6 +742,11 @@ namespace gameserver.realm
                 return false;
 
             return effect != ConditionEffectIndex.Slowed || !HasConditionEffect(ConditionEffects.SlowedImmune);
+        }
+
+        public void Dispose()
+        {
+            Owner = null;
         }
     }
 }
