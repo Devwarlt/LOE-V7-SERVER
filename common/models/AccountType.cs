@@ -34,7 +34,7 @@
                 return level < 20 ? (experience * 2) : (int)(experience * 1.1);
             return experience;
         }
-        
+
         public bool AccessToDrastaCitadel() => _accessToDrastaCitadel;
 
         public bool ByPassKeysRequirements() => _byPassKeysRequirements;

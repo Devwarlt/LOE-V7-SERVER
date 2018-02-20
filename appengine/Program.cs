@@ -77,7 +77,7 @@ namespace appengine
                 appEngine._shutdown = true;
 
                 Log.Warn("Terminating AppEngine, disposing all instances.");
-                
+
                 IAsyncResult webSocketIAsyncResult = new WebSocketDelegate(appEngine.SafeShutdown).BeginInvoke(new AsyncCallback(appEngine.SafeDispose), null);
                 webSocketIAsyncResult.AsyncWaitHandle.WaitOne();
             }

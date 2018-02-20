@@ -35,7 +35,7 @@ namespace gameserver.realm
         private Player playerOwner; //For Drakes
 
         private Projectile[] projectiles;
-        
+
         public wRandom Random { get; private set; }
 
         public Entity(ushort objType)

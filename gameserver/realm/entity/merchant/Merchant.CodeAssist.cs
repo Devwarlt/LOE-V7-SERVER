@@ -33,7 +33,7 @@ namespace gameserver.realm.entity.merchant
             if (ObjectType == 0x01ca) //Merchant
             {
                 int originalPrice = Price;
-                Price = (int) (Price * player.AccountPerks.MerchantDiscount());
+                Price = (int)(Price * player.AccountPerks.MerchantDiscount());
                 if (TryDeduct(player))
                 {
                     for (var i = 4; i < player.Inventory.Length; i++)
@@ -47,7 +47,7 @@ namespace gameserver.realm.entity.merchant
                             // Exploit fix - No more mnovas as weapons!
                             {
                                 player.Inventory[i] = Program.Manager.GameData.Items[(ushort)MType];
-                                
+
                                 KeyValuePair<string, int> currency = new KeyValuePair<string, int>(null, -1);
 
                                 switch (Currency)

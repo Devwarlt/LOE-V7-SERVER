@@ -48,7 +48,7 @@ namespace gameserver.logic.skills.Pets
         }
 
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state) => state = special ? coolDownOffset : 0;
-        
+
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
             Player player = host.GetPlayerOwner();

@@ -359,7 +359,7 @@ namespace gameserver.realm.entity.player
         public bool TPCooledDown() => CanTPCooldownTime > 0 ? false : true;
 
         public string ResolveGuildChatName() => Name;
-        
+
         public bool HasSlot(int slot) => Inventory[slot] != null;
 
         public void AwaitMove(int tickId) => _move.Enqueue(tickId);

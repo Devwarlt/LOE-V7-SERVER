@@ -38,10 +38,10 @@ namespace gameserver.networking.messages.handlers.hack
         {
             if (item == player.Inventory[1] || item == player.Inventory[2] || item == player.Inventory[3])
                 return;
-            
+
             if (isAbility)
                 return;
-            
+
             if ((attackPeriod > ProcessAttackPeriod() || attackAmount != item.NumProjectiles) && !byPass)
             {
                 Program.Manager.TryDisconnect(player.client, Client.DisconnectReason.DEXTERITY_HACK_MOD);
