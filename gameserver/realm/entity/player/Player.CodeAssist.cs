@@ -383,8 +383,7 @@ namespace gameserver.realm.entity.player
 
             if (_clientTimeLog.Count > 30)
             {
-                int ignore;
-                _clientTimeLog.TryDequeue(out ignore);
+                _clientTimeLog.TryDequeue(out int ignore);
                 _serverTimeLog.TryDequeue(out ignore);
             }
         }

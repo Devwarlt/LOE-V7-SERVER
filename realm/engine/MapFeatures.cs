@@ -88,15 +88,13 @@ namespace realm.engine
                 MapPolygon n = queue.Dequeue();
                 foreach (MapPolygon i in n.Neighbour)
                 {
-                    int newLevel;
-                    if (!centerContour.TryGetValue(n, out newLevel))
+                    if (!centerContour.TryGetValue(n, out int newLevel))
                         newLevel = 0;
 
                     while (i.DistanceToCoast > roadHeights[newLevel])
                         newLevel++;
 
-                    int iLevel;
-                    if (!centerContour.TryGetValue(i, out iLevel))
+                    if (!centerContour.TryGetValue(i, out int iLevel))
                         iLevel = int.MaxValue;
 
                     if (newLevel < iLevel)
@@ -111,10 +109,8 @@ namespace realm.engine
             foreach (MapPolygon i in map.Polygons)
                 foreach (MapNode j in i.Nodes)
                 {
-                    int curr;
-                    if (!cornerContour.TryGetValue(j, out curr)) curr = int.MaxValue;
-                    int poly;
-                    if (!centerContour.TryGetValue(i, out poly)) poly = int.MaxValue;
+                    if (!cornerContour.TryGetValue(j, out int curr)) curr = int.MaxValue;
+                    if (!centerContour.TryGetValue(i, out int poly)) poly = int.MaxValue;
                     cornerContour[j] = Math.Min(curr, poly);
                 }
 

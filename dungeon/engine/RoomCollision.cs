@@ -50,8 +50,7 @@ namespace dungeon.engine
         void Remove(int x, int y, Room rm)
         {
             var key = new RoomKey(x, y);
-            HashSet<Room> roomList;
-            if (rooms.TryGetValue(key, out roomList))
+            if (rooms.TryGetValue(key, out HashSet<Room> roomList))
                 roomList.Remove(rm);
         }
 

@@ -42,9 +42,8 @@ namespace gameserver.networking.handlers
                 return;
             }
 
-            DbGuild guild;
 
-            GuildCreateStatus gstatus = Manager.Database.CreateGuild(name, out guild);
+            GuildCreateStatus gstatus = Manager.Database.CreateGuild(name, out DbGuild guild);
 
             if (gstatus != GuildCreateStatus.OK)
             {

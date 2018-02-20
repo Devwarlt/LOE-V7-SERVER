@@ -130,10 +130,9 @@ namespace gameserver.realm
             if (!Map.Contains(x, y))
                 return false;
             WmapTile tile = Map[x, y];
-            ObjectDesc desc;
             if (tile.TileDesc.NoWalk)
                 return false;
-            if (Program.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out desc))
+            if (Program.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out ObjectDesc desc))
             {
                 if (!desc.Static)
                     return false;
@@ -210,10 +209,9 @@ namespace gameserver.realm
                     try
                     {
                         var tile = Map[x, y];
-                        ObjectDesc desc;
                         if (Program.Manager.GameData.Tiles[tile.TileId].NoWalk)
                             Obstacles[x, y] = 3;
-                        if (Program.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out desc))
+                        if (Program.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out ObjectDesc desc))
                         {
                             if (desc.Class == "Wall" ||
                                 desc.Class == "ConnectedWall" ||
@@ -302,9 +300,8 @@ namespace gameserver.realm
 
         private void TryRemove(Player player)
         {
-            Player dummy;
 
-            if (!Players.TryRemove(player.Id, out dummy))
+            if (!Players.TryRemove(player.Id, out Player dummy))
             {
                 Log.Error($"Player '{player.Name}' wasn't removed from World '{Name}'.");
                 return;
@@ -317,9 +314,8 @@ namespace gameserver.realm
 
         private void TryRemove(Enemy enemy)
         {
-            Enemy dummy;
 
-            if (!Enemies.TryRemove(enemy.Id, out dummy))
+            if (!Enemies.TryRemove(enemy.Id, out Enemy dummy))
             {
                 Log.Error($"Enemy '{enemy.Name}' wasn't removed from World '{Name}'.");
                 return;
@@ -343,12 +339,11 @@ namespace gameserver.realm
 
         private void TryRemove(GameObject gameObject)
         {
-            GameObject dummy;
 
             if (gameObject.Name == "")
                 return;
 
-            if (!StaticObjects.TryRemove(gameObject.Id, out dummy))
+            if (!StaticObjects.TryRemove(gameObject.Id, out GameObject dummy))
             {
                 Log.Error($"Game Object '{gameObject.Name}' wasn't removed from World '{Name}'.");
                 return;
@@ -377,12 +372,9 @@ namespace gameserver.realm
 
         public Entity GetEntity(int id)
         {
-            Player ret1;
-            if (Players.TryGetValue(id, out ret1)) return ret1;
-            Enemy ret2;
-            if (Enemies.TryGetValue(id, out ret2)) return ret2;
-            GameObject ret3;
-            if (StaticObjects.TryGetValue(id, out ret3)) return ret3;
+            if (Players.TryGetValue(id, out Player ret1)) return ret1;
+            if (Enemies.TryGetValue(id, out Enemy ret2)) return ret2;
+            if (StaticObjects.TryGetValue(id, out GameObject ret3)) return ret3;
             return null;
         }
 

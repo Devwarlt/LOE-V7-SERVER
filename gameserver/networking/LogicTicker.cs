@@ -74,8 +74,7 @@ namespace gameserver.realm
 
                 foreach (ConcurrentQueue<Action<RealmTime>> i in pendings)
                 {
-                    Action<RealmTime> callback;
-                    while (i.TryDequeue(out callback))
+                    while (i.TryDequeue(out Action<RealmTime> callback))
                     {
                         try
                         {

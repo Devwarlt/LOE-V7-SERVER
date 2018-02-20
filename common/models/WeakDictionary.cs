@@ -94,9 +94,8 @@ namespace common
         // comparer.Equals(x, y) -------------------------------------------------
         public new bool Equals(object x, object y)
         {
-            bool xIsDead, yIsDead;
-            T first = GetTarget(x, out xIsDead);
-            T second = GetTarget(y, out yIsDead);
+            T first = GetTarget(x, out bool xIsDead);
+            T second = GetTarget(y, out bool yIsDead);
 
             if (xIsDead)
                 return yIsDead ? x == y : false;
@@ -188,8 +187,7 @@ namespace common
         {
             get
             {
-                TValue value;
-                if (!TryGetValue(key, out value))
+                if (!TryGetValue(key, out TValue value))
                     throw new KeyNotFoundException();
 
                 return value;
@@ -207,8 +205,7 @@ namespace common
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            TValue value;
-            if (!TryGetValue(item.Key, out value))
+            if (!TryGetValue(item.Key, out TValue value))
                 return false;
 
             return EqualityComparer<TValue>.Default.Equals(value, item.Value);
@@ -393,8 +390,7 @@ namespace common
 
         public override bool TryGetValue(TKey key, out TValue value)
         {
-            TValue weakValue;
-            if (dictionary.TryGetValue(key, out weakValue))
+            if (dictionary.TryGetValue(key, out TValue weakValue))
             {
                 value = weakValue;
                 return true;

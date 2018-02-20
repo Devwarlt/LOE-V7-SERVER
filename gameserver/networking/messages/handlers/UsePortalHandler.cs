@@ -149,8 +149,7 @@ namespace gameserver.networking.handlers
 
                 if (Program.Manager.LastWorld.ContainsKey(player.AccountId))
                 {
-                    World dummy;
-                    Program.Manager.LastWorld.TryRemove(player.AccountId, out dummy);
+                    Program.Manager.LastWorld.TryRemove(player.AccountId, out World dummy);
                 }
                 if (player.Owner is Nexus || player.Owner is GameWorld)
                     Program.Manager.LastWorld.TryAdd(player.AccountId, player.Owner);

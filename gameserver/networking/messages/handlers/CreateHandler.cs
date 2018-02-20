@@ -22,8 +22,7 @@ namespace gameserver.networking.handlers
         private void Handle(Client client, CREATE message)
         {
             int skin = client.Account.OwnedSkins.Contains(message.SkinType) ? message.SkinType : 0;
-            DbChar character;
-            CreateStatus status = Manager.Database.CreateCharacter(Manager.GameData, client.Account, (ushort)message.ClassType, skin, out character);
+            CreateStatus status = Manager.Database.CreateCharacter(Manager.GameData, client.Account, (ushort)message.ClassType, skin, out DbChar character);
             if (status == CreateStatus.ReachCharLimit)
             {
                 client.SendMessage(new FAILURE

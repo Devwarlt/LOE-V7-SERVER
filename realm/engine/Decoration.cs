@@ -239,8 +239,7 @@ namespace realm.engine
 
         public static string GetDecor(string biome, Random rand)
         {
-            Tuple<double, string>[] dat;
-            if (!decors.TryGetValue(biome, out dat)) return null;
+            if (!decors.TryGetValue(biome, out Tuple<double, string>[] dat)) return null;
 
             double val = rand.NextDouble();
             double c = 0;
@@ -254,8 +253,7 @@ namespace realm.engine
 
         public static int? GetSize(string id, Random rand)
         {
-            Tuple<int, int, int> dat;
-            if (!decorSizes.TryGetValue(id, out dat))
+            if (!decorSizes.TryGetValue(id, out Tuple<int, int, int> dat))
                 return null;
             int min = dat.Item1;
             int max = dat.Item2;

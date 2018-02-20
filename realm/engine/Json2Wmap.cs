@@ -34,7 +34,6 @@ namespace realm.engine
             }
 
             var tiles = new RealmTile[obj.width, obj.height];
-            ushort objType;
             //creates a new case insensitive dictionary based on the XmlDatas
             Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
                 data.IdToObjectType,
@@ -63,7 +62,7 @@ namespace realm.engine
                         }
                         else
                         {
-                            if (!icdatas.TryGetValue(tiles[x, y].TileObj, out objType) ||
+                            if (!icdatas.TryGetValue(tiles[x, y].TileObj, out ushort objType) ||
                                 !data.ObjectDescs.ContainsKey(objType))
                             {
                             }

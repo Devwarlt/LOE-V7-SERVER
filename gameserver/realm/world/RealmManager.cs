@@ -216,9 +216,8 @@ namespace gameserver.realm
             {
                 if (ClientManager.ContainsKey(client.Account.AccountId))
                 {
-                    ClientData _disposableCData;
 
-                    ClientManager.TryRemove(client.Account.AccountId, out _disposableCData);
+                    ClientManager.TryRemove(client.Account.AccountId, out ClientData _disposableCData);
 
                     Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.client.Account.Name} (Account ID: {_disposableCData.client.Account.AccountId})'.");
 
@@ -267,8 +266,7 @@ namespace gameserver.realm
         {
             if (world.Manager == null)
                 throw new InvalidOperationException("World is not added.");
-            World dummy;
-            if (Worlds.TryRemove(world.Id, out dummy))
+            if (Worlds.TryRemove(world.Id, out World dummy))
             {
                 try
                 {
@@ -290,16 +288,14 @@ namespace gameserver.realm
 
         public World GetWorld(int id)
         {
-            World ret;
-            if (!Worlds.TryGetValue(id, out ret)) return null;
+            if (!Worlds.TryGetValue(id, out World ret)) return null;
             if (ret.Id == 0) return null;
             return ret;
         }
 
         public bool RemoveVault(string accountId)
         {
-            Vault dummy;
-            return vaults.TryRemove(accountId, out dummy);
+            return vaults.TryRemove(accountId, out Vault dummy);
         }
 
         private void OnWorldAdded(World world)
@@ -347,8 +343,7 @@ namespace gameserver.realm
 
         public Vault PlayerVault(Client processor)
         {
-            Vault v;
-            if (!vaults.TryGetValue(processor.Account.AccountId, out v))
+            if (!vaults.TryGetValue(processor.Account.AccountId, out Vault v))
                 vaults.TryAdd(processor.Account.AccountId, v = (Vault)AddWorld(new Vault(false, processor)));
             else
                 v.Reload(processor);

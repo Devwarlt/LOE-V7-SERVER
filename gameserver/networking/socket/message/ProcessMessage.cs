@@ -18,9 +18,8 @@ namespace gameserver.networking
                 if (msg.ID == (MessageID)255)
                     return;
 
-                IMessage handler;
 
-                if (!MessageHandler.Handlers.TryGetValue(msg.ID, out handler))
+                if (!MessageHandler.Handlers.TryGetValue(msg.ID, out IMessage handler))
                     Log.Warn($"Unhandled message ID '{msg.ID}'.");
                 else
                     handler.Handle(this, (IncomingMessage)msg);

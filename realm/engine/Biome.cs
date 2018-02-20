@@ -93,8 +93,7 @@ namespace realm.engine
                 foreach (MapEdge i in node.Edges)
                 {
                     MapNode target = i.To;
-                    double targetDist;
-                    if (!moisture.TryGetValue(target, out targetDist))
+                    if (!moisture.TryGetValue(target, out double targetDist))
                         targetDist = int.MaxValue;
                     if (targetDist > dist)
                     {

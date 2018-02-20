@@ -562,8 +562,7 @@ namespace common
         {
             character.Dead = true;
             SaveCharacter(acc, character, acc.LockToken != null);
-            bool firstBorn;
-            var finalFame = stats.CalculateTotal(dat, character, new DbClassStats(acc), out firstBorn);
+            var finalFame = stats.CalculateTotal(dat, character, new DbClassStats(acc), out bool firstBorn);
             var death = new DbDeath(acc, character.CharId);
             death.ObjectType = character.ObjectType;
             death.Level = character.Level;

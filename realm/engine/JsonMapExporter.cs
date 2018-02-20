@@ -22,8 +22,7 @@ namespace realm.engine
                 for (int x = 0; x < w; x++)
                 {
                     RealmTile tile = tiles[x, y];
-                    ushort idx;
-                    if (!idxs.TryGetValue(tile, out idx))
+                    if (!idxs.TryGetValue(tile, out ushort idx))
                     {
                         idxs.Add(tile, idx = (ushort)dict.Count);
                         dict.Add(new loc

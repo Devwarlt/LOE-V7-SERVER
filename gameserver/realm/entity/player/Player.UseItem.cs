@@ -550,8 +550,7 @@ namespace gameserver.realm.entity.player
 
                             if (Stars >= 10 || AccountPerks.ByPassKeysRequirements())
                             {
-                                ushort objType;
-                                if (!Program.Manager.GameData.IdToObjectType.TryGetValue(eff.Id, out objType) || !Program.Manager.GameData.Portals.ContainsKey(objType))
+                                if (!Program.Manager.GameData.IdToObjectType.TryGetValue(eff.Id, out ushort objType) || !Program.Manager.GameData.Portals.ContainsKey(objType))
                                 {
                                     SendHelp("Dungeon not implemented yet.");
                                     return true;
@@ -642,8 +641,7 @@ namespace gameserver.realm.entity.player
                                     Effect = ConditionEffectIndex.Speedy,
                                     DurationMS = 0
                                 });
-                                ushort obj;
-                                Program.Manager.GameData.IdToObjectType.TryGetValue(item.ObjectId, out obj);
+                                Program.Manager.GameData.IdToObjectType.TryGetValue(item.ObjectId, out ushort obj);
                                 if (MP >= item.MpEndCost)
                                 {
                                     Shoot(time, item, pkt.ItemUsePos);

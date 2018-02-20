@@ -404,8 +404,7 @@ namespace gameserver.realm.entity.player
                 foreach (var i in Owner.Quests.Values
                     .OrderBy(quest => MathsUtils.DistSqr(quest.X, quest.Y, X, Y)).Where(i => i.ObjectDesc != null && i.ObjectDesc.Quest))
                 {
-                    Tuple<int, int, int> x;
-                    if (!questPortraits.TryGetValue(i.ObjectDesc.ObjectId, out x)) continue;
+                    if (!questPortraits.TryGetValue(i.ObjectDesc.ObjectId, out Tuple<int, int, int> x)) continue;
 
                     if ((Level < x.Item2 || Level > x.Item3)) continue;
                     var score = (20 - Math.Abs((i.ObjectDesc.Level ?? 0) - Level)) * x.Item1 -

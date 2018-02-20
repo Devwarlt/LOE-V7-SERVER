@@ -114,8 +114,7 @@ namespace dungeon.engine
 
         void RasterizeCorridor(MapCorridor corridor, Edge edge)
         {
-            Point srcPos, dstPos;
-            CreateCorridor(edge.RoomA, edge.RoomB, out srcPos, out dstPos);
+            CreateCorridor(edge.RoomA, edge.RoomB, out Point srcPos, out Point dstPos);
             corridor.Rasterize(edge.RoomA, edge.RoomB, srcPos, dstPos);
         }
 

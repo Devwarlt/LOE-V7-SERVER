@@ -40,8 +40,7 @@ namespace gameserver.networking.handlers
                 Manager.TryDisconnect(client, DisconnectReason.OUTDATED_CLIENT);
                 return;
             }
-            DbAccount acc;
-            LoginStatus s1 = Manager.Database.Verify(message.GUID, message.Password, out acc);
+            LoginStatus s1 = Manager.Database.Verify(message.GUID, message.Password, out DbAccount acc);
             if (s1 == LoginStatus.AccountNotExists)
             {
                 RegisterStatus s2 = Manager.Database.Register(message.GUID, message.Password, true, out acc); //Register guest but do not allow join game.

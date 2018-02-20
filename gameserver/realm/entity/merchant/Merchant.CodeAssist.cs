@@ -40,8 +40,7 @@ namespace gameserver.realm.entity.merchant
                     {
                         try
                         {
-                            XElement ist;
-                            Program.Manager.GameData.ObjectTypeToElement.TryGetValue((ushort)MType, out ist);
+                            Program.Manager.GameData.ObjectTypeToElement.TryGetValue((ushort)MType, out XElement ist);
                             if (player.Inventory[i] == null &&
                                 (player.SlotTypes[i] == 10 ||
                                  player.SlotTypes[i] == Convert.ToInt16(ist.Element("SlotType").Value)))

@@ -21,11 +21,10 @@ namespace gameserver.networking.handlers
 
         private void Handle(Player player, PLAYERSHOOT message)
         {
-            Item item;
 
-            if (!Program.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out item))
+            if (!Program.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out Item item))
                 return;
-            
+
             DexterityCheatHandler _cheatHandler = new DexterityCheatHandler();
             _cheatHandler.SetPlayer(player);
             _cheatHandler.SetItem(item);

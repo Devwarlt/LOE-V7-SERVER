@@ -34,7 +34,6 @@ namespace gameserver.realm
         public void TickLoop()
         {
             log.Info("Network loop started.");
-            Work work;
             do
             {
                 try
@@ -44,7 +43,7 @@ namespace gameserver.realm
 
                     loopLock.Reset();
 
-                    while (pendings.TryDequeue(out work))
+                    while (pendings.TryDequeue(out Work work))
                     {
                         try
                         {

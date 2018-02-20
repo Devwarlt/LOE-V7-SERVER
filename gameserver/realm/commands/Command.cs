@@ -91,8 +91,7 @@ namespace gameserver.realm.commands
             string cmd = text.Substring(1, index == -1 ? text.Length - 1 : index - 1);
             string args = index == -1 ? "" : text.Substring(index + 1);
 
-            Command command;
-            if (!cmds.TryGetValue(cmd, out command))
+            if (!cmds.TryGetValue(cmd, out Command command))
             {
                 player.SendInfo($"Unknown command: {text}");
                 return false;

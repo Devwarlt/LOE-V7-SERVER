@@ -101,9 +101,8 @@ namespace gameserver.networking.handlers
                     for (int i = 1; i <= quantity; i++)
                     {
                         string name2 = Regex.Replace(item2.ObjectId, "\\d+", "") + (item2.Quantity + 1);
-                        ushort objType;
 
-                        if (Manager.GameData.IdToObjectType.TryGetValue(name2, out objType))
+                        if (Manager.GameData.IdToObjectType.TryGetValue(name2, out ushort objType))
                         {
                             string name1 = Regex.Replace(item1.ObjectId, "\\d+", "") + (item1.Quantity - 1);
 

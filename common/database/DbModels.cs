@@ -36,8 +36,7 @@ namespace common
 
         protected T GetValue<T>(string key, T def = default(T))
         {
-            KeyValuePair<byte[], bool> val;
-            if (!fields.TryGetValue(key, out val))
+            if (!fields.TryGetValue(key, out KeyValuePair<byte[], bool> val))
                 return def;
             if (typeof(T) == typeof(int))
                 return (T)(object)int.Parse(Encoding.UTF8.GetString(val.Key));

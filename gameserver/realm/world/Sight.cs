@@ -14,8 +14,7 @@ namespace gameserver.realm
 
         public static IntPoint[] GetSightCircle(int radius)
         {
-            IntPoint[] ret;
-            if (!points.TryGetValue(radius, out ret))
+            if (!points.TryGetValue(radius, out IntPoint[] ret))
             {
                 List<IntPoint> pts = new List<IntPoint>();
                 for (int y = -radius; y <= radius; y++)
@@ -43,8 +42,7 @@ namespace gameserver.realm
                     if ((x * x + y * y) <= (radius * radius))
                     {
                         RayTiles.Add(new IntPoint(x, y));
-                        ObjectDesc desc;
-                        Program.Manager.GameData.ObjectDescs.TryGetValue(player.Owner.Map[(int)player.X + x, (int)player.Y + y].ObjType, out desc);
+                        Program.Manager.GameData.ObjectDescs.TryGetValue(player.Owner.Map[(int)player.X + x, (int)player.Y + y].ObjType, out ObjectDesc desc);
                         if (desc != null && desc.BlocksSight)
                             break;
                         RayTiles.Add(new IntPoint(x, y));

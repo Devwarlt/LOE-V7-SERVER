@@ -63,8 +63,7 @@ namespace gameserver.realm
                 {
                     if (availableInstance.ContainsKey(i) && --availableInstance[i] == 0)
                     {
-                        int val;
-                        availableInstance.TryRemove(i, out val);
+                        availableInstance.TryRemove(i, out int val);
                         log.Info($"Server {i} timed out");
                     }
                 }

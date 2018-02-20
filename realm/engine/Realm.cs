@@ -289,8 +289,7 @@ namespace realm.engine
                 for (int j = 1; j < i.Length; j++)
                 {
                     Tuple<MapNode, MapNode> edge = new Tuple<MapNode, MapNode>(i[j - 1], i[j]);
-                    int count;
-                    if (edges.TryGetValue(edge, out count))
+                    if (edges.TryGetValue(edge, out int count))
                         count++;
                     else
                         count = 1;

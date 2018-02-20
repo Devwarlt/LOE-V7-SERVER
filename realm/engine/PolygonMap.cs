@@ -379,8 +379,7 @@ namespace realm.engine
                     foreach (Coordinate j in VoronoiDiagram[i].Coordinates.Skip(1))
                     {
                         Node n = graph.Find(j);
-                        MapNode mapNode;
-                        if (!nodeDict.TryGetValue(n, out mapNode))
+                        if (!nodeDict.TryGetValue(n, out MapNode mapNode))
                         {
                             mapNode = new MapNode { X = j.X, Y = j.Y };
                             dats[mapNode] =

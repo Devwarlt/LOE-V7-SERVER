@@ -538,8 +538,7 @@ namespace gameserver.realm
 
         public static Entity Resolve(string name)
         {
-            ushort id;
-            if (!Program.Manager.GameData.IdToObjectType.TryGetValue(name, out id))
+            if (!Program.Manager.GameData.IdToObjectType.TryGetValue(name, out ushort id))
                 return null;
 
             return Resolve(id);
@@ -631,9 +630,8 @@ namespace gameserver.realm
                 Y = pos.Y
             };
 
-            Projectile _projectileSample;
 
-            if (Owner.Projectiles.TryGetValue(new KeyValuePair<int, byte>(Id, _projectile.ProjectileId), out _projectileSample))
+            if (Owner.Projectiles.TryGetValue(new KeyValuePair<int, byte>(Id, _projectile.ProjectileId), out Projectile _projectileSample))
                 if (_projectileSample != null)
                     Owner.RemoveProjectileFromId(Id, _projectileSample.ProjectileId);
 

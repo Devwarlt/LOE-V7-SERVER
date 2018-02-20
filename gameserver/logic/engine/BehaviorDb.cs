@@ -85,8 +85,7 @@ namespace gameserver.logic
 
         public void ResolveBehavior(Entity entity)
         {
-            Tuple<State, Loot> def;
-            if (Definitions.TryGetValue(entity.ObjectType, out def))
+            if (Definitions.TryGetValue(entity.ObjectType, out Tuple<State, Loot> def))
                 entity.SwitchTo(def.Item1);
         }
 

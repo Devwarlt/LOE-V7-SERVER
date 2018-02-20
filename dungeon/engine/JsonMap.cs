@@ -91,8 +91,7 @@ namespace dungeon.engine
                 for (int x = 0; x < w; x++)
                 {
                     var tile = map[x, y];
-                    short index;
-                    if (!indexLookup.TryGetValue(tile, out index))
+                    if (!indexLookup.TryGetValue(tile, out short index))
                     {
                         indexLookup.Add(tile, index = (short)tiles.Count);
                         tiles.Add(tile);
