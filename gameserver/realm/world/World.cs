@@ -362,8 +362,6 @@ namespace gameserver.realm
                 }
 
             EnemiesCollision.Remove(dummy);
-
-            Log.Warn($"Enemy '{dummy.Name}' was successfully removed from World '{Name}'.");
         }
 
         private void TryAdd(Projectile projectile)

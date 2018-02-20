@@ -55,42 +55,24 @@ namespace gameserver.realm.entity
 
         public void ForceHit(Entity entity, RealmTime time, bool killed)
         {
-            Log.Warn("New projectile collision!");
-
             if (entity == null)
-            {
-                Log.Warn("Entity is null.");
                 return;
-            }
 
             if (!Owner.Entities.ContainsKey(entity.Id))
-            {
-                Log.Warn($"World '{Owner.Name}' does not contains entity '{entity.Name}'.");
                 return;
-            }
 
             if (!ProjectileCache.ContainsKey(ProjectileId))
-            {
-                Log.Warn($"Adding projectile ID '{ProjectileId}' to cache.");
                 Add(ProjectileId);
-            }
             else
-            {
-                Log.Warn($"Projectile ID '{ProjectileId}' already contains in cache.");
                 return;
-            }
 
             Move(entity.X, entity.Y);
 
             if (entity.HitByProjectile(this, time))
                 if (IsValidType(entity))
-                {
-                    Log.Warn($"Removing projectile ID '{ProjectileId}' from cache.");
                     Remove(ProjectileId);
-                }
                 else
                 {
-                    Log.Warn($"Destroying projectile and removing projectile ID '{ProjectileId}' from cache.");
                     Remove(ProjectileId);
                     Destroy();
                 }
