@@ -345,8 +345,7 @@ namespace gameserver.realm.entity.player
                     SendError("server.no_teleport_to_paused");
                     return;
                 }
-                var player = obj as Player;
-                if (player != null && !player.NameChosen)
+                if (obj is Player player && !player.NameChosen)
                 {
                     SendError("server.teleport_needs_name");
                     return;

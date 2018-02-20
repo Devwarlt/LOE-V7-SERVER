@@ -82,8 +82,7 @@ namespace common
 
         public int GetHashCode(object obj)
         {
-            WeakKeyReference<T> weakKey = obj as WeakKeyReference<T>;
-            if (weakKey != null) return weakKey.HashCode;
+            if (obj is WeakKeyReference<T> weakKey) return weakKey.HashCode;
             return comparer.GetHashCode((T)obj);
         }
 
@@ -110,9 +109,8 @@ namespace common
 
         private static T GetTarget(object obj, out bool isDead)
         {
-            WeakKeyReference<T> wref = obj as WeakKeyReference<T>;
             T target;
-            if (wref != null)
+            if (obj is WeakKeyReference<T> wref)
             {
                 target = wref.Target;
                 isDead = !wref.IsAlive;

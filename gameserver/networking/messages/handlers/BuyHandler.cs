@@ -19,8 +19,7 @@ namespace gameserver.networking.handlers
         {
             if (player.Owner == null)
                 return;
-            SellableObject obj = player.Owner.GetEntity(objectId) as SellableObject;
-            if (obj != null)
+            if (player.Owner.GetEntity(objectId) is SellableObject obj)
                 for (int i = 0; i < quantity; i++)
                     obj.Buy(player);
         }

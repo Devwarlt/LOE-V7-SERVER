@@ -39,9 +39,8 @@ namespace gameserver.logic.behaviors
             {
                 if (host.HasConditionEffect(ConditionEffectIndex.Sick)) return;
 
-                Player entity = host.GetNearestEntity(range, null) as Player;
 
-                if (entity != null)
+                if (host.GetNearestEntity(range, null) is Player entity)
                 {
                     int maxHp = entity.Stats[0] + entity.Boost[0];
                     int newHp = Math.Min(maxHp, entity.HP + amount);

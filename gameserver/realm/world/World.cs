@@ -246,8 +246,7 @@ namespace gameserver.realm
 
         public virtual int EnterWorld(Entity entity)
         {
-            var player = entity as Player;
-            if (player != null)
+            if (entity is Player player)
             {
                 try
                 {
@@ -263,8 +262,7 @@ namespace gameserver.realm
             }
             else
             {
-                var enemy = entity as Enemy;
-                if (enemy != null)
+                if (entity is Enemy enemy)
                 {
                     enemy.Id = GetNextEntityId();
                     entity.Init(this);
@@ -275,16 +273,14 @@ namespace gameserver.realm
                 }
                 else
                 {
-                    var projectile = entity as Projectile;
-                    if (projectile != null)
+                    if (entity is Projectile projectile)
                     {
                         projectile.Init(this);
                         AddProjectileFromId(projectile.ProjectileOwner.Id, projectile.ProjectileId, projectile);
                     }
                     else
                     {
-                        var staticObject = entity as GameObject;
-                        if (staticObject != null)
+                        if (entity is GameObject staticObject)
                         {
                             staticObject.Id = GetNextEntityId();
                             staticObject.Init(this);
@@ -464,8 +460,7 @@ namespace gameserver.realm
 
                 if (Players.Count != 0 || !canBeClosed || !IsDungeon())
                     return;
-                var vault = this as Vault;
-                if (vault != null)
+                if (this is Vault vault)
                     Program.Manager.RemoveVault(vault.AccountId);
                 Program.Manager.RemoveWorld(this);
             }
