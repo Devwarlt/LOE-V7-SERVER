@@ -1,4 +1,4 @@
-﻿namespace gameserver.realm.world
+﻿namespace LoESoft.GameServer.realm.world
 {
     public class BelladonnasGarden : World
     {

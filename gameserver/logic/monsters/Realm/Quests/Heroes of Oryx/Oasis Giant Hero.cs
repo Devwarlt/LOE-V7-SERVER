@@ -1,7 +1,7 @@
-﻿using gameserver.logic.behaviors;
-using gameserver.logic.loot;
+﻿using LoESoft.GameServer.logic.behaviors;
+using LoESoft.GameServer.logic.loot;
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     partial class BehaviorDb
     {

@@ -1,11 +1,11 @@
 ﻿#region
 
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     public class DavyJonesLocker : World
     {
@@ -25,7 +25,7 @@ namespace gameserver.realm.world
         {
             int ret = base.EnterWorld(entity);
             if (entity is Player)
-                (entity as Player).client.SendMessage(new GLOBAL_NOTIFICATION
+                (entity as Player).Client.SendMessage(new GLOBAL_NOTIFICATION
                 {
                     Text = "showKeyUI",
                     Type = 0
@@ -36,7 +36,7 @@ namespace gameserver.realm.world
         public override void LeaveWorld(Entity entity)
         {
             if (entity is Player)
-                (entity as Player).client.SendMessage(new GLOBAL_NOTIFICATION
+                (entity as Player).Client.SendMessage(new GLOBAL_NOTIFICATION
                 {
                     Text = "showKeyUI",
                     Type = 0

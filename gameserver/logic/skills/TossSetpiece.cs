@@ -1,13 +1,13 @@
 ﻿#region
 
 using System;
-using gameserver.realm;
-using gameserver.realm.mapsetpiece;
-using gameserver.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.mapsetpiece;
+using LoESoft.GameServer.networking.outgoing;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public enum SpecialSetPiece : byte
     {

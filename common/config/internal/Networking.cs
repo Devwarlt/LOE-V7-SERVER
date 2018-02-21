@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace common.config
+namespace LoESoft.Core.config
 {
     public partial class Settings
     {

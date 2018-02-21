@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using dungeon.utils;
+using LoESoft.Dungeon.utils;
 using RotMG.Common;
 using RotMG.Common.Rasterizer;
-using dungeon.engine;
+using LoESoft.Dungeon.engine;
 
-namespace dungeon.templates.Difficult_5.Mad_Lab
+namespace LoESoft.Dungeon.templates.Difficult_5.Mad_Lab
 {
     internal class NormalRoom : FixedRoom
     {

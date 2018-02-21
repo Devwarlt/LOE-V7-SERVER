@@ -1,4 +1,4 @@
-﻿namespace appengine.credits
+﻿namespace LoESoft.AppEngine.credits
 {
     internal class getoffers : RequestHandler
     {

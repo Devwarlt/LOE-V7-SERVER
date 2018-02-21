@@ -7,11 +7,11 @@ using System.Linq;
 using System.Threading;
 using log4net;
 using System.Collections.Generic;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public class LogicTicker
     {

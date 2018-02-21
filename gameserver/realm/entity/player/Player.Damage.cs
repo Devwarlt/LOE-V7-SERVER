@@ -1,11 +1,11 @@
 ﻿#region
 
 using System;
-using gameserver.networking.outgoing;
+using LoESoft.GameServer.networking.outgoing;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {

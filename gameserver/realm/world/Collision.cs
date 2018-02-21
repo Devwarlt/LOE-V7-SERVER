@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public class CollisionNode<T> where T : ICollidable<T>
     {

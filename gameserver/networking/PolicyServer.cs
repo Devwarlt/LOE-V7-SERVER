@@ -4,12 +4,12 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using log4net;
-using common;
-using common.config;
+using LoESoft.Core;
+using LoESoft.Core.config;
 
 #endregion
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     internal class PolicyServer
     {

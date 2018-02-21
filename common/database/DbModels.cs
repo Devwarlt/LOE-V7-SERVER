@@ -1,32 +1,39 @@
 ﻿#region
 
 using BookSleeve;
-using common.config;
+using LoESoft.Core.config;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 #endregion
 
-namespace common
+namespace LoESoft.Core
 {
     #region RedisObject
 
     public abstract class RedisObject
     {
-        //Note do not modify returning buffer
-        private Dictionary<string, KeyValuePair<byte[], bool>> fields;
+        private ConcurrentDictionary<string, KeyValuePair<byte[], bool>> fields;
 
         protected void Init(Database db, string key)
         {
             Key = key;
             Database = db;
-            fields = db.Hashes.GetAll(0, key).Exec()
-                .ToDictionary(
-                    x => x.Key,
-                    x => new KeyValuePair<byte[], bool>(x.Value, false));
+            fields =
+                new ConcurrentDictionary<string, KeyValuePair<byte[], bool>>(
+                    db
+                    .Hashes
+                    .GetAll(0, key)
+                    .Exec()
+                    .ToDictionary(
+                        x => x.Key,
+                        x => new KeyValuePair<byte[], bool>(x.Value, false)
+                    )
+                );
         }
 
         public Database Database { get; private set; }
@@ -122,10 +129,17 @@ namespace common
             if (update != null)
                 update.Clear();
 
-            fields = Database.Hashes.GetAll(0, Key).Exec()
-                .ToDictionary(
-                    x => x.Key,
-                    x => new KeyValuePair<byte[], bool>(x.Value, false));
+            fields =
+                new ConcurrentDictionary<string, KeyValuePair<byte[], bool>>(
+                    Database
+                    .Hashes
+                    .GetAll(0, Key)
+                    .Exec()
+                    .ToDictionary(
+                        x => x.Key,
+                        x => new KeyValuePair<byte[], bool>(x.Value, false)
+                    )
+                );
         }
     }
 
@@ -133,11 +147,11 @@ namespace common
 
     public class DbLoginInfo
     {
-        private Database db { get; set; }
+        private Database Db { get; set; }
 
         internal DbLoginInfo(Database db, string uuid)
         {
-            this.db = db;
+            this.Db = db;
             UUID = uuid;
             var json = db.Hashes.GetString(0, "logins", uuid.ToUpperInvariant()).Exec();
             if (json == null)
@@ -158,7 +172,7 @@ namespace common
 
         public void Flush()
         {
-            db.Hashes.Set(0, "logins", UUID.ToUpperInvariant(), JsonConvert.SerializeObject(this));
+            Db.Hashes.Set(0, "logins", UUID.ToUpperInvariant(), JsonConvert.SerializeObject(this));
         }
     }
 
@@ -178,7 +192,7 @@ namespace common
 
         public int AccountType
         {
-            get { return GetValue("accountType", (int)config.accountType.FREE_ACCOUNT); }
+            get { return GetValue("accountType", (int)config.AccountType.FREE_ACCOUNT); }
             set { SetValue("accountType", value); }
         }
 
@@ -764,7 +778,7 @@ namespace common
     {
         public DbNews(Database db, int count)
         {
-            news = db.SortedSets.Range(0, "news", 0, 10, false).Exec()
+            News = db.SortedSets.Range(0, "news", 0, 10, false).Exec()
                 .Select(x =>
                 {
                     var ret = JsonConvert.DeserializeObject<DbNewsEntry>(
@@ -774,8 +788,8 @@ namespace common
                 }).ToArray();
         }
 
-        private DbNewsEntry[] news { get; set; }
-        public DbNewsEntry[] Entries => news;
+        private DbNewsEntry[] News { get; set; }
+        public DbNewsEntry[] Entries => News;
     }
 
     public class DbVault : RedisObject
@@ -821,7 +835,7 @@ namespace common
             else
                 begin = 0;
 
-            entries = db.SortedSets.Range(0, "legends", begin, double.PositiveInfinity, false, count: count).Exec()
+            Entries = db.SortedSets.Range(0, "legends", begin, double.PositiveInfinity, false, count: count).Exec()
                 .Select(x => new DbLegendEntry()
                 {
                     TotalFame = BitConverter.ToInt32(x.Key, 0),
@@ -842,7 +856,7 @@ namespace common
             db.SortedSets.Add(0, "legends", buff, t);
         }
 
-        private DbLegendEntry[] entries { get; set; }
-        public DbLegendEntry[] Entries => entries;
+        private DbLegendEntry[] Entries { get; set; }
+        public DbLegendEntry[] GetEntries => Entries;
     }
 }

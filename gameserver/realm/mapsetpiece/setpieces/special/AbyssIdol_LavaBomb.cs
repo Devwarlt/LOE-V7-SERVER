@@ -1,12 +1,12 @@
 ﻿#region
 
-using common;
-using gameserver.realm.terrain;
+using LoESoft.Core;
+using LoESoft.GameServer.realm.terrain;
 using System.Diagnostics;
 
 #endregion
 
-namespace gameserver.realm.mapsetpiece.special
+namespace LoESoft.GameServer.realm.mapsetpiece.special
 {
     internal class AbyssIdol_LavaBomb : MapSetPiece
     {

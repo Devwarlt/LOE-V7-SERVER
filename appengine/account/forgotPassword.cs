@@ -1,10 +1,10 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     internal class forgotPassword : RequestHandler
     {

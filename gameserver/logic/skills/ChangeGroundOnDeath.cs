@@ -1,11 +1,11 @@
 ﻿#region
 
-using gameserver.realm;
-using gameserver.realm.terrain;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class ChangeGroundOnDeath : Behavior
     {

@@ -2,12 +2,12 @@
 
 using Mono.Game;
 using System;
-using gameserver.realm;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.logic.behaviors.Drakes
+namespace LoESoft.GameServer.logic.behaviors.Drakes
 {
     internal class DrakeFollow : CycleBehavior
     {

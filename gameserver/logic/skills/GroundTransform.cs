@@ -1,7 +1,7 @@
-﻿using gameserver.realm;
+﻿using LoESoft.GameServer.realm;
 using System.Collections.Generic;
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     class GroundTransform : Behavior
     {

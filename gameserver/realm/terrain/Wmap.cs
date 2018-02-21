@@ -3,14 +3,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using common;
+using LoESoft.Core;
 using Ionic.Zlib;
-using gameserver.realm.entity;
+using LoESoft.GameServer.realm.entity;
 using log4net;
 
 #endregion
 
-namespace gameserver.realm.terrain
+namespace LoESoft.GameServer.realm.terrain
 {
     public enum TileRegion : byte
     {

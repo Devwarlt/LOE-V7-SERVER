@@ -1,14 +1,14 @@
 ﻿#region
 
-using gameserver.logic.behaviors;
-using gameserver.realm;
-using gameserver.realm.entity.npc;
-using gameserver.realm.entity.npc.npcs;
+using LoESoft.GameServer.logic.behaviors;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity.npc;
+using LoESoft.GameServer.realm.entity.npc.npcs;
 using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     public class NPCs
     {

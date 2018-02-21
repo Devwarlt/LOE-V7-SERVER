@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     internal class MessageHandler
     {

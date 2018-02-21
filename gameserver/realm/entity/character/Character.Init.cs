@@ -1,4 +1,4 @@
-﻿namespace gameserver.realm.entity
+﻿namespace LoESoft.GameServer.realm.entity
 {
     public abstract class Character : Entity
     {

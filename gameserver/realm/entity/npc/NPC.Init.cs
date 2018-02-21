@@ -1,13 +1,13 @@
 ﻿#region
 
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.realm.entity.npc
+namespace LoESoft.GameServer.realm.entity.npc
 {
     /** NPC (LoESoft Games)
     * Author: Warlt
@@ -67,7 +67,7 @@ namespace gameserver.realm.entity.npc
             _text.Text = message.ToSafeText();
             _text.CleanText = "";
             _text.NameColor = _text.TextColor = 0x123456;
-            player.client.SendMessage(_text);
+            player.Client.SendMessage(_text);
         }
     }
 }

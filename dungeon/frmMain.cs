@@ -25,11 +25,11 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using dungeon.utils;
-using dungeon.templates;
-using dungeon.engine;
+using LoESoft.Dungeon.utils;
+using LoESoft.Dungeon.templates;
+using LoESoft.Dungeon.engine;
 
-namespace dungeon
+namespace LoESoft.Dungeon
 {
     public partial class frmMain : Form
     {

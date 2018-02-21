@@ -3,14 +3,15 @@
 using log4net;
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.logic;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
-using gameserver.realm.terrain;
+using LoESoft.GameServer.logic;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.terrain;
+using LoESoft.Core.models;
 
 #endregion
 
-namespace gameserver.realm.entity
+namespace LoESoft.GameServer.realm.entity
 {
     public class Enemy : Character
     {
@@ -63,13 +64,19 @@ namespace gameserver.realm.entity
 
         public void Death(RealmTime time)
         {
-            if (this == null
-                || counter == null
-                || CurrentState == null
-                || Owner == null)
-                return;
-            counter.Death(time);
-            CurrentState.OnDeath(new BehaviorEventArgs(this, time));
+            State state = CurrentState;
+
+            if (state == null)
+            {
+                Log.Warn($"Damage Counter not initialized for enemy '{Name}', must require behavior declaration.");
+                counter.Dispose();
+            }
+            else
+            {
+                counter.Death(time);
+                state.OnDeath(new BehaviorEventArgs(this, time));
+            }
+
             Owner.LeaveWorld(this);
         }
 

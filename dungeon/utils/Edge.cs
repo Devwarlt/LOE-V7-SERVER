@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace dungeon.utils
+namespace LoESoft.Dungeon.utils
 {
     public enum Direction
     {

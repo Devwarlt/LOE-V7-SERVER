@@ -6,7 +6,7 @@ using System.Text;
 
 #endregion
 
-namespace appengine.security
+namespace LoESoft.AppEngine.security
 {
     /// <summary>
     /// Security Protocols

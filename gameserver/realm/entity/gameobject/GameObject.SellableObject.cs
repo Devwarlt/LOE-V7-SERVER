@@ -1,14 +1,14 @@
 ﻿#region
 
 using System.Collections.Generic;
-using common;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
-using gameserver.realm.world;
+using LoESoft.Core;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
 
 #endregion
 
-namespace gameserver.realm.entity
+namespace LoESoft.GameServer.realm.entity
 {
     public partial class SellableObject : GameObject
     {
@@ -45,7 +45,7 @@ namespace gameserver.realm.entity
 
         protected virtual bool TryDeduct(Player player)
         {
-            DbAccount acc = player.client.Account;
+            DbAccount acc = player.Client.Account;
             if (!player.NameChosen) return false;
             if (player.Stars < RankReq) return false;
 
@@ -64,12 +64,12 @@ namespace gameserver.realm.entity
             {
                 if (TryDeduct(player))
                 {
-                    Program.Manager.Database.UpdateCredit(player.client.Account, -Price);
-                    player.Credits = player.client.Account.Credits;
+                    Program.Manager.Database.UpdateCredit(player.Client.Account, -Price);
+                    player.Credits = player.Client.Account.Credits;
                     player.UpdateCount++;
                     player.SaveToCharacter();
                     (Owner as Vault).AddChest(this);
-                    player.client.SendMessage(new BUYRESULT
+                    player.Client.SendMessage(new BUYRESULT
                     {
                         Result = 0,
                         Message = "{\"key\":\"server.buy_success\"}"
@@ -77,7 +77,7 @@ namespace gameserver.realm.entity
                 }
                 else
                 {
-                    player.client.SendMessage(new BUYRESULT
+                    player.Client.SendMessage(new BUYRESULT
                     {
                         Result = BUY_NO_GOLD,
                         Message = "{\"key\":\"server.not_enough_gold\"}"
@@ -86,7 +86,7 @@ namespace gameserver.realm.entity
             }
             if (ObjectType == 0x0736)
             {
-                player.client.SendMessage(new BUYRESULT()
+                player.Client.SendMessage(new BUYRESULT()
                 {
                     Result = 9,
                     Message = "{\"key\":\"server.not_enough_game\"}"

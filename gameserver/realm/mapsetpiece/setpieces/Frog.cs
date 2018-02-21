@@ -1,4 +1,4 @@
-﻿namespace gameserver.realm.mapsetpiece
+﻿namespace LoESoft.GameServer.realm.mapsetpiece
 {
     internal class FrogKing : MapSetPiece
     {

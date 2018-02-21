@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace gameserver
+namespace LoESoft.GameServer
 {
     public class wRandom
     {

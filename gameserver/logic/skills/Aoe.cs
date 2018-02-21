@@ -1,13 +1,13 @@
 ﻿#region
 
 using System;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class Aoe : Behavior
     {

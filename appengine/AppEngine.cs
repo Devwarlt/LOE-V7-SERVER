@@ -1,8 +1,8 @@
 ﻿#region
 
-using appengine.sfx;
-using common.config;
-using common.models;
+using LoESoft.AppEngine.sfx;
+using LoESoft.Core.config;
+using LoESoft.Core.models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ using System.Threading;
 
 #endregion
 
-namespace appengine
+namespace LoESoft.AppEngine
 {
     public class AppEngine
     {
@@ -98,7 +98,9 @@ namespace appengine
                 } while (i != 0);
 
                 IAsyncResult webSocketIAsyncResult = new WebSocketDelegate(SafeShutdown).BeginInvoke(new AsyncCallback(SafeDispose), null);
-                webSocketIAsyncResult.AsyncWaitHandle.WaitOne();
+
+                if (webSocketIAsyncResult.AsyncWaitHandle.WaitOne())
+                    Process.Start(Settings.APPENGINE.FILE);
             });
 
             parallel_thread.Start();
@@ -106,11 +108,12 @@ namespace appengine
 
         public bool SafeShutdown()
         {
-            do
-            {
-                Log.Warn($"Awaiting {_webqueue.Count} queued item{(_webqueue.Count > 1 ? "s" : "")} to dispose, retrying in 1 second...");
-                Thread.Sleep(1000);
-            } while (_webqueue.Count > 0);
+            if (_webqueue.Count != 0)
+                while (_webqueue.Count > 0)
+                {
+                    Log.Warn($"Awaiting {_webqueue.Count} queued item{(_webqueue.Count > 1 ? "s" : "")} to dispose, retrying in 1 second...");
+                    Thread.Sleep(1000);
+                };
 
             return _isCompleted = true;
         }
@@ -190,11 +193,13 @@ namespace appengine
         {
             string args = string.Format(@"http add urlacl url={0}", address) + " user=\"" + domain + "\\" + user + "\"";
 
-            ProcessStartInfo psi = new ProcessStartInfo("netsh", args);
-            psi.Verb = "runas";
-            psi.CreateNoWindow = true;
-            psi.WindowStyle = ProcessWindowStyle.Hidden;
-            psi.UseShellExecute = true;
+            ProcessStartInfo psi = new ProcessStartInfo("netsh", args)
+            {
+                Verb = "runas",
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                UseShellExecute = true
+            };
 
             Process.Start(psi).WaitForExit();
         }
@@ -273,9 +278,9 @@ namespace appengine
                 }
 
                 if (_webcontext.Request.Url.LocalPath.IndexOf(".") == -1)
-                    _path = "appengine" + _webcontext.Request.Url.LocalPath.Replace("/", ".");
+                    _path = "LoESoft.AppEngine" + _webcontext.Request.Url.LocalPath.Replace("/", ".");
                 else
-                    _path = "appengine" + _webcontext.Request.Url.LocalPath.Remove(_webcontext.Request.Url.LocalPath.IndexOf(".")).Replace("/", ".");
+                    _path = "LoESoft.AppEngine" + _webcontext.Request.Url.LocalPath.Remove(_webcontext.Request.Url.LocalPath.IndexOf(".")).Replace("/", ".");
 
                 Type _type = Type.GetType(_path);
 

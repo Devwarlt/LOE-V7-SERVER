@@ -3,21 +3,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.logic;
-using gameserver.networking;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
+using LoESoft.GameServer.logic;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
 using System.Xml.Linq;
-using gameserver.realm.terrain;
-using common.config;
-using static gameserver.networking.Client;
-using common;
-using gameserver.logic.skills.Pets;
-using common.models;
+using LoESoft.GameServer.realm.terrain;
+using LoESoft.Core.config;
+using static LoESoft.GameServer.networking.Client;
+using LoESoft.Core;
+using LoESoft.GameServer.logic.skills.Pets;
+using LoESoft.Core.models;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     internal interface IPlayer
     {
@@ -41,8 +41,8 @@ namespace gameserver.realm.entity.player
                 AccountType = client.Account.AccountType;
                 AccountPerks = new AccountTypePerks(AccountType);
                 AccountLifetime = client.Account.AccountLifetime;
-                isVip = AccountLifetime != DateTime.MinValue;
-                this.client = client;
+                IsVip = AccountLifetime != DateTime.MinValue;
+                this.Client = client;
                 StatsManager = new StatsManager(this, client.Random.CurrentSeed);
                 Name = client.Account.Name;
                 AccountId = client.Account.AccountId;
@@ -54,7 +54,7 @@ namespace gameserver.realm.entity.player
                 Level = client.Character.Level == 0 ? 1 : client.Character.Level;
                 Experience = client.Character.Experience;
                 ExperienceGoal = GetExpGoal(Level);
-                Stars = AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT ? 70 : GetStars();
+                Stars = AccountType >= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT ? 70 : GetStars();
                 Texture1 = client.Character.Tex1;
                 Texture2 = client.Character.Tex2;
                 Credits = client.Account.Credits;
@@ -81,7 +81,7 @@ namespace gameserver.realm.entity.player
                 lootDropBoostFreeTimer = LootDropBoost;
                 LootTierBoostTimeLeft = client.Character.LootTierTimer;
                 lootTierBoostFreeTimer = LootTierBoost;
-                FameGoal = (AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : GetFameGoal(FameCounter.ClassStats[ObjectType].BestFame);
+                FameGoal = (AccountType >= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : GetFameGoal(FameCounter.ClassStats[ObjectType].BestFame);
                 Glowing = false;
                 DbGuild guild = Program.Manager.Database.GetGuild(client.Account.GuildId);
                 if (guild != null)
@@ -99,7 +99,7 @@ namespace gameserver.realm.entity.player
                 ConditionEffects = 0;
                 OxygenBar = 100;
                 HasBackpack = client.Character.HasBackpack == true;
-                PlayerSkin = this.client.Account.OwnedSkins.Contains(this.client.Character.Skin) ? this.client.Character.Skin : 0;
+                PlayerSkin = this.Client.Account.OwnedSkins.Contains(this.Client.Character.Skin) ? this.Client.Character.Skin : 0;
                 HealthPotions = client.Character.HealthPotions < 0 ? 0 : client.Character.HealthPotions;
                 MagicPotions = client.Character.MagicPotions < 0 ? 0 : client.Character.MagicPotions;
 
@@ -161,7 +161,7 @@ namespace gameserver.realm.entity.player
                 for (var i = 0; i < SlotTypes.Length; i++)
                     if (SlotTypes[i] == 0) SlotTypes[i] = 10;
 
-                if (this.client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
+                if (this.Client.Account.AccountType >= (int)Core.config.AccountType.TUTOR_ACCOUNT)
                     return;
 
                 for (var i = 0; i < 4; i++)
@@ -182,7 +182,7 @@ namespace gameserver.realm.entity.player
             {
                 case "Arena":
                     {
-                        client.SendMessage(new ARENA_DEATH
+                        Client.SendMessage(new ARENA_DEATH
                         {
                             RestartPrice = 100
                         });
@@ -195,14 +195,14 @@ namespace gameserver.realm.entity.player
                         return;
                     }
             }
-            if (client.State == ProtocolState.Disconnected || resurrecting)
+            if (Client.State == ProtocolState.Disconnected || resurrecting)
                 return;
             if (CheckResurrection())
                 return;
 
-            if (client.Character.Dead)
+            if (Client.Character.Dead)
             {
-                Program.Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD);
+                Program.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD);
                 return;
             }
             GenerateGravestone();
@@ -232,36 +232,36 @@ namespace gameserver.realm.entity.player
 
             try
             {
-                client.Character.Dead = true;
+                Client.Character.Dead = true;
 
                 SaveToCharacter();
 
-                Program.Manager.Database.SaveCharacter(client.Account, client.Character, true);
-                Program.Manager.Database.Death(Program.Manager.GameData, client.Account, client.Character, FameCounter.Stats, killer);
+                Program.Manager.Database.SaveCharacter(Client.Account, Client.Character, true);
+                Program.Manager.Database.Death(Program.Manager.GameData, Client.Account, Client.Character, FameCounter.Stats, killer);
 
                 if (Owner.Id != -6)
                 {
                     DEATH _death = new DEATH
                     {
                         AccountId = AccountId,
-                        CharId = client.Character.CharId,
+                        CharId = Client.Character.CharId,
                         Killer = killer,
                         zombieId = -1,
                         zombieType = -1
                     };
 
-                    client.SendMessage(_death);
+                    Client.SendMessage(_death);
 
                     Log.Info($"Message details type '{_death.ID}':\n{_death}");
 
-                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => Program.Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD)));
+                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => Program.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD)));
 
                     Log.Info($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
 
                     Owner.LeaveWorld(this);
                 }
                 else
-                    Program.Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
+                    Program.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
             }
             catch (Exception e)
             {
@@ -284,16 +284,16 @@ namespace gameserver.realm.entity.player
             tiles = new byte[owner.Map.Width, owner.Map.Height];
             SetNewbiePeriod();
             base.Init(owner);
-            List<int> gifts = client.Account.Gifts.ToList();
+            List<int> gifts = Client.Account.Gifts.ToList();
             if (owner.Id == (int)WorldID.NEXUS_ID || owner.Name == "Vault")
             {
-                client.SendMessage(new GLOBAL_NOTIFICATION
+                Client.SendMessage(new GLOBAL_NOTIFICATION
                 {
                     Type = 0,
                     Text = gifts.Count > 0 ? "giftChestOccupied" : "giftChestEmpty"
                 });
             }
-            if (client.Character.Pet != 0)
+            if (Client.Character.Pet != 0)
             {
                 HatchlingPet = false;
                 Pet = Resolve((ushort)PetID);
@@ -308,7 +308,7 @@ namespace gameserver.realm.entity.player
 
             CheckSetTypeSkin();
 
-            if ((accountType)AccountType == accountType.LOESOFT_ACCOUNT)
+            if ((AccountType)AccountType == Core.config.AccountType.LOESOFT_ACCOUNT)
             {
                 ConditionEffect invincible = new ConditionEffect
                 {
@@ -332,7 +332,7 @@ namespace gameserver.realm.entity.player
 
         public void Teleport(RealmTime time, TELEPORT packet)
         {
-            var obj = client.Player.Owner.GetEntity(packet.ObjectId);
+            var obj = Client.Player.Owner.GetEntity(packet.ObjectId);
             try
             {
                 if (obj == null) return;
@@ -404,45 +404,62 @@ namespace gameserver.realm.entity.player
         private Entity FindQuest()
         {
             Entity ret = null;
-            try
-            {
-                float bestScore = 0;
-                foreach (var i in Owner.Quests.Values
-                    .OrderBy(quest => MathsUtils.DistSqr(quest.X, quest.Y, X, Y)).Where(i => i.ObjectDesc != null && i.ObjectDesc.Quest))
-                {
-                    if (!questPortraits.TryGetValue(i.ObjectDesc.ObjectId, out Tuple<int, int, int> x)) continue;
 
-                    if ((Level < x.Item2 || Level > x.Item3)) continue;
-                    var score = (20 - Math.Abs((i.ObjectDesc.Level ?? 0) - Level)) * x.Item1 -
-                                //priority * level diff
-                                Dist(this, i) / 100; //minus 1 for every 100 tile distance
-                    if (score < 0)
-                        score = 1;
-                    if (!(score > bestScore)) continue;
-                    bestScore = score;
-                    ret = i;
-                }
-            }
-            catch (Exception ex)
+            float bestScore = 0;
+
+            foreach (var i in Owner.Quests.Values
+                .OrderBy(quest => MathsUtils.DistSqr(quest.X, quest.Y, X, Y))
+                .Where(i => i.ObjectDesc != null && i.ObjectDesc.Quest))
             {
-                log.Error(ex);
+                if (!questPortraits.TryGetValue(i.ObjectDesc.ObjectId, out Tuple<int, int, int> x))
+                    continue;
+
+                if ((Level < x.Item2 || Level > x.Item3))
+                    continue;
+
+                float score = (20 - Math.Abs((i.ObjectDesc.Level ?? 0) - Level)) * x.Item1 - Dist(this, i) / 100;
+
+                if (score < 0)
+                    score = 1;
+
+                if (!(score > bestScore))
+                    continue;
+
+                bestScore = score;
+                ret = i;
             }
+
             return ret;
         }
 
         private void HandleQuest(RealmTime time)
         {
-            if (time.TickCount % 500 != 0 && Quest?.Owner != null) return;
-            var newQuest = FindQuest();
-            if (newQuest == null || newQuest == Quest) return;
-            Owner.Timers.Add(new WorldTimer(100, (w, t) =>
+            if (time.TickCount % 500 != 0 && Quest?.Owner != null)
+                return;
+
+            Entity newQuest = FindQuest();
+
+            if (newQuest == null || newQuest == Quest)
+                return;
+
+            if (Quest is Enemy)
             {
-                client.SendMessage(new QUESTOBJID
+                Enemy quest = Quest as Enemy;
+                int objectId = -1;
+
+                if (quest.HP < 0)
+                    quest.Death(time);
+                else
                 {
-                    ObjectId = newQuest.Id
+                    objectId = newQuest.Id;
+                    Quest = newQuest;
+                }
+
+                Client.SendMessage(new QUESTOBJID
+                {
+                    ObjectId = objectId
                 });
-            }));
-            Quest = newQuest;
+            }
         }
 
         private void CalculateFame()
@@ -458,7 +475,7 @@ namespace gameserver.realm.entity.player
                 newGoal = GetFameGoal(stats.BestFame);
             else
                 newGoal = GetFameGoal(Fame);
-            if (newGoal > FameGoal && AccountType < (int)accountType.LEGENDS_OF_LOE_ACCOUNT)
+            if (newGoal > FameGoal && AccountType < (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT)
             {
                 Owner.BroadcastPacket(new NOTIFICATION
                 {
@@ -468,7 +485,7 @@ namespace gameserver.realm.entity.player
                 }, null);
                 Stars = GetStars();
             }
-            FameGoal = (AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : newGoal;
+            FameGoal = (AccountType >= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : newGoal;
             UpdateCount++;
         }
 
@@ -560,27 +577,19 @@ namespace gameserver.realm.entity.player
 
         public override void Tick(RealmTime time)
         {
-            if (client == null)
+            if (Client == null)
                 return;
 
-            if (!KeepAlive(time))
-                return;
+            if (!KeepAlive(time) || Client.State == ProtocolState.Disconnected)
+            {
+                if (Owner != null)
+                    Owner.LeaveWorld(this);
+                else
+                    WorldInstance.LeaveWorld(this);
 
-            try
-            {
-                if (client.State == ProtocolState.Disconnected)
-                {
-                    if (Owner != null)
-                        Owner.LeaveWorld(this);
-                    else
-                        WorldInstance.LeaveWorld(this);
-                    return;
-                }
+                return;
             }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
+
             if (Stats != null && Boost != null)
             {
                 MaxHp = Stats[0] + Boost[0];
@@ -593,13 +602,18 @@ namespace gameserver.realm.entity.player
             if (!HasConditionEffect(ConditionEffects.Paused))
             {
                 HandleRegen(time);
+
                 HandleGround(time);
+
                 FameCounter.Tick(time);
             }
 
-            TradeHandler?.Tick(time);
+            HandleTrade?.Tick(time);
+
             HandleQuest(time);
+
             HandleEffects(time);
+
             HandleBoosts();
 
             if (MP < 0)
@@ -607,8 +621,8 @@ namespace gameserver.realm.entity.player
 
             if (Owner != null)
             {
-                SendNewTick(time);
-                SendUpdate(time);
+                HandleNewTick(time);
+                HandleUpdate(time);
             }
 
             if (HP < 0 && !dying)

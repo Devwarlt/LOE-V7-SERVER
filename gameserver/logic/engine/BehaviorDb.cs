@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using common;
+using LoESoft.Core;
 using log4net;
-using gameserver.logic.loot;
-using gameserver.realm;
-using gameserver.realm.entity;
+using LoESoft.GameServer.logic.loot;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
 
 #endregion
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     public partial class BehaviorDb
     {

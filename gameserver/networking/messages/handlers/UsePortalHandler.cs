@@ -1,20 +1,20 @@
 ﻿#region
 
-using common.config;
+using LoESoft.Core.config;
 using System;
 using System.Globalization;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.world;
-using FAILURE = gameserver.networking.outgoing.FAILURE;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.world;
+using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
+using LoESoft.GameServer.realm.entity.player;
 using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class UsePortalHandler : MessageHandlers<USEPORTAL>
     {
@@ -115,7 +115,7 @@ namespace gameserver.networking.handlers
                         default:
                             {
                                 Type worldType =
-                                    Type.GetType("gameserver.realm.world." + desc.DungeonName.Replace(" ", string.Empty).Replace("'", string.Empty));
+                                    Type.GetType("LoESoft.GameServer.realm.world." + desc.DungeonName.Replace(" ", string.Empty).Replace("'", string.Empty));
                                 if (worldType != null)
                                 {
                                     try

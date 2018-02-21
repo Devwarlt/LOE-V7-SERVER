@@ -1,8 +1,8 @@
-﻿using gameserver.realm;
+﻿using LoESoft.GameServer.realm;
 using Mono.Game;
 using System;
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     class MoveLine : CycleBehavior
     {

@@ -1,12 +1,12 @@
 ﻿#region
 
-using common;
-using gameserver.logic.loot;
-using gameserver.realm.terrain;
+using LoESoft.Core;
+using LoESoft.GameServer.logic.loot;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.mapsetpiece
+namespace LoESoft.GameServer.realm.mapsetpiece
 {
     internal abstract class Temple : MapSetPiece
     {

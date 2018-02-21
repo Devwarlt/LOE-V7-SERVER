@@ -1,4 +1,4 @@
-﻿namespace gameserver.networking.incoming
+﻿namespace LoESoft.GameServer.networking.incoming
 {
     public abstract class IncomingMessage : Message
     {

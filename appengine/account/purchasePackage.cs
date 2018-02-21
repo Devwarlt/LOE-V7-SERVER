@@ -1,14 +1,14 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static appengine.package.getPackages;
+using static LoESoft.AppEngine.package.getPackages;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     internal class purchasePackage : RequestHandler
     {

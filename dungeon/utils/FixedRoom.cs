@@ -1,7 +1,7 @@
-﻿using dungeon.engine;
+﻿using LoESoft.Dungeon.engine;
 using System;
 
-namespace dungeon.utils
+namespace LoESoft.Dungeon.utils
 {
     public abstract class FixedRoom : Room
     {

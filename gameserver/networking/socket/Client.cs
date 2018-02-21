@@ -1,15 +1,15 @@
 ﻿#region
 
-using common;
-using common.config;
-using gameserver.realm;
+using LoESoft.Core;
+using LoESoft.Core.config;
+using LoESoft.GameServer.realm;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
 #endregion
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     public partial class Client : IDisposable
     {

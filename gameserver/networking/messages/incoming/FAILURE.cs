@@ -1,10 +1,10 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 
 #endregion
 
-namespace gameserver.networking.incoming
+namespace LoESoft.GameServer.networking.incoming
 {
     public class FAILURE : IncomingMessage
     {

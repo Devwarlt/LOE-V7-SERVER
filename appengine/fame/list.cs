@@ -1,10 +1,10 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 
 #endregion
 
-namespace appengine.fame
+namespace LoESoft.AppEngine.fame
 {
     internal class list : RequestHandler
     {

@@ -6,18 +6,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using gameserver.networking;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.realm.world;
-using gameserver.realm.terrain;
-using common.models;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
+using LoESoft.GameServer.realm.terrain;
+using LoESoft.Core.models;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
+    public interface IDungeon { }
+
     public enum WorldID : int
     {
         TUT_ID = -1,
@@ -314,13 +316,13 @@ namespace gameserver.realm
 
         private void TryRemove(Player player)
         {
-            if (!Players.TryRemove(player.Id, out Player dummy))
+            if (!Players.TryRemove(player.Id, out Player dummy) || !Entities.TryRemove(player.Id, out Entity entity))
             {
                 Log.Error($"Player '{player.Name}' wasn't removed from World '{Name}'.");
                 return;
             }
 
-            PlayersCollision.Remove(dummy);
+            PlayersCollision.Remove(player);
         }
 
         private void TryAdd(Enemy enemy)
@@ -348,20 +350,20 @@ namespace gameserver.realm
         private void TryRemove(Enemy enemy)
         {
 
-            if (!Enemies.TryRemove(enemy.Id, out Enemy dummy))
+            if (!Enemies.TryRemove(enemy.Id, out Enemy dummy) || !Entities.TryRemove(enemy.Id, out Entity entity))
             {
                 Log.Error($"Enemy '{enemy.Name}' wasn't removed from World '{Name}'.");
                 return;
             }
 
+            EnemiesCollision.Remove(enemy);
+
             if (enemy.ObjectDesc.Quest)
                 if (!Quests.TryRemove(enemy.Id, out dummy))
                 {
-                    Log.Error($"Enemy Quest '{dummy.Name}' wasn't removed from World '{Name}'.");
+                    Log.Error($"Enemy Quest '{enemy.Name}' wasn't removed from World '{Name}'.");
                     return;
                 }
-
-            EnemiesCollision.Remove(dummy);
         }
 
         private void TryAdd(Projectile projectile)
@@ -391,7 +393,7 @@ namespace gameserver.realm
             if (string.IsNullOrEmpty(gameObject.Name) || string.IsNullOrWhiteSpace(gameObject.Name))
                 return;
 
-            if (!GameObjects.TryRemove(gameObject.Id, out GameObject dummy))
+            if (!GameObjects.TryRemove(gameObject.Id, out GameObject dummy) || !Entities.TryRemove(gameObject.Id, out Entity entity))
             {
                 Log.Error($"Game Object '{gameObject.Name}' wasn't removed from World '{Name}'.");
                 return;
@@ -427,25 +429,25 @@ namespace gameserver.realm
         public void BroadcastPacket(Message pkt, Player exclude)
         {
             foreach (var i in Players.Where(i => i.Value != exclude))
-                i.Value.client.SendMessage(pkt);
+                i.Value.Client.SendMessage(pkt);
         }
 
         public void BroadcastPacketSync(Message pkt, Predicate<Player> exclude)
         {
             foreach (var i in Players.Where(i => exclude(i.Value)))
-                i.Value.client.SendMessage(pkt);
+                i.Value.Client.SendMessage(pkt);
         }
 
         public void BroadcastPackets(IEnumerable<Message> pkts, Player exclude)
         {
             foreach (var i in Players.Where(i => i.Value != exclude))
-                i.Value.client.SendMessage(pkts);
+                i.Value.Client.SendMessage(pkts);
         }
 
         public void BroadcastPacketsSync(IEnumerable<Message> pkts, Predicate<Player> exclude)
         {
             foreach (var i in Players.Where(i => exclude(i.Value)))
-                i.Value.client.SendMessage(pkts);
+                i.Value.Client.SendMessage(pkts);
         }
 
         public virtual void Tick(RealmTime time)
@@ -504,19 +506,19 @@ namespace gameserver.realm
             }
         }
 
-        public bool IsFull => MaxPlayers != -1 && Players.Keys.Count >= MaxPlayers;
+        public bool IsFull =>
+            MaxPlayers != -1
+            && Players.Keys.Count >= MaxPlayers;
 
-        public bool IsDungeon()
-        {
-            return !(this is Nexus) && !(this is GameWorld) && !(this is ClothBazaar) && !(this is Test) && !(this is Tutorial) && !(this is DailyQuestRoom) && !IsLimbo;
-        }
+        public bool IsDungeon() =>
+            !(this is IDungeon);
 
         protected void LoadMap(string embeddedResource, MapType type)
         {
             if (embeddedResource == null) return;
             string mapType = type == MapType.Json ? "json" : "wmap";
             string resource = embeddedResource.Replace($".{mapType}", "");
-            var stream = typeof(RealmManager).Assembly.GetManifestResourceStream($"gameserver.realm.world.maps.{mapType}.{resource}.{mapType}");
+            var stream = typeof(RealmManager).Assembly.GetManifestResourceStream($"LoESoft.GameServer.realm.world.maps.{mapType}.{resource}.{mapType}");
             if (stream == null) throw new ArgumentException($"{mapType.ToUpper()} map resource " + nameof(resource) + " not found!");
 
             switch (type)

@@ -1,15 +1,15 @@
 ﻿#region
 
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
-using FAILURE = gameserver.networking.outgoing.FAILURE;
-using gameserver.realm;
-using static gameserver.networking.Client;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
+using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
+using LoESoft.GameServer.realm;
+using static LoESoft.GameServer.networking.Client;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class LoadHandler : MessageHandlers<LOAD>
     {

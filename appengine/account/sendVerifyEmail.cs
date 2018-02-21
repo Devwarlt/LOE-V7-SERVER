@@ -1,10 +1,10 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     // guid (possibly more)
     // no parameters -> list index out of range

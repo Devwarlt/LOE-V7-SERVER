@@ -6,7 +6,7 @@ using System.Linq;
 
 #endregion
 
-namespace gameserver
+namespace LoESoft.GameServer
 {
     public class DateProvider : IFormatProvider, ICustomFormatter
     {

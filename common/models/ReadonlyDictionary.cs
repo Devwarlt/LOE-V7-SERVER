@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace common.artic
+namespace LoESoft.Core.artic
 {
     //http://stackoverflow.com/questions/678379/is-there-a-read-only-generic-dictionary-available-in-net
     public class ReadOnlyDictionary<TKey, TValue> : IDictionary<TKey, TValue>

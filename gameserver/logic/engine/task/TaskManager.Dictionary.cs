@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     public partial class TaskManager
     {

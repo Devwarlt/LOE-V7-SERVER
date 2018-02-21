@@ -1,13 +1,13 @@
 ﻿#region
 
 using System.Linq;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class PlaySound : Behavior
     {
@@ -24,7 +24,7 @@ namespace gameserver.logic.behaviors
         {
             foreach (var i in host.GetNearestEntities(25, null).OfType<Player>())
             {
-                i.client.SendMessage(new PLAYSOUND
+                i.Client.SendMessage(new PLAYSOUND
                 {
                     OwnerId = host.Id,
                     SoundId = soundId

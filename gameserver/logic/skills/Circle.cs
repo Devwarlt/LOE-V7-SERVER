@@ -2,11 +2,11 @@
 
 using System;
 using Mono.Game;
-using gameserver.realm;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     class Circle : CycleBehavior
     {

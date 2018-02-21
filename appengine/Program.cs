@@ -1,18 +1,18 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using log4net;
 using log4net.Config;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using common.config;
-using common.models;
+using LoESoft.Core.config;
+using LoESoft.Core.models;
 
 #endregion
 
-namespace appengine
+namespace LoESoft.AppEngine
 {
     internal class Program
     {

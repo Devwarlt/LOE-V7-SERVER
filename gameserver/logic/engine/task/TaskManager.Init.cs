@@ -1,12 +1,12 @@
 ﻿#region
 
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     /* Task System (LoESoft Games)
      * Author: DV
@@ -21,7 +21,7 @@ namespace gameserver.logic
             )
         {
             this.player = player;
-            taskProgress = Deserialize(player.client.Character.TaskStats);
+            taskProgress = Deserialize(player.Client.Character.TaskStats);
         }
 
         /** Data format sample:

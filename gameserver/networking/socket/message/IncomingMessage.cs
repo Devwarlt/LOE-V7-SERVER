@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler
     {

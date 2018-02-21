@@ -1,11 +1,11 @@
 ﻿#region
 
-using gameserver.realm;
-using gameserver.realm.entity;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
 
 #endregion
 
-namespace gameserver.logic.transitions
+namespace LoESoft.GameServer.logic.transitions
 {
     public class HpLessTransition : Transition
     {

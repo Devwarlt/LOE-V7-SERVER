@@ -3,9 +3,9 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using static gameserver.networking.Client;
+using static LoESoft.GameServer.networking.Client;
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using RotMG.Common.Rasterizer;
-using dungeon.engine;
+using LoESoft.Dungeon.engine;
 
-namespace dungeon.utils
+namespace LoESoft.Dungeon.utils
 {
     public enum RoomType
     {

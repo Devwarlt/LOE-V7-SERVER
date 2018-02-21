@@ -1,4 +1,4 @@
-﻿namespace gameserver.networking.messages.handlers.hack
+﻿namespace LoESoft.GameServer.networking.messages.handlers.hack
 {
     public interface ICheatHandler
     {

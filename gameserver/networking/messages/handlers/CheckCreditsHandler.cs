@@ -1,11 +1,11 @@
 ﻿#region
 
-using gameserver.networking.incoming;
-using gameserver.realm;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class CheckCreditsHandler : MessageHandlers<CHECKCREDITS>
     {
@@ -19,7 +19,7 @@ namespace gameserver.networking.handlers
             client.Account.Reload();
             Manager.Logic.AddPendingAction(t =>
             {
-                client.Player.Credits = client.Player.client.Account.Credits;
+                client.Player.Credits = client.Player.Client.Account.Credits;
                 client.Player.UpdateCount++;
             }, PendingPriority.Networking);
         }

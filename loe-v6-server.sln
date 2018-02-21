@@ -1,19 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "common", "common\common.csproj", "{A417BDBC-8D6F-4661-9B23-2BEE92E295AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoESoft.Core", "common\LoESoft.Core.csproj", "{A417BDBC-8D6F-4661-9B23-2BEE92E295AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "appengine", "appengine\appengine.csproj", "{2ADA25D1-158E-4E88-B91B-F79981372136}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoESoft.AppEngine", "appengine\LoESoft.AppEngine.csproj", "{2ADA25D1-158E-4E88-B91B-F79981372136}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gameserver", "gameserver\gameserver.csproj", "{D791B2A2-F79D-4872-B6FF-EF5B4FE52ADA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoESoft.GameServer", "gameserver\LoESoft.GameServer.csproj", "{D791B2A2-F79D-4872-B6FF-EF5B4FE52ADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dungeon", "dungeon\dungeon.csproj", "{31593F12-283B-4C87-8AEB-4312531A7533}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoESoft.Dungeon", "dungeon\LoESoft.Dungeon.csproj", "{31593F12-283B-4C87-8AEB-4312531A7533}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realm", "realm\realm.csproj", "{C400FDD3-6250-4F9B-9516-B3463D6761F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoESoft.RealmTerrain", "realm\LoESoft.RealmTerrain.csproj", "{C400FDD3-6250-4F9B-9516-B3463D6761F5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generators and Solution Items", "Generators and Solution Items", "{8FDA27C5-057C-4BF7-A62E-B2B86138989C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{8FDA27C5-057C-4BF7-A62E-B2B86138989C}"
 	ProjectSection(SolutionItems) = preProject
 		RotMG.Common.dll = RotMG.Common.dll
 	EndProjectSection
@@ -112,8 +112,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{31593F12-283B-4C87-8AEB-4312531A7533} = {8FDA27C5-057C-4BF7-A62E-B2B86138989C}
-		{C400FDD3-6250-4F9B-9516-B3463D6761F5} = {8FDA27C5-057C-4BF7-A62E-B2B86138989C}
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {79C7EFA2-7A4B-4221-9727-3F09B614C6C1}
 	EndGlobalSection
 EndGlobal

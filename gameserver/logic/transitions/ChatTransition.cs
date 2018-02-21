@@ -1,11 +1,11 @@
 ﻿#region
 
 using System.Linq;
-using gameserver.realm;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.logic.transitions
+namespace LoESoft.GameServer.logic.transitions
 {
     public class ChatTransition : Transition
     {

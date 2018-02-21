@@ -10,7 +10,7 @@ using Org.BouncyCastle.OpenSsl;
 
 #endregion
 
-namespace gameserver
+namespace LoESoft.GameServer
 {
     public class RSA
     {

@@ -2,14 +2,14 @@
 
 using System;
 using System.Linq;
-using common;
-using gameserver.logic.loot;
-using gameserver.realm.entity;
-using gameserver.realm.terrain;
+using LoESoft.Core;
+using LoESoft.GameServer.logic.loot;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.mapsetpiece
+namespace LoESoft.GameServer.realm.mapsetpiece
 {
     internal class Castle : MapSetPiece
     {

@@ -1,8 +1,8 @@
-﻿//using gameserver.logic.behaviors;
-//using gameserver.logic.transitions;
+﻿//using LoESoft.GameServer.logic.behaviors;
+//using LoESoft.GameServer.logic.transitions;
 //using System;
 
-//namespace gameserver.logic
+//namespace LoESoft.GameServer.logic
 //{
 //    partial class BehaviorDb
 //    {

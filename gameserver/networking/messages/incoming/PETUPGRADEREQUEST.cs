@@ -1,11 +1,11 @@
 ﻿#region
 
-using common;
-using gameserver.realm;
+using LoESoft.Core;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.networking.incoming
+namespace LoESoft.GameServer.networking.incoming
 {
     public class PETUPGRADEREQUEST : IncomingMessage
     {

@@ -1,10 +1,10 @@
 ﻿#region
 
-using gameserver.networking.incoming;
+using LoESoft.GameServer.networking.incoming;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class PetCommandHandler : MessageHandlers<ACTIVE_PET_UPDATE_REQUEST>
     {

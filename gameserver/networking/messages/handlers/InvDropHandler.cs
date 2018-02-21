@@ -1,16 +1,16 @@
 ﻿#region
 
 using System;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.realm.world;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class InvDropHandler : MessageHandlers<INVDROP>
     {
@@ -76,11 +76,11 @@ namespace gameserver.networking.handlers
 
                         if (entity is Player)
                         {
-                            (entity as Player).client.SendMessage(new INVRESULT
+                            (entity as Player).Client.SendMessage(new INVRESULT
                             {
                                 Result = 0
                             });
-                            (entity as Player).client.Player.SaveToCharacter();
+                            (entity as Player).Client.Player.SaveToCharacter();
                         }
                         if (client.Player.Owner is Vault)
                             if ((client.Player.Owner as Vault).PlayerOwnerName == client.Account.Name)

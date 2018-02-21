@@ -1,13 +1,13 @@
 ﻿#region
 
 using Mono.Game;
-using gameserver.realm;
-using gameserver.realm.terrain;
-using common;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.terrain;
+using LoESoft.Core;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class Wander : CycleBehavior
     {

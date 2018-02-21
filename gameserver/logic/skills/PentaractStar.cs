@@ -2,15 +2,15 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.networking;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.world;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.world;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class PentaractStar : Behavior
     {

@@ -3,16 +3,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.networking;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using static gameserver.networking.Client;
-using common;
-using common.config;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using static LoESoft.GameServer.networking.Client;
+using LoESoft.Core;
+using LoESoft.Core.config;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {
@@ -78,7 +78,7 @@ namespace gameserver.realm.entity.player
                             };
 
                             foreach (Player plr in Owner?.Players.Values.Where(p => p?.DistSqr(this) < RadiusSqr))
-                                plr?.client.SendMessage(batch);
+                                plr?.Client.SendMessage(batch);
                         }
                         break;
                     case ActivateEffects.Shoot: Shoot(time, item, target); break;
@@ -572,7 +572,7 @@ namespace gameserver.realm.entity.player
                                 {
                                     Color = c,
                                     Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Opened by " + Name + "\"}}",
-                                    ObjectId = client.Player.Id
+                                    ObjectId = Client.Player.Id
                                 }, null);
 
                                 w.BroadcastPacket(new TEXT
@@ -650,7 +650,7 @@ namespace gameserver.realm.entity.player
                                     Shoot(time, item, pkt.ItemUsePos);
                                     MP -= (int)item.MpEndCost;
                                 }
-                                targetlink = target;
+                                Targetlink = target;
                                 ninjaShoot = false;
                             }
                         }
@@ -663,13 +663,13 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            if (client.Player.Owner.Name == "Vault")
+                            if (Client.Player.Owner.Name == "Vault")
                             {
-                                if (!client.Account.OwnedSkins.Contains(item.ActivateEffects[0].SkinType))
+                                if (!Client.Account.OwnedSkins.Contains(item.ActivateEffects[0].SkinType))
                                 {
-                                    Program.Manager.Database.AddSkin(client.Account, item.ActivateEffects[0].SkinType);
+                                    Program.Manager.Database.AddSkin(Client.Account, item.ActivateEffects[0].SkinType);
                                     SendInfo("New skin unlocked successfully. Change skins in your Vault, or start a new character to use.");
-                                    client.SendMessage(new RESKIN_UNLOCK
+                                    Client.SendMessage(new RESKIN_UNLOCK
                                     {
                                         SkinID = item.ActivateEffects[0].SkinType
                                     });
@@ -745,13 +745,13 @@ namespace gameserver.realm.entity.player
                             por?.Move(X, Y);
                             Owner?.EnterWorld(por);
 
-                            client?.SendMessage(new NOTIFICATION
+                            Client?.SendMessage(new NOTIFICATION
                             {
                                 Color = new ARGB(0x00FF00),
                                 Text =
                                     "{\"key\":\"blank\",\"tokens\":{\"data\":\"Opened by " +
-                                    client.Account.Name + "\"}}",
-                                ObjectId = client.Player.Id
+                                    Client.Account.Name + "\"}}",
+                                ObjectId = Client.Player.Id
                             });
 
                             Owner?.BroadcastPacket(new TEXT
@@ -822,8 +822,8 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            int chance = eff.chance;
-                            int minStars = item.minStars;
+                            int chance = eff.Chance;
+                            int minStars = item.MinStars;
 
                             if (Stars >= minStars || AccountPerks.ByPassEggsRequirements())
                             {
@@ -834,7 +834,7 @@ namespace gameserver.realm.entity.player
                                     int newPetID;
                                     string message = null;
 
-                                    newPetID = chance == 100 ? eff.petType : (rnd.Next(min, max) <= chance ? eff.petType : 0);
+                                    newPetID = chance == 100 ? eff.PetType : (rnd.Next(min, max) <= chance ? eff.PetType : 0);
 
                                     if (PetID == 0)
                                     {
@@ -843,7 +843,7 @@ namespace gameserver.realm.entity.player
                                             PetID = newPetID;
                                             HatchlingPet = true;
                                             message = "Congratulations! You received a new pet.";
-                                            Entity petResolve = Resolve(eff.petType);
+                                            Entity petResolve = Resolve(eff.PetType);
                                             petResolve.Move(X, Y);
                                             petResolve.SetPlayerOwner(this);
                                             Owner.EnterWorld(petResolve);
@@ -868,7 +868,7 @@ namespace gameserver.realm.entity.player
                                             HatchlingPet = true;
                                             Owner.LeaveWorld(Pet);
                                             message = "Congratulations! You received a new pet.";
-                                            Pet = Resolve(eff.petType);
+                                            Pet = Resolve(eff.PetType);
                                             Pet.Move(X, Y);
                                             Pet.SetPlayerOwner(this);
                                             Owner.EnterWorld(Pet);
@@ -1042,7 +1042,7 @@ namespace gameserver.realm.entity.player
                             List<Message> pkts = new List<Message>();
 
                             ActivateBoostStat(this, idx, pkts);
-                            int OGstat = oldstat;
+                            int OGstat = Oldstat;
                             int bit = idx + 39;
 
                             int s = eff.Amount;
@@ -1229,13 +1229,13 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            if (AccountType == (int)accountType.VIP_ACCOUNT)
+                            if (AccountType == (int)Core.config.AccountType.VIP_ACCOUNT)
                             {
                                 SendInfo($"You can only use {item.DisplayId} when your VIP account lifetime over.");
                                 return true;
                             }
 
-                            if (AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT)
+                            if (AccountType >= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT)
                             {
                                 SendInfo($"Only VIP account type can use {item.DisplayId}.");
                                 return true;
@@ -1243,7 +1243,7 @@ namespace gameserver.realm.entity.player
 
                             List<Message> _outgoing = new List<Message>();
                             World _world = Program.Manager.GetWorld(Owner.Id);
-                            DbAccount acc = client.Account;
+                            DbAccount acc = Client.Account;
                             int days = eff.Amount;
 
                             SendInfo($"Success! You received {eff.Amount} day{(eff.Amount > 1 ? "s" : "")} as account lifetime to your VIP account type when {item.DisplayId} was consumed!");
@@ -1270,7 +1270,7 @@ namespace gameserver.realm.entity.player
 
                             acc.AccountLifetime = DateTime.Now;
                             acc.AccountLifetime = acc.AccountLifetime.AddDays(days);
-                            acc.AccountType = (int)accountType.VIP_ACCOUNT;
+                            acc.AccountType = (int)Core.config.AccountType.VIP_ACCOUNT;
                             acc.Flush();
                             acc.Reload();
 
@@ -1287,7 +1287,7 @@ namespace gameserver.realm.entity.player
                                 Port = Settings.GAMESERVER.PORT
                             };
 
-                            _world.Timers.Add(new WorldTimer(2000, (w, t) => client.Reconnect(_reconnect)));
+                            _world.Timers.Add(new WorldTimer(2000, (w, t) => Client.Reconnect(_reconnect)));
                         }
                         break;
                     case ActivateEffects.Gold:
@@ -1295,7 +1295,7 @@ namespace gameserver.realm.entity.player
                             if (Database.Names.Contains(Name))
                                 return true;
                             Credits += eff.Amount;
-                            Program.Manager.Database.UpdateCredit(client.Account, eff.Amount);
+                            Program.Manager.Database.UpdateCredit(Client.Account, eff.Amount);
                             UpdateCount++;
                         }
                         break;
@@ -1317,7 +1317,7 @@ namespace gameserver.realm.entity.player
         {
             int OriginalStat = 0;
             OriginalStat = player.Stats[idxnew] + OriginalStat;
-            oldstat = OriginalStat;
+            Oldstat = OriginalStat;
         }
 
         private void ActivateHealHp(Player player, int amount, List<Message> pkts)
@@ -1445,10 +1445,10 @@ namespace gameserver.realm.entity.player
             log.FatalFormat("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId);
             foreach (Player player in Owner?.Players.Values)
-                if (player?.client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
+                if (player?.Client.Account.AccountType >= (int)Core.config.AccountType.TUTOR_ACCOUNT)
                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId));
-            Program.Manager.TryDisconnect(client, DisconnectReason.CHEAT_ENGINE_DETECTED);
+            Program.Manager.TryDisconnect(Client, DisconnectReason.CHEAT_ENGINE_DETECTED);
             return true;
         }
 
@@ -1456,10 +1456,10 @@ namespace gameserver.realm.entity.player
         {
             if (HasBackpack)
                 return true;
-            client.Character.Backpack = new[] { -1, -1, -1, -1, -1, -1, -1, -1 };
+            Client.Character.Backpack = new[] { -1, -1, -1, -1, -1, -1, -1, -1 };
             HasBackpack = true;
-            client.Character.HasBackpack = true;
-            client?.Save();
+            Client.Character.HasBackpack = true;
+            Client?.Save();
             Array.Resize(ref inventory, 20);
             int[] slotTypes =
                 Utils.FromCommaSepString32(

@@ -1,11 +1,11 @@
 ﻿#region
 
-using gameserver.networking;
-using gameserver.realm.terrain;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     public class TheShatters : World
     {

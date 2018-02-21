@@ -1,17 +1,17 @@
 ﻿#region
 
-using gameserver.logic.loot;
-using gameserver.networking.incoming;
-using gameserver.networking.messages.handlers.hack;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.logic.loot;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.messages.handlers.hack;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
 using System.Linq;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class PlayerShootPacketHandler : MessageHandlers<PLAYERSHOOT>
     {

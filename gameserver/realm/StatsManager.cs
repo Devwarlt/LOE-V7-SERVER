@@ -1,11 +1,11 @@
 ﻿#region
 
 using System;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public class StatsManager
     {

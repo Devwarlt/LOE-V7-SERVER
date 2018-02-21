@@ -1,12 +1,11 @@
 ﻿#region
 
-using common.models;
-using gameserver.networking.messages.handlers.hack;
+using LoESoft.GameServer.networking.messages.handlers.hack;
 using System.Collections.Concurrent;
 
 #endregion
 
-namespace gameserver.realm.entity
+namespace LoESoft.GameServer.realm.entity
 {
     public class Projectile : Entity
     {

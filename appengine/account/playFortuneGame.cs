@@ -1,14 +1,14 @@
 #region
 
-using common;
+using LoESoft.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using appengine.mysterybox;
+using LoESoft.AppEngine.mysterybox;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     internal class playFortuneGame : RequestHandler
     {

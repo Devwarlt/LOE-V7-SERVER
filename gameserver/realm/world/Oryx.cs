@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using log4net;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.realm.mapsetpiece;
-using gameserver.realm.world;
-using common.config;
-using gameserver.realm.terrain;
-using static gameserver.networking.Client;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.mapsetpiece;
+using LoESoft.GameServer.realm.world;
+using LoESoft.Core.config;
+using LoESoft.GameServer.realm.terrain;
+using static LoESoft.GameServer.networking.Client;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     //The mad god who look after the realm
     internal class Oryx : IDisposable
@@ -245,8 +245,8 @@ namespace gameserver.realm
             {
                 foreach (var i in world.Players.Values)
                 {
-                    if (ocWorld == null) Program.Manager.TryDisconnect(i.client, DisconnectReason.RECONNECT_TO_CASTLE);
-                    i.client.SendMessage(new RECONNECT
+                    if (ocWorld == null) Program.Manager.TryDisconnect(i.Client, DisconnectReason.RECONNECT_TO_CASTLE);
+                    i.Client.SendMessage(new RECONNECT
                     {
                         Host = "",
                         Port = Settings.GAMESERVER.PORT,
@@ -261,7 +261,7 @@ namespace gameserver.realm
                 SendMsg(i, "MY MINIONS HAVE FAILED ME!", "#Oryx the Mad God");
                 SendMsg(i, "BUT NOW YOU SHALL FEEL MY WRATH!", "#Oryx the Mad God");
                 SendMsg(i, "COME MEET YOUR DOOM AT THE WALLS OF MY CASTLE!", "#Oryx the Mad God");
-                i.client.SendMessage(new SHOWEFFECT
+                i.Client.SendMessage(new SHOWEFFECT
                 {
                     EffectType = EffectType.Jitter
                 });
@@ -538,7 +538,7 @@ namespace gameserver.realm
         //tick of 10 seconds
         private void SendMsg(Player player, string message, string src = "")
         {
-            player.client.SendMessage(new TEXT
+            player.Client.SendMessage(new TEXT
             {
                 Name = src,
                 ObjectId = -1,

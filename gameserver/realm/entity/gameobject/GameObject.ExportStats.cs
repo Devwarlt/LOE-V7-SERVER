@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.realm.entity
+namespace LoESoft.GameServer.realm.entity
 {
     partial class GameObject
     {

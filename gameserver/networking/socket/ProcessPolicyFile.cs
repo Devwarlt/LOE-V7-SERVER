@@ -1,9 +1,9 @@
-﻿using common;
-using common.config;
+﻿using LoESoft.Core;
+using LoESoft.Core.config;
 using System.Net.Sockets;
-using static gameserver.networking.Client;
+using static LoESoft.GameServer.networking.Client;
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler
     {

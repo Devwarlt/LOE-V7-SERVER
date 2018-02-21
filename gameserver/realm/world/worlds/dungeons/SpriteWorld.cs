@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     public class SpriteWorld : World
     {

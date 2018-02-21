@@ -1,12 +1,12 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using System.Linq;
 using System.Collections.Generic;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     internal class purchaseSkin : RequestHandler
     {

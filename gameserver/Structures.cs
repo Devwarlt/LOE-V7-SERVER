@@ -2,12 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using gameserver.realm;
-using common;
+using LoESoft.GameServer.realm;
+using LoESoft.Core;
 
 #endregion
 
-namespace gameserver
+namespace LoESoft.GameServer
 {
     public struct BitmapData
     {

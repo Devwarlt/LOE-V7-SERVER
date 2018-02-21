@@ -1,14 +1,14 @@
 ﻿#region
 
 using System.Linq;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class Taunt : Behavior
     {
@@ -161,7 +161,7 @@ namespace gameserver.logic.behaviors
             else
                 foreach (Player i in host.Owner.PlayersCollision.HitTest(host.X, host.Y, 15).OfType<Player>())
                     if (host.Dist(i) < 15)
-                        i.client.SendMessage(packet);
+                        i.Client.SendMessage(packet);
         }
     }
 }

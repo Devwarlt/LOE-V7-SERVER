@@ -7,7 +7,7 @@ using System.Linq;
 
 #endregion
 
-namespace realm.engine
+namespace LoESoft.RealmTerrain.engine
 {
     internal class MapFeatures
     {

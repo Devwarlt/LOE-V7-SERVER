@@ -1,7 +1,7 @@
-﻿using gameserver.logic.behaviors;
-using gameserver.logic.skills.Pets;
+﻿using LoESoft.GameServer.logic.behaviors;
+using LoESoft.GameServer.logic.skills.Pets;
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     /// <summary>
     /// Regular pets with tier between 0 to 7.

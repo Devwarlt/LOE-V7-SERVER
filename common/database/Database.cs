@@ -1,7 +1,7 @@
 ﻿#region
 
 using BookSleeve;
-using common.config;
+using LoESoft.Core.config;
 using log4net;
 using Newtonsoft.Json;
 using System;
@@ -12,7 +12,7 @@ using System.Text;
 
 #endregion
 
-namespace common
+namespace LoESoft.Core
 {
     public class Database : RedisConnection
     {
@@ -61,7 +61,7 @@ namespace common
         {
             return new DbAccount(this, "0")
             {
-                AccountType = (int)accountType.FREE_ACCOUNT,
+                AccountType = (int)AccountType.FREE_ACCOUNT,
                 AccountLifetime = DateTime.MinValue,
                 UUID = uuid,
                 Name = Names[(uint)uuid.GetHashCode() % Names.Length],
@@ -258,7 +258,7 @@ namespace common
 
             acc = new DbAccount(this, newAccId.ToString())
             {
-                AccountType = (int)accountType.FREE_ACCOUNT,
+                AccountType = (int)AccountType.FREE_ACCOUNT,
                 AccountLifetime = DateTime.MinValue,
                 UUID = uuid,
                 Name = Names[(uint)uuid.GetHashCode() % Names.Length],
@@ -422,7 +422,7 @@ namespace common
             Update(acc);
         }
 
-        public void UpdateAccountLifetime(DbAccount acc, accountType accType, int amount)
+        public void UpdateAccountLifetime(DbAccount acc, AccountType accType, int amount)
         {
             acc.AccountLifetime = DateTime.Now;
             acc.AccountLifetime = acc.AccountLifetime.AddDays(amount);

@@ -1,3 +1,3 @@
 cd bin-maps/dungeons
-start dungeon.exe
+start LoESoft.Dungeon.exe
 exit

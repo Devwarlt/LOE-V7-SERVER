@@ -1,10 +1,10 @@
-﻿using common.models;
-using gameserver.networking.incoming;
-using gameserver.realm.entity.player;
+﻿using LoESoft.Core.models;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 using System.Collections.Generic;
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     public partial class Client
     {

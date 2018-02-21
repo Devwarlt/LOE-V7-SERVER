@@ -1,12 +1,12 @@
 ﻿#region
 
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
 
 #endregion
 
-namespace gameserver.logic.behaviors.Drakes
+namespace LoESoft.GameServer.logic.behaviors.Drakes
 {
     public class BlueDrakeAttack : Behavior
     {

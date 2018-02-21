@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die mit einer Assembly verknüpft sind.
 
-[assembly: AssemblyTitle("common")]
+[assembly: AssemblyTitle("LoESoft.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LoESoft")]
-[assembly: AssemblyProduct("common")]
+[assembly: AssemblyProduct("LoESoft.Core")]
 [assembly: AssemblyCopyright("Copyright © LoESoft 2015-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

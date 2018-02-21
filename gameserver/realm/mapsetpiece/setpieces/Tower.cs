@@ -1,12 +1,12 @@
 ﻿#region
 
 using System;
-using common;
-using gameserver.realm.terrain;
+using LoESoft.Core;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.mapsetpiece
+namespace LoESoft.GameServer.realm.mapsetpiece
 {
     internal class Tower : MapSetPiece
     {

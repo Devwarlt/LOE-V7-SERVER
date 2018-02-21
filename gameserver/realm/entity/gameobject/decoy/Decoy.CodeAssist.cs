@@ -5,7 +5,7 @@ using System;
 
 #endregion
 
-namespace gameserver.realm.entity
+namespace LoESoft.GameServer.realm.entity
 {
     partial class Decoy
     {

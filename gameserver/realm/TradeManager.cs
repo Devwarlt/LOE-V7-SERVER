@@ -4,13 +4,13 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public class TradeManager
     {
@@ -67,7 +67,7 @@ namespace gameserver.realm
                         else
                             player1Trades[i] = false;
                     }
-                    player2.client.SendMessage(new TRADECHANGED { Offers = player1Trades });
+                    player2.Client.SendMessage(new TRADECHANGED { Offers = player1Trades });
                 }
             }
             else
@@ -88,7 +88,7 @@ namespace gameserver.realm
                         else
                             player2Trades[i] = false;
                     }
-                    player1.client.SendMessage(new TRADECHANGED { Offers = player2Trades });
+                    player1.Client.SendMessage(new TRADECHANGED { Offers = player2Trades });
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace gameserver.realm
         {
             if (sender == player1)
             {
-                player2.client.SendMessage(new TRADEDONE
+                player2.Client.SendMessage(new TRADEDONE
                 {
                     Result = 1,
                     Message = "{\"key\":\"server.cancelled_trade\",\"tokens\":{\"player\":\"" + sender.Name + "\"}}"
@@ -105,7 +105,7 @@ namespace gameserver.realm
             }
             else
             {
-                player1.client.SendMessage(new TRADEDONE
+                player1.Client.SendMessage(new TRADEDONE
                 {
                     Result = 1,
                     Message = "{\"key\":\"server.cancelled_trade\",\"tokens\":{\"player\":\"" + sender.Name + "\"}}"
@@ -124,7 +124,7 @@ namespace gameserver.realm
             {
                 if (pkt.MyOffers.SequenceEqual(player1Trades) && pkt.YourOffers.SequenceEqual(player2Trades))
                 {
-                    player2.client.SendMessage(new TRADEACCEPTED
+                    player2.Client.SendMessage(new TRADEACCEPTED
                     {
                         MyOffers = player2Trades,
                         YourOffers = player1Trades
@@ -136,7 +136,7 @@ namespace gameserver.realm
             {
                 if (pkt.MyOffers.SequenceEqual(player2Trades) && pkt.YourOffers.SequenceEqual(player1Trades))
                 {
-                    player1.client.SendMessage(new TRADEACCEPTED
+                    player1.Client.SendMessage(new TRADEACCEPTED
                     {
                         MyOffers = player1Trades,
                         YourOffers = player2Trades
@@ -157,7 +157,7 @@ namespace gameserver.realm
                 {
                     if (player1.Owner == null)
                     {
-                        player2.client.SendMessage(new TRADEDONE
+                        player2.Client.SendMessage(new TRADEDONE
                         {
                             Result = 1,
                             Message = "{\"key\":\"server.trade_other_left\"}"
@@ -168,7 +168,7 @@ namespace gameserver.realm
                     }
                     else if (player2.Owner == null)
                     {
-                        player1.client.SendMessage(new TRADEDONE
+                        player1.Client.SendMessage(new TRADEDONE
                         {
                             Result = 1,
                             Message = "{\"key\":\"server.trade_other_left\"}"
@@ -265,8 +265,8 @@ namespace gameserver.realm
             TradingPlayers.Remove(player1);
             TradingPlayers.Remove(player2);
 
-            player1.client.SendMessage(packet);
-            player2.client.SendMessage(packet);
+            player1.Client.SendMessage(packet);
+            player2.Client.SendMessage(packet);
         }
 
         private void TradeDone()
@@ -277,8 +277,8 @@ namespace gameserver.realm
                 Message = "{\"key\":\"server.trade_successful\"}"
             };
 
-            player1.client.SendMessage(packet);
-            player2.client.SendMessage(packet);
+            player1.Client.SendMessage(packet);
+            player2.Client.SendMessage(packet);
 
             player1.UpdateCount++;
             player2.UpdateCount++;

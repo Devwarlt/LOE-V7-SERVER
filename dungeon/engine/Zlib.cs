@@ -2,7 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 
-namespace dungeon.engine
+namespace LoESoft.Dungeon.engine
 {
     public static class Zlib
     {

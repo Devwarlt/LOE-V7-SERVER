@@ -5,13 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using log4net;
-using gameserver.realm;
-using common.config;
-using static gameserver.networking.Client;
+using LoESoft.GameServer.realm;
+using LoESoft.Core.config;
+using static LoESoft.GameServer.networking.Client;
 
 #endregion
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     internal class Server
     {

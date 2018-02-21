@@ -1,11 +1,11 @@
 ﻿#region
 
 using System.Collections.Generic;
-using gameserver.networking.outgoing;
+using LoESoft.GameServer.networking.outgoing;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {
@@ -47,7 +47,7 @@ namespace gameserver.realm.entity.player
 
         public void SendInfo(string text)
         {
-            client.SendMessage(new TEXT()
+            Client.SendMessage(new TEXT()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -59,7 +59,7 @@ namespace gameserver.realm.entity.player
         }
         public void SendError(string text)
         {
-            client.SendMessage(new TEXT()
+            Client.SendMessage(new TEXT()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -71,7 +71,7 @@ namespace gameserver.realm.entity.player
         }
         public void SendpsrText(string text)
         {
-            client.SendMessage(new TEXT()
+            Client.SendMessage(new TEXT()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -83,7 +83,7 @@ namespace gameserver.realm.entity.player
         }
         public void SendHelp(string text)
         {
-            client.SendMessage(new TEXT()
+            Client.SendMessage(new TEXT()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -95,7 +95,7 @@ namespace gameserver.realm.entity.player
         }
         public void SendEnemy(string name, string text)
         {
-            client.SendMessage(new TEXT()
+            Client.SendMessage(new TEXT()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -107,7 +107,7 @@ namespace gameserver.realm.entity.player
         }
         public void SendText(string sender, string text)
         {
-            client.SendMessage(new TEXT()
+            Client.SendMessage(new TEXT()
             {
                 BubbleTime = 0,
                 Stars = -1,
@@ -119,7 +119,7 @@ namespace gameserver.realm.entity.player
         }
         public void SendGuild(string text)
         {
-            client.SendMessage(new TEXT
+            Client.SendMessage(new TEXT
             {
                 BubbleTime = 0,
                 Stars = Stars,
@@ -132,7 +132,7 @@ namespace gameserver.realm.entity.player
         }
         public void GuildRecieved(int objId, int stars, string from, string text)
         {
-            client.SendMessage(new TEXT
+            Client.SendMessage(new TEXT
             {
                 BubbleTime = 10,
                 Stars = stars,

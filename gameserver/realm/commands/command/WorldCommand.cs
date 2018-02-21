@@ -3,17 +3,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using common.config;
-using gameserver.realm.entity.npc;
-using gameserver.logic;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.Core.config;
+using LoESoft.GameServer.realm.entity.npc;
+using LoESoft.GameServer.logic;
 
 #endregion
 
-namespace gameserver.realm.commands
+namespace LoESoft.GameServer.realm.commands
 {
     class GuildCommand : Command
     {
@@ -50,7 +50,7 @@ namespace gameserver.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            player.client.Reconnect(new RECONNECT
+            player.Client.Reconnect(new RECONNECT
             {
                 Host = "",
                 Port = Settings.GAMESERVER.PORT,
@@ -254,7 +254,7 @@ namespace gameserver.realm.commands
             {
                 if (cData.Client.Account.NameChosen && cData.Client.Account.Name.EqualsIgnoreCase(playername))
                 {
-                    player.client.SendMessage(new TEXT()
+                    player.Client.SendMessage(new TEXT()
                     {
                         ObjectId = player.Id,
                         BubbleTime = 10,

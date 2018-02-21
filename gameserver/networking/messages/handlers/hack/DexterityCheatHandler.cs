@@ -1,12 +1,12 @@
 ﻿#region
 
-using common.config;
-using gameserver.realm.entity.player;
+using LoESoft.Core.config;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 
 #endregion
 
-namespace gameserver.networking.messages.handlers.hack
+namespace LoESoft.GameServer.networking.messages.handlers.hack
 {
     public class DexterityCheatHandler : ICheatHandler
     {
@@ -29,7 +29,7 @@ namespace gameserver.networking.messages.handlers.hack
         public void SetAmount(int attackAmount) => this.attackAmount = attackAmount;
 
         private bool byPass
-        { get { return player.AccountType == (int)accountType.LOESOFT_ACCOUNT; } }
+        { get { return player.AccountType == (int)AccountType.LOESOFT_ACCOUNT; } }
 
         CheatID ICheatHandler.ID
         { get { return CheatID.DEXTERITY; } }
@@ -44,7 +44,7 @@ namespace gameserver.networking.messages.handlers.hack
 
             if ((attackPeriod > ProcessAttackPeriod() || attackAmount != item.NumProjectiles) && !byPass)
             {
-                Program.Manager.TryDisconnect(player.client, Client.DisconnectReason.DEXTERITY_HACK_MOD);
+                Program.Manager.TryDisconnect(player.Client, Client.DisconnectReason.DEXTERITY_HACK_MOD);
                 return;
             }
         }

@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace common
+namespace LoESoft.Core
 {
     public static class TaskUtils
     {

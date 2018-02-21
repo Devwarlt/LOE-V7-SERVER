@@ -1,12 +1,12 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using System;
 using System.IO;
 
 #endregion
 
-namespace appengine.guild
+namespace LoESoft.AppEngine.guild
 {
     class getBoard : RequestHandler
     {

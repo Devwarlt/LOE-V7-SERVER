@@ -1,10 +1,10 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 
 #endregion
 
-namespace gameserver.networking.outgoing
+namespace LoESoft.GameServer.networking.outgoing
 {
     public class HATCH_PET : OutgoingMessage
     {

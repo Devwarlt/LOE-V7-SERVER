@@ -1,13 +1,13 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 
 #endregion
 
-namespace appengine.gamestore
+namespace LoESoft.AppEngine.gamestore
 {
     public class GameStore
     {

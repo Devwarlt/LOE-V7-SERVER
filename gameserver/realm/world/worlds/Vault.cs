@@ -4,16 +4,16 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using common;
-using gameserver.networking;
-using gameserver.realm.entity;
-using gameserver.realm.terrain;
+using LoESoft.Core;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
-    public class Vault : World
+    public class Vault : World, IDungeon
     {
         private readonly ConcurrentDictionary<Tuple<Container, int>, int> _vaultChests = new ConcurrentDictionary<Tuple<Container, int>, int>();
 
@@ -83,8 +83,10 @@ namespace gameserver.realm.world
             if (psr.Account.Gifts != null)
             {
                 List<GiftChest> giftChests = new List<GiftChest>();
-                GiftChest c = new GiftChest();
-                c.Items = new List<Item>(8);
+                GiftChest c = new GiftChest
+                {
+                    Items = new List<Item>(8)
+                };
                 bool wasLastElse = false;
                 int[] gifts = psr.Account.Gifts.ToArray();
                 gifts.Shuffle();
@@ -100,8 +102,10 @@ namespace gameserver.realm.world
                         else
                         {
                             giftChests.Add(c);
-                            c = new GiftChest();
-                            c.Items = new List<Item>(8);
+                            c = new GiftChest
+                            {
+                                Items = new List<Item>(8)
+                            };
                             c.Items.Add(Program.Manager.GameData.Items[(ushort)gifts[i]]);
                             wasLastElse = true;
                         }

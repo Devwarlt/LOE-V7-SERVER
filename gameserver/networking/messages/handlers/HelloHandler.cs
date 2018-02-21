@@ -1,21 +1,21 @@
 ﻿#region
 
 using System.Linq;
-using common;
+using LoESoft.Core;
 using System.Text;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.world;
-using FAILURE = gameserver.networking.outgoing.FAILURE;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.world;
+using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 using System;
-using gameserver.networking.error;
-using static gameserver.networking.Client;
-using common.config;
+using LoESoft.GameServer.networking.error;
+using static LoESoft.GameServer.networking.Client;
+using LoESoft.Core.config;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class HelloHandler : MessageHandlers<HELLO>
     {
@@ -157,13 +157,13 @@ namespace gameserver.networking.handlers
                     return;
                 }
 
-                if (acc.AccountType == (int)accountType.VIP_ACCOUNT)
+                if (acc.AccountType == (int)AccountType.VIP_ACCOUNT)
                 {
                     DateTime _currentTime = DateTime.Now;
                     DateTime _vipRegistration = acc.AccountLifetime;
                     if (_vipRegistration <= _currentTime)
                     {
-                        acc.AccountType = (int)accountType.FREE_ACCOUNT;
+                        acc.AccountType = (int)AccountType.FREE_ACCOUNT;
                         acc.Flush();
                         acc.Reload();
                         FAILURE _failure = new FAILURE

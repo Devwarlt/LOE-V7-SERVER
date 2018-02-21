@@ -1,11 +1,11 @@
 ﻿#region
 
 using System;
-using common;
+using LoESoft.Core;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     internal class purchaseCharSlot : RequestHandler
     {

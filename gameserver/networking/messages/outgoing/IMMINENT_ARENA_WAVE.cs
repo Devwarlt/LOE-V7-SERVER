@@ -1,10 +1,10 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 
 #endregion
 
-namespace gameserver.networking.outgoing
+namespace LoESoft.GameServer.networking.outgoing
 {
     public class IMMINENT_ARENA_WAVE : OutgoingMessage
     {

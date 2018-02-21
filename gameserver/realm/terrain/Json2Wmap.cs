@@ -3,13 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using common;
+using LoESoft.Core;
 using Ionic.Zlib;
 using Newtonsoft.Json;
 
 #endregion
 
-namespace gameserver.realm.terrain
+namespace LoESoft.GameServer.realm.terrain
 {
     public class Json2Wmap
     {

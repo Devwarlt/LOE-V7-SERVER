@@ -1,12 +1,12 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using System.Linq;
 using System;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     // guid, password, name
     // <Error>Error.accountNotFound</Error>

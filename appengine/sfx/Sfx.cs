@@ -1,10 +1,10 @@
 ﻿#region
 
-using common.config;
+using LoESoft.Core.config;
 
 #endregion
 
-namespace appengine.sfx
+namespace LoESoft.AppEngine.sfx
 {
     internal class Sfx : RequestHandler
     {

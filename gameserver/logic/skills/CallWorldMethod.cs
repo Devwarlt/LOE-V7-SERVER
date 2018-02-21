@@ -2,11 +2,11 @@
 
 using System;
 using System.Reflection;
-using gameserver.realm;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class CallWorldMethod : Behavior
     {
@@ -27,7 +27,7 @@ namespace gameserver.logic.behaviors
 
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {
-            if (host.Owner.GetType() == Type.GetType("gameserver.realm.worlds." + worldClass))
+            if (host.Owner.GetType() == Type.GetType("LoESoft.GameServer.realm.worlds." + worldClass))
             {
                 Type type = host.Owner.GetType();
                 MethodInfo method = type.GetMethod(targetMethod);

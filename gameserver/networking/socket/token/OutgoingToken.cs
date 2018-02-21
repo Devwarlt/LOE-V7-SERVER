@@ -1,4 +1,4 @@
-﻿namespace gameserver.networking
+﻿namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler
     {

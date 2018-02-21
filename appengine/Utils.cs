@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace appengine
+namespace LoESoft.AppEngine
 {
     public class DateProvider : IFormatProvider, ICustomFormatter
     {

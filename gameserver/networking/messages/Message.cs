@@ -6,13 +6,13 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using gameserver.networking.outgoing;
-using common;
-using common.models;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.Core;
+using LoESoft.Core.models;
 
 #endregion
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     public abstract class Message
     {

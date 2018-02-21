@@ -7,7 +7,7 @@ using System.Text;
 
 #endregion
 
-namespace common
+namespace LoESoft.Core
 {
     public class NReader : BinaryReader
     {

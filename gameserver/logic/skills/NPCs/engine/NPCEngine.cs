@@ -1,17 +1,17 @@
 #region
 
 using System;
-using gameserver.realm;
+using LoESoft.GameServer.realm;
 using System.Collections.Generic;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm.entity.player;
 using System.Threading.Tasks;
-using gameserver.realm.entity.npc;
+using LoESoft.GameServer.realm.entity.npc;
 using System.Linq;
-using common.models;
+using LoESoft.Core.models;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     /** NPC Engine (LoESoft Games)
 	* Author: DV

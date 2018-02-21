@@ -1,6 +1,6 @@
-﻿using dungeon.utils;
+﻿using LoESoft.Dungeon.utils;
 
-namespace dungeon.templates.Difficult_1.Pirate_Cave
+namespace LoESoft.Dungeon.templates.Difficult_1.Pirate_Cave
 {
     internal class Overlay : MapRender
     {

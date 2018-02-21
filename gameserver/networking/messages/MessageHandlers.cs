@@ -1,8 +1,8 @@
 ﻿using log4net;
-using gameserver.networking.incoming;
-using gameserver.realm;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.realm;
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     internal abstract class MessageHandlers<T> : IMessage where T : IncomingMessage
     {

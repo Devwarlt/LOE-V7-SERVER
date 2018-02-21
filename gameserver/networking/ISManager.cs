@@ -1,13 +1,13 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using log4net;
 using System;
 using System.Collections.Concurrent;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class ISManager : InterServerChannel, IDisposable

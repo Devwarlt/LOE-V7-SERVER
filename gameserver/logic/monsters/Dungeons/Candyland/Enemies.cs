@@ -1,8 +1,8 @@
-using gameserver.logic.behaviors;
-using gameserver.logic.loot;
-using gameserver.logic.transitions;
+using LoESoft.GameServer.logic.behaviors;
+using LoESoft.GameServer.logic.loot;
+using LoESoft.GameServer.logic.transitions;
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     partial class BehaviorDb
     {
@@ -23,10 +23,10 @@ namespace gameserver.logic
                     )
                 ),
                 new Threshold(0.01,
-                    new EggLoot(EggRarity.Common, 0.1),
-                    new EggLoot(EggRarity.Uncommon, 0.05),
-                    new EggLoot(EggRarity.Rare, 0.01),
-                    new EggLoot(EggRarity.Legendary, 0.005),
+                    new EggLoot(EggRarity.Egg_0To13Stars, 0.1),
+                    new EggLoot(EggRarity.Egg_14To27Stars, 0.05),
+                    new EggLoot(EggRarity.Egg_28To41Stars, 0.01),
+                    new EggLoot(EggRarity.Egg_42To48Stars, 0.005),
                     new TierLoot(6, ItemType.Weapon, 0.2),
                     new TierLoot(7, ItemType.Weapon, 0.1),
                     new TierLoot(7, ItemType.Armor, 0.2),
@@ -58,10 +58,10 @@ namespace gameserver.logic
                     new Spawn("Big Creampuff", maxChildren: 2, initialSpawn: 2, coolDown: 5000)
                 ),
                 new Threshold(0.01,
-                    new EggLoot(EggRarity.Common, 0.1),
-                    new EggLoot(EggRarity.Uncommon, 0.05),
-                    new EggLoot(EggRarity.Rare, 0.01),
-                    new EggLoot(EggRarity.Legendary, 0.005),
+                    new EggLoot(EggRarity.Egg_0To13Stars, 0.1),
+                    new EggLoot(EggRarity.Egg_14To27Stars, 0.05),
+                    new EggLoot(EggRarity.Egg_28To41Stars, 0.01),
+                    new EggLoot(EggRarity.Egg_42To48Stars, 0.005),
                     new TierLoot(6, ItemType.Weapon, 0.2),
                     new TierLoot(7, ItemType.Weapon, 0.1),
                     new TierLoot(7, ItemType.Armor, 0.2),
@@ -96,10 +96,10 @@ namespace gameserver.logic
                     new Shoot(15, 1, 0, angleOffset: 30 / 3, index: 1, coolDown: 1950)
                 ),
                 new Threshold(0.01,
-                    new EggLoot(EggRarity.Common, 0.1),
-                    new EggLoot(EggRarity.Uncommon, 0.05),
-                    new EggLoot(EggRarity.Rare, 0.01),
-                    new EggLoot(EggRarity.Legendary, 0.005),
+                    new EggLoot(EggRarity.Egg_0To13Stars, 0.1),
+                    new EggLoot(EggRarity.Egg_14To27Stars, 0.05),
+                    new EggLoot(EggRarity.Egg_28To41Stars, 0.01),
+                    new EggLoot(EggRarity.Egg_42To48Stars, 0.005),
                     new TierLoot(6, ItemType.Weapon, 0.2),
                     new TierLoot(7, ItemType.Weapon, 0.1),
                     new TierLoot(7, ItemType.Armor, 0.2),
@@ -140,10 +140,10 @@ namespace gameserver.logic
                     )
                 ),
                 new Threshold(0.01,
-                    new EggLoot(EggRarity.Common, 0.1),
-                    new EggLoot(EggRarity.Uncommon, 0.05),
-                    new EggLoot(EggRarity.Rare, 0.01),
-                    new EggLoot(EggRarity.Legendary, 0.005),
+                    new EggLoot(EggRarity.Egg_0To13Stars, 0.1),
+                    new EggLoot(EggRarity.Egg_14To27Stars, 0.05),
+                    new EggLoot(EggRarity.Egg_28To41Stars, 0.01),
+                    new EggLoot(EggRarity.Egg_42To48Stars, 0.005),
                     new TierLoot(6, ItemType.Weapon, 0.2),
                     new TierLoot(7, ItemType.Weapon, 0.1),
                     new TierLoot(7, ItemType.Armor, 0.2),
@@ -181,10 +181,10 @@ namespace gameserver.logic
                     new Shoot(20, 3, 15, angleOffset: 20 / 3, index: 1, coolDown: 2000)
                 ),
                 new Threshold(0.01,
-                    new EggLoot(EggRarity.Common, 0.1),
-                    new EggLoot(EggRarity.Uncommon, 0.05),
-                    new EggLoot(EggRarity.Rare, 0.01),
-                    new EggLoot(EggRarity.Legendary, 0.005),
+                    new EggLoot(EggRarity.Egg_0To13Stars, 0.1),
+                    new EggLoot(EggRarity.Egg_14To27Stars, 0.05),
+                    new EggLoot(EggRarity.Egg_28To41Stars, 0.01),
+                    new EggLoot(EggRarity.Egg_42To48Stars, 0.005),
                     new TierLoot(6, ItemType.Weapon, 0.2),
                     new TierLoot(7, ItemType.Weapon, 0.1),
                     new TierLoot(7, ItemType.Armor, 0.2),
