@@ -66,9 +66,6 @@ namespace LoESoft.GameServer.logic
                         new Wander(3)
                         ),
                         new Shoot(12, 2, 10, coolDown: 750)
-                    ),
-                    new Threshold(.01,
-                        new ItemLoot("Flaming Boomerang", .0005)
                     )
             )
 

@@ -464,11 +464,21 @@ namespace LoESoft.GameServer.realm.entity.player
 
         private void CalculateFame()
         {
-            int newFame;
-            if (Experience < 200 * 1000) newFame = Experience / 1000;
-            else newFame = 200 + (Experience - 200 * 1000) / 1000;
-            if (newFame == Fame) return;
-            Fame = newFame;
+            double newFame = 0.0;
+
+            newFame += Math.Max(0, Math.Min(20000, Experience)) * 0.001;
+            newFame += Math.Max(0, Math.Min(45200, Experience) - 20000) * 0.002;
+            newFame += Math.Max(0, Math.Min(80000, Experience) - 45200) * 0.003;
+            newFame += Math.Max(0, Math.Min(101200, Experience) - 80000) * 0.002;
+            newFame += Math.Max(0, Experience - 101200) * 0.0005;
+            newFame += Math.Min(Math.Floor((double)FameCounter.Stats.MinutesActive / 6), 30);
+
+            newFame = Math.Floor(newFame);
+
+            if (newFame == Fame)
+                return;
+
+            Fame = (int) newFame;
             int newGoal;
             var stats = FameCounter.ClassStats[ObjectType];
             if (stats.BestFame > Fame)

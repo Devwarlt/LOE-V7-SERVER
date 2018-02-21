@@ -12,14 +12,14 @@ namespace LoESoft.GameServer.logic
 {
     public class FameCounter
     {
-        protected Player player { get; set; }
+        protected Player Player { get; set; }
 
         public FameStats Stats { get; private set; }
         public DbClassStats ClassStats { get; private set; }
 
         public FameCounter(Player player)
         {
-            this.player = player;
+            this.Player = player;
             Stats = FameStats.Read(player.Client.Character.FameStats);
             ClassStats = new DbClassStats(player.Client.Account);
         }
@@ -47,7 +47,7 @@ namespace LoESoft.GameServer.logic
                 Stats.GodAssists++;
             else
                 Stats.MonsterAssists++;
-            if (player.Quest == enemy)
+            if (Player.Quest == enemy)
                 Stats.QuestsCompleted++;
             if (killer)
             {
@@ -63,7 +63,7 @@ namespace LoESoft.GameServer.logic
                     Stats.OryxKills++;
 
                 if (enemy.ObjectDesc.TaskID != -1)
-                    player.TaskManager.ProcessTask(enemy.ObjectDesc.TaskID);
+                    Player.TaskManager.ProcessTask(enemy.ObjectDesc.TaskID);
             }
         }
 

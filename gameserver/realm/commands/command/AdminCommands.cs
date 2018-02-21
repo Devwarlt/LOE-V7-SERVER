@@ -667,7 +667,7 @@ namespace LoESoft.GameServer.realm.commands
             try
             {
                 MapSetPiece piece = (MapSetPiece)Activator.CreateInstance(System.Type.GetType(
-                    "LoESoft.GameServer.realm.mapsetpieces.setpieces." + args[0], true, true));
+                    "LoESoft.GameServer.realm.mapsetpieces." + args[0], true, true));
                 piece.RenderSetPiece(player.Owner, new IntPoint((int)player.X + 1, (int)player.Y + 1));
                 return true;
             }
