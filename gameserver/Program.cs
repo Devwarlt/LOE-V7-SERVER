@@ -5,7 +5,6 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using LoESoft.Core;
-using log4net;
 using log4net.Config;
 using LoESoft.GameServer.networking;
 using LoESoft.GameServer.realm;
@@ -13,6 +12,7 @@ using LoESoft.Core.config;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using static LoESoft.GameServer.networking.Client;
+using LoESoft.Core.models;
 
 #endregion
 
@@ -21,7 +21,6 @@ namespace LoESoft.GameServer
     internal static class Program
     {
         public static DateTime Uptime { get; private set; }
-        public static readonly ILog Logger = LogManager.GetLogger("Server");
 
         private static readonly ManualResetEvent Shutdown = new ManualResetEvent(false);
 
@@ -54,10 +53,16 @@ namespace LoESoft.GameServer
                 Manager.Initialize();
                 Manager.Run();
 
+                Log._("Message", Message.Messages.Count);
+
                 Server server = new Server(Manager);
                 PolicyServer policy = new PolicyServer();
 
                 Console.CancelKeyPress += (sender, e) => e.Cancel = true;
+
+                Log.Info($"Game Versions (max 5):\n\t * {Settings.NETWORKING.SUPPORTED_VERSIONS_DISPLAY()}");
+
+                Log.Info("Initializing GameServer...");
 
                 policy.Start();
                 server.Start();
@@ -72,9 +77,7 @@ namespace LoESoft.GameServer
 
                 Console.Title = Settings.GAMESERVER.TITLE;
 
-                Logger.Info("Server initialized.");
-
-                Logger.Info($"Game Versions (max 5):\n\t * {Settings.NETWORKING.SUPPORTED_VERSIONS_DISPLAY()}");
+                Log.Info("Initializing GameServer... OK!");
 
                 Console.CancelKeyPress += delegate
                 {
@@ -83,12 +86,17 @@ namespace LoESoft.GameServer
 
                 while (Console.ReadKey(true).Key != ConsoleKey.Escape) ;
 
-                Logger.Info("Terminating...");
+                Log.Info("Terminating...");
+
                 server?.Stop();
                 policy?.Stop();
                 Manager?.Stop();
                 Shutdown?.Dispose();
-                Logger.Info("Server terminated.");
+
+                Log.Warn("Terminated GameServer.");
+
+                Thread.Sleep(1000);
+
                 Environment.Exit(0);
             }
         }
@@ -122,7 +130,7 @@ namespace LoESoft.GameServer
             Environment.Exit(0);
 
             if (ex != null)
-                Logger.Error(ex);
+                Log.Error(ex.ToString());
         }
 
         public static void Restart()
@@ -135,7 +143,7 @@ namespace LoESoft.GameServer
                 do
                 {
                     message = $"Server will be restarted in {i} minute{(i <= 1 ? "" : "s")}.";
-                    Logger.Info(message);
+                    Log.Info(message);
                     try
                     {
                         foreach (ClientData cData in Manager.ClientManager.Values)
@@ -149,7 +157,7 @@ namespace LoESoft.GameServer
                     i--;
                 } while (i != 0);
                 message = "Server is now offline.";
-                Logger.Warn(message);
+                Log.Warn(message);
                 try
                 {
                     foreach (ClientData cData in Manager.ClientManager.Values)
@@ -179,7 +187,7 @@ namespace LoESoft.GameServer
         public static void Stop(Task task = null)
         {
             if (task != null)
-                Logger.Fatal(task.Exception);
+                Log.Error(task.Exception.ToString());
 
             Shutdown.Set();
         }

@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using log4net;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.world;
 using LoESoft.GameServer.realm.terrain;
@@ -14,8 +13,6 @@ namespace LoESoft.GameServer.realm
 {
     public class RealmPortalMonitor
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(RealmPortalMonitor));
-
         private readonly RealmManager manager;
         private readonly Nexus nexus;
         private readonly Random rand = new Random();
@@ -24,7 +21,6 @@ namespace LoESoft.GameServer.realm
 
         public RealmPortalMonitor(RealmManager manager)
         {
-            log.Info("Initalizing Portal Monitor...");
             this.manager = manager;
             nexus = manager.Worlds[(int)WorldID.NEXUS_ID] as Nexus;
             lock (worldLock)
@@ -33,7 +29,6 @@ namespace LoESoft.GameServer.realm
                     if (i.Value is GameWorld)
                         WorldAdded(i.Value);
                 }
-            log.Info("Portal Monitor initialized.");
         }
 
         private Position GetRandPosition()
@@ -63,7 +58,6 @@ namespace LoESoft.GameServer.realm
                 portal.Move(pos.X + 0.5f, pos.Y + 0.5f);
                 nexus.EnterWorld(portal);
                 portals.Add(world, portal);
-                log.InfoFormat("World {0}({1}) added to monitor.", world.Id, world.Name);
             }
         }
 
@@ -78,7 +72,6 @@ namespace LoESoft.GameServer.realm
                     RealmManager.Realms.Add(portal.PortalName);
                     RealmManager.CurrentRealmNames.Remove(portal.PortalName);
                     portals.Remove(world);
-                    log.InfoFormat("World {0}({1}) removed from monitor.", world.Id, world.Name);
                 }
             }
         }
@@ -90,7 +83,6 @@ namespace LoESoft.GameServer.realm
                 Portal portal = portals[world];
                 nexus.LeaveWorld(portal);
                 portals.Remove(world);
-                log.InfoFormat("World {0}({1}) closed.", world.Id, world.Name);
             }
         }
 
@@ -108,7 +100,6 @@ namespace LoESoft.GameServer.realm
                 portal.Move(pos.X, pos.Y);
                 nexus.EnterWorld(portal);
                 portals.Add(world, portal);
-                log.InfoFormat("World {0}({1}) opened.", world.Id, world.Name);
             }
         }
 

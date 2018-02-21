@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using LoESoft.Core;
-using log4net;
 using LoESoft.GameServer.logic;
 using LoESoft.GameServer.networking;
 using LoESoft.GameServer.realm.commands;
@@ -16,7 +15,6 @@ using LoESoft.GameServer.realm.world;
 using LoESoft.Core.config;
 using LoESoft.GameServer.realm.entity.merchant;
 using static LoESoft.GameServer.networking.Client;
-using LoESoft.GameServer.realm.entity.npc;
 using LoESoft.Core.models;
 
 #endregion
@@ -53,8 +51,6 @@ namespace LoESoft.GameServer.realm
         public bool Terminating { get; private set; }
         public int TPS { get; private set; }
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(RealmManager));
-
         private ConcurrentDictionary<string, Vault> Vaults { get; set; }
 
 #pragma warning disable CS0649 // Field 'RealmManager.logic' is never assigned to, and will always have its default value null
@@ -81,13 +77,12 @@ namespace LoESoft.GameServer.realm
 
         public void Initialize()
         {
-            log.Info("Initializing Realm Manager...");
-
             GameData = new EmbeddedData();
 
             //LootSerialization.PopulateLoot();
 
             Behaviors = new BehaviorDb(this);
+
             Merchant.InitMerchatLists(GameData);
 
             AddWorld((int)WorldID.NEXUS_ID, Worlds[0] = new Nexus());
@@ -95,6 +90,7 @@ namespace LoESoft.GameServer.realm
             AddWorld((int)WorldID.TEST_ID, new Test());
             AddWorld((int)WorldID.TUT_ID, new Tutorial(true));
             AddWorld((int)WorldID.DAILY_QUEST_ID, new DailyQuestRoom());
+
             Monitor = new RealmPortalMonitor(this);
 
             Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => AddWorld(_.Result), TaskScheduler.Default);
@@ -105,28 +101,14 @@ namespace LoESoft.GameServer.realm
 
             Commands = new CommandManager(this);
 
-            log.Info("Realm Manager initialized.");
-
-            log.Info("Initializing NPC Database...");
-
             NPCs npcs = new NPCs();
             npcs.Initialize(this);
 
-            int j = 1;
-
-            foreach (KeyValuePair<string, NPC> i in NPCs.Database)
-            {
-                log.InfoFormat("Loading NPC Engine for '{0}' ({1}/{2})...", i.Key, j, NPCs.Database.Count);
-                j++;
-            }
-
-            log.Info("NPC Database initialized...");
+            Log.Info($"\t- {NPCs.Database.Count}\tNPC{(NPCs.Database.Count > 1 ? "s" : "")}.");
         }
 
         public void Run()
         {
-            log.Info("Starting Realm Manager...");
-
             Logic = new LogicTicker(this);
             var logic = new Task(() => Logic.TickLoop(), TaskCreationOptions.LongRunning);
             logic.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
@@ -136,14 +118,10 @@ namespace LoESoft.GameServer.realm
             var network = new Task(() => Network.TickLoop(), TaskCreationOptions.LongRunning);
             network.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
             network.Start();
-
-            log.Info("Realm Manager started.");
         }
 
         public void Stop()
         {
-            log.Info("Stopping Realm Manager...");
-
             Terminating = true;
             List<Client> saveAccountUnlock = new List<Client>();
             foreach (ClientData cData in ClientManager.Values)
@@ -155,8 +133,6 @@ namespace LoESoft.GameServer.realm
             GameData?.Dispose();
             logic?.Join();
             network?.Join();
-
-            log.Info("Realm Manager stopped.");
         }
 
         #endregion
@@ -276,8 +252,7 @@ namespace LoESoft.GameServer.realm
                     world.Dispose();
                     GC.Collect();
                 }
-                catch (Exception e)
-                { log.Fatal(e); }
+                catch (Exception) { }
                 return true;
             }
             return false;
@@ -306,7 +281,6 @@ namespace LoESoft.GameServer.realm
                 world.Manager = this;
             if (world is GameWorld)
                 Monitor.WorldAdded(world);
-            log.InfoFormat("World {0}({1}) added.", world.Id, world.Name);
         }
 
         private void OnWorldRemoved(World world)
@@ -314,7 +288,6 @@ namespace LoESoft.GameServer.realm
             world.Manager = null;
             if (world is GameWorld)
                 Monitor.WorldRemoved(world);
-            log.InfoFormat("World {0}({1}) removed.", world.Id, world.Name);
         }
 
         #endregion

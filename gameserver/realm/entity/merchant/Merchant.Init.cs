@@ -188,7 +188,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// <param name="fp"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        internal static int egg(int fp, string name)
+        internal static int Egg(int fp, string name)
         {
             switch (fp)
             {
@@ -203,7 +203,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// </summary>
         /// <param name="tier"></param>
         /// <returns></returns>
-        internal static int ability(int tier)
+        internal static int Ability(int tier)
         {
             switch (tier)
             {
@@ -218,7 +218,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// <param name="tier"></param>
         /// <param name="slottype"></param>
         /// <returns></returns>
-        internal static int weapon(int tier, int slottype)
+        internal static int Weapon(int tier, int slottype)
         {
             switch (tier)
             {
@@ -226,7 +226,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 case 9: return 150;
                 case 10: return 225;
                 case 11: return 450;
-                default: return processtops(slottype, "weapon");
+                default: return Processtops(slottype, "weapon");
             }
         }
 
@@ -236,7 +236,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// <param name="tier"></param>
         /// <param name="slottype"></param>
         /// <returns></returns>
-        internal static int armor(int tier, int slottype)
+        internal static int Armor(int tier, int slottype)
         {
             switch (tier)
             {
@@ -244,11 +244,11 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 case 10: return 100;
                 case 11: return 225;
                 case 12: return 425;
-                default: return processtops(slottype, "armor");
+                default: return Processtops(slottype, "armor");
             }
         }
 
-        internal static int ring(int tier, string name)
+        internal static int Ring(int tier, string name)
         {
             switch (tier)
             {
@@ -262,7 +262,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// </summary>
         /// <param name="slottype"></param>
         /// <returns></returns>
-        private static int processtops(int slottype, string type)
+        private static int Processtops(int slottype, string type)
         {
             if (type == "weapon")
             {
@@ -343,7 +343,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 if (item.Value.SlotType == 26 && item.Value.ObjectId.Contains("Egg") && item.Value.Consumable && item.Value.Soulbound && item.Value.FeedPower >= 300 && (item.Value.Tier < 3 || item.Value.ObjectId.Contains("Mystery")))
                 {
                     region5list.Add(item.Value.ObjectType);
-                    prices.Add(item.Value.ObjectType, new Tuple<int, CurrencyType>(egg(item.Value.FeedPower, item.Value.ObjectId), CurrencyType.Gold));
+                    prices.Add(item.Value.ObjectType, new Tuple<int, CurrencyType>(Egg(item.Value.FeedPower, item.Value.ObjectId), CurrencyType.Gold));
                 }
 
             // region 6
@@ -351,7 +351,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 if (abilitySlotType.Contains(item.Value.SlotType) && !item.Value.Soulbound && item.Value.Tier >= 5 && item.Value.Tier <= 6)
                 {
                     region6list.Add(item.Value.ObjectType);
-                    prices.Add(item.Value.ObjectType, new Tuple<int, CurrencyType>(ability(item.Value.Tier), CurrencyType.Gold));
+                    prices.Add(item.Value.ObjectType, new Tuple<int, CurrencyType>(Ability(item.Value.Tier), CurrencyType.Gold));
                 }
 
             // region 7
@@ -359,7 +359,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 if (!item.Value.ObjectId.Contains("Infected") && weaponSlotType.Contains(item.Value.SlotType) && !item.Value.Soulbound && item.Value.Tier >= 8 && item.Value.Tier <= 12)
                 {
                     region7list.Add(item.Value.ObjectType);
-                    prices.Add(item.Value.ObjectType, new Tuple<int, CurrencyType>(weapon(item.Value.Tier, item.Value.SlotType), CurrencyType.Gold));
+                    prices.Add(item.Value.ObjectType, new Tuple<int, CurrencyType>(Weapon(item.Value.Tier, item.Value.SlotType), CurrencyType.Gold));
                 }
 
             // region 8
@@ -367,7 +367,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 if ((armorSlotType.Contains(item.Value.SlotType) && item.Value.Tier >= 9 && item.Value.Tier <= 13) || (ringSlotType.Contains(item.Value.SlotType) && item.Value.Tier >= 4 && item.Value.Tier <= 5) && !item.Value.Soulbound)
                 {
                     region8list.Add(item.Value.ObjectType);
-                    prices.Add(item.Value.ObjectType, new Tuple<int, CurrencyType>(item.Value.ObjectId.Contains("Ring") ? ring(item.Value.Tier, item.Value.ObjectId) : armor(item.Value.Tier, item.Value.SlotType), CurrencyType.Gold));
+                    prices.Add(item.Value.ObjectType, new Tuple<int, CurrencyType>(item.Value.ObjectId.Contains("Ring") ? Ring(item.Value.Tier, item.Value.ObjectId) : Armor(item.Value.Tier, item.Value.SlotType), CurrencyType.Gold));
                 }
 
             // restricted clothes (small)
@@ -419,8 +419,6 @@ namespace LoESoft.GameServer.realm.entity.merchant
             // Cloth
             Merchant.smallclothlist = smallclothlist.ToArray();
             Merchant.largeclothlist = largeclothlist.ToArray();
-
-            log.Info("Generated shop list cache for Nexus Shop.");
         }
     }
 }

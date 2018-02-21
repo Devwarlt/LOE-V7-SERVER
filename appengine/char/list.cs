@@ -12,8 +12,6 @@ namespace LoESoft.AppEngine.@char
 {
     internal class list : RequestHandler
     {
-        private bool debug = false;
-
         protected override void HandleRequest()
         {
             try
@@ -39,25 +37,19 @@ namespace LoESoft.AppEngine.@char
                     var list = CharList.FromDb(Database, acc);
                     list.Servers = GetServerList();
 
-                    if (debug)
-                        Program.Logger.Info(list.ToXml(Program.GameData, acc));
-
                     WriteLine(list.ToXml(Program.GameData, acc));
                 }
                 else
                     WriteErrorLine(status.GetInfo());
             }
-            catch (Exception ex)
-            {
-                Program.Logger.Warn(ex);
-            }
+            catch (Exception) { }
         }
 
-        private Lazy<List<Settings.APPENGINE.ServerItem>> svrList { get; set; }
+        private Lazy<List<Settings.APPENGINE.ServerItem>> SvrList { get; set; }
 
         public list()
         {
-            svrList = new Lazy<List<Settings.APPENGINE.ServerItem>>(GetServerList, true);
+            SvrList = new Lazy<List<Settings.APPENGINE.ServerItem>>(GetServerList, true);
         }
 
         private List<Settings.APPENGINE.ServerItem> GetServerList()

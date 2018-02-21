@@ -88,8 +88,6 @@ namespace LoESoft.Core
         private int updateCount;
         private AutoAssign assign;
 
-        private void _(string mainFolder, int total, bool regular = true, string init = "\t- ", string remains = "\t", string end = ".") => Log.Info($"{init}{total}{remains}{Utils.FirstCharToUpper(mainFolder)}{(regular ? (total > 1 ? "s" : "") : "")}{end}");
-
         public EmbeddedData(string path = "assets/xmls")
         {
             bool loaded = false;
@@ -132,17 +130,17 @@ namespace LoESoft.Core
             if (!loaded)
                 return;
 
-            _("assets", xmls.Length, false, "Loaded ", " ", ".");
-            _($"custom object{(LoEObjectAmount > 1 ? "s" : "")} of {objDescs.Count} object{(objDescs.Count > 1 ? "s" : "")}", LoEObjectAmount, false);
-            _($"custom egg", EggAmount);
-            _($"custom enem{(EnemyAmount > 1 ? "ies" : "y")}", EnemyAmount, false);
-            _($"custom projectile", ProjectileAmount);
-            _($"custom ground", GroundAmount);
-            _($"custom equipment", EquipmentAmount);
-            _($"custom pet", PetAmount);
-            _($"custom skin", SkinAmount);
-            _($"portal", portals.Count);
-            _($"special themed item", setTypeSkins.Count);
+            Log._("assets", xmls.Length, false, "Loaded ", " ", ".");
+            Log._($"custom object{(LoEObjectAmount > 1 ? "s" : "")} of {objDescs.Count} object{(objDescs.Count > 1 ? "s" : "")}", LoEObjectAmount, false);
+            Log._($"custom egg", EggAmount);
+            Log._($"custom enem{(EnemyAmount > 1 ? "ies" : "y")}", EnemyAmount, false);
+            Log._($"custom projectile", ProjectileAmount);
+            Log._($"custom ground", GroundAmount);
+            Log._($"custom equipment", EquipmentAmount);
+            Log._($"custom pet", PetAmount);
+            Log._($"custom skin", SkinAmount);
+            Log._($"portal", portals.Count);
+            Log._($"special themed item", setTypeSkins.Count);
         }
 
         private static string AssemblyDirectory

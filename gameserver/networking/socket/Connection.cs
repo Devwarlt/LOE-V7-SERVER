@@ -97,7 +97,7 @@ namespace LoESoft.GameServer.networking
             }
             catch (Exception ex)
             {
-                Program.Logger.Error($"[{nameof(Client)}] Save exception:\n{ex}");
+                Log.Error(ex.ToString());
             }
         }
     }

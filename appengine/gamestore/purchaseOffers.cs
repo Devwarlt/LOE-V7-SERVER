@@ -8,14 +8,12 @@ namespace LoESoft.AppEngine.gamestore
 {
     internal class purchaseOffers : RequestHandler
     {
-        public static bool debug = false;
-
         private class Offer
         {
-            public int objectType { get; set; }
-            public int price { get; set; }
-            public int currencyType { get; set; }
-            public int quantity { get; set; }
+            public int ObjectType { get; set; }
+            public int Price { get; set; }
+            public int CurrencyType { get; set; }
+            public int Quantity { get; set; }
         }
 
         private enum Currency : int
@@ -146,54 +144,39 @@ namespace LoESoft.AppEngine.gamestore
                     List<List<int>> offers = new List<List<int>> { new List<int>(), new List<int>(), new List<int>(), new List<int>(), new List<int>() };
                     Queue<string> processingPayments = new Queue<string>();
 
-                    if (debug)
-                        Program.Logger.Info($"purchasedItems: {Query["purchasedItems"]}");
-
                     foreach (string i in Query["purchasedItems"].Split('|').ToList())
                         items.Add(new Offer()
                         {
-                            objectType = Convert.ToInt32(i.Split(',')[0]),
-                            price = Convert.ToInt32(i.Split(',')[1]),
-                            currencyType = Convert.ToInt32(i.Split(',')[2]),
-                            quantity = Convert.ToInt32(i.Split(',')[3])
+                            ObjectType = Convert.ToInt32(i.Split(',')[0]),
+                            Price = Convert.ToInt32(i.Split(',')[1]),
+                            CurrencyType = Convert.ToInt32(i.Split(',')[2]),
+                            Quantity = Convert.ToInt32(i.Split(',')[3])
                         });
 
-                    if (debug)
-                        foreach (Offer i in items)
-                            Program.Logger.Info($"[Offer] objectType: {i.objectType}, price: {i.price}, currency: {i.currencyType}, quantity: {i.quantity}.");
-
                     foreach (Offer j in items)
-                        if (j.currencyType != -1)
-                            total[j.currencyType] += j.quantity * j.price;
-
-                    if (debug)
-                        for (int j = 0; j < total.Count; j++)
-                            Program.Logger.Info($"[Total] {GetCurrency(j)}: {total[j]}");
+                        if (j.CurrencyType != -1)
+                            total[j.CurrencyType] += j.Quantity * j.Price;
 
                     foreach (Offer k in items)
                     {
-                        if (k.currencyType == (int)Currency.GOLD)
-                            for (int l = 0; l < k.quantity; l++)
-                                credits.Add(k.objectType);
-                        if (k.currencyType == (int)Currency.FAME)
-                            for (int l = 0; l < k.quantity; l++)
-                                fame.Add(k.objectType);
-                        if (k.currencyType == (int)Currency.GUILD_FAME)
-                            for (int l = 0; l < k.quantity; l++)
-                                guild_fame.Add(k.objectType);
-                        if (k.currencyType == (int)Currency.FORTUNE_TOKENS)
-                            for (int l = 0; l < k.quantity; l++)
-                                fortune_tokens.Add(k.objectType);
-                        if (k.currencyType == (int)Currency.EMPIRES_COIN)
-                            for (int l = 0; l < k.quantity; l++)
-                                empires_coin.Add(k.objectType);
+                        if (k.CurrencyType == (int)Currency.GOLD)
+                            for (int l = 0; l < k.Quantity; l++)
+                                credits.Add(k.ObjectType);
+                        if (k.CurrencyType == (int)Currency.FAME)
+                            for (int l = 0; l < k.Quantity; l++)
+                                fame.Add(k.ObjectType);
+                        if (k.CurrencyType == (int)Currency.GUILD_FAME)
+                            for (int l = 0; l < k.Quantity; l++)
+                                guild_fame.Add(k.ObjectType);
+                        if (k.CurrencyType == (int)Currency.FORTUNE_TOKENS)
+                            for (int l = 0; l < k.Quantity; l++)
+                                fortune_tokens.Add(k.ObjectType);
+                        if (k.CurrencyType == (int)Currency.EMPIRES_COIN)
+                            for (int l = 0; l < k.Quantity; l++)
+                                empires_coin.Add(k.ObjectType);
                     }
 
                     offers = new List<List<int>> { credits, fame, guild_fame, fortune_tokens, empires_coin };
-
-                    if (debug)
-                        for (int k = 0; k < offers.Count; k++)
-                            Program.Logger.Info($"[Items] currency: {GetCurrency(k)}, objectTypes: [{(offers[k].Count == 0 ? "null" : $"{string.Join(", ", offers[k])}")}]");
 
                     for (int n = 0; n < total.Count; n++)
                         if (total[n] != 0)
@@ -201,12 +184,8 @@ namespace LoESoft.AppEngine.gamestore
 
                     List<string> output = new List<string>();
 
-                    do
+                    while (processingPayments.Count > 0)
                         output.Add($"{processingPayments.Dequeue()}");
-                    while (processingPayments.Count > 0);
-
-                    if (debug)
-                        Program.Logger.Info($"~#{string.Join("|", output.ToArray())}");
 
                     wtr.Write($"~#{string.Join("|", output.ToArray())}");
                 }

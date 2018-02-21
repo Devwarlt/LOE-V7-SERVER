@@ -81,7 +81,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
 
             int rotation = rand.Next(0, 4); //Rotation
             for (int i = 0; i < rotation; i++)
-                t = SetPieces.rotateCW(t);
+                t = SetPieces.RotateCW(t);
             w = t.GetLength(0);
             h = t.GetLength(1);
 

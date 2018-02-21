@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using log4net;
 using LoESoft.GameServer.realm;
 using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
@@ -15,8 +14,6 @@ namespace LoESoft.GameServer.networking
 {
     internal class Server
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(Server));
-
         public Server(RealmManager manager)
         {
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -28,7 +25,6 @@ namespace LoESoft.GameServer.networking
 
         public void Start()
         {
-            log.Info("Starting server...");
             Socket.Bind(new IPEndPoint(IPAddress.Any, Settings.GAMESERVER.PORT));
             Socket.Listen(0xff);
             Socket.BeginAccept(Listen, null);
@@ -37,32 +33,31 @@ namespace LoESoft.GameServer.networking
         private void Listen(IAsyncResult ar)
         {
             Socket skt = null;
+
             try
             {
                 skt = Socket.EndAccept(ar);
             }
-            catch (ObjectDisposedException)
-            {
-            }
+            catch (ObjectDisposedException) { }
+
             try
             {
                 Socket.BeginAccept(Listen, null);
             }
-            catch (ObjectDisposedException)
-            {
-            }
+            catch (ObjectDisposedException) { }
+
             if (skt != null)
                 new Client(Manager, skt);
         }
 
         public void Stop()
         {
-            log.Info("Stoping server...");
             foreach (ClientData cData in Manager.ClientManager.Values.ToArray())
             {
                 cData.Client.Save();
                 Manager.TryDisconnect(cData.Client, DisconnectReason.STOPING_SERVER);
             }
+
             Socket.Close();
         }
     }
