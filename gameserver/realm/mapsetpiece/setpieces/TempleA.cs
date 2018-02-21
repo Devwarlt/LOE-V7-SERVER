@@ -2,11 +2,11 @@
 
 using System;
 using System.Linq;
-using gameserver.realm.entity;
+using LoESoft.GameServer.realm.entity;
 
 #endregion
 
-namespace gameserver.realm.mapsetpiece
+namespace LoESoft.GameServer.realm.mapsetpiece
 {
     internal class TempleA : Temple
     {

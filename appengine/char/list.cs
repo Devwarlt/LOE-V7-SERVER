@@ -1,14 +1,14 @@
 ﻿#region
 
-using common;
-using common.config;
+using LoESoft.Core;
+using LoESoft.Core.config;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
 #endregion
 
-namespace appengine.@char
+namespace LoESoft.AppEngine.@char
 {
     internal class list : RequestHandler
     {
@@ -62,7 +62,7 @@ namespace appengine.@char
 
         private List<Settings.APPENGINE.ServerItem> GetServerList()
         {
-            var ret = Settings.APPENGINE.returnServerItem();
+            var ret = Settings.APPENGINE.GetServerItem();
             return ret;
         }
     }

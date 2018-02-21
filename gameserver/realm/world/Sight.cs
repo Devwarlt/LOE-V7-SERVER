@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     internal static class Sight
     {

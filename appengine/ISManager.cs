@@ -1,6 +1,6 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using log4net;
 using System;
 using System.Collections.Concurrent;
@@ -8,7 +8,7 @@ using System.Timers;
 
 #endregion
 
-namespace appengine
+namespace LoESoft.AppEngine
 {
     internal class ISManager : InterServerChannel, IDisposable
     {

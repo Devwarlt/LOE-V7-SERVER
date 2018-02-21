@@ -1,16 +1,16 @@
 ﻿#region
 
 using System.Linq;
-using gameserver.networking.incoming;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
 using System.Collections.Generic;
-using static gameserver.networking.Client;
+using static LoESoft.GameServer.networking.Client;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class UseItemHandler : MessageHandlers<USEITEM>
     {
@@ -37,7 +37,7 @@ namespace gameserver.networking.handlers
                             log4net.FatalFormat("Cheat engine detected for player {0},\nItem should be a Health Potion, but its {1}.",
                                 client.Player.Name, item.ObjectId);
                             foreach (Player player in client.Player.Owner.Players.Values)
-                                if (player.client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT)
+                                if (player.client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT)
                                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be a Health Potion, but its {1}.",
                                         client.Player.Name, item.ObjectId));
                             Manager.TryDisconnect(client, DisconnectReason.HP_POTION_CHEAT_ENGINE);
@@ -108,7 +108,7 @@ namespace gameserver.networking.handlers
                         {
                             log4net.FatalFormat("Cheat engine detected for player {0},\nItem should be a Magic Potion, but its {1}.",
                                 client.Player.Name, item.ObjectId);
-                            foreach (Player player in client.Player.Owner.Players.Values.Where(player => player.client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT))
+                            foreach (Player player in client.Player.Owner.Players.Values.Where(player => player.client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT))
                                 player.SendInfo($"Cheat engine detected for player {client.Player.Name},\nItem should be a Magic Potion, but its {item.ObjectId}.");
                             Manager.TryDisconnect(client, DisconnectReason.MP_POTION_CHEAT_ENGINE);
                             return;

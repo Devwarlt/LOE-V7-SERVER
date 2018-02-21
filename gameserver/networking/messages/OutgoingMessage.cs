@@ -1,4 +1,4 @@
-﻿namespace gameserver.networking.outgoing
+﻿namespace LoESoft.GameServer.networking.outgoing
 {
     public abstract class OutgoingMessage : Message
     {

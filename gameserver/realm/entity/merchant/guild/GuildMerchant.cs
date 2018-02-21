@@ -1,10 +1,10 @@
 ﻿#region
 
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm.entity
+namespace LoESoft.GameServer.realm.entity
 {
     public class GuildMerchant : SellableObject
     {

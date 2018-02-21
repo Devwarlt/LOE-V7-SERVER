@@ -6,22 +6,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using common;
+using LoESoft.Core;
 using log4net;
-using gameserver.logic;
-using gameserver.networking;
-using gameserver.realm.commands;
-using gameserver.realm.entity.player;
-using gameserver.realm.world;
-using common.config;
-using gameserver.realm.entity.merchant;
-using static gameserver.networking.Client;
-using gameserver.realm.entity.npc;
-using common.models;
+using LoESoft.GameServer.logic;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.realm.commands;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
+using LoESoft.Core.config;
+using LoESoft.GameServer.realm.entity.merchant;
+using static LoESoft.GameServer.networking.Client;
+using LoESoft.GameServer.realm.entity.npc;
+using LoESoft.Core.models;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public class RealmManager
     {

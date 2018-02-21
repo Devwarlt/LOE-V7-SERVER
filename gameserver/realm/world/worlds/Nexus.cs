@@ -1,10 +1,10 @@
 ﻿#region
 
-using gameserver.realm.entity;
+using LoESoft.GameServer.realm.entity;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     public class Nexus : World
     {

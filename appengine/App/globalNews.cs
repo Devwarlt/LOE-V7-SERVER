@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text.RegularExpressions;
 
-namespace appengine.app
+namespace LoESoft.AppEngine.app
 {
     internal class globalNews : RequestHandler
     {

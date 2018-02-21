@@ -1,11 +1,11 @@
 ﻿#region
 
-using common.config;
+using LoESoft.Core.config;
 using System.Text;
 
 #endregion
 
-namespace appengine
+namespace LoESoft.AppEngine
 {
     internal class crossdomain : RequestHandler
     {

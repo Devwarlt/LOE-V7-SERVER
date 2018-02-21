@@ -3,7 +3,7 @@
 
 #endregion
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     public enum ErrorIDs : int
     {

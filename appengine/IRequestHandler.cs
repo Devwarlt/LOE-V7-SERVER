@@ -4,7 +4,7 @@ using System.Net;
 
 #endregion
 
-namespace appengine
+namespace LoESoft.AppEngine
 {
     internal interface IRequestHandler
     {

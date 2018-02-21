@@ -1,12 +1,12 @@
 ﻿#region
 
-using common.config;
-using gameserver.realm.entity.player;
+using LoESoft.Core.config;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 
 #endregion
 
-namespace gameserver.realm.entity.npc.npcs
+namespace LoESoft.GameServer.realm.entity.npc.npcs
 {
     public class Gazer : NPC
     {

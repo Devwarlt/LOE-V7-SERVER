@@ -3,12 +3,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.networking.outgoing;
-using gameserver.realm.terrain;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     public partial class Player
     {

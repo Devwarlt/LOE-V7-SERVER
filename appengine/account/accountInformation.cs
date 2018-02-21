@@ -1,10 +1,10 @@
-﻿using common;
+﻿using LoESoft.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     class accountInformation : RequestHandler
     {

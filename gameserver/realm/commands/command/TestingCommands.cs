@@ -1,14 +1,14 @@
-﻿using gameserver.realm.entity.player;
-using common.config;
+﻿using LoESoft.GameServer.realm.entity.player;
+using LoESoft.Core.config;
 using System.Collections.Generic;
 using System;
-using gameserver.realm.entity;
+using LoESoft.GameServer.realm.entity;
 
-namespace gameserver.realm.commands
+namespace LoESoft.GameServer.realm.commands
 {
     public class TestingCommands : Command
     {
-        public TestingCommands() : base("test", (int)accountType.LOESOFT_ACCOUNT) { }
+        public TestingCommands() : base("test", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         private readonly bool AllowTestingCommands = true;
 

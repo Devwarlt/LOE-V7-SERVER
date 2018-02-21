@@ -4,19 +4,19 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
-using common;
+using LoESoft.Core;
 using log4net;
 using log4net.Config;
-using gameserver.networking;
-using gameserver.realm;
-using common.config;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.realm;
+using LoESoft.Core.config;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using static gameserver.networking.Client;
+using static LoESoft.GameServer.networking.Client;
 
 #endregion
 
-namespace gameserver
+namespace LoESoft.GameServer
 {
     internal static class Program
     {

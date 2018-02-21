@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 #endregion
 
-namespace common
+namespace LoESoft.Core
 {
     // Adds strong typing to WeakReference.Target using generics. Also, the Create factory method is
     // used in place of a constructor to handle the case where target is null, but we want the
@@ -65,7 +65,7 @@ namespace common
 
     // Compares objects of the given type or WeakKeyReferences to them for equality based on the
     // given comparer. Note that we can only implement IEqualityComparer<T> for T = object as there
-    // is no other common base between T and WeakKeyReference<T>. We need a single comparer to
+    // is no other LoESoft.Core base between T and WeakKeyReference<T>. We need a single comparer to
     // handle both types because we don't want to allocate a new weak reference for every lookup.
     internal sealed class WeakKeyComparer<T> : IEqualityComparer<object>
         where T : class

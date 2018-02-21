@@ -3,17 +3,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using common.config;
-using gameserver.realm.entity.npc;
-using gameserver.logic;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.Core.config;
+using LoESoft.GameServer.realm.entity.npc;
+using LoESoft.GameServer.logic;
 
 #endregion
 
-namespace gameserver.realm.commands
+namespace LoESoft.GameServer.realm.commands
 {
     class GuildCommand : Command
     {

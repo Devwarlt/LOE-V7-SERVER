@@ -3,11 +3,11 @@
 using System;
 using System.Collections.Generic;
 using log4net;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm.commands
+namespace LoESoft.GameServer.realm.commands
 {
     internal static class Outgoing
     {

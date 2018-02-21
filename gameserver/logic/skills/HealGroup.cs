@@ -1,9 +1,9 @@
-﻿using gameserver.networking.outgoing;
+﻿using LoESoft.GameServer.networking.outgoing;
 using System.Linq;
-using gameserver.realm;
-using gameserver.realm.entity;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     class HealGroup : Behavior
     {

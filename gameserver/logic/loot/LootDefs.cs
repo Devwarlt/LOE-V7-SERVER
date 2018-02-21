@@ -3,13 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using common;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
+using LoESoft.Core;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.logic.loot
+namespace LoESoft.GameServer.logic.loot
 {
     public interface ILootDef
     {
@@ -237,7 +237,7 @@ namespace gameserver.logic.loot
             if (playerDat != null) return;
             Item[] candidates = Program.Manager.GameData.Items
                 .Where(item => item.Value.SlotType == 9000)
-                .Where(item => item.Value.minStars <= (int)rarity)
+                .Where(item => item.Value.MinStars <= (int)rarity)
                 .Select(item => item.Value)
                 .ToArray();
             foreach (Item i in candidates)

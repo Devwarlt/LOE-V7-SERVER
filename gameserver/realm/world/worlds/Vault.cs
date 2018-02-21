@@ -4,14 +4,14 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using common;
-using gameserver.networking;
-using gameserver.realm.entity;
-using gameserver.realm.terrain;
+using LoESoft.Core;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     public class Vault : World
     {

@@ -1,11 +1,11 @@
 ﻿#region
 
-using gameserver.networking.incoming;
-using gameserver.realm;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class CheckCreditsHandler : MessageHandlers<CHECKCREDITS>
     {

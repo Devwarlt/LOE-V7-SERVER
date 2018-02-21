@@ -1,10 +1,10 @@
 ﻿#region
 
-using gameserver.logic.behaviors;
+using LoESoft.GameServer.logic.behaviors;
 
 #endregion
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     partial class BehaviorDb
     {

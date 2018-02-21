@@ -2,11 +2,11 @@
 using System.Collections.Concurrent;
 using System.Net.Sockets;
 using log4net;
-using common.config;
-using static gameserver.networking.Client;
-using gameserver.realm;
+using LoESoft.Core.config;
+using static LoESoft.GameServer.networking.Client;
+using LoESoft.GameServer.realm;
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler : IDisposable
     {

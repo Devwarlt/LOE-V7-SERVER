@@ -2,11 +2,11 @@
 
 using Mono.Game;
 using System;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm.entity
+namespace LoESoft.GameServer.realm.entity
 {
     partial class Decoy
     {

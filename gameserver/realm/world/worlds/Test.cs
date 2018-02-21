@@ -1,12 +1,12 @@
 ﻿#region
 
 using System.Collections.Generic;
-using gameserver.realm.entity.player;
-using static gameserver.networking.Client;
+using LoESoft.GameServer.realm.entity.player;
+using static LoESoft.GameServer.networking.Client;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     public class Test : World
     {
@@ -32,7 +32,7 @@ namespace gameserver.realm.world
 
             foreach (KeyValuePair<int, Player> i in Players)
             {
-                if (i.Value.client.Account.AccountType != (int)common.config.accountType.LOESOFT_ACCOUNT || !i.Value.client.Account.Admin)
+                if (i.Value.client.Account.AccountType != (int)LoESoft.Core.config.AccountType.LOESOFT_ACCOUNT || !i.Value.client.Account.Admin)
                 {
                     i.Value.SendError(string.Format("[Staff Member: {0}] You cannot access Test world with account type {1}.", i.Value.client.Account.Admin, nameof(i.Value.client.Account.AccountType)));
                     Program.Manager.TryDisconnect(i.Value.client, DisconnectReason.ACCESS_DENIED);

@@ -5,7 +5,7 @@ using System.Text;
 
 #endregion
 
-namespace appengine.picture
+namespace LoESoft.AppEngine.picture
 {
     internal class get : RequestHandler
     {

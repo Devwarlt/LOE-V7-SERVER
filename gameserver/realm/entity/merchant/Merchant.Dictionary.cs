@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace gameserver.realm.entity.merchant
+namespace LoESoft.GameServer.realm.entity.merchant
 {
     partial class Merchant
     {

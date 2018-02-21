@@ -1,4 +1,4 @@
-namespace gameserver
+namespace LoESoft.GameServer
 {
     public enum MessageID : int
     {

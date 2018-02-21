@@ -1,10 +1,10 @@
-﻿using common.models;
-using gameserver.networking.error;
-using gameserver.networking.outgoing;
+﻿using LoESoft.Core.models;
+using LoESoft.GameServer.networking.error;
+using LoESoft.GameServer.networking.outgoing;
 using System;
-using FAILURE = gameserver.networking.outgoing.FAILURE;
+using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public partial class Client

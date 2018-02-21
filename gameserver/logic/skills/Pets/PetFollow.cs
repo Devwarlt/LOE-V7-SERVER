@@ -1,9 +1,9 @@
-﻿using gameserver.realm;
+﻿using LoESoft.GameServer.realm;
 using Mono.Game;
-using gameserver.realm.entity.player;
-using gameserver.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
 
-namespace gameserver.logic.skills.Pets
+namespace LoESoft.GameServer.logic.skills.Pets
 {
     internal class PetFollow : CycleBehavior
     {

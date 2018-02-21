@@ -1,13 +1,13 @@
 ﻿#region
 
-using common.config;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm;
+using LoESoft.Core.config;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class EscapeHandler : MessageHandlers<ESCAPE>
     {

@@ -2,13 +2,13 @@
 
 using System;
 using log4net;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.realm.mapsetpiece;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.mapsetpiece;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     internal class GameWorld : World
     {

@@ -4,13 +4,13 @@ using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using gameserver.logic;
-using gameserver.networking;
-using common.config;
+using LoESoft.GameServer.logic;
+using LoESoft.GameServer.networking;
+using LoESoft.Core.config;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {

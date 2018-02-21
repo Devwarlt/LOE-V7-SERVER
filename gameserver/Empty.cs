@@ -1,4 +1,4 @@
-﻿namespace gameserver
+﻿namespace LoESoft.GameServer
 {
     internal static class Empty<T>
     {

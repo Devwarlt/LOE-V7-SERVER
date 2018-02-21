@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace gameserver.networking.error
+namespace LoESoft.GameServer.networking.error
 {
     public class JSONErrorIDHandler
     {

@@ -4,7 +4,7 @@ using System.IO;
 
 #endregion
 
-namespace appengine.app.inGameNews
+namespace LoESoft.AppEngine.app.inGameNews
 {
     internal class getNews : RequestHandler
     {

@@ -2,15 +2,15 @@
 
 using System;
 using System.Collections.Generic;
-using common.models;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.realm.terrain;
+using LoESoft.Core.models;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     public class Arena : World
     {

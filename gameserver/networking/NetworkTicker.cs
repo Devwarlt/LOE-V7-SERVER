@@ -4,11 +4,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using log4net;
-using gameserver.networking;
+using LoESoft.GameServer.networking;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     #region
 

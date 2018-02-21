@@ -1,6 +1,6 @@
-﻿using gameserver.realm;
+﻿using LoESoft.GameServer.realm;
 
-namespace gameserver.logic.transitions
+namespace LoESoft.GameServer.logic.transitions
 {
     class GroupNotExistTransition : Transition
     {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
-using common;
+using LoESoft.Core;
 
 #endregion
 
@@ -697,9 +697,9 @@ public class ActivateEffect
         if (elem.Attribute("center") != null)
             Center = elem.Attribute("center").Value;
         if (elem.Attribute("petType") != null)
-            petType = (ushort)Utils.FromString(elem.Attribute("petType").Value);
+            PetType = (ushort)Utils.FromString(elem.Attribute("petType").Value);
         if (elem.Attribute("chance") != null)
-            chance = int.Parse(elem.Attribute("chance").Value);
+            Chance = int.Parse(elem.Attribute("chance").Value);
 
         NoStack = elem.Attribute("noStack") != null;
     }
@@ -730,8 +730,8 @@ public class ActivateEffect
     public float VisualEffect { get; private set; }
     public uint? Color { get; private set; }
     public bool NoStack { get; private set; }
-    public ushort petType { get; private set; }
-    public int chance { get; private set; }
+    public ushort PetType { get; private set; }
+    public int Chance { get; private set; }
 }
 
 public class PortalDesc
@@ -787,7 +787,7 @@ public class Item : IFeedable
                 }
             else
                 Tier = -1;
-            minStars = elem.Attribute("minStars") != null ? int.Parse(elem.Attribute("minStars").Value) : 0;
+            MinStars = elem.Attribute("minStars") != null ? int.Parse(elem.Attribute("minStars").Value) : 0;
             Description = elem.Element("Description").Value;
             RateOfFire = (n = elem.Element("RateOfFire")) != null ? float.Parse(n.Value, NumberStyles.Any, ci) : 1;
             Usable = elem.Element("Usable") != null;
@@ -891,7 +891,7 @@ public class Item : IFeedable
     public bool LootTierBooster { get; private set; }
     public int SetType { get; private set; }
 
-    public int minStars { get; private set; }
+    public int MinStars { get; private set; }
 }
 
 public class SpawnCount

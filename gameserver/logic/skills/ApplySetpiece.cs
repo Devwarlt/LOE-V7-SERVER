@@ -1,12 +1,12 @@
 ﻿#region
 
 using System;
-using gameserver.realm;
-using gameserver.realm.mapsetpiece;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.mapsetpiece;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class ApplySetpiece : Behavior
     {
@@ -22,7 +22,7 @@ namespace gameserver.logic.behaviors
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {
             var piece = (MapSetPiece)Activator.CreateInstance(Type.GetType(
-                "gameserver.realm.mapsetpiece." + name, true, true));
+                "LoESoft.GameServer.realm.mapsetpiece." + name, true, true));
             piece.RenderSetPiece(host.Owner, new IntPoint((int)host.X, (int)host.Y));
         }
 

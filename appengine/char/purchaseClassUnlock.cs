@@ -1,11 +1,11 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using Newtonsoft.Json;
 
 #endregion
 
-namespace appengine.@char
+namespace LoESoft.AppEngine.@char
 {
     internal class purchaseClassUnlock : RequestHandler
     {

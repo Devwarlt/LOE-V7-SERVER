@@ -1,6 +1,6 @@
-﻿using gameserver.networking.incoming;
+﻿using LoESoft.GameServer.networking.incoming;
 
-namespace gameserver.networking
+namespace LoESoft.GameServer.networking
 {
     internal interface IMessage
     {

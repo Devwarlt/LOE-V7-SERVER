@@ -1,13 +1,13 @@
 ﻿#region
 
-using common;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
+using LoESoft.Core;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class CreateGuildHandler : MessageHandlers<CREATEGUILD>
     {

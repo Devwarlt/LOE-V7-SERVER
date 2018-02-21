@@ -7,7 +7,7 @@ using System.Xml;
 
 #endregion
 
-namespace appengine.package
+namespace LoESoft.AppEngine.package
 {
     internal class getPackages : RequestHandler
     {

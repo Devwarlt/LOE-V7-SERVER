@@ -1,16 +1,16 @@
 ﻿#region
 
-using gameserver.networking;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.logic.skills.Pets
+namespace LoESoft.GameServer.logic.skills.Pets
 {
     internal class PetShoot : CycleBehavior
     {

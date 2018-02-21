@@ -1,13 +1,13 @@
 ﻿#region
 
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.realm.entity.npc
+namespace LoESoft.GameServer.realm.entity.npc
 {
     /** NPC (LoESoft Games)
     * Author: Warlt

@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-using common;
+using LoESoft.Core;
 
 #endregion
 
-namespace gameserver.realm.mapsetpiece
+namespace LoESoft.GameServer.realm.mapsetpiece
 {
     class GhostShip : MapSetPiece
     {

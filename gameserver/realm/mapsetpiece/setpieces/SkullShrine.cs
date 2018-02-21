@@ -1,13 +1,13 @@
 ﻿#region
 
 using System;
-using common;
+using LoESoft.Core;
 using realm;
-using gameserver.realm.terrain;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.mapsetpiece
+namespace LoESoft.GameServer.realm.mapsetpiece
 {
     internal class SkullShrine : MapSetPiece
     {

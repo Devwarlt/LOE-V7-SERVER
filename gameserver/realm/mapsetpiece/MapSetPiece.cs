@@ -3,12 +3,12 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using gameserver.realm.terrain;
+using LoESoft.GameServer.realm.terrain;
 using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.realm.mapsetpiece
+namespace LoESoft.GameServer.realm.mapsetpiece
 {
     public abstract class MapSetPiece
     {
@@ -19,7 +19,7 @@ namespace gameserver.realm.mapsetpiece
         {
             if (embeddedResource == null) return;
             string resource = embeddedResource.Replace(".jm", "");
-            Stream stream = typeof(RealmManager).Assembly.GetManifestResourceStream("gameserver.realm.mapsetpiece.maps." + resource + ".jm");
+            Stream stream = typeof(RealmManager).Assembly.GetManifestResourceStream("LoESoft.GameServer.realm.mapsetpiece.maps." + resource + ".jm");
             if (stream == null) throw new ArgumentException("JSON map resource " + nameof(resource) + " not found!");
             FromWorldMap(new MemoryStream(Json2Wmap.Convert(Program.Manager.GameData, new StreamReader(stream).ReadToEnd())), world, pos, wmap);
         }

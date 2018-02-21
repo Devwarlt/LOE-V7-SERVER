@@ -1,16 +1,16 @@
 ﻿#region
 
 using System;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.realm.world;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class InvDropHandler : MessageHandlers<INVDROP>
     {

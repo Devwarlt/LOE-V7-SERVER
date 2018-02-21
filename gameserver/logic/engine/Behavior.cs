@@ -2,11 +2,11 @@
 
 using log4net;
 using System;
-using gameserver.realm;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     public abstract class Behavior : IStateChildren
     {

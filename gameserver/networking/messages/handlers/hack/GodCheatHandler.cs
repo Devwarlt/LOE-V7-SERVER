@@ -1,13 +1,13 @@
 ﻿#region
 
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 
 #endregion
 
-namespace gameserver.networking.messages.handlers.hack
+namespace LoESoft.GameServer.networking.messages.handlers.hack
 {
     public class GodCheatHandler : ICheatHandler
     {

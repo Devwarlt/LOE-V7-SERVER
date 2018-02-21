@@ -1,8 +1,8 @@
 ﻿#region
 
-using appengine.sfx;
-using common.config;
-using common.models;
+using LoESoft.AppEngine.sfx;
+using LoESoft.Core.config;
+using LoESoft.Core.models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ using System.Threading;
 
 #endregion
 
-namespace appengine
+namespace LoESoft.AppEngine
 {
     public class AppEngine
     {
@@ -277,9 +277,9 @@ namespace appengine
                 }
 
                 if (_webcontext.Request.Url.LocalPath.IndexOf(".") == -1)
-                    _path = "appengine" + _webcontext.Request.Url.LocalPath.Replace("/", ".");
+                    _path = "LoESoft.AppEngine" + _webcontext.Request.Url.LocalPath.Replace("/", ".");
                 else
-                    _path = "appengine" + _webcontext.Request.Url.LocalPath.Remove(_webcontext.Request.Url.LocalPath.IndexOf(".")).Replace("/", ".");
+                    _path = "LoESoft.AppEngine" + _webcontext.Request.Url.LocalPath.Remove(_webcontext.Request.Url.LocalPath.IndexOf(".")).Replace("/", ".");
 
                 Type _type = Type.GetType(_path);
 

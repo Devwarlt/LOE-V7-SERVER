@@ -2,12 +2,12 @@
 
 using Mono.Game;
 using System;
-using gameserver.networking.outgoing;
-using gameserver.realm;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.logic.behaviors.Drakes
+namespace LoESoft.GameServer.logic.behaviors.Drakes
 {
     internal class WhiteDrakeAttack : Behavior
     {

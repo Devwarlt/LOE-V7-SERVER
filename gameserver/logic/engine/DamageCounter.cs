@@ -2,15 +2,15 @@
 
 using System;
 using System.Collections.Generic;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.realm.world;
-using common;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
+using LoESoft.Core;
 
 #endregion
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     public class DamageCounter
     {

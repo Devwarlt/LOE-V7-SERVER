@@ -7,7 +7,7 @@ using System.Linq;
 
 #endregion
 
-namespace common
+namespace LoESoft.Core
 {
     public class FameStats
     {

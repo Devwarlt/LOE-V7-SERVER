@@ -1,11 +1,11 @@
 ﻿#region
 
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     public class DavyJonesLocker : World
     {

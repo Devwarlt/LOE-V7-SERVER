@@ -5,7 +5,7 @@ using Org.BouncyCastle.Crypto.Parameters;
 
 #endregion
 
-namespace gameserver
+namespace LoESoft.GameServer
 {
     public class RC4
     {

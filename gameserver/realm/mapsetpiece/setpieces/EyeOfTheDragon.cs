@@ -2,11 +2,11 @@
 
 using System;
 using System.Runtime.InteropServices;
-using gameserver.realm.terrain;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.mapsetpiece
+namespace LoESoft.GameServer.realm.mapsetpiece
 {
     internal class EyeOfTheDragon : MapSetPiece
     {

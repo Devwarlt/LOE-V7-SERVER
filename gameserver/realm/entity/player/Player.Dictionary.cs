@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {

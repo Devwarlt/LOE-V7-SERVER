@@ -8,8 +8,8 @@
     <ProjectGuid>{D791B2A2-F79D-4872-B6FF-EF5B4FE52ADA}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>gameserver</RootNamespace>
-    <AssemblyName>gameserver</AssemblyName>
+    <RootNamespace>LoESoft.GameServer</RootNamespace>
+    <AssemblyName>LoESoft.GameServer</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MonoTargetFrameworkVersion>v4.0</MonoTargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -584,13 +584,13 @@
     <Compile Include="logic\monsters\Dungeons\Sprite World\Enemies.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\appengine\appengine.csproj">
+    <ProjectReference Include="..\appengine\LoESoft.AppEngine.csproj">
       <Project>{2ADA25D1-158E-4E88-B91B-F79981372136}</Project>
-      <Name>appengine</Name>
+      <Name>LoESoft.AppEngine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\common\common.csproj">
+    <ProjectReference Include="..\common\LoESoft.Core.csproj">
       <Project>{A417BDBC-8D6F-4661-9B23-2BEE92E295AB}</Project>
-      <Name>common</Name>
+      <Name>LoESoft.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

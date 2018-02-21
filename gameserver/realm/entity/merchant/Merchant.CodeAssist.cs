@@ -2,13 +2,13 @@
 
 using System;
 using System.Xml.Linq;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.realm.entity.merchant
+namespace LoESoft.GameServer.realm.entity.merchant
 {
     partial class Merchant
     {

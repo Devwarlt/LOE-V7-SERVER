@@ -4,13 +4,13 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public class TradeManager
     {

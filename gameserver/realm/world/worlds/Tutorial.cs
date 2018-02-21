@@ -1,10 +1,10 @@
 ﻿#region
 
-using gameserver.networking;
+using LoESoft.GameServer.networking;
 
 #endregion
 
-namespace gameserver.realm.world
+namespace LoESoft.GameServer.realm.world
 {
     public class Tutorial : World
     {

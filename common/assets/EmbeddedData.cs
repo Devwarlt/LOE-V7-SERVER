@@ -9,11 +9,11 @@ using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using log4net;
-using common.models;
+using LoESoft.Core.models;
 
 #endregion
 
-namespace common
+namespace LoESoft.Core
 {
     public class EmbeddedData : IDisposable
     {
@@ -187,7 +187,7 @@ namespace common
          * - element 'File' of element 'AnimatedTexture' contains: LR or
          * element 'File' of element 'Texture' contains: LR
          */
-        private bool isLoEObject(XElement e)
+        private bool IsLoEObject(XElement e)
         {
             if (e.Element("AnimatedTexture") != null)
                 return e.Element("AnimatedTexture").Element("File").Value.ToLower().StartsWith("lr");
@@ -204,8 +204,8 @@ namespace common
          * - element 'SlotType' is: 9000
          * - element 'Activate' is: SpecialPet
          */
-        private bool isEgg(XElement e) =>
-            isLoEObject(e)
+        private bool IsEgg(XElement e) =>
+            IsLoEObject(e)
             && e.Attribute("id").Value.Contains("lcp egg")
             && e.Attribute("successChance") != null
             && e.Attribute("minStars") != null
@@ -217,8 +217,8 @@ namespace common
          * - element 'Enemy'
          * - element 'Class' is: Character
          */
-        private bool isEnemy(XElement e) =>
-           isLoEObject(e)
+        private bool IsEnemy(XElement e) =>
+           IsLoEObject(e)
            && e.Element("Enemy") != null
            && e.Element("Class").Value == "Character";
 
@@ -226,24 +226,24 @@ namespace common
          * - is LoE Object
          * - element 'Class' is: Projectile
          */
-        private bool isProjectile(XElement e) =>
-           isLoEObject(e)
+        private bool IsProjectile(XElement e) =>
+           IsLoEObject(e)
            && e.Element("Class").Value == "Projectile";
 
         /* Grounds:
          * - is LoE Object
          * - element 'Ground'
          */
-        private bool isGround(XElement e) =>
-           isLoEObject(e);
+        private bool IsGround(XElement e) =>
+           IsLoEObject(e);
 
         /* Equipments:
          * - is LoE Object
          * - element 'Class' is: Equipment
          * - element 'Item'
          */
-        private bool isEquipment(XElement e) =>
-           isLoEObject(e)
+        private bool IsEquipment(XElement e) =>
+           IsLoEObject(e)
            && e.Element("Class").Value == "Equipment"
            && e.Element("Item") != null;
 
@@ -252,8 +252,8 @@ namespace common
          * - element 'NewPet'
          * - element 'Class' is: Character
          */
-        private bool isPet(XElement e) =>
-           isLoEObject(e)
+        private bool IsPet(XElement e) =>
+           IsLoEObject(e)
            && e.Element("NewPet") != null
            && e.Element("Class").Value == "Character";
 
@@ -261,8 +261,8 @@ namespace common
          * - is LoE Object
          * - element 'Skin'
          */
-        private bool isSkin(XElement e) =>
-           isLoEObject(e)
+        private bool IsSkin(XElement e) =>
+           IsLoEObject(e)
            && e.Element("Skin") != null;
 
         public void AddObjects(XElement root)
@@ -273,37 +273,37 @@ namespace common
                 string cls = e.Element("Class").Value;
                 string id = e.Attribute("id").Value;
 
-                if (isEgg(e))
+                if (IsEgg(e))
                 {
                     LoEObjectAmount++;
                     EggAmount++;
                 }
 
-                if (isEnemy(e))
+                if (IsEnemy(e))
                 {
                     LoEObjectAmount++;
                     EnemyAmount++;
                 }
 
-                if (isProjectile(e))
+                if (IsProjectile(e))
                 {
                     LoEObjectAmount++;
                     ProjectileAmount++;
                 }
 
-                if (isEquipment(e))
+                if (IsEquipment(e))
                 {
                     LoEObjectAmount++;
                     EquipmentAmount++;
                 }
 
-                if (isPet(e))
+                if (IsPet(e))
                 {
                     LoEObjectAmount++;
                     PetAmount++;
                 }
 
-                if (isSkin(e))
+                if (IsSkin(e))
                 {
                     LoEObjectAmount++;
                     SkinAmount++;
@@ -375,7 +375,7 @@ namespace common
         {
             foreach (XElement e in root.XPathSelectElements("//Ground"))
             {
-                if (isGround(e))
+                if (IsGround(e))
                 {
                     LoEObjectAmount++;
                     GroundAmount++;
@@ -426,7 +426,7 @@ namespace common
             }
         }
 
-        private class AutoAssign : common.AutoAssign
+        private class AutoAssign : LoESoft.Core.AutoAssign
         {
             private EmbeddedData dat;
             private int nextFullId;

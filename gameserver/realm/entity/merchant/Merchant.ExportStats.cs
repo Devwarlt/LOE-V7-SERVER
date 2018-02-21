@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace gameserver.realm.entity.merchant
+namespace LoESoft.GameServer.realm.entity.merchant
 {
     partial class Merchant
     {

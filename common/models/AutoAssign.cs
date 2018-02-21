@@ -1,6 +1,6 @@
 ﻿#region
 
-using common.models;
+using LoESoft.Core.models;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.IO;
 
 #endregion
 
-namespace common
+namespace LoESoft.Core
 {
     public class AutoAssign : IDisposable
     {

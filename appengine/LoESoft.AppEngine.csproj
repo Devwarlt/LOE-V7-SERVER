@@ -7,8 +7,8 @@
     <ProjectGuid>{2ADA25D1-158E-4E88-B91B-F79981372136}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>appengine</RootNamespace>
-    <AssemblyName>appengine</AssemblyName>
+    <RootNamespace>LoESoft.AppEngine</RootNamespace>
+    <AssemblyName>LoESoft.AppEngine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MonoTargetFrameworkVersion>v4.0</MonoTargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -253,9 +253,9 @@
   -->
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\common\common.csproj">
+    <ProjectReference Include="..\common\LoESoft.Core.csproj">
       <Project>{A417BDBC-8D6F-4661-9B23-2BEE92E295AB}</Project>
-      <Name>common</Name>
+      <Name>LoESoft.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ProjectExtensions />

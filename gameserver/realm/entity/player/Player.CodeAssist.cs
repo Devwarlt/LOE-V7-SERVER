@@ -1,19 +1,19 @@
 ﻿#region
 
-using common.config;
+using LoESoft.Core.config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.networking.outgoing;
-using gameserver.networking.incoming;
-using gameserver.networking;
-using gameserver.networking.error;
-using FAILURE = gameserver.networking.incoming.FAILURE;
-using gameserver.realm.world;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.error;
+using FAILURE = LoESoft.GameServer.networking.incoming.FAILURE;
+using LoESoft.GameServer.realm.world;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {
@@ -140,7 +140,7 @@ namespace gameserver.realm.entity.player
             NULL
         }
 
-        private Tuple<bool, AccType> GetAccountType() => (AccountType >= (int)accountType.VIP_ACCOUNT && AccountType <= (int)accountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int)accountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
+        private Tuple<bool, AccType> GetAccountType() => (AccountType >= (int)Core.config.AccountType.VIP_ACCOUNT && AccountType <= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int)Core.config.AccountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
 
         public void CalculateBoost()
         {

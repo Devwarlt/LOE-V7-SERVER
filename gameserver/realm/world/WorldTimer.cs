@@ -5,7 +5,7 @@ using System;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public class WorldTimer
     {

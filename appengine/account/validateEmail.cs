@@ -1,10 +1,10 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     // no longer on prod webserver?
     internal class validateEmail : RequestHandler

@@ -1,13 +1,13 @@
 ﻿#region
 
-using gameserver.networking.incoming;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class PlayerHitHandler : MessageHandlers<PLAYERHIT>
     {

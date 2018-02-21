@@ -1,7 +1,7 @@
 ﻿#region
 
-using common;
-using appengine.mysterybox;
+using LoESoft.Core;
+using LoESoft.AppEngine.mysterybox;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using System.Xml;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     internal class purchaseMysteryBox : RequestHandler
     {

@@ -2,11 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-using gameserver.realm;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     public interface IStateChildren
     {

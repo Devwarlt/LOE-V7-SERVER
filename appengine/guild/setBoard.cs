@@ -1,9 +1,9 @@
-﻿using common;
+﻿using LoESoft.Core;
 using System;
 using System.IO;
 
 
-namespace appengine.guild
+namespace LoESoft.AppEngine.guild
 {
     class setBoard : RequestHandler
     {

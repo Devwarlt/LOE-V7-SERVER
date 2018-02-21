@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace common
+namespace LoESoft.Core
 {
     public enum LoginStatus
     {

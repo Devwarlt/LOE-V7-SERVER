@@ -1,13 +1,13 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using System.Linq;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class ChooseNameHandler : MessageHandlers<CHOOSENAME>
     {

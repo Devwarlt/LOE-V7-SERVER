@@ -1,11 +1,11 @@
 ﻿#region
 
-using common.config;
+using LoESoft.Core.config;
 using System;
 
 #endregion
 
-namespace gameserver.logic
+namespace LoESoft.GameServer.logic
 {
     public struct Cooldown
     {

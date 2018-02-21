@@ -1,14 +1,14 @@
 ﻿#region
 
 using System.Linq;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class Taunt : Behavior
     {

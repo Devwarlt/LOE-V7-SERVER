@@ -1,17 +1,17 @@
 ﻿#region
 
 using System.Linq;
-using common;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
-using gameserver.realm;
-using FAILURE = gameserver.networking.outgoing.FAILURE;
-using static gameserver.networking.Client;
+using LoESoft.Core;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm;
+using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
+using static LoESoft.GameServer.networking.Client;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class CreateHandler : MessageHandlers<CREATE>
     {

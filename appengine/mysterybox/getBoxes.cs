@@ -7,7 +7,7 @@ using System.Xml;
 
 #endregion
 
-namespace appengine.mysterybox
+namespace LoESoft.AppEngine.mysterybox
 {
     //scope
     internal static class CONSTANTS

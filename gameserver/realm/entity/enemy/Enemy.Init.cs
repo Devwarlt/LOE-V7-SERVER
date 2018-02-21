@@ -3,14 +3,14 @@
 using log4net;
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.logic;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
-using gameserver.realm.terrain;
+using LoESoft.GameServer.logic;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm.entity
+namespace LoESoft.GameServer.realm.entity
 {
     public class Enemy : Character
     {

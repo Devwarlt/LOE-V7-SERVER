@@ -1,6 +1,6 @@
-﻿using gameserver.networking.incoming;
+﻿using LoESoft.GameServer.networking.incoming;
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class TinkerQuestHandler : MessageHandlers<QUEST_REDEEM_RESPONSE>
     {

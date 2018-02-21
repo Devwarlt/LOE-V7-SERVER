@@ -1,17 +1,17 @@
 ﻿#region
 
-using common;
-using common.config;
+using LoESoft.Core;
+using LoESoft.Core.config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using appengine.account;
+using LoESoft.AppEngine.account;
 
 #endregion
 
-namespace appengine
+namespace LoESoft.AppEngine
 {
     internal class NewsItem
     {
@@ -277,8 +277,8 @@ namespace appengine
                 Name = acc.Name,
                 NameChosen = acc.NameChosen,
                 Converted = acc.Converted,
-                Admin = acc.AccountType == (int)accountType.LOESOFT_ACCOUNT,
-                MapEditor = acc.AccountType == (int)accountType.TUTOR_ACCOUNT,
+                Admin = acc.AccountType == (int)Core.config.AccountType.LOESOFT_ACCOUNT,
+                MapEditor = acc.AccountType == (int)Core.config.AccountType.TUTOR_ACCOUNT,
                 VerifiedEmail = acc.Verified,
                 Credits = acc.Credits,
                 NextCharSlotPrice = 100, // need adjusts
@@ -817,10 +817,10 @@ namespace appengine
             DbLegend legend = new DbLegend(db, span, 20);
             IEnumerable<DbChar> chars;
             if (character == null)
-                chars = legend.Entries.Select(x =>
+                chars = legend.GetEntries.Select(x =>
                     db.LoadCharacter(x.AccId, x.ChrId));
             else
-                chars = legend.Entries.Select(x =>
+                chars = legend.GetEntries.Select(x =>
                     db.LoadCharacter(x.AccId, x.ChrId)
                 ).Concat(new[] { character }).Take(20);
 

@@ -1,14 +1,14 @@
 ﻿#region
 
-using common;
-using gameserver.networking.incoming;
-using gameserver.realm.entity.player;
+using LoESoft.Core;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 using System.Linq;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class GuildRemovePacketHandler : MessageHandlers<GUILDREMOVE>
     {

@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace gameserver.realm.terrain
+namespace LoESoft.GameServer.realm.terrain
 {
     internal enum TerrainType
     {

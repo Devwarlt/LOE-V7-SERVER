@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     /// <summary>
     /// Color-Hex:

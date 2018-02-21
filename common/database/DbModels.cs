@@ -1,7 +1,7 @@
 ﻿#region
 
 using BookSleeve;
-using common.config;
+using LoESoft.Core.config;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -11,7 +11,7 @@ using System.Text;
 
 #endregion
 
-namespace common
+namespace LoESoft.Core
 {
     #region RedisObject
 
@@ -192,7 +192,7 @@ namespace common
 
         public int AccountType
         {
-            get { return GetValue("accountType", (int)config.accountType.FREE_ACCOUNT); }
+            get { return GetValue("accountType", (int)config.AccountType.FREE_ACCOUNT); }
             set { SetValue("accountType", value); }
         }
 
@@ -778,7 +778,7 @@ namespace common
     {
         public DbNews(Database db, int count)
         {
-            news = db.SortedSets.Range(0, "news", 0, 10, false).Exec()
+            News = db.SortedSets.Range(0, "news", 0, 10, false).Exec()
                 .Select(x =>
                 {
                     var ret = JsonConvert.DeserializeObject<DbNewsEntry>(
@@ -788,8 +788,8 @@ namespace common
                 }).ToArray();
         }
 
-        private DbNewsEntry[] news { get; set; }
-        public DbNewsEntry[] Entries => news;
+        private DbNewsEntry[] News { get; set; }
+        public DbNewsEntry[] Entries => News;
     }
 
     public class DbVault : RedisObject
@@ -835,7 +835,7 @@ namespace common
             else
                 begin = 0;
 
-            entries = db.SortedSets.Range(0, "legends", begin, double.PositiveInfinity, false, count: count).Exec()
+            Entries = db.SortedSets.Range(0, "legends", begin, double.PositiveInfinity, false, count: count).Exec()
                 .Select(x => new DbLegendEntry()
                 {
                     TotalFame = BitConverter.ToInt32(x.Key, 0),
@@ -856,7 +856,7 @@ namespace common
             db.SortedSets.Add(0, "legends", buff, t);
         }
 
-        private DbLegendEntry[] entries { get; set; }
-        public DbLegendEntry[] Entries => entries;
+        private DbLegendEntry[] Entries { get; set; }
+        public DbLegendEntry[] GetEntries => Entries;
     }
 }

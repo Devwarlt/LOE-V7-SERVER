@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace common.models
+namespace LoESoft.Core.models
 {
     public class Log
     {

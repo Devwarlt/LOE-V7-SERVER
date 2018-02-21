@@ -1,10 +1,10 @@
-﻿using common;
+﻿using LoESoft.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace appengine.gamestore
+namespace LoESoft.AppEngine.gamestore
 {
     internal class purchaseOffers : RequestHandler
     {

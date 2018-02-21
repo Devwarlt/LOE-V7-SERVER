@@ -1,15 +1,15 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using log4net;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 using System.Collections.Generic;
 using System;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public class ChatManager
     {

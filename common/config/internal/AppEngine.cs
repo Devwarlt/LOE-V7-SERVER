@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Xml.Linq;
 
-namespace common.config
+namespace LoESoft.Core.config
 {
     public partial class Settings
     {
@@ -47,7 +47,7 @@ namespace common.config
                 }
             }
 
-            public static string checkDDNS(string ddns, int srv)
+            public static string CheckDDNS(string ddns, int srv)
             {
                 switch (ddns)
                 {
@@ -56,7 +56,7 @@ namespace common.config
                 }
             }
 
-            public static List<ServerItem> returnServerItem()
+            public static List<ServerItem> GetServerItem()
             {
                 List<ServerItem> gameserver = new List<ServerItem>();
                 int serverAmount = AMOUNT;
@@ -65,7 +65,7 @@ namespace common.config
                     gameserver.Add(new ServerItem()
                     {
                         Name = SERVERS[0].Item1,
-                        DNS = checkDDNS(SERVERS[0].Item2, 0),
+                        DNS = CheckDDNS(SERVERS[0].Item2, 0),
                         Lat = 0,
                         Long = 0,
                         Usage = SERVERS[0].Item3,
@@ -78,10 +78,10 @@ namespace common.config
                         gameserver.Add(new ServerItem()
                         {
                             Name = SERVERS[i].Item1,
-                            DNS = checkDDNS(SERVERS[i].Item2, i),
+                            DNS = CheckDDNS(SERVERS[i].Item2, i),
                             Lat = 0,
                             Long = 0,
-                            Usage = IS_PRODUCTION ? GetUsage(checkDDNS(SERVERS[i].Item2, i), GAMESERVER.PORT) : SERVERS[i].Item3,
+                            Usage = IS_PRODUCTION ? GetUsage(CheckDDNS(SERVERS[i].Item2, i), GAMESERVER.PORT) : SERVERS[i].Item3,
                             AdminOnly = false
                         });
                 }

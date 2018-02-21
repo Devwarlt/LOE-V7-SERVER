@@ -1,14 +1,14 @@
 ﻿#region
 
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.world;
-using common.config;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.world;
+using LoESoft.Core.config;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class EnterArenaPacketHandler : MessageHandlers<ENTER_ARENA>
     {

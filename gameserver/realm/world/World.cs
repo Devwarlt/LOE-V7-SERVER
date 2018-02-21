@@ -6,17 +6,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using gameserver.networking;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.realm.world;
-using gameserver.realm.terrain;
-using common.models;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
+using LoESoft.GameServer.realm.terrain;
+using LoESoft.Core.models;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public enum WorldID : int
     {
@@ -516,7 +516,7 @@ namespace gameserver.realm
             if (embeddedResource == null) return;
             string mapType = type == MapType.Json ? "json" : "wmap";
             string resource = embeddedResource.Replace($".{mapType}", "");
-            var stream = typeof(RealmManager).Assembly.GetManifestResourceStream($"gameserver.realm.world.maps.{mapType}.{resource}.{mapType}");
+            var stream = typeof(RealmManager).Assembly.GetManifestResourceStream($"LoESoft.GameServer.realm.world.maps.{mapType}.{resource}.{mapType}");
             if (stream == null) throw new ArgumentException($"{mapType.ToUpper()} map resource " + nameof(resource) + " not found!");
 
             switch (type)

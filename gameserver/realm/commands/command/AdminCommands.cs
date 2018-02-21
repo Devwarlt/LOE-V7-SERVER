@@ -5,21 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
-using gameserver.realm.mapsetpiece;
-using gameserver.realm.world;
-using common.config;
-using static gameserver.networking.Client;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.mapsetpiece;
+using LoESoft.GameServer.realm.world;
+using LoESoft.Core.config;
+using static LoESoft.GameServer.networking.Client;
 using System.Threading;
 
 #endregion
 
-namespace gameserver.realm.commands
+namespace LoESoft.GameServer.realm.commands
 {
     class ZombifyCommand : Command
     {
-        public ZombifyCommand() : base("zombify", (int)accountType.LOESOFT_ACCOUNT) { }
+        public ZombifyCommand() : base("zombify", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -33,7 +33,7 @@ namespace gameserver.realm.commands
 
     class posCmd : Command
     {
-        public posCmd() : base("p", (int)accountType.LOESOFT_ACCOUNT) { }
+        public posCmd() : base("p", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -44,7 +44,7 @@ namespace gameserver.realm.commands
 
     class AddRealmCommand : Command
     {
-        public AddRealmCommand() : base("addrealm", (int)accountType.LOESOFT_ACCOUNT) { }
+        public AddRealmCommand() : base("addrealm", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -56,7 +56,7 @@ namespace gameserver.realm.commands
 
     class SpawnCommand : Command
     {
-        public SpawnCommand() : base("spawn", (int)accountType.LOESOFT_ACCOUNT) { }
+        public SpawnCommand() : base("spawn", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -105,7 +105,7 @@ namespace gameserver.realm.commands
 
     class AddEffCommand : Command
     {
-        public AddEffCommand() : base("addeff", (int)accountType.LOESOFT_ACCOUNT) { }
+        public AddEffCommand() : base("addeff", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -136,7 +136,7 @@ namespace gameserver.realm.commands
 
     class RemoveEffCommand : Command
     {
-        public RemoveEffCommand() : base("remeff", (int)accountType.LOESOFT_ACCOUNT) { }
+        public RemoveEffCommand() : base("remeff", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -205,7 +205,7 @@ namespace gameserver.realm.commands
 
     class TpCommand : Command
     {
-        public TpCommand() : base("tp", (int)accountType.LOESOFT_ACCOUNT) { }
+        public TpCommand() : base("tp", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -244,7 +244,7 @@ namespace gameserver.realm.commands
 
     class KillAll : Command
     {
-        public KillAll() : base("killAll", (int)accountType.LOESOFT_ACCOUNT) { }
+        public KillAll() : base("killAll", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -273,7 +273,7 @@ namespace gameserver.realm.commands
 
     class Kick : Command
     {
-        public Kick() : base("kick", (int)accountType.LOESOFT_ACCOUNT) { }
+        public Kick() : base("kick", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -304,7 +304,7 @@ namespace gameserver.realm.commands
 
     class Max : Command
     {
-        public Max() : base("max", (int)accountType.LOESOFT_ACCOUNT) { }
+        public Max() : base("max", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -333,7 +333,7 @@ namespace gameserver.realm.commands
 
     class OryxSay : Command
     {
-        public OryxSay() : base("osay", (int)accountType.LOESOFT_ACCOUNT) { }
+        public OryxSay() : base("osay", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -350,7 +350,7 @@ namespace gameserver.realm.commands
 
     class OnlineCommand : Command //get all players from all worlds (this may become too large!)
     {
-        public OnlineCommand() : base("online", (int)accountType.LOESOFT_ACCOUNT) { }
+        public OnlineCommand() : base("online", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -381,7 +381,7 @@ namespace gameserver.realm.commands
 
     class Announcement : Command
     {
-        public Announcement() : base("announce", (int)accountType.LOESOFT_ACCOUNT) { }
+        public Announcement() : base("announce", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -410,7 +410,7 @@ namespace gameserver.realm.commands
 
     class KillPlayerCommand : Command
     {
-        public KillPlayerCommand() : base("kill", (int)accountType.LOESOFT_ACCOUNT) { }
+        public KillPlayerCommand() : base("kill", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -431,7 +431,7 @@ namespace gameserver.realm.commands
 
     class RestartCommand : Command
     {
-        public RestartCommand() : base("restart", (int)accountType.LOESOFT_ACCOUNT) { }
+        public RestartCommand() : base("restart", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -460,7 +460,7 @@ namespace gameserver.realm.commands
 
     class TqCommand : Command
     {
-        public TqCommand() : base("tq", (int)accountType.LOESOFT_ACCOUNT) { }
+        public TqCommand() : base("tq", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -488,7 +488,7 @@ namespace gameserver.realm.commands
 
     class LevelCommand : Command
     {
-        public LevelCommand() : base("level", (int)accountType.LOESOFT_ACCOUNT) { }
+        public LevelCommand() : base("level", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -519,7 +519,7 @@ namespace gameserver.realm.commands
 
     class SetCommand : Command
     {
-        public SetCommand() : base("setStat", (int)accountType.LOESOFT_ACCOUNT) { }
+        public SetCommand() : base("setStat", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -660,14 +660,14 @@ namespace gameserver.realm.commands
 
     class SetpieceCommand : Command
     {
-        public SetpieceCommand() : base("setpiece", (int)accountType.LOESOFT_ACCOUNT) { }
+        public SetpieceCommand() : base("setpiece", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
             try
             {
                 MapSetPiece piece = (MapSetPiece)Activator.CreateInstance(System.Type.GetType(
-                    "gameserver.realm.mapsetpieces.setpieces." + args[0], true, true));
+                    "LoESoft.GameServer.realm.mapsetpieces.setpieces." + args[0], true, true));
                 piece.RenderSetPiece(player.Owner, new IntPoint((int)player.X + 1, (int)player.Y + 1));
                 return true;
             }
@@ -682,7 +682,7 @@ namespace gameserver.realm.commands
 
     class ListCommands : Command
     {
-        public ListCommands() : base("commands", (int)accountType.LOESOFT_ACCOUNT) { }
+        public ListCommands() : base("commands", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -709,7 +709,7 @@ namespace gameserver.realm.commands
 
     class Mute : Command
     {
-        public Mute() : base("mute", (int)accountType.LOESOFT_ACCOUNT) { }
+        public Mute() : base("mute", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -736,7 +736,7 @@ namespace gameserver.realm.commands
 
     class Unmute : Command
     {
-        public Unmute() : base("unmute", (int)accountType.LOESOFT_ACCOUNT) { }
+        public Unmute() : base("unmute", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -763,7 +763,7 @@ namespace gameserver.realm.commands
 
     class BanCommand : Command
     {
-        public BanCommand() : base("ban", (int)accountType.LOESOFT_ACCOUNT) { }
+        public BanCommand() : base("ban", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {

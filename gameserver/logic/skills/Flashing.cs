@@ -1,11 +1,11 @@
 ﻿#region
 
-using gameserver.networking.outgoing;
-using gameserver.realm;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class Flashing : Behavior
     {

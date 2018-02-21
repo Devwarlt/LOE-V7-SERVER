@@ -4,7 +4,7 @@ using System.IO;
 
 #endregion
 
-namespace appengine.app
+namespace LoESoft.AppEngine.app
 {
     internal class init : RequestHandler
     {

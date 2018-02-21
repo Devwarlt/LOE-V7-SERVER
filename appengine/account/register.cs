@@ -1,13 +1,13 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
 #endregion
 
-namespace appengine.account
+namespace LoESoft.AppEngine.account
 {
     internal class register : RequestHandler
     {

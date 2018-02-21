@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
-using gameserver.realm.entity;
-using gameserver.realm.world;
-using gameserver.realm.terrain;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.world;
+using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     public class RealmPortalMonitor
     {

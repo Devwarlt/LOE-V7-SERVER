@@ -5,7 +5,7 @@ using System.Linq;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     public partial class Player
     {

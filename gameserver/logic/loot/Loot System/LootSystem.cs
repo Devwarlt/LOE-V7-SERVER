@@ -1,11 +1,11 @@
-﻿using common.models;
+﻿using LoESoft.Core.models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
 
-namespace gameserver.logic.loot.Loot_System
+namespace LoESoft.GameServer.logic.loot.Loot_System
 {
     public partial class LootSystem
     {

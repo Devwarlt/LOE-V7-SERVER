@@ -1,6 +1,6 @@
 ﻿#region
 
-using common;
+using LoESoft.Core;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 #endregion
 
-namespace appengine
+namespace LoESoft.AppEngine
 {
     public abstract class RequestHandler
     {

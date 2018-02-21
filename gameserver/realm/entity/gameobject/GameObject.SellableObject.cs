@@ -1,14 +1,14 @@
 ﻿#region
 
 using System.Collections.Generic;
-using common;
-using gameserver.networking.outgoing;
-using gameserver.realm.entity.player;
-using gameserver.realm.world;
+using LoESoft.Core;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
 
 #endregion
 
-namespace gameserver.realm.entity
+namespace LoESoft.GameServer.realm.entity
 {
     public partial class SellableObject : GameObject
     {

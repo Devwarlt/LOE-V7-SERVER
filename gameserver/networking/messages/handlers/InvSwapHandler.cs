@@ -1,18 +1,18 @@
 ﻿#region
 
 using System.Collections.Generic;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using gameserver.realm;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.realm.world;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 #endregion
 
-namespace gameserver.networking.handlers
+namespace LoESoft.GameServer.networking.handlers
 {
     internal class InvSwapHandler : MessageHandlers<INVSWAP>
     {
@@ -222,7 +222,7 @@ namespace gameserver.networking.handlers
                     log4net.FatalFormat("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
                             client.Player.Name, Manager.GameData.Items[packet.SlotObject1.ObjectType].ObjectId, item1.ObjectId);
                     foreach (Player player in client.Player.Owner.Players.Values)
-                        if (player.client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT)
+                        if (player.client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT)
                             player.SendInfo(string.Format("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
                                 client.Player.Name, Manager.GameData.Items[packet.SlotObject1.ObjectType].ObjectId, item1.ObjectId));
                 }
@@ -236,7 +236,7 @@ namespace gameserver.networking.handlers
                     log4net.FatalFormat("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
                             client.Player.Name, item1.ObjectId, Manager.GameData.Items[packet.SlotObject2.ObjectType].ObjectId);
                     foreach (Player player in client.Player.Owner.Players.Values)
-                        if (player.client.Account.AccountType >= (int)common.config.accountType.TUTOR_ACCOUNT)
+                        if (player.client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT)
                             player.SendInfo(string.Format("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
                                 client.Player.Name, item1.ObjectId, Manager.GameData.Items[packet.SlotObject2.ObjectType].ObjectId));
                 }

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 #endregion
 
-namespace appengine.app
+namespace LoESoft.AppEngine.app
 {
     internal class getLanguageStrings : RequestHandler
     {

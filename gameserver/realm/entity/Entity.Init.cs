@@ -4,15 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
-using gameserver.logic;
-using gameserver.realm.entity;
-using gameserver.realm.entity.player;
-using gameserver.logic.transitions;
-using gameserver.realm.entity.merchant;
+using LoESoft.GameServer.logic;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.logic.transitions;
+using LoESoft.GameServer.realm.entity.merchant;
 
 #endregion
 
-namespace gameserver.realm
+namespace LoESoft.GameServer.realm
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class Entity : ICollidable<Entity>, IDisposable

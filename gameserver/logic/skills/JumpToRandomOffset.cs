@@ -1,11 +1,11 @@
 ﻿#region
 
 using System;
-using gameserver.realm;
+using LoESoft.GameServer.realm;
 
 #endregion
 
-namespace gameserver.logic.behaviors
+namespace LoESoft.GameServer.logic.behaviors
 {
     public class JumpToRandomOffset : CycleBehavior
     {

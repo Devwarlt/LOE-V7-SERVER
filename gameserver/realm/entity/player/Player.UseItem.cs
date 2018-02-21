@@ -3,16 +3,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using gameserver.networking;
-using gameserver.networking.incoming;
-using gameserver.networking.outgoing;
-using static gameserver.networking.Client;
-using common;
-using common.config;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using static LoESoft.GameServer.networking.Client;
+using LoESoft.Core;
+using LoESoft.Core.config;
 
 #endregion
 
-namespace gameserver.realm.entity.player
+namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {
@@ -822,8 +822,8 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            int chance = eff.chance;
-                            int minStars = item.minStars;
+                            int chance = eff.Chance;
+                            int minStars = item.MinStars;
 
                             if (Stars >= minStars || AccountPerks.ByPassEggsRequirements())
                             {
@@ -834,7 +834,7 @@ namespace gameserver.realm.entity.player
                                     int newPetID;
                                     string message = null;
 
-                                    newPetID = chance == 100 ? eff.petType : (rnd.Next(min, max) <= chance ? eff.petType : 0);
+                                    newPetID = chance == 100 ? eff.PetType : (rnd.Next(min, max) <= chance ? eff.PetType : 0);
 
                                     if (PetID == 0)
                                     {
@@ -843,7 +843,7 @@ namespace gameserver.realm.entity.player
                                             PetID = newPetID;
                                             HatchlingPet = true;
                                             message = "Congratulations! You received a new pet.";
-                                            Entity petResolve = Resolve(eff.petType);
+                                            Entity petResolve = Resolve(eff.PetType);
                                             petResolve.Move(X, Y);
                                             petResolve.SetPlayerOwner(this);
                                             Owner.EnterWorld(petResolve);
@@ -868,7 +868,7 @@ namespace gameserver.realm.entity.player
                                             HatchlingPet = true;
                                             Owner.LeaveWorld(Pet);
                                             message = "Congratulations! You received a new pet.";
-                                            Pet = Resolve(eff.petType);
+                                            Pet = Resolve(eff.PetType);
                                             Pet.Move(X, Y);
                                             Pet.SetPlayerOwner(this);
                                             Owner.EnterWorld(Pet);
@@ -1229,13 +1229,13 @@ namespace gameserver.realm.entity.player
                                 return true;
                             }
 
-                            if (AccountType == (int)accountType.VIP_ACCOUNT)
+                            if (AccountType == (int)Core.config.AccountType.VIP_ACCOUNT)
                             {
                                 SendInfo($"You can only use {item.DisplayId} when your VIP account lifetime over.");
                                 return true;
                             }
 
-                            if (AccountType >= (int)accountType.LEGENDS_OF_LOE_ACCOUNT)
+                            if (AccountType >= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT)
                             {
                                 SendInfo($"Only VIP account type can use {item.DisplayId}.");
                                 return true;
@@ -1270,7 +1270,7 @@ namespace gameserver.realm.entity.player
 
                             acc.AccountLifetime = DateTime.Now;
                             acc.AccountLifetime = acc.AccountLifetime.AddDays(days);
-                            acc.AccountType = (int)accountType.VIP_ACCOUNT;
+                            acc.AccountType = (int)Core.config.AccountType.VIP_ACCOUNT;
                             acc.Flush();
                             acc.Reload();
 
@@ -1445,7 +1445,7 @@ namespace gameserver.realm.entity.player
             log.FatalFormat("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId);
             foreach (Player player in Owner?.Players.Values)
-                if (player?.client.Account.AccountType >= (int)accountType.TUTOR_ACCOUNT)
+                if (player?.client.Account.AccountType >= (int)Core.config.AccountType.TUTOR_ACCOUNT)
                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId));
             Program.Manager.TryDisconnect(client, DisconnectReason.CHEAT_ENGINE_DETECTED);

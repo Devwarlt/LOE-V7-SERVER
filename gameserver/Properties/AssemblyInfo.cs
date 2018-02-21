@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("gameserver")]
+[assembly: AssemblyTitle("LoESoft.GameServer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("LoESoft")]
-[assembly: AssemblyProduct("gameserver")]
+[assembly: AssemblyProduct("LoESoft.GameServer")]
 [assembly: AssemblyCopyright("Copyright © LoESoft 2015-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

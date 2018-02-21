@@ -1,4 +1,4 @@
-﻿namespace gameserver.logic
+﻿namespace LoESoft.GameServer.logic
 {
     public enum CycleStatus
     {

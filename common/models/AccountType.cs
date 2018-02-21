@@ -1,6 +1,6 @@
-﻿namespace common.config
+﻿namespace LoESoft.Core.config
 {
-    public enum accountType : int
+    public enum AccountType : int
     {
         FREE_ACCOUNT = 0,
         VIP_ACCOUNT = 1,
@@ -11,7 +11,7 @@
 
     public class AccountTypePerks
     {
-        private accountType _accountType { get; set; }
+        private AccountType _accountType { get; set; }
         private bool _accessToDrastaCitadel { get; set; }
         private bool _byPassKeysRequirements { get; set; }
         private bool _byPassEggsRequirements { get; set; }
@@ -19,18 +19,18 @@
 
         public AccountTypePerks(int accountType)
         {
-            _accountType = (accountType)accountType;
-            _accessToDrastaCitadel = _accountType > config.accountType.VIP_ACCOUNT;
-            _byPassKeysRequirements = _accountType > config.accountType.VIP_ACCOUNT;
-            _byPassEggsRequirements = _accountType > config.accountType.VIP_ACCOUNT;
-            _priorityToLogin = _accountType > config.accountType.VIP_ACCOUNT;
+            _accountType = (AccountType)accountType;
+            _accessToDrastaCitadel = _accountType > config.AccountType.VIP_ACCOUNT;
+            _byPassKeysRequirements = _accountType > config.AccountType.VIP_ACCOUNT;
+            _byPassEggsRequirements = _accountType > config.AccountType.VIP_ACCOUNT;
+            _priorityToLogin = _accountType > config.AccountType.VIP_ACCOUNT;
         }
 
         public int Experience(int level, int experience)
         {
-            if (_accountType == accountType.VIP_ACCOUNT)
+            if (_accountType == AccountType.VIP_ACCOUNT)
                 return level < 20 ? (int)(experience * 1.5) : (int)(experience * 1.05);
-            if (_accountType == accountType.LEGENDS_OF_LOE_ACCOUNT)
+            if (_accountType == AccountType.LEGENDS_OF_LOE_ACCOUNT)
                 return level < 20 ? (experience * 2) : (int)(experience * 1.1);
             return experience;
         }
@@ -45,24 +45,26 @@
 
         public ConditionEffect SetAccountTypeIcon()
         {
-            ConditionEffect icon = new ConditionEffect();
-            icon.DurationMS = -1;
+            ConditionEffect icon = new ConditionEffect
+            {
+                DurationMS = -1
+            };
 
             switch (_accountType)
             {
-                case accountType.FREE_ACCOUNT:
+                case AccountType.FREE_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.FreeAccount;
                     break;
-                case accountType.VIP_ACCOUNT:
+                case AccountType.VIP_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.VipAccount;
                     break;
-                case accountType.LEGENDS_OF_LOE_ACCOUNT:
+                case AccountType.LEGENDS_OF_LOE_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.LegendsofLoEAccount;
                     break;
-                case accountType.TUTOR_ACCOUNT:
+                case AccountType.TUTOR_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.TutorAccount;
                     break;
-                case accountType.LOESOFT_ACCOUNT:
+                case AccountType.LOESOFT_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.LoESoftAccount;
                     break;
             }
@@ -70,6 +72,6 @@
             return icon;
         }
 
-        public double MerchantDiscount() => _accountType == accountType.VIP_ACCOUNT ? 0.9 : _accountType == accountType.LEGENDS_OF_LOE_ACCOUNT ? 0.8 : 1;
+        public double MerchantDiscount() => _accountType == AccountType.VIP_ACCOUNT ? 0.9 : _accountType == AccountType.LEGENDS_OF_LOE_ACCOUNT ? 0.8 : 1;
     }
 }
