@@ -1,7 +1,6 @@
 ﻿#region
 
 using LoESoft.Core;
-using log4net;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
 using System.Collections.Generic;
@@ -38,8 +37,6 @@ namespace LoESoft.GameServer.realm
             public string Text;
         }
 
-        private static ILog log = LogManager.GetLogger(nameof(ChatManager));
-
         private RealmManager manager;
 
         public ChatManager(RealmManager manager)
@@ -54,45 +51,55 @@ namespace LoESoft.GameServer.realm
         {
             if (!player.NameChosen)
                 return;
+
             if (!ChatDataCache.ContainsKey(player.Name))
                 ChatDataCache.Add(player.Name, Tuple.Create(DateTime.Now, chatText));
             else
                 ChatDataCache[player.Name] = Tuple.Create(DateTime.Now, chatText);
+
             ChatColor color = new ChatColor(player.Stars, player.AccountType);
-            TEXT _text = new TEXT();
-            _text.Name = player.Name;
-            _text.ObjectId = player.Id;
-            _text.Stars = player.Stars;
-            _text.Admin = player.Client.Account.Admin ? 1 : 0;
-            _text.BubbleTime = 5;
-            _text.Recipient = "";
-            _text.Text = chatText;
-            _text.CleanText = chatText;
-            _text.NameColor = color.GetColor();
-            _text.TextColor = 0x123456;
+
+            TEXT _text = new TEXT
+            {
+                Name = player.Name,
+                ObjectId = player.Id,
+                Stars = player.Stars,
+                Admin = player.Client.Account.Admin ? 1 : 0,
+                BubbleTime = 5,
+                Recipient = "",
+                Text = chatText,
+                CleanText = chatText,
+                NameColor = color.GetColor(),
+                TextColor = 0x123456
+            };
+
             player.Owner.BroadcastPacket(_text, null);
-            log.Info($"[{player.Owner.Name} ({player.Owner.Id})] <{player.Name}> {chatText}");
         }
 
         public void Announce(string text)
         {
-            Message _message = new Message();
-            _message.Type = ANNOUNCE;
-            _message.Inst = manager.InstanceId;
-            _message.Text = text;
+            Message _message = new Message
+            {
+                Type = ANNOUNCE,
+                Inst = manager.InstanceId,
+                Text = text
+            };
             manager.InterServer.Publish(ISManager.CHAT, _message);
         }
 
         public void Oryx(World world, string text)
         {
-            TEXT _text = new TEXT();
-            _text.Name = "#Oryx the Mad God";
-            _text.Text = text;
-            _text.BubbleTime = 0;
-            _text.Stars = -1;
-            _text.NameColor = _text.TextColor = 0x123456;
+            TEXT _text = new TEXT
+            {
+                Name = "#Oryx the Mad God",
+                Text = text,
+                BubbleTime = 0,
+                Stars = -1,
+                NameColor = 0x123456,
+                TextColor = 0x123456
+            };
+
             world.BroadcastPacket(_text, null);
-            log.Info($"[{world.Name} ({world.Id})] <Oryx the Mad God> {text}");
         }
 
         public void Guild(Player player, string text, bool announce = false)
@@ -105,16 +112,18 @@ namespace LoESoft.GameServer.realm
             }
             else
             {
-                TEXT _text = new TEXT();
-                _text.BubbleTime = 10;
-                _text.CleanText = "";
-                _text.Name = player.Name;
-                _text.ObjectId = player.Id;
-                _text.Recipient = "*Guild*";
-                _text.Stars = player.Stars;
-                _text.NameColor = 0x123456;
-                _text.TextColor = 0x123456;
-                _text.Text = text.ToSafeText();
+                TEXT _text = new TEXT
+                {
+                    BubbleTime = 10,
+                    CleanText = "",
+                    Name = player.Name,
+                    ObjectId = player.Id,
+                    Recipient = "*Guild*",
+                    Stars = player.Stars,
+                    NameColor = 0x123456,
+                    TextColor = 0x123456,
+                    Text = text.ToSafeText()
+                };
 
                 player.Client.SendMessage(_text);
             }
@@ -122,16 +131,20 @@ namespace LoESoft.GameServer.realm
 
         public void Tell(Player player, string BOT_NAME, string callback)
         {
-            TEXT _text = new TEXT();
-            _text.ObjectId = -1;
-            _text.BubbleTime = 10;
-            _text.Stars = 70;
-            _text.Name = BOT_NAME;
-            _text.Admin = 0;
-            _text.Recipient = player.Name;
-            _text.Text = callback.ToSafeText();
-            _text.CleanText = "";
-            _text.NameColor = _text.TextColor = 0x123456;
+            TEXT _text = new TEXT
+            {
+                ObjectId = -1,
+                BubbleTime = 10,
+                Stars = 70,
+                Name = BOT_NAME,
+                Admin = 0,
+                Recipient = player.Name,
+                Text = callback.ToSafeText(),
+                CleanText = "",
+                NameColor = 0x123456,
+                TextColor = 0x123456
+            };
+
             player.Client.SendMessage(_text);
         }
 

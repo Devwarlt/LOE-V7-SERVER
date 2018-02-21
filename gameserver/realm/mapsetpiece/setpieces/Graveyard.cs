@@ -78,7 +78,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
 
             int r = rand.Next(0, 4);
             for (int i = 0; i < r; i++) //Rotation
-                t = SetPieces.rotateCW(t);
+                t = SetPieces.RotateCW(t);
             int w = t.GetLength(0), h = t.GetLength(1);
 
             EmbeddedData dat = Program.Manager.GameData;

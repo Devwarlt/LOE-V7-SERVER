@@ -10,6 +10,9 @@ namespace LoESoft.Core.models
     {
         public static string[] Time => DateTime.Now.ToString().Split(' ');
 
+        public static void _(string mainFolder, int total, bool regular = true, string init = "\t- ", string remains = "\t", string end = ".")
+            => Info($"{init}{total}{remains}{Utils.FirstCharToUpper(mainFolder)}{(regular ? (total > 1 ? "s" : "") : "")}{end}");
+
         public static void Info(string message)
         {
             string response = $"[{Time[1]}] {message}";

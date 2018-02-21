@@ -3,7 +3,6 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
-using log4net;
 using LoESoft.Core;
 using LoESoft.Core.config;
 
@@ -13,8 +12,6 @@ namespace LoESoft.GameServer.networking
 {
     internal class PolicyServer
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(PolicyServer));
-
         private readonly TcpListener listener;
         private bool started;
 
@@ -41,15 +38,11 @@ namespace LoESoft.GameServer.networking
                 cli.Close();
             }
             catch (ObjectDisposedException) { }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
+            catch (Exception) { }
         }
 
         public void Start()
         {
-            log.Info("Starting policy server...");
             try
             {
                 listener.Start();
@@ -57,10 +50,8 @@ namespace LoESoft.GameServer.networking
                 started = true;
             }
             catch (ObjectDisposedException) { }
-            catch (Exception ex)
+            catch (Exception)
             {
-                log.Error(ex);
-                log.Warn("Could not start Socket Policy Server, is port 843 occupied?");
                 started = false;
             }
         }
@@ -68,10 +59,7 @@ namespace LoESoft.GameServer.networking
         public void Stop()
         {
             if (started)
-            {
-                log.Info("Stopping policy server...");
                 listener.Stop();
-            }
         }
     }
 }

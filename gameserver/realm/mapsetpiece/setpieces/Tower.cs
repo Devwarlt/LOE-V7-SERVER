@@ -56,17 +56,17 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                 for (int x = 0; x < 14; x++)
                     t[x, y] = q[x, y];
 
-            q = SetPieces.reflectHori(q); //Top right
+            q = SetPieces.ReflectHori(q); //Top right
             for (int y = 0; y < 14; y++)
                 for (int x = 0; x < 14; x++)
                     t[13 + x, y] = q[x, y];
 
-            q = SetPieces.reflectVert(q); //Bottom right
+            q = SetPieces.ReflectVert(q); //Bottom right
             for (int y = 0; y < 14; y++)
                 for (int x = 0; x < 14; x++)
                     t[13 + x, 13 + y] = q[x, y];
 
-            q = SetPieces.reflectHori(q); //Bottom left
+            q = SetPieces.ReflectHori(q); //Bottom left
             for (int y = 0; y < 14; y++)
                 for (int x = 0; x < 14; x++)
                     t[x, 13 + y] = q[x, y];
@@ -79,7 +79,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
 
             int r = rand.Next(0, 4); //Rotation
             for (int i = 0; i < r; i++)
-                t = SetPieces.rotateCW(t);
+                t = SetPieces.RotateCW(t);
 
             t[13 + 6, 13] = 3;
 

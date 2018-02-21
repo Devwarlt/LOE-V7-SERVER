@@ -1,7 +1,6 @@
 ﻿#region
 
 using LoESoft.Core;
-using log4net;
 using System;
 using System.Collections.Concurrent;
 
@@ -12,8 +11,6 @@ namespace LoESoft.GameServer.realm
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public class ISManager : InterServerChannel, IDisposable
     {
-        private ILog log = LogManager.GetLogger(nameof(ISManager));
-
         public const string NETWORK = "network";
         public const string CHAT = "chat";
         public const string CONTROL = "control";   //maybe later...
@@ -35,7 +32,6 @@ namespace LoESoft.GameServer.realm
 
         public ISManager(RealmManager manager) : base(manager.Database, manager.InstanceId)
         {
-            log.Info($"Server's Id is {manager.InstanceId}");
             Manager = manager;
 
             AddHandler<NetworkMsg>(NETWORK, HandleNetwork);
@@ -62,10 +58,7 @@ namespace LoESoft.GameServer.realm
                 foreach (var i in availableInstance.Keys)
                 {
                     if (availableInstance.ContainsKey(i) && --availableInstance[i] == 0)
-                    {
                         availableInstance.TryRemove(i, out int val);
-                        log.Info($"Server {i} timed out");
-                    }
                 }
             }
         }
@@ -83,7 +76,6 @@ namespace LoESoft.GameServer.realm
                 case NetworkCode.JOIN:
                     if (availableInstance.TryAdd(e.InstanceId, 5))
                     {
-                        log.Info($"Server {e.InstanceId} ({e.Content.Type}) joined the network");
                         Publish(NETWORK, new NetworkMsg()   //for the new instances
                         {
                             Code = NetworkCode.JOIN,
@@ -94,14 +86,11 @@ namespace LoESoft.GameServer.realm
                         availableInstance[e.InstanceId] = 5;
                     break;
                 case NetworkCode.PING:
-                    if (!availableInstance.ContainsKey(e.InstanceId))
-                        log.Info($"Server {e.InstanceId} re-joined the network");
                     availableInstance[e.InstanceId] = 5;
                     break;
                 case NetworkCode.QUIT:
                     int dummy;
                     availableInstance.TryRemove(e.InstanceId, out dummy);
-                    log.Info($"Server {e.InstanceId} quited the network");
                     break;
             }
         }

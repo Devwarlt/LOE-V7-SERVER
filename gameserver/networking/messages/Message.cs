@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Text;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.Core;
-using LoESoft.Core.models;
 
 #endregion
 
@@ -27,9 +26,6 @@ namespace LoESoft.GameServer.networking
                     if (!(pkt is OutgoingMessage))
                         Messages.Add(pkt.ID, pkt);
                 }
-            int j = 1;
-            foreach (KeyValuePair<MessageID, Message> message in Messages)
-                Log.Info($"({j++}/{Messages.Count}) Message ID '{message.Key}' has been added.");
         }
 
         public abstract MessageID ID { get; }

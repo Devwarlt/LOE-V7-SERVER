@@ -5,7 +5,6 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using log4net;
 using System.Collections.Generic;
 using LoESoft.GameServer.realm.entity.player;
 
@@ -15,13 +14,12 @@ namespace LoESoft.GameServer.realm
 {
     public class LogicTicker
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(LogicTicker));
         private readonly ConcurrentQueue<Action<RealmTime>>[] pendings;
 
         public RealmTime CurrentTime
-        { get { return currentTime; } }
+        { get { return ThisTime; } }
 
-        private RealmTime currentTime { get; set; }
+        private RealmTime ThisTime { get; set; }
 
         public int MsPT;
         public int TPS;
@@ -45,7 +43,6 @@ namespace LoESoft.GameServer.realm
 
         public void TickLoop()
         {
-            log.Info("Logic loop started.");
             Stopwatch watch = new Stopwatch();
             long dt = 0;
             long count = 0;
@@ -63,9 +60,6 @@ namespace LoESoft.GameServer.realm
                 long b = watch.ElapsedMilliseconds;
 
                 count += times;
-                if (times > 3)
-                    log.Warn("LAGGED!| time:" + times + " dt:" + dt + " count:" + count + " time:" + b + " tps:" +
-                             count / (b / 1000.0));
 
                 t.TotalElapsedMs = b;
                 t.TickCount = count;
@@ -80,10 +74,7 @@ namespace LoESoft.GameServer.realm
                         {
                             callback(t);
                         }
-                        catch (Exception ex)
-                        {
-                            log.Error(ex);
-                        }
+                        catch (Exception) { }
                     }
                 }
                 TickWorlds1(t);
@@ -101,12 +92,11 @@ namespace LoESoft.GameServer.realm
 
                 dt += Math.Max(0, watch.ElapsedMilliseconds - b - MsPT);
             } while (true);
-            log.Info("Logic loop stopped.");
         }
 
         private void TickWorlds1(RealmTime t) //Continous simulation
         {
-            currentTime = t;
+            ThisTime = t;
             foreach (World i in Manager.Worlds.Values.Distinct())
                 i.Tick(t);
         }

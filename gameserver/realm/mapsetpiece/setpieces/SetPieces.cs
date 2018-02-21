@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using log4net;
 using LoESoft.GameServer.realm.terrain;
 
 #endregion
@@ -12,8 +11,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
 {
     internal class SetPieces
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(SetPieces));
-
         private static readonly List<Tuple<MapSetPiece, int, int, string, WmapTerrain[]>> setPieces = new List<Tuple<MapSetPiece, int, int, string, WmapTerrain[]>>
         {
             SetPiece(piece: new Building(), min: 80, max: 100, terrains: new WmapTerrain[3] { WmapTerrain.LowForest, WmapTerrain.LowPlains, WmapTerrain.MidForest }),
@@ -35,7 +32,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             return Tuple.Create(piece, min, max, weekDay, terrains);
         }
 
-        public static int[,] rotateCW(int[,] mat)
+        public static int[,] RotateCW(int[,] mat)
         {
             int M = mat.GetLength(0);
             int N = mat.GetLength(1);
@@ -50,7 +47,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             return ret;
         }
 
-        public static int[,] reflectVert(int[,] mat)
+        public static int[,] ReflectVert(int[,] mat)
         {
             int M = mat.GetLength(0);
             int N = mat.GetLength(1);
@@ -61,7 +58,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             return ret;
         }
 
-        public static int[,] reflectHori(int[,] mat)
+        public static int[,] ReflectHori(int[,] mat)
         {
             int M = mat.GetLength(0);
             int N = mat.GetLength(1);
@@ -72,18 +69,11 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             return ret;
         }
 
-        //private static int DistSqr(IntPoint a, IntPoint b)
-        //{
-        //    return (a.X - b.X)*(a.X - b.X) + (a.Y - b.Y)*(a.Y - b.Y);
-        //}
-
         public static void ApplySetPieces(World world)
         {
-            log.InfoFormat("Applying set pieces to world {0}({1}).", world.Id, world.Name);
-
             Wmap map = world.Map;
             int w = map.Width, h = map.Height;
-            DateTime today = DateTime.Now; // = DateTime.Today;
+            DateTime today = DateTime.Now;
 
             Random rand = new Random();
             HashSet<Rect> rects = new HashSet<Rect>();
@@ -91,6 +81,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             {
                 int size = dat.Item1.Size;
                 int count = rand.Next(dat.Item2, dat.Item3);
+
                 if (dat.Item4 == null || dat.Item4 == today.DayOfWeek.ToString())
                 {
                     for (int i = 0; i < count; i++)
@@ -115,8 +106,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                     }
                 }
             }
-
-            log.Info("Set pieces applied.");
         }
 
         private struct Rect

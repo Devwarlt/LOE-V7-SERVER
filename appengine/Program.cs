@@ -1,12 +1,9 @@
 ﻿#region
 
 using LoESoft.Core;
-using log4net;
 using log4net.Config;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using LoESoft.Core.config;
 using LoESoft.Core.models;
 
@@ -16,18 +13,10 @@ namespace LoESoft.AppEngine
 {
     internal class Program
     {
-        private static readonly List<HttpListenerContext> currentRequests = new List<HttpListenerContext>();
-
-        private static HttpListener listener
-        { get; set; }
-
-        public static ILog Logger
-        { get; } = LogManager.GetLogger("AppEngine");
-
-        public static bool restart
+        public static bool Restart
         { get { return Settings.NETWORKING.RESTART.ENABLE_RESTART; } }
 
-        public static string message
+        public static string Message
         { get; private set; }
 
         public delegate bool WebSocketDelegate();
@@ -44,16 +33,16 @@ namespace LoESoft.AppEngine
         internal static string InstanceId
         { get; set; }
 
-        internal static AppEngine appEngine
+        internal static AppEngine AppEngineInstance
         { get; set; }
 
         private static void Main(string[] args)
         {
-            message = null;
+            Message = null;
 
-            message = "Loading...";
+            Message = "Loading...";
 
-            Console.Title = message;
+            Console.Title = Message;
 
             XmlConfigurator.ConfigureAndWatch(new FileInfo("_appengine.config"));
 
@@ -67,18 +56,18 @@ namespace LoESoft.AppEngine
 
                 Log.Info("Initializing AppEngine...");
 
-                appEngine = new AppEngine(restart);
-                appEngine.Start();
+                AppEngineInstance = new AppEngine(Restart);
+                AppEngineInstance.Start();
 
                 Console.Title = Settings.APPENGINE.TITLE;
 
                 while (Console.ReadKey(true).Key != ConsoleKey.Escape) ;
 
-                appEngine._shutdown = true;
+                AppEngineInstance._shutdown = true;
 
                 Log.Warn("Terminating AppEngine, disposing all instances.");
 
-                IAsyncResult webSocketIAsyncResult = new WebSocketDelegate(appEngine.SafeShutdown).BeginInvoke(new AsyncCallback(appEngine.SafeDispose), null);
+                IAsyncResult webSocketIAsyncResult = new WebSocketDelegate(AppEngineInstance.SafeShutdown).BeginInvoke(new AsyncCallback(AppEngineInstance.SafeDispose), null);
                 webSocketIAsyncResult.AsyncWaitHandle.WaitOne();
             }
         }

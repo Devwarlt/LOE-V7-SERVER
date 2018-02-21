@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using log4net;
 using LoESoft.GameServer.networking;
 
 #endregion
@@ -20,7 +19,6 @@ namespace LoESoft.GameServer.realm
     {
         private static readonly ConcurrentQueue<Work> pendings = new ConcurrentQueue<Work>();
         private static SpinWait loopLock = new SpinWait();
-        private readonly ILog log = LogManager.GetLogger(typeof(NetworkTicker));
 
         public NetworkTicker(RealmManager manager)
         {
@@ -33,7 +31,6 @@ namespace LoESoft.GameServer.realm
 
         public void TickLoop()
         {
-            log.Info("Network loop started.");
             do
             {
                 try
@@ -59,25 +56,15 @@ namespace LoESoft.GameServer.realm
                             {
                                 work.Item1.ProcessMessage(work.Item2);
                             }
-                            catch (Exception ex)
-                            {
-                                log.Error(ex);
-                            }
+                            catch (Exception) { }
                         }
-                        catch (Exception ex)
-                        {
-                            log.Error(ex);
-                        }
+                        catch (Exception) { }
                     }
                     while (pendings.Count == 0 && !Manager.Terminating)
                         loopLock.SpinOnce();
                 }
-                catch (Exception ex)
-                {
-                    log.Error(ex);
-                }
+                catch (Exception) { }
             } while (true);
-            log.Info("Network loop stopped.");
         }
     }
 }
