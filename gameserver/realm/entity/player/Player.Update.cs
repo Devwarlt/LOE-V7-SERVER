@@ -103,27 +103,30 @@ namespace LoESoft.GameServer.realm.entity.player
 
         public void HandleUpdate(RealmTime time)
         {
-            var world = Program.Manager.GetWorld(Owner.Id);
+            Wmap map = Owner.Map;
+            WmapTile tile;
+            World world = Program.Manager.GetWorld(Owner.Id);
+            int xBase = (int)X;
+            int yBase = (int)Y;
+            int sent = 0;
+            HashSet<Entity> sendEntities = new HashSet<Entity>(GetNewEntities());
+            List<UPDATE.TileData> list = new List<UPDATE.TileData>(APPOX_AREA_OF_SIGHT);
+
             mapWidth = Owner.Map.Width;
             mapHeight = Owner.Map.Height;
-            var map = Owner.Map;
             blocksight = (world.Dungeon ? Sight.RayCast(this, 15) : Sight.GetSightCircle(SIGHTRADIUS)).ToList();
-            var xBase = (int)X;
-            var yBase = (int)Y;
 
-            var sendEntities = new HashSet<Entity>(GetNewEntities());
-
-            var list = new List<UPDATE.TileData>(APPOX_AREA_OF_SIGHT);
-            var sent = 0;
             foreach (IntPoint i in blocksight.ToList())
             {
-                var x = i.X + xBase;
-                var y = i.Y + yBase;
+                int x = i.X + xBase;
+                int y = i.Y + yBase;
 
-                WmapTile tile;
-                if (x < 0 || x >= mapWidth ||
-                    y < 0 || y >= mapHeight ||
-                    tiles[x, y] >= (tile = map[x, y]).UpdateCount) continue;
+                if (x < 0
+                 || x >= mapWidth
+                 || y < 0
+                 || y >= mapHeight
+                 || tiles[x, y] >= (tile = map[x, y]).UpdateCount)
+                    continue;
 
                 if (!visibleTiles.ContainsKey(new IntPoint(x, y)))
                     visibleTiles[new IntPoint(x, y)] = true;
@@ -140,10 +143,10 @@ namespace LoESoft.GameServer.realm.entity.player
 
             FameCounter.TileSent(sent);
 
-            var dropEntities = GetRemovedEntities().Distinct().ToArray();
+            int[] dropEntities = GetRemovedEntities().Distinct().ToArray();
             clientEntities.RemoveWhere(_ => Array.IndexOf(dropEntities, _.Id) != -1);
 
-            var toRemove = lastUpdate.Keys.Where(i => !clientEntities.Contains(i)).ToList();
+            List<Entity> toRemove = lastUpdate.Keys.Where(i => !clientEntities.Contains(i)).ToList();
             toRemove.ForEach(i => lastUpdate.TryRemove(i, out int val));
 
             foreach (var i in sendEntities)
@@ -152,6 +155,7 @@ namespace LoESoft.GameServer.realm.entity.player
             IEnumerable<ObjectDef> newStatics = GetNewStatics(xBase, yBase);
             IEnumerable<IntPoint> removeStatics = GetRemovedStatics(xBase, yBase);
             List<int> removedIds = new List<int>();
+
             if (!world.Dungeon)
                 foreach (IntPoint i in removeStatics.ToArray())
                 {
@@ -159,15 +163,22 @@ namespace LoESoft.GameServer.realm.entity.player
                     clientStatic.Remove(i);
                 }
 
-            if (sendEntities.Count <= 0 && list.Count <= 0 && dropEntities.Length <= 0 && newStatics.ToArray().Length <= 0 &&
-                removedIds.Count <= 0) return;
-            var packet = new UPDATE()
+            if (sendEntities.Count <= 0
+                && list.Count <= 0
+                && dropEntities.Length <= 0
+                && newStatics.ToArray().Length <= 0
+                && removedIds.Count <= 0)
+                return;
+
+            UPDATE packet = new UPDATE()
             {
                 Tiles = list.ToArray(),
                 NewObjects = sendEntities.Select(_ => _.ToDefinition()).Concat(newStatics.ToArray()).ToArray(),
                 RemovedObjectIds = dropEntities.Concat(removedIds).ToArray()
             };
+
             Client.SendMessage(packet);
+
             UpdatesSend++;
         }
 
@@ -186,12 +197,15 @@ namespace LoESoft.GameServer.realm.entity.player
             {
                 log.Error(e);
             }
+
             if (Quest != null &&
-                (!lastUpdate.ContainsKey(Quest) || Quest.UpdateCount > lastUpdate[Quest]))
+                (!lastUpdate.ContainsKey(Quest)
+                || Quest.UpdateCount > lastUpdate[Quest]))
             {
                 sendEntities.Add(Quest);
                 lastUpdate[Quest] = Quest.UpdateCount;
             }
+
             Client.SendMessage(new NEWTICK()
             {
                 TickId = tickId++,
