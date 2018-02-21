@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using dungeon.utils;
+using LoESoft.Dungeon.utils;
 using Json;
 using RotMG.Common;
 using Json.engine;
 
-namespace dungeon.engine
+namespace LoESoft.Dungeon.engine
 {
     public static class JsonMap
     {

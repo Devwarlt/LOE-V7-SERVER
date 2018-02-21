@@ -1,9 +1,9 @@
 ﻿using System;
-using dungeon.utils;
+using LoESoft.Dungeon.utils;
 using RotMG.Common;
 using RotMG.Common.Rasterizer;
 
-namespace dungeon.templates
+namespace LoESoft.Dungeon.templates
 {
     public class MapCorridor
     {

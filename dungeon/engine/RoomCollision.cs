@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using dungeon.utils;
+using LoESoft.Dungeon.utils;
 using RotMG.Common;
 using RotMG.Common.Rasterizer;
 
-namespace dungeon.engine
+namespace LoESoft.Dungeon.engine
 {
     public class RoomCollision
     {

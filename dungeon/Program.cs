@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace dungeon
+namespace LoESoft.Dungeon
 {
     internal static class Program
     {

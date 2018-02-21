@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using RotMG.Common;
 
-namespace dungeon.utils
+namespace LoESoft.Dungeon.utils
 {
     public struct ObjectType
     {

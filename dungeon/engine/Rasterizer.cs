@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using dungeon.utils;
-using dungeon.templates;
+using LoESoft.Dungeon.utils;
+using LoESoft.Dungeon.templates;
 using RotMG.Common.Rasterizer;
 
-namespace dungeon.engine
+namespace LoESoft.Dungeon.engine
 {
     public enum RasterizationStep
     {

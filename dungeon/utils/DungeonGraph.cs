@@ -1,7 +1,7 @@
-﻿using dungeon.templates;
+﻿using LoESoft.Dungeon.templates;
 using RotMG.Common.Rasterizer;
 
-namespace dungeon.utils
+namespace LoESoft.Dungeon.utils
 {
     public class DungeonGraph
     {

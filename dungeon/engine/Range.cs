@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace dungeon.engine
+namespace LoESoft.Dungeon.engine
 {
     public struct Range
     {

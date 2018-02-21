@@ -11,7 +11,7 @@ using NetTopologySuite.Triangulate;
 
 #endregion
 
-namespace realm.engine
+namespace LoESoft.RealmTerrain.engine
 {
     internal struct MapEdge
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 #endregion
 
-namespace realm.engine
+namespace LoESoft.RealmTerrain.engine
 {
     internal class RealmTileTypes
     {

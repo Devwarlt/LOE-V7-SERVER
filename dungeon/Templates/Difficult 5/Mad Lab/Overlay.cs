@@ -1,6 +1,6 @@
-﻿using dungeon.utils;
+﻿using LoESoft.Dungeon.utils;
 
-namespace dungeon.templates.Difficult_5.Mad_Lab
+namespace LoESoft.Dungeon.templates.Difficult_5.Mad_Lab
 {
     internal class Overlay : MapRender
     {

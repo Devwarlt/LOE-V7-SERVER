@@ -2,7 +2,7 @@
 
 using System;
 using LoESoft.Core;
-using realm;
+using LoESoft.RealmTerrain;
 using LoESoft.GameServer.realm.terrain;
 
 #endregion

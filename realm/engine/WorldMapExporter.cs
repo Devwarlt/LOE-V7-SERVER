@@ -7,7 +7,7 @@ using Ionic.Zlib;
 
 #endregion
 
-namespace realm.engine
+namespace LoESoft.RealmTerrain.engine
 {
     internal class WorldMapExporter
     {

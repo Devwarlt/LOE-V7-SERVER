@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace realm.engine
+namespace LoESoft.RealmTerrain.engine
 {
     public class Noise
     {

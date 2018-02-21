@@ -1,8 +1,8 @@
-﻿using dungeon.engine;
-using dungeon.utils;
+﻿using LoESoft.Dungeon.engine;
+using LoESoft.Dungeon.utils;
 using RotMG.Common;
 
-namespace dungeon.templates.Difficult_4.Abyss_of_Demons
+namespace LoESoft.Dungeon.templates.Difficult_4.Abyss_of_Demons
 {
     public class AbyssTemplate : DungeonTemplate
     {

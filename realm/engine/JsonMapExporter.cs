@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 #endregion
 
-namespace realm.engine
+namespace LoESoft.RealmTerrain.engine
 {
     internal class JsonMapExporter
     {

@@ -1,7 +1,7 @@
-﻿using dungeon.utils;
+﻿using LoESoft.Dungeon.utils;
 using RotMG.Common.Rasterizer;
 
-namespace dungeon.templates.Difficult_5.Mad_Lab
+namespace LoESoft.Dungeon.templates.Difficult_5.Mad_Lab
 {
     internal class Corridor : MapCorridor
     {

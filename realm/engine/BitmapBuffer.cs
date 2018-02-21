@@ -5,7 +5,7 @@ using System.Drawing.Imaging;
 
 #endregion
 
-namespace realm.engine
+namespace LoESoft.RealmTerrain.engine
 {
     internal unsafe class BitmapBuffer
     {

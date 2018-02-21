@@ -1,4 +1,4 @@
-﻿namespace dungeon.utils
+﻿namespace LoESoft.Dungeon.utils
 {
     public struct TileType
     {

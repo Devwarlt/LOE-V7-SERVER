@@ -1,13 +1,13 @@
 ﻿#region
 
-using realm.engine;
+using LoESoft.RealmTerrain.engine;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 #endregion
 
-namespace realm
+namespace LoESoft.RealmTerrain
 {
     internal class Program
     {

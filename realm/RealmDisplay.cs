@@ -1,6 +1,6 @@
 ﻿#region
 
-using realm.engine;
+using LoESoft.RealmTerrain.engine;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace realm
+namespace LoESoft.RealmTerrain
 {
     internal class RealmDisplay : Form
     {

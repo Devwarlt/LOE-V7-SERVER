@@ -1,9 +1,9 @@
 ﻿using System;
-using dungeon.utils;
+using LoESoft.Dungeon.utils;
 using RotMG.Common.Rasterizer;
-using dungeon.engine;
+using LoESoft.Dungeon.engine;
 
-namespace dungeon.templates.Difficult_4.Abyss_of_Demons
+namespace LoESoft.Dungeon.templates.Difficult_4.Abyss_of_Demons
 {
     internal class Overlay : MapRender
     {

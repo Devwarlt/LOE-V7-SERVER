@@ -1,7 +1,7 @@
-﻿using dungeon.utils;
+﻿using LoESoft.Dungeon.utils;
 using RotMG.Common.Rasterizer;
 
-namespace dungeon.templates.Difficult_1.Pirate_Cave
+namespace LoESoft.Dungeon.templates.Difficult_1.Pirate_Cave
 {
     internal class Corridor : MapCorridor
     {

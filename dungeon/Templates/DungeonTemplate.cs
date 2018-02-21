@@ -20,11 +20,11 @@
 
 using System;
 using System.IO;
-using dungeon.utils;
+using LoESoft.Dungeon.utils;
 using RotMG.Common;
-using dungeon.engine;
+using LoESoft.Dungeon.engine;
 
-namespace dungeon.templates
+namespace LoESoft.Dungeon.templates
 {
     public abstract class DungeonTemplate
     {

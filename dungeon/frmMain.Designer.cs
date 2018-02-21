@@ -1,4 +1,4 @@
-﻿namespace dungeon
+﻿namespace LoESoft.Dungeon
 {
     partial class frmMain
     {

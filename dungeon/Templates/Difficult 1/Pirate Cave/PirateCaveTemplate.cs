@@ -1,9 +1,9 @@
 ﻿using System;
-using dungeon.utils;
+using LoESoft.Dungeon.utils;
 using RotMG.Common;
-using dungeon.engine;
+using LoESoft.Dungeon.engine;
 
-namespace dungeon.templates.Difficult_1.Pirate_Cave
+namespace LoESoft.Dungeon.templates.Difficult_1.Pirate_Cave
 {
     public class PirateCaveTemplate : DungeonTemplate
     {

@@ -10,7 +10,7 @@ using LoESoft.Core;
 
 #endregion
 
-namespace realm.engine
+namespace LoESoft.RealmTerrain.engine
 {
     public class Json2Wmap
     {

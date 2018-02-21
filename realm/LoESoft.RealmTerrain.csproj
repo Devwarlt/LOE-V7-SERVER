@@ -8,8 +8,8 @@
     <ProjectGuid>{C400FDD3-6250-4F9B-9516-B3463D6761F5}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>realm</RootNamespace>
-    <AssemblyName>realm</AssemblyName>
+    <RootNamespace>LoESoft.RealmTerrain</RootNamespace>
+    <AssemblyName>LoESoft.RealmTerrain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MonoTargetFrameworkVersion>v4.0</MonoTargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

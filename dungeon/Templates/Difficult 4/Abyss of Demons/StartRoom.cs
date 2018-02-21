@@ -1,8 +1,8 @@
 ﻿using System;
-using dungeon.utils;
+using LoESoft.Dungeon.utils;
 using RotMG.Common.Rasterizer;
 
-namespace dungeon.templates.Difficult_4.Abyss_of_Demons
+namespace LoESoft.Dungeon.templates.Difficult_4.Abyss_of_Demons
 {
     internal class StartRoom : Room
     {

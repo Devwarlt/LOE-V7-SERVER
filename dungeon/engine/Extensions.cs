@@ -1,8 +1,8 @@
 ﻿using System;
-using dungeon.utils;
+using LoESoft.Dungeon.utils;
 using RotMG.Common.Rasterizer;
 
-namespace dungeon.engine
+namespace LoESoft.Dungeon.engine
 {
     public static class Extensions
     {

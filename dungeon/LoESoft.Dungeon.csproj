@@ -8,8 +8,8 @@
     <ProjectGuid>{31593F12-283B-4C87-8AEB-4312531A7533}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>dungeon</RootNamespace>
-    <AssemblyName>dungeon</AssemblyName>
+    <RootNamespace>LoESoft.Dungeon</RootNamespace>
+    <AssemblyName>LoESoft.Dungeon</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
