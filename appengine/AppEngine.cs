@@ -98,7 +98,9 @@ namespace appengine
                 } while (i != 0);
 
                 IAsyncResult webSocketIAsyncResult = new WebSocketDelegate(SafeShutdown).BeginInvoke(new AsyncCallback(SafeDispose), null);
-                webSocketIAsyncResult.AsyncWaitHandle.WaitOne();
+
+                if (webSocketIAsyncResult.AsyncWaitHandle.WaitOne())
+                    Process.Start(Settings.APPENGINE.FILE);
             });
 
             parallel_thread.Start();
@@ -190,11 +192,13 @@ namespace appengine
         {
             string args = string.Format(@"http add urlacl url={0}", address) + " user=\"" + domain + "\\" + user + "\"";
 
-            ProcessStartInfo psi = new ProcessStartInfo("netsh", args);
-            psi.Verb = "runas";
-            psi.CreateNoWindow = true;
-            psi.WindowStyle = ProcessWindowStyle.Hidden;
-            psi.UseShellExecute = true;
+            ProcessStartInfo psi = new ProcessStartInfo("netsh", args)
+            {
+                Verb = "runas",
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                UseShellExecute = true
+            };
 
             Process.Start(psi).WaitForExit();
         }

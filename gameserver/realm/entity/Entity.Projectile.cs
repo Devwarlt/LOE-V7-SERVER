@@ -1,6 +1,5 @@
 ﻿#region
 
-using common.models;
 using gameserver.networking.messages.handlers.hack;
 using System.Collections.Concurrent;
 
