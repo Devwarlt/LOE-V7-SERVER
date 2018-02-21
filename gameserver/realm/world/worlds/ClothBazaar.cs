@@ -1,6 +1,6 @@
 ﻿namespace LoESoft.GameServer.realm.world
 {
-    public class ClothBazaar : World
+    public class ClothBazaar : World, IDungeon
     {
         public ClothBazaar()
         {

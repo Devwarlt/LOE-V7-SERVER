@@ -6,7 +6,7 @@ using LoESoft.GameServer.realm.entity;
 
 namespace LoESoft.GameServer.realm.world
 {
-    public class Nexus : World
+    public class Nexus : World, IDungeon
     {
         public const string WINTER_RESOURCE = "nexus_winter";
         public const string SUMMER_RESOURCE = "nexus_summer";

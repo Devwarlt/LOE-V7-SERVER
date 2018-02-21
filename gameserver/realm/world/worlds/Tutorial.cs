@@ -6,7 +6,7 @@ using LoESoft.GameServer.networking;
 
 namespace LoESoft.GameServer.realm.world
 {
-    public class Tutorial : World
+    public class Tutorial : World, IDungeon
     {
         private readonly bool isLimbo;
 

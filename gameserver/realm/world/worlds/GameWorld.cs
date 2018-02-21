@@ -10,7 +10,7 @@ using LoESoft.GameServer.realm.mapsetpiece;
 
 namespace LoESoft.GameServer.realm.world
 {
-    internal class GameWorld : World
+    internal class GameWorld : World, IDungeon
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GameWorld));
 

@@ -13,7 +13,7 @@ using LoESoft.GameServer.realm.terrain;
 
 namespace LoESoft.GameServer.realm.world
 {
-    public class Vault : World
+    public class Vault : World, IDungeon
     {
         private readonly ConcurrentDictionary<Tuple<Container, int>, int> _vaultChests = new ConcurrentDictionary<Tuple<Container, int>, int>();
 
@@ -83,8 +83,10 @@ namespace LoESoft.GameServer.realm.world
             if (psr.Account.Gifts != null)
             {
                 List<GiftChest> giftChests = new List<GiftChest>();
-                GiftChest c = new GiftChest();
-                c.Items = new List<Item>(8);
+                GiftChest c = new GiftChest
+                {
+                    Items = new List<Item>(8)
+                };
                 bool wasLastElse = false;
                 int[] gifts = psr.Account.Gifts.ToArray();
                 gifts.Shuffle();
@@ -100,8 +102,10 @@ namespace LoESoft.GameServer.realm.world
                         else
                         {
                             giftChests.Add(c);
-                            c = new GiftChest();
-                            c.Items = new List<Item>(8);
+                            c = new GiftChest
+                            {
+                                Items = new List<Item>(8)
+                            };
                             c.Items.Add(Program.Manager.GameData.Items[(ushort)gifts[i]]);
                             wasLastElse = true;
                         }

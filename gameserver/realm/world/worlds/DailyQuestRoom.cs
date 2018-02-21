@@ -1,6 +1,6 @@
 ﻿namespace LoESoft.GameServer.realm.world
 {
-    public class DailyQuestRoom : World
+    public class DailyQuestRoom : World, IDungeon
     {
         public DailyQuestRoom()
         {

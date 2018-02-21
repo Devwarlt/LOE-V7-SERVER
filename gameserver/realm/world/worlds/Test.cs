@@ -8,7 +8,7 @@ using static LoESoft.GameServer.networking.Client;
 
 namespace LoESoft.GameServer.realm.world
 {
-    public class Test : World
+    public class Test : World, IDungeon
     {
         public string js = null;
 

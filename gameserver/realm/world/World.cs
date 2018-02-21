@@ -18,6 +18,8 @@ using LoESoft.Core.models;
 
 namespace LoESoft.GameServer.realm
 {
+    public interface IDungeon { }
+
     public enum WorldID : int
     {
         TUT_ID = -1,
@@ -504,12 +506,12 @@ namespace LoESoft.GameServer.realm
             }
         }
 
-        public bool IsFull => MaxPlayers != -1 && Players.Keys.Count >= MaxPlayers;
+        public bool IsFull =>
+            MaxPlayers != -1
+            && Players.Keys.Count >= MaxPlayers;
 
-        public bool IsDungeon()
-        {
-            return !(this is Nexus) && !(this is GameWorld) && !(this is ClothBazaar) && !(this is Test) && !(this is Tutorial) && !(this is DailyQuestRoom) && !IsLimbo;
-        }
+        public bool IsDungeon() =>
+            !(this is IDungeon);
 
         protected void LoadMap(string embeddedResource, MapType type)
         {
