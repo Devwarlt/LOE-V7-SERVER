@@ -329,7 +329,7 @@ namespace LoESoft.GameServer.realm
             return (from i in Worlds
                     where i.Key != 0
                     from e in i.Value.Players
-                    where string.Equals(e.Value.client.Account.Name, name, StringComparison.CurrentCultureIgnoreCase)
+                    where string.Equals(e.Value.Client.Account.Name, name, StringComparison.CurrentCultureIgnoreCase)
                     select e.Value).FirstOrDefault();
         }
 

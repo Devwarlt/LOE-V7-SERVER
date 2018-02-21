@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LoESoft.Core;
+using LoESoft.Core.models;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
 
@@ -162,9 +163,20 @@ namespace LoESoft.GameServer.logic.loot
             )
         {
             Lootstate = lootState;
-            if (playerDat != null) return;
+
+            if (playerDat != null)
+                return;
+
             EmbeddedData dat = Program.Manager.GameData;
-            lootDefs.Add(new LootDef(dat.Items[dat.IdToObjectType[item]], probability, lootState));
+
+            try
+            {
+                lootDefs.Add(new LootDef(dat.Items[dat.IdToObjectType[item]], probability, lootState));
+            }
+            catch (KeyNotFoundException)
+            {
+                Log.Error($"Item '{item}', wasn't added in loot list of entity '{enemy.Name}', because doesn't contains in assets.");
+            }
         }
     }
 
@@ -205,11 +217,11 @@ namespace LoESoft.GameServer.logic.loot
 
     public enum EggRarity
     {
-        Common = 0,
-        Uncommon = 14,
-        Rare = 28,
-        Legendary = 42,
-        Divine = 49
+        Egg_0To13Stars = 0,
+        Egg_14To27Stars = 14,
+        Egg_28To41Stars = 28,
+        Egg_42To48Stars = 42,
+        Egg_49Stars = 49
     }
 
     public class EggLoot : ILootDef
@@ -446,14 +458,14 @@ namespace LoESoft.GameServer.logic.loot
         {
             switch (maxRarity)
             {
-                case EggRarity.Common:
-                    return new ILootDef[1] { new EggLoot(EggRarity.Common, 0.1) };
-                case EggRarity.Uncommon:
-                    return new ILootDef[2] { new EggLoot(EggRarity.Common, 0.1), new EggLoot(EggRarity.Uncommon, 0.05) };
-                case EggRarity.Rare:
-                    return new ILootDef[3] { new EggLoot(EggRarity.Common, 0.1), new EggLoot(EggRarity.Uncommon, 0.05), new EggLoot(EggRarity.Rare, 0.01) };
-                case EggRarity.Legendary:
-                    return new ILootDef[4] { new EggLoot(EggRarity.Common, 0.1), new EggLoot(EggRarity.Uncommon, 0.05), new EggLoot(EggRarity.Rare, 0.01), new EggLoot(EggRarity.Legendary, 0.001) };
+                case EggRarity.Egg_0To13Stars:
+                    return new ILootDef[1] { new EggLoot(EggRarity.Egg_0To13Stars, 0.1) };
+                case EggRarity.Egg_14To27Stars:
+                    return new ILootDef[2] { new EggLoot(EggRarity.Egg_0To13Stars, 0.1), new EggLoot(EggRarity.Egg_14To27Stars, 0.05) };
+                case EggRarity.Egg_28To41Stars:
+                    return new ILootDef[3] { new EggLoot(EggRarity.Egg_0To13Stars, 0.1), new EggLoot(EggRarity.Egg_14To27Stars, 0.05), new EggLoot(EggRarity.Egg_28To41Stars, 0.01) };
+                case EggRarity.Egg_42To48Stars:
+                    return new ILootDef[4] { new EggLoot(EggRarity.Egg_0To13Stars, 0.1), new EggLoot(EggRarity.Egg_14To27Stars, 0.05), new EggLoot(EggRarity.Egg_28To41Stars, 0.01), new EggLoot(EggRarity.Egg_42To48Stars, 0.001) };
                 default:
                     throw new InvalidOperationException("Not a valid Egg Rarity");
             }

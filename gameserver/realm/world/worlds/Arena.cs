@@ -55,9 +55,9 @@ namespace LoESoft.GameServer.realm.world
 
                     foreach (KeyValuePair<int, Player> i in Players)
                     {
-                        if (i.Value.client == null)
+                        if (i.Value.Client == null)
                             continue;
-                        i.Value.client.SendMessage(new IMMINENT_ARENA_WAVE
+                        i.Value.Client.SendMessage(new IMMINENT_ARENA_WAVE
                         {
                             CurrentRuntime = time.ElapsedMsDelta,
                             Wave = wave

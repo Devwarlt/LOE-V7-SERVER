@@ -54,22 +54,22 @@ namespace LoESoft.GameServer.realm.entity.merchant
                                 {
                                     case CurrencyType.Fame:
                                         {
-                                            Program.Manager.Database.UpdateFame(player.client.Account, -Price);
-                                            player.CurrentFame = player.client.Account.Fame;
+                                            Program.Manager.Database.UpdateFame(player.Client.Account, -Price);
+                                            player.CurrentFame = player.Client.Account.Fame;
                                             currency = new KeyValuePair<string, int>("fame", player.CurrentFame);
                                         }
                                         break;
                                     case CurrencyType.Gold:
                                         {
-                                            Program.Manager.Database.UpdateCredit(player.client.Account, -Price);
-                                            player.Credits = player.client.Account.Credits;
+                                            Program.Manager.Database.UpdateCredit(player.Client.Account, -Price);
+                                            player.Credits = player.Client.Account.Credits;
                                             currency = new KeyValuePair<string, int>("gold", player.Credits);
                                         }
                                         break;
                                     case CurrencyType.FortuneTokens:
                                         {
-                                            Program.Manager.Database.UpdateTokens(player.client.Account, -Price);
-                                            player.Tokens = player.client.Account.FortuneTokens;
+                                            Program.Manager.Database.UpdateTokens(player.Client.Account, -Price);
+                                            player.Tokens = player.Client.Account.FortuneTokens;
                                             currency = new KeyValuePair<string, int>("fortune token", player.Tokens);
                                         }
                                         break;
@@ -77,7 +77,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                                 }
                                 if (1 - player.AccountPerks.MerchantDiscount() > 0 && (currency.Key != null && currency.Value != -1))
                                     player.SendInfo($"You saved {originalPrice - Price} {currency.Key}{(currency.Value > 1 ? "s" : "")} ({1 - player.AccountPerks.MerchantDiscount()}% off)!");
-                                player.client.SendMessage(new BUYRESULT
+                                player.Client.SendMessage(new BUYRESULT
                                 {
                                     Result = 0,
                                     Message = "{\"key\":\"server.buy_success\"}"
@@ -94,7 +94,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                             log.Error(e);
                         }
                     }
-                    player.client.SendMessage(new BUYRESULT
+                    player.Client.SendMessage(new BUYRESULT
                     {
                         Result = 0,
                         Message = "{\"key\":\"server.inventory_full\"}"
@@ -104,7 +104,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 {
                     if (player.Stars < RankReq)
                     {
-                        player.client.SendMessage(new BUYRESULT
+                        player.Client.SendMessage(new BUYRESULT
                         {
                             Result = 0,
                             Message = "{\"key\":\"server.not_enough_star\"}"
@@ -114,7 +114,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                     switch (Currency)
                     {
                         case CurrencyType.Gold:
-                            player.client.SendMessage(new BUYRESULT
+                            player.Client.SendMessage(new BUYRESULT
                             {
                                 Result = BUY_NO_GOLD,
                                 Message = "{\"key\":\"server.not_enough_gold\"}"
@@ -122,7 +122,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                             break;
 
                         case CurrencyType.Fame:
-                            player.client.SendMessage(new BUYRESULT
+                            player.Client.SendMessage(new BUYRESULT
                             {
                                 Result = BUY_NO_FAME,
                                 Message = "{\"key\":\"server.not_enough_fame\"}"
@@ -130,7 +130,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                             break;
 
                         case CurrencyType.FortuneTokens:
-                            player.client.SendMessage(new BUYRESULT
+                            player.Client.SendMessage(new BUYRESULT
                             {
                                 Result = BUY_NO_FORTUNETOKENS,
                                 Message = "{\"key\":\"server.not_enough_fortunetokens\"}"
@@ -143,7 +143,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
 
         protected override bool TryDeduct(Player player)
         {
-            var acc = player.client.Account;
+            var acc = player.Client.Account;
             if (player.Stars < RankReq) return false;
 
             if (Currency == CurrencyType.Fame)

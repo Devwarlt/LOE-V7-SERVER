@@ -12,7 +12,7 @@ using LoESoft.Core;
 
 namespace LoESoft.GameServer.logic
 {
-    public class DamageCounter
+    public class DamageCounter : IDisposable
     {
         private readonly WeakDictionary<Player, int> hitters = new WeakDictionary<Player, int>();
         private Enemy enemy;
@@ -145,6 +145,11 @@ namespace LoESoft.GameServer.logic
                 return (float)(hp / 10) * 1.5f;
             else
                 return 2000;
+        }
+
+        public void Dispose()
+        {
+            enemy = null;
         }
     }
 }

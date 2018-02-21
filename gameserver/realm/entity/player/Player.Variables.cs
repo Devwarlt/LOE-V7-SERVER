@@ -22,7 +22,7 @@ namespace LoESoft.GameServer.realm.entity.player
         public bool HatchlingPet { get; set; }
         public int AccountType { get; set; }
         public DateTime AccountLifetime { get; set; }
-        public bool isVip { get; set; }
+        public bool IsVip { get; set; }
         public int Admin { get; set; }
         public const int Radius = 20;
         public const int RadiusSqr = Radius * Radius;
@@ -53,7 +53,7 @@ namespace LoESoft.GameServer.realm.entity.player
         public string AccountId { get; }
         public int[] Boost { get; private set; }
         public ActivateBoost[] ActivateBoost { get; private set; }
-        public Client client { get; }
+        public Client Client { get; }
         public int Credits { get; set; }
         public int Tokens { get; set; }
         public int CurrentFame { get; set; }
@@ -109,21 +109,21 @@ namespace LoESoft.GameServer.realm.entity.player
         public Entity Quest { get; private set; }
         private bool worldBroadcast = true;
         private readonly Queue<Tuple<Message, Predicate<Player>>> pendingPackets = new Queue<Tuple<Message, Predicate<Player>>>();
-        public TradeManager TradeHandler { get; private set; }
+        public TradeManager HandleTrade { get; private set; }
         public int UpdatesSend { get; private set; }
         public int UpdatesReceived { get; set; }
         public const int SIGHTRADIUS = 15;
         private const int APPOX_AREA_OF_SIGHT = (int)(Math.PI * SIGHTRADIUS * SIGHTRADIUS + 1);
         private readonly HashSet<Entity> clientEntities = new HashSet<Entity>();
         private readonly HashSet<IntPoint> clientStatic = new HashSet<IntPoint>(new IntPointComparer());
-        private readonly Dictionary<Entity, int> lastUpdate = new Dictionary<Entity, int>();
+        private readonly ConcurrentDictionary<Entity, int> lastUpdate = new ConcurrentDictionary<Entity, int>();
         public Dictionary<IntPoint, bool> visibleTiles;
         private int mapHeight;
         private int mapWidth;
         private int tickId;
         public List<IntPoint> blocksight = new List<IntPoint>();
-        public static int oldstat { get; set; }
-        public static Position targetlink { get; set; }
+        public static int Oldstat { get; set; }
+        public static Position Targetlink { get; set; }
         private const int PingPeriod = 3000;
         public const int DcThresold = 30000;
         private long _pingTime = -1;

@@ -32,10 +32,10 @@ namespace LoESoft.GameServer.realm.world
 
             foreach (KeyValuePair<int, Player> i in Players)
             {
-                if (i.Value.client.Account.AccountType != (int)LoESoft.Core.config.AccountType.LOESOFT_ACCOUNT || !i.Value.client.Account.Admin)
+                if (i.Value.Client.Account.AccountType != (int)LoESoft.Core.config.AccountType.LOESOFT_ACCOUNT || !i.Value.Client.Account.Admin)
                 {
-                    i.Value.SendError(string.Format("[Staff Member: {0}] You cannot access Test world with account type {1}.", i.Value.client.Account.Admin, nameof(i.Value.client.Account.AccountType)));
-                    Program.Manager.TryDisconnect(i.Value.client, DisconnectReason.ACCESS_DENIED);
+                    i.Value.SendError(string.Format("[Staff Member: {0}] You cannot access Test world with account type {1}.", i.Value.Client.Account.Admin, nameof(i.Value.Client.Account.AccountType)));
+                    Program.Manager.TryDisconnect(i.Value.Client, DisconnectReason.ACCESS_DENIED);
                 }
             }
         }

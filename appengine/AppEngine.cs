@@ -108,11 +108,12 @@ namespace LoESoft.AppEngine
 
         public bool SafeShutdown()
         {
-            do
-            {
-                Log.Warn($"Awaiting {_webqueue.Count} queued item{(_webqueue.Count > 1 ? "s" : "")} to dispose, retrying in 1 second...");
-                Thread.Sleep(1000);
-            } while (_webqueue.Count > 0);
+            if (_webqueue.Count != 0)
+                while (_webqueue.Count > 0)
+                {
+                    Log.Warn($"Awaiting {_webqueue.Count} queued item{(_webqueue.Count > 1 ? "s" : "")} to dispose, retrying in 1 second...");
+                    Thread.Sleep(1000);
+                };
 
             return _isCompleted = true;
         }

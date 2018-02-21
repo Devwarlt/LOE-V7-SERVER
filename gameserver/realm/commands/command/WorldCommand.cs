@@ -50,7 +50,7 @@ namespace LoESoft.GameServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            player.client.Reconnect(new RECONNECT
+            player.Client.Reconnect(new RECONNECT
             {
                 Host = "",
                 Port = Settings.GAMESERVER.PORT,
@@ -254,7 +254,7 @@ namespace LoESoft.GameServer.realm.commands
             {
                 if (cData.Client.Account.NameChosen && cData.Client.Account.Name.EqualsIgnoreCase(playername))
                 {
-                    player.client.SendMessage(new TEXT()
+                    player.Client.SendMessage(new TEXT()
                     {
                         ObjectId = player.Id,
                         BubbleTime = 10,

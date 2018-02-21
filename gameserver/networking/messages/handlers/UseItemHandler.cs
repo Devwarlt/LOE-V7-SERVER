@@ -37,7 +37,7 @@ namespace LoESoft.GameServer.networking.handlers
                             log4net.FatalFormat("Cheat engine detected for player {0},\nItem should be a Health Potion, but its {1}.",
                                 client.Player.Name, item.ObjectId);
                             foreach (Player player in client.Player.Owner.Players.Values)
-                                if (player.client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT)
+                                if (player.Client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT)
                                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be a Health Potion, but its {1}.",
                                         client.Player.Name, item.ObjectId));
                             Manager.TryDisconnect(client, DisconnectReason.HP_POTION_CHEAT_ENGINE);
@@ -108,7 +108,7 @@ namespace LoESoft.GameServer.networking.handlers
                         {
                             log4net.FatalFormat("Cheat engine detected for player {0},\nItem should be a Magic Potion, but its {1}.",
                                 client.Player.Name, item.ObjectId);
-                            foreach (Player player in client.Player.Owner.Players.Values.Where(player => player.client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT))
+                            foreach (Player player in client.Player.Owner.Players.Values.Where(player => player.Client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT))
                                 player.SendInfo($"Cheat engine detected for player {client.Player.Name},\nItem should be a Magic Potion, but its {item.ObjectId}.");
                             Manager.TryDisconnect(client, DisconnectReason.MP_POTION_CHEAT_ENGINE);
                             return;

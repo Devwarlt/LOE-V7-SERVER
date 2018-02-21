@@ -21,7 +21,7 @@ namespace LoESoft.GameServer.logic
             )
         {
             this.player = player;
-            taskProgress = Deserialize(player.client.Character.TaskStats);
+            taskProgress = Deserialize(player.Client.Character.TaskStats);
         }
 
         /** Data format sample:

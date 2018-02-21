@@ -14,7 +14,8 @@ namespace LoESoft.GameServer.realm.entity.player
     {
         private IEnumerable<Entity> GetNewEntities()
         {
-            var world = Program.Manager.GetWorld(Owner.Id);
+            World world = Program.Manager.GetWorld(Owner.Id);
+
             foreach (var i in Owner.Players.Where(i => clientEntities.Add(i.Value)))
                 yield return i.Value;
 
@@ -38,7 +39,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     if (clientEntities.Add(i))
                         yield return i;
             }
-            if (Quest != null && clientEntities.Add(Quest))
+            if (Quest != null && clientEntities.Add(Quest) && (Quest as Enemy).HP >= 0)
                 yield return Quest;
         }
 
@@ -100,7 +101,7 @@ namespace LoESoft.GameServer.realm.entity.player
                    select i;
         }
 
-        public void SendUpdate(RealmTime time)
+        public void HandleUpdate(RealmTime time)
         {
             var world = Program.Manager.GetWorld(Owner.Id);
             mapWidth = Owner.Map.Width;
@@ -136,13 +137,14 @@ namespace LoESoft.GameServer.realm.entity.player
                 tiles[x, y] = tile.UpdateCount;
                 sent++;
             }
+
             FameCounter.TileSent(sent);
 
             var dropEntities = GetRemovedEntities().Distinct().ToArray();
             clientEntities.RemoveWhere(_ => Array.IndexOf(dropEntities, _.Id) != -1);
 
             var toRemove = lastUpdate.Keys.Where(i => !clientEntities.Contains(i)).ToList();
-            toRemove.ForEach(i => lastUpdate.Remove(i));
+            toRemove.ForEach(i => lastUpdate.TryRemove(i, out int val));
 
             foreach (var i in sendEntities)
                 lastUpdate[i] = i.UpdateCount;
@@ -165,11 +167,11 @@ namespace LoESoft.GameServer.realm.entity.player
                 NewObjects = sendEntities.Select(_ => _.ToDefinition()).Concat(newStatics.ToArray()).ToArray(),
                 RemovedObjectIds = dropEntities.Concat(removedIds).ToArray()
             };
-            client.SendMessage(packet);
+            Client.SendMessage(packet);
             UpdatesSend++;
         }
 
-        private void SendNewTick(RealmTime time)
+        private void HandleNewTick(RealmTime time)
         {
             List<Entity> sendEntities = new List<Entity>();
             try
@@ -190,7 +192,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 sendEntities.Add(Quest);
                 lastUpdate[Quest] = Quest.UpdateCount;
             }
-            client.SendMessage(new NEWTICK()
+            Client.SendMessage(new NEWTICK()
             {
                 TickId = tickId++,
                 TickTime = time.ElapsedMsDelta,

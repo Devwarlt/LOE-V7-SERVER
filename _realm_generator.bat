@@ -1,3 +1,3 @@
 cd bin-maps/realms
-start realm.exe
+start LoESoft.RealmTerrain.exe
 exit

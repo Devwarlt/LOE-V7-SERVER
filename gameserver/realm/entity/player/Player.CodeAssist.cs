@@ -110,7 +110,7 @@ namespace LoESoft.GameServer.realm.entity.player
             return PlayerShootStatus.OK;
         }
 
-        public void DropNextRandom() => client.Random.NextInt();
+        public void DropNextRandom() => Client.Random.NextInt();
 
         public static class Resize16x16Skins
         {
@@ -204,7 +204,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
         public void SaveToCharacter()
         {
-            var chr = client.Character;
+            var chr = Client.Character;
             chr.Experience = Experience;
             chr.Level = Level;
             chr.Tex1 = Texture1;
@@ -265,7 +265,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     NameColor = 0x123456,
                     TextColor = 0x123456
                 }, null);
-                client.Reconnect(new RECONNECT
+                Client.Reconnect(new RECONNECT
                 {
                     Host = "",
                     Port = Settings.GAMESERVER.PORT,
@@ -392,7 +392,7 @@ namespace LoESoft.GameServer.realm.entity.player
         {
             try
             {
-                if (client == null)
+                if (Client == null)
                     return false;
 
                 if (_pingTime == -1)
@@ -405,12 +405,12 @@ namespace LoESoft.GameServer.realm.entity.player
                 {
 
                     string[] labels = new string[] { "{CLIENT_NAME}" };
-                    string[] arguments = new string[] { (client?.Account?.Name ?? "_null_") };
+                    string[] arguments = new string[] { (Client?.Account?.Name ?? "_null_") };
 
                     if (arguments == new string[] { "_null_" })
                         return false;
                     else
-                        client?.SendMessage(new FAILURE
+                        Client?.SendMessage(new FAILURE
                         {
                             ErrorId = (int)FailureIDs.JSON_DIALOG,
                             ErrorDescription =
@@ -429,7 +429,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                 _pingTime = time.TotalElapsedMs;
 
-                client.SendMessage(new PING()
+                Client.SendMessage(new PING()
                 {
                     Serial = (int)time.TotalElapsedMs
                 });
@@ -453,7 +453,7 @@ namespace LoESoft.GameServer.realm.entity.player
             }
             catch
             {
-                client?.Save();
+                Client?.Save();
                 return false;
             }
         }
@@ -517,7 +517,7 @@ namespace LoESoft.GameServer.realm.entity.player
             for (var i = 0; i < list.Count; i++)
                 list[i] = list[i].Trim();
 
-            client.SendMessage(new ACCOUNTLIST
+            Client.SendMessage(new ACCOUNTLIST
             {
                 AccountListId = id,
                 AccountIds = list.ToArray(),
@@ -553,18 +553,18 @@ namespace LoESoft.GameServer.realm.entity.player
             {
                 foreach (var i in Owner.Players.Values)
                     foreach (var j in pendingPackets.Where(j => j.Item2(i)))
-                        i.client.SendMessage(j.Item1);
+                        i.Client.SendMessage(j.Item1);
             }
             pendingPackets.Clear();
         }
 
-        public void ChangeTrade(RealmTime time, CHANGETRADE pkt) => TradeHandler?.TradeChanged(this, pkt.Offers);
+        public void ChangeTrade(RealmTime time, CHANGETRADE pkt) => HandleTrade?.TradeChanged(this, pkt.Offers);
 
-        public void AcceptTrade(RealmTime time, ACCEPTTRADE pkt) => TradeHandler?.AcceptTrade(this, pkt);
+        public void AcceptTrade(RealmTime time, ACCEPTTRADE pkt) => HandleTrade?.AcceptTrade(this, pkt);
 
-        public void CancelTrade(RealmTime time, CANCELTRADE pkt) => TradeHandler?.CancelTrade(this);
+        public void CancelTrade(RealmTime time, CANCELTRADE pkt) => HandleTrade?.CancelTrade(this);
 
-        public void TradeCanceled() => TradeHandler = null;
+        public void TradeCanceled() => HandleTrade = null;
 
         private float UseWisMod(float value, int offset = 1)
         {

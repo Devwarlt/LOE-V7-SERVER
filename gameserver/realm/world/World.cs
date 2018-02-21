@@ -316,13 +316,13 @@ namespace LoESoft.GameServer.realm
 
         private void TryRemove(Player player)
         {
-            if (!Players.TryRemove(player.Id, out Player dummy))
+            if (!Players.TryRemove(player.Id, out Player dummy) || !Entities.TryRemove(player.Id, out Entity entity))
             {
                 Log.Error($"Player '{player.Name}' wasn't removed from World '{Name}'.");
                 return;
             }
 
-            PlayersCollision.Remove(dummy);
+            PlayersCollision.Remove(player);
         }
 
         private void TryAdd(Enemy enemy)
@@ -350,20 +350,20 @@ namespace LoESoft.GameServer.realm
         private void TryRemove(Enemy enemy)
         {
 
-            if (!Enemies.TryRemove(enemy.Id, out Enemy dummy))
+            if (!Enemies.TryRemove(enemy.Id, out Enemy dummy) || !Entities.TryRemove(enemy.Id, out Entity entity))
             {
                 Log.Error($"Enemy '{enemy.Name}' wasn't removed from World '{Name}'.");
                 return;
             }
 
+            EnemiesCollision.Remove(enemy);
+
             if (enemy.ObjectDesc.Quest)
                 if (!Quests.TryRemove(enemy.Id, out dummy))
                 {
-                    Log.Error($"Enemy Quest '{dummy.Name}' wasn't removed from World '{Name}'.");
+                    Log.Error($"Enemy Quest '{enemy.Name}' wasn't removed from World '{Name}'.");
                     return;
                 }
-
-            EnemiesCollision.Remove(dummy);
         }
 
         private void TryAdd(Projectile projectile)
@@ -393,7 +393,7 @@ namespace LoESoft.GameServer.realm
             if (string.IsNullOrEmpty(gameObject.Name) || string.IsNullOrWhiteSpace(gameObject.Name))
                 return;
 
-            if (!GameObjects.TryRemove(gameObject.Id, out GameObject dummy))
+            if (!GameObjects.TryRemove(gameObject.Id, out GameObject dummy) || !Entities.TryRemove(gameObject.Id, out Entity entity))
             {
                 Log.Error($"Game Object '{gameObject.Name}' wasn't removed from World '{Name}'.");
                 return;
@@ -429,25 +429,25 @@ namespace LoESoft.GameServer.realm
         public void BroadcastPacket(Message pkt, Player exclude)
         {
             foreach (var i in Players.Where(i => i.Value != exclude))
-                i.Value.client.SendMessage(pkt);
+                i.Value.Client.SendMessage(pkt);
         }
 
         public void BroadcastPacketSync(Message pkt, Predicate<Player> exclude)
         {
             foreach (var i in Players.Where(i => exclude(i.Value)))
-                i.Value.client.SendMessage(pkt);
+                i.Value.Client.SendMessage(pkt);
         }
 
         public void BroadcastPackets(IEnumerable<Message> pkts, Player exclude)
         {
             foreach (var i in Players.Where(i => i.Value != exclude))
-                i.Value.client.SendMessage(pkts);
+                i.Value.Client.SendMessage(pkts);
         }
 
         public void BroadcastPacketsSync(IEnumerable<Message> pkts, Predicate<Player> exclude)
         {
             foreach (var i in Players.Where(i => exclude(i.Value)))
-                i.Value.client.SendMessage(pkts);
+                i.Value.Client.SendMessage(pkts);
         }
 
         public virtual void Tick(RealmTime time)

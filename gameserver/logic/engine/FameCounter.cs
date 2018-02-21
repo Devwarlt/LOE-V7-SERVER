@@ -20,8 +20,8 @@ namespace LoESoft.GameServer.logic
         public FameCounter(Player player)
         {
             this.player = player;
-            Stats = FameStats.Read(player.client.Character.FameStats);
-            ClassStats = new DbClassStats(player.client.Account);
+            Stats = FameStats.Read(player.Client.Character.FameStats);
+            ClassStats = new DbClassStats(player.Client.Account);
         }
 
         private HashSet<Projectile> projs = new HashSet<Projectile>();

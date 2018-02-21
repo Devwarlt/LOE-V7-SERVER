@@ -57,9 +57,9 @@ namespace LoESoft.GameServer.networking.handlers
                             con2.Inventory[message.SlotObject1.SlotId] = null;
                         }
                     if (en1 is Player)
-                        (en1 as Player).client.SendMessage(new INVRESULT { Result = 0 });
+                        (en1 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
                     else if (en2 is Player)
-                        (en2 as Player).client.SendMessage(new INVRESULT { Result = 0 });
+                        (en2 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
                     return;
                 }
                 //TODO: locker
@@ -74,12 +74,12 @@ namespace LoESoft.GameServer.networking.handlers
                 if (en1.Dist(en2) > 1)
                 {
                     if (en1 is Player)
-                        (en1 as Player).client.SendMessage(new INVRESULT
+                        (en1 as Player).Client.SendMessage(new INVRESULT
                         {
                             Result = -1
                         });
                     else if (en2 is Player)
-                        (en2 as Player).client.SendMessage(new INVRESULT
+                        (en2 as Player).Client.SendMessage(new INVRESULT
                         {
                             Result = -1
                         });
@@ -135,7 +135,7 @@ namespace LoESoft.GameServer.networking.handlers
                 {
                     if (con2.Inventory[message.SlotObject2.SlotId] != null)
                     {
-                        (en2 as Player)?.client.SendMessage(new INVRESULT { Result = -1 });
+                        (en2 as Player)?.Client.SendMessage(new INVRESULT { Result = -1 });
                         (con1 as OneWayContainer).UpdateCount++;
                         en2.UpdateCount++;
                         return;
@@ -153,7 +153,7 @@ namespace LoESoft.GameServer.networking.handlers
                     client.Player.SaveToCharacter();
                     en1.UpdateCount++;
                     en2.UpdateCount++;
-                    (en2 as Player).client.SendMessage(new INVRESULT { Result = 0 });
+                    (en2 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
                     return;
                 }
 
@@ -187,16 +187,16 @@ namespace LoESoft.GameServer.networking.handlers
                 if (en1 is Player)
                 {
                     if (en1.Owner.Name == "Vault")
-                        (en1 as Player).client.Player.SaveToCharacter();
+                        (en1 as Player).Client.Player.SaveToCharacter();
                     (en1 as Player).CalculateBoost();
-                    (en1 as Player).client.SendMessage(new INVRESULT { Result = 0 });
+                    (en1 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
                 }
                 if (en2 is Player)
                 {
                     if (en2.Owner.Name == "Vault")
-                        (en2 as Player).client.Player.SaveToCharacter();
+                        (en2 as Player).Client.Player.SaveToCharacter();
                     (en2 as Player).CalculateBoost();
-                    (en2 as Player).client.SendMessage(new INVRESULT { Result = 0 });
+                    (en2 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
                 }
 
                 if (client.Player.Owner is Vault)
@@ -222,7 +222,7 @@ namespace LoESoft.GameServer.networking.handlers
                     log4net.FatalFormat("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
                             client.Player.Name, Manager.GameData.Items[packet.SlotObject1.ObjectType].ObjectId, item1.ObjectId);
                     foreach (Player player in client.Player.Owner.Players.Values)
-                        if (player.client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT)
+                        if (player.Client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT)
                             player.SendInfo(string.Format("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
                                 client.Player.Name, Manager.GameData.Items[packet.SlotObject1.ObjectType].ObjectId, item1.ObjectId));
                 }
@@ -236,7 +236,7 @@ namespace LoESoft.GameServer.networking.handlers
                     log4net.FatalFormat("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
                             client.Player.Name, item1.ObjectId, Manager.GameData.Items[packet.SlotObject2.ObjectType].ObjectId);
                     foreach (Player player in client.Player.Owner.Players.Values)
-                        if (player.client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT)
+                        if (player.Client.Account.AccountType >= (int)LoESoft.Core.config.AccountType.TUTOR_ACCOUNT)
                             player.SendInfo(string.Format("Cheat engine detected for player {0},\nInvalid InvSwap. {1} instead of {2}",
                                 client.Player.Name, item1.ObjectId, Manager.GameData.Items[packet.SlotObject2.ObjectType].ObjectId));
                 }

@@ -44,7 +44,7 @@ namespace LoESoft.GameServer.networking.messages.handlers.hack
 
             if ((attackPeriod > ProcessAttackPeriod() || attackAmount != item.NumProjectiles) && !byPass)
             {
-                Program.Manager.TryDisconnect(player.client, Client.DisconnectReason.DEXTERITY_HACK_MOD);
+                Program.Manager.TryDisconnect(player.Client, Client.DisconnectReason.DEXTERITY_HACK_MOD);
                 return;
             }
         }

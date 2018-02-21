@@ -76,11 +76,11 @@ namespace LoESoft.GameServer.networking.handlers
 
                         if (entity is Player)
                         {
-                            (entity as Player).client.SendMessage(new INVRESULT
+                            (entity as Player).Client.SendMessage(new INVRESULT
                             {
                                 Result = 0
                             });
-                            (entity as Player).client.Player.SaveToCharacter();
+                            (entity as Player).Client.Player.SaveToCharacter();
                         }
                         if (client.Player.Owner is Vault)
                             if ((client.Player.Owner as Vault).PlayerOwnerName == client.Account.Name)

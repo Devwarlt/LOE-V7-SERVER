@@ -25,7 +25,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 SendInfo("{\"key\":\"server.trade_needs_their_name\"}");
                 return;
             }
-            if (client.Player == target)
+            if (Client.Player == target)
             {
                 SendInfo("{\"key\":\"server.self_trade\"}");
                 return;
@@ -63,14 +63,14 @@ namespace LoESoft.GameServer.realm.entity.player
                     };
                 }
 
-                client.SendMessage(new TRADESTART
+                Client.SendMessage(new TRADESTART
                 {
                     MyItems = myItems,
                     YourItems = yourItems,
                     YourName = target.Name
                 });
 
-                target.client.SendMessage(new TRADESTART
+                target.Client.SendMessage(new TRADESTART
                 {
                     MyItems = yourItems,
                     YourItems = myItems,
@@ -78,15 +78,15 @@ namespace LoESoft.GameServer.realm.entity.player
                 });
 
                 var t = new TradeManager(this, target);
-                target.TradeHandler = t;
-                TradeHandler = t;
+                target.HandleTrade = t;
+                HandleTrade = t;
             }
             else
             {
                 SendInfo("{\"key\":\"server.trade_requested\",\"tokens\":{\"player\":\"" + target.Name + "\"}}");
                 //todo
                 //if (target.Ignored.Contains(Client.Account.AccountId)) return;
-                target.client.SendMessage(new TRADEREQUESTED
+                target.Client.SendMessage(new TRADEREQUESTED
                 {
                     Name = Name
                 });

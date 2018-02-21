@@ -182,7 +182,7 @@ namespace LoESoft.GameServer.realm.commands
                 player.SendError("Unknown type!");
                 return false;
             }
-            if (!Program.Manager.GameData.Items[objType].Secret || player.client.Account.Admin)
+            if (!Program.Manager.GameData.Items[objType].Secret || player.Client.Account.Admin)
             {
                 for (int i = 4; i < player.Inventory.Length; i++)
                     if (player.Inventory[i] == null)
@@ -289,7 +289,7 @@ namespace LoESoft.GameServer.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         player.SendInfo($"Player {i.Value.Name} has been disconnected!");
-                        Program.Manager.TryDisconnect(i.Value.client, DisconnectReason.PLAYER_KICK);
+                        Program.Manager.TryDisconnect(i.Value.Client, DisconnectReason.PLAYER_KICK);
                     }
                 }
             }
@@ -501,11 +501,11 @@ namespace LoESoft.GameServer.realm.commands
                 }
                 if (args.Length == 1)
                 {
-                    player.client.Character.Level = (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.client.Character.Level;
-                    player.client.Player.Level = (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.client.Player.Level;
+                    player.Client.Character.Level = (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.Client.Character.Level;
+                    player.Client.Player.Level = (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.Client.Player.Level;
                     player.UpdateCount++;
                     player.SendInfo(string.Format("Success! Level changed from level {0} to level {1}.",
-                        player.client.Player.Level, (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.client.Player.Level));
+                        player.Client.Player.Level, (int.Parse(args[0]) >= 1 && int.Parse(args[0]) <= 20) ? int.Parse(args[0]) : player.Client.Player.Level));
                 }
             }
             catch
@@ -720,7 +720,7 @@ namespace LoESoft.GameServer.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         i.Value.Muted = true;
-                        i.Value.client.Manager.Database.MuteAccount(i.Value.client.Account);
+                        i.Value.Client.Manager.Database.MuteAccount(i.Value.Client.Account);
                         player.SendInfo("Player Muted.");
                     }
                 }
@@ -747,7 +747,7 @@ namespace LoESoft.GameServer.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         i.Value.Muted = false;
-                        i.Value.client.Manager.Database.UnmuteAccount(i.Value.client.Account);
+                        i.Value.Client.Manager.Database.UnmuteAccount(i.Value.Client.Account);
                         player.SendInfo("Player Unmuted.");
                     }
                 }
@@ -775,8 +775,8 @@ namespace LoESoft.GameServer.realm.commands
                     player.SendError("Player not found");
                     return false;
                 }
-                p.client.Manager.Database.BanAccount(p.client.Account);
-                Program.Manager.TryDisconnect(p.client, DisconnectReason.PLAYER_BANNED);
+                p.Client.Manager.Database.BanAccount(p.Client.Account);
+                Program.Manager.TryDisconnect(p.Client, DisconnectReason.PLAYER_BANNED);
                 return true;
             }
             catch

@@ -25,7 +25,7 @@ namespace LoESoft.GameServer.realm.world
         {
             int ret = base.EnterWorld(entity);
             if (entity is Player)
-                (entity as Player).client.SendMessage(new GLOBAL_NOTIFICATION
+                (entity as Player).Client.SendMessage(new GLOBAL_NOTIFICATION
                 {
                     Text = "showKeyUI",
                     Type = 0
@@ -36,7 +36,7 @@ namespace LoESoft.GameServer.realm.world
         public override void LeaveWorld(Entity entity)
         {
             if (entity is Player)
-                (entity as Player).client.SendMessage(new GLOBAL_NOTIFICATION
+                (entity as Player).Client.SendMessage(new GLOBAL_NOTIFICATION
                 {
                     Text = "showKeyUI",
                     Type = 0

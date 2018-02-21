@@ -279,7 +279,7 @@ namespace LoESoft.GameServer.logic
                 ),
                 new Threshold(0.2,
                     new OnlyOne(
-                        LootTemplates.DefaultEggLoot(EggRarity.Legendary)
+                        LootTemplates.DefaultEggLoot(EggRarity.Egg_42To48Stars)
                     )
                 )
             )
@@ -431,10 +431,10 @@ namespace LoESoft.GameServer.logic
                     new TierLoot(10, ItemType.Armor, 0.1)
                 ),
                 new Threshold(0.2,
-                    new EggLoot(EggRarity.Common, 0.1),
-                    new EggLoot(EggRarity.Uncommon, 0.05),
-                    new EggLoot(EggRarity.Rare, 0.01),
-                    new EggLoot(EggRarity.Legendary, 0.002)
+                    new EggLoot(EggRarity.Egg_0To13Stars, 0.1),
+                    new EggLoot(EggRarity.Egg_14To27Stars, 0.05),
+                    new EggLoot(EggRarity.Egg_28To41Stars, 0.01),
+                    new EggLoot(EggRarity.Egg_42To48Stars, 0.002)
                 )
             )
             .Init("Snakepit Dart Thrower",
