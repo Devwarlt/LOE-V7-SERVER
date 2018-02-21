@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoESoft.Dungeon", "dungeon\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoESoft.RealmTerrain", "realm\LoESoft.RealmTerrain.csproj", "{C400FDD3-6250-4F9B-9516-B3463D6761F5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generators and Solution Items", "Generators and Solution Items", "{8FDA27C5-057C-4BF7-A62E-B2B86138989C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{8FDA27C5-057C-4BF7-A62E-B2B86138989C}"
 	ProjectSection(SolutionItems) = preProject
 		RotMG.Common.dll = RotMG.Common.dll
 	EndProjectSection
@@ -111,10 +111,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{31593F12-283B-4C87-8AEB-4312531A7533} = {8FDA27C5-057C-4BF7-A62E-B2B86138989C}
-		{C400FDD3-6250-4F9B-9516-B3463D6761F5} = {8FDA27C5-057C-4BF7-A62E-B2B86138989C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79C7EFA2-7A4B-4221-9727-3F09B614C6C1}
