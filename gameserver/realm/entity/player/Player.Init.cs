@@ -401,22 +401,22 @@ namespace LoESoft.GameServer.realm.entity.player
                 score += 100000;
 
             if (enemy.Cube)
-                score += 1000;
+                score += 2500;
 
             if (enemy.God)
-                score += 250;
-
-            if (enemy.Hero)
-                score += 100;
-
-            if (enemy.NewExperience)
-                score += (int)Math.Round(enemy.Experience, 0);
-
-            if (enemy.Quest)
                 score += 500;
 
+            if (enemy.Hero)
+                score += 1250;
+
+            if (enemy.Encounter)
+                score += 5000;
+
+            if (enemy.Quest)
+                score += 250;
+
             score += enemy.MaxHitPoints;
-            score += enemy.Defense * enemy.Level * 10;
+            score += enemy.Defense * enemy.Level;
 
             return score;
         }

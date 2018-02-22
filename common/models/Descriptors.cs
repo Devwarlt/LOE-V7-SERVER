@@ -1022,6 +1022,7 @@ public class ObjectDesc
         DazedImmune = elem.Element("DazedImmune") != null;
         Oryx = elem.Element("Oryx") != null;
         Hero = elem.Element("Hero") != null;
+        Encounter = elem.Element("Encounter") != null;
 
         if ((n = elem.Element("PerRealmMax")) != null)
             PerRealmMax = Utils.FromString(n.Value);
@@ -1112,6 +1113,7 @@ public class ObjectDesc
     public bool DazedImmune { get; private set; }
     public bool Oryx { get; private set; }
     public bool Hero { get; private set; }
+    public bool Encounter { get; private set; }
     public int? PerRealmMax { get; private set; }
     public float? ExpMultiplier { get; private set; } //Exp gained = level total / 10 * multi
 
