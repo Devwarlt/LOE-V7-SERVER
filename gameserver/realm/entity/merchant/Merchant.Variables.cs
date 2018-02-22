@@ -1,6 +1,5 @@
 ﻿#region
 
-using log4net;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +13,6 @@ namespace LoESoft.GameServer.realm.entity.merchant
         private const int BUY_NO_FAME = 6;
         private const int BUY_NO_FORTUNETOKENS = 9;
         private const int MERCHANT_SIZE = 100;
-        private static readonly ILog log = LogManager.GetLogger(typeof(Merchant));
         private bool closing;
         private bool newMerchant;
         private int tickcount;

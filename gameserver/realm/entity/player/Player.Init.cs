@@ -109,10 +109,8 @@ namespace LoESoft.GameServer.realm.entity.player
                     Ignored = client.Account.Database.GetIgnoreds(client.Account);
                     Muted = client.Account.Muted;
                 }
-                catch (Exception ex)
-                {
-                    log.Error(ex);
-                }
+                catch (Exception) { }
+
                 if (HasBackpack)
                 {
                     Item[] inv =
@@ -168,10 +166,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     if (Inventory[i]?.SlotType != SlotTypes[i])
                         Inventory[i] = null;
             }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
+            catch (Exception) { }
         }
 
         public void Death(string killer, ObjectDesc desc = null)
@@ -263,10 +258,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 else
                     Program.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
             }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
+            catch (Exception) { }
         }
 
         public override void Init(World owner)
@@ -373,12 +365,12 @@ namespace LoESoft.GameServer.realm.entity.player
                 SetNewbiePeriod();
                 UpdateCount++;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                log.Error(ex);
                 SendError("player.cannotTeleportTo");
                 return;
             }
+
             Owner.BroadcastPacket(new GOTO
             {
                 ObjectId = Id,
@@ -401,65 +393,75 @@ namespace LoESoft.GameServer.realm.entity.player
             }, null);
         }
 
-        private Entity FindQuest()
+        private int QuestPriority(ObjectDesc enemy)
         {
-            Entity ret = null;
+            int score = 0;
 
-            float bestScore = 0;
+            if (enemy.Oryx)
+                score += 100000;
 
-            foreach (var i in Owner.Quests.Values
-                .OrderBy(quest => MathsUtils.DistSqr(quest.X, quest.Y, X, Y))
-                .Where(i => i.ObjectDesc != null && i.ObjectDesc.Quest))
-            {
-                if (!questPortraits.TryGetValue(i.ObjectDesc.ObjectId, out Tuple<int, int, int> x))
-                    continue;
+            if (enemy.Cube)
+                score += 1000;
 
-                if ((Level < x.Item2 || Level > x.Item3))
-                    continue;
+            if (enemy.God)
+                score += 250;
 
-                float score = (20 - Math.Abs((i.ObjectDesc.Level ?? 0) - Level)) * x.Item1 - Dist(this, i) / 100;
+            if (enemy.Hero)
+                score += 100;
 
-                if (score < 0)
-                    score = 1;
+            if (enemy.NewExperience)
+                score += (int)Math.Round(enemy.Experience, 0);
 
-                if (!(score > bestScore))
-                    continue;
+            if (enemy.Quest)
+                score += 500;
 
-                bestScore = score;
-                ret = i;
-            }
+            score += enemy.MaxHitPoints;
+            score += enemy.Defense * enemy.Level * 10;
 
-            return ret;
+            return score;
         }
 
         private void HandleQuest(RealmTime time)
         {
-            if (time.TickCount % 500 != 0 && Quest?.Owner != null)
+            if (time.TickCount % 5 != 0)
                 return;
 
-            Entity newQuest = FindQuest();
+            int newQuestId = -1;
+            int questId = Quest == null ? -1 : Quest.Id;
 
-            if (newQuest == null || newQuest == Quest)
-                return;
+            HashSet<Enemy> candidates = new HashSet<Enemy>();
 
-            if (Quest is Enemy)
+            foreach (Enemy i in Owner.Quests.Values
+                .OrderBy(j => MathsUtils.DistSqr(j.X, j.Y, X, Y))
+                .Where(k => k.ObjectDesc != null && k.ObjectDesc.Quest))
             {
-                Enemy quest = Quest as Enemy;
-                int objectId = -1;
+                if (!RealmManager.QuestPortraits.TryGetValue(i.ObjectDesc.ObjectId, out int questLevel))
+                    continue;
 
-                if (quest.HP < 0)
-                    quest.Death(time);
-                else
-                {
-                    objectId = newQuest.Id;
-                    Quest = newQuest;
-                }
+                if (Level < questLevel)
+                    continue;
 
-                Client.SendMessage(new QUESTOBJID
-                {
-                    ObjectId = objectId
-                });
+                if (!RealmManager.QuestPortraits.ContainsKey(i.ObjectDesc.ObjectId))
+                    continue;
+
+                candidates.Add(i);
             }
+
+            if (candidates.Count != 0)
+            {
+                Enemy newQuest = candidates.OrderByDescending(i => QuestPriority(i.ObjectDesc)).Take(3).ToList()[0];
+                
+                newQuestId = newQuest.Id;
+                Quest = newQuest;
+            }
+
+            if (newQuestId == questId)
+                return;
+
+            Client.SendMessage(new QUESTOBJID
+            {
+                ObjectId = newQuestId
+            });
         }
 
         private void CalculateFame()
@@ -478,7 +480,7 @@ namespace LoESoft.GameServer.realm.entity.player
             if (newFame == Fame)
                 return;
 
-            Fame = (int) newFame;
+            Fame = (int)newFame;
             int newGoal;
             var stats = FameCounter.ClassStats[ObjectType];
             if (stats.BestFame > Fame)
@@ -562,10 +564,7 @@ namespace LoESoft.GameServer.realm.entity.player
                         i.UpdateCount++;
                         i.CheckLevelUp();
                     }
-                    catch (Exception ex)
-                    {
-                        log.Error(ex);
-                    }
+                    catch (Exception) { }
                 }
             }
             FameCounter.Killed(enemy, killer);
@@ -620,7 +619,11 @@ namespace LoESoft.GameServer.realm.entity.player
 
             HandleTrade?.Tick(time);
 
-            HandleQuest(time);
+            try
+            {
+                HandleQuest(time);
+            }
+            catch (NullReferenceException) { }
 
             HandleEffects(time);
 

@@ -28,7 +28,7 @@ namespace LoESoft.GameServer.realm
 
         public float GetAttackDamage(int min, int max)
         {
-            return Random.obf6((uint)min, (uint)max) * DamageModifier();
+            return Random.Obf6((uint)min, (uint)max) * DamageModifier();
         }
 
         private const float MinAttackFreq = 0.0015f;
@@ -121,7 +121,7 @@ namespace LoESoft.GameServer.realm
             int vit = GetStats(5);
             if (player.HasConditionEffect(ConditionEffectIndex.Sick))
                 vit = 0;
-            return 1 + 0.12f * vit;
+            return 0.5f + 0.12f * vit;
         }
 
         public float GetMPRegen()
@@ -129,7 +129,7 @@ namespace LoESoft.GameServer.realm
             int wis = GetStats(6);
             if (player.HasConditionEffect(ConditionEffectIndex.Quiet))
                 return 0;
-            return 0.5f + 0.06f * wis;
+            return 0.25f + 0.06f * wis;
         }
 
         public float GetDex()
@@ -227,44 +227,44 @@ namespace LoESoft.GameServer.realm
 
             public uint Seed { get; private set; }
 
-            public static uint obf1()
+            public static uint Obf1()
             {
                 return (uint)Math.Round(new Random().NextDouble() * (uint.MaxValue - 1) + 1);
             }
 
-            public uint obf2()
+            public uint Obf2()
             {
-                return obf3();
+                return Obf3();
             }
 
-            public float obf4()
+            public float Obf4()
             {
-                return obf3() / 2147483647;
+                return Obf3() / 2147483647;
             }
 
-            public float obf5(float param1 = 0.0f, float param2 = 1.0f)
+            public float Obf5(float param1 = 0.0f, float param2 = 1.0f)
             {
-                float _loc3_ = obf3() / 2147483647;
-                float _loc4_ = obf3() / 2147483647;
+                float _loc3_ = Obf3() / 2147483647;
+                float _loc4_ = Obf3() / 2147483647;
                 float _loc5_ = (float)Math.Sqrt(-2 * (float)Math.Log(_loc3_)) * (float)Math.Cos(2 * _loc4_ * Math.PI);
                 return param1 + _loc5_ * param2;
             }
 
-            public uint obf6(uint param1, uint param2)
+            public uint Obf6(uint param1, uint param2)
             {
                 if (param1 == param2)
                 {
                     return param1;
                 }
-                return param1 + obf3() % (param2 - param1);
+                return param1 + Obf3() % (param2 - param1);
             }
 
-            public float obf7(float param1, float param2)
+            public float Obf7(float param1, float param2)
             {
-                return param1 + (param2 - param1) * obf4();
+                return param1 + (param2 - param1) * Obf4();
             }
 
-            private uint obf3()
+            private uint Obf3()
             {
                 uint _loc1_ = 0;
                 uint _loc2_ = 0;

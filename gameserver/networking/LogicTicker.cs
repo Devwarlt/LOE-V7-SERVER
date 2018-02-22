@@ -60,7 +60,7 @@ namespace LoESoft.GameServer.realm
                 long b = watch.ElapsedMilliseconds;
 
                 count += times;
-
+                
                 t.TotalElapsedMs = b;
                 t.TickCount = count;
                 t.TickDelta = (int)times;

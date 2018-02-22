@@ -23,6 +23,7 @@ namespace LoESoft.GameServer.realm
 {
     public class RealmManager
     {
+        public static Dictionary<string, int> QuestPortraits = new Dictionary<string, int>();
         public static List<string> CurrentRealmNames = new List<string>();
         public static List<string> Realms = new List<string>
         {
@@ -83,7 +84,9 @@ namespace LoESoft.GameServer.realm
 
             Behaviors = new BehaviorDb(this);
 
-            Merchant.InitMerchatLists(GameData);
+            Player.HandleQuests(GameData);
+
+            Merchant.HandleMerchant(GameData);
 
             AddWorld((int)WorldID.NEXUS_ID, Worlds[0] = new Nexus());
             AddWorld((int)WorldID.MARKET, new ClothBazaar());

@@ -36,6 +36,9 @@ namespace LoESoft.GameServer.realm.entity
 
         protected bool CheckHP()
         {
+            if (this == null)
+                return true;
+
             try
             {
                 if (Vulnerable && HP < 0)

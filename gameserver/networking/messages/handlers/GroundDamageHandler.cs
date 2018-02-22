@@ -30,7 +30,7 @@ namespace LoESoft.GameServer.networking.handlers
                     TileDesc tileDesc = Manager.GameData.Tiles[tile.TileId];
                     if (tileDesc.Damaging && (objDesc == null || !objDesc.ProtectFromGroundDamage))
                     {
-                        int dmg = (int)client.Player.StatsManager.Random.obf6((uint)tileDesc.MinDamage, (uint)tileDesc.MaxDamage);
+                        int dmg = (int)client.Player.StatsManager.Random.Obf6((uint)tileDesc.MinDamage, (uint)tileDesc.MaxDamage);
                         dmg = (int)client.Player.StatsManager.GetDefenseDamage(dmg, true);
 
                         client.Player.HP -= dmg;

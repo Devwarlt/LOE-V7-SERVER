@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LoESoft.GameServer.realm.terrain;
+using LoESoft.Core.models;
 
 #endregion
 
@@ -88,10 +89,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
 
                 base.Tick(time);
             }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
+            catch (Exception) { }
         }
 
         public void ResolveMType()
@@ -180,7 +178,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// <param name="objtype"></param>
         /// <param name="objid"></param>
         /// <param name="price"></param>
-        internal static void _data(int objtype, string objid, int price = 0) => log.Info("{ " + objtype + ", new Tuple<int, CurrencyType>(" + price + ", CurrencyType.Gold) }, // " + objid);
+        private static void _data(int objtype, string objid, int price = 0) => Log.Info("{ " + objtype + ", new Tuple<int, CurrencyType>(" + price + ", CurrencyType.Gold) }, // " + objid);
 
         /// <summary>
         /// Return price based in feedpower
@@ -188,7 +186,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// <param name="fp"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        internal static int Egg(int fp, string name)
+        private static int Egg(int fp, string name)
         {
             switch (fp)
             {
@@ -203,7 +201,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// </summary>
         /// <param name="tier"></param>
         /// <returns></returns>
-        internal static int Ability(int tier)
+        private static int Ability(int tier)
         {
             switch (tier)
             {
@@ -218,7 +216,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// <param name="tier"></param>
         /// <param name="slottype"></param>
         /// <returns></returns>
-        internal static int Weapon(int tier, int slottype)
+        private static int Weapon(int tier, int slottype)
         {
             switch (tier)
             {
@@ -236,7 +234,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// <param name="tier"></param>
         /// <param name="slottype"></param>
         /// <returns></returns>
-        internal static int Armor(int tier, int slottype)
+        private static int Armor(int tier, int slottype)
         {
             switch (tier)
             {
@@ -248,7 +246,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
             }
         }
 
-        internal static int Ring(int tier, string name)
+        private static int Ring(int tier, string name)
         {
             switch (tier)
             {
@@ -302,7 +300,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         /// </summary>
         /// <param name="data"></param>
 
-        public static void InitMerchatLists(EmbeddedData data)
+        public static void HandleMerchant(EmbeddedData data)
         {
             List<int> region1list = new List<int>();
             List<int> region2list = new List<int>();

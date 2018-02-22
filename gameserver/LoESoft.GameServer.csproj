@@ -444,7 +444,6 @@
     <Compile Include="realm\entity\player\Player.Boosts.cs" />
     <Compile Include="realm\entity\player\Player.Chat.cs" />
     <Compile Include="realm\entity\player\Player.Damage.cs" />
-    <Compile Include="realm\entity\player\Player.Dictionary.cs" />
     <Compile Include="realm\entity\player\Player.Effects.cs" />
     <Compile Include="realm\entity\player\Player.ExportStats.cs" />
     <Compile Include="realm\entity\player\Player.Ground.cs" />

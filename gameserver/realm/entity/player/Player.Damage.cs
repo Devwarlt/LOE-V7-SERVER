@@ -37,10 +37,8 @@ namespace LoESoft.GameServer.realm.entity.player
 
                     SaveToCharacter();
                 }
-                catch (Exception e)
-                {
-                    log.Error("Error while processing mana drain playerDamage: ", e);
-                }
+                catch (Exception) { }
+
             }
             else
             {
@@ -72,10 +70,7 @@ namespace LoESoft.GameServer.realm.entity.player
                         Death(chr.ObjectDesc.DisplayId, chr.ObjectDesc);
                     }
                 }
-                catch (Exception e)
-                {
-                    log.Error("Error while processing playerDamage: ", e);
-                }
+                catch (Exception) { }
             }
         }
 
