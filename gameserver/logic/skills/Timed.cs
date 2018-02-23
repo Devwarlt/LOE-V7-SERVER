@@ -40,7 +40,7 @@ namespace LoESoft.GameServer.logic.behaviors
                 Status = CycleStatus.Completed;
                 //......- -
                 if (behavior is Prioritize)
-                    host.StateStorage[behavior] = -1;
+                    host.StoredBehaviors[behavior] = -1;
             }
 
             state = period;

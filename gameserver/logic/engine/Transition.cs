@@ -32,7 +32,7 @@ namespace LoESoft.GameServer.logic
 
         public bool Tick(Entity host, RealmTime time)
         {
-            if (!host.StateStorage.TryGetValue(this, out object state))
+            if (!host.StoredBehaviors.TryGetValue(this, out object state))
                 state = null;
 
             bool ret = TickCore(host, time, ref state);
@@ -40,9 +40,9 @@ namespace LoESoft.GameServer.logic
                 host.SwitchTo(TargetState);
 
             if (state == null)
-                host.StateStorage.Remove(this);
+                host.StoredBehaviors.Remove(this);
             else
-                host.StateStorage[this] = state;
+                host.StoredBehaviors[this] = state;
             return ret;
         }
 

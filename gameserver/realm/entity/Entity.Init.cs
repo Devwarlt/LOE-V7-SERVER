@@ -106,7 +106,7 @@ namespace LoESoft.GameServer.realm
             }
         }
 
-        public IDictionary<object, object> StateStorage => states ?? (states = new Dictionary<object, object>());
+        public IDictionary<object, object> StoredBehaviors => states ?? (states = new Dictionary<object, object>());
 
         public State CurrentState { get; private set; }
 

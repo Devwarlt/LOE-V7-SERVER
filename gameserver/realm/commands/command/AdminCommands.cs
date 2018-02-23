@@ -259,7 +259,7 @@ namespace LoESoft.GameServer.realm.commands
                 foreach (var i in player.Owner.Enemies.Values.Where(e =>
                     e.ObjectDesc?.ObjectId != null && e.ObjectDesc.ObjectId.ContainsIgnoreCase(mobName)))
                 {
-                    i.Death(time);
+                    i.CheckDeath = true;
                     killed++;
                 }
                 if (++iterations >= 5)

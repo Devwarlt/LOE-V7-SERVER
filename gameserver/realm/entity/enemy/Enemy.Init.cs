@@ -1,6 +1,5 @@
 ﻿#region
 
-using log4net;
 using System.Collections.Generic;
 using System.Linq;
 using LoESoft.GameServer.logic;
@@ -8,6 +7,7 @@ using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
 using LoESoft.GameServer.realm.terrain;
 using LoESoft.Core.models;
+using System.Collections.Concurrent;
 
 #endregion
 
@@ -15,13 +15,16 @@ namespace LoESoft.GameServer.realm.entity
 {
     public class Enemy : Character
     {
+        public static ConcurrentDictionary<int, List<KeyValuePair<bool, INonSkippableState>>> StoredTransitions =
+            new ConcurrentDictionary<int, List<KeyValuePair<bool, INonSkippableState>>>();
+
         private readonly bool stat;
         private DamageCounter counter;
         private float bleeding;
         private Position? pos;
         private bool Npc { get; set; }
-
-        protected static readonly new ILog log4net = LogManager.GetLogger(typeof(Enemy));
+        public bool CheckDeath { get; set; }
+        private bool Done { get; set; }
 
         public Enemy(ushort objType, bool npc)
             : base(objType, new wRandom())
@@ -31,15 +34,20 @@ namespace LoESoft.GameServer.realm.entity
             counter = new DamageCounter(this);
             LootState = "";
             Name = ObjectDesc.ObjectId;
+            Done = false;
         }
 
         public DamageCounter DamageCounter
         { get { return counter; } }
 
-        public WmapTerrain Terrain { get; set; }
+        public WmapTerrain Terrain
+        { get; set; }
 
-        public int AltTextureIndex { get; set; }
-        public string LootState { get; set; }
+        public int AltTextureIndex
+        { get; set; }
+
+        public string LootState
+        { get; set; }
 
         public Position SpawnPoint
         { get { return pos ?? new Position { X = X, Y = Y }; } }
@@ -133,7 +141,7 @@ namespace LoESoft.GameServer.realm.entity
                 }
 
                 if (HP <= 0)
-                    Death(time);
+                    CheckDeath = true;
 
                 UpdateCount++;
                 return effDmg;
@@ -171,7 +179,7 @@ namespace LoESoft.GameServer.realm.entity
                 counter.HitBy(projectile.ProjectileOwner as Player, time, projectile, dmg);
 
                 if (HP <= 0)
-                    Death(time);
+                    CheckDeath = true;
 
                 UpdateCount++;
                 return true;
@@ -184,6 +192,72 @@ namespace LoESoft.GameServer.realm.entity
             if (pos == null)
                 pos = new Position { X = X, Y = Y };
 
+            if (CheckDeath)
+            {
+                if (StoredTransitions.ContainsKey(Id))
+                {
+                    if (!Done)
+                    {
+                        List<KeyValuePair<bool, INonSkippableState>> transitions = StoredTransitions[Id];
+
+                        for (int i = 0; i < transitions.Count; i++)
+                        {
+                            if (transitions[i].Key)
+                                transitions.RemoveAt(i);
+                            else
+                            {
+                                if (transitions[i].Value.DoneStorage)
+                                    transitions[i] = new KeyValuePair<bool, INonSkippableState>(true, transitions[i].Value);
+                            }
+                        }
+
+                        if (transitions.Count == 0)
+                        {
+                            Log.Warn("New death request!");
+                            Log.Info($"Processing death for Entity '{Name}', after all non-skippable objects found!");
+                            Death(time);
+                        }
+                        else
+                            StoredTransitions[Id] = transitions;
+                    }
+                }
+                else
+                {
+                    List<Transition> currentTransitions = CurrentState.Transitions.ToList();
+                    List<KeyValuePair<bool, INonSkippableState>> transitions = new List<KeyValuePair<bool, INonSkippableState>>();
+
+                    int i = 0;
+                    foreach (Transition transition in CurrentState.Transitions)
+                    {
+                        if (transition is INonSkippableState)
+                        {
+                            Log.Warn($"New non-skipplace object found! Entity: '{Name}' (state: {transition.TargetState.Name})");
+
+                            INonSkippableState nonSkippableState = transition as INonSkippableState;
+                            nonSkippableState.Skip = true;
+
+                            transitions.Add(new KeyValuePair<bool, INonSkippableState>(false, nonSkippableState));
+
+                            currentTransitions[i] = nonSkippableState as Transition; // safe update
+                        }
+                        i++;
+                    }
+
+                    if (transitions.Count == 0)
+                    {
+                        Log.Warn("New death request!");
+                        Log.Info($"Processing death for Entity '{Name}', none non-skippable objects found!");
+                        Death(time);
+                        Done = true;
+                    }
+                    else
+                    {
+                        StoredTransitions[Id] = transitions;
+                        CurrentState.Transitions = currentTransitions;
+                    }
+                }
+            }
+
             if (!stat && HasConditionEffect(ConditionEffectIndex.Bleeding))
             {
                 if (bleeding > 1)
@@ -194,6 +268,7 @@ namespace LoESoft.GameServer.realm.entity
                 }
                 bleeding += 28 * (time.ElapsedMsDelta / 1000f);
             }
+
             base.Tick(time);
         }
     }

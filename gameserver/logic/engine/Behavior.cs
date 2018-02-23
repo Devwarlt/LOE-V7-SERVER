@@ -31,7 +31,7 @@ namespace LoESoft.GameServer.logic
         public void Tick(Entity host, RealmTime time)
         {
 
-            if (!host.StateStorage.TryGetValue(this, out object state))
+            if (!host.StoredBehaviors.TryGetValue(this, out object state))
                 state = null;
 
             try
@@ -39,9 +39,9 @@ namespace LoESoft.GameServer.logic
                 TickCore(host, time, ref state);
 
                 if (state == null)
-                    host.StateStorage.Remove(this);
+                    host.StoredBehaviors.Remove(this);
                 else
-                    host.StateStorage[this] = state;
+                    host.StoredBehaviors[this] = state;
             }
             catch (Exception e)
             {
@@ -54,15 +54,15 @@ namespace LoESoft.GameServer.logic
 
         public void OnStateEntry(Entity host, RealmTime time)
         {
-            if (!host.StateStorage.TryGetValue(this, out object state))
+            if (!host.StoredBehaviors.TryGetValue(this, out object state))
                 state = null;
 
             OnStateEntry(host, time, ref state);
 
             if (state == null)
-                host.StateStorage.Remove(this);
+                host.StoredBehaviors.Remove(this);
             else
-                host.StateStorage[this] = state;
+                host.StoredBehaviors[this] = state;
         }
 
         protected virtual void OnStateEntry(Entity host, RealmTime time, ref object state)
@@ -71,15 +71,15 @@ namespace LoESoft.GameServer.logic
 
         public void OnStateExit(Entity host, RealmTime time)
         {
-            if (!host.StateStorage.TryGetValue(this, out object state))
+            if (!host.StoredBehaviors.TryGetValue(this, out object state))
                 state = null;
 
             OnStateExit(host, time, ref state);
 
             if (state == null)
-                host.StateStorage.Remove(this);
+                host.StoredBehaviors.Remove(this);
             else
-                host.StateStorage[this] = state;
+                host.StoredBehaviors[this] = state;
         }
 
         protected virtual void OnStateExit(Entity host, RealmTime time, ref object state)

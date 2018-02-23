@@ -109,8 +109,8 @@ namespace LoESoft.GameServer.logic.behaviors
                     double a = direction ??
                                (player == null ? defaultAngle.Value : Math.Atan2(player.Y - host.Y, player.X - host.X));
                     a += angleOffset;
-                    if (aim != 0 && player != null)
-                        a += Predict(host, player, desc) * aim;
+                    /*if (aim != 0 && player != null)
+                        a += Predict(host, player, desc) * aim;*/
 
                     int dmg;
                     if (host is Character)
