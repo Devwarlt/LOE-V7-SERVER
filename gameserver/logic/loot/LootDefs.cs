@@ -111,7 +111,7 @@ namespace LoESoft.GameServer.logic.loot
 
             List<Tuple<Player, int>> candidates = enemy.DamageCounter.GetPlayerData().ToList();
 
-            double chance = eventChest ? .01 : .05;
+            double chance = .25 * (eventChest ? .8 : 1);
             double rng = rnd.NextDouble();
             double probability = 0;
 
