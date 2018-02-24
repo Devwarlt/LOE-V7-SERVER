@@ -207,15 +207,22 @@ namespace LoESoft.GameServer.realm.entity
                             else
                             {
                                 if (transitions[i].Value.DoneStorage)
+                                {
+                                    HP = transitions[i].Value.StoreHP;
                                     transitions[i] = new KeyValuePair<bool, INonSkippableState>(true, transitions[i].Value);
+                                    UpdateCount++;
+                                    Done = false;
+                                    CheckDeath = false;
+                                    break;
+                                }
                             }
                         }
 
                         if (transitions.Count == 0)
                         {
-                            Log.Warn("New death request!");
-                            Log.Info($"Processing death for Entity '{Name}', after all non-skippable objects found!");
                             Death(time);
+                            Done = true;
+                            return;
                         }
                         else
                             StoredTransitions[Id] = transitions;
@@ -231,8 +238,6 @@ namespace LoESoft.GameServer.realm.entity
                     {
                         if (transition is INonSkippableState)
                         {
-                            Log.Warn($"New non-skipplace object found! Entity: '{Name}' (state: {transition.TargetState.Name})");
-
                             INonSkippableState nonSkippableState = transition as INonSkippableState;
                             nonSkippableState.Skip = true;
 
@@ -245,10 +250,9 @@ namespace LoESoft.GameServer.realm.entity
 
                     if (transitions.Count == 0)
                     {
-                        Log.Warn("New death request!");
-                        Log.Info($"Processing death for Entity '{Name}', none non-skippable objects found!");
                         Death(time);
                         Done = true;
+                        return;
                     }
                     else
                     {

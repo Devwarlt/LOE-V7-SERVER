@@ -33,19 +33,6 @@ namespace LoESoft.GameServer.logic.transitions
 
         public void ManageHP(int stored, int threshold)
         {
-            Log.Info(
-                string.Format(
-                "New INonSkippable interface usage!\n"
-                + "\t[\n"
-                + "\t\tEntity: {0},\n"
-                + "\t\tStoredHP: {1},\n"
-                + "\t\tThreshold: {2},\n"
-                + "\t\tStoredHP (new): {3},\n"
-                + "\t\tIs invalid HP? {4} ({5})\n"
-                + "\t]\n"
-                , Name, stored, threshold, stored - threshold, InvalidHP == stored - threshold, InvalidHP
-            ));
-
             StoreHP = stored - threshold;
             DoneStorage = true;
         }
