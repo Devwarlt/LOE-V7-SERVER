@@ -29,14 +29,14 @@ namespace LoESoft.GameServer.realm.world
             this.mapId = mapId;
         }
 
-        public Oryx Overseer { get; private set; }
+        public Realm Overseer { get; private set; }
 
         protected override void Init()
         {
             LoadMap("world" + mapId, MapType.Wmap);
             SetPieces.ApplySetPieces(this);
             if (oryxPresent)
-                Overseer = new Oryx(this);
+                Overseer = new Realm(this);
             else
                 Overseer = null;
         }
@@ -59,7 +59,7 @@ namespace LoESoft.GameServer.realm.world
         public void EnemyKilled(Enemy enemy, Player killer)
         {
             if (Overseer != null)
-                Overseer.OnEnemyKilled(enemy, killer);
+                Overseer.HandleRealmEvent(enemy, killer);
         }
 
         public override int EnterWorld(Entity entity)
