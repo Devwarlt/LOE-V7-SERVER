@@ -184,7 +184,7 @@ namespace LoESoft.GameServer.logic.behaviors
             }
             catch (IndexOutOfRangeException)
             {
-                Log.Warn($"Projectile index '{index}' doesn't exist in Shoot behavior of entity {host.Name}.");
+                Log.Warn($"Projectile index '{index}' doesn't exist in Shoot behavior of entity {host.Name} (state: {host.CurrentState.Name}).");
                 return;
             }
         }
