@@ -485,7 +485,7 @@
     <Compile Include="realm\mapsetpiece\setpieces\Oasis.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Pentaract.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Pyre.cs" />
-    <Compile Include="realm\mapsetpiece\setpieces\SetPieces.cs" />
+    <Compile Include="realm\mapsetpiece\SetPieces.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\SkullShrine.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Sphinx.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Temple.cs" />
