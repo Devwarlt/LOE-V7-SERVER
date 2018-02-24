@@ -37,42 +37,6 @@ namespace LoESoft.GameServer.realm
             UpdateHeroes();
             Init();
         }
-        
-        public void CloseRealm()
-        {
-            World ocWorld = null;
-            world.Timers.Add(new WorldTimer(2000, (w, t) =>
-            {
-                ocWorld = Program.Manager.AddWorld(new OryxCastle());
-                ocWorld.Manager = Program.Manager;
-            }));
-            world.Timers.Add(new WorldTimer(8000, (w, t) =>
-            {
-                foreach (var i in world.Players.Values)
-                {
-                    if (ocWorld == null) Program.Manager.TryDisconnect(i.Client, DisconnectReason.RECONNECT_TO_CASTLE);
-                    i.Client.SendMessage(new RECONNECT
-                    {
-                        Host = "",
-                        Port = Settings.GAMESERVER.PORT,
-                        GameId = ocWorld.Id,
-                        Name = ocWorld.Name,
-                        Key = ocWorld.PortalKey
-                    });
-                }
-            }));
-            foreach (var i in world.Players.Values)
-            {
-                SendMsg(i, "MY MINIONS HAVE FAILED ME!", "#Oryx the Mad God");
-                SendMsg(i, "BUT NOW YOU SHALL FEEL MY WRATH!", "#Oryx the Mad God");
-                SendMsg(i, "COME MEET YOUR DOOM AT THE WALLS OF MY CASTLE!", "#Oryx the Mad God");
-                i.Client.SendMessage(new SHOWEFFECT
-                {
-                    EffectType = EffectType.Jitter
-                });
-            }
-            world.Timers.Add(new WorldTimer(10000, (w, t) => Program.Manager.RemoveWorld(w)));
-        }
 
         public void Init()
         {
@@ -107,14 +71,63 @@ namespace LoESoft.GameServer.realm
         public void InitCloseRealm()
         {
             ClosingStarted = true;
+
             foreach (var i in world.Players.Values)
             {
                 SendMsg(i, "I HAVE CLOSED THIS REALM!", "#Oryx the Mad God");
                 SendMsg(i, "YOU WILL NOT LIVE TO SEE THE LIGHT OF DAY!", "#Oryx the Mad God");
             }
-            world.Timers.Add(new WorldTimer(120000, (ww, tt) => { CloseRealm(); }));
-            Program.Manager.GetWorld((int)WorldID.NEXUS_ID).Timers.Add(new WorldTimer(130000, (w, t) => Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => Program.Manager.AddWorld(_.Result), TaskScheduler.Default)));
-            Program.Manager.CloseWorld(world);
+
+            world.Timers.Add(new WorldTimer(20000, (ww, tt) =>
+            {
+                foreach (ClientData i in Program.Manager.ClientManager.Values)
+                    i.Client.Player?.SendInfo("Oryx going to close realm in 1 minute.");
+            }));
+            world.Timers.Add(new WorldTimer(100000, (ww, tt) => Program.Manager.CloseWorld(world)));
+            world.Timers.Add(new WorldTimer(120000, (ww, tt) => CloseRealm()));
+
+            Program.Manager.GetWorld((int)WorldID.NEXUS_ID).Timers.Add(new WorldTimer(130000, (w, t) =>
+                Task.Factory.StartNew(() =>
+                    GameWorld.AutoName(1, true))
+                    .ContinueWith(_ => Program.Manager.AddWorld(_.Result)
+                , TaskScheduler.Default)
+            ));
+        }
+
+        public void CloseRealm()
+        {
+            World ocWorld = null;
+            world.Timers.Add(new WorldTimer(2000, (w, t) =>
+            {
+                ocWorld = Program.Manager.AddWorld(new OryxCastle());
+                ocWorld.Manager = Program.Manager;
+            }));
+            world.Timers.Add(new WorldTimer(8000, (w, t) =>
+            {
+                foreach (var i in world.Players.Values)
+                {
+                    if (ocWorld == null) Program.Manager.TryDisconnect(i.Client, DisconnectReason.RECONNECT_TO_CASTLE);
+                    i.Client.SendMessage(new RECONNECT
+                    {
+                        Host = "",
+                        Port = Settings.GAMESERVER.PORT,
+                        GameId = ocWorld.Id,
+                        Name = ocWorld.Name,
+                        Key = ocWorld.PortalKey
+                    });
+                }
+            }));
+            foreach (var i in world.Players.Values)
+            {
+                SendMsg(i, "MY MINIONS HAVE FAILED ME!", "#Oryx the Mad God");
+                SendMsg(i, "BUT NOW YOU SHALL FEEL MY WRATH!", "#Oryx the Mad God");
+                SendMsg(i, "COME MEET YOUR DOOM AT THE WALLS OF MY CASTLE!", "#Oryx the Mad God");
+                i.Client.SendMessage(new SHOWEFFECT
+                {
+                    EffectType = EffectType.Jitter
+                });
+            }
+            world.Timers.Add(new WorldTimer(10000, (w, t) => Program.Manager.RemoveWorld(w)));
         }
 
         public void OnPlayerEntered(Player player)

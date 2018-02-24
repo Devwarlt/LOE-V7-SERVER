@@ -329,18 +329,22 @@ namespace LoESoft.GameServer.realm
         {
             enemy.Id = GetNextEntityId();
 
-            if (!Enemies.TryAdd(enemy.Id, enemy) || !Entities.TryAdd(enemy.Id, enemy))
-            {
-                Log.Error($"Enemy '{enemy.Name}' wasn't added to World '{Name}'.");
-                return;
-            }
-
             if (enemy.ObjectDesc.Quest)
-                if (!Quests.TryAdd(enemy.Id, enemy))
+            {
+                if (!Quests.TryAdd(enemy.Id, enemy) || !Entities.TryAdd(enemy.Id, enemy))
                 {
                     Log.Error($"Enemy Quest '{enemy.Name}' wasn't added to World '{Name}'.");
                     return;
                 }
+            }
+            else
+            {
+                if (!Enemies.TryAdd(enemy.Id, enemy) || !Entities.TryAdd(enemy.Id, enemy))
+                {
+                    Log.Error($"Enemy '{enemy.Name}' wasn't added to World '{Name}'.");
+                    return;
+                }
+            }
 
             enemy.Init(this);
 
@@ -349,21 +353,24 @@ namespace LoESoft.GameServer.realm
 
         private void TryRemove(Enemy enemy)
         {
-
-            if (!Enemies.TryRemove(enemy.Id, out Enemy dummy) || !Entities.TryRemove(enemy.Id, out Entity entity))
-            {
-                Log.Error($"Enemy '{enemy.Name}' wasn't removed from World '{Name}'.");
-                return;
-            }
-
-            EnemiesCollision.Remove(enemy);
-
             if (enemy.ObjectDesc.Quest)
-                if (!Quests.TryRemove(enemy.Id, out dummy))
+            {
+                if (!Quests.TryRemove(enemy.Id, out Enemy dummy) || !Entities.TryRemove(enemy.Id, out Entity entity))
                 {
                     Log.Error($"Enemy Quest '{enemy.Name}' wasn't removed from World '{Name}'.");
                     return;
                 }
+            }
+            else
+            {
+                if (!Enemies.TryRemove(enemy.Id, out Enemy dummy) || !Entities.TryRemove(enemy.Id, out Entity entity))
+                {
+                    Log.Error($"Enemy '{enemy.Name}' wasn't removed from World '{Name}'.");
+                    return;
+                }
+            }
+
+            EnemiesCollision.Remove(enemy);
         }
 
         private void TryAdd(Projectile projectile)
