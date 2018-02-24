@@ -19,7 +19,7 @@ namespace LoESoft.GameServer.logic
 
         public FameCounter(Player player)
         {
-            this.Player = player;
+            Player = player;
             Stats = FameStats.Read(player.Client.Character.FameStats);
             ClassStats = new DbClassStats(player.Client.Account);
         }

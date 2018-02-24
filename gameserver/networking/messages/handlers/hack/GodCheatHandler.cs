@@ -46,7 +46,7 @@ namespace LoESoft.GameServer.networking.messages.handlers.hack
             }
         }
 
-        public void SetProjectile(Projectile projectile) => this.Proj = projectile;
+        public void SetProjectile(Projectile projectile) => Proj = projectile;
 
         private readonly double CollisionRange = 1.0;
 

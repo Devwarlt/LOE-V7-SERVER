@@ -42,7 +42,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 AccountPerks = new AccountTypePerks(AccountType);
                 AccountLifetime = client.Account.AccountLifetime;
                 IsVip = AccountLifetime != DateTime.MinValue;
-                this.Client = client;
+                Client = client;
                 StatsManager = new StatsManager(this, client.Random.CurrentSeed);
                 Name = client.Account.Name;
                 AccountId = client.Account.AccountId;
@@ -99,7 +99,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 ConditionEffects = 0;
                 OxygenBar = 100;
                 HasBackpack = client.Character.HasBackpack == true;
-                PlayerSkin = this.Client.Account.OwnedSkins.Contains(this.Client.Character.Skin) ? this.Client.Character.Skin : 0;
+                PlayerSkin = Client.Account.OwnedSkins.Contains(Client.Character.Skin) ? Client.Character.Skin : 0;
                 HealthPotions = client.Character.HealthPotions < 0 ? 0 : client.Character.HealthPotions;
                 MagicPotions = client.Character.MagicPotions < 0 ? 0 : client.Character.MagicPotions;
 
@@ -159,7 +159,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 for (var i = 0; i < SlotTypes.Length; i++)
                     if (SlotTypes[i] == 0) SlotTypes[i] = 10;
 
-                if (this.Client.Account.AccountType >= (int)Core.config.AccountType.TUTOR_ACCOUNT)
+                if (Client.Account.AccountType >= (int)Core.config.AccountType.TUTOR_ACCOUNT)
                     return;
 
                 for (var i = 0; i < 4; i++)
@@ -167,6 +167,20 @@ namespace LoESoft.GameServer.realm.entity.player
                         Inventory[i] = null;
             }
             catch (Exception) { }
+        }
+
+        public override void Move(float x, float y)
+        {
+            if (Pet != null)
+            {
+                if (Dist(this, Pet) > 20f)
+                {
+                    Pet.Move(X, Y);
+                    UpdateCount++;
+                }
+            }
+
+            base.Move(x, y);
         }
 
         public void Death(string killer, ObjectDesc desc = null)

@@ -23,11 +23,12 @@ namespace LoESoft.GameServer.logic.skills.Pets
 
             if (hatchling)
             {
-                NOTIFICATION _notification = new NOTIFICATION();
-
-                _notification.Color = new ARGB(0xFFFFFF);
-                _notification.ObjectId = host.Id;
-                _notification.Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"New Pet!\"}}";
+                NOTIFICATION _notification = new NOTIFICATION
+                {
+                    Color = new ARGB(0xFFFFFF),
+                    ObjectId = host.Id,
+                    Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"New Pet!\"}}"
+                };
 
                 host.Owner.BroadcastPacket(_notification, null);
                 return;
@@ -61,22 +62,7 @@ namespace LoESoft.GameServer.logic.skills.Pets
 
                     vect = new Vector2(player.X - pet.X, player.Y - pet.Y);
 
-                    if (vect.Length > 20)
-                    {
-                        Position _player = new Position();
-                        _player.X = player.X;
-                        _player.Y = player.Y;
-
-                        pet.Move(player.X, player.Y);
-
-                        GOTO _goto = new GOTO();
-                        _goto.ObjectId = player.Id;
-                        _goto.Position = _player;
-
-                        pet.Owner.BroadcastPacket(_goto, null);
-                        pet.UpdateCount++;
-                    }
-                    else if (vect.Length > 1 && vect.Length <= 20)
+                    if (vect.Length > 1 && vect.Length <= 20)
                     {
                         float dist = host.EntitySpeed(player.Stats[4] / 10, time);
 
