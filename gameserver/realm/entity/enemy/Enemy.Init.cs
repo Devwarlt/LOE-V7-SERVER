@@ -218,7 +218,7 @@ namespace LoESoft.GameServer.realm.entity
                             }
                         }
 
-                        if (transitions.Count == 0)
+                        if (transitions.Count == 0 || transitions == null || !StoredTransitions.ContainsKey(Id))
                         {
                             Death(time);
                             Done = true;

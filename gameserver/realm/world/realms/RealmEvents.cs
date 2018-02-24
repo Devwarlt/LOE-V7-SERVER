@@ -20,7 +20,7 @@ namespace LoESoft.GameServer.realm
 
         public void HandleRealmEvent(Enemy enemy, Player killer)
         {
-            if (enemy.ObjectDesc != null && enemy.ObjectDesc.Quest)
+            if (enemy.ObjectDesc != null)
             {
                 TauntData? dat = null;
 

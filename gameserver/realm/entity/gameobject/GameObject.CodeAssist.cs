@@ -1,5 +1,6 @@
 ﻿#region
 
+using LoESoft.GameServer.realm.terrain;
 using System;
 using System.Xml.Linq;
 
@@ -17,8 +18,10 @@ namespace LoESoft.GameServer.realm.entity
         public static int? GetHP(XElement elem)
         {
             XElement n = elem.Element("MaxHitPoints");
+
             if (n != null)
                 return Utils.FromString(n.Value);
+
             return null;
         }
 
@@ -27,42 +30,41 @@ namespace LoESoft.GameServer.realm.entity
             if (Program.Manager.GameData.ObjectDescs.TryGetValue(objType, out ObjectDesc desc))
             {
                 if (desc.Class != null)
-                    if (desc.Class == "Container" || desc.Class.ContainsIgnoreCase("wall") ||
-                        desc.Class == "Merchant" || desc.Class == "Portal") return false;
+                    if (desc.Class == "Container"
+                        || desc.Class.ContainsIgnoreCase("wall")
+                        || desc.Class == "Merchant"
+                        || desc.Class == "Portal")
+                        return false;
+
                 return !(desc.Static && !desc.Enemy && !desc.EnemyOccupySquare);
             }
+
             return false;
         }
 
         protected bool CheckHP()
         {
-            if (this == null)
-                return true;
-
             try
             {
-                if (Vulnerable && HP < 0)
+                if (Vulnerable && HP <= 0 && ObjectDesc != null && Owner != null)
                 {
-                    if (ObjectDesc != null && (ObjectDesc.EnemyOccupySquare || ObjectDesc.OccupySquare))
-                        if (Owner != null)
-                            Owner.Obstacles[(int)(X - 0.5), (int)(Y - 0.5)] = 0;
+                    if (ObjectDesc.EnemyOccupySquare || ObjectDesc.OccupySquare)
+                        Owner.Obstacles[(int)(X - 0.5), (int)(Y - 0.5)] = 0;
 
-
-                    if (ObjectDesc != null && Owner.Map[(int)(X - 0.5), (int)(Y - 0.5)].ObjType == ObjectType)
+                    if (Owner.Map[(int)(X - 0.5), (int)(Y - 0.5)].ObjType == ObjectType)
                     {
-                        var tile = Owner.Map[(int)(X - 0.5), (int)(Y - 0.5)].Clone();
+                        WmapTile tile = Owner.Map[(int)(X - 0.5), (int)(Y - 0.5)].Clone();
                         tile.ObjType = 0;
                         Owner.Map[(int)(X - 0.5), (int)(Y - 0.5)] = tile;
                     }
 
-                    Owner?.LeaveWorld(this);
+                    Owner.LeaveWorld(this);
+
                     return false;
                 }
             }
-            catch (Exception ex)
-            {
-                log4net.ErrorFormat("Crash halted - HP check error:\n{0}", ex);
-            }
+            catch (Exception) { }
+
             return true;
         }
     }

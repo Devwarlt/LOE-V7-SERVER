@@ -25,8 +25,8 @@ namespace LoESoft.GameServer.realm
 
         public bool HandleHeroes()
         {
-            //if (CountEnemies(RealmHeroCache.ToArray()) != 0)
-            //    return false;
+            if (CountEnemies(RealmHeroCache.ToArray()) != 0)
+                return false;
 
             return RealmClosed = true;
         }

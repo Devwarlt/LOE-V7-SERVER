@@ -69,7 +69,7 @@ namespace LoESoft.GameServer.realm.entity
 
         public override void Tick(RealmTime time)
         {
-            if (Vulnerable)
+            if (Vulnerable && ObjectDesc != null)
             {
                 if (Dying)
                 {

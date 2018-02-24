@@ -82,9 +82,7 @@ namespace LoESoft.GameServer.realm
                 if (HandleHeroes())
                 {
                     if (!ClosingStarted)
-                    {
                         InitCloseRealm();
-                    }
                 }
                 else
                 {

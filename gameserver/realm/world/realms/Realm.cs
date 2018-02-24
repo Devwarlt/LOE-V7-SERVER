@@ -68,21 +68,33 @@ namespace LoESoft.GameServer.realm
             }
         }
 
+        private bool Done = false;
+
         public void InitCloseRealm()
         {
-            ClosingStarted = true;
-
-            foreach (var i in world.Players.Values)
+            if (!Done)
             {
-                SendMsg(i, "I HAVE CLOSED THIS REALM!", "#Oryx the Mad God");
-                SendMsg(i, "YOU WILL NOT LIVE TO SEE THE LIGHT OF DAY!", "#Oryx the Mad God");
+                ClosingStarted = true;
+
+                foreach (var i in world.Players.Values)
+                {
+                    SendMsg(i, "I HAVE CLOSED THIS REALM!", "#Oryx the Mad God");
+                    SendMsg(i, "YOU WILL NOT LIVE TO SEE THE LIGHT OF DAY!", "#Oryx the Mad God");
+                }
+
+                world.Timers.Add(new WorldTimer(20000, (ww, tt) => AnnounceRealmClose()));
             }
+            else
+                return;
+        }
 
-            world.Timers.Add(new WorldTimer(20000, (ww, tt) =>
-            {
-                foreach (ClientData i in Program.Manager.ClientManager.Values)
-                    i.Client.Player?.SendInfo("Oryx going to close realm in 1 minute.");
-            }));
+        public void AnnounceRealmClose()
+        {
+            foreach (ClientData i in Program.Manager.ClientManager.Values)
+                i.Client.Player?.SendInfo($"Oryx is preparing to close realm '{world.Name}' in 1 minute.");
+
+            Done = true;
+
             world.Timers.Add(new WorldTimer(100000, (ww, tt) => Program.Manager.CloseWorld(world)));
             world.Timers.Add(new WorldTimer(120000, (ww, tt) => CloseRealm()));
 
