@@ -1,6 +1,5 @@
 ﻿#region
 
-using LoESoft.Core.models;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
 

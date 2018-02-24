@@ -11,7 +11,6 @@ using LoESoft.GameServer.networking.error;
 using FAILURE = LoESoft.GameServer.networking.incoming.FAILURE;
 using LoESoft.GameServer.realm.world;
 using LoESoft.Core;
-using LoESoft.Core.models;
 
 #endregion
 

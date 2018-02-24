@@ -33,17 +33,31 @@ namespace LoESoft.GameServer.realm
             return world.Enemies.Count(i => enemyList.Contains(i.Value.ObjectType));
         }
 
-        private ushort GetRandomObjType(Tuple<string, double>[] dat)
+        private ushort GetRandomObjType(WmapTerrain wmapTerrain)
         {
-            var p = rand.NextDouble();
+            foreach (Spawn i in RealmSpawnCache)
+            {
+                if (i.WmapTerrain == wmapTerrain) // assuming only one
+                {
+                    GetRandomObjType(i.Entities);
+                    break;
+                }
+            }
+            return 0;
+        }
+
+        private ushort GetRandomObjType(List<KeyValuePair<string, double>> dat)
+        {
+            double p = rand.NextDouble();
             double n = 0;
             ushort objType = 0;
-            foreach (var k in dat)
+
+            foreach (KeyValuePair<string, double> k in dat)
             {
-                n += k.Item2;
+                n += k.Value;
                 if (n > p)
                 {
-                    objType = Program.Manager.GameData.IdToObjectType[k.Item1];
+                    objType = Program.Manager.GameData.IdToObjectType[k.Key];
                     break;
                 }
             }

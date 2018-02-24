@@ -1,7 +1,6 @@
 ﻿#region
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity;
@@ -87,19 +86,19 @@ namespace LoESoft.GameServer.realm
                     if (tile.Terrain != WmapTerrain.None)
                         stats[(int)tile.Terrain - 1]++;
                 }
-            foreach (var i in spawn)
+            foreach (Spawn i in RealmSpawnCache)
             {
-                var terrain = i.Key;
+                var terrain = i.WmapTerrain;
                 var idx = (int)terrain - 1;
-                var enemyCount = stats[idx] / i.Value.Item1;
+                var enemyCount = stats[idx] / i.Density;
                 enemyMaxCounts[idx] = enemyCount;
                 enemyCounts[idx] = 0;
                 for (var j = 0; j < enemyCount; j++)
                 {
-                    var objType = GetRandomObjType(i.Value.Item2);
+                    var objType = GetRandomObjType(i.Entities);
                     if (objType == 0) continue;
 
-                    enemyCounts[idx] += Spawn(Program.Manager.GameData.ObjectDescs[objType], terrain, w, h);
+                    enemyCounts[idx] += HandleSpawn(Program.Manager.GameData.ObjectDescs[objType], terrain, w, h);
                     if (enemyCounts[idx] >= enemyCount) break;
                 }
             }
@@ -129,9 +128,11 @@ namespace LoESoft.GameServer.realm
         private void EnsurePopulation()
         {
             RecalculateEnemyCount();
-            var state = new int[12];
-            var diff = new int[12];
-            var c = 0;
+
+            int[] state = new int[12];
+            int[] diff = new int[12];
+            int c = 0;
+
             for (var i = 0; i < state.Length; i++)
             {
                 if (enemyCounts[i] > enemyMaxCounts[i] * 1.5)  //Kill some
@@ -146,16 +147,17 @@ namespace LoESoft.GameServer.realm
                     diff[i] = enemyMaxCounts[i] - enemyCounts[i];
                 }
                 else
-                {
                     state[i] = 0;
-                }
             }
+
             foreach (var i in world.Enemies)    //Kill
             {
-                var idx = (int)i.Value.Terrain - 1;
-                if (idx == -1 || state[idx] == 0 ||
-                    i.Value.GetNearestEntity(10, true) != null ||
-                    diff[idx] == 0)
+                int idx = (int)i.Value.Terrain - 1;
+
+                if (idx == -1
+                    || state[idx] == 0
+                    || i.Value.GetNearestEntity(10, true) != null
+                    || diff[idx] == 0)
                     continue;
 
                 if (state[idx] == 1)
@@ -165,21 +167,29 @@ namespace LoESoft.GameServer.realm
                     if (diff[idx] == 0)
                         c--;
                 }
-                if (c == 0) break;
+
+                if (c == 0)
+                    break;
             }
 
             int w = world.Map.Width, h = world.Map.Height;
-            for (var i = 0; i < state.Length; i++)  //Add
-            {
-                if (state[i] != 2) continue;
-                var x = diff[i];
-                var t = (WmapTerrain)(i + 1);
-                for (var j = 0; j < x;)
-                {
-                    var objType = GetRandomObjType(spawn[t].Item2);
-                    if (objType == 0) continue;
 
-                    j += Spawn(Program.Manager.GameData.ObjectDescs[objType], t, w, h);
+            for (int i = 0; i < state.Length; i++)  //Add
+            {
+                if (state[i] != 2)
+                    continue;
+
+                int x = diff[i];
+                WmapTerrain t = (WmapTerrain)(i + 1);
+
+                for (int j = 0; j < x;)
+                {
+                    ushort objType = GetRandomObjType(t);
+
+                    if (objType == 0)
+                        continue;
+
+                    j += HandleSpawn(Program.Manager.GameData.ObjectDescs[objType], t, w, h);
                 }
             }
 
@@ -188,7 +198,7 @@ namespace LoESoft.GameServer.realm
             GC.Collect();
         }
 
-        private int Spawn(ObjectDesc desc, WmapTerrain terrain, int w, int h)
+        private int HandleSpawn(ObjectDesc desc, WmapTerrain terrain, int w, int h)
         {
             Entity entity;
             var ret = 0;

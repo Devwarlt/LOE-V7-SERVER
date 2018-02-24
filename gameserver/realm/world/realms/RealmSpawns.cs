@@ -1,5 +1,4 @@
 ﻿using LoESoft.GameServer.realm.terrain;
-using System;
 using System.Collections.Generic;
 
 namespace LoESoft.GameServer.realm
@@ -144,9 +143,6 @@ namespace LoESoft.GameServer.realm
                     Add("Arena Headless Horseman", 0.01)
                 })
         };
-
-        private static readonly Dictionary<WmapTerrain, Tuple<int, Tuple<string, double>[]>>
-            spawn = new Dictionary<WmapTerrain, Tuple<int, Tuple<string, double>[]>>();
 
         #endregion "Spawn data"
     }
