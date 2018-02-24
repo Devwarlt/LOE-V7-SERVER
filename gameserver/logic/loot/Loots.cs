@@ -55,52 +55,63 @@ namespace LoESoft.GameServer.logic.loot
 
         public void Handle(Enemy enemy, RealmTime time)
         {
-            if (enemy.Owner.Name == "Arena") return;
-            List<LootDef> consideration = new List<LootDef>();
-
-            List<Item> sharedLoots = new List<Item>();
-            foreach (ILootDef i in this)
-                i.Populate(enemy, null, rand, i.Lootstate, consideration);
-            foreach (LootDef i in consideration)
+            try
             {
-                if (i.LootState == enemy.LootState || i.LootState == null)
-                {
-                    if (rand.NextDouble() < i.Probabilty)
-                        sharedLoots.Add(i.Item);
-                }
-            }
+                if (enemy.Owner.Name == "Arena")
+                    return;
 
-            Tuple<Player, int>[] dats = enemy.DamageCounter.GetPlayerData();
-            Dictionary<Player, IList<Item>> loots = enemy.DamageCounter.GetPlayerData().ToDictionary(
-                d => d.Item1, d => (IList<Item>)new List<Item>());
+                List<LootDef> consideration = new List<LootDef>();
 
-            foreach (Item loot in sharedLoots.Where(item => item.BagType > 1)) //Hope fixed item doesn't need to be soulbound only
-                loots[dats[rand.Next(dats.Length)].Item1].Add(loot);
+                List<Item> sharedLoots = new List<Item>();
 
-            foreach (Tuple<Player, int> dat in dats)
-            {
-                consideration.Clear();
                 foreach (ILootDef i in this)
-                    i.Populate(enemy, dat, rand, i.Lootstate, consideration);
+                    i.Populate(enemy, null, rand, i.Lootstate, consideration);
 
-                IList<Item> playerLoot = loots[dat.Item1];
                 foreach (LootDef i in consideration)
                 {
                     if (i.LootState == enemy.LootState || i.LootState == null)
                     {
-                        double prob = dat.Item1.LootDropBoost ? i.Probabilty * 1.5 : i.Probabilty;
-                        if (rand.NextDouble() < prob)
+                        if (rand.NextDouble() < i.Probabilty)
+                            sharedLoots.Add(i.Item);
+                    }
+                }
+
+                Tuple<Player, int>[] dats = enemy.DamageCounter.GetPlayerData();
+                Dictionary<Player, IList<Item>> loots = enemy.DamageCounter.GetPlayerData().ToDictionary(
+                    d => d.Item1, d => (IList<Item>)new List<Item>());
+
+                foreach (Item loot in sharedLoots.Where(item => item.BagType > 1)) //Hope fixed item doesn't need to be soulbound only
+                    loots[dats[rand.Next(dats.Length)].Item1].Add(loot);
+
+                foreach (Tuple<Player, int> dat in dats)
+                {
+                    consideration.Clear();
+                    foreach (ILootDef i in this)
+                        i.Populate(enemy, dat, rand, i.Lootstate, consideration);
+
+                    IList<Item> playerLoot = loots[dat.Item1];
+                    foreach (LootDef i in consideration)
+                    {
+                        if (i.LootState == enemy.LootState || i.LootState == null)
                         {
-                            if (dat.Item1.LootTierBoost)
-                                playerLoot.Add(IncreaseTier(Program.Manager, i.Item, consideration));
-                            else
-                                playerLoot.Add(i.Item);
+                            double prob = dat.Item1.LootDropBoost ? i.Probabilty * 1.5 : i.Probabilty;
+                            if (rand.NextDouble() < prob)
+                            {
+                                if (dat.Item1.LootTierBoost)
+                                    playerLoot.Add(IncreaseTier(Program.Manager, i.Item, consideration));
+                                else
+                                    playerLoot.Add(i.Item);
+                            }
                         }
                     }
                 }
-            }
 
-            AddBagsToWorld(enemy, sharedLoots, loots);
+                AddBagsToWorld(enemy, sharedLoots, loots);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return;
+            }
         }
 
         private Item IncreaseTier(RealmManager manager, Item item, List<LootDef> consideration)

@@ -62,7 +62,12 @@ namespace LoESoft.GameServer.logic.transitions
                     damageSoFar += i.Item2;
 
                 if (damageSoFar >= Damage)
+                {
+                    Enemy.HP = StoreHP - Damage;
+                    Enemy.UpdateCount++;
                     return true;
+                }
+
                 return false;
             }
         }

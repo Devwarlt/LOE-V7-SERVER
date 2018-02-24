@@ -31,9 +31,9 @@ namespace LoESoft.GameServer.realm.commands
         }
     }
 
-    class posCmd : Command
+    class PosCmd : Command
     {
-        public posCmd() : base("p", (int)AccountType.LOESOFT_ACCOUNT) { }
+        public PosCmd() : base("p", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -256,8 +256,8 @@ namespace LoESoft.GameServer.realm.commands
             while (killed != lastKilled)
             {
                 lastKilled = killed;
-                foreach (var i in player.Owner.Enemies.Values.Where(e =>
-                    e.ObjectDesc?.ObjectId != null && e.ObjectDesc.ObjectId.ContainsIgnoreCase(mobName)))
+                foreach (var i in player.Owner.Enemies.Values
+                    .Where(e => e.ObjectDesc?.ObjectId != null && e.ObjectDesc.ObjectId.ContainsIgnoreCase(mobName) && !e.IsPet))
                 {
                     i.CheckDeath = true;
                     killed++;

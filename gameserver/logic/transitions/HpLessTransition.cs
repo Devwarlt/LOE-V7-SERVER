@@ -58,7 +58,15 @@ namespace LoESoft.GameServer.logic.transitions
                     return true;
                 }
                 else
-                    return ((host as Enemy).HP / host.ObjectDesc.MaxHP) < threshold;
+                {
+                    if ((Enemy.HP / host.ObjectDesc.MaxHP) < threshold)
+                    {
+                        Enemy.HP = StoreHP - (int)(StoreHP - threshold * host.ObjectDesc.MaxHP);
+                        Enemy.UpdateCount++;
+                        return true;
+                    }
+                    return false;
+                }
             }
         }
     }

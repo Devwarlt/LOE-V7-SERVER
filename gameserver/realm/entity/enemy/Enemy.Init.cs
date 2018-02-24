@@ -8,6 +8,7 @@ using LoESoft.GameServer.realm.entity.player;
 using LoESoft.GameServer.realm.terrain;
 using LoESoft.Core.models;
 using System.Collections.Concurrent;
+using System;
 
 #endregion
 
@@ -76,7 +77,7 @@ namespace LoESoft.GameServer.realm.entity
 
             if (state == null)
             {
-                Log.Warn($"Damage Counter not initialized for enemy '{Name}', must require behavior declaration.");
+                Log.Warn($"Enemy '{Name}' doesn't have any behavior declaration.");
                 counter.Dispose();
             }
             else
@@ -194,71 +195,82 @@ namespace LoESoft.GameServer.realm.entity
 
             if (CheckDeath)
             {
-                if (StoredTransitions.ContainsKey(Id))
+                try
                 {
-                    if (!Done)
+                    if (StoredTransitions.ContainsKey(Id))
                     {
-                        List<KeyValuePair<bool, INonSkippableState>> transitions = StoredTransitions[Id];
-
-                        for (int i = 0; i < transitions.Count; i++)
+                        if (!Done)
                         {
-                            if (transitions[i].Key)
-                                transitions.RemoveAt(i);
-                            else
+                            List<KeyValuePair<bool, INonSkippableState>> transitions = StoredTransitions[Id];
+
+                            for (int i = 0; i < transitions.Count; i++)
                             {
-                                if (transitions[i].Value.DoneStorage)
+                                if (transitions[i].Key)
+                                    transitions.RemoveAt(i);
+                                else
                                 {
-                                    HP = transitions[i].Value.StoreHP;
-                                    transitions[i] = new KeyValuePair<bool, INonSkippableState>(true, transitions[i].Value);
-                                    UpdateCount++;
-                                    Done = false;
-                                    CheckDeath = false;
-                                    break;
+                                    if (transitions[i].Value.DoneStorage)
+                                    {
+                                        HP = transitions[i].Value.StoreHP;
+                                        transitions[i] = new KeyValuePair<bool, INonSkippableState>(true, transitions[i].Value);
+                                        UpdateCount++;
+                                        Done = false;
+                                        CheckDeath = false;
+                                        break;
+                                    }
                                 }
                             }
+
+                            if (transitions.Count == 0
+                                || transitions == null
+                                || StoredTransitions[Id] == null
+                                || !StoredTransitions.ContainsKey(Id))
+                            {
+                                Death(time);
+                                Done = true;
+                                return;
+                            }
+                            else
+                                StoredTransitions[Id] = transitions;
+                        }
+                    }
+                    else
+                    {
+                        List<Transition> currentTransitions = CurrentState.Transitions.ToList();
+                        List<KeyValuePair<bool, INonSkippableState>> transitions = new List<KeyValuePair<bool, INonSkippableState>>();
+
+                        int i = 0;
+                        foreach (Transition transition in CurrentState.Transitions)
+                        {
+                            if (transition is INonSkippableState)
+                            {
+                                INonSkippableState nonSkippableState = transition as INonSkippableState;
+                                nonSkippableState.Skip = true;
+
+                                transitions.Add(new KeyValuePair<bool, INonSkippableState>(false, nonSkippableState));
+
+                                currentTransitions[i] = nonSkippableState as Transition; // safe update
+                            }
+                            i++;
                         }
 
-                        if (transitions.Count == 0 || transitions == null || !StoredTransitions.ContainsKey(Id))
+                        if (transitions.Count == 0)
                         {
                             Death(time);
                             Done = true;
                             return;
                         }
                         else
+                        {
                             StoredTransitions[Id] = transitions;
+                            CurrentState.Transitions = currentTransitions;
+                        }
                     }
                 }
-                else
+                catch (NullReferenceException)
                 {
-                    List<Transition> currentTransitions = CurrentState.Transitions.ToList();
-                    List<KeyValuePair<bool, INonSkippableState>> transitions = new List<KeyValuePair<bool, INonSkippableState>>();
-
-                    int i = 0;
-                    foreach (Transition transition in CurrentState.Transitions)
-                    {
-                        if (transition is INonSkippableState)
-                        {
-                            INonSkippableState nonSkippableState = transition as INonSkippableState;
-                            nonSkippableState.Skip = true;
-
-                            transitions.Add(new KeyValuePair<bool, INonSkippableState>(false, nonSkippableState));
-
-                            currentTransitions[i] = nonSkippableState as Transition; // safe update
-                        }
-                        i++;
-                    }
-
-                    if (transitions.Count == 0)
-                    {
-                        Death(time);
-                        Done = true;
-                        return;
-                    }
-                    else
-                    {
-                        StoredTransitions[Id] = transitions;
-                        CurrentState.Transitions = currentTransitions;
-                    }
+                    Death(time);
+                    return;
                 }
             }
 
