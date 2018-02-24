@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using LoESoft.Core.models;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
@@ -91,93 +92,101 @@ namespace LoESoft.GameServer.logic.behaviors
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
-            int cool = (int?)state ?? -1;
-            Status = CycleStatus.NotStarted;
-
-            if (cool <= 0)
+            try
             {
-                if (host.HasConditionEffect(ConditionEffectIndex.Stunned)) return;
-                int count = shoots;
-                if (host.HasConditionEffect(ConditionEffectIndex.Dazed))
-                    count = Math.Max(1, count / 2);
+                int cool = (int?)state ?? -1;
+                Status = CycleStatus.NotStarted;
 
-                Entity player = host.GetNearestEntity(range, null);
-                if (player != null || defaultAngle != null || direction != null)
+                if (cool <= 0)
                 {
-                    ProjectileDesc desc = host.ObjectDesc.Projectiles[index];
+                    if (host.HasConditionEffect(ConditionEffectIndex.Stunned)) return;
+                    int count = shoots;
+                    if (host.HasConditionEffect(ConditionEffectIndex.Dazed))
+                        count = Math.Max(1, count / 2);
 
-                    double a = direction ??
-                               (player == null ? defaultAngle.Value : Math.Atan2(player.Y - host.Y, player.X - host.X));
-                    a += angleOffset;
-                    /*if (aim != 0 && player != null)
-                        a += Predict(host, player, desc) * aim;*/
-
-                    int dmg;
-                    if (host is Character)
-                        dmg = (host as Character).Random.Next(desc.MinDamage, desc.MaxDamage);
-                    else
-                        dmg = Random.Next(desc.MinDamage, desc.MaxDamage);
-
-                    double startAngle = a - shootAngle * (count - 1) / 2;
-                    byte prjId = 0;
-                    Position prjPos = EnemyShootHistory(host);
-                    for (int i = 0; i < count; i++)
+                    Entity player = host.GetNearestEntity(range, null);
+                    if (player != null || defaultAngle != null || direction != null)
                     {
-                        Projectile prj = host.CreateProjectile(
-                            desc, host.ObjectType, dmg, time.TotalElapsedMs,
-                            prjPos, (float)(startAngle + shootAngle * i));
-                        host.Owner.EnterWorld(prj);
-                        if (i == 0)
-                            prjId = prj.ProjectileId;
-                    }
-                    if (rotateEffect)
-                    {
-                        Position target;
-                        if (rotateAngle != null)
-                            target = new Position
-                            {
-                                X = host.X + (float)(Math.Cos(rotateAngle.Value)),
-                                Y = host.Y + (float)(Math.Sin(rotateAngle.Value)),
-                            };
+                        ProjectileDesc desc = host.ObjectDesc.Projectiles[index];
+
+                        double a = direction ??
+                                   (player == null ? defaultAngle.Value : Math.Atan2(player.Y - host.Y, player.X - host.X));
+                        a += angleOffset;
+                        /*if (aim != 0 && player != null)
+                            a += Predict(host, player, desc) * aim;*/
+
+                        int dmg;
+                        if (host is Character)
+                            dmg = (host as Character).Random.Next(desc.MinDamage, desc.MaxDamage);
                         else
-                            target = new Position
-                            {
-                                X = player.X,
-                                Y = player.Y,
-                            };
+                            dmg = Random.Next(desc.MinDamage, desc.MaxDamage);
 
-                        host.Owner.BroadcastPacket(new SHOWEFFECT
+                        double startAngle = a - shootAngle * (count - 1) / 2;
+                        byte prjId = 0;
+                        Position prjPos = EnemyShootHistory(host);
+                        for (int i = 0; i < count; i++)
                         {
-                            EffectType = EffectType.Coneblast,
-                            Color = new ARGB(rotateColor),
-                            TargetId = host.Id,
-                            PosA = target,
-                            PosB = new Position { X = rotateRadius }, //radius
+                            Projectile prj = host.CreateProjectile(
+                                desc, host.ObjectType, dmg, time.TotalElapsedMs,
+                                prjPos, (float)(startAngle + shootAngle * i));
+                            host.Owner.EnterWorld(prj);
+                            if (i == 0)
+                                prjId = prj.ProjectileId;
+                        }
+                        if (rotateEffect)
+                        {
+                            Position target;
+                            if (rotateAngle != null)
+                                target = new Position
+                                {
+                                    X = host.X + (float)(Math.Cos(rotateAngle.Value)),
+                                    Y = host.Y + (float)(Math.Sin(rotateAngle.Value)),
+                                };
+                            else
+                                target = new Position
+                                {
+                                    X = player.X,
+                                    Y = player.Y,
+                                };
+
+                            host.Owner.BroadcastPacket(new SHOWEFFECT
+                            {
+                                EffectType = EffectType.Coneblast,
+                                Color = new ARGB(rotateColor),
+                                TargetId = host.Id,
+                                PosA = target,
+                                PosB = new Position { X = rotateRadius }, //radius
+                            }, null);
+                        }
+
+                        host.Owner.BroadcastPacket(new ENEMYSHOOT
+                        {
+                            BulletId = prjId,
+                            OwnerId = host.Id,
+                            Position = prjPos,
+                            Angle = (float)startAngle,
+                            Damage = (short)dmg,
+                            BulletType = (byte)desc.BulletType,
+                            AngleInc = (float)shootAngle,
+                            NumShots = (byte)count,
                         }, null);
                     }
-
-                    host.Owner.BroadcastPacket(new ENEMYSHOOT
-                    {
-                        BulletId = prjId,
-                        OwnerId = host.Id,
-                        Position = prjPos,
-                        Angle = (float)startAngle,
-                        Damage = (short)dmg,
-                        BulletType = (byte)desc.BulletType,
-                        AngleInc = (float)shootAngle,
-                        NumShots = (byte)count,
-                    }, null);
+                    cool = coolDown.Next(Random);
+                    Status = CycleStatus.Completed;
                 }
-                cool = coolDown.Next(Random);
-                Status = CycleStatus.Completed;
-            }
-            else
-            {
-                cool -= time.ElapsedMsDelta;
-                Status = CycleStatus.InProgress;
-            }
+                else
+                {
+                    cool -= time.ElapsedMsDelta;
+                    Status = CycleStatus.InProgress;
+                }
 
-            state = cool;
+                state = cool;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Log.Warn($"Projectile index '{index}' doesn't exist in Shoot behavior of entity {host.Name}.");
+                return;
+            }
         }
     }
 }

@@ -257,7 +257,7 @@ namespace LoESoft.GameServer.realm.commands
             {
                 lastKilled = killed;
                 foreach (var i in player.Owner.Enemies.Values
-                    .Where(e => e.ObjectDesc?.ObjectId != null && e.ObjectDesc.ObjectId.ContainsIgnoreCase(mobName) && !e.IsPet))
+                    .Where(e => e.ObjectDesc.ObjectId != null && e.ObjectDesc.ObjectId.ContainsIgnoreCase(mobName) && !e.IsPet && e.ObjectDesc.Enemy))
                 {
                     i.CheckDeath = true;
                     killed++;

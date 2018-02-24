@@ -43,11 +43,7 @@ namespace LoESoft.GameServer.logic
                 else
                     host.StoredBehaviors[this] = state;
             }
-            catch (Exception e)
-            {
-                log.ErrorFormat("BehaviorException:\nHost: {0}\nState: {1}\nInternalExeption:\n{2}",
-                    Program.Manager.GameData.ObjectTypeToId[host.ObjectType], state, e);
-            }
+            catch (Exception) { }
         }
 
         protected abstract void TickCore(Entity host, RealmTime time, ref object state);

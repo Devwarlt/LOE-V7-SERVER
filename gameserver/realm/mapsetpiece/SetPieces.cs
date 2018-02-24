@@ -74,6 +74,64 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             new SetPiece("Lava Fissure", new LavaFissure(), 3, 5, new WmapTerrain[1] { WmapTerrain.Mountains })
         };
 
+        public static void ApplySetPieces(World world)
+        {
+            Wmap map = world.Map;
+            int w = map.Width, h = map.Height;
+
+            Random rand = new Random();
+            HashSet<Rect> rects = new HashSet<Rect>();
+
+            foreach (SetPiece setpiece in SetPieceCache)
+            {
+                int size = setpiece.MapSetPiece.Size;
+                int count = rand.Next(setpiece.Min, setpiece.Max);
+
+                if (setpiece.IsWeeklyEvent)
+                {
+                    if (setpiece.DayOfWeek != DateTime.Now.DayOfWeek)
+                        continue;
+                    else
+                        Log.Info($"Weekly Event added: '{setpiece.Name}' (amount: {count}).");
+                }
+                else
+                    Log.Info($"Setpiece Event added: '{setpiece.Name}' (amount: {count}).");
+
+                for (int i = 0; i < count; i++)
+                {
+                    IntPoint pt = new IntPoint();
+                    Rect rect;
+
+                    do
+                    {
+                        pt.X = rand.Next(0, w);
+                        pt.Y = rand.Next(0, h);
+                        rect = new Rect { x = pt.X, y = pt.Y, w = size, h = size };
+                    } while ((Array.IndexOf(setpiece.WmapTerrain, map[pt.X, pt.Y].Terrain) == -1 || rects.Any(_ => Rect.Intersects(rect, _))));
+
+                    setpiece.MapSetPiece.RenderSetPiece(world, pt);
+
+                    rects.Add(rect);
+                }
+            }
+        }
+
+        private struct Rect
+        {
+            public int h;
+            public int w;
+            public int x;
+            public int y;
+
+            public static bool Intersects(Rect r1, Rect r2)
+            {
+                return !(r2.x > r1.x + r1.w ||
+                         r2.x + r2.w < r1.x ||
+                         r2.y > r1.y + r1.h ||
+                         r2.y + r2.h < r1.y);
+            }
+        }
+
         public static int[,] RotateCW(int[,] mat)
         {
             int M = mat.GetLength(0);
@@ -109,68 +167,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                 for (int y = 0; y < N; y++)
                     ret[M - x - 1, y] = mat[x, y];
             return ret;
-        }
-
-        public static void ApplySetPieces(World world)
-        {
-            Wmap map = world.Map;
-            int w = map.Width, h = map.Height, max = 50;
-
-            Random rand = new Random();
-            HashSet<Rect> rects = new HashSet<Rect>();
-
-            foreach (SetPiece setpiece in SetPieceCache)
-            {
-                int size = setpiece.MapSetPiece.Size;
-                int count = rand.Next(setpiece.Min, setpiece.Max);
-
-                if (setpiece.IsWeeklyEvent)
-                {
-                    if (setpiece.DayOfWeek != DateTime.Now.DayOfWeek)
-                        continue;
-                    else
-                        Log.Info($"Weekly Event added: '{setpiece.Name}' (amount: {count}).");
-                }
-                else
-                    Log.Info($"Setpiece Event added: '{setpiece.Name}' (amount: {count}).");
-
-                for (int i = 0; i < count; i++)
-                {
-                    IntPoint pt = new IntPoint();
-                    Rect rect;
-
-                    do
-                    {
-                        pt.X = rand.Next(0, w);
-                        pt.Y = rand.Next(0, h);
-                        rect = new Rect { x = pt.X, y = pt.Y, w = size, h = size };
-                        max--;
-                    } while ((Array.IndexOf(setpiece.WmapTerrain, map[pt.X, pt.Y].Terrain) == -1 || rects.Any(_ => Rect.Intersects(rect, _))) && max > 0);
-
-                    if (max <= 0)
-                        continue;
-
-                    setpiece.MapSetPiece.RenderSetPiece(world, pt);
-
-                    rects.Add(rect);
-                }
-            }
-        }
-
-        private struct Rect
-        {
-            public int h;
-            public int w;
-            public int x;
-            public int y;
-
-            public static bool Intersects(Rect r1, Rect r2)
-            {
-                return !(r2.x > r1.x + r1.w ||
-                         r2.x + r2.w < r1.x ||
-                         r2.y > r1.y + r1.h ||
-                         r2.y + r2.h < r1.y);
-            }
         }
     }
 }
