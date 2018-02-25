@@ -1,35 +1,129 @@
-﻿#region
+#region
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LoESoft.Core.models;
 using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
 namespace LoESoft.GameServer.realm.mapsetpiece
 {
-    internal class SetPieces
+    public enum DaysOfWeek : byte
     {
-        private static readonly List<Tuple<MapSetPiece, int, int, string, WmapTerrain[]>> setPieces = new List<Tuple<MapSetPiece, int, int, string, WmapTerrain[]>>
+        Sunday = 0,
+        Monday = 1,
+        Tuesday = 2,
+        Wednesday = 3,
+        Thursday = 4,
+        Friday = 5,
+        Saturday = 6,
+        None = 7
+    }
+
+    public class SetPiece
+    {
+        public string Name { get; private set; }
+        public MapSetPiece MapSetPiece { get; private set; }
+        public int Min { get; private set; }
+        public int Max { get; private set; }
+        public WmapTerrain[] WmapTerrain { get; private set; }
+        public DayOfWeek DayOfWeek { get; private set; }
+        public bool IsWeeklyEvent { get; private set; }
+
+        public SetPiece(
+            string Name,
+            MapSetPiece MapSetPiece,
+            int Min,
+            int Max,
+            WmapTerrain[] WmapTerrain,
+            DaysOfWeek DayOfWeek = DaysOfWeek.None
+            )
         {
-            SetPiece(piece: new Building(), min: 80, max: 100, terrains: new WmapTerrain[3] { WmapTerrain.LowForest, WmapTerrain.LowPlains, WmapTerrain.MidForest }),
-            SetPiece(piece: new Graveyard(), min: 5, max: 10, terrains: new WmapTerrain[2] {WmapTerrain.LowSand, WmapTerrain.LowPlains }),
-            SetPiece(piece: new Grove(), min: 17, max: 25, terrains: new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
-            SetPiece(piece: new LichyTemple(), min: 4, max: 7, terrains: new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
-            SetPiece(piece: new Castle(), min: 4, max: 7, terrains: new WmapTerrain[2] { WmapTerrain.HighForest, WmapTerrain.HighPlains }),
-            SetPiece(piece: new Tower(), min: 8, max: 15, terrains: new WmapTerrain[2] { WmapTerrain.HighForest, WmapTerrain.HighPlains }),
-            SetPiece(piece: new TempleA(), min: 10, max: 20, terrains: new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
-            SetPiece(piece: new TempleB(), min: 10, max: 20, terrains: new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
-            SetPiece(piece: new Oasis(), min: 0, max: 5, terrains: new WmapTerrain[2] { WmapTerrain.LowSand, WmapTerrain.MidSand }),
-            SetPiece(piece: new Pyre(), min: 0, max: 5, terrains: new WmapTerrain[2] { WmapTerrain.MidSand, WmapTerrain.HighSand }),
-            SetPiece(piece: new LavaFissure(), min: 3, max: 5, terrains: new WmapTerrain[1] { WmapTerrain.Mountains }),
-            //SetPiece(piece: new Event(), min: 1, max: 1, terrains: new WmapTerrain[0] { }, weekDay: DayOfWeek.Friday),
+            this.Name = Name;
+            this.MapSetPiece = MapSetPiece;
+            this.Min = Min;
+            this.Max = Max;
+            this.WmapTerrain = WmapTerrain;
+
+            if (DayOfWeek != DaysOfWeek.None)
+            {
+                IsWeeklyEvent = true;
+                this.DayOfWeek = (DayOfWeek)DayOfWeek;
+            }
+            else
+                IsWeeklyEvent = false;
+        }
+    }
+
+    public class SetPieces
+    {
+        public static readonly List<SetPiece> SetPieceCache = new List<SetPiece>
+        {
+            new SetPiece("Building", new Building(), 80, 100, new WmapTerrain[3] { WmapTerrain.LowForest, WmapTerrain.LowPlains, WmapTerrain.MidForest }),
+            new SetPiece("Graveyard", new Graveyard(), 5, 10, new WmapTerrain[2] {WmapTerrain.LowSand, WmapTerrain.LowPlains }),
+            new SetPiece("Grove", new Grove(), 17, 25, new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
+            new SetPiece("Lich Temple", new LichyTemple(), 4, 7, new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
+            new SetPiece("Ghost King Castle", new Castle(), 4, 7, new WmapTerrain[2] { WmapTerrain.HighForest, WmapTerrain.HighPlains }),
+            new SetPiece("Tower", new Tower(), 8, 15, new WmapTerrain[2] { WmapTerrain.HighForest, WmapTerrain.HighPlains }),
+            new SetPiece("Temple Type A", new TempleA(), 10, 20, new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
+            new SetPiece("Temple Type B", new TempleB(), 10, 20, new WmapTerrain[2] { WmapTerrain.MidForest, WmapTerrain.MidPlains }),
+            new SetPiece("Oasis", new Oasis(), 0, 5, new WmapTerrain[2] { WmapTerrain.LowSand, WmapTerrain.MidSand }),
+            new SetPiece("Pyre", new Pyre(), 0, 5, new WmapTerrain[2] { WmapTerrain.MidSand, WmapTerrain.HighSand }),
+            new SetPiece("Lava Fissure", new LavaFissure(), 3, 5, new WmapTerrain[1] { WmapTerrain.Mountains })
         };
 
-        private static Tuple<MapSetPiece, int, int, string, WmapTerrain[]> SetPiece(MapSetPiece piece, int min, int max, string weekDay = null, params WmapTerrain[] terrains)
+        public static void ApplySetPieces(World world)
         {
-            return Tuple.Create(piece, min, max, weekDay, terrains);
+            Wmap map = world.Map;
+            int w = map.Width, h = map.Height;
+
+            Random rand = new Random();
+            HashSet<Rect> rects = new HashSet<Rect>();
+
+            foreach (SetPiece setpiece in SetPieceCache)
+            {
+                int size = setpiece.MapSetPiece.Size;
+                int count = rand.Next(setpiece.Min, setpiece.Max);
+
+                if (setpiece.IsWeeklyEvent)
+                    if (setpiece.DayOfWeek != DateTime.Now.DayOfWeek)
+                        continue;
+
+                for (int i = 0; i < count; i++)
+                {
+                    IntPoint pt = new IntPoint();
+                    Rect rect;
+
+                    do
+                    {
+                        pt.X = rand.Next(0, w);
+                        pt.Y = rand.Next(0, h);
+                        rect = new Rect { x = pt.X, y = pt.Y, w = size, h = size };
+                    } while ((Array.IndexOf(setpiece.WmapTerrain, map[pt.X, pt.Y].Terrain) == -1 || rects.Any(_ => Rect.Intersects(rect, _))));
+
+                    setpiece.MapSetPiece.RenderSetPiece(world, pt);
+
+                    rects.Add(rect);
+                }
+            }
+        }
+
+        private struct Rect
+        {
+            public int h;
+            public int w;
+            public int x;
+            public int y;
+
+            public static bool Intersects(Rect r1, Rect r2)
+            {
+                return !(r2.x > r1.x + r1.w ||
+                         r2.x + r2.w < r1.x ||
+                         r2.y > r1.y + r1.h ||
+                         r2.y + r2.h < r1.y);
+            }
         }
 
         public static int[,] RotateCW(int[,] mat)
@@ -67,61 +161,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                 for (int y = 0; y < N; y++)
                     ret[M - x - 1, y] = mat[x, y];
             return ret;
-        }
-
-        public static void ApplySetPieces(World world)
-        {
-            Wmap map = world.Map;
-            int w = map.Width, h = map.Height;
-            DateTime today = DateTime.Now;
-
-            Random rand = new Random();
-            HashSet<Rect> rects = new HashSet<Rect>();
-            foreach (Tuple<MapSetPiece, int, int, string, WmapTerrain[]> dat in setPieces)
-            {
-                int size = dat.Item1.Size;
-                int count = rand.Next(dat.Item2, dat.Item3);
-
-                if (dat.Item4 == null || dat.Item4 == today.DayOfWeek.ToString())
-                {
-                    for (int i = 0; i < count; i++)
-                    {
-                        IntPoint pt = new IntPoint();
-                        Rect rect;
-
-                        int max = 50;
-                        do
-                        {
-                            pt.X = rand.Next(0, w);
-                            pt.Y = rand.Next(0, h);
-                            rect = new Rect { x = pt.X, y = pt.Y, w = size, h = size };
-                            max--;
-                        } while ((Array.IndexOf(dat.Item5, map[pt.X, pt.Y].Terrain) == -1 ||
-                                  rects.Any(_ => Rect.Intersects(rect, _))) &&
-                                 max > 0);
-                        if (max <= 0) continue;
-
-                        dat.Item1.RenderSetPiece(world, pt);
-                        rects.Add(rect);
-                    }
-                }
-            }
-        }
-
-        private struct Rect
-        {
-            public int h;
-            public int w;
-            public int x;
-            public int y;
-
-            public static bool Intersects(Rect r1, Rect r2)
-            {
-                return !(r2.x > r1.x + r1.w ||
-                         r2.x + r2.w < r1.x ||
-                         r2.y > r1.y + r1.h ||
-                         r2.y + r2.h < r1.y);
-            }
         }
     }
 }

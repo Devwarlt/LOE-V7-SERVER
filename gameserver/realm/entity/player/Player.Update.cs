@@ -1,4 +1,4 @@
-﻿#region
+#region
 
 using System;
 using System.Collections.Generic;
@@ -193,10 +193,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     lastUpdate[i] = i.UpdateCount;
                 }
             }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
+            catch (Exception) { }
 
             if (Quest != null &&
                 (!lastUpdate.ContainsKey(Quest)
