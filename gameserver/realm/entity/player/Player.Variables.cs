@@ -1,6 +1,5 @@
 ﻿#region
 
-using log4net;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -42,7 +41,6 @@ namespace LoESoft.GameServer.realm.entity.player
         private bool ninjaShoot;
         private bool ninjaFreeTimer;
         private bool xpFreeTimer;
-        private static readonly ILog log = LogManager.GetLogger(typeof(Player));
         private bool dying;
         private Item[] inventory;
         private float hpRegenCounter;
@@ -106,7 +104,7 @@ namespace LoESoft.GameServer.realm.entity.player
         private readonly Random invRand = new Random();
         private int[] setTypeBoosts;
         private int updateLastSeen;
-        public Entity Quest { get; private set; }
+        public Enemy Quest { get; private set; }
         private bool worldBroadcast = true;
         private readonly Queue<Tuple<Message, Predicate<Player>>> pendingPackets = new Queue<Tuple<Message, Predicate<Player>>>();
         public TradeManager HandleTrade { get; private set; }

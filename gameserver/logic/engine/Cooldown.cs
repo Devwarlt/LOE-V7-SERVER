@@ -1,6 +1,5 @@
 ﻿#region
 
-using LoESoft.Core.config;
 using System;
 
 #endregion
@@ -12,13 +11,13 @@ namespace LoESoft.GameServer.logic
         public readonly int CoolDown;
         public readonly int Variance;
 
-        public Cooldown(int cooldown, int variance)
+        public Cooldown(int cooldown = 0, int variance = 0)
         {
             CoolDown = cooldown;
             Variance = variance;
         }
 
-        public Cooldown Normalize() => CoolDown == 0 ? (int)(1000 + (1000 * 2.5 / Settings.GAMESERVER.TICKETS_PER_SECOND)) : (int)(CoolDown + (CoolDown * 2.5 / Settings.GAMESERVER.TICKETS_PER_SECOND));
+        public Cooldown Normalize() => CoolDown == 0 ? 1000 : CoolDown;
 
         public Cooldown Normalize(int def) => CoolDown == 0 ? def : this;
 

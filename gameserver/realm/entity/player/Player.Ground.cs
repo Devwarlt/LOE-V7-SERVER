@@ -41,10 +41,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                 b = time.TotalElapsedMs;
             }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
+            catch (Exception) { }
         }
     }
 }

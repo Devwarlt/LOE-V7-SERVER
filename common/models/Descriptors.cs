@@ -1009,7 +1009,7 @@ public class ObjectDesc
         if ((n = elem.Element("Level")) != null)
             Level = Utils.FromString(n.Value);
         else
-            Level = null;
+            Level = 0;
 
         Tags = new TagList();
         if (elem.Elements("Tag").Any())
@@ -1022,6 +1022,7 @@ public class ObjectDesc
         DazedImmune = elem.Element("DazedImmune") != null;
         Oryx = elem.Element("Oryx") != null;
         Hero = elem.Element("Hero") != null;
+        Encounter = elem.Element("Encounter") != null;
 
         if ((n = elem.Element("PerRealmMax")) != null)
             PerRealmMax = Utils.FromString(n.Value);
@@ -1038,7 +1039,10 @@ public class ObjectDesc
             NewExperience = true;
         }
         else
+        {
+            Experience = 0;
             NewExperience = false;
+        }
 
         Connects = elem.Element("Connects") != null;
 
@@ -1102,13 +1106,14 @@ public class ObjectDesc
     public bool Cube { get; private set; }
     public bool God { get; private set; }
     public bool Quest { get; private set; }
-    public int? Level { get; private set; }
+    public int Level { get; private set; }
     public bool StasisImmune { get; private set; }
     public bool StunImmune { get; private set; }
     public bool ParalyzedImmune { get; private set; }
     public bool DazedImmune { get; private set; }
     public bool Oryx { get; private set; }
     public bool Hero { get; private set; }
+    public bool Encounter { get; private set; }
     public int? PerRealmMax { get; private set; }
     public float? ExpMultiplier { get; private set; } //Exp gained = level total / 10 * multi
 

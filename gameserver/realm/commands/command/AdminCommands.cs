@@ -31,9 +31,9 @@ namespace LoESoft.GameServer.realm.commands
         }
     }
 
-    class posCmd : Command
+    class PosCmd : Command
     {
-        public posCmd() : base("p", (int)AccountType.LOESOFT_ACCOUNT) { }
+        public PosCmd() : base("p", (int)AccountType.LOESOFT_ACCOUNT) { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -256,10 +256,10 @@ namespace LoESoft.GameServer.realm.commands
             while (killed != lastKilled)
             {
                 lastKilled = killed;
-                foreach (var i in player.Owner.Enemies.Values.Where(e =>
-                    e.ObjectDesc?.ObjectId != null && e.ObjectDesc.ObjectId.ContainsIgnoreCase(mobName)))
+                foreach (var i in player.Owner.Enemies.Values
+                    .Where(e => e.ObjectDesc.ObjectId != null && e.ObjectDesc.ObjectId.ContainsIgnoreCase(mobName) && !e.IsPet && e.ObjectDesc.Enemy))
                 {
-                    i.Death(time);
+                    i.CheckDeath = true;
                     killed++;
                 }
                 if (++iterations >= 5)
@@ -480,7 +480,6 @@ namespace LoESoft.GameServer.realm.commands
                     Y = player.Quest.Y
                 }
             }, null);
-            player.Pet.Move(player.X, player.Y);
             player.SendInfo("Success!");
             return true;
         }
@@ -667,7 +666,7 @@ namespace LoESoft.GameServer.realm.commands
             try
             {
                 MapSetPiece piece = (MapSetPiece)Activator.CreateInstance(System.Type.GetType(
-                    "LoESoft.GameServer.realm.mapsetpieces.setpieces." + args[0], true, true));
+                    "LoESoft.GameServer.realm.mapsetpieces." + args[0], true, true));
                 piece.RenderSetPiece(player.Owner, new IntPoint((int)player.X + 1, (int)player.Y + 1));
                 return true;
             }

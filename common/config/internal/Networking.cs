@@ -29,7 +29,7 @@ namespace LoESoft.Core.config
                 Tuple.Create("v6-1.4", false),
                 Tuple.Create("v6-1.5", false),
                 Tuple.Create("v6-1.5.1", false),
-                Tuple.Create("v6-1.6", true)
+                Tuple.Create("v6-1.6 edition 1: pre-beta", true)
             };
 
             public static List<Tuple<string, bool>> SUPPORTED_VERSIONS()

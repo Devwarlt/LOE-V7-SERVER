@@ -80,26 +80,20 @@ namespace LoESoft.GameServer.logic.loot
     public class WhiteBag : ILootDef
     {
         private readonly bool eventChest;
-        private readonly ILootDef[] loot;
+        private readonly string itemName;
 
         public string Lootstate { get; set; }
 
         public WhiteBag(string itemName, bool eventChest = false)
         {
             this.eventChest = eventChest;
-            loot = new ILootDef[] { new MostDamagers(5, new ItemLoot(itemName, eventChest ? .01 : .05)) };
+            this.itemName = itemName;
         }
 
-        public WhiteBag(string[] itemNames, bool eventChest = false)
+        public WhiteBag(string[] itemName, bool eventChest = false)
         {
             this.eventChest = eventChest;
-            loot = new ILootDef[] { new MostDamagers(5, new ItemLoot(ProcessOnlyOne(itemNames), eventChest ? .01 : .05)) };
-        }
-
-        private string ProcessOnlyOne(string[] itemNames)
-        {
-            List<string> items = itemNames.ToList();
-            return items[new Random().Next(0, items.Count)];
+            this.itemName = itemName[new Random().Next(0, itemName.Length)];
         }
 
         public void Populate(
@@ -115,29 +109,34 @@ namespace LoESoft.GameServer.logic.loot
             if (playerData == null)
                 return;
 
-            Tuple<Player, int>[] enemyData = enemy.DamageCounter.GetPlayerData();
+            List<Tuple<Player, int>> candidates = enemy.DamageCounter.GetPlayerData().ToList();
 
-            int damageData = GetDamageData(enemyData);
-            double enemyHP = enemy.ObjectDesc.MaxHP;
+            double chance = .25 * (eventChest ? .8 : 1);
+            double rng = rnd.NextDouble();
+            double probability = 0;
 
-            if (damageData >= enemyHP * .2)
+            int playersCount = candidates.Count;
+            int mostDamagers = 0;
+            int enemyHP = (int)enemy.ObjectDesc.MaxHP;
+
+            if (playersCount == 1)
+                probability = 0.0001;
+            else if (playersCount > 1 && playersCount <= 3)
+                probability = 0.0001 + 0.0001 * playersCount;
+            else
             {
-                double chance = eventChest ? .01 : .05;
-                double rng = rnd.NextDouble();
+                probability = 0.0002 + 0.000005 * playersCount;
 
-                if (rng <= chance)
-                    foreach (ILootDef i in loot)
-                        i.Populate(enemy, playerData, rnd, Lootstate, lootDefs);
+                if (playersCount >= 30)
+                    mostDamagers = playersCount / 10;
             }
-        }
 
-        private int GetDamageData(IEnumerable<Tuple<Player, int>> data)
-        {
-            List<int> damages = data.Select(_ => _.Item2).ToList();
-            int totalDamage = 0;
-            for (int i = 0; i < damages.Count; i++)
-                totalDamage += damages[i];
-            return totalDamage;
+            ILootDef[] whitebag = mostDamagers >= 3 ?
+                new ILootDef[] { new MostDamagers(mostDamagers, new ItemLoot(itemName, probability * (eventChest ? .8 : 1))) } :
+                new ILootDef[] { new Drops(new ItemLoot(itemName, probability * (eventChest ? .8 : 1))) };
+
+            if (rng <= chance)
+                whitebag[0].Populate(enemy, playerData, rnd, Lootstate, lootDefs);
         }
     }
 

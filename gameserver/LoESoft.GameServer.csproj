@@ -131,7 +131,7 @@
     <Compile Include="logic\engine\task\TaskManager.Dictionary.cs" />
     <Compile Include="logic\engine\task\TaskManager.Init.cs" />
     <Compile Include="logic\engine\task\TaskManager.Instances.cs" />
-    <Compile Include="logic\monsters\Dream Island\Enemies.cs" />
+    <Compile Include="logic\monsters\Dream Island\Minions.cs" />
     <Compile Include="logic\monsters\Dream Island\MiniBosses.cs" />
     <Compile Include="logic\monsters\Dungeons\Abyss of the Demons\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\Battle of the Nexus\Enemies.cs" />
@@ -444,7 +444,6 @@
     <Compile Include="realm\entity\player\Player.Boosts.cs" />
     <Compile Include="realm\entity\player\Player.Chat.cs" />
     <Compile Include="realm\entity\player\Player.Damage.cs" />
-    <Compile Include="realm\entity\player\Player.Dictionary.cs" />
     <Compile Include="realm\entity\player\Player.Effects.cs" />
     <Compile Include="realm\entity\player\Player.ExportStats.cs" />
     <Compile Include="realm\entity\player\Player.Ground.cs" />
@@ -486,13 +485,18 @@
     <Compile Include="realm\mapsetpiece\setpieces\Oasis.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Pentaract.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Pyre.cs" />
-    <Compile Include="realm\mapsetpiece\setpieces\SetPieces.cs" />
+    <Compile Include="realm\mapsetpiece\SetPieces.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\SkullShrine.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Sphinx.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Temple.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\TempleA.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\TempleB.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Tower.cs" />
+    <Compile Include="realm\world\realms\RealmEvents.cs" />
+    <Compile Include="realm\world\realms\RealmHeroes.cs" />
+    <Compile Include="realm\world\realms\RealmSpawns.cs" />
+    <Compile Include="realm\world\realms\RealmTaunts.cs" />
+    <Compile Include="realm\world\realms\RealmUtils.cs" />
     <Compile Include="realm\world\Sight.cs" />
     <Compile Include="realm\Stats.cs" />
     <Compile Include="realm\StatsManager.cs" />
@@ -523,7 +527,7 @@
     <Compile Include="realm\world\worlds\GameWorld.cs" />
     <Compile Include="realm\world\worlds\Kitchen.cs" />
     <Compile Include="realm\world\worlds\Nexus.cs" />
-    <Compile Include="realm\world\Oryx.cs" />
+    <Compile Include="realm\world\realms\Realm.cs" />
     <Compile Include="realm\world\worlds\dungeons\OceanTrench.cs" />
     <Compile Include="realm\world\worlds\dungeons\OryxCastle.cs" />
     <Compile Include="realm\world\worlds\Test.cs" />

@@ -17,7 +17,8 @@ namespace LoESoft.GameServer.realm.entity
             this.duration = duration;
             speed = tps;
 
-            Position? history = player.TryGetHistory(1);
+            Position? history = player.TryGetHistory(1000);
+
             if (history == null)
                 direction = GetRandDirection();
             else

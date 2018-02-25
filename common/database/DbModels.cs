@@ -151,7 +151,7 @@ namespace LoESoft.Core
 
         internal DbLoginInfo(Database db, string uuid)
         {
-            this.Db = db;
+            Db = db;
             UUID = uuid;
             var json = db.Hashes.GetString(0, "logins", uuid.ToUpperInvariant()).Exec();
             if (json == null)

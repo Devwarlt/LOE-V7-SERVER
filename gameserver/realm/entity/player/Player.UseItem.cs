@@ -397,15 +397,9 @@ namespace LoESoft.GameServer.realm.entity.player
                                             enemy => PoisonEnemy(enemy as Enemy, eff));
                                     }));
                                 }
-                                catch (Exception ex)
-                                {
-                                    log.ErrorFormat("Poison ShowEffect:\n{0}", ex);
-                                }
+                                catch (Exception) { }
                             }
-                            catch (Exception ex)
-                            {
-                                log.ErrorFormat("Poisons General:\n{0}", ex);
-                            }
+                            catch (Exception) { }
                         }
                         break;
                     case ActivateEffects.Donor:
@@ -591,10 +585,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                         {
                                             w?.LeaveWorld(entity);
                                         }
-                                        catch (Exception ex)
-                                        {
-                                            log.ErrorFormat("Couldn't despawn portal.\n{0}", ex);
-                                        }
+                                        catch (Exception) { }
                                     }));
                                 return false;
                             }
@@ -770,10 +761,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 {
                                     w?.LeaveWorld(por);
                                 }
-                                catch (Exception ex)
-                                {
-                                    log.ErrorFormat("Couldn't despawn portal.\n{0}", ex);
-                                }
+                                catch (Exception) { }
                             }));
                         }
                         break;
@@ -1432,18 +1420,13 @@ namespace LoESoft.GameServer.realm.entity.player
                 });
                 Owner?.Timers.Add(tmr);
             }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
+            catch (Exception) { }
         }
 
         private bool CheatEngineDetectSlot(Item item, USEITEM pkt, IContainer con) => pkt?.SlotObject.SlotId != 255 && pkt?.SlotObject.SlotId != 254 && con?.Inventory[pkt.SlotObject.SlotId] != item;
 
         private bool CheatEngineDetect(Item item, USEITEM pkt)
         {
-            log.FatalFormat("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
-                Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId);
             foreach (Player player in Owner?.Players.Values)
                 if (player?.Client.Account.AccountType >= (int)Core.config.AccountType.TUTOR_ACCOUNT)
                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",

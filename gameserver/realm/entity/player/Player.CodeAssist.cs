@@ -10,6 +10,7 @@ using LoESoft.GameServer.networking;
 using LoESoft.GameServer.networking.error;
 using FAILURE = LoESoft.GameServer.networking.incoming.FAILURE;
 using LoESoft.GameServer.realm.world;
+using LoESoft.Core;
 
 #endregion
 
@@ -17,6 +18,13 @@ namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {
+        public static void HandleQuests(EmbeddedData data)
+        {
+            foreach (var i in data.ObjectDescs.Values)
+                if (i.Enemy && i.Quest)
+                    RealmManager.QuestPortraits.Add(i.ObjectId, i.Level);
+        }
+
         public enum PlayerShootStatus
         {
             OK,
@@ -231,10 +239,8 @@ namespace LoESoft.GameServer.realm.entity.player
                         break;
                 }
             }
-            catch (Exception ex)
-            {
-                log.Error(ex);
-            }
+            catch (Exception) { }
+
             chr.Stats = Stats;
             chr.HealthPotions = HealthPotions;
             chr.MagicPotions = MagicPotions;

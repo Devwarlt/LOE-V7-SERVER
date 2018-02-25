@@ -3,22 +3,30 @@
 using System;
 using System.Collections.Generic;
 using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity;
 
 #endregion
 
 namespace LoESoft.GameServer.logic
 {
-    public interface IStateChildren
+    public interface INonSkippableState
     {
+        Enemy Enemy { get; set; }
+        bool DoneAction { get; set; }
+        bool DoneStorage { get; set; }
+        bool Skip { get; set; }
+        int StoreHP { get; set; }
+
+        void ManageHP(int stored, int threshold);
     }
+
+    public interface IStateChildren { }
 
     public class State : IStateChildren
     {
         public static readonly State NullState = new State();
 
-        public State(params IStateChildren[] children) : this("", children)
-        {
-        }
+        public State(params IStateChildren[] children) : this("", children) { }
 
         public State(string name, params IStateChildren[] children)
         {
@@ -45,9 +53,9 @@ namespace LoESoft.GameServer.logic
 
         public string Name { get; private set; }
         public State Parent { get; private set; }
-        public IList<State> States { get; private set; }
-        public IList<Behavior> Behaviors { get; private set; }
-        public IList<Transition> Transitions { get; private set; }
+        public IList<State> States { get; set; }
+        public IList<Behavior> Behaviors { get; set; }
+        public IList<Transition> Transitions { get; set; }
 
         public static State CommonParent(State a, State b)
         {

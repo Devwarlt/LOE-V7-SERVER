@@ -22,10 +22,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 Owner.LeaveWorld(this);
                 w.Timers.Add(new WorldTimer(Random.Next(30, 60) * 1000, (world, time) => w.EnterWorld(mrc)));
             }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
+            catch (Exception) { }
         }
 
         public override void Buy(Player player)
@@ -89,10 +86,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                                 return;
                             }
                         }
-                        catch (Exception e)
-                        {
-                            log.Error(e);
-                        }
+                        catch (Exception) { }
                     }
                     player.Client.SendMessage(new BUYRESULT
                     {

@@ -304,10 +304,7 @@ namespace LoESoft.GameServer.realm
             player.Id = GetNextEntityId();
 
             if (!Players.TryAdd(player.Id, player) || !Entities.TryAdd(player.Id, player))
-            {
-                Log.Error($"Player '{player.Name}' wasn't added to World '{Name}'.");
                 return;
-            }
 
             player.Init(this);
 
@@ -317,10 +314,7 @@ namespace LoESoft.GameServer.realm
         private void TryRemove(Player player)
         {
             if (!Players.TryRemove(player.Id, out Player dummy) || !Entities.TryRemove(player.Id, out Entity entity))
-            {
-                Log.Error($"Player '{player.Name}' wasn't removed from World '{Name}'.");
                 return;
-            }
 
             PlayersCollision.Remove(player);
         }
@@ -329,18 +323,16 @@ namespace LoESoft.GameServer.realm
         {
             enemy.Id = GetNextEntityId();
 
-            if (!Enemies.TryAdd(enemy.Id, enemy) || !Entities.TryAdd(enemy.Id, enemy))
-            {
-                Log.Error($"Enemy '{enemy.Name}' wasn't added to World '{Name}'.");
-                return;
-            }
-
             if (enemy.ObjectDesc.Quest)
-                if (!Quests.TryAdd(enemy.Id, enemy))
-                {
-                    Log.Error($"Enemy Quest '{enemy.Name}' wasn't added to World '{Name}'.");
+            {
+                if (!Quests.TryAdd(enemy.Id, enemy) || !Enemies.TryAdd(enemy.Id, enemy) || !Entities.TryAdd(enemy.Id, enemy))
                     return;
-                }
+            }
+            else
+            {
+                if (!Enemies.TryAdd(enemy.Id, enemy) || !Entities.TryAdd(enemy.Id, enemy))
+                    return;
+            }
 
             enemy.Init(this);
 
@@ -349,21 +341,18 @@ namespace LoESoft.GameServer.realm
 
         private void TryRemove(Enemy enemy)
         {
-
-            if (!Enemies.TryRemove(enemy.Id, out Enemy dummy) || !Entities.TryRemove(enemy.Id, out Entity entity))
+            if (enemy.ObjectDesc.Quest)
             {
-                Log.Error($"Enemy '{enemy.Name}' wasn't removed from World '{Name}'.");
-                return;
+                if (!Quests.TryRemove(enemy.Id, out Enemy dummy) || !Enemies.TryRemove(enemy.Id, out dummy) || !Entities.TryRemove(enemy.Id, out Entity entity))
+                    return;
+            }
+            else
+            {
+                if (!Enemies.TryRemove(enemy.Id, out Enemy dummy) || !Entities.TryRemove(enemy.Id, out Entity entity))
+                    return;
             }
 
             EnemiesCollision.Remove(enemy);
-
-            if (enemy.ObjectDesc.Quest)
-                if (!Quests.TryRemove(enemy.Id, out dummy))
-                {
-                    Log.Error($"Enemy Quest '{enemy.Name}' wasn't removed from World '{Name}'.");
-                    return;
-                }
         }
 
         private void TryAdd(Projectile projectile)
@@ -379,10 +368,7 @@ namespace LoESoft.GameServer.realm
             gameObject.Id = GetNextEntityId();
 
             if (!GameObjects.TryAdd(gameObject.Id, gameObject) || !Entities.TryAdd(gameObject.Id, gameObject))
-            {
-                Log.Error($"Game Object '{gameObject.Name}' wasn't added to World '{Name}'.");
                 return;
-            }
 
             gameObject.Init(this);
         }
@@ -394,10 +380,7 @@ namespace LoESoft.GameServer.realm
                 return;
 
             if (!GameObjects.TryRemove(gameObject.Id, out GameObject dummy) || !Entities.TryRemove(gameObject.Id, out Entity entity))
-            {
-                Log.Error($"Game Object '{gameObject.Name}' wasn't removed from World '{Name}'.");
                 return;
-            }
         }
 
         public Entity GetEntity(int id)
