@@ -75,15 +75,16 @@ namespace LoESoft.Core.config
                 else
                 {
                     for (int i = 0; i < serverAmount; i++)
-                        gameserver.Add(new ServerItem()
-                        {
-                            Name = SERVERS[i].Item1,
-                            DNS = CheckDDNS(SERVERS[i].Item2, i),
-                            Lat = 0,
-                            Long = 0,
-                            Usage = IS_PRODUCTION ? GetUsage(CheckDDNS(SERVERS[i].Item2, i), GAMESERVER.PORT) : SERVERS[i].Item3,
-                            AdminOnly = false
-                        });
+                        if (SERVERS[i].Item1 != "Localhost")
+                            gameserver.Add(new ServerItem()
+                            {
+                                Name = SERVERS[i].Item1,
+                                DNS = CheckDDNS(SERVERS[i].Item2, i),
+                                Lat = 0,
+                                Long = 0,
+                                Usage = IS_PRODUCTION ? GetUsage(CheckDDNS(SERVERS[i].Item2, i), GAMESERVER.PORT) : SERVERS[i].Item3,
+                                AdminOnly = false
+                            });
                 }
                 return gameserver;
             }

@@ -147,7 +147,7 @@ namespace LoESoft.GameServer
                     try
                     {
                         foreach (ClientData cData in Manager.ClientManager.Values)
-                            Chat.Tell(cData.Client.Player, "(!) Notification (!)", ("Hey (PLAYER_NAME), prepare to disconnect. " + message).Replace("(PLAYER_NAME)", cData.Client.Player.Name));
+                            cData.Client.Player.SendInfo(message);
                     }
                     catch (Exception ex)
                     {
@@ -161,7 +161,7 @@ namespace LoESoft.GameServer
                 try
                 {
                     foreach (ClientData cData in Manager.ClientManager.Values)
-                        Chat.Tell(cData.Client.Player, "(!) Notification (!)", message);
+                        cData.Client.Player.SendInfo(message);
                 }
                 catch (Exception ex)
                 {
