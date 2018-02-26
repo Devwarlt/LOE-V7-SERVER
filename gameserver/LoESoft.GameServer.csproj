@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LoESoft.GameServer</RootNamespace>
-    <AssemblyName>LoESoft.GameServer</AssemblyName>
+    <AssemblyName>GameServer</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MonoTargetFrameworkVersion>v4.0</MonoTargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

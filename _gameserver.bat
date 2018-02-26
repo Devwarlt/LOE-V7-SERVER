@@ -1,7 +1,7 @@
 FOR /F "tokens=4 delims= " %%P IN ('netstat -a -n -o ^| findstr :2050') DO @ECHO TaskKill.exe /PID %%P
-taskkill /f /im LoESoft.GameServer.exe
+taskkill /f /im GameServer.exe
 FOR /F "tokens=4 delims= " %%P IN ('netstat -a -n -o ^| findstr :2050') DO @ECHO TaskKill.exe /PID %%P
-taskkill /f /im LoESoft.GameServer.exe
+taskkill /f /im GameServer.exe
 cd bin-server
-start LoESoft.GameServer.exe
+start GameServer.exe
 exit

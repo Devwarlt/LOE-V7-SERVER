@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LoESoft.Core</RootNamespace>
-    <AssemblyName>LoESoft.Core</AssemblyName>
+    <AssemblyName>Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MonoTargetFrameworkVersion>v4.0</MonoTargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -249,6 +249,7 @@
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmEdition1ProjectilesCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_LoERealmProjectilesCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
