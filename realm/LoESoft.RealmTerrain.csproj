@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LoESoft.RealmTerrain</RootNamespace>
-    <AssemblyName>LoESoft.RealmTerrain</AssemblyName>
+    <AssemblyName>RealmTerrain</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MonoTargetFrameworkVersion>v4.0</MonoTargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
