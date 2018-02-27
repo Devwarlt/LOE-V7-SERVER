@@ -21,15 +21,17 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("4",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invincible), // ok
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(25, 250),
                         new State("nothin"),
                         new State("5",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(9 + 1 / 2, 1, index: 0, coolDown: 1000),
                             new EntitiesNotExistsTransition(999, "6", "md1 Right Hand of Shaitan", "md1 Left Hand of Shaitan")
                             ),
                         new State("6",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new SetAltTexture(1),
                             new EntityOrder(999, "md1 Governor", "1"),
                             new MoveTo(13.5f, 5, 0.8, true, true),
@@ -37,68 +39,71 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("7",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(0, "8")
                         ),
                     new State("8",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.8, "18"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "9")
                         ),
                     new State("9",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(8.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "10")
                         ),
                     new State("10",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.8, "18"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "11")
                         ),
                     new State("11",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(3.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "12")
                         ),
                     new State("12",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.8, "18"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "13")
                         ),
                     new State("13",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ReturnToSpawn(true, 0.8),
                         new TimedTransition(2000, "14")
                         ),
                     new State("14",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Hand spawner", "1"),
                         new EntityOrder(999, "md1 Left Hand spawner", "1"),
                         new EntityExistsTransition("md1 Right Hand of Shaitan", 999, "15")
                         ),
                     new State("15",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityExistsTransition("md1 Left Hand of Shaitan", 999, "16")
                         ),
                     new State("16",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Hand of Shaitan", "TEST"),
                         new EntityOrder(999, "md1 Left Hand of Shaitan", "TEST"),
                         new TimedTransition(0, "17")
                         ),
                     new State("17",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(9 + 1 / 2, 1, index: 0, coolDown: 1000),
                         new EntitiesNotExistsTransition(999, "5", "md1 Right Hand of Shaitan", "md1 Left Hand of Shaitan")
                         ),
                     //Phase 2
                     new State("18",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(0),
                         new ReturnToSpawn(true, 0.8),
                         new Taunt("Let loose the fists of war!"),
@@ -116,77 +121,79 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("21",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new SetAltTexture(1),
                         new EntityOrder(999, "md1 Governor", "1"),
                         new MoveTo(13.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "22")
                         ),
                     new State("22",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Burst", "2"),
                         new EntityOrder(999, "md1 Mid Burst", "2"),
                         new EntityOrder(999, "md1 Left Burst", "2"),
                         new TimedTransition(0, "23")
                         ),
                     new State("23",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.6, "43"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "24")
                         ),
                     new State("24",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(8.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "25")
                         ),
                     new State("25",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.6, "43"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "26")
                         ),
                     new State("26",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(3.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "27")
                         ),
                     new State("27",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.6, "43"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "28")
                         ),
                     new State("28",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ReturnToSpawn(true, 0.8),
                         new TimedTransition(2000, "29")
                         ),
                     new State("29",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Hand spawner", "1"),
                         new EntityOrder(999, "md1 Left Hand spawner", "1"),
                         new EntityExistsTransition("md1 Right Hand of Shaitan", 999, "30")
                         ),
                     new State("30",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityExistsTransition("md1 Left Hand of Shaitan", 999, "31")
                         ),
                     new State("31",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Hand of Shaitan", "TEST"),
                         new EntityOrder(999, "md1 Left Hand of Shaitan", "TEST"),
                         new TimedTransition(0, "32")
                         ),
                     new State("32",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(9 + 1 / 2, 1, index: 0, coolDown: 1000),
                         new EntitiesNotExistsTransition(999, "33", "md1 Right Hand of Shaitan", "md1 Left Hand of Shaitan")
                         ),
                     new State("33",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(0),
                         new ReturnToSpawn(true, 0.8),
                         new Shoot(9 + 1 / 2, 1, index: 0, coolDown: 1000),
@@ -203,52 +210,55 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("36",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new EntityOrder(999, "md1 Governor", "1"),
                         new MoveTo(13.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "37")
                         ),
                     new State("37",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Burst", "2"),
                         new EntityOrder(999, "md1 Mid Burst", "2"),
                         new EntityOrder(999, "md1 Left Burst", "2"),
                         new TimedTransition(0, "38")
                         ),
                     new State("38",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.6, "43"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "39")
                         ),
                     new State("39",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(8.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "40")
                         ),
                     new State("40",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.6, "43"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "41")
                         ),
                     new State("41",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(3.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "42")
                         ),
                     new State("42",
-                        new HpLessTransition(0.6, "43"),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
+                        new HpLessTransition(0.6, "43"), // ok
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "28")
                         ),
                     //Phase 3
                     new State("43",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(0),
                         new ReturnToSpawn(true, 0.8),
                         new Taunt("YOUR ARE BEGINNING TO UPSET ME. ENJOY A FAST DEATH!"),
@@ -267,77 +277,80 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("46",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new EntityOrder(999, "md1 Governor", "1"),
                         new MoveTo(13.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "47")
                         ),
                     new State("47",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Burst", "2"),
                         new EntityOrder(999, "md1 Mid Burst", "2"),
                         new EntityOrder(999, "md1 Left Burst", "2"),
                         new TimedTransition(0, "48")
                         ),
                     new State("48",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.4, "68"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "49")
                         ),
                     new State("49",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(8.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "50")
                         ),
                     new State("50",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.4, "68"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "51")
                         ),
                     new State("51",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(3.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "52")
                         ),
                     new State("52",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.4, "68"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "53")
                         ),
                     new State("53",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ReturnToSpawn(true, 0.8),
                         new TimedTransition(2000, "54")
                         ),
                     new State("54",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Hand spawner", "1"),
                         new EntityOrder(999, "md1 Left Hand spawner", "1"),
                         new EntityExistsTransition("md1 Right Hand of Shaitan", 999, "55")
                         ),
                     new State("55",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityExistsTransition("md1 Left Hand of Shaitan", 999, "56")
                         ),
                     new State("56",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Hand of Shaitan", "TEST"),
                         new EntityOrder(999, "md1 Left Hand of Shaitan", "TEST"),
                         new TimedTransition(0, "57")
                         ),
                     new State("57",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(9 + 1 / 2, 1, index: 0, coolDown: 1000),
                         new EntitiesNotExistsTransition(999, "58", "md1 Right Hand of Shaitan", "md1 Left Hand of Shaitan")
                         ),
                     new State("58",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(0),
                         new ReturnToSpawn(true, 0.8),
                         new Shoot(9 + 1 / 2, 1, index: 0, coolDown: 1000),
@@ -355,44 +368,47 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("61",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new EntityOrder(999, "md1 Governor", "1"),
                         new MoveTo(13.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "62")
                         ),
                     new State("62",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Burst", "2"),
                         new EntityOrder(999, "md1 Mid Burst", "2"),
                         new EntityOrder(999, "md1 Left Burst", "2"),
                         new TimedTransition(0, "63")
                         ),
                     new State("63",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.4, "68"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "64")
                         ),
                     new State("64",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(8.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "65")
                         ),
                     new State("65",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.4, "68"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "66")
                         ),
                     new State("66",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(3.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "67")
                         ),
                     new State("67",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.4, "68"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
@@ -400,7 +416,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     //Phase 4
                     new State("68",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(0),
                         new ReturnToSpawn(true, 0.8),
                         new Taunt("BE CONSUMED BY FLAMES!"),
@@ -420,77 +436,80 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("71",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new EntityOrder(999, "md1 Governor", "1"),
                         new MoveTo(13.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "72")
                         ),
                     new State("72",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Burst", "2"),
                         new EntityOrder(999, "md1 Mid Burst", "2"),
                         new EntityOrder(999, "md1 Left Burst", "2"),
                         new TimedTransition(0, "73")
                         ),
                     new State("73",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.2, "94"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "74")
                         ),
                     new State("74",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(8.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "75")
                         ),
                     new State("75",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.2, "94"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "76")
                         ),
                     new State("76",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(3.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "77")
                         ),
                     new State("77",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.2, "94"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "78")
                         ),
                     new State("78",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ReturnToSpawn(true, 0.8),
                         new TimedTransition(2000, "79")
                         ),
                     new State("79",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Hand spawner", "1"),
                         new EntityOrder(999, "md1 Left Hand spawner", "1"),
                         new EntityExistsTransition("md1 Right Hand of Shaitan", 999, "80")
                         ),
                     new State("80",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityExistsTransition("md1 Left Hand of Shaitan", 999, "81")
                         ),
                     new State("81",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Hand of Shaitan", "TEST"),
                         new EntityOrder(999, "md1 Left Hand of Shaitan", "TEST"),
                         new TimedTransition(0, "82")
                         ),
                     new State("82",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(9 + 1 / 2, 1, index: 0, coolDown: 1000),
                         new EntitiesNotExistsTransition(999, "83", "md1 Right Hand of Shaitan", "md1 Left Hand of Shaitan")
                         ),
                     new State("83",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(0),
                         new ReturnToSpawn(true, 0.8),
                         new Shoot(9 + 1 / 2, 1, index: 0, coolDown: 1000),
@@ -509,61 +528,63 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("86",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new EntityOrder(999, "md1 Governor", "1"),
                         new MoveTo(13.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "87")
                         ),
                     new State("87",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(999, "md1 Right Burst", "2"),
                         new EntityOrder(999, "md1 Mid Burst", "2"),
                         new EntityOrder(999, "md1 Left Burst", "2"),
                         new TimedTransition(0, "88")
                         ),
                     new State("88",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.2, "94"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "89")
                         ),
                     new State("89",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(8.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "90")
                         ),
                     new State("90",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.2, "94"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "91")
                         ),
                     new State("91",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new MoveTo(3.5f, 5, 0.8, true, true),
                         new TimedTransition(2000, "92")
                         ),
                     new State("92",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.2, "94"),
                         new SetAltTexture(0),
                         new Shoot(8, 7, 15, 0, aim: 1, coolDown: 1000),
                         new TimedTransition(2000, "80")
                         ),
                     new State("94",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Taunt(true, "THE MAD GOD SHALL KNOW OF THESE TRANSGRESSIONS!"),
                         new TimedTransition(2000, "95")
                         ),
                     new State("95",
-                        new Shoot(999, 5, 72, 0, 0, 0),
                         new Suicide()
                         )
-
                     )
             )
+
             .Init("md1 LeftHandSmash",
                 new State(
                     new AddCond(ConditionEffectIndex.Invincible),
@@ -705,13 +726,12 @@ namespace LoESoft.GameServer.logic
                         new AddCond(ConditionEffectIndex.Invincible)
                         ),
                     new State("2",
-                        new AddCond(ConditionEffectIndex.Invincible),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invincible),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(20, 200),
                         new TimedTransition(7000, "3")
                         ),
                     new State("3",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new Taunt(true, "Hah. Weakings. This will be slightly enjoyable.", "You are in the presence of demi-god, motral", "What hath the keepers brought Shaitan?", "You disturb an ancient evil...", "You think it wise to use such cheap tricks?", "You make a foolish mistake, mortal."),
                         new State("4",
                             new SetAltTexture(1),
@@ -755,12 +775,11 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                         new State("14",//unset conditional effect
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new EntityOrder(999, "md1 Head of Shaitan", "5"),
                             new TimedTransition(0, "15")
                             ),
                         new State("TEST",
-                            new AddCond(ConditionEffectIndex.Invincible),
                             new TimedTransition(0, "15")
                             ),
                         new State("15",
@@ -805,13 +824,11 @@ namespace LoESoft.GameServer.logic
                         new AddCond(ConditionEffectIndex.Invincible)
                         ),
                     new State("2",
-                        new AddCond(ConditionEffectIndex.Invincible),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invincible),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(20, 200)
                         ),
                     new State("3",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
-                        new AddCond(ConditionEffectIndex.Invincible),
                         new Taunt(true, "Yes, little mortals. Meet your doom at the hands of SHAITAN!", "My firey fingers of frustrating flame force foes to fumble, fall, and fail!", "You think it wise to use such cheap tricks?", "You make a foolish mistake, mortal."),
                         new State("4",
                             new SetAltTexture(1),
@@ -852,10 +869,10 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                         new State("TEST",
-                            new AddCond(ConditionEffectIndex.Invincible),
                             new TimedTransition(0, "13")
                             ),
                         new State("13",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new SetAltTexture(0),
                             new Shoot(999, 6, 25, 0, 0, 135, coolDown: 500),
                             new TimedTransition(4000, "14")
@@ -891,10 +908,12 @@ namespace LoESoft.GameServer.logic
             .Init("md1 Loot Balloon Shaitan",
                 new State(
                     new State("Idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(5000, "UnsetEffect")
                     ),
-                    new State("UnsetEffect")
+                    new State("UnsetEffect",
+                        new RemCond(ConditionEffectIndex.Invulnerable) // ok
+                        )
                 ),
                 new MostDamagers(1,
                     new ItemLoot("Potion of Attack", 1)

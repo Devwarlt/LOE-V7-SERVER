@@ -15,7 +15,7 @@ namespace LoESoft.GameServer.logic
                     ),
                     new State("Silver Blasts",
                         new State("Silver Blasts 1",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 2, shootAngle: 10, angleOffset: 45, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 135, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 225, index: 0),
@@ -23,7 +23,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Silver Blasts 2")
                         ),
                         new State("Silver Blasts 2",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 2, shootAngle: 10, angleOffset: 45, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 135, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 225, index: 0),
@@ -31,6 +31,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Silver Blasts 3")
                         ),
                         new State("Silver Blasts 3",
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 2, shootAngle: 10, angleOffset: 45, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 135, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 225, index: 0),
@@ -38,7 +39,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Silver Blasts 4")
                         ),
                         new State("Silver Blasts 4",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 2, shootAngle: 10, angleOffset: 45, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 135, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 225, index: 0),
@@ -46,7 +47,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Silver Blasts 5")
                         ),
                         new State("Silver Blasts 5",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 2, shootAngle: 10, angleOffset: 45, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 135, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 225, index: 0),
@@ -54,6 +55,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Silver Blasts 6")
                         ),
                         new State("Silver Blasts 6",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 2, shootAngle: 10, angleOffset: 45, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 135, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 225, index: 0),
@@ -61,7 +63,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Silver Blasts 7")
                         ),
                         new State("Silver Blasts 7",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 2, shootAngle: 10, angleOffset: 45, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 135, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 225, index: 0),
@@ -69,7 +71,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Silver Blasts 8")
                         ),
                         new State("Silver Blasts 8",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 2, shootAngle: 10, angleOffset: 45, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 135, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 225, index: 0),
@@ -84,113 +86,119 @@ namespace LoESoft.GameServer.logic
                         ),
                         new Reproduce("Stheno Swarm", 2.5, 8, coolDown: 750),
                         new State("Silver Blast 1",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 2")
                         ),
                         new State("Silver Blast 2",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 3")
                         ),
                         new State("Silver Blast 3",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 4")
                         ),
                         new State("Silver Blast 4",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 5")
                         ),
                         new State("Silver Blast 5",
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 6")
                         ),
                         new State("Silver Blast 6",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 7")
                         ),
                         new State("Silver Blast 7",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 8")
                         ),
                         new State("Silver Blast 8",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 9")
                         ),
                         new State("Silver Blast 9",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 10")
                         ),
                         new State("Silver Blast 10",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 11")
                         ),
                         new State("Silver Blast 11",
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 12")
                         ),
                         new State("Silver Blast 12",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 13")
                         ),
                         new State("Silver Blast 13",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 14")
                         ),
                         new State("Silver Blast 14",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 15")
                         ),
                         new State("Silver Blast 15",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Silver Blast 16")
                         ),
                         new State("Silver Blast 16",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 1, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 270, index: 0),
                             new Shoot(10, shoots: 1, angleOffset: 90, index: 0),
                             new TimedTransition(1000, "Leave me")
                         ),
                         new State("Leave me",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new EntityOrder(100, "Stheno Swarm", "Despawn"),
                             new TimedTransition(1000, "Blind Ring Attack + ThrowAttack")
                         )
@@ -213,23 +221,25 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(500, "Blind Ring Attack + ThrowAttack 4")
                         ),
                         new State("Blind Ring Attack + ThrowAttack 4",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 6, index: 1),
                             new Grenade(2.5, 100, 10),
                             new TimedTransition(500, "Blind Ring Attack + ThrowAttack 5")
                         ),
                         new State("Blind Ring Attack + ThrowAttack 5",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 6, index: 1),
                             new Grenade(2.5, 100, 10),
                             new TimedTransition(500, "Blind Ring Attack + ThrowAttack 6")
                         ),
                         new State("Blind Ring Attack + ThrowAttack 6",
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 6, index: 1),
                             new Grenade(2.5, 100, 10),
                             new TimedTransition(500, "Blind Ring Attack + ThrowAttack 7")
                         ),
                         new State("Blind Ring Attack + ThrowAttack 7",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 6, index: 1),
                             new Grenade(2.5, 100, 10),
                             new TimedTransition(500, "Blind Ring Attack + ThrowAttack 8")
@@ -250,7 +260,6 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(500, "Blind Ring Attack + ThrowAttack 11")
                         ),
                         new State("Blind Ring Attack + ThrowAttack 11",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
                             new Shoot(10, shoots: 6, index: 1),
                             new Grenade(2.5, 100, 10),
                             new TimedTransition(500, "Blind Ring Attack + ThrowAttack 12")

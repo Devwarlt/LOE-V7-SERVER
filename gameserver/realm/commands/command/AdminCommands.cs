@@ -167,16 +167,29 @@ namespace LoESoft.GameServer.realm.commands
     {
         public GiveCommand() : base("give") { }
 
+        private List<string> Blacklist = new List<string>
+        {
+            "admin sword", "admin wand", "admin staff", "admin dagger", "admin bow", "admin katana", "crown"
+        };
+
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
             if (args.Length == 0)
             {
-                player.SendHelp("Usage: /give <Itemname>");
+                player.SendHelp("Usage: /give <item name>");
                 return false;
             }
+
             string name = string.Join(" ", args.ToArray()).Trim();
-            Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(Program.Manager.GameData.IdToObjectType,
-                StringComparer.OrdinalIgnoreCase);
+
+            if (Blacklist.Contains(name.ToLower()) && player.AccountType != (int)AccountType.LOESOFT_ACCOUNT)
+            {
+                player.SendHelp($"You cannot give '{name}', access denied.");
+                return false;
+            }
+
+            Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(Program.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
+
             if (!icdatas.TryGetValue(name, out ushort objType))
             {
                 player.SendError("Unknown type!");
@@ -304,7 +317,7 @@ namespace LoESoft.GameServer.realm.commands
 
     class Max : Command
     {
-        public Max() : base("max", (int)AccountType.LOESOFT_ACCOUNT) { }
+        public Max() : base("max") { }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -348,7 +361,7 @@ namespace LoESoft.GameServer.realm.commands
         }
     }
 
-    class OnlineCommand : Command //get all players from all worlds (this may become too large!)
+    class OnlineCommand : Command
     {
         public OnlineCommand() : base("online", (int)AccountType.LOESOFT_ACCOUNT) { }
 
@@ -374,7 +387,7 @@ namespace LoESoft.GameServer.realm.commands
             }
             string fixedString = sb.ToString().TrimEnd(',', ' '); //clean up trailing ", "s
 
-            player.SendInfo(fixedString);
+            player.SendInfo(fixedString + ".");
             return true;
         }
     }

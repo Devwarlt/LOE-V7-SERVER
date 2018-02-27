@@ -11,12 +11,12 @@ namespace LoESoft.GameServer.logic
             .Init("Ayrin",
             new State(
                     new State("Awaken",
-              new AddCond(ConditionEffectIndex.Invulnerable),
+              new AddCond(ConditionEffectIndex.Invulnerable), // ok
               new PlayerWithinTransition(10, "Start")
                         ),
               new State("Start",
                         new Taunt("My mother... What have you done..."),
-                        new RemCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(15, shoots: 2, shootAngle: 16, index: 0, aim: 0.4, coolDown: 800),
                         new Grenade(2.5, 100, 10),
                         new Shoot(20, shoots: 8, shootAngle: 45, index: 1, coolDown: 1100),
@@ -64,17 +64,16 @@ namespace LoESoft.GameServer.logic
                                             new HpLessTransition(0.35, "SpawnMinion")
                                             ),
                                   new State("SpawnMinion",
-                                            new AddCond(ConditionEffectIndex.Invulnerable),
+                                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                                             new Taunt("Come forth minions, protect me!"),
                                             new Spawn("Icy Twin Succubus", maxChildren: 5, coolDown: 10000),
                                             new TimedTransition(2000, "Checkifdead")
                                                                                         ),
                                   new State("Checkifdead",
-                                            new AddCond(ConditionEffectIndex.Invulnerable),
                                             new EntitiesNotExistsTransition(50, "Jeff", "Icy Twin Succubus")
                                             ),
                                   new State("Jeff",
-                                            new RemCond(ConditionEffectIndex.Invulnerable),
+                                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                                             new Taunt("NOOOO MY END IS NEAR!"),
                                             new Shoot(30, shoots: 2, shootAngle: 16, index: 0, aim: 0.4, coolDown: 600),
                                             new Shoot(30, shoots: 8, shootAngle: 45, index: 1, aim: 0.2, coolDown: 1100),
@@ -119,19 +118,19 @@ namespace LoESoft.GameServer.logic
                                   new HpLessTransition(0.1, "Final Death")
                                   ),
                                   new State("Final Death",
-                                        new AddCond(ConditionEffectIndex.Invulnerable),
+                                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                                         new Flashing(0xff0000, 0.8, 60),
                                          new Taunt("Mother...Brother... I am sorry..."),
                                         new TimedTransition(1000, "2")
                                     ),
                                   new State("2",
-                                    new AddCond(ConditionEffectIndex.Invulnerable),
+                                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                                     new Flashing(0xff0000, 0.6, 60),
                                     new Taunt("Enjoy while you can humans, we shall be back..."),
                                     new TimedTransition(1000, "1")
                                     ),
                                   new State("1",
-                                    new AddCond(ConditionEffectIndex.Invulnerable),
+                                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                                     new Flashing(0xff0000, 0.3, 70),
                                     new Taunt("Goodbye mortals."),
                                     new TimedTransition(1000, "Goodbye")
@@ -158,12 +157,12 @@ namespace LoESoft.GameServer.logic
          .Init("Tamir",
              new State(
               new State("Awaken",
-              new AddCond(ConditionEffectIndex.Invulnerable),
+              new AddCond(ConditionEffectIndex.Invulnerable), // ok
               new PlayerWithinTransition(10, "Start")
                         ),
               new State("Start",
                          new Taunt("My mother... What have you done..."),
-                        new RemCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(15, shoots: 2, shootAngle: 16, index: 0, aim: 0.4, coolDown: 800),
                         new Grenade(2.5, 100, 10),
                         new Shoot(20, shoots: 8, shootAngle: 45, index: 1, coolDown: 1100),
@@ -272,7 +271,7 @@ namespace LoESoft.GameServer.logic
               new HpLessTransition(0.55, "SpawnMinion")
               ),
                      new State("SpawnMinion",
-                     new AddCond(ConditionEffectIndex.Invincible),
+                     new AddCond(ConditionEffectIndex.Invulnerable), // ok
                      new Spawn("Fiery Twin Succubus", maxChildren: 5, coolDown: 10000),
                      new TimedTransition(2000, "Checkifdead")
                            ),
@@ -280,7 +279,7 @@ namespace LoESoft.GameServer.logic
                      new EntitiesNotExistsTransition(50, "Warning", "Fiery Twin Succubus")
                            ),
               new State("Warning",
-                          new RemCond(ConditionEffectIndex.Invulnerable),
+                          new RemCond(ConditionEffectIndex.Invulnerable), // ok
                           new Flashing(0xff0000, 0.5, 60),
                           new Taunt("Hmm.. So you have beaten me... interesting."),
                           new Wander(1),
@@ -288,19 +287,19 @@ namespace LoESoft.GameServer.logic
               new HpLessTransition(0.2, "Death Encounter")
                         ),
                     new State("Death Encounter",
-                         new AddCond(ConditionEffectIndex.Invulnerable),
+                         new AddCond(ConditionEffectIndex.Invulnerable), // ok
                          new Flashing(0xff0000, 0.8, 60),
                          new Taunt("I failed..mother... forgive me.."),
                          new TimedTransition(1000, "2")
                         ),
                     new State("2",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff0000, 0.6, 60),
                         new Taunt("I am dying..."),
                         new TimedTransition(1000, "1")
                         ),
                     new State("1",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff0000, 0.3, 70),
                         new Taunt("Goodbye."),
                         new TimedTransition(1000, "Goodbye")

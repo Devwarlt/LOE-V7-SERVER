@@ -89,15 +89,16 @@ namespace LoESoft.GameServer.logic
             .Init("Muzzlereaper",
                 new State(
                     new State("idle",
-                        new AddCond(effect: ConditionEffectIndex.Invulnerable),
+                        new AddCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Heal(range: 0, amount: 750, coolDown: 1000),
                         new PlayerWithinTransition(targetState: "begin fight", range: 12)
                     ),
                     new State("begin fight",
-                        new RemCond(effect: ConditionEffectIndex.Invulnerable),
+                        new RemCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Protect(speed: 8, target: "Guzzlereaper", protectRange: 2),
-                            new Chase(speed: 6),
+                            new Chase(speed: 3),
+                            new Circle(target: "Guzzlereaper"),
                             new Wander(speed: 2)
                         ),
                         new Heal(range: 0, amount: 250, coolDown: 7500),
@@ -112,13 +113,14 @@ namespace LoESoft.GameServer.logic
             .Init("Guzzlereaper",
                 new State(
                     new State("idle",
-                        new AddCond(effect: ConditionEffectIndex.Invulnerable),
+                        new ReturnToSpawn(),
+                        new AddCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Heal(range: 0, amount: 1500, coolDown: 1000),
                         new Reproduce(name: "Muzzlereaper", range: 8, max: 3, coolDown: 100),
                         new PlayerWithinTransition(targetState: "begin fight", range: 12)
                     ),
                     new State("begin fight",
-                        new RemCond(effect: ConditionEffectIndex.Invulnerable),
+                        new RemCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(speed: 4),
                             new Wander(speed: 1)
@@ -136,12 +138,13 @@ namespace LoESoft.GameServer.logic
             .Init("Silencer",
                 new State(
                     new State("idle",
-                        new AddCond(effect: ConditionEffectIndex.Invulnerable),
+                        new ReturnToSpawn(),
+                        new AddCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Heal(range: 0, amount: 1000, coolDown: 1000),
                         new PlayerWithinTransition(targetState: "begin fight", range: 12)
                     ),
                     new State("begin fight",
-                        new RemCond(effect: ConditionEffectIndex.Invulnerable),
+                        new RemCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(speed: 4),
                             new Wander(speed: 1)
@@ -165,12 +168,13 @@ namespace LoESoft.GameServer.logic
             .Init("Eyeguard of Surrender",
                 new State(
                     new State("idle",
-                        new AddCond(effect: ConditionEffectIndex.Invulnerable),
+                        new ReturnToSpawn(),
+                        new AddCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Heal(range: 0, amount: 3500, coolDown: 1000),
                         new PlayerWithinTransition(targetState: "begin fight", range: 12)
                     ),
                     new State("begin fight",
-                        new RemCond(effect: ConditionEffectIndex.Invulnerable),
+                        new RemCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(speed: 4),
                             new Wander(speed: 1)
@@ -195,12 +199,13 @@ namespace LoESoft.GameServer.logic
             .Init("Lost Prisoner Soul",
                 new State(
                     new State("idle",
-                        new AddCond(effect: ConditionEffectIndex.Invulnerable),
+                        new ReturnToSpawn(),
+                        new AddCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Heal(range: 0, amount: 1250, coolDown: 1000),
                         new PlayerWithinTransition(targetState: "begin fight", range: 12)
                     ),
                     new State("begin fight",
-                        new RemCond(effect: ConditionEffectIndex.Invulnerable),
+                        new RemCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(speed: 4),
                             new Wander(speed: 1)
@@ -223,12 +228,13 @@ namespace LoESoft.GameServer.logic
             .Init("Nightmare",
                 new State(
                     new State("idle",
-                        new AddCond(effect: ConditionEffectIndex.Invulnerable),
+                        new ReturnToSpawn(),
+                        new AddCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Heal(range: 0, amount: 1250, coolDown: 1000),
                         new PlayerWithinTransition(targetState: "begin fight", range: 12)
                     ),
                     new State("begin fight",
-                        new RemCond(effect: ConditionEffectIndex.Invulnerable),
+                        new RemCond(effect: ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(speed: 4),
                             new Wander(speed: 1)

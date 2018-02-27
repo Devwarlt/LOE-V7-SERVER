@@ -87,12 +87,12 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("Waiting",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1),
                         new EntityNotExistsTransition("Protection Crystal", 10, "Start1.0")
                         ),
                     new State("Dead",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(3),
                         new Taunt(0.99, "NOOOO!!!!!!"),
                         new Flashing(0xFF0000, .1, 1000),

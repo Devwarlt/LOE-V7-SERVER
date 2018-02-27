@@ -42,7 +42,7 @@ namespace LoESoft.GameServer.logic
                     new Shoot(12, index: 0, shoots: 4, shootAngle: 10),
                     new Shoot(10, index: 1, aim: 1),
                     new Reproduce(max: 3),
-                    new Reproduce("Sprite Child", .5, 5, 0, 5000)
+                    new Reproduce("Sprite Child", 35, 5, 0, 5000)
                     ),
                 new Threshold(.01,
                     new TierLoot(6, ItemType.Weapon, 0.04),
@@ -324,13 +324,13 @@ namespace LoESoft.GameServer.logic
                             new StayAbove(10, 200),
                             new Wander(8)
                             ),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Reproduce(max: 3, radius: 20),
                         new PlayerWithinTransition(8, "Attacking")
                         ),
                     new State("Attacking",
                         new State("Bullet",
-                            new RemCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(1, shoots: 4, coolDown: 10000, direction: 90, coolDownOffset: 0, shootAngle: 90),
                             new Shoot(1, shoots: 4, coolDown: 10000, direction: 100, coolDownOffset: 200, shootAngle: 90),
                             new Shoot(1, shoots: 4, coolDown: 10000, direction: 110, coolDownOffset: 400, shootAngle: 90),
@@ -358,14 +358,14 @@ namespace LoESoft.GameServer.logic
                         new State("Wait",
                             new Chase(7, range: 0.5),
                             new Flashing(0xff00ff00, 0.1, 20),
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(2000, "Bullet")
                             ),
                         new NoPlayerWithinTransition(13, "Idle"),
                         new HpLessTransition(0.5, "FlashBeforeExplode")
                         ),
                     new State("FlashBeforeExplode",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff0000, 0.3, 3),
                         new TimedTransition(1000, "Explode")
                         ),

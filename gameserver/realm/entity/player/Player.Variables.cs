@@ -19,6 +19,7 @@ namespace LoESoft.GameServer.realm.entity.player
         public List<int> PetAttack { get; set; }
         public Entity Pet { get; set; }
         public bool HatchlingPet { get; set; }
+        public bool HatchlingNotification { get; set; }
         public int AccountType { get; set; }
         public DateTime AccountLifetime { get; set; }
         public bool IsVip { get; set; }

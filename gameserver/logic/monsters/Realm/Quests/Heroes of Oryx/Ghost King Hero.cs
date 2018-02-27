@@ -15,7 +15,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("EvaluationStart1",
                         new Taunt("No corporeal creature can kill my sorrow"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new StayCloseToSpawn(4, range: 3),
                             new Wander()
@@ -23,6 +23,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(2500, "EvaluationStart2")
                         ),
                     new State("EvaluationStart2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0x0000ff, 0.1, 60),
                         new ChangeSize(20, 140),
                         new Shoot(10, shoots: 4, shootAngle: 30, defaultAngle: 0, coolDown: 1000),
@@ -42,7 +43,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("HugeMob",
                         new Taunt("What a HUGE MOB!"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0x00ff00, 0.2, 300),
                         new TossObject("Small Ghost", range: 4, angle: 0, coolDown: 100000),
                         new TossObject("Small Ghost", range: 4, angle: 60, coolDown: 100000),
@@ -54,7 +55,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("HugeMob2",
                         new Taunt("I feel almost manic!"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0x00ff00, 0.2, 300),
                         new TossObject("Small Ghost", range: 4, angle: 0, coolDown: 100000),
                         new TossObject("Small Ghost", range: 4, angle: 60, coolDown: 100000),
@@ -66,7 +67,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("Mob",
                         new Taunt("There's a MOB of you."),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0x00ff00, 0.2, 300),
                         new TossObject("Small Ghost", range: 4, angle: 0, coolDown: 100000),
                         new TossObject("Small Ghost", range: 4, angle: 60, coolDown: 100000),
@@ -88,7 +89,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("SmallGroup",
                         new Taunt("Such a small party."),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0x00ff00, 0.2, 300),
                         new TossObject("Small Ghost", range: 4, angle: 0, coolDown: 100000),
                         new TossObject("Small Ghost", range: 4, angle: 60, coolDown: 100000),
@@ -110,7 +111,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("Solo",
                         new Taunt("Just you?  I guess you don't have any friends to play with."),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0x00ff00, 0.2, 10),
                         new TossObject("Ghost Master", range: 4, angle: 0, coolDown: 100000),
                         new TossObject("Small Ghost", range: 4, angle: 70, coolDown: 100000),
@@ -120,7 +121,6 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(1000, "Wait")
                         ),
                     new State("Wait",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new Flashing(0x00ff00, 0.2, 10000),
                         new Prioritize(
                             new StayCloseToSpawn(10, range: 8),
@@ -161,7 +161,7 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new State("Attack1",
                         new State("NewLocation1",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Flashing(0xff00ff00, 0.2, 10),
                             new Prioritize(
                                 new StayCloseToSpawn(20, range: 7),
@@ -170,7 +170,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Att1")
                             ),
                         new State("Att1",
-                            new RemCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 4, shootAngle: 90, direction: 0, coolDown: 400),
                             new TimedTransition(9000, "NewLocation1")
                             ),
@@ -178,13 +178,13 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("Attack2",
                         new State("Intro",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Flashing(0xff00ff00, 0.2, 10),
                             new ChangeSize(20, 140),
                             new TimedTransition(1000, "NewLocation2")
                             ),
                         new State("NewLocation2",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Flashing(0xff00ff00, 0.2, 10),
                             new Prioritize(
                                 new StayCloseToSpawn(20, range: 7),
@@ -193,7 +193,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Att2")
                             ),
                         new State("Att2",
-                            new RemCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 4, shootAngle: 90, direction: 45, coolDown: 400),
                             new TimedTransition(6000, "NewLocation2")
                             ),
@@ -201,13 +201,13 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("Attack3",
                         new State("Intro",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Flashing(0xff00ff00, 0.2, 10),
                             new ChangeSize(20, 180),
                             new TimedTransition(1000, "NewLocation3")
                             ),
                         new State("NewLocation3",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Flashing(0xff00ff00, 0.2, 10),
                             new Prioritize(
                                 new StayCloseToSpawn(20, range: 7),
@@ -216,7 +216,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1000, "Att3")
                             ),
                         new State("Att3",
-                            new RemCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, shoots: 4, shootAngle: 90, direction: 22.5, coolDown: 400),
                             new TimedTransition(3000, "NewLocation3")
                             ),
@@ -266,7 +266,7 @@ namespace LoESoft.GameServer.logic
                     new TransformOnDeath("Medium Ghost"),
                     new State("NewLocation",
                         new Taunt(0.1, "Switch!"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff00ff00, 0.2, 10),
                         new Prioritize(
                             new StayCloseToSpawn(20, range: 7),
@@ -276,7 +276,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("Attack",
                         new Taunt(0.1, "Save the King's Soul!"),
-                        new RemCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(10, shoots: 4, shootAngle: 90, direction: 0, coolDown: 400),
                         new TimedTransition(9000, "NewLocation")
                         ),
@@ -294,13 +294,13 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new TransformOnDeath("Large Ghost"),
                     new State("Intro",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff00ff00, 0.2, 10),
                         new ChangeSize(20, 140),
                         new TimedTransition(1000, "NewLocation")
                         ),
                     new State("NewLocation",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff00ff00, 0.2, 10),
                         new Prioritize(
                             new StayCloseToSpawn(20, range: 7),
@@ -310,7 +310,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("Attack",
                         new Taunt(0.02, "I come back more powerful than you could ever imagine"),
-                        new RemCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(10, shoots: 4, shootAngle: 90, direction: 45, coolDown: 800),
                         new TimedTransition(6000, "NewLocation")
                         ),
@@ -328,7 +328,7 @@ namespace LoESoft.GameServer.logic
             .Init("Large Ghost",
                 new State(
                     new State("Intro",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff00ff00, 0.2, 10),
                         new ChangeSize(20, 180),
                         new TimedTransition(1000, "NewLocation")
@@ -338,7 +338,7 @@ namespace LoESoft.GameServer.logic
                             "The Ghost King protects this sacred ground",
                             "The Ghost King gave his heart to the Ghost Master.  He cannot die.",
                             "Only the Secret Ghost Master can kill the King."),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff00ff00, 0.2, 10),
                         new Prioritize(
                             new StayCloseToSpawn(20, range: 7),
@@ -348,7 +348,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("Attack",
                         new Taunt(0.01, "The King's wife died here.  For her memory."),
-                        new RemCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(10, shoots: 8, shootAngle: 45, direction: 22.5, coolDown: 800),
                         new TimedTransition(3000, "NewLocation"),
                         new EntityNotExistsTransition("Ghost King", 30, "AttackKingGone")

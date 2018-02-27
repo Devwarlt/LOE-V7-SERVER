@@ -768,7 +768,7 @@ namespace LoESoft.GameServer.logic
                     new HpLessTransition(0.5, "3")
                     ),
                 new State("3",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new Spawn("Arena Skeleton", maxChildren: 1),
                     new Shoot(20, 1, index: 0, coolDown: 400),
                     new TossObject("Arena Mushroom", 10, coolDown: 7000),
@@ -777,7 +777,7 @@ namespace LoESoft.GameServer.logic
                     new TimedTransition(500, "Check")
                     ),
                 new State("Check", //antilag :D
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                     new Spawn("Arena Skeleton", maxChildren: 1, coolDown: 3000),
                     new Shoot(20, 1, index: 0, coolDown: 400),
                     new TossObject("Arena Mushroom", 10, coolDown: 7000),
@@ -2432,7 +2432,7 @@ namespace LoESoft.GameServer.logic
                     new HpLessTransition(0.5, "93")
                     ),
                 new State("93",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new Spawn("Flying Flame Skull", maxChildren: 2),
                     new Shoot(20, 4, shootAngle: 15, index: 0, coolDown: 500),
                     new Shoot(100, 1, index: 2, defaultAngle: 0, angleOffset: 0, coolDown: 5000),
@@ -2442,6 +2442,7 @@ namespace LoESoft.GameServer.logic
                     new TimedTransition(5000, "94")
                     ),
                 new State("94",
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                     new Shoot(20, 4, shootAngle: 15, index: 0, coolDown: 500),
                     new Shoot(100, 1, index: 2, defaultAngle: 0, angleOffset: 0, coolDown: 5000),
                     new Shoot(100, 1, index: 2, defaultAngle: 0, angleOffset: 90, coolDown: 5000),
@@ -2573,9 +2574,10 @@ namespace LoESoft.GameServer.logic
             )
         .Init("Flying Flame Skull",
             new State(
-                new AddCond(ConditionEffectIndex.Invulnerable),
+                new AddCond(ConditionEffectIndex.Invulnerable), // ok
                 new Circle(1, 5, 10, target: "Ghost of Skuld"),
                 new State("1",
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                     new Shoot(100, 10, shootAngle: 36, index: 0, coolDown: 500),
                     new EntityNotExistsTransition("Ghost of Skuld", 100, "2")
                     ),

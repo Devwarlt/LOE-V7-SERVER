@@ -16,7 +16,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("EvaluationStart1",
                         new Taunt("Uhh. So... sleepy..."),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new StayCloseToSpawn(2, range: 3),
                             new Wander(2)
@@ -24,6 +24,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(2500, "EvaluationStart2")
                         ),
                     new State("EvaluationStart2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0x0000ff, 0.1, 60),
                         new Shoot(10, shoots: 2, shootAngle: 180, coolDown: 800),
                         new Prioritize(
@@ -40,6 +41,7 @@ namespace LoESoft.GameServer.logic
                         new HpLessTransition(0.99999, "Solo")
                         ),
                     new State("HugeMob",
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Taunt("You are many, yet the sum of your years is nothing."),
                         new Spawn("Greater Nature Sprite", maxChildren: 6, initialSpawn: 0, coolDown: 400),
                         new TossObject("Ent", range: 3, angle: 0, coolDown: 100000),
@@ -56,6 +58,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(5000, "Wait")
                         ),
                     new State("Mob",
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Taunt("Little flies, little flies... we will swat you."),
                         new Spawn("Greater Nature Sprite", maxChildren: 3, initialSpawn: 0, coolDown: 1000),
                         new TossObject("Ent", range: 3, angle: 0, coolDown: 100000),
@@ -66,6 +69,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(5000, "Wait")
                         ),
                     new State("SmallGroup",
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Taunt("It will be trivial to dispose of you."),
                         new Spawn("Greater Nature Sprite", maxChildren: 1, initialSpawn: 1, coolDown: 100000),
                         new TossObject("Ent", range: 3, angle: 0, coolDown: 100000),
@@ -73,6 +77,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(3000, "Wait")
                         ),
                     new State("Solo",
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Taunt("Mmm? Did you say something, mortal?"),
                         new TimedTransition(3000, "Wait")
                         ),
@@ -90,21 +95,21 @@ namespace LoESoft.GameServer.logic
                         ),
                     new Spawn("Ent Sapling", maxChildren: 3, initialSpawn: 0, coolDown: 3000),
                     new State("Start",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(11, 160),
                         new Shoot(10, index: 0, shoots: 1),
                         new TimedTransition(1600, "Growing1"),
                         new HpLessTransition(0.9, "Growing1")
                         ),
                     new State("Growing1",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(11, 180),
                         new Shoot(10, index: 1, shoots: 3, shootAngle: 120),
                         new TimedTransition(1600, "Growing2"),
                         new HpLessTransition(0.8, "Growing2")
                         ),
                     new State("Growing2",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(11, 200),
                         new Taunt(0.35, "Little mortals, your years are my minutes."),
                         new Shoot(10, index: 2, shoots: 1),
@@ -112,14 +117,14 @@ namespace LoESoft.GameServer.logic
                         new HpLessTransition(0.7, "Growing3")
                         ),
                     new State("Growing3",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(11, 220),
                         new Shoot(10, index: 3, shoots: 1),
                         new TimedTransition(1600, "Growing4"),
                         new HpLessTransition(0.6, "Growing4")
                         ),
                     new State("Growing4",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(11, 240),
                         new Taunt(0.35, "No axe can fell me!"),
                         new Shoot(10, index: 4, shoots: 3, shootAngle: 120),
@@ -127,14 +132,14 @@ namespace LoESoft.GameServer.logic
                         new HpLessTransition(0.5, "Growing5")
                         ),
                     new State("Growing5",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(11, 260),
                         new Shoot(10, index: 5, shoots: 1),
                         new TimedTransition(1600, "Growing6"),
                         new HpLessTransition(0.45, "Growing6")
                         ),
                     new State("Growing6",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(11, 280),
                         new Taunt(0.35, "Yes, YES..."),
                         new Shoot(10, index: 6, shoots: 1),
@@ -142,14 +147,14 @@ namespace LoESoft.GameServer.logic
                         new HpLessTransition(0.4, "Growing7")
                         ),
                     new State("Growing7",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(11, 300),
                         new Shoot(10, index: 7, shoots: 3, shootAngle: 120),
                         new TimedTransition(1600, "Growing8"),
                         new HpLessTransition(0.36, "Growing8")
                         ),
                     new State("Growing8",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(11, 320),
                         new Taunt(0.35, "I am the FOREST!!"),
                         new Shoot(10, index: 8, shoots: 1),
@@ -161,20 +166,20 @@ namespace LoESoft.GameServer.logic
                         new Taunt(1.0, "YOU WILL DIE!!!"),
                         new Shoot(10, index: 9, shoots: 1),
                         new State("convert_sprites",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
                             new EntityOrder(50, "Greater Nature Sprite", "Transform"),
                             new TimedTransition(2000, "shielded")
                             ),
                         new State("received_armor",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new AddCond(ConditionEffectIndex.Armored),
                             new TimedTransition(1000, "shielded")
                             ),
                         new State("shielded",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Armored),
                             new TimedTransition(4000, "unshielded")
                             ),
                         new State("unshielded",
+                            new RemCond(ConditionEffectIndex.Armored),
                             new Shoot(10, index: 3, shoots: 3, shootAngle: 120, coolDown: 700),
                             new TimedTransition(4000, "shielded")
                             )
@@ -220,7 +225,7 @@ namespace LoESoft.GameServer.logic
 
             .Init("Greater Nature Sprite",
                 new State(
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new Shoot(10, shoots: 4, shootAngle: 10),
                     new Prioritize(
                         new StayCloseToSpawn(15, 11),

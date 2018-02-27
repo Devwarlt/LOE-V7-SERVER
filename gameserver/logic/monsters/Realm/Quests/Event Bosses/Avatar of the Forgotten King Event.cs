@@ -63,7 +63,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("Phase1",
                         new SetAltTexture(1),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Taunt("Be comsumed by shadow!"),
                         new TossObject("shtrs shadowmans", range: 4, angle: 0, coolDown: 50000),
                         new TossObject("shtrs shadowmans", range: 4, angle: 45, coolDown: 50000),
@@ -76,10 +76,10 @@ namespace LoESoft.GameServer.logic
                         new EntityExistsTransition("shtrs shadowmans", 5, "Waiting1")
                         ),
                     new State("Waiting1",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new EntityNotExistsTransition("shtrs shadowmans", 5, "Phase2.0")
                         ),
                     new State("Phase2.0",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(0),
                         new HpLessTransition(0.60, "Phase2"),
                         new AddCond(ConditionEffectIndex.Armored),
@@ -135,7 +135,7 @@ namespace LoESoft.GameServer.logic
                     new State("Phase2", //Eye
                         new Taunt("EYE see you!"),
                         new SetAltTexture(1),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityNotExistsTransition("shtrs eyeswarmer", 6, "Phase3.0"),
                         new State("Spawn",
                             new Spawn("shtrs eyeswarmer", 6, 1, coolDown: 14000),
@@ -147,6 +147,7 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("Phase3.0",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(0),
                         new AddCond(ConditionEffectIndex.Armored),
                         new HpLessTransition(0.45, "Phase3"),
@@ -255,7 +256,7 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("Phase4",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityOrder(20, "shtrs Pillar 1", "Wake"),
                         new EntityOrder(20, "shtrs Pillar 2", "Wake"),
                         new EntityOrder(20, "shtrs Pillar 3", "Wake"),
@@ -264,7 +265,6 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(1000, "Waiting4")
                         ),
                     new State("Waiting4",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new State("Waiting4.0",
                             new EntityNotExistsTransition("shtrs Pillar 1", 20, "Waiting4.2")
                             ),
@@ -279,6 +279,7 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("Final",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new HpLessTransition(0.10, "Die"),
                         new AddCond(ConditionEffectIndex.Armored),
                         new State("Attack8.1",
@@ -331,7 +332,7 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("Die",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(4000, "Suicide"),
                         new Taunt("YOU KNOW NOT WHAT YOU HAVE DONE!"),
                         new Flashing(0xFF0000, 0.5, 8)
@@ -362,21 +363,21 @@ namespace LoESoft.GameServer.logic
             .Init("shtrs Pillar 1", //Killer Pillar | Up Left
                 new State(
                     new State("Waiting Order",
-                        new AddCond(ConditionEffectIndex.Invulnerable)
+                        new AddCond(ConditionEffectIndex.Invulnerable) // ok
                         ),
                     new State("Wake",
                         new Taunt(true, "PROTECT THE AVATAR"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new TimedTransition(1000, "Attack")
                         ),
                     new State("Attack",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Armored),
                         new Flashing(0xFF0000, 0.5, 8),
                         new TimedTransition(4000, "Keep Calm"),
                         new Shoot(20, shoots: 1, index: 1, aim: 1, coolDown: 1800),
                         new Shoot(10, index: 0, shoots: 10, direction: 36, rotateAngle: 18, coolDown: 500)
                         ),
                     new State("Keep Calm",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new AddCond(ConditionEffectIndex.Armored),
                         new Flashing(0x0033FF, 0.5, 26),
                         new TimedTransition(13000, "Attack")
@@ -387,21 +388,21 @@ namespace LoESoft.GameServer.logic
             .Init("shtrs Pillar 2", //Killer Pillar | Down Left
                 new State(
                     new State("Waiting Order",
-                        new AddCond(ConditionEffectIndex.Invulnerable)
+                        new AddCond(ConditionEffectIndex.Invulnerable) // ok
                         ),
                     new State("Wake",
                         new Taunt(true, "PROTECT THE AVATAR"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new TimedTransition(5000, "Attack")
                         ),
                     new State("Attack",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Armored),
                         new Flashing(0xFF0000, 0.5, 8),
                         new TimedTransition(4000, "Keep Calm"),
                         new Shoot(20, shoots: 1, index: 1, aim: 1, coolDown: 1800),
                         new Shoot(10, index: 0, shoots: 10, direction: 36, rotateAngle: 18, coolDown: 500)
                         ),
                     new State("Keep Calm",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new AddCond(ConditionEffectIndex.Armored),
                         new Flashing(0x0033FF, 0.5, 26),
                         new TimedTransition(13000, "Attack")
@@ -412,21 +413,21 @@ namespace LoESoft.GameServer.logic
             .Init("shtrs Pillar 3", //Killer Pillar | Up Right
                 new State(
                     new State("Waiting Order",
-                        new AddCond(ConditionEffectIndex.Invulnerable)
+                        new AddCond(ConditionEffectIndex.Invulnerable) // ok
                         ),
                     new State("Wake",
                         new Taunt(true, "PROTECT THE AVATAR"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new TimedTransition(9000, "Attack")
                         ),
                     new State("Attack",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Armored),
                         new Flashing(0xFF0000, 0.5, 8),
                         new TimedTransition(4000, "Keep Calm"),
                         new Shoot(20, shoots: 1, index: 1, aim: 1, coolDown: 1800),
                         new Shoot(10, index: 0, shoots: 10, direction: 36, rotateAngle: 18, coolDown: 500)
                         ),
                     new State("Keep Calm",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new AddCond(ConditionEffectIndex.Armored),
                         new Flashing(0x0033FF, 0.5, 26),
                         new TimedTransition(13000, "Attack")
@@ -437,21 +438,21 @@ namespace LoESoft.GameServer.logic
             .Init("shtrs Pillar 4", //Killer Pillar | Down Right
                 new State(
                     new State("Waiting Order",
-                        new AddCond(ConditionEffectIndex.Invulnerable)
+                        new AddCond(ConditionEffectIndex.Invulnerable) // ok
                         ),
                     new State("Wake",
                         new Taunt(true, "PROTECT THE AVATAR"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new TimedTransition(13000, "Attack")
                         ),
                     new State("Attack",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Armored),
                         new Flashing(0xFF0000, 0.5, 8),
                         new TimedTransition(4000, "Keep Calm"),
                         new Shoot(20, shoots: 1, index: 1, aim: 1, coolDown: 1800),
                         new Shoot(10, index: 0, shoots: 10, direction: 36, rotateAngle: 18, coolDown: 500)
                         ),
                     new State("Keep Calm",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new AddCond(ConditionEffectIndex.Armored),
                         new Flashing(0x0033FF, 0.5, 26),
                         new TimedTransition(13000, "Attack")

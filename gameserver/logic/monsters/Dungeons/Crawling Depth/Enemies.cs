@@ -11,11 +11,11 @@ namespace LoESoft.GameServer.logic
                  new State(
                     new DropPortalOnDeath("Glowing Realm Portal", 100, PortalDespawnTimeSec: 360),
                      new State("idle",
-                         new AddCond(ConditionEffectIndex.Invulnerable),
+                         new AddCond(ConditionEffectIndex.Invulnerable), // ok
                          new PlayerWithinTransition(12, "WEB!")
                          ),
                      new State("WEB!",
-                         new AddCond(ConditionEffectIndex.Invulnerable),
+                         new RemCond(ConditionEffectIndex.Invulnerable), // ok
                          new TossObject("Arachna Web Spoke 7", 6, 0, 100000),
                          new TossObject("Arachna Web Spoke 8", 6, 120, 100000),
                          new TossObject("Arachna Web Spoke 9", 6, 240, 100000),
@@ -30,12 +30,10 @@ namespace LoESoft.GameServer.logic
                      new State("attack",
                          new Wander(10),
                          new Shoot(3000, shoots: 12, index: 0, angleOffset: fixedAngle_RingAttack2),
-                         new Shoot(10, 1, 0, defaultAngle: 0, angleOffset: 0, index: 0, aim: 1,
-                         coolDown: 1000, coolDownOffset: 0),
-                         new Shoot(10, 1, 0, defaultAngle: 0, angleOffset: 0, index: 1, aim: 1,
-                         coolDown: 2000, coolDownOffset: 0)
+                         new Shoot(10, 1, 0, defaultAngle: 0, angleOffset: 0, index: 0, aim: 1, coolDown: 1000, coolDownOffset: 0),
+                         new Shoot(10, 1, 0, defaultAngle: 0, angleOffset: 0, index: 1, aim: 1, coolDown: 2000, coolDownOffset: 0)
                          )
-                         ),
+                     ),
                  new Threshold(0.32,
                     new ItemLoot("Potion of Mana", 1),
                     new ItemLoot("Doku No Ken", 0.007)

@@ -16,7 +16,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(1100, "spawnminions1")
                         ),
                     new State("spawnminions1",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TossObject("Gold Planet", range: 9.9, angle: 90),
                         new TossObject("Gold Planet", range: 9.9, angle: 50),
                         new TossObject("Gold Planet", range: 9.9, angle: 360),
@@ -32,14 +32,16 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(750, "setsize2")
                         ),
                       new State("setsize2",
+                          new RemCond(ConditionEffectIndex.Invulnerable), // ok
                           new ChangeSize(20, 120),
                           new TimedTransition(250, "checkprotectors")
                            ),
                       new State("checkprotectors",
-                          new AddCond(ConditionEffectIndex.Invulnerable),
+                          new AddCond(ConditionEffectIndex.Invulnerable), // ok
                           new EntityNotExistsTransition("Treasure Oryx Defender", 50, "blink1")
                                 ),
                             new State("blink1",
+                                new RemCond(ConditionEffectIndex.Invulnerable), // ok
                                 new SetAltTexture(1),
                                 new TimedTransition(100, "Grenade")
                                 ),

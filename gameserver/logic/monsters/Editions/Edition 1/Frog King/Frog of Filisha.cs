@@ -10,17 +10,16 @@ namespace LoESoft.GameServer.logic
         .Init("Frog King",
             new State(
                 new State("Pause",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new PlayerWithinTransition(12, "Start")
                     ),
                 new State("Start",
                     new Taunt("Who dares come and challenge the Frog King?"),
-                    new AddCond(ConditionEffectIndex.Invulnerable),
                     new TimedTransition(2000, "Fight")
                     ),
                 new State("Fight",
                     new Taunt("If Filisha cannot defeat me, you nibbas definitely cannot beat me."),
-                    new RemCond(ConditionEffectIndex.Invulnerable),
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                     new ManaDrainBomb(6, 200, 15, coolDown: 400),
                     new HpLessTransition(0.97, "Fight2")
                     ),
@@ -57,9 +56,7 @@ namespace LoESoft.GameServer.logic
                     new TimedTransition(2000, "Wait")
                     ),
                 new State("Wait",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
                     new Taunt("Begone Thot"),
-                    new RemCond(ConditionEffectIndex.Invulnerable),
                     new Chase(7, range: 0.5),
                     new Shoot(10, shoots: 3, shootAngle: 20, aim: 1, coolDown: 500),
                     new Shoot(20, shoots: 4, shootAngle: 25, aim: 0.4, coolDown: 900),
@@ -118,20 +115,19 @@ namespace LoESoft.GameServer.logic
                     new HpLessTransition(0.4, "Waiting")
                     ),
                 new State("Waiting",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
                     new Flashing(0xFF0000, .1, 1000),
-                    new RemCond(ConditionEffectIndex.Invulnerable),
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                     new Shoot(10, shoots: 3, shootAngle: 20, aim: 1, coolDown: 500),
                     new HpLessTransition(0.1, "Dead")
                     ),
                 new State("Dead",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
+                    new AddCond(ConditionEffectIndex.StunImmune),
                     new Taunt(0.99, "Oh looky I died.Oh well."),
                     new Flashing(0xFF0000, .1, 1000),
                     new TimedTransition(2000, "Suicide")
                     ),
                 new State("Suicide",
-                    new AddCond(ConditionEffectIndex.StunImmune),
                     new Shoot(0, 8, direction: 360 / 8, index: 1),
                     new Suicide()
                     )
@@ -188,6 +184,7 @@ namespace LoESoft.GameServer.logic
                     ),
                 new State("Shooting4",
                     new Wander(2),
+                    new TossObject("Frog Bomb", 5, randomToss: true, ignoreStun: true, invisiToss: true),
                     new AddCond(ConditionEffectIndex.StunImmune),
                     new Shoot(0, 8, direction: 360 / 8, index: 1),
                     new Suicide()
@@ -198,7 +195,7 @@ namespace LoESoft.GameServer.logic
         .Init("Frog Bomb",
             new State(
                 new State("Idle",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new Flashing(0xff0000, 2, 1),
                     new ChangeSize(100, 80),
                     new TimedTransition(800, "Kaboom2")

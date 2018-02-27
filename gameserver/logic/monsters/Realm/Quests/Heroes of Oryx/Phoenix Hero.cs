@@ -53,10 +53,11 @@ namespace LoESoft.GameServer.logic
             .Init("Phoenix Egg",
                 new State(
                     new State("shielded",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(2000, "unshielded")
                         ),
                     new State("unshielded",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff0000, 1, 5000),
                         new State("grow",
                             new ChangeSize(20, 150),

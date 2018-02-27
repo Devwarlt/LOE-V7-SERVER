@@ -471,10 +471,12 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new TransformOnDeath("NM Blue Dragon Dead"),
                     new State("Idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(5000, "UnsetEffect")
                     ),
-                    new State("UnsetEffect")
+                    new State("UnsetEffect",
+                        new RemCond(ConditionEffectIndex.Invulnerable) // ok
+                        )
                 ),
                 new MostDamagers(2,
                     new TierLoot(2, ItemType.Potion, 1)
@@ -649,10 +651,12 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new TransformOnDeath("NM Blue Dragon Dead"),
                     new State("Idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(5000, "UnsetEffect")
                     ),
-                    new State("UnsetEffect")
+                    new State("UnsetEffect",
+                        new RemCond(ConditionEffectIndex.Invulnerable) // ok
+                        )
                 ),
                 new MostDamagers(3,
                     new TierLoot(2, ItemType.Potion, 1)
@@ -1142,10 +1146,12 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new TransformOnDeath("NM Red Dragon Dead"),
                     new State("Idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(5000, "UnsetEffect")
                     ),
-                    new State("UnsetEffect")
+                    new State("UnsetEffect",
+                        new RemCond(ConditionEffectIndex.Invulnerable) // ok
+                        )
                 ),
                 new MostDamagers(3,
                     new TierLoot(2, ItemType.Potion, 1)
@@ -1167,10 +1173,12 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new TransformOnDeath("NM Red Dragon Dead"),
                     new State("Idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(5000, "UnsetEffect")
                     ),
-                    new State("UnsetEffect")
+                    new State("UnsetEffect",
+                        new RemCond(ConditionEffectIndex.Invulnerable) // ok
+                        )
                 ),
                 new MostDamagers(2,
                     new TierLoot(2, ItemType.Potion, 1)
@@ -1565,10 +1573,12 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new TransformOnDeath("NM Green Dragon Dead"),
                     new State("Idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(5000, "UnsetEffect")
                     ),
-                    new State("UnsetEffect")
+                    new State("UnsetEffect",
+                        new RemCond(ConditionEffectIndex.Invulnerable) // ok
+                        )
                 ),
                 new MostDamagers(2,
                     new TierLoot(2, ItemType.Potion, 1)
@@ -1590,10 +1600,12 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new TransformOnDeath("NM Green Dragon Dead"),
                     new State("Idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(5000, "UnsetEffect")
                     ),
-                    new State("UnsetEffect")
+                    new State("UnsetEffect",
+                        new RemCond(ConditionEffectIndex.Invulnerable) // ok
+                        )
                 ),
                 new MostDamagers(3,
                     new TierLoot(2, ItemType.Potion, 1)
@@ -1954,10 +1966,12 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new TransformOnDeath("NM Black Dragon Dead"),
                     new State("Idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(5000, "UnsetEffect")
                     ),
-                    new State("UnsetEffect")
+                    new State("UnsetEffect",
+                        new RemCond(ConditionEffectIndex.Invulnerable) // ok
+                        )
                 ),
                 new MostDamagers(3,
                     new TierLoot(2, ItemType.Potion, 1)

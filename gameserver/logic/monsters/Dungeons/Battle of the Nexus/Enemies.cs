@@ -17,16 +17,11 @@ namespace LoESoft.GameServer.logic
                         new Wander(.05),
                         new Shoot(25, index: 0, shoots: 8, shootAngle: 45, coolDown: 1500, coolDownOffset: 1500),
                         new Shoot(25, index: 1, shoots: 3, shootAngle: 10, coolDown: 1000, coolDownOffset: 1000),
-                        new Shoot(25, index: 2, shoots: 3, shootAngle: 10, aim: 0.2, coolDown: 1000,
-                            coolDownOffset: 1000),
-                        new Shoot(25, index: 3, shoots: 2, shootAngle: 10, aim: 0.4, coolDown: 1000,
-                            coolDownOffset: 1000),
-                        new Shoot(25, index: 4, shoots: 3, shootAngle: 10, aim: 0.6, coolDown: 1000,
-                            coolDownOffset: 1000),
-                        new Shoot(25, index: 5, shoots: 2, shootAngle: 10, aim: 0.8, coolDown: 1000,
-                            coolDownOffset: 1000),
-                        new Shoot(25, index: 6, shoots: 3, shootAngle: 10, aim: 1, coolDown: 1000,
-                            coolDownOffset: 1000),
+                        new Shoot(25, index: 2, shoots: 3, shootAngle: 10, aim: 0.2, coolDown: 1000, coolDownOffset: 1000),
+                        new Shoot(25, index: 3, shoots: 2, shootAngle: 10, aim: 0.4, coolDown: 1000, coolDownOffset: 1000),
+                        new Shoot(25, index: 4, shoots: 3, shootAngle: 10, aim: 0.6, coolDown: 1000, coolDownOffset: 1000),
+                        new Shoot(25, index: 5, shoots: 2, shootAngle: 10, aim: 0.8, coolDown: 1000, coolDownOffset: 1000),
+                        new Shoot(25, index: 6, shoots: 3, shootAngle: 10, aim: 1, coolDown: 1000, coolDownOffset: 1000),
                         new Taunt(1, 6000, "Puny mortals! My {HP} HP will annihilate you!"),
                         new Spawn("Henchman of Oryx", 5, coolDown: 5000),
                         new HpLessTransition(.2, "prepareRage")
@@ -34,27 +29,23 @@ namespace LoESoft.GameServer.logic
                     new State("prepareRage",
                         new Chase(.1, 15, 3),
                         new Taunt("Can't... keep... henchmen... alive... anymore! ARGHHH!!!"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(25, 30, angleOffset: 0, index: 7, coolDown: 4000, coolDownOffset: 4000),
                         new Shoot(25, 30, angleOffset: 30, index: 8, coolDown: 4000, coolDownOffset: 4000),
                         new TimedTransition(10000, "rage")
                     ),
                     new State("rage",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Chase(.1, 15, 3),
                         new Shoot(25, 30, index: 7, coolDown: 90000001, coolDownOffset: 8000),
                         new Shoot(25, 30, index: 8, coolDown: 90000001, coolDownOffset: 8500),
                         new Shoot(25, index: 0, shoots: 8, shootAngle: 45, coolDown: 1500, coolDownOffset: 1500),
                         new Shoot(25, index: 1, shoots: 3, shootAngle: 10, coolDown: 1000, coolDownOffset: 1000),
-                        new Shoot(25, index: 2, shoots: 3, shootAngle: 10, aim: 0.2, coolDown: 1000,
-                            coolDownOffset: 1000),
-                        new Shoot(25, index: 3, shoots: 2, shootAngle: 10, aim: 0.4, coolDown: 1000,
-                            coolDownOffset: 1000),
-                        new Shoot(25, index: 4, shoots: 3, shootAngle: 10, aim: 0.6, coolDown: 1000,
-                            coolDownOffset: 1000),
-                        new Shoot(25, index: 5, shoots: 2, shootAngle: 10, aim: 0.8, coolDown: 1000,
-                            coolDownOffset: 1000),
-                        new Shoot(25, index: 6, shoots: 3, shootAngle: 10, aim: 1, coolDown: 1000,
-                            coolDownOffset: 1000),
+                        new Shoot(25, index: 2, shoots: 3, shootAngle: 10, aim: 0.2, coolDown: 1000, coolDownOffset: 1000),
+                        new Shoot(25, index: 3, shoots: 2, shootAngle: 10, aim: 0.4, coolDown: 1000, coolDownOffset: 1000),
+                        new Shoot(25, index: 4, shoots: 3, shootAngle: 10, aim: 0.6, coolDown: 1000, coolDownOffset: 1000),
+                        new Shoot(25, index: 5, shoots: 2, shootAngle: 10, aim: 0.8, coolDown: 1000, coolDownOffset: 1000),
+                        new Shoot(25, index: 6, shoots: 3, shootAngle: 10, aim: 1, coolDown: 1000, coolDownOffset: 1000),
                         new Taunt(1, 6000, "Puny mortals! My {HP} HP will annihilate you!")
                     )
                 ),
@@ -235,13 +226,13 @@ namespace LoESoft.GameServer.logic
                         new Shoot(12, aim: 1, coolDown: 900),
                         new TimedTransition(11500, "shrink"),
                         new State("1",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(2500, "2")
                             ),
                         new State("2")
                         ),
                     new State("shrink",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Wander(4),
                         new ChangeSize(-15, 25),
                         new TimedTransition(1000, "smallAttack")
@@ -256,12 +247,13 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(11000, "grow")
                         ),
                     new State("grow",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Wander(1),
                         new ChangeSize(35, 200),
                         new TimedTransition(1400, "bigAttack")
                         ),
                     new State("bigAttack",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(0.2),
                             new Wander(1)
@@ -273,37 +265,41 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(1400, "SetShield1")
                             ),
                         new State("SetShield1",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(1400, "WaitToSetShield2")
                             ),
                         new State("WaitToSetShield2",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(1400, "SetShield2")
                             ),
                         new State("SetShield2",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(1400, "WaitToSetShield3")
                             ),
                         new State("WaitToSetShield3",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(1400, "SetShield3")
                             ),
                         new State("SetShield3",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(1400, "WaitToSetShield4")
                             ),
                         new State("WaitToSetShield4",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(1400, "SetShield4")
                             ),
                         new State("SetShield4",
-                            new AddCond(ConditionEffectIndex.Invulnerable)
+                            new AddCond(ConditionEffectIndex.Invulnerable) // ok
                             )
                         ),
                     new State("normalize",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Wander(3),
                         new ChangeSize(-20, 100),
                         new TimedTransition(3200, "spawnMalphasFlamer")
                         ),
                     new State("spawnMalphasFlamer",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(0.3),
                             new Wander(2)
