@@ -750,7 +750,7 @@ public class PortalDesc
         {
             DungeonName = elem.Element("DungeonName").Value;
         }
-        TimeoutTime = ObjectId == "The Shatters" ? 70 : 30;
+        TimeoutTime = ObjectId == "Public Arena" ? 120 : (ObjectId == "The Shatters" ? 70 : 30);
     }
 
     public ushort ObjectType { get; private set; }

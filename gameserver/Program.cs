@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.models;
+using log4net;
 
 #endregion
 
@@ -21,6 +22,8 @@ namespace LoESoft.GameServer
     internal static class Program
     {
         public static DateTime Uptime { get; private set; }
+
+        public static readonly ILog Logger = LogManager.GetLogger("Server");
 
         private static readonly ManualResetEvent Shutdown = new ManualResetEvent(false);
 

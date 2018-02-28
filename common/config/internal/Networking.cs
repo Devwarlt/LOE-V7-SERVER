@@ -20,16 +20,20 @@ namespace LoESoft.Core.config
                 public static int RESTART_DELAY_MINUTES = Settings.RESTART_DELAY_MINUTES;
             }
 
+            private static Tuple<string, bool> Add(string version, bool allow) =>
+                Tuple.Create($"v6-{version}", allow);
+
             public static readonly List<Tuple<string, bool>> GAME_VERSIONS = new List<Tuple<string, bool>>
             {
-                Tuple.Create("v6-1.0", false),
-                Tuple.Create("v6-1.1", false),
-                Tuple.Create("v6-1.2", false),
-                Tuple.Create("v6-1.3", false),
-                Tuple.Create("v6-1.4", false),
-                Tuple.Create("v6-1.5", false),
-                Tuple.Create("v6-1.5.1", false),
-                Tuple.Create("v6-1.6 edition 1: pre-beta", true)
+                Add("1.0", false),
+                Add("1.1", false),
+                Add("1.2", false),
+                Add("1.3", false),
+                Add("1.4", false),
+                Add("1.5", false),
+                Add("1.5.1", false),
+                Add("1.6 edition 1: pre-beta", false),
+                Add("1.6.3 edition 1: pre-beta", true)
             };
 
             public static List<Tuple<string, bool>> SUPPORTED_VERSIONS()

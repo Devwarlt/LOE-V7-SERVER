@@ -53,8 +53,6 @@ namespace LoESoft.GameServer.realm
 
             SetMusic("main");
 
-            //Mark world for removal after 2 minutes if the 
-            //world is a dungeon and if no players in there;
             Timers.Add(new WorldTimer(120 * 1000, (w, t) =>
             {
                 canBeClosed = true;

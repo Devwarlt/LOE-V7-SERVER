@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
+  <Object type="0x575a" id="Public Arena Key">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>0x17</Index>
+    </Texture>
+    <SlotType>10</SlotType>
+    <Description>A key which opens an entrance to an Public Arena.\n\nKeys can only be used once you have 10 or more stars!</Description>
+    <Sound>use_key</Sound>
+    <Consumable />
+    <Soulbound />
+    <Activate id="Public Arena">Create</Activate>
+    <BagType>5</BagType>
+    <Track />
+  </Object>
+  <Object type="0x575b" id="Public Arena">
+    <Class>Portal</Class>
+    <IntergamePortal />
+    <DisplayId>Public Arena</DisplayId>
+    <DungeonName>Public Arena</DungeonName>
+    <Texture>
+      <File>LRE</File>
+      <Index>0x16</Index>
+    </Texture>
+  </Object>
 	<Object type="0x5054" id="Blue Star Ensign">
 		<Class>Equipment</Class>
 		<Item />

@@ -57,9 +57,8 @@ namespace LoESoft.GameServer.networking
                 OutgoingCompleted(this, _outgoing);
         }
 
-        private void OnError(Exception ex)
+        private void OnError()
         {
-            log.Error("Socket error detected: ", ex);
             Manager.TryDisconnect(client, DisconnectReason.SOCKET_ERROR_DETECTED);
         }
 

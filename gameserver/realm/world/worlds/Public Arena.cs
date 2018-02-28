@@ -12,7 +12,7 @@ using LoESoft.GameServer.realm.terrain;
 
 namespace LoESoft.GameServer.realm.world
 {
-    public class Arena : World
+    public class PublicArena : World
     {
         private bool ready = true;
         private bool waiting = false;
@@ -20,11 +20,13 @@ namespace LoESoft.GameServer.realm.world
         private List<string> entities = new List<string>();
         private List<string> past_entities = new List<string>();
 
-        public Arena()
+        public PublicArena()
         {
-            Id = (int)WorldID.ARENA;
-            Name = "Arena";
+            Name = "Public Arena";
+            ClientWorldName = "Public Arena";
+            Dungeon = true;
             Background = 0;
+            Difficulty = 5;
             AllowTeleport = true;
         }
 
@@ -165,7 +167,6 @@ namespace LoESoft.GameServer.realm.world
             "Abomination of Oryx",
             "Adult White Dragon",
             "Assassin of Oryx",
-            "Gigacorn",
             "Great Lizard",
             "Minotaur",
             "Monstrosity of Oryx",
@@ -202,7 +203,8 @@ namespace LoESoft.GameServer.realm.world
             "Frog King",
             "Cube God",
             "Skull Shrine",
-            "Oryx the Mad God 2"
+            "Oryx the Mad God 2",
+            "Gigacorn"
         };
 
         #endregion "Entities"

@@ -13,6 +13,7 @@ namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {
+        public int MaxHackEntries { get; set; }
         public AccountTypePerks AccountPerks { get; set; }
         public int PetID { get; set; }
         public List<List<int>> PetHealing { get; set; }

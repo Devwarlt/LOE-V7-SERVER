@@ -175,6 +175,8 @@
     <Compile Include="logic\monsters\Realm\Miscellaneous\Satellite.cs" />
     <Compile Include="logic\monsters\Realm\Mountains\Mountains Gods.cs" />
     <Compile Include="logic\monsters\Realm\Mountains\Mountains Special.cs" />
+    <Compile Include="logic\monsters\Realm\Oryx\Wine Cellar\Enemies.cs" />
+    <Compile Include="logic\monsters\Realm\Oryx\Wine Cellar\Oryx 2.cs" />
     <Compile Include="logic\monsters\Realm\Quests\Event Bosses\Avatar of the Forgotten King Event.cs" />
     <Compile Include="logic\monsters\Realm\Quests\Event Bosses\Cube God Event.cs" />
     <Compile Include="logic\monsters\Realm\Quests\Event Bosses\Ghost Ship Event.cs" />
@@ -507,6 +509,7 @@
     <Compile Include="realm\TradeManager.cs" />
     <Compile Include="realm\Utils.cs" />
     <Compile Include="realm\world\World.cs" />
+    <Compile Include="realm\world\worlds\Public Arena.cs" />
     <Compile Include="realm\world\worlds\Arena.cs" />
     <Compile Include="realm\world\worlds\dungeons\Beachzone.cs" />
     <Compile Include="realm\world\worlds\dungeons\BelladonnasGarden.cs" />

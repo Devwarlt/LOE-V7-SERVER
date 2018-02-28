@@ -267,12 +267,12 @@ namespace LoESoft.GameServer.logic
                         new Spawn("Red Satellite", maxChildren: 1, coolDown: 200),
                         new Spawn("Gray Satellite 1", maxChildren: 1, coolDown: 200),
                         new State("slowshot",
-                            new Shoot(10, index: 0, aim: 0.5, coolDown: 300, coolDownOffset: 600),
+                            new Shoot(10, aim: 0.5, coolDown: 300, coolDownOffset: 600),
                             new TimedTransition(5000, "megashot")
                             ),
                         new State("megashot",
                             new Flashing(0xffffffff, 0.2, 5),
-                            new Shoot(10, index: 1, aim: 0.2, coolDown: 90, coolDownOffset: 1000),
+                            new Shoot(10, aim: 0.2, coolDown: 90, coolDownOffset: 1000),
                             new TimedTransition(1200, "slowshot")
                             )
                         ),

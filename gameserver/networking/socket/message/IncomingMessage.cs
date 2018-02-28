@@ -6,8 +6,11 @@ namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler
     {
-        private bool IncomingMessageReceived(Message pkt)
+        private bool IncomingMessageReceived(Message pkt, bool ignore = false)
         {
+            if (ignore)
+                return true;
+
             if (client.IsReady())
             {
                 Manager.Network.AddPendingPacket(client, pkt);
@@ -50,9 +53,9 @@ namespace LoESoft.GameServer.networking
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                OnError(ex);
+                OnError();
             }
         }
 

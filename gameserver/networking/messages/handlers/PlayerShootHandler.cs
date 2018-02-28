@@ -25,23 +25,32 @@ namespace LoESoft.GameServer.networking.handlers
             if (!Program.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out Item item))
                 return;
 
-            DexterityCheatHandler _cheatHandler = new DexterityCheatHandler();
-            _cheatHandler.SetPlayer(player);
-            _cheatHandler.SetItem(item);
-            _cheatHandler.SetAbility(TierLoot.AbilitySlotType.ToList().Contains(item.SlotType));
-            _cheatHandler.SetPeriod(message.AttackPeriod);
-            _cheatHandler.SetAmount(message.AttackAmount);
+            DexterityCheatHandler _cheatHandler = new DexterityCheatHandler()
+            {
+                Player = player,
+                Item = item,
+                IsAbility = TierLoot.AbilitySlotType.ToList().Contains(item.SlotType),
+                AttackAmount = message.AttackAmount,
+                IsDazed = message.IsDazed,
+                IsBeserk = message.IsBeserk,
+                MinAttackFrequency = message.MinAttackFrequency,
+                MaxAttackFrequency = message.MaxAttackFrequency,
+                WeaponRateOfFire = message.WeaponRateOfFire
+            };
+
             _cheatHandler.Handler();
 
             Projectile _projectile = player.PlayerShootProjectile(message.BulletId, item.Projectiles[0], item.ObjectType, Manager.Logic.CurrentTime.TotalElapsedMs, message.Position, message.Angle);
 
             player.Owner.EnterWorld(_projectile);
 
-            ALLYSHOOT _allyShoot = new ALLYSHOOT();
-            _allyShoot.Angle = message.Angle;
-            _allyShoot.BulletId = message.BulletId;
-            _allyShoot.ContainerType = message.ContainerType;
-            _allyShoot.OwnerId = player.Id;
+            ALLYSHOOT _allyShoot = new ALLYSHOOT
+            {
+                Angle = message.Angle,
+                BulletId = message.BulletId,
+                ContainerType = message.ContainerType,
+                OwnerId = player.Id
+            };
 
             player.BroadcastSync(_allyShoot, p => p != player && p.Dist(player) <= 12);
 

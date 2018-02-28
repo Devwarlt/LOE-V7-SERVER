@@ -20,10 +20,10 @@
         public AccountTypePerks(int accountType)
         {
             _accountType = (AccountType)accountType;
-            _accessToDrastaCitadel = _accountType > config.AccountType.VIP_ACCOUNT;
-            _byPassKeysRequirements = _accountType > config.AccountType.VIP_ACCOUNT;
-            _byPassEggsRequirements = _accountType > config.AccountType.VIP_ACCOUNT;
-            _priorityToLogin = _accountType > config.AccountType.VIP_ACCOUNT;
+            _accessToDrastaCitadel = _accountType >= AccountType.VIP_ACCOUNT;
+            _byPassKeysRequirements = _accountType >= AccountType.VIP_ACCOUNT;
+            _byPassEggsRequirements = _accountType >= AccountType.VIP_ACCOUNT;
+            _priorityToLogin = _accountType >= AccountType.VIP_ACCOUNT;
         }
 
         public int Experience(int level, int experience)
@@ -72,6 +72,8 @@
             return icon;
         }
 
-        public double MerchantDiscount() => _accountType == AccountType.VIP_ACCOUNT ? 0.9 : _accountType == AccountType.LEGENDS_OF_LOE_ACCOUNT ? 0.8 : 1;
+        public double MerchantDiscount() =>
+            _accountType == AccountType.VIP_ACCOUNT ? 0.9 :
+            _accountType == AccountType.LEGENDS_OF_LOE_ACCOUNT ? 0.8 : 1;
     }
 }

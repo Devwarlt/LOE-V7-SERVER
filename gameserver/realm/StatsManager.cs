@@ -31,15 +31,15 @@ namespace LoESoft.GameServer.realm
             return Random.Obf6((uint)min, (uint)max) * DamageModifier();
         }
 
-        private const float MinAttackFreq = 0.0015f;
-        private const float MaxAttackFreq = 0.008f;
+        public readonly static float MinAttackFrequency = 0.0015f;
+        public readonly static float MaxAttackFrequency = 0.008f;
 
         public float GetAttackFrequency()
         {
             if (player.HasConditionEffect(ConditionEffects.Dazed))
-                return MinAttackFreq;
+                return MinAttackFrequency;
 
-            var rof = MinAttackFreq + (GetStats(7) / 75f) * (MaxAttackFreq - MinAttackFreq);
+            var rof = MinAttackFrequency + (GetStats(7) / 75f) * (MaxAttackFrequency - MinAttackFrequency);
 
             if (player.HasConditionEffect(ConditionEffects.Berserk))
                 rof *= 1.5f;

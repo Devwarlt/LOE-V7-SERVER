@@ -73,7 +73,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                                     default: break;
                                 }
                                 if (1 - player.AccountPerks.MerchantDiscount() > 0 && (currency.Key != null && currency.Value != -1))
-                                    player.SendInfo($"You saved {originalPrice - Price} {currency.Key}{(currency.Value > 1 ? "s" : "")} ({1 - player.AccountPerks.MerchantDiscount()}% off)!");
+                                    player.SendInfo($"You saved {originalPrice - Price} {currency.Key}{(currency.Value > 1 ? "s" : "")} ({(1 - player.AccountPerks.MerchantDiscount()) * 100}% off)!");
                                 player.Client.SendMessage(new BUYRESULT
                                 {
                                     Result = 0,

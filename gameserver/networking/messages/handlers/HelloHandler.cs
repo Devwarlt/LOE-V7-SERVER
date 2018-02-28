@@ -139,24 +139,6 @@ namespace LoESoft.GameServer.networking.handlers
                 if (world == null && message.GameId == (int)WorldID.TUT_ID)
                     world = Manager.AddWorld(new Tutorial(false));
 
-                if (!Manager.Database.AcquireLock(acc))
-                {
-                    int accountInUseTime = Manager.Database.GetLockTime(acc);
-                    client.SendMessage(new FAILURE
-                    {
-                        ErrorId = (int)FailureIDs.JSON_DIALOG,
-                        ErrorDescription =
-                            JSONErrorIDHandler
-                                .FormatedJSONError(
-                                    errorID: ErrorIDs.ACCOUNT_IN_USE,
-                                    labels: new[] { "{CLIENT_NAME}", "{TIME_LEFT}" },
-                                    arguments: new[] { acc.Name, $"{accountInUseTime} second{(accountInUseTime > 1 ? "s" : "")}" }
-                                )
-                    });
-                    Manager.TryDisconnect(client, DisconnectReason.ACCOUNT_IN_USE);
-                    return;
-                }
-
                 if (acc.AccountType == (int)AccountType.VIP_ACCOUNT)
                 {
                     DateTime _currentTime = DateTime.Now;

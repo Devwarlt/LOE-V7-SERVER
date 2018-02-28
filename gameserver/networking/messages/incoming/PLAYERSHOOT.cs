@@ -12,8 +12,12 @@ namespace LoESoft.GameServer.networking.incoming
         public short ContainerType { get; set; }
         public Position Position { get; set; }
         public float Angle { get; set; }
-        public float AttackPeriod { get; set; }
         public int AttackAmount { get; set; }
+        public bool IsDazed { get; set; }
+        public bool IsBeserk { get; set; }
+        public float MinAttackFrequency { get; set; }
+        public float MaxAttackFrequency { get; set; }
+        public float WeaponRateOfFire { get; set; }
 
         public override MessageID ID => MessageID.PLAYERSHOOT;
 
@@ -25,8 +29,12 @@ namespace LoESoft.GameServer.networking.incoming
             ContainerType = rdr.ReadInt16();
             Position = Position.Read(rdr);
             Angle = rdr.ReadSingle();
-            AttackPeriod = rdr.ReadSingle();
             AttackAmount = rdr.ReadInt32();
+            IsDazed = rdr.ReadBoolean();
+            IsBeserk = rdr.ReadBoolean();
+            MinAttackFrequency = rdr.ReadSingle();
+            MaxAttackFrequency = rdr.ReadSingle();
+            WeaponRateOfFire = rdr.ReadSingle();
         }
 
         protected override void Write(NWriter wtr)
@@ -35,8 +43,12 @@ namespace LoESoft.GameServer.networking.incoming
             wtr.Write(ContainerType);
             Position.Write(wtr);
             wtr.Write(Angle);
-            wtr.Write(AttackPeriod);
             wtr.Write(AttackAmount);
+            wtr.Write(IsDazed);
+            wtr.Write(IsBeserk);
+            wtr.Write(MinAttackFrequency);
+            wtr.Write(MaxAttackFrequency);
+            wtr.Write(WeaponRateOfFire);
         }
     }
 }

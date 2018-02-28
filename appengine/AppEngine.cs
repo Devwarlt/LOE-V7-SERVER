@@ -248,10 +248,8 @@ namespace LoESoft.AppEngine
                 {
                     WebSocketHandler(_webcontext);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Log.Error("WebSocketThread", "Unhandled exception");
-                    Log.Error($"Bad data processing:\n{e}");
                     return;
                 }
             } while (_webevent.WaitOne());
@@ -304,15 +302,13 @@ namespace LoESoft.AppEngine
                 else
                     Log.Warn($"[{(_webcontext.Request.RemoteEndPoint.Address.ToString() == "::1" ? "localhost" : $"{_webcontext.Request.RemoteEndPoint.Address.ToString()}")}] Request\t->\t{_webcontext.Request.Url.LocalPath}");
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                _webcontext = _webqueue.Dequeue();
+                if (_webqueue.Count != 0)
+                    _webcontext = _webqueue.Dequeue();
 
                 using (StreamWriter stream = new StreamWriter(_webcontext.Response.OutputStream))
                     stream.Write($"<h1>Bad request!</h1>\n{_webcontext.Request.Url.LocalPath}");
-
-                Log.Error("WebSocketHandler", "Unhandled exception");
-                Log.Error(e.ToString());
             }
 
             _webcontext?.Response.Close();

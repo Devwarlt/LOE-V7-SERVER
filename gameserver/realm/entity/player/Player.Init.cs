@@ -261,11 +261,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                     Client.SendMessage(_death);
 
-                    Log.Info($"Message details type '{_death.ID}':\n{_death}");
-
                     Owner.Timers.Add(new WorldTimer(1000, (w, t) => Program.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD)));
-
-                    Log.Info($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
 
                     Owner.LeaveWorld(this);
                 }
@@ -277,6 +273,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
         public override void Init(World owner)
         {
+            MaxHackEntries = 0;
             visibleTiles = new Dictionary<IntPoint, bool>();
             WorldInstance = owner;
             Random rand = new Random();

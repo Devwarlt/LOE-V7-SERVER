@@ -10,7 +10,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
             internal static readonly int[] keys =
             {
                 1897, 12288, 12289, 12290, 29035, 3466, 538, 887, 2996, 2998, 1601, 2355, 5705, 3285, 1544, 1563, 1584, 1576, 3311,
-                3133, 8848, 28645
+                3133, 8848, 28645, 0x575a
             };
 
             internal static readonly string[] eggs =

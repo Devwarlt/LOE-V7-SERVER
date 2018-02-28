@@ -169,7 +169,8 @@ namespace LoESoft.GameServer.realm.commands
 
         private List<string> Blacklist = new List<string>
         {
-            "admin sword", "admin wand", "admin staff", "admin dagger", "admin bow", "admin katana", "crown"
+            "admin sword", "admin wand", "admin staff", "admin dagger", "admin bow", "admin katana", "crown",
+            "public arena key"
         };
 
         protected override bool Process(Player player, RealmTime time, string[] args)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoESoft.Core.models;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -31,15 +32,33 @@ namespace LoESoft.GameServer.networking
                             return;
                         }
 
-                        if (e.Buffer[0] == 0xae && e.Buffer[1] == 0x7a && e.Buffer[2] == 0xf2 && e.Buffer[3] == 0xb2 && e.Buffer[4] == 0x95)
+                        if (e.Buffer[0] == 0x01
+                            && e.Buffer[1] == 0x02
+                            && e.Buffer[2] == 0x03
+                            && e.Buffer[3] == 0x04
+                            && e.Buffer[4] == 0x05)
+                        {
+                            byte[] c = Encoding.ASCII.GetBytes("1");
+                            skt.Send(c);
+                            return;
+                        }
+
+                        if (e.Buffer[0] == 0xae
+                            && e.Buffer[1] == 0x7a
+                            && e.Buffer[2] == 0xf2
+                            && e.Buffer[3] == 0xb2
+                            && e.Buffer[4] == 0x95)
                         {
                             byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{Program.GameUsage}");
                             skt.Send(c);
                             return;
                         }
 
-                        if (e.Buffer[0] == 0x3c && e.Buffer[1] == 0x70 &&
-                            e.Buffer[2] == 0x6f && e.Buffer[3] == 0x6c && e.Buffer[4] == 0x69)
+                        if (e.Buffer[0] == 0x3c
+                            && e.Buffer[1] == 0x70
+                            && e.Buffer[2] == 0x6f
+                            && e.Buffer[3] == 0x6c
+                            && e.Buffer[4] == 0x69)
                         {
                             ProcessPolicyFile();
                             return;
@@ -56,7 +75,7 @@ namespace LoESoft.GameServer.networking
                         }
                         catch
                         {
-                            log.ErrorFormat("Packet ID not found: {0}", e.Buffer[4]);
+                            log.ErrorFormat("Message ID not found: {0}", e.Buffer[4]);
                         }
 
                         _outgoingState = OutgoingState.ReceivingBody;
@@ -67,7 +86,17 @@ namespace LoESoft.GameServer.networking
                     case OutgoingState.ReceivingBody:
                         if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
                         {
-                            Manager.TryDisconnect(client, DisconnectReason.RECEIVING_BODY);
+                            Log.Error($"(Bytes: {e.BytesTransferred}/{(e.UserToken as IncomingToken).Length}) Error in message '{(e.UserToken as IncomingToken).Packet.ID}':\n{(e.UserToken as IncomingToken).Packet}");
+                            
+                            if (skt.Connected)
+                            {
+                                _outgoingState = OutgoingState.ReceivingHdr;
+                                e.SetBuffer(new byte[5] { 0x01, 0x02, 0x03, 0x04, 0x05 }, 0, 5);
+                                skt.ReceiveAsync(e);
+                            }
+                            else
+                                Manager.TryDisconnect(client, DisconnectReason.RECEIVING_BODY);
+
                             return;
                         }
 
@@ -75,6 +104,7 @@ namespace LoESoft.GameServer.networking
                         pkt.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
 
                         _outgoingState = OutgoingState.Processing;
+
                         bool cont = IncomingMessageReceived(pkt);
 
                         if (cont && skt.Connected)
@@ -88,9 +118,9 @@ namespace LoESoft.GameServer.networking
                         throw new InvalidOperationException(e.LastOperation.ToString());
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                OnError(ex);
+                OnError();
             }
         }
     }
