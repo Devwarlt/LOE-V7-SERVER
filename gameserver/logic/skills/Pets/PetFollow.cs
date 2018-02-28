@@ -20,8 +20,9 @@ namespace LoESoft.GameServer.logic.skills.Pets
             Player player = host.GetPlayerOwner();
             Entity pet = player.Pet;
             bool hatchling = player.HatchlingPet;
+            bool hatchlingNotification = player.HatchlingNotification;
 
-            if (hatchling)
+            if (hatchling && !hatchlingNotification)
             {
                 NOTIFICATION _notification = new NOTIFICATION
                 {
@@ -31,6 +32,10 @@ namespace LoESoft.GameServer.logic.skills.Pets
                 };
 
                 host.Owner.BroadcastPacket(_notification, null);
+
+                player.HatchlingNotification = true;
+
+                player.SendInfo("Please, leave vault to activate your pet (HP healing, MP healing, follow and shoot behaviors).");
                 return;
             }
 

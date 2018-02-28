@@ -16,7 +16,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("EvaluationStart1",
                         new Taunt("New recruits for my undead army? How delightful!"),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new StayCloseToSpawn(3.5, range: 5),
                             new Wander(3.5)
@@ -24,6 +24,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(2500, "EvaluationStart2")
                         ),
                     new State("EvaluationStart2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0x0000ff, 0.1, 60),
                         new Prioritize(
                             new StayCloseToSpawn(3.5, range: 5),
@@ -215,7 +216,7 @@ namespace LoESoft.GameServer.logic
                     new State("Attack3",
                         new Shoot(10, index: 1, coolDown: 800),
                         new State("AttackX",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Prioritize(
                                 new StayCloseToSpawn(13, range: 5),
                                 new Wander(13)
@@ -223,6 +224,7 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(2500, "AttackY")
                             ),
                         new State("AttackY",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Taunt(0.02, "We feed the master!"),
                             new Prioritize(
                                 new StayCloseToSpawn(10, range: 5),
@@ -242,7 +244,7 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new State("NewLocation",
                         new Taunt(0.1, "XxxXxxxXxXxXxxx..."),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(10, aim: 0.2, coolDown: 700),
                         new Prioritize(
                             new StayCloseToSpawn(10, range: 11),
@@ -251,6 +253,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(7000, "Attack")
                         ),
                     new State("Attack",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Taunt(0.1, "Hungry..."),
                         new Shoot(10, aim: 0.3, coolDown: 700),
                         new Shoot(10, shoots: 2, shootAngle: 70, coolDown: 700, coolDownOffset: 200),

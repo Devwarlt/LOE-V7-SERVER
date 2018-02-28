@@ -31,7 +31,9 @@ namespace LoESoft.GameServer.networking
                 NWriter wtr = new NWriter(s);
                 if (rdr.ReadNullTerminatedString() == "<policy-file-request/>")
                 {
-                    wtr.WriteNullTerminatedString(Settings.IS_PRODUCTION ? Settings.NETWORKING.INTERNAL.SELECTED_DOMAINS : Settings.NETWORKING.INTERNAL.LOCALHOST_DOMAINS);
+                    wtr.WriteNullTerminatedString(@"<cross-domain-policy>
+     <allow-access-from domain=""*"" to-ports=""*"" />
+</cross-domain-policy>");
                     wtr.Write((byte)'\r');
                     wtr.Write((byte)'\n');
                 }

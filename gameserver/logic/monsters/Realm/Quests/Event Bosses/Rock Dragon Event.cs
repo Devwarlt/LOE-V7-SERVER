@@ -12,8 +12,8 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new CopyDamageOnDeath("Dragon Head Spawner"),
                     new State("Invul",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new State("Spawn Segment",
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new SetAltTexture(0),
                             new Spawn("Body Segment A", 1, 1, 5000),
                             new Spawn("Body Segment B", 1, 1, 5000),
@@ -52,6 +52,7 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("Attack",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(1, 6, 500, true),
                         new Prioritize(
                             new StayCloseToSpawn(20, 20),
@@ -335,7 +336,7 @@ namespace LoESoft.GameServer.logic
 
             .Init("Body Segment Tail",
                 new State(
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new State("Wait",
                         new TimedTransition(1000, "Wasted Line")
                         ),

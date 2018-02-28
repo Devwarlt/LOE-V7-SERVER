@@ -10,19 +10,19 @@ namespace LoESoft.GameServer.logic
             .Init("Skull Shrine",
                 new State(
                     new State("initial",
-                        new Shoot(30, 9, 10, coolDown: 750, aim: 1), // add prediction after fixing it...
+                        new Shoot(30, 9, 10, coolDown: 750, aim: 1),
                         new Reproduce("Red Flaming Skull", 40, 20, coolDown: 500),
                         new Reproduce("Blue Flaming Skull", 40, 20, coolDown: 500),
                         new HpLessTransition(0.35, "flashing")
                         ),
                     new State("flashing",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xFF0000, 0.5, (int)(10 / 0.5)),
                         new TimedTransition(10000, "final")
                         ),
                     new State("final",
-                        new RemCond(ConditionEffectIndex.Invulnerable),
-                        new Shoot(30, 9, 10, coolDown: 750, aim: 1), // add prediction after fixing it...
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
+                        new Shoot(30, 9, 10, coolDown: 750, aim: 1),
                         new Reproduce("Red Flaming Skull", 40, 20, coolDown: 500),
                         new Reproduce("Blue Flaming Skull", 40, 20, coolDown: 500),
                         new Flashing(0xFF0000, 0.5, int.MaxValue / 2)

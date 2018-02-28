@@ -101,7 +101,7 @@ namespace LoESoft.GameServer.logic
                     new State("StartBreak",
                         new Taunt("You cracked the crystal! Soon we shall emerge!"),
                         new ChangeSize(-2, 80),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok 
                         new Flashing(0xff000000, 2, 10),
                         new TimedTransition(4000, "BreakCrystal")
                         ),
@@ -119,36 +119,36 @@ namespace LoESoft.GameServer.logic
                     new DropPortalOnDeath("Deadwater Docks", 1),
                     new Spawn("Crystal Prisoner Steed", maxChildren: 3, initialSpawn: 0, coolDown: 200),
                     new State("pause",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(2000, "start_the_fun")
                         ),
                     new State("start_the_fun",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new Taunt("I'm finally free! Yesss!!!"),
                         new TimedTransition(1500, "Daisy_attack")
                         ),
                     new State("Daisy_attack",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new StayCloseToSpawn(0.3, range: 7),
                             new Wander(3)
                             ),
                         new State("Quadforce1",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(0, index: 0, shoots: 4, shootAngle: 90, direction: 0, coolDown: 300),
                             new TimedTransition(200, "Quadforce2")
                             ),
                         new State("Quadforce2",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(0, index: 0, shoots: 4, shootAngle: 90, direction: 15, coolDown: 300),
                             new TimedTransition(200, "Quadforce3")
                             ),
                         new State("Quadforce3",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(0, index: 0, shoots: 4, shootAngle: 90, direction: 30, coolDown: 300),
                             new TimedTransition(200, "Quadforce4")
                             ),
                         new State("Quadforce4",
-                            new Shoot(10, index: 3, coolDown: 1000),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(0, index: 0, shoots: 4, shootAngle: 90, direction: 45, coolDown: 300),
                             new TimedTransition(200, "Quadforce5")
                             ),
@@ -157,17 +157,17 @@ namespace LoESoft.GameServer.logic
                             new TimedTransition(200, "Quadforce6")
                             ),
                         new State("Quadforce6",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(0, index: 0, shoots: 4, shootAngle: 90, direction: 75, coolDown: 300),
                             new TimedTransition(200, "Quadforce7")
                             ),
                         new State("Quadforce7",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(0, index: 0, shoots: 4, shootAngle: 90, direction: 90, coolDown: 300),
                             new TimedTransition(200, "Quadforce8")
                             ),
                         new State("Quadforce8",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new Shoot(10, index: 3, coolDown: 1000),
                             new Shoot(0, index: 0, shoots: 4, shootAngle: 90, direction: 105, coolDown: 300),
                             new TimedTransition(200, "Quadforce1")
@@ -180,7 +180,7 @@ namespace LoESoft.GameServer.logic
                             new StayCloseToSpawn(5, range: 7),
                             new Wander(5)
                             ),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff00ff00, 0.2, 15),
                         new Chase(4, sightRange: 9, range: 2),
                         new TimedTransition(3000, "Summon_the_clones")
@@ -197,10 +197,10 @@ namespace LoESoft.GameServer.logic
                         new TossObject("Crystal Prisoner Clone", range: 7, angle: 60, coolDown: 100000),
                         new TossObject("Crystal Prisoner Clone", range: 7, angle: 300, coolDown: 100000),
                         new State("invulnerable_clone",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
                             new TimedTransition(3000, "vulnerable_clone")
                             ),
                         new State("vulnerable_clone",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(1200, "invulnerable_clone")
                             ),
                         new TimedTransition(16000, "Warning2")
@@ -210,11 +210,12 @@ namespace LoESoft.GameServer.logic
                             new StayCloseToSpawn(8.5, range: 7),
                             new Wander(8.5)
                             ),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff00ff00, 0.2, 25),
                         new TimedTransition(5000, "Whoa_nelly")
                         ),
                     new State("Whoa_nelly",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new StayCloseToSpawn(6, range: 7),
                             new Wander(6)
@@ -225,15 +226,17 @@ namespace LoESoft.GameServer.logic
                         new Shoot(10, index: 2, shoots: 3, shootAngle: 15, direction: 130, coolDown: 1600, coolDownOffset: 800),
                         new Shoot(10, index: 2, shoots: 3, shootAngle: 15, direction: 310, coolDown: 1600, coolDownOffset: 800),
                         new State("invulnerable_whoa",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(2600, "vulnerable_whoa")
                             ),
                         new State("vulnerable_whoa",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(1200, "invulnerable_whoa")
                             ),
                         new TimedTransition(10000, "Absolutely_Massive")
                         ),
                     new State("Absolutely_Massive",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(13, 260),
                         new Prioritize(
                             new StayCloseToSpawn(0.2, range: 7),
@@ -244,17 +247,18 @@ namespace LoESoft.GameServer.logic
                         new Shoot(10, index: 1, shoots: 9, shootAngle: 40, direction: 50, coolDown: 2000, coolDownOffset: 1200),
                         new Shoot(10, index: 1, shoots: 9, shootAngle: 40, direction: 70, coolDown: 2000, coolDownOffset: 1600),
                         new State("invulnerable_mass",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(2600, "vulnerable_mass")
                             ),
                         new State("vulnerable_mass",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(1000, "invulnerable_mass")
                             ),
                         new TimedTransition(14000, "Start_over_again")
                         ),
                     new State("Start_over_again",
                         new ChangeSize(-20, 100),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xff00ff00, 0.2, 15),
                         new TimedTransition(3000, "Daisy_attack")
                         )
@@ -289,7 +293,7 @@ namespace LoESoft.GameServer.logic
             .Init("Crystal Prisoner Steed",
                 new State(
                     new State("change_position_fast",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new StayCloseToSpawn(36, range: 12),
                             new Wander(36)
@@ -297,6 +301,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(800, "attack")
                         ),
                     new State("attack",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(10, aim: 0.3, coolDown: 500),
                         new State("keep_distance",
                             new Prioritize(

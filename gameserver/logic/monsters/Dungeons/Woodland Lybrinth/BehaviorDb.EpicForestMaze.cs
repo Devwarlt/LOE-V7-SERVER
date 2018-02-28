@@ -60,7 +60,7 @@ namespace LoESoft.GameServer.logic
                     new Shoot(25, index: 0, shoots: 3, shootAngle: 10, coolDown: 1, coolDownOffset: 1)
                     ),
                 new State("change",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new Flashing(0xfFF0000, 1, 900001),
                     new TimedTransition(3000, "suicide")
                     ),
@@ -111,7 +111,7 @@ namespace LoESoft.GameServer.logic
                     new Shoot(10, shoots: 4, index: 0, angleOffset: fixedAngle_RingAttack2, coolDownOffset: 2000)
                     ),
                 new State("change",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new Flashing(0xfFF0000, 1, 900001),
                     new TimedTransition(3000, "suicide")
                     ),

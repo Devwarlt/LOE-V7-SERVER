@@ -23,10 +23,11 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("shrink",
                         new Wander(1),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(1000, "smallAttack")
                         ),
                     new State("smallAttack",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(1, sightRange: 15, range: 8),
                             new Wander(10)
@@ -38,10 +39,11 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("grow",
                         new Wander(1),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(1050, "bigAttack")
                         ),
                     new State("bigAttack",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(0.2),
                             new Wander(1)
@@ -55,7 +57,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("normalize",
                         new Wander(3),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(1000, "basic")
                         )
                     ),

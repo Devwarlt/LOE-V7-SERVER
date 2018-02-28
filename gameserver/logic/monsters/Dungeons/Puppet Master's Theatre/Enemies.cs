@@ -233,71 +233,74 @@ namespace LoESoft.GameServer.logic
                       )
             )
     )
-            .Init("Oryx Puppet",
-                new State(
-                    new State("default",
-                        new PlayerWithinTransition(8, "idle")
-                        ),
-                    new State("idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
-                        new Taunt("Am I not an uncanny likeness of Oryx Himself?"),
-                        new TimedTransition(4500, "Ready Phase")
-                        ),
-                        new State("Ready Phase",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
-                        new Taunt("You don't see the similarity? Well then, let me show you!"),
-                        new TimedTransition(4500, "Fight1")
-                        ),
-                         new State("Fight1",
-                         new Shoot(25, index: 0, shoots: 8, shootAngle: 10, coolDown: 2000, coolDownOffset: 1500),
-                         new HpLessTransition(.50, "Fight2")
-                        ),
-                    new State("Fight2",
-                        new Spawn("Minion Puppet", initialSpawn: 1, maxChildren: 3, coolDown: 2500),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
-                        new TimedTransition(4500, "Move Phase")
-                        ),
-                    new State("Move Phase",
-                        new Grenade(4, 150, 8, coolDown: 500),
-                        new Shoot(8.4, shoots: 1, index: 1, coolDown: 4500),
-                        new Shoot(8.4, shoots: 1, index: 1, coolDown: 6500),
-                        new Wander(0.3),
-                        new HpLessTransition(.25, "Artifacts")
-                        ),
-                    new State("Artifacts",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
-                        new Taunt(1.00, "I may not have all the power of Oryx, but my artifacts should still be enough to kill the likes of you!"),
-                        new TossObject("Mini Guardian Element", 1, 0, 90000001, 1000),
-                        new TossObject("Mini Guardian Element", 1, 90, 90000001, 1000),
-                        new TossObject("Mini Guardian Element", 1, 180, 90000001, 1000),
-                        new TossObject("Mini Guardian Element", 1, 270, 90000001, 1000),
-                        new TimedTransition(12000, "Fight3")
-                        ),
-                         new State("Fight3",
-                         new AddCond(ConditionEffectIndex.Armored),
-                         new Shoot(25, index: 2, shoots: 20, shootAngle: 10, coolDown: 2500, coolDownOffset: 1500),
-                         new HpLessTransition(.10, "Dying")
-                        ),
-                    new State("Dying",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
-                        new Taunt("Nooooo! This cannot be!"),
-                        new TimedTransition(4500, "Dead")
-                        ),
-                   new State("Dead",
-                        new Suicide()
-                           )
+        .Init("Oryx Puppet",
+            new State(
+                new State("default",
+                    new PlayerWithinTransition(8, "idle")
                     ),
-                new MostDamagers(2,
-                    new ItemLoot("Potion of Attack", 1.00)
+                new State("idle",
+                    new AddCond(ConditionEffectIndex.Invulnerable), //  ok
+                    new Taunt("Am I not an uncanny likeness of Oryx Himself?"),
+                    new TimedTransition(4500, "Ready Phase")
+                    ),
+                new State("Ready Phase",
+                    new Taunt("You don't see the similarity? Well then, let me show you!"),
+                    new TimedTransition(4500, "Fight1")
+                    ),
+                new State("Fight1",
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
+                    new Shoot(25, index: 0, shoots: 8, shootAngle: 10, coolDown: 2000, coolDownOffset: 1500),
+                    new HpLessTransition(.50, "Fight2")
+                    ),
+                new State("Fight2",
+                    new Spawn("Minion Puppet", initialSpawn: 1, maxChildren: 3, coolDown: 2500),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
+                    new TimedTransition(4500, "Move Phase")
+                    ),
+                new State("Move Phase",
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
+                    new Grenade(4, 150, 8, coolDown: 500),
+                    new Shoot(8.4, shoots: 1, index: 1, coolDown: 4500),
+                    new Shoot(8.4, shoots: 1, index: 1, coolDown: 6500),
+                    new Wander(0.3),
+                    new HpLessTransition(.25, "Artifacts")
+                    ),
+                new State("Artifacts",
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
+                    new Taunt(1.00, "I may not have all the power of Oryx, but my artifacts should still be enough to kill the likes of you!"),
+                    new TossObject("Mini Guardian Element", 1, 0, 90000001, 1000),
+                    new TossObject("Mini Guardian Element", 1, 90, 90000001, 1000),
+                    new TossObject("Mini Guardian Element", 1, 180, 90000001, 1000),
+                    new TossObject("Mini Guardian Element", 1, 270, 90000001, 1000),
+                    new TimedTransition(12000, "Fight3")
+                    ),
+                new State("Fight3",
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
+                    new AddCond(ConditionEffectIndex.Armored),
+                    new Shoot(25, index: 2, shoots: 20, shootAngle: 10, coolDown: 2500, coolDownOffset: 1500),
+                    new HpLessTransition(.10, "Dying")
+                    ),
+                new State("Dying",
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
+                    new Taunt("Nooooo! This cannot be!"),
+                    new TimedTransition(4500, "Dead")
+                    ),
+                new State("Dead",
+                    new Suicide()
+                    )
                 ),
-                new Threshold(0.025,
-                  new ItemLoot("Prism of Dancing Swords", 0.003),
-                  new ItemLoot("Puppet Master Skin", 0.002),
-                  new ItemLoot("Jester Skin", 0.002),
-                  new ItemLoot("Wine Cellar Incantation", 0.002)
-                       )
-             )
-                .Init("Minion Puppet",
+            new MostDamagers(2,
+                new ItemLoot("Potion of Attack", 1.00)
+                ),
+            new Threshold(0.025,
+                new ItemLoot("Prism of Dancing Swords", 0.003),
+                new ItemLoot("Puppet Master Skin", 0.002),
+                new ItemLoot("Jester Skin", 0.002),
+                new ItemLoot("Wine Cellar Incantation", 0.002)
+                )
+            )
+        
+        .Init("Minion Puppet",
                 new State(
                     new State(
                         new Wander(0.5),
@@ -314,7 +317,7 @@ namespace LoESoft.GameServer.logic
                 new State(
                     new State(
                         new Circle(1, 1, target: "Oryx Puppet", radiusVariance: 0),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(25, index: 0, shoots: 3, shootAngle: 20, coolDown: 2000, coolDownOffset: 1500),
                         new TimedTransition(8000, "Despawn")
                             ),
@@ -335,14 +338,13 @@ namespace LoESoft.GameServer.logic
                     new HpLessTransition(0.11, "dead")
                     ),
                  new State("dead",
-                     new AddCond(ConditionEffectIndex.Invulnerable),
+                     new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new Taunt(1.00, "You may have killed me, but I am only a pretender. Get ready for the plot twist!"),
                     new TimedTransition(2500, "die")
                     ),
                  new State("die",
-                     new AddCond(ConditionEffectIndex.Invulnerable),
                      new Shoot(8.4, shoots: 8, index: 1, coolDown: 2850),
-                    new Suicide()
+                     new Suicide()
                     )
                  )
             )
@@ -355,13 +357,13 @@ namespace LoESoft.GameServer.logic
                         new PlayerWithinTransition(6, "First Stage")
                         ),
                        new State("First Stage",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Taunt(1.00, "Welcome to the Final Act, my friends. My puppets require life essence in order to continue performing…"),
                         new TimedTransition(4250, "move")
                          ),
                      new State("move",
                         new Flashing(0xFFFFFF, 2, 2),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new MoveTo(38, 65, speed: 1, isMapPosition: true, once: true),
                         new Taunt(1.00, "It’s not much, but your lives will have to do for now!"),
                         new TimedTransition(5250, "middleShots")
@@ -450,11 +452,12 @@ namespace LoESoft.GameServer.logic
                         new RemoveEntity(9999, "False Puppet Master"),
                         new Flashing(0xFFFFFF, 2, 2),
                         new Taunt(1.00, "Lucky guess hero, but I've run out of time to play games with you. It is time that you die!"),
-                         new AddCond(ConditionEffectIndex.Invulnerable),
+                         new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new MoveTo(38, 54, speed: 0.7, isMapPosition: true, once: true),
                         new TimedTransition(3250, "OutofTime")
                         ),
                    new State("OutofTime",
+                       new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new Spawn("Puppet Wizard", initialSpawn: 1, maxChildren: 2, coolDown: 4500),
                             new Spawn("Puppet Priest", initialSpawn: 1, maxChildren: 1, coolDown: 5000),
                             new Spawn("Puppet Knight", initialSpawn: 1, maxChildren: 1, coolDown: 5000),
@@ -481,13 +484,12 @@ namespace LoESoft.GameServer.logic
                             new HpLessTransition(.1, "NopeImDead")
                         ),
                     new State("NopeImDead",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new MoveTo(38, 54, speed: 1, isMapPosition: true, once: true),
                         new Taunt(1.00, "NO!! This cannot be how my story ends!! I WILL HAVE MY ENCORE, HERO!"),
                         new TimedTransition(3250, "YepDead")
                         ),
                    new State("YepDead",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new Shoot(7, shoots: 8, index: 1, coolDown: 5000),
                         new Suicide()
                         )

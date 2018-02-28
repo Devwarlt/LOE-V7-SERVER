@@ -302,6 +302,7 @@ namespace LoESoft.GameServer.realm.entity.player
             if (Client.Character.Pet != 0)
             {
                 HatchlingPet = false;
+                HatchlingNotification = false;
                 Pet = Resolve((ushort)PetID);
                 Pet.Move(x, y);
                 Pet.SetPlayerOwner(this);

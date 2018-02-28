@@ -18,17 +18,18 @@ namespace LoESoft.GameServer.logic
                         new Shoot(10, 5, 10, 0, coolDown: 2000),
                         new Shoot(10, 1, 10, 1, coolDown: 4000),
                         new EntityNotExistsTransition("Ghost Lanturn Off", 10, "Vunerable"),
-                        new AddCond(ConditionEffectIndex.Invulnerable)
+                        new AddCond(ConditionEffectIndex.Invulnerable) // ok
                         ),
                     new State("CheckOffLanterns",
                         new SetAltTexture(2),
                         new StayCloseToSpawn(.1, 3),
                         new Shoot(10, 5, 10, 0, coolDown: 2000),
                         new Shoot(10, 1, 10, 1, coolDown: 4000),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityNotExistsTransition("Ghost Lanturn Off", 10, "Vunerable")
                         ),
                     new State("Vunerable",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(2),
                         new StayCloseToSpawn(.1, 0),
                         new Shoot(10, 5, 10, 0, coolDown: 2000),
@@ -36,6 +37,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(5000, "deactivate")
                         ),
                     new State("deactivate",
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(2),
                         new StayCloseToSpawn(.1, 0),
                         new Shoot(10, 5, 10, 0, coolDown: 2000),
@@ -73,11 +75,11 @@ namespace LoESoft.GameServer.logic
             .Init("Ghost Lanturn On",
                 new State(
                     new State("idle",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(5000, "deactivate")
                         ),
                     new State("deactivate",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new EntityNotExistsTransition("Ghost Lanturn Off", 10, "shoot"),
                         new TimedTransition(10000, "gone")
                         ),
@@ -86,7 +88,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(1000, "gone")
                         ),
                     new State("gone",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Transform("Ghost Lanturn Off")
                         )
                     )

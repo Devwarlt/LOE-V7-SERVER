@@ -18,14 +18,14 @@ namespace LoESoft.GameServer.logic
                         new HpLessTransition(0.98, "Start")
                         ),
                     new State("Start",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ReturnToSpawn(true, 5),
                         new SetAltTexture(0),
                         new TimedTransition(3000, "PreAttack")
                         ),
                     new State("PreAttack",
                         new ReturnToSpawn(true, 5),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new SetAltTexture(2),
                         new EntityOrder(100, "Beach Spectre Spawner", "Active"),
                         new TimedTransition(300, "Phase1+2")
@@ -46,7 +46,7 @@ namespace LoESoft.GameServer.logic
                             new HpLessTransition(0.90, "TransAttack")
                             ),
                         new State("TransAttack",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new State("TransAttack1",
                                 new Taunt(0.99, "Ready..."),
                                 new ReturnToSpawn(false, 3),
@@ -58,6 +58,7 @@ namespace LoESoft.GameServer.logic
                                 new TimedTransition(1000, "Phase2")
                                 ),
                             new State("Phase2",
+                                new RemCond(ConditionEffectIndex.Invulnerable), // ok
                                 new HpLessTransition(0.7, "Phase3"),
                                 new Prioritize(
                                     new Chase(2, 10, 3),
@@ -76,13 +77,13 @@ namespace LoESoft.GameServer.logic
                                     new TimedTransition(1000, "Attack1.3")
                                     ),
                                 new State("Attack1.3",
-                                    new AddCond(ConditionEffectIndex.Invulnerable),
+                                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                                     new Shoot(0, shoots: 3, shootAngle: 20, direction: 270, coolDown: 3000),
                                     new Shoot(0, shoots: 3, shootAngle: 20, direction: 90, coolDown: 3000),
                                     new TimedTransition(1000, "Attack1.4")
                                     ),
                                 new State("Attack1.4",
-                                    new AddCond(ConditionEffectIndex.Invulnerable),
+                                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                                     new Shoot(0, shoots: 12, direction: 360 / 12, coolDown: 3000),
                                     new TimedTransition(1500, "Attack1.5")
                                     ),
@@ -94,7 +95,7 @@ namespace LoESoft.GameServer.logic
                                     new TimedTransition(1000, "Attack1.6")
                                     ),
                                 new State("Attack1.6",
-                                    new AddCond(ConditionEffectIndex.Invulnerable),
+                                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                                     new Shoot(0, shoots: 1, direction: 45, index: 1, coolDown: 3000),
                                     new Shoot(0, shoots: 1, direction: 135, index: 1, coolDown: 3000),
                                     new Shoot(0, shoots: 1, direction: 225, index: 1, coolDown: 3000),
@@ -102,6 +103,7 @@ namespace LoESoft.GameServer.logic
                                     new TimedTransition(1000, "Attack1.7")
                                     ),
                                 new State("Attack1.7",
+                                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                                     new Shoot(0, shoots: 1, direction: 0, index: 1, coolDown: 5000),
                                     new Shoot(0, shoots: 1, direction: 90, index: 1, coolDown: 5000),
                                     new Shoot(0, shoots: 1, direction: 180, index: 1, coolDown: 5000),
@@ -117,10 +119,11 @@ namespace LoESoft.GameServer.logic
                         new HpLessTransition(0.5, "Phase4"),
                         new ReturnToSpawn(false, 4),
                         new State("Invul",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(2000, "Vul")
                             ),
                         new State("Vul",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(3000, "Invul")
                             )
                         ),
@@ -136,10 +139,11 @@ namespace LoESoft.GameServer.logic
                         new Shoot(20, shoots: 2, shootAngle: 8, coolDown: 2000, index: 1),
                         new HpLessTransition(0.4, "PrePhase5"),
                         new State("Invul1",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(2000, "Vul1")
                             ),
                         new State("Vul1",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(3000, "Invul1")
                             )
                         ),
@@ -165,10 +169,11 @@ namespace LoESoft.GameServer.logic
                         new HpLessTransition(0.2, "PrePhase6"),
                         new ReturnToSpawn(false, 4),
                         new State("Invul2",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(2000, "Vul2")
                             ),
                         new State("Vul2",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(3000, "Invul2")
                             )
                         ),
@@ -187,10 +192,11 @@ namespace LoESoft.GameServer.logic
                         new Shoot(20, shoots: 3, shootAngle: 8, coolDown: 1300),
                         new Shoot(20, shoots: 2, shootAngle: 8, coolDown: 2000, index: 1),
                         new State("Invul3",
-                            new AddCond(ConditionEffectIndex.Invulnerable),
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(2000, "Vul3")
                             ),
                         new State("Vul3",
+                            new RemCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(3000, "Invul3")
                             )
                         )

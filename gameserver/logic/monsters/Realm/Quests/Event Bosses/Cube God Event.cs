@@ -17,12 +17,12 @@ namespace LoESoft.GameServer.logic
                         new HpLessTransition(0.35, "flashing")
                         ),
                     new State("flashing",
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xFF0000, 0.5, (int)(10 / 0.5)),
                         new TimedTransition(10000, "final")
                         ),
                     new State("final",
-                        new RemCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Wander(3),
                         new Shoot(30, 9, 10, 0, aim: .15, coolDown: 500),
                         new Shoot(30, 4, 10, 1, aim: .15, coolDown: 750),

@@ -14,6 +14,7 @@ namespace LoESoft.GameServer.logic
                         new PlayerWithinTransition(8, "basic")
                         ),
                     new State("basic",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(0.3),
                             new Wander(2)
@@ -24,11 +25,12 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("shrink",
                         new Wander(0.4),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(-15, 25),
                         new TimedTransition(1000, "smallAttack")
                         ),
                     new State("smallAttack",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Prioritize(
                             new Chase(1, sightRange: 15, range: 8),
                             new Wander(10)
@@ -39,7 +41,7 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("grow",
                         new Wander(0.1),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(35, 200),
                         new TimedTransition(1050, "bigAttack")
                         ),
@@ -56,29 +58,32 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("normalize",
                         new Wander(1),
-                        new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new ChangeSize(-20, 100),
                         new TimedTransition(1000, "basic")
                         )
                     ),
-                //LootTemplates.DefaultEggLoot(EggRarity.Legendary),
-                new MostDamagers(3,
-                    new ItemLoot("Potion of Vitality", 1.0)
-                ),
-                new MostDamagers(1,
-                    new ItemLoot("Potion of Defense", 1.0)
-                ),
-                new Threshold(0.025,
-                    new TierLoot(9, ItemType.Weapon, 0.1),
-                    new TierLoot(4, ItemType.Ability, 0.1),
-                    new TierLoot(9, ItemType.Armor, 0.1),
-                    new TierLoot(3, ItemType.Ring, 0.05),
-                    new TierLoot(10, ItemType.Armor, 0.05),
-                    new TierLoot(10, ItemType.Weapon, 0.05),
-                    new TierLoot(4, ItemType.Ring, 0.025),
-                    new ItemLoot("Demon Blade", 0.01)
-                )
+                new PinkBag(ItemType.Armor, 6),
+                new OnlyOne(
+                    new PurpleBag(ItemType.Weapon, 7),
+                    new PurpleBag(ItemType.Weapon, 9),
+                    new PurpleBag(ItemType.Ability, 3),
+                    new PurpleBag(ItemType.Ability, 4),
+                    new PurpleBag(ItemType.Armor, 7),
+                    new PurpleBag(ItemType.Armor, 9),
+                    new PurpleBag(ItemType.Ring, 3),
+                    new PurpleBag(ItemType.Ring, 4)
+                    ),
+                new EggBasket(new EggType[] { EggType.TIER_0, EggType.TIER_1, EggType.TIER_2, EggType.TIER_3, EggType.TIER_4 }),
+                new OnlyOne(
+                    new CyanBag(new[] { "Golden Femur", "Golden Ribcage", "Golden Golden Skull" }),
+                    new CyanBag(ItemType.Weapon, 10),
+                    new CyanBag(ItemType.Armor, 10)
+                    ),
+                new BlueBag(new[] { Potions.POTION_OF_DEFENSE, Potions.POTION_OF_VITALITY }, new[] { true, false }),
+                new WhiteBag(new[] { "Demon Blade", "Sword of Illumination" })
             )
+
             .Init("Malphas Missile",
                 new State(
                     new State(

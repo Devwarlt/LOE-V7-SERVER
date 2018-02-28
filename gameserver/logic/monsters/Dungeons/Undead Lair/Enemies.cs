@@ -14,13 +14,14 @@ namespace LoESoft.GameServer.logic
                         new PlayerWithinTransition(8, "transition1")
                         ),
                     new State(
-                        new AddCond(ConditionEffectIndex.Invulnerable),
                         new Flashing(0x00FF00, 0.25, 12),
                         new Wander(1),
                         new State("transition1",
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(3000, "spiral")
                             ),
                         new State("transition2",
+                            new AddCond(ConditionEffectIndex.Invulnerable), // ok
                             new TimedTransition(3000, "ring")
                             ),
                         new State("transition3",
@@ -31,6 +32,7 @@ namespace LoESoft.GameServer.logic
                             )
                         ),
                     new State("spiral",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Spawn("Lair Ghost Archer", 1, 1),
                         new Spawn("Lair Ghost Knight", 2, 2),
                         new Spawn("Lair Ghost Mage", 1, 1),
@@ -57,6 +59,7 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(10000, "transition4")
                         ),
                     new State("spawn",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Wander(1),
                         new Spawn("Ghost Mage of Septavius", 2, 2),
                         new Spawn("Ghost Rogue of Septavius", 2, 2),

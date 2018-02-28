@@ -222,7 +222,7 @@ namespace LoESoft.GameServer.logic
 
             .Init("Left Horizontal Trap",
                 new State(
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new State("weak_effect",
                         new Shoot(1, direction: 0, index: 0, coolDown: 200),
                         new TimedTransition(2000, "blind_effect")
@@ -241,7 +241,7 @@ namespace LoESoft.GameServer.logic
 
             .Init("Top Vertical Trap",
                 new State(
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new State("weak_effect",
                         new Shoot(1, direction: 90, index: 0, coolDown: 200),
                         new TimedTransition(2000, "blind_effect")
@@ -260,7 +260,7 @@ namespace LoESoft.GameServer.logic
 
             .Init("45-225 Diagonal Trap",
                 new State(
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new State("weak_effect",
                         new Shoot(1, direction: 45, index: 0, coolDown: 200),
                         new TimedTransition(2000, "blind_effect")
@@ -279,7 +279,7 @@ namespace LoESoft.GameServer.logic
 
             .Init("135-315 Diagonal Trap",
                 new State(
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new State("weak_effect",
                         new Shoot(1, direction: 135, index: 0, coolDown: 200),
                         new TimedTransition(2000, "blind_effect")

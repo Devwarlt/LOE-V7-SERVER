@@ -17,16 +17,16 @@ namespace LoESoft.GameServer.logic
                     ),
                     new State("RemINVINC",
                        new Flashing(0xffffff, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invincible),
+                       new RemCond(ConditionEffectIndex.Invincible),
                        new TimedTransition(2000, "Shotgun")
                     ),
                     new State("FlashingRING",
                        new Flashing(0xd40000, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invulnerable),
                        new TimedTransition(2000, "RingCharge"),
                        new EntitiesNotExistsTransition(50, "JadeDied", "Jade Statue")
                     ),
                     new State("RingCharge",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(18, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 99999, index: 1, coolDownOffset: 5),
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 99999, index: 1, coolDownOffset: 220),
@@ -36,6 +36,7 @@ namespace LoESoft.GameServer.logic
                        new EntitiesNotExistsTransition(50, "JadeDied", "Jade Statue")
                     ),
                     new State("Shotgun",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(7, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 5, aim: 1, shootAngle: 5, coolDown: 500, index: 0),
                        //new Shoot(10, shoots: 1, aim: 1, shootAngle: 5, coolDown: 1000, index: 4),
@@ -43,24 +44,27 @@ namespace LoESoft.GameServer.logic
                        new EntitiesNotExistsTransition(50, "JadeDied", "Jade Statue")
                     ),
                     new State("Singular",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(7, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 1, aim: 1, coolDown: 90, index: 0),
                        new TimedTransition(1800, "ChooseRandom"),
                        new EntitiesNotExistsTransition(50, "JadeDied", "Jade Statue")
                     ),
                     new State("PetRing",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 400, index: 4),
                        new TimedTransition(120, "ChooseRandom"),
                        new EntitiesNotExistsTransition(50, "JadeDied", "Jade Statue")
                     ),
                     new State("Spawn",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new TossObject("Corrupted Spirit", 5, coolDown: 8000, randomToss: false),
                        new TossObject("Corrupted Spirit", 5, coolDown: 8000, randomToss: false),
                        new TimedTransition(700, "ChooseRandom")
                     ),
                     new State("ChooseRandom",
                        new Flashing(0xffffff, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invulnerable),
+                       new AddCond(ConditionEffectIndex.Invulnerable), // ok
                        new TimedTransition(1200, "Singular", true),
                        new TimedTransition(1200, "FlashingRING", true),
                        new TimedTransition(1200, "Shotgun", true),
@@ -69,7 +73,7 @@ namespace LoESoft.GameServer.logic
                        new EntitiesNotExistsTransition(50, "JadeDied", "Jade Statue")
                     ),
                     new State("JadeDied",
-                       new AddCond(ConditionEffectIndex.Invulnerable),
+                        new AddCond(ConditionEffectIndex.Invulnerable), // ok
                        new SpecificHeal(range: 10, amount: 56250, group: "Self", coolDown: 99999),
                        new ChangeSize(20, 130),
                        new Flashing(0xffffff, 2, 100),
@@ -77,7 +81,7 @@ namespace LoESoft.GameServer.logic
                     ),
                     new State("ChooseRandomV2",
                        new Flashing(0xffffff, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invulnerable),
+                       new AddCond(ConditionEffectIndex.Invulnerable), // ok
                        new TimedTransition(1200, "SingularV2", true),
                        new TimedTransition(1200, "FlashingRINGV2", true),
                        new TimedTransition(1200, "ShotgunV2", true),
@@ -87,16 +91,17 @@ namespace LoESoft.GameServer.logic
                        new TimedTransition(1200, "SpawnV2", true)
                     ),
                     new State("SpawnV2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new TossObject("Corrupted Spirit", 5, coolDown: 8000, randomToss: false),
                        new TossObject("Corrupted Spirit", 5, coolDown: 8000, randomToss: false),
                        new TimedTransition(700, "ChooseRandomV2")
                     ),
                     new State("FlashingRINGV2",
                        new Flashing(0xd40000, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invulnerable),
                        new TimedTransition(2000, "RingChargeV2")
                     ),
                     new State("RingChargeV2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(18, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 99999, index: 1, coolDownOffset: 5),
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 99999, index: 1, coolDownOffset: 220),
@@ -105,12 +110,14 @@ namespace LoESoft.GameServer.logic
                        new TimedTransition(800, "ChooseRandomV2")
                     ),
                     new State("ShotgunV2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(7, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 5, aim: 1, shootAngle: 5, coolDown: 500, index: 0),
                        //new Shoot(10, shoots: 1, aim: 1, shootAngle: 5, coolDown: 580, index: 3),
                        new TimedTransition(2300, "ChooseRandomV2")
                     ),
                     new State("ShotgunWIDER",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Shoot(10, shoots: 5, aim: 1, shootAngle: 5, coolDown: 99999, index: 0, coolDownOffset: 50),
                        new Shoot(10, shoots: 1, aim: 1, shootAngle: 5, coolDown: 99999, index: 3, coolDownOffset: 50),
                        //
@@ -122,17 +129,20 @@ namespace LoESoft.GameServer.logic
                        new TimedTransition(1200, "ChooseRandomV2")
                     ),
                     new State("SingularV2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(7, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 1, aim: 1, coolDown: 90, index: 0),
                        new TimedTransition(2500, "ChooseRandomV2")
                     ),
                     new State("PetRingV2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Shoot(10, shoots: 20, shootAngle: 18, defaultAngle: 0, coolDown: 9400, index: 4),
                        new Shoot(10, shoots: 20, shootAngle: 18, defaultAngle: 10, coolDown: 9400, index: 4, coolDownOffset: 100),
                        new Shoot(10, shoots: 20, shootAngle: 18, defaultAngle: 20, coolDown: 9400, index: 4, coolDownOffset: 300),
                        new TimedTransition(120, "ChooseRandomV2")
                     ),
                     new State("Swirl",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Shoot(10, shoots: 2, shootAngle: 20, coolDown: 99999, defaultAngle: 0, index: 4, coolDownOffset: 50),
                        new Shoot(10, shoots: 2, shootAngle: 20, coolDown: 99999, defaultAngle: 90, index: 4, coolDownOffset: 200),
                        new Shoot(10, shoots: 2, shootAngle: 20, coolDown: 99999, defaultAngle: 180, index: 4, coolDownOffset: 400),
@@ -159,16 +169,16 @@ namespace LoESoft.GameServer.logic
                     ),
                     new State("RemINVINC",
                        new Flashing(0xffffff, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invincible),
+                       new RemCond(ConditionEffectIndex.Invincible), // ok
                        new TimedTransition(2000, "Shotgun")
                     ),
                     new State("FlashingRING",
                        new Flashing(0xd40000, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invulnerable),
                        new TimedTransition(2000, "RingCharge"),
                        new EntitiesNotExistsTransition(50, "GarnetDied", "Garnet Statue")
                     ),
                     new State("RingCharge",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(1.8, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 99999, index: 1, coolDownOffset: 5),
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 99999, index: 1, coolDownOffset: 220),
@@ -178,6 +188,7 @@ namespace LoESoft.GameServer.logic
                        new EntitiesNotExistsTransition(50, "GarnetDied", "Garnet Statue")
                     ),
                     new State("Shotgun",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(7, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 5, aim: 1, shootAngle: 5, coolDown: 500, index: 0),
                        //new Shoot(10, shoots: 1, aim: 1, shootAngle: 5, coolDown: 1000, index: 4),
@@ -185,24 +196,27 @@ namespace LoESoft.GameServer.logic
                        new EntitiesNotExistsTransition(50, "GarnetDied", "Garnet Statue")
                     ),
                     new State("Singular",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(7, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 1, aim: 1, coolDown: 90, index: 0),
                        new TimedTransition(1800, "ChooseRandom"),
                        new EntitiesNotExistsTransition(50, "GarnetDied", "Garnet Statue")
                     ),
                     new State("PetRing",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 400, index: 4),
                        new TimedTransition(120, "ChooseRandom"),
                        new EntitiesNotExistsTransition(50, "GarnetDied", "Garnet Statue")
                     ),
                     new State("Spawn",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new TossObject("Corrupted Sprite", 5, coolDown: 8000, randomToss: false),
                        new TossObject("Corrupted Sprite", 5, coolDown: 8000, randomToss: false),
                        new TimedTransition(700, "ChooseRandom")
                     ),
                     new State("ChooseRandom",
                        new Flashing(0xffffff, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invulnerable),
+                       new AddCond(ConditionEffectIndex.Invulnerable), // ok
                        new TimedTransition(1200, "Singular", true),
                        new TimedTransition(1200, "FlashingRING", true),
                        new TimedTransition(1200, "Shotgun", true),
@@ -211,7 +225,7 @@ namespace LoESoft.GameServer.logic
                        new EntitiesNotExistsTransition(50, "GarnetDied", "Garnet Statue")
                     ),
                     new State("GarnetDied",
-                       new AddCond(ConditionEffectIndex.Invulnerable),
+                       new AddCond(ConditionEffectIndex.Invulnerable), // ok
                        new SpecificHeal(range: 10, amount: 56250, group: "Self", coolDown: 99999),
                        new ChangeSize(20, 130),
                        new Flashing(0xffffff, 2, 100),
@@ -219,7 +233,7 @@ namespace LoESoft.GameServer.logic
                     ),
                     new State("ChooseRandomV2",
                        new Flashing(0xffffff, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invulnerable),
+                       new AddCond(ConditionEffectIndex.Invulnerable), // ok
                        new TimedTransition(1200, "SingularV2", true),
                        new TimedTransition(1200, "FlashingRINGV2", true),
                        new TimedTransition(1200, "ShotgunV2", true),
@@ -235,10 +249,10 @@ namespace LoESoft.GameServer.logic
                     ),
                     new State("FlashingRINGV2",
                        new Flashing(0xd40000, 2, 100),
-                       new AddCond(ConditionEffectIndex.Invulnerable),
                        new TimedTransition(2000, "RingChargeV2")
                     ),
                     new State("RingChargeV2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(18, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 99999, index: 1, coolDownOffset: 5),
                        new Shoot(10, shoots: 20, shootAngle: 18, coolDown: 99999, index: 1, coolDownOffset: 220),
@@ -247,12 +261,14 @@ namespace LoESoft.GameServer.logic
                        new TimedTransition(800, "ChooseRandomV2")
                     ),
                     new State("ShotgunV2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(7, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 5, aim: 1, shootAngle: 5, coolDown: 500, index: 0),
                        //new Shoot(10, shoots: 1, aim: 1, shootAngle: 5, coolDown: 580, index: 3),
                        new TimedTransition(2300, "ChooseRandomV2")
                     ),
                     new State("ShotgunWIDER",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Shoot(10, shoots: 5, aim: 1, shootAngle: 5, coolDown: 99999, index: 0, coolDownOffset: 50),
                        new Shoot(10, shoots: 1, aim: 1, shootAngle: 5, coolDown: 99999, index: 3, coolDownOffset: 50),
                        //
@@ -264,17 +280,20 @@ namespace LoESoft.GameServer.logic
                        new TimedTransition(1200, "ChooseRandomV2")
                     ),
                     new State("SingularV2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Chase(7, range: 1, duration: 5000, coolDown: 0),
                        new Shoot(10, shoots: 1, aim: 1, coolDown: 90, index: 0),
                        new TimedTransition(2500, "ChooseRandomV2")
                     ),
                     new State("PetRingV2",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Shoot(10, shoots: 20, shootAngle: 18, defaultAngle: 0, coolDown: 9400, index: 4),
                        new Shoot(10, shoots: 20, shootAngle: 18, defaultAngle: 10, coolDown: 9400, index: 4, coolDownOffset: 100),
                        new Shoot(10, shoots: 20, shootAngle: 18, defaultAngle: 20, coolDown: 9400, index: 4, coolDownOffset: 300),
                        new TimedTransition(120, "ChooseRandomV2")
                     ),
                     new State("Swirl",
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                        new Shoot(10, shoots: 2, shootAngle: 20, coolDown: 99999, defaultAngle: 0, index: 4, coolDownOffset: 50),
                        new Shoot(10, shoots: 2, shootAngle: 20, coolDown: 99999, defaultAngle: 90, index: 4, coolDownOffset: 200),
                        new Shoot(10, shoots: 2, shootAngle: 20, coolDown: 99999, defaultAngle: 180, index: 4, coolDownOffset: 400),

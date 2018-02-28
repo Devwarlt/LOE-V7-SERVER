@@ -14,7 +14,7 @@ namespace LoESoft.GameServer.logic
                 new Wander(5.5),
                 new Spawn("Horrid Reaper", maxChildren: 6),
                 new State("start_the_fun",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new PlayerWithinTransition(11, "Warning0")
                     ),
                 new State("Warning0",
@@ -22,20 +22,20 @@ namespace LoESoft.GameServer.logic
                     new TimedTransition(2000, "flame_on")
                     ),
                 new State("flame_on",
-                    new RemCond(ConditionEffectIndex.Invulnerable),
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                     new Shoot(20, 3, index: 0, coolDown: 600, aim: 0.4, shootAngle: 30),
                     new Shoot(20, 3, index: 0, coolDown: 600, aim: 0.4, shootAngle: 120, angleOffset: 0.3),
                     new TimedTransition(7000, "Warning")
                     ),
                 new State("Warning",
                     new Taunt(1.00, "You hide like cowards... but you can't hide from this!"),
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new Flashing(0x00FF00, 0.2, 15),
                     new TimedTransition(3000, "dead_zed")
                     ),
                 new State("dead_zed",
                     new State("dead_zed1",
-                        new RemCond(ConditionEffectIndex.Invulnerable),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(10, 11, 7, coolDown: 1600, defaultAngle: 40, index: 1),
                         new Shoot(10, 11, 7, coolDown: 1600, defaultAngle: 220, index: 1),
                         new TimedTransition(1000, "dead_zed2")
@@ -63,12 +63,12 @@ namespace LoESoft.GameServer.logic
                     new TimedTransition(8000, "Warning2")
                     ),
                 new State("Warning2",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new Flashing(0x00FF00, 0.2, 15),
                     new TimedTransition(3000, "burn_baby_burn")
                     ),
                 new State("burn_baby_burn",
-                    new RemCond(ConditionEffectIndex.Invulnerable),
+                    new RemCond(ConditionEffectIndex.Invulnerable), // ok
                     new Shoot(10, 2, 10, coolDown: 2000, coolDownOffset: 0, index: 2),
                     new Shoot(10, 2, 10, coolDown: 2000, coolDownOffset: 500, index: 2),
                     new Shoot(10, 9, 40, coolDown: 2000, defaultAngle: 20, angleOffset: 1, index: 2),
@@ -76,27 +76,24 @@ namespace LoESoft.GameServer.logic
                     new Shoot(10, 2, 10, coolDown: 2000, coolDownOffset: 2, index: 2),
                     new Shoot(10, 8, 10, coolDown: 2000, coolDownOffset: 2500, index: 2),
                     new TimedTransition(7600, "Warning0"),
-                    new HpLessTransition(0.2, "no_more_reaper")
+                    new HpLessTransition(0.4, "no_more_reaper")
                     ),
                 new State("no_more_reaper",
-                    new AddCond(ConditionEffectIndex.Invulnerable),
+                    new AddCond(ConditionEffectIndex.Invulnerable), // ok
                     new EntityOrder(50, "Horrid Reaper", "quick_die"),
                     new TimedTransition(3000, "flame_on")
                 )
             ),
+            new WhiteBag("Helm of the Juggernaut"),
             new MostDamagers(15,
                 new ItemLoot("Potion of Vitality", 1),
                 new ItemLoot("Potion of Wisdom", 0.5)
-                ),
-            new MostDamagers(10,
-                new OnlyOne(
-                    new ItemLoot("Helm of the Juggernaut", 0.001)
-                    )
-            )
+                )
         )
+
         .Init("Horrid Reaper",
             new State(
-                new AddCond(ConditionEffectIndex.Invulnerable),
+                new AddCond(ConditionEffectIndex.Invulnerable), // ok
                 new State("break_time",
                     new Protect(10, "Grand Sphinx", 18, 10, 10),
                     new Wander(30),
@@ -132,7 +129,7 @@ namespace LoESoft.GameServer.logic
                     new Decay(1000)
                     )
                 )
-        )
+            )
         ;
     }
 }
