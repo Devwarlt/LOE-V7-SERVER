@@ -51,9 +51,9 @@ namespace LoESoft.GameServer.realm
             Usable = false;
             BagDropped = false;
             IsPet = isPet;
-            Program.Manager.Behaviors.ResolveBehavior(this);
-            Program.Manager.GameData.ObjectDescs.TryGetValue(objType, out desc);
-            Size = desc != null ? Program.Manager.GameData.ObjectDescs[objType].MaxSize : 100;
+            GameServer.Manager.Behaviors.ResolveBehavior(this);
+            GameServer.Manager.GameData.ObjectDescs.TryGetValue(objType, out desc);
+            Size = desc != null ? GameServer.Manager.GameData.ObjectDescs[objType].MaxSize : 100;
 
             if (interactive)
             {
@@ -425,13 +425,13 @@ namespace LoESoft.GameServer.realm
 
             var tile = map[x_, y_];
 
-            var tileDesc = Program.Manager.GameData.Tiles[tile.TileId];
+            var tileDesc = GameServer.Manager.GameData.Tiles[tile.TileId];
             if (tileDesc?.NoWalk == true)
                 return true;
 
             if (tile.ObjType != 0)
             {
-                var objDesc = Program.Manager.GameData.ObjectDescs[tile.ObjType];
+                var objDesc = GameServer.Manager.GameData.ObjectDescs[tile.ObjType];
                 if (objDesc?.EnemyOccupySquare == true)
                     return true;
             }
@@ -451,7 +451,7 @@ namespace LoESoft.GameServer.realm
 
             if (tile.ObjType != 0)
             {
-                var objDesc = Program.Manager.GameData.ObjectDescs[tile.ObjType];
+                var objDesc = GameServer.Manager.GameData.ObjectDescs[tile.ObjType];
                 if (objDesc?.FullOccupy == true)
                     return true;
             }
@@ -531,14 +531,14 @@ namespace LoESoft.GameServer.realm
         public Position? TryGetHistory(long timeAgo)
         {
             if (posHistory == null) return null;
-            var tickPast = timeAgo * Program.Manager.TPS / 1000;
+            var tickPast = timeAgo * GameServer.Manager.TPS / 1000;
             if (tickPast > 255) return null;
             return posHistory[(byte)(posIdx - 2)];
         }
 
         public static Entity Resolve(string name)
         {
-            if (!Program.Manager.GameData.IdToObjectType.TryGetValue(name, out ushort id))
+            if (!GameServer.Manager.GameData.IdToObjectType.TryGetValue(name, out ushort id))
                 return null;
 
             return Resolve(id);
@@ -546,7 +546,7 @@ namespace LoESoft.GameServer.realm
 
         public static Entity Resolve(ushort id)
         {
-            var node = Program.Manager.GameData.ObjectTypeToElement[id];
+            var node = GameServer.Manager.GameData.ObjectTypeToElement[id];
             var cls = node.Element("Class");
             var npc = node.Element("NPC") != null;
             if (cls == null) throw new ArgumentException("Invalid XML Element, field class is missing");

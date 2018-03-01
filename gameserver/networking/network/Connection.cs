@@ -30,10 +30,10 @@ namespace LoESoft.GameServer.networking
             MP_POTION_CHEAT_ENGINE = 15,
             STOPING_SERVER = 16,
             SOCKET_IS_NOT_CONNECTED = 17,
-            RECEIVING_HDR = 18,
-            RECEIVING_BODY = 19,
+            INVALID_INCOMING_BYTES = 18,
+            INVALID_TRANSFERRED_BYTES = 19,
             ERROR_WHEN_HANDLING_MESSAGE = 20,
-            SOCKET_ERROR_DETECTED = 21,
+            INVALID_SOCKET_PROCESSING = 21,
             PROCESS_POLICY_FILE = 22,
             RESTART = 23,
             PLAYER_KICK = 24,
@@ -48,7 +48,36 @@ namespace LoESoft.GameServer.networking
             VIP_ACCOUNT_OVER = 33,
             DEXTERITY_HACK_MOD = 34,
             RECONNECT = 35,
+            UNKNOWN_MESSAGE = 36,
+            CONNECTION_RESETED = 37,
+            SOCKET_ERROR = 38,
+            BYTES_NOT_READY = 39,
             UNKNOW_ERROR_INSTANCE = 255
+        }
+
+        public void TryDisconnect(DisconnectReason reason)
+        {
+            using (TimedLock.Lock(DcLock))
+            {
+                if (State == ProtocolState.Disconnected)
+                    return;
+
+                State = ProtocolState.Disconnected;
+
+                Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{Account.Name} (Account ID: {Account.AccountId})'.");
+
+                if (Account != null)
+                    try
+                    {
+                        Save();
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error($"{e.Message}\n{e.StackTrace}");
+                    }
+                
+                _server.TryDisconnect(this);
+            }
         }
 
         public void Reconnect(RECONNECT msg)
@@ -73,7 +102,7 @@ namespace LoESoft.GameServer.networking
                             )
                 });
 
-                Manager.TryDisconnect(this, DisconnectReason.LOST_CONNECTION);
+                _manager.TryDisconnect(this, DisconnectReason.LOST_CONNECTION);
                 return;
             }
 
@@ -91,9 +120,9 @@ namespace LoESoft.GameServer.networking
                 Player?.SaveToCharacter();
 
                 if (Character != null)
-                    Manager.Database.SaveCharacter(Account, Character, false);
+                    _manager.Database.SaveCharacter(Account, Character, false);
                 if (Account != null)
-                    Manager.Database.ReleaseLock(Account);
+                    _manager.Database.ReleaseLock(Account);
             }
             catch (Exception ex)
             {

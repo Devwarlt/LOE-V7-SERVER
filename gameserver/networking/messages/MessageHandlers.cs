@@ -11,7 +11,7 @@ namespace LoESoft.GameServer.networking
         private Client client;
 
         public Client Client => client;
-        public RealmManager Manager => client.Manager;
+        public RealmManager Manager => client._manager;
 
         public abstract MessageID ID { get; }
 

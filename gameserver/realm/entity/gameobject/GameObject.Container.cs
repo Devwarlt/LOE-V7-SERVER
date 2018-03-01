@@ -36,7 +36,7 @@ namespace LoESoft.GameServer.realm.entity
             {
                 Item[] inv =
                     Utils.FromCommaSepString16(eq.Value)
-                        .Select(_ => _ == -1 ? null : Program.Manager.GameData.Items[(ushort)_])
+                        .Select(_ => _ == -1 ? null : GameServer.Manager.GameData.Items[(ushort)_])
                         .ToArray();
                 Array.Resize(ref inv, 8);
                 Inventory = inv;

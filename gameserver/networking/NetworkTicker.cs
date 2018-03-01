@@ -2,69 +2,59 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Threading;
 using LoESoft.GameServer.networking;
+using log4net;
 
 #endregion
 
 namespace LoESoft.GameServer.realm
 {
-    #region
-
-    using Work = Tuple<Client, Message>;
-
-    #endregion
+    using Work = Tuple<Client, MessageID, byte[]>;
 
     public class NetworkTicker
     {
-        private static readonly ConcurrentQueue<Work> pendings = new ConcurrentQueue<Work>();
-        private static SpinWait loopLock = new SpinWait();
+        private static readonly ILog log = LogManager.GetLogger(typeof(NetworkTicker));
+        private static readonly BlockingCollection<Work> Pendings = new BlockingCollection<Work>();
+        private readonly RealmManager _manager;
 
         public NetworkTicker(RealmManager manager)
         {
-            Manager = manager;
+            _manager = manager;
         }
 
-        public RealmManager Manager { get; private set; }
-
-        public void AddPendingPacket(Client parrent, Message pkt) => pendings.Enqueue(new Work(parrent, pkt));
+        public void AddPendingMessage(Client client, MessageID id, byte[] message) =>
+            Pendings.Add(new Work(client, id, message));
 
         public void TickLoop()
         {
-            do
+            foreach (var pending in Pendings.GetConsumingEnumerable())
             {
+                if (_manager.Terminating)
+                {
+                    Shutdown();
+                    break;
+                }
+
+                if (pending.Item1.State == ProtocolState.Disconnected)
+                {
+                    _manager.TryDisconnect(pending.Item1);
+                    continue;
+                }
+
                 try
                 {
-                    if (Manager.Terminating)
-                        break;
-
-                    loopLock.Reset();
-
-                    while (pendings.TryDequeue(out Work work))
-                    {
-                        try
-                        {
-                            if (Manager.Terminating)
-                                return;
-
-                            if (work.Item1.State == ProtocolState.Disconnected)
-                            {
-                                Manager.TryDisconnect(work.Item1);
-                                continue;
-                            }
-                            try
-                            {
-                                work.Item1.ProcessMessage(work.Item2);
-                            }
-                            catch (Exception) { }
-                        }
-                        catch (Exception) { }
-                    }
-                    while (pendings.Count == 0 && !Manager.Terminating)
-                        loopLock.SpinOnce();
+                    var message = Message.Messages[pending.Item2].CreateInstance();
+                    message.Read(pending.Item1, pending.Item3, 0, pending.Item3.Length);
+                    pending.Item1.ProcessMessage(message);
                 }
-                catch (Exception) { }
-            } while (true);
+                catch (Exception e)
+                {
+                    log.Error($"Error processing message ({(pending.Item1.Account != null ? pending.Item1.Account.Name : "")}, {pending.Item2})\n{e}");
+                }
+            }
         }
+
+        public void Shutdown() =>
+            Pendings.Add(new Work(null, 0, null));
     }
 }

@@ -14,7 +14,7 @@ namespace LoESoft.GameServer.realm.entity.player
     {
         private IEnumerable<Entity> GetNewEntities()
         {
-            World world = Program.Manager.GetWorld(Owner.Id);
+            World world = GameServer.Manager.GetWorld(Owner.Id);
 
             foreach (var i in Owner.Players.Where(i => clientEntities.Add(i.Value)))
                 yield return i.Value;
@@ -59,7 +59,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
         private IEnumerable<ObjectDef> GetNewStatics(int xBase, int yBase)
         {
-            World world = Program.Manager.GetWorld(Owner.Id);
+            World world = GameServer.Manager.GetWorld(Owner.Id);
             blocksight = (world.Dungeon ? Sight.RayCast(this, 15) : Sight.GetSightCircle(SIGHTRADIUS)).ToList();
             List<ObjectDef> ret = new List<ObjectDef>();
             foreach (IntPoint i in blocksight.ToList())
@@ -73,7 +73,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                 if (tile.ObjId == 0 || tile.ObjType == 0 || !clientStatic.Add(new IntPoint(x, y))) continue;
                 var def = tile.ToDef(x, y);
-                var cls = Program.Manager.GameData.ObjectDescs[tile.ObjType].Class;
+                var cls = GameServer.Manager.GameData.ObjectDescs[tile.ObjType].Class;
                 if (cls == "ConnectedWall" || cls == "CaveWall")
                 {
                     if (def.Stats.Stats.Count(_ => _.Key == StatsType.CONNECT_STAT && _.Value != null) == 0)
@@ -105,7 +105,7 @@ namespace LoESoft.GameServer.realm.entity.player
         {
             Wmap map = Owner.Map;
             WmapTile tile;
-            World world = Program.Manager.GetWorld(Owner.Id);
+            World world = GameServer.Manager.GetWorld(Owner.Id);
             int xBase = (int)X;
             int yBase = (int)Y;
             int sent = 0;

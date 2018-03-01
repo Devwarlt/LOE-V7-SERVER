@@ -47,7 +47,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 if (!closing)
                 {
                     tickcount++;
-                    if (tickcount % (Program.Manager.TPS * 60) == 0) //once per minute after spawning
+                    if (tickcount % (GameServer.Manager.TPS * 60) == 0) //once per minute after spawning
                     {
                         MTime--;
                         UpdateCount++;

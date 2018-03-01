@@ -25,7 +25,7 @@ namespace LoESoft.GameServer.logic.behaviors
         {
             parent.Death += (sender, e) =>
             {
-                if (e.Host.GetNearestEntity(dist, Program.Manager.GameData.IdToObjectType[child]) is Enemy en)
+                if (e.Host.GetNearestEntity(dist, GameServer.Manager.GameData.IdToObjectType[child]) is Enemy en)
                 {
                     en.SetDamageCounter((e.Host as Enemy).DamageCounter, en);
                 }

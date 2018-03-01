@@ -2,6 +2,7 @@
 
 using LoESoft.Core;
 using LoESoft.Core.config;
+using LoESoft.GameServer.networking.network;
 using LoESoft.GameServer.realm;
 using System;
 using System.Collections.Generic;
@@ -11,41 +12,70 @@ using System.Net.Sockets;
 
 namespace LoESoft.GameServer.networking
 {
+    public enum ProtocolState
+    {
+        Connected,
+        Handshaked,
+        Ready,
+        Disconnected
+    }
+
     public partial class Client : IDisposable
     {
+        internal readonly object DcLock = new object();
+
+        public readonly Server _server;
+        private readonly NetworkManager _handler;
+
         public DbChar Character { get; internal set; }
         public DbAccount Account { get; internal set; }
         public wRandom Random { get; internal set; }
         public int TargetWorld { get; internal set; }
         public string ConnectedBuild { get; internal set; }
         public Socket Socket { get; internal set; }
-        public RealmManager Manager { get; private set; }
+        public RealmManager _manager { get; private set; }
         public RC4 IncomingCipher { get; private set; }
         public RC4 OutgoingCipher { get; private set; }
 
-        private NetworkHandler handler;
-        private bool disposed;
+        private bool Disposed { get; set; }
 
-        public Client(RealmManager manager, Socket skt)
+        public Client(
+            Server server,
+            RealmManager manager,
+            SocketAsyncEventArgs outgoing,
+            SocketAsyncEventArgs incoming,
+            byte[] outgoingCipher,
+            byte[] incomingCipher
+            )
         {
-            Socket = skt;
-            Manager = manager;
-            IncomingCipher = ProcessRC4(Settings.NETWORKING.INCOMING_CIPHER);
-            OutgoingCipher = ProcessRC4(Settings.NETWORKING.OUTGOING_CIPHER);
-            BeginProcess();
+            _server = server;
+            _manager = manager;
+
+            IncomingCipher = new RC4(incomingCipher);
+            OutgoingCipher = new RC4(outgoingCipher);
+
+            _handler = new NetworkManager(this, outgoing, incoming);
         }
 
-        public RC4 ProcessRC4(byte[] cipher) => new RC4(cipher);
-
-        public void BeginProcess()
+        public void BeginHandling(Socket skt)
         {
-            handler = new NetworkHandler(this, Socket);
-            handler.BeginHandling();
+            Socket = skt;
+            _handler.BeginHandling(Socket);
+        }
+
+        public void Reset()
+        {
+            Account = null;
+            Character = null;
+            Player = null;
+
+            _handler.Reset();
         }
 
         public static Tuple<string, bool> CheckGameVersion(string build)
         {
             List<GameVersion> gameVersions = new List<GameVersion>();
+
             foreach (Tuple<string, bool> i in Settings.NETWORKING.SUPPORTED_VERSIONS())
                 gameVersions.Add(
                     new GameVersion()
@@ -53,9 +83,11 @@ namespace LoESoft.GameServer.networking
                         version = i.Item1,
                         access = i.Item2
                     });
+
             foreach (GameVersion j in gameVersions)
                 if (build == j.version && j.access)
                     return Tuple.Create(build, false);
+
             return Tuple.Create(gameVersions[gameVersions.Count - 1].version, true);
         }
 
@@ -63,22 +95,23 @@ namespace LoESoft.GameServer.networking
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public void Dispose()
         {
-            if (disposed)
+            if (Disposed)
                 return;
-            handler?.Dispose();
-            handler = null;
+            
             IncomingCipher = null;
             OutgoingCipher = null;
-            Manager = null;
+            _manager = null;
             Socket = null;
             Character = null;
             Account = null;
+
             if (Player.PetID != 0 && Player.Pet != null)
                 Player.Owner.LeaveWorld(Player.Pet);
+
             Player = null;
             Random = null;
             ConnectedBuild = null;
-            disposed = true;
+            Disposed = true;
         }
 
         private class GameVersion

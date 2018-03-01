@@ -41,14 +41,23 @@ namespace LoESoft.GameServer.networking
 
         public int Write(Client client, byte[] buff, int offset)
         {
-            MemoryStream s = new MemoryStream(buff, offset + 5, buff.Length - offset - 5);
+            var s = new MemoryStream();
             Write(new NWriter(s));
 
-            int len = (int)s.Position;
-            Crypt(client, buff, offset + 5, len);
-            Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(len + 5)), 0, buff, offset, 4);
+            var bodyLength = (int)s.Position;
+            var packetLength = bodyLength + 5;
+
+            if (packetLength > buff.Length - offset)
+                return 0;
+
+            Buffer.BlockCopy(s.GetBuffer(), 0, buff, offset + 5, bodyLength);
+
+            Crypt(client, buff, offset + 5, bodyLength);
+
+            Buffer.BlockCopy(BitConverter.GetBytes(IPAddress.HostToNetworkOrder(packetLength)), 0, buff, offset, 4);
+
             buff[offset + 4] = (byte)ID;
-            return len + 5;
+            return packetLength;
         }
 
         protected abstract void Read(NReader rdr);

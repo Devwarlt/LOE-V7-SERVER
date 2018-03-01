@@ -44,7 +44,7 @@ namespace LoESoft.GameServer.networking.messages.handlers.hack
                 || MaxAttackFrequency != StatsManager.MaxAttackFrequency
                 || WeaponRateOfFire != Item.RateOfFire) && !ByPass)
             {
-                Program.Logger.Info($"Dexterity Cheat Handler ID '{Player.MaxHackEntries++}':" +
+                GameServer.log.Info($"Dexterity Cheat Handler ID '{Player.MaxHackEntries++}':" +
                     $"\n\t- Player: {Player.Name} (ID: {Player.AccountId})," +
                     $"\n\t- World: {Player.Owner.Name}," +
                     $"\n\t- Item: {Item.DisplayId} (type: 0x{Item.ObjectType:x4})," +

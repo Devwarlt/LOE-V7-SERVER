@@ -21,7 +21,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             string resource = embeddedResource.Replace(".jm", "");
             Stream stream = typeof(RealmManager).Assembly.GetManifestResourceStream("LoESoft.GameServer.realm.mapsetpiece.maps." + resource + ".jm");
             if (stream == null) throw new ArgumentException("JSON map resource " + nameof(resource) + " not found!");
-            FromWorldMap(new MemoryStream(Json2Wmap.Convert(Program.Manager.GameData, new StreamReader(stream).ReadToEnd())), world, pos, wmap);
+            FromWorldMap(new MemoryStream(Json2Wmap.Convert(GameServer.Manager.GameData, new StreamReader(stream).ReadToEnd())), world, pos, wmap);
         }
 
         private unsafe void FromWorldMap(Stream dat, void* world, IntPoint* pos, void* wmap)
@@ -33,7 +33,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             pos->X = ((GCHandle.FromIntPtr(new IntPtr(world)).Target as World).Map.Width / 2) - (w / 2);
             pos->Y = ((GCHandle.FromIntPtr(new IntPtr(world)).Target as World).Map.Width / 2) - (w / 2);
 
-            IEnumerable<Entity> ens = map.InstantiateEntities(Program.Manager);
+            IEnumerable<Entity> ens = map.InstantiateEntities(GameServer.Manager);
 
             foreach (Entity i in ens)
             {

@@ -83,7 +83,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
 
             t[13 + 6, 13] = 3;
 
-            EmbeddedData dat = Program.Manager.GameData;
+            EmbeddedData dat = GameServer.Manager.GameData;
             for (int x = 0; x < 27; x++) //Rendering
                 for (int y = 0; y < 27; y++)
                 {

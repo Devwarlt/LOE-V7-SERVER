@@ -17,8 +17,8 @@ namespace LoESoft.AppEngine
     {
         protected NameValueCollection Query { get; private set; }
         protected HttpListenerContext Context { get; private set; }
-        protected Database Database => Program.Database;
-        protected EmbeddedData GameData => Program.GameData;
+        protected Database Database => AppEngine.Database;
+        protected EmbeddedData GameData => AppEngine.GameData;
 
         public void HandleRequest(HttpListenerContext context)
         {
