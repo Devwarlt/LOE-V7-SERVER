@@ -16,7 +16,6 @@ using LoESoft.Core.config;
 using LoESoft.GameServer.realm.entity.merchant;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.models;
-using System.Net.Sockets;
 
 #endregion
 
@@ -115,12 +114,12 @@ namespace LoESoft.GameServer.realm
         {
             Logic = new LogicTicker(this);
             var logic = new Task(() => Logic.TickLoop(), TaskCreationOptions.LongRunning);
-            logic.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
+            logic.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
             logic.Start();
 
             Network = new NetworkTicker(this);
             var network = new Task(() => Network.TickLoop(), TaskCreationOptions.LongRunning);
-            network.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
+            network.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
             network.Start();
         }
 
@@ -189,7 +188,6 @@ namespace LoESoft.GameServer.realm
         {
             if (client == null)
                 return;
-
             DisconnectHandler(client, reason == DisconnectReason.UNKNOW_ERROR_INSTANCE ? DisconnectReason.REALM_MANAGER_DISCONNECT : reason);
         }
 
@@ -199,17 +197,23 @@ namespace LoESoft.GameServer.realm
             {
                 if (ClientManager.ContainsKey(client.Account.AccountId))
                 {
+
                     ClientManager.TryRemove(client.Account.AccountId, out ClientData _disposableCData);
+
+                    Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.Client.Account.Name} (Account ID: {_disposableCData.Client.Account.AccountId})'.");
 
                     _disposableCData.Client.Save();
                     _disposableCData.Client.State = ProtocolState.Disconnected;
-                    _disposableCData.Client.TryDisconnect(reason);
+                    _disposableCData.Client.Socket.Close();
+                    _disposableCData.Client.Dispose();
                 }
                 else
                 {
+                    Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{client.Account.Name} (Account ID: {client.Account.AccountId})'.");
+
                     client.Save();
                     client.State = ProtocolState.Disconnected;
-                    client.TryDisconnect(reason);
+                    client.Dispose();
                 }
             }
             catch (NullReferenceException) { }

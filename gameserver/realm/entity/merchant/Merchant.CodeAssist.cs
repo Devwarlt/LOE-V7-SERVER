@@ -37,13 +37,13 @@ namespace LoESoft.GameServer.realm.entity.merchant
                     {
                         try
                         {
-                            GameServer.Manager.GameData.ObjectTypeToElement.TryGetValue((ushort)MType, out XElement ist);
+                            Program.Manager.GameData.ObjectTypeToElement.TryGetValue((ushort)MType, out XElement ist);
                             if (player.Inventory[i] == null &&
                                 (player.SlotTypes[i] == 10 ||
                                  player.SlotTypes[i] == Convert.ToInt16(ist.Element("SlotType").Value)))
                             // Exploit fix - No more mnovas as weapons!
                             {
-                                player.Inventory[i] = GameServer.Manager.GameData.Items[(ushort)MType];
+                                player.Inventory[i] = Program.Manager.GameData.Items[(ushort)MType];
 
                                 KeyValuePair<string, int> currency = new KeyValuePair<string, int>(null, -1);
 
@@ -51,21 +51,21 @@ namespace LoESoft.GameServer.realm.entity.merchant
                                 {
                                     case CurrencyType.Fame:
                                         {
-                                            GameServer.Manager.Database.UpdateFame(player.Client.Account, -Price);
+                                            Program.Manager.Database.UpdateFame(player.Client.Account, -Price);
                                             player.CurrentFame = player.Client.Account.Fame;
                                             currency = new KeyValuePair<string, int>("fame", player.CurrentFame);
                                         }
                                         break;
                                     case CurrencyType.Gold:
                                         {
-                                            GameServer.Manager.Database.UpdateCredit(player.Client.Account, -Price);
+                                            Program.Manager.Database.UpdateCredit(player.Client.Account, -Price);
                                             player.Credits = player.Client.Account.Credits;
                                             currency = new KeyValuePair<string, int>("gold", player.Credits);
                                         }
                                         break;
                                     case CurrencyType.FortuneTokens:
                                         {
-                                            GameServer.Manager.Database.UpdateTokens(player.Client.Account, -Price);
+                                            Program.Manager.Database.UpdateTokens(player.Client.Account, -Price);
                                             player.Tokens = player.Client.Account.FortuneTokens;
                                             currency = new KeyValuePair<string, int>("fortune token", player.Tokens);
                                         }

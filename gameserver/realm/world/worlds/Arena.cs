@@ -103,7 +103,7 @@ namespace LoESoft.GameServer.realm.world
                 foreach (string entity in entities)
                 {
                     Position position = new Position { X = rng.Next(12, Map.Width) - 6, Y = rng.Next(12, Map.Height) - 6 };
-                    Entity enemy = Entity.Resolve(GameServer.Manager.GameData.IdToObjectType[entity]);
+                    Entity enemy = Entity.Resolve(Program.Manager.GameData.IdToObjectType[entity]);
 
                     enemy.Move(position.X, position.Y);
                     EnterWorld(enemy);

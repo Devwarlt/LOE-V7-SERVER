@@ -26,7 +26,7 @@ namespace LoESoft.GameServer.realm
             {
                 try
                 {
-                    enemyList.Add(GameServer.Manager.GameData.IdToObjectType[i]);
+                    enemyList.Add(Program.Manager.GameData.IdToObjectType[i]);
                 }
                 catch (Exception) { }
             }
@@ -57,7 +57,7 @@ namespace LoESoft.GameServer.realm
                 n += k.Value;
                 if (n > p)
                 {
-                    objType = GameServer.Manager.GameData.IdToObjectType[k.Key];
+                    objType = Program.Manager.GameData.IdToObjectType[k.Key];
                     break;
                 }
             }
@@ -100,7 +100,7 @@ namespace LoESoft.GameServer.realm
         }
 
         private void BroadcastMsg(string message) =>
-            GameServer.Manager.Chat.Oryx(world, message);
+            Program.Manager.Chat.Oryx(world, message);
 
         private void SendMsg(Player player, string message, string src = "") =>
             player.Client.SendMessage(new TEXT

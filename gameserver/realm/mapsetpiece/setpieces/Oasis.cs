@@ -89,7 +89,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             foreach (IntPoint i in trees)
                 t[i.X, i.Y] = 3;
 
-            EmbeddedData dat = GameServer.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             for (int x = 0; x < Size; x++)
                 for (int y = 0; y < Size; y++)
                 {

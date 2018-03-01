@@ -574,7 +574,7 @@ namespace LoESoft.AppEngine
                 return new NewsItem()
                 {
                     Icon = "fame",
-                    Title = $"Your {AppEngine.GameData.ObjectTypeToId[death.ObjectType]} died at level {death.Level}",
+                    Title = $"Your {Program.GameData.ObjectTypeToId[death.ObjectType]} died at level {death.Level}",
                     TagLine = $"You earned {death.TotalFame} glorious Fame",
                     Link = $"fame:{death.CharId}",
                     Date = death.DeathTime
@@ -694,7 +694,7 @@ namespace LoESoft.AppEngine
                 Name = character.Account.Name,
                 Character = Character.FromDb(character, !death.IsNull),
                 Stats = stats,
-                Bonuses = stats.GetBonuses(AppEngine.GameData, character, death.FirstBorn),
+                Bonuses = stats.GetBonuses(Program.GameData, character, death.FirstBorn),
                 TotalFame = death.TotalFame,
 
                 FirstBorn = death.FirstBorn,

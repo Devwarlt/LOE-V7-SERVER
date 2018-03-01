@@ -48,7 +48,7 @@ namespace LoESoft.GameServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => GameServer.Manager.AddWorld(_.Result), TaskScheduler.Default);
+            Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => Program.Manager.AddWorld(_.Result), TaskScheduler.Default);
             return true;
         }
     }
@@ -65,10 +65,10 @@ namespace LoESoft.GameServer.realm.commands
                 string name = string.Join(" ", args.Skip(1).ToArray());
                 //creates a new case insensitive dictionary based on the XmlDatas
                 Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                    GameServer.Manager.GameData.IdToObjectType,
+                    Program.Manager.GameData.IdToObjectType,
                     StringComparer.OrdinalIgnoreCase);
                 if (!icdatas.TryGetValue(name, out ushort objType) ||
-                    !GameServer.Manager.GameData.ObjectDescs.ContainsKey(objType))
+                    !Program.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendInfo("Unknown entity!");
                     return false;
@@ -87,10 +87,10 @@ namespace LoESoft.GameServer.realm.commands
                 string name = string.Join(" ", args);
                 //creates a new case insensitive dictionary based on the XmlDatas
                 Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                    GameServer.Manager.GameData.IdToObjectType,
+                    Program.Manager.GameData.IdToObjectType,
                     StringComparer.OrdinalIgnoreCase);
                 if (!icdatas.TryGetValue(name, out ushort objType) ||
-                    !GameServer.Manager.GameData.ObjectDescs.ContainsKey(objType))
+                    !Program.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendHelp("Usage: /spawn <entityname>");
                     return false;
@@ -189,19 +189,19 @@ namespace LoESoft.GameServer.realm.commands
                 return false;
             }
 
-            Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(GameServer.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(Program.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
 
             if (!icdatas.TryGetValue(name, out ushort objType))
             {
                 player.SendError("Unknown type!");
                 return false;
             }
-            if (!GameServer.Manager.GameData.Items[objType].Secret || player.Client.Account.Admin)
+            if (!Program.Manager.GameData.Items[objType].Secret || player.Client.Account.Admin)
             {
                 for (int i = 4; i < player.Inventory.Length; i++)
                     if (player.Inventory[i] == null)
                     {
-                        player.Inventory[i] = GameServer.Manager.GameData.Items[objType];
+                        player.Inventory[i] = Program.Manager.GameData.Items[objType];
                         player.UpdateCount++;
                         player.SaveToCharacter();
                         player.SendInfo("Success!");
@@ -303,7 +303,7 @@ namespace LoESoft.GameServer.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         player.SendInfo($"Player {i.Value.Name} has been disconnected!");
-                        GameServer.Manager.TryDisconnect(i.Value.Client, DisconnectReason.PLAYER_KICK);
+                        Program.Manager.TryDisconnect(i.Value.Client, DisconnectReason.PLAYER_KICK);
                     }
                 }
             }
@@ -370,7 +370,7 @@ namespace LoESoft.GameServer.realm.commands
         {
             StringBuilder sb = new StringBuilder("Online at this moment: ");
 
-            foreach (KeyValuePair<int, World> w in GameServer.Manager.Worlds)
+            foreach (KeyValuePair<int, World> w in Program.Manager.Worlds)
             {
                 World world = w.Value;
                 if (w.Key != 0)
@@ -406,7 +406,7 @@ namespace LoESoft.GameServer.realm.commands
             }
             string saytext = string.Join(" ", args);
 
-            foreach (ClientData cData in GameServer.Manager.ClientManager.Values)
+            foreach (ClientData cData in Program.Manager.ClientManager.Values)
             {
                 cData.Client.SendMessage(new TEXT
                 {
@@ -428,7 +428,7 @@ namespace LoESoft.GameServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            foreach (ClientData cData in GameServer.Manager.ClientManager.Values)
+            foreach (ClientData cData in Program.Manager.ClientManager.Values)
             {
                 if (cData.Client.Account.Name.EqualsIgnoreCase(args[0]))
                 {
@@ -449,7 +449,7 @@ namespace LoESoft.GameServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            foreach (KeyValuePair<int, World> w in GameServer.Manager.Worlds)
+            foreach (KeyValuePair<int, World> w in Program.Manager.Worlds)
             {
                 World world = w.Value;
                 if (w.Key != 0)
@@ -466,7 +466,7 @@ namespace LoESoft.GameServer.realm.commands
 
             Thread.Sleep(4000);
 
-            GameServer.ForceShutdown();
+            Program.ForceShutdown();
 
             return true;
         }
@@ -596,7 +596,7 @@ namespace LoESoft.GameServer.realm.commands
             }
             else if (args.Length == 3)
             {
-                foreach (ClientData cData in GameServer.Manager.ClientManager.Values)
+                foreach (ClientData cData in Program.Manager.ClientManager.Values)
                 {
                     if (cData.Client.Account.Name.EqualsIgnoreCase(args[0]))
                     {
@@ -733,7 +733,7 @@ namespace LoESoft.GameServer.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         i.Value.Muted = true;
-                        i.Value.Client._manager.Database.MuteAccount(i.Value.Client.Account);
+                        i.Value.Client.Manager.Database.MuteAccount(i.Value.Client.Account);
                         player.SendInfo("Player Muted.");
                     }
                 }
@@ -760,7 +760,7 @@ namespace LoESoft.GameServer.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         i.Value.Muted = false;
-                        i.Value.Client._manager.Database.UnmuteAccount(i.Value.Client.Account);
+                        i.Value.Client.Manager.Database.UnmuteAccount(i.Value.Client.Account);
                         player.SendInfo("Player Unmuted.");
                     }
                 }
@@ -782,14 +782,14 @@ namespace LoESoft.GameServer.realm.commands
         {
             try
             {
-                Player p = GameServer.Manager.FindPlayer(args[0]);
+                Player p = Program.Manager.FindPlayer(args[0]);
                 if (p == null)
                 {
                     player.SendError("Player not found");
                     return false;
                 }
-                p.Client._manager.Database.BanAccount(p.Client.Account);
-                GameServer.Manager.TryDisconnect(p.Client, DisconnectReason.PLAYER_BANNED);
+                p.Client.Manager.Database.BanAccount(p.Client.Account);
+                Program.Manager.TryDisconnect(p.Client, DisconnectReason.PLAYER_BANNED);
                 return true;
             }
             catch

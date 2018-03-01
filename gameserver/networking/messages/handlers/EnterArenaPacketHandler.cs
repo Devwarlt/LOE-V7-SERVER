@@ -34,7 +34,7 @@ namespace LoESoft.GameServer.networking.handlers
             }
             client.Player.UpdateCount++;
             client.Player.SaveToCharacter();
-            World world = GameServer.Manager.AddWorld(new Arena());
+            World world = Program.Manager.AddWorld(new Arena());
             client.Reconnect(new RECONNECT
             {
                 Host = "",

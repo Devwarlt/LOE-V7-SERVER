@@ -12,7 +12,7 @@
             {
                 SetTypeSkin setType = null;
                 var item = Inventory[0];
-                if (item != null && !GameServer.Manager.GameData.SetTypeSkins.TryGetValue((ushort)item.SetType, out setType)) return;
+                if (item != null && !Program.Manager.GameData.SetTypeSkins.TryGetValue((ushort)item.SetType, out setType)) return;
 
                 setTypeSkin = setType;
                 if (setTypeBoosts != null || setTypeSkin == null) return;

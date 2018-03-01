@@ -190,7 +190,7 @@ namespace LoESoft.GameServer.logic.loot
             if (playerData != null)
                 return;
 
-            Item[] candidates = GameServer.Manager.GameData.Items
+            Item[] candidates = Program.Manager.GameData.Items
                 .Where(item => item.Value.SlotType == 9000)
                 .Where(item => item.Value.MinStars <= (int)rarity)
                 .Select(item => item.Value)
@@ -451,7 +451,7 @@ namespace LoESoft.GameServer.logic.loot
             if (playerDat != null)
                 return;
 
-            EmbeddedData dat = GameServer.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
 
             try
             {
@@ -531,7 +531,7 @@ namespace LoESoft.GameServer.logic.loot
         {
             Lootstate = lootState;
             if (playerDat != null) return;
-            Item[] candidates = GameServer.Manager.GameData.Items
+            Item[] candidates = Program.Manager.GameData.Items
                 .Where(item => item.Value.SlotType == 9000)
                 .Where(item => item.Value.MinStars <= (int)rarity)
                 .Select(item => item.Value)
@@ -605,7 +605,7 @@ namespace LoESoft.GameServer.logic.loot
         {
             Lootstate = lootState;
             if (playerDat != null) return;
-            Item[] candidates = GameServer.Manager.GameData.Items
+            Item[] candidates = Program.Manager.GameData.Items
                 .Where(item => Array.IndexOf(types, item.Value.SlotType) != -1)
                 .Where(item => item.Value.Tier == tier)
                 .Select(item => item.Value)

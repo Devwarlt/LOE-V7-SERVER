@@ -64,7 +64,7 @@ namespace LoESoft.GameServer.realm.entity
             {
                 if (TryDeduct(player))
                 {
-                    GameServer.Manager.Database.UpdateCredit(player.Client.Account, -Price);
+                    Program.Manager.Database.UpdateCredit(player.Client.Account, -Price);
                     player.Credits = player.Client.Account.Credits;
                     player.UpdateCount++;
                     player.SaveToCharacter();

@@ -22,7 +22,7 @@ namespace LoESoft.GameServer.networking.handlers
         private void Handle(Player player, PLAYERSHOOT message)
         {
 
-            if (!GameServer.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out Item item))
+            if (!Program.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out Item item))
                 return;
 
             DexterityCheatHandler _cheatHandler = new DexterityCheatHandler()

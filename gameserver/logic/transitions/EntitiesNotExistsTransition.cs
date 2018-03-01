@@ -21,7 +21,7 @@ namespace LoESoft.GameServer.logic.transitions
         protected override bool TickCore(Entity host, RealmTime time, ref object state)
         {
             foreach (string children in childrens)
-                if (host.GetNearestEntity(dist, GameServer.Manager.GameData.IdToObjectType[children]) != null) return false;
+                if (host.GetNearestEntity(dist, Program.Manager.GameData.IdToObjectType[children]) != null) return false;
             return true;
         }
     }

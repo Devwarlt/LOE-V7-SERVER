@@ -19,7 +19,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
         Random rand = new Random();
         public override void RenderSetPiece(World world, IntPoint pos)
         {
-            EmbeddedData dat = GameServer.Manager.GameData;
+            EmbeddedData dat = Program.Manager.GameData;
             int DarkGrassradiu = 17;
             int sandRadius = 17;
             int waterRadius = 14;

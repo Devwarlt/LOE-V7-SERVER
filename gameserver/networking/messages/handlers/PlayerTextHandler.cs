@@ -17,7 +17,7 @@ namespace LoESoft.GameServer.networking.handlers
                 if (client.Player.Owner == null) return;
 
                 if (message.Text[0] == '/')
-                    GameServer.Manager.Commands.Execute(client.Player, t, message.Text);
+                    Program.Manager.Commands.Execute(client.Player, t, message.Text);
                 else
                 {
                     if (client.Player.Muted)
@@ -31,7 +31,7 @@ namespace LoESoft.GameServer.networking.handlers
                         return;
                     }
                     if (!string.IsNullOrWhiteSpace(message.Text))
-                        GameServer.Manager.Chat.Say(client.Player, message.Text);
+                        Program.Manager.Chat.Say(client.Player, message.Text);
                     else
                         client.Player.SendInfo("{\"key\":\"server.invalid_chars\"}");
                 }

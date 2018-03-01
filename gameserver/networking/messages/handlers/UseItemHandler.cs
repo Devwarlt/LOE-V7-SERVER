@@ -30,7 +30,7 @@ namespace LoESoft.GameServer.networking.handlers
                 switch (message.SlotObject.SlotId)
                 {
                     case 254:
-                        item = GameServer.Manager.GameData.Items[message.SlotObject.ObjectType];
+                        item = Program.Manager.GameData.Items[message.SlotObject.ObjectType];
 
                         if (item.ObjectId != "Health Potion")
                         {
@@ -102,7 +102,7 @@ namespace LoESoft.GameServer.networking.handlers
                         }
                         break;
                     case 255:
-                        item = GameServer.Manager.GameData.Items[message.SlotObject.ObjectType];
+                        item = Program.Manager.GameData.Items[message.SlotObject.ObjectType];
 
                         if (item.ObjectId != "Magic Potion")
                         {
@@ -188,8 +188,8 @@ namespace LoESoft.GameServer.networking.handlers
                                     if (message.SlotObject.SlotId != 254 && message.SlotObject.SlotId != 255)
                                     {
                                         container.Inventory[message.SlotObject.SlotId] =
-                                            GameServer.Manager.GameData.Items[
-                                                GameServer.Manager.GameData.IdToObjectType[item.SuccessorId]];
+                                            Program.Manager.GameData.Items[
+                                                Program.Manager.GameData.IdToObjectType[item.SuccessorId]];
                                         client.Player.Owner.GetEntity(message.SlotObject.ObjectId).UpdateCount++;
                                     }
                                 }

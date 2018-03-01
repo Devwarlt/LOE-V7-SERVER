@@ -98,7 +98,7 @@ namespace LoESoft.GameServer.logic.loot
                             if (rand.NextDouble() < prob)
                             {
                                 if (dat.Item1.LootTierBoost)
-                                    playerLoot.Add(IncreaseTier(GameServer.Manager, i.Item, consideration));
+                                    playerLoot.Add(IncreaseTier(Program.Manager, i.Item, consideration));
                                 else
                                     playerLoot.Add(i.Item);
                             }

@@ -35,12 +35,12 @@ namespace LoESoft.GameServer.networking.handlers
                 if (message.SlotObject.SlotId == 254)
                 {
                     client.Player.HealthPotions--;
-                    item = GameServer.Manager.GameData.Items[0xa22];
+                    item = Program.Manager.GameData.Items[0xa22];
                 }
                 else if (message.SlotObject.SlotId == 255)
                 {
                     client.Player.MagicPotions--;
-                    item = GameServer.Manager.GameData.Items[0xa23];
+                    item = Program.Manager.GameData.Items[0xa23];
                 }
                 else
                 {

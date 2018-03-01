@@ -62,7 +62,7 @@ namespace LoESoft.GameServer.realm
                     var objType = GetRandomObjType(i.Entities);
                     if (objType == 0) continue;
 
-                    enemyCounts[idx] += HandleSpawn(GameServer.Manager.GameData.ObjectDescs[objType], terrain, w, h);
+                    enemyCounts[idx] += HandleSpawn(Program.Manager.GameData.ObjectDescs[objType], terrain, w, h);
                     if (enemyCounts[idx] >= enemyCount) break;
                 }
             }
@@ -90,18 +90,18 @@ namespace LoESoft.GameServer.realm
 
         public void AnnounceRealmClose()
         {
-            foreach (ClientData i in GameServer.Manager.ClientManager.Values)
+            foreach (ClientData i in Program.Manager.ClientManager.Values)
                 i.Client.Player?.SendInfo($"Oryx is preparing to close realm '{world.Name}' in 1 minute.");
 
             Done = true;
 
-            world.Timers.Add(new WorldTimer(100000, (ww, tt) => GameServer.Manager.CloseWorld(world)));
+            world.Timers.Add(new WorldTimer(100000, (ww, tt) => Program.Manager.CloseWorld(world)));
             world.Timers.Add(new WorldTimer(120000, (ww, tt) => CloseRealm()));
 
-            GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID).Timers.Add(new WorldTimer(130000, (w, t) =>
+            Program.Manager.GetWorld((int)WorldID.NEXUS_ID).Timers.Add(new WorldTimer(130000, (w, t) =>
                 Task.Factory.StartNew(() =>
                     GameWorld.AutoName(1, true))
-                    .ContinueWith(_ => GameServer.Manager.AddWorld(_.Result)
+                    .ContinueWith(_ => Program.Manager.AddWorld(_.Result)
                 , TaskScheduler.Default)
             ));
         }
@@ -111,14 +111,14 @@ namespace LoESoft.GameServer.realm
             World ocWorld = null;
             world.Timers.Add(new WorldTimer(2000, (w, t) =>
             {
-                ocWorld = GameServer.Manager.AddWorld(new OryxCastle());
-                ocWorld.Manager = GameServer.Manager;
+                ocWorld = Program.Manager.AddWorld(new OryxCastle());
+                ocWorld.Manager = Program.Manager;
             }));
             world.Timers.Add(new WorldTimer(8000, (w, t) =>
             {
                 foreach (var i in world.Players.Values)
                 {
-                    if (ocWorld == null) GameServer.Manager.TryDisconnect(i.Client, DisconnectReason.RECONNECT_TO_CASTLE);
+                    if (ocWorld == null) Program.Manager.TryDisconnect(i.Client, DisconnectReason.RECONNECT_TO_CASTLE);
                     i.Client.SendMessage(new RECONNECT
                     {
                         Host = "",
@@ -139,7 +139,7 @@ namespace LoESoft.GameServer.realm
                     EffectType = EffectType.Jitter
                 });
             }
-            world.Timers.Add(new WorldTimer(10000, (w, t) => GameServer.Manager.RemoveWorld(w)));
+            world.Timers.Add(new WorldTimer(10000, (w, t) => Program.Manager.RemoveWorld(w)));
         }
 
         public void OnPlayerEntered(Player player)
@@ -214,7 +214,7 @@ namespace LoESoft.GameServer.realm
                     if (objType == 0)
                         continue;
 
-                    j += HandleSpawn(GameServer.Manager.GameData.ObjectDescs[objType], t, w, h);
+                    j += HandleSpawn(Program.Manager.GameData.ObjectDescs[objType], t, w, h);
                 }
             }
 

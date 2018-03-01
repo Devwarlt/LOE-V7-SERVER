@@ -148,7 +148,7 @@
     <Compile Include="account\setName.cs" />
     <Compile Include="account\validateEmail.cs" />
     <Compile Include="account\verifyage.cs" />
-    <Compile Include="AppEngineMonitor.cs" />
+    <Compile Include="AppEngine.cs" />
     <Compile Include="app\inGameNews\getNews.cs" />
     <Compile Include="char\delete.cs" />
     <Compile Include="char\fame.cs" />
@@ -165,7 +165,7 @@
     <Compile Include="IRequestHandler.cs" />
     <Compile Include="mysterybox\getBoxes.cs" />
     <Compile Include="package\getPackages.cs" />
-    <Compile Include="AppEngine.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="account\purchasePackage.cs" />
     <Compile Include="account\purchaseMysteryBox.cs" />

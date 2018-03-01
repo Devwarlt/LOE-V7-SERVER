@@ -10,7 +10,7 @@ namespace LoESoft.GameServer.realm.entity
     public class Projectile : Entity
     {
         public Projectile(ProjectileDesc desc)
-            : base(GameServer.Manager.GameData.IdToObjectType[desc.ObjectId])
+            : base(Program.Manager.GameData.IdToObjectType[desc.ObjectId])
         {
             ProjDesc = desc;
             CheatHandler = new GodCheatHandler();

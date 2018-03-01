@@ -106,8 +106,8 @@ namespace LoESoft.GameServer.networking.handlers
                         {
                             string name1 = Regex.Replace(item1.ObjectId, "\\d+", "") + (item1.Quantity - 1);
 
-                            item2 = client._manager.GameData.Items[Manager.GameData.IdToObjectType[name2]];
-                            item1 = Manager.GameData.IdToObjectType.TryGetValue(name1, out objType) == true ? client._manager.GameData.Items[Manager.GameData.IdToObjectType[name1]] : null;
+                            item2 = client.Manager.GameData.Items[Manager.GameData.IdToObjectType[name2]];
+                            item1 = Manager.GameData.IdToObjectType.TryGetValue(name1, out objType) == true ? client.Manager.GameData.Items[Manager.GameData.IdToObjectType[name1]] : null;
 
                             con1.Inventory[message.SlotObject1.SlotId] = item1;
                             con2.Inventory[message.SlotObject2.SlotId] = item2;

@@ -64,7 +64,7 @@ namespace LoESoft.GameServer.logic.behaviors
                         ? Entity.Resolve(stringObjType) as Portal
                         : Entity.Resolve(portalID) as Portal;
                     Entity en = e.Host;
-                    World w = GameServer.Manager.GetWorld(e.Host.Owner.Id);
+                    World w = Program.Manager.GetWorld(e.Host.Owner.Id);
                     entity.Move(en.X + xAdjustment, en.Y + yAdjustment);
                     w.Timers.Add(new WorldTimer(dropDelay * 1000, (world, t) => { w.EnterWorld(entity); }));
                     w.Timers.Add(new WorldTimer(despawnTime * 1000, (world, t) =>

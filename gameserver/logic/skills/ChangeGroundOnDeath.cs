@@ -28,7 +28,7 @@ namespace LoESoft.GameServer.logic.behaviors
         {
             parent.Death += (sender, e) =>
             {
-                var dat = GameServer.Manager.GameData;
+                var dat = Program.Manager.GameData;
                 var w = e.Host.Owner;
                 var pos = new IntPoint((int)e.Host.X - (dist / 2), (int)e.Host.Y - (dist / 2));
                 if (w == null) return;

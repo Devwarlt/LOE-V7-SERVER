@@ -39,7 +39,7 @@ namespace LoESoft.GameServer.realm.commands
                 return false;
             }
 
-            GameServer.Manager.Chat.Guild(player, string.Join(" ", args));
+            Program.Manager.Chat.Guild(player, string.Join(" ", args));
             return true;
         }
     }
@@ -250,7 +250,7 @@ namespace LoESoft.GameServer.realm.commands
                 }
             }
 
-            foreach (ClientData cData in GameServer.Manager.ClientManager.Values)
+            foreach (ClientData cData in Program.Manager.ClientManager.Values)
             {
                 if (cData.Client.Account.NameChosen && cData.Client.Account.Name.EqualsIgnoreCase(playername))
                 {

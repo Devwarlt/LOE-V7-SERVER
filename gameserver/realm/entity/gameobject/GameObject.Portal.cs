@@ -12,8 +12,8 @@ namespace LoESoft.GameServer.realm.entity
             : base(objType, life, false, true, false)
         {
             Usable = objType != 0x0721;
-            ObjectDesc = GameServer.Manager.GameData.Portals[objType];
-            Name = GameServer.Manager.GameData.Portals[objType].DisplayId;
+            ObjectDesc = Program.Manager.GameData.Portals[objType];
+            Name = Program.Manager.GameData.Portals[objType].DisplayId;
         }
 
         private Portal(PortalDesc desc, int? life)
@@ -64,7 +64,7 @@ namespace LoESoft.GameServer.realm.entity
 
         public Portal Unlock(string dungeonName)
         {
-            var desc = GameServer.Manager.GameData.Portals[0x0700];
+            var desc = Program.Manager.GameData.Portals[0x0700];
             desc.DungeonName = dungeonName;
             var portal = new Portal(desc, desc.TimeoutTime * 1000);
             portal.Move(X, Y);

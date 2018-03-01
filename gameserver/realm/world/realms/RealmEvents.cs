@@ -51,7 +51,7 @@ namespace LoESoft.GameServer.realm
                 {
                     RealmEvent evt = RealmEventCache[rand.Next(0, RealmEventCache.Count)];
 
-                    if (GameServer.Manager.GameData.ObjectDescs[GameServer.Manager.GameData.IdToObjectType[evt.Name]].PerRealmMax == 1)
+                    if (Program.Manager.GameData.ObjectDescs[Program.Manager.GameData.IdToObjectType[evt.Name]].PerRealmMax == 1)
                         RealmEventCache.Remove(evt);
 
                     SpawnEvent(evt.Name, evt.MapSetPiece);

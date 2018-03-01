@@ -19,7 +19,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             GCHandle h = GCHandle.Alloc(world);
             IntPtr ptr = GCHandle.ToIntPtr(h);
 
-            GCHandle mapHandle = GCHandle.Alloc(new Wmap(GameServer.Manager.GameData));
+            GCHandle mapHandle = GCHandle.Alloc(new Wmap(Program.Manager.GameData));
 
             LoadJson(ptr.ToPointer(), mapName, &pos, GCHandle.ToIntPtr(mapHandle).ToPointer());
 
