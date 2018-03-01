@@ -27,7 +27,7 @@ namespace LoESoft.GameServer.realm.entity
 
         private static bool IsInteractive(ushort objType)
         {
-            if (Program.Manager.GameData.ObjectDescs.TryGetValue(objType, out ObjectDesc desc))
+            if (GameServer.Manager.GameData.ObjectDescs.TryGetValue(objType, out ObjectDesc desc))
             {
                 if (desc.Class != null)
                     if (desc.Class == "Container"

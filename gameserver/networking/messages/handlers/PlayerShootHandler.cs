@@ -22,7 +22,7 @@ namespace LoESoft.GameServer.networking.handlers
         private void Handle(Player player, PLAYERSHOOT message)
         {
 
-            if (!Program.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out Item item))
+            if (!GameServer.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out Item item))
                 return;
 
             DexterityCheatHandler _cheatHandler = new DexterityCheatHandler()
@@ -31,8 +31,6 @@ namespace LoESoft.GameServer.networking.handlers
                 Item = item,
                 IsAbility = TierLoot.AbilitySlotType.ToList().Contains(item.SlotType),
                 AttackAmount = message.AttackAmount,
-                IsDazed = message.IsDazed,
-                IsBeserk = message.IsBeserk,
                 MinAttackFrequency = message.MinAttackFrequency,
                 MaxAttackFrequency = message.MaxAttackFrequency,
                 WeaponRateOfFire = message.WeaponRateOfFire

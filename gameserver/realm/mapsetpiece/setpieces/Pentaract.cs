@@ -44,7 +44,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             }
             t[20, 20] = 3;
 
-            EmbeddedData data = Program.Manager.GameData;
+            EmbeddedData data = GameServer.Manager.GameData;
             for (int x = 0; x < 40; x++)
                 for (int y = 0; y < 40; y++)
                 {

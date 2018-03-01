@@ -85,7 +85,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             w = t.GetLength(0);
             h = t.GetLength(1);
 
-            EmbeddedData dat = Program.Manager.GameData;
+            EmbeddedData dat = GameServer.Manager.GameData;
             for (int x = 0; x < w; x++) //Rendering
                 for (int y = 0; y < h; y++)
                 {

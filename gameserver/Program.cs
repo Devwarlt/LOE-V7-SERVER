@@ -19,7 +19,7 @@ using log4net;
 
 namespace LoESoft.GameServer
 {
-    internal static class Program
+    internal static class GameServer
     {
         public static DateTime Uptime { get; private set; }
 

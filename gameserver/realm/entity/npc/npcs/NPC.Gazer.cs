@@ -22,7 +22,7 @@ namespace LoESoft.GameServer.realm.entity.npc.npcs
                 #region "Uptime"
                 case "uptime":
                     {
-                        TimeSpan uptime = DateTime.Now - Program.Uptime;
+                        TimeSpan uptime = DateTime.Now - GameServer.Uptime;
                         double thisUptime = uptime.TotalMinutes;
                         if (thisUptime <= 1)
                             callback = "Server started recently.";
@@ -47,7 +47,7 @@ namespace LoESoft.GameServer.realm.entity.npc.npcs
                 case "online":
                     {
                         int serverMaxUsage = Settings.NETWORKING.MAX_CONNECTIONS;
-                        int serverCurrentUsage = Program.Manager.ClientManager.Count;
+                        int serverCurrentUsage = GameServer.Manager.ClientManager.Count;
                         int worldCurrentUsage = player.Owner.Players.Keys.Count;
                         callback = $"Server: {serverCurrentUsage}/{serverMaxUsage} player{(serverCurrentUsage > 1 ? "s" : "")} | {player.Owner.Name}: {worldCurrentUsage} player{(worldCurrentUsage > 1 ? "s" : "")}.";
                     }

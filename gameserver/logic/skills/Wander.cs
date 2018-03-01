@@ -55,7 +55,7 @@ namespace LoESoft.GameServer.logic.behaviors
 
             if (avoidGround)
             {
-                EmbeddedData data = Program.Manager.GameData;
+                EmbeddedData data = GameServer.Manager.GameData;
                 float x = host.X + storage.Direction.X * dist;
                 float y = host.Y + storage.Direction.Y * dist;
                 WmapTile tile = host.Owner.Map[(int)x, (int)y];

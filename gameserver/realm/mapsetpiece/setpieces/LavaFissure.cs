@@ -65,7 +65,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                 p = SetPieces.RotateCW(p);
             p[20, 20] = 2;
 
-            EmbeddedData dat = Program.Manager.GameData;
+            EmbeddedData dat = GameServer.Manager.GameData;
             for (int x = 0; x < Size; x++) //Rendering
                 for (int y = 0; y < Size; y++)
                 {

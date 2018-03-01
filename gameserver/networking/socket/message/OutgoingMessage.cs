@@ -49,7 +49,7 @@ namespace LoESoft.GameServer.networking
                             && e.Buffer[3] == 0xb2
                             && e.Buffer[4] == 0x95)
                         {
-                            byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{Program.GameUsage}");
+                            byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{GameServer.GameUsage}");
                             skt.Send(c);
                             return;
                         }

@@ -106,7 +106,7 @@ namespace LoESoft.GameServer.realm
         {
             if (announce)
             {
-                foreach (ClientData cData in Program.Manager.ClientManager.Values)
+                foreach (ClientData cData in GameServer.Manager.ClientManager.Values)
                     if (cData.Client != null)
                         cData.Client.Player.SendInfo(text.ToSafeText());
             }
