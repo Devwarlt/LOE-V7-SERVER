@@ -9,8 +9,6 @@ namespace LoESoft.GameServer.networking
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public partial class Client
     {
-        public string[] time => DateTime.Now.ToString().Split(' ');
-
         public enum DisconnectReason : byte
         {
             FAILED_TO_LOAD_CHARACTER = 1,
@@ -82,9 +80,6 @@ namespace LoESoft.GameServer.networking
 
         public void Reconnect(RECONNECT msg)
         {
-            if (this == null)
-                return;
-
             if (Account == null)
             {
                 string[] labels = new string[] { "{CLIENT_NAME}" };

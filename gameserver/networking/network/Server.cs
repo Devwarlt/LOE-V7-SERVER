@@ -193,7 +193,7 @@ namespace LoESoft.GameServer.networking
             while (_clientManager.Count > 0)
             {
                 var client = _clientManager.Pop();
-                client.Dispose();
+                client = null;
             }
         }
 

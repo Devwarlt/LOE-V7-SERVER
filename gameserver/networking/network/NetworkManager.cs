@@ -57,7 +57,7 @@ namespace LoESoft.GameServer.networking.network
         {
             var r = (IncomingToken)e.UserToken;
 
-            if (_client.State == ProtocolState.Disconnected)
+            if (_client.State == ProtocolState.Disconnected || !_client.Socket.Connected)
             {
                 _client._manager.TryDisconnect(_client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
                 r.Reset();
@@ -160,7 +160,7 @@ namespace LoESoft.GameServer.networking.network
 
         private void StartReceive(SocketAsyncEventArgs e)
         {
-            if (_client.State == ProtocolState.Disconnected)
+            if (_client.State == ProtocolState.Disconnected || !_client.Socket.Connected)
             {
                 _client._manager.TryDisconnect(_client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
                 return;
