@@ -15,6 +15,8 @@ namespace LoESoft.GameServer.networking.messages.handlers.hack
         public Item Item { get; set; }
         public bool IsAbility { get; set; }
         public int AttackAmount { get; set; }
+        public bool IsDazed { get; set; }
+        public bool IsBeserk { get; set; }
         public float MinAttackFrequency { get; set; }
         public float MaxAttackFrequency { get; set; }
         public float WeaponRateOfFire { get; set; }
@@ -36,6 +38,8 @@ namespace LoESoft.GameServer.networking.messages.handlers.hack
                 return;
 
             if ((AttackAmount != Item.NumProjectiles
+                || Player.HasConditionEffect(ConditionEffectIndex.Dazed) != IsDazed
+                || Player.HasConditionEffect(ConditionEffectIndex.Berserk) != IsBeserk
                 || MinAttackFrequency != StatsManager.MinAttackFrequency
                 || MaxAttackFrequency != StatsManager.MaxAttackFrequency
                 || WeaponRateOfFire != Item.RateOfFire) && !ByPass)
@@ -45,11 +49,14 @@ namespace LoESoft.GameServer.networking.messages.handlers.hack
                     $"\n\t- World: {Player.Owner.Name}," +
                     $"\n\t- Item: {Item.DisplayId} (type: 0x{Item.ObjectType:x4})," +
                     $"\n\t- Attack amount: {AttackAmount} (valid: {Item.NumProjectiles})." +
+                    $"\n\t- Is dazed? {IsDazed} (valid: {Player.HasConditionEffect(ConditionEffectIndex.Dazed)})," +
+                    $"\n\t- Is beserk? {IsBeserk} (valid: {Player.HasConditionEffect(ConditionEffectIndex.Berserk)})," +
                     $"\n\t- Min attack frequency: {MinAttackFrequency} (valid: {StatsManager.MinAttackFrequency})," +
                     $"\n\t- Max attack frequency: {MaxAttackFrequency} (valid: {StatsManager.MaxAttackFrequency})," +
                     $"\n\t- Weapon rate of fire: {WeaponRateOfFire} (valid: {Item.RateOfFire})");
 
-                GameServer.Manager.TryDisconnect(Player.Client, Client.DisconnectReason.DEXTERITY_HACK_MOD);
+                // disable for now
+                //Program.Manager.TryDisconnect(Player.Client, Client.DisconnectReason.DEXTERITY_HACK_MOD);
                 return;
             }
         }

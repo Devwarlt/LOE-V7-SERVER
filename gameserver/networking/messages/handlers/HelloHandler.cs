@@ -72,6 +72,7 @@ namespace LoESoft.GameServer.networking.handlers
             ConnectionProtocol TryConnect = Manager.TryConnect(client);
             if (!TryConnect.Connected)
             {
+                client.Account = null;
                 ErrorIDs errorID = TryConnect.ErrorID;
                 string[] labels;
                 string[] arguments;

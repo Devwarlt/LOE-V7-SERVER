@@ -20,7 +20,7 @@ namespace LoESoft.GameServer.networking
         Disconnected
     }
 
-    public partial class Client
+    public partial class Client : IDisposable
     {
         internal readonly object DcLock = new object();
 
@@ -36,6 +36,8 @@ namespace LoESoft.GameServer.networking
         public RealmManager _manager { get; private set; }
         public RC4 IncomingCipher { get; private set; }
         public RC4 OutgoingCipher { get; private set; }
+
+        private bool Disposed { get; set; }
 
         public Client(
             Server server,
@@ -87,6 +89,29 @@ namespace LoESoft.GameServer.networking
                     return Tuple.Create(build, false);
 
             return Tuple.Create(gameVersions[gameVersions.Count - 1].version, true);
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "handler")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
+        public void Dispose()
+        {
+            if (Disposed)
+                return;
+            
+            IncomingCipher = null;
+            OutgoingCipher = null;
+            _manager = null;
+            Socket = null;
+            Character = null;
+            Account = null;
+
+            if (Player.PetID != 0 && Player.Pet != null)
+                Player.Owner.LeaveWorld(Player.Pet);
+
+            Player = null;
+            Random = null;
+            ConnectedBuild = null;
+            Disposed = true;
         }
 
         private class GameVersion
