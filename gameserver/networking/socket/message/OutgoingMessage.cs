@@ -92,9 +92,6 @@ namespace LoESoft.GameServer.networking
                         {
                             Log.Error($"(Bytes [{e.Buffer.Length}]: {e.BytesTransferred}/{(e.UserToken as IncomingToken).Length}) Error in message '{(e.UserToken as IncomingToken).Message.ID}':\n{(e.UserToken as IncomingToken).Message}");
                             
-                            foreach (var i in e.Buffer)
-                                Log.Error($"{i}");
-
                             string[] labels = new string[] { "{CLIENT_NAME}" };
                             string[] arguments = new string[] { client.Account.Name };
 
@@ -141,76 +138,3 @@ namespace LoESoft.GameServer.networking
         }
     }
 }
-
-/*using LoESoft.Core;
-using LoESoft.Core.models;
-using System;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using static LoESoft.GameServer.networking.Client;
-
-namespace LoESoft.GameServer.networking
-{
-    internal partial class NetworkHandler
-    {
-        private void OutgoingCompleted(object sender, SocketAsyncEventArgs e)
-        {
-            try
-            {
-                if (!skt.Connected)
-                {
-                    Manager.TryDisconnect(client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
-                    return;
-                }
-
-                if (e.SocketError != SocketError.Success)
-                //throw new SocketException((int)e.SocketError);
-                {
-                    DisconnectReason dr = DisconnectReason.SOCKET_ERROR;
-
-                    if (e.SocketError != SocketError.ConnectionReset)
-                        dr = DisconnectReason.CONNECTION_RESET;
-
-                    Manager.TryDisconnect(client, dr);
-                    return;
-                }
-
-                switch (_outgoingState)
-                {
-                    case OutgoingState.ReceivingBody:
-                        if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
-                        {
-                            Log.Error($"(Bytes: {e.BytesTransferred}/{(e.UserToken as IncomingToken).Length}) Error in message '{(e.UserToken as IncomingToken).Message.ID}':\n{(e.UserToken as IncomingToken).Message}");
-
-                            Manager.TryDisconnect(client, DisconnectReason.RECEIVING_BODY);
-                            return;
-                        }
-
-                        Message message = (e.UserToken as IncomingToken).Message;
-                        message.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
-
-                        _outgoingState = OutgoingState.Processing;
-
-                        bool cont = IncomingMessageReceived(message);
-
-                        if (cont && skt.Connected)
-                        {
-                            _outgoingState = OutgoingState.ReceivingHdr;
-
-                            e.SetBuffer(0, 5);
-                            skt.ReceiveAsync(e);
-                        }
-                        break;
-                    default:
-                        throw new InvalidOperationException(e.LastOperation.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                OnError(ex);
-            }
-        }
-    }
-}*/
