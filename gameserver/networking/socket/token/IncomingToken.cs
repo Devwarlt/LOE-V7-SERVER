@@ -5,7 +5,7 @@
         private class IncomingToken
         {
             public int Length { get; set; }
-            public Message Packet { get; set; }
+            public Message Message { get; set; }
         }
     }
 }

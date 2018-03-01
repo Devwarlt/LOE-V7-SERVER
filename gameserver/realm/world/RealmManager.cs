@@ -164,8 +164,6 @@ namespace LoESoft.GameServer.realm
 
                 if (ClientManager.ContainsKey(_cData.ID))
                 {
-                    Log.Info($"Client ID '{_cData.ID}' contains in ClientManager.");
-
                     if (_cData.Client != null)
                     {
                         TryDisconnect(ClientManager[_cData.ID].Client, DisconnectReason.OLD_CLIENT_DISCONNECT); // Old client.
@@ -175,8 +173,6 @@ namespace LoESoft.GameServer.realm
 
                     return new ConnectionProtocol(false, ErrorIDs.LOST_CONNECTION); // User dropped connection while reconnect.
                 }
-
-                Log.Info($"Client ID '{_cData.ID}' doesn't contains in ClientManager.");
 
                 return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.
             }

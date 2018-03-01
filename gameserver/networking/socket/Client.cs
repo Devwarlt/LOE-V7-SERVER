@@ -41,7 +41,7 @@ namespace LoESoft.GameServer.networking
 
         public void BeginProcess()
         {
-            handler = new NetworkHandler(this);
+            handler = new NetworkHandler(this, Socket);
             handler.BeginHandling();
         }
 
