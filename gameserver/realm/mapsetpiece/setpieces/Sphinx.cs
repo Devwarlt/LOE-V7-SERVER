@@ -68,7 +68,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
             t[26, 40] = t[27, 40] = t[27, 39] = t[27, 41] = 4;
             t[54, 40] = t[53, 40] = t[53, 39] = t[53, 41] = 4;
 
-            EmbeddedData dat = Program.Manager.GameData;
+            EmbeddedData dat = GameServer.Manager.GameData;
             for (int x = 0; x < Size; x++) //Rendering
                 for (int y = 0; y < Size; y++)
                     if (t[x, y] == 1)

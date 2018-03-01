@@ -67,7 +67,7 @@ namespace LoESoft.GameServer.networking.messages.handlers.hack
         { get { return Proj.BeginTime; } }
 
         private Position CurrentPosition
-        { get { return GetProjectilePosition(Program.Manager.Logic.CurrentTime.TotalElapsedMs - InitialTime); } }
+        { get { return GetProjectilePosition(GameServer.Manager.Logic.CurrentTime.TotalElapsedMs - InitialTime); } }
 
         private Player NearestPlayer
         { get { return (Proj as Entity).GetNearestEntity(CollisionRange, true) as Player; } }

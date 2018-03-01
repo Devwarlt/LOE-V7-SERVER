@@ -19,11 +19,11 @@ using log4net;
 
 namespace LoESoft.GameServer
 {
-    internal static class Program
+    internal static class GameServer
     {
         public static DateTime Uptime { get; private set; }
 
-        public static readonly ILog Logger = LogManager.GetLogger("Server");
+        public static readonly ILog log = LogManager.GetLogger(typeof(GameServer));
 
         private static readonly ManualResetEvent Shutdown = new ManualResetEvent(false);
 
@@ -58,7 +58,7 @@ namespace LoESoft.GameServer
 
                 Log._("Message", Message.Messages.Count);
 
-                Server server = new Server(Manager);
+                Server server = new Server(Manager, Settings.GAMESERVER.PORT, Settings.NETWORKING.MAX_CONNECTIONS);
                 PolicyServer policy = new PolicyServer();
 
                 Console.CancelKeyPress += (sender, e) => e.Cancel = true;
@@ -194,5 +194,10 @@ namespace LoESoft.GameServer
 
             Shutdown.Set();
         }
+    }
+
+    internal static class Empty<T>
+    {
+        public static T[] Array = new T[0];
     }
 }

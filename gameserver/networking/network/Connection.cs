@@ -30,10 +30,10 @@ namespace LoESoft.GameServer.networking
             MP_POTION_CHEAT_ENGINE = 15,
             STOPING_SERVER = 16,
             SOCKET_IS_NOT_CONNECTED = 17,
-            RECEIVING_HDR = 18,
-            RECEIVING_BODY = 19,
+            INVALID_INCOMING_BYTES = 18,
+            INVALID_TRANSFERRED_BYTES = 19,
             ERROR_WHEN_HANDLING_MESSAGE = 20,
-            SOCKET_ERROR_DETECTED = 21,
+            INVALID_SOCKET_PROCESSING = 21,
             PROCESS_POLICY_FILE = 22,
             RESTART = 23,
             PLAYER_KICK = 24,
@@ -48,6 +48,10 @@ namespace LoESoft.GameServer.networking
             VIP_ACCOUNT_OVER = 33,
             DEXTERITY_HACK_MOD = 34,
             RECONNECT = 35,
+            UNKNOWN_MESSAGE = 36,
+            CONNECTION_RESETED = 37,
+            SOCKET_ERROR = 38,
+            BYTES_NOT_READY = 39,
             UNKNOW_ERROR_INSTANCE = 255
         }
 

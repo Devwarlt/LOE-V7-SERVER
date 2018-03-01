@@ -25,6 +25,6 @@ namespace LoESoft.GameServer.realm.world
                 LoadMap("tutorial", MapType.Wmap);
         }
 
-        public override World GetInstance(Client psr) => Program.Manager.AddWorld(new Tutorial(false));
+        public override World GetInstance(Client psr) => GameServer.Manager.AddWorld(new Tutorial(false));
     }
 }

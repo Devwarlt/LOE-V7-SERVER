@@ -20,7 +20,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
 
         public override void RenderSetPiece(World world, IntPoint pos)
         {
-            EmbeddedData dat = Program.Manager.GameData;
+            EmbeddedData dat = GameServer.Manager.GameData;
 
             IntPoint p = new IntPoint
             {

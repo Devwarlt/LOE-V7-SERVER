@@ -288,7 +288,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
         private void GenerateGravestone()
         {
-            var maxed = (from i in Program.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease") let xElement = Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value) where xElement != null let limit = int.Parse(xElement.Attribute("max").Value) let idx = StatsManager.StatsNameToIndex(i.Value) where Stats[idx] >= limit select limit).Count();
+            var maxed = (from i in GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease") let xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value) where xElement != null let limit = int.Parse(xElement.Attribute("max").Value) let idx = StatsManager.StatsNameToIndex(i.Value) where Stats[idx] >= limit select limit).Count();
 
             ushort objType;
             int? time;

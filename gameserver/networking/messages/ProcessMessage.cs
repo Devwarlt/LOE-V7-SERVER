@@ -6,6 +6,13 @@ using System.Collections.Generic;
 
 namespace LoESoft.GameServer.networking
 {
+    public enum MessagePriority
+    {
+        High,
+        Normal,
+        Low
+    }
+
     public partial class Client
     {
         public ProtocolState State { get; internal set; }
@@ -17,7 +24,6 @@ namespace LoESoft.GameServer.networking
             {
                 if (msg.ID == (MessageID)255)
                     return;
-
 
                 if (!MessageHandler.Handlers.TryGetValue(msg.ID, out IMessage handler))
                     Log.Warn($"Unhandled message ID '{msg.ID}'.");
@@ -31,9 +37,23 @@ namespace LoESoft.GameServer.networking
         }
 
         public bool IsReady() => State == ProtocolState.Disconnected ? false : (State != ProtocolState.Ready || (Player != null && (Player == null || Player.Owner != null)));
+        
+        public void SendMessage(Message pkt, MessagePriority priority = MessagePriority.Normal)
+        {
+            using (TimedLock.Lock(DcLock))
+            {
+                if (State != ProtocolState.Disconnected)
+                    _handler.SendMessage(pkt, priority);
+            }
+        }
 
-        public void SendMessage(Message msg) => handler?.IncomingMessage(msg);
-
-        public void SendMessage(IEnumerable<Message> msgs) => handler?.IncomingMessage(msgs);
+        public void SendMessages(IEnumerable<Message> msgs, MessagePriority priority = MessagePriority.Normal)
+        {
+            using (TimedLock.Lock(DcLock))
+            {
+                if (State != ProtocolState.Disconnected)
+                    _handler.SendMessages(msgs, priority);
+            }
+        }
     }
 }

@@ -114,12 +114,12 @@ namespace LoESoft.GameServer.realm
         {
             Logic = new LogicTicker(this);
             var logic = new Task(() => Logic.TickLoop(), TaskCreationOptions.LongRunning);
-            logic.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
+            logic.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
             logic.Start();
 
             Network = new NetworkTicker(this);
             var network = new Task(() => Network.TickLoop(), TaskCreationOptions.LongRunning);
-            network.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
+            network.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
             network.Start();
         }
 

@@ -124,7 +124,7 @@ namespace LoESoft.GameServer.realm
             WmapTile tile = Map[x, y];
             if (tile.TileDesc.NoWalk)
                 return false;
-            if (Program.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out ObjectDesc desc))
+            if (GameServer.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out ObjectDesc desc))
             {
                 if (!desc.Static)
                     return false;
@@ -186,7 +186,7 @@ namespace LoESoft.GameServer.realm
 
         private void FromWorldMap(Stream dat)
         {
-            var map = new Wmap(Program.Manager.GameData);
+            var map = new Wmap(GameServer.Manager.GameData);
             Map = map;
             entityInc = 0;
             entityInc += Map.Load(dat, 0);
@@ -199,9 +199,9 @@ namespace LoESoft.GameServer.realm
                     try
                     {
                         var tile = Map[x, y];
-                        if (Program.Manager.GameData.Tiles[tile.TileId].NoWalk)
+                        if (GameServer.Manager.GameData.Tiles[tile.TileId].NoWalk)
                             Obstacles[x, y] = 3;
-                        if (Program.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out ObjectDesc desc))
+                        if (GameServer.Manager.GameData.ObjectDescs.TryGetValue(tile.ObjType, out ObjectDesc desc))
                         {
                             if (desc.Class == "Wall" ||
                                 desc.Class == "ConnectedWall" ||
@@ -224,7 +224,7 @@ namespace LoESoft.GameServer.realm
             Enemies.Clear();
             Players.Clear();
             Entities.Clear();
-            foreach (var i in Map.InstantiateEntities(Program.Manager))
+            foreach (var i in Map.InstantiateEntities(GameServer.Manager))
             {
                 if (i.ObjectDesc != null &&
                     (i.ObjectDesc.OccupySquare || i.ObjectDesc.EnemyOccupySquare))
@@ -422,13 +422,13 @@ namespace LoESoft.GameServer.realm
         public void BroadcastPackets(IEnumerable<Message> pkts, Player exclude)
         {
             foreach (var i in Players.Where(i => i.Value != exclude))
-                i.Value.Client.SendMessage(pkts);
+                i.Value.Client.SendMessages(pkts);
         }
 
         public void BroadcastPacketsSync(IEnumerable<Message> pkts, Predicate<Player> exclude)
         {
             foreach (var i in Players.Where(i => exclude(i.Value)))
-                i.Value.Client.SendMessage(pkts);
+                i.Value.Client.SendMessages(pkts);
         }
 
         public virtual void Tick(RealmTime time)
@@ -478,8 +478,8 @@ namespace LoESoft.GameServer.realm
                 if (Players.Count != 0 || !canBeClosed || !IsDungeon())
                     return;
                 if (this is Vault vault)
-                    Program.Manager.RemoveVault(vault.AccountId);
-                Program.Manager.RemoveWorld(this);
+                    GameServer.Manager.RemoveVault(vault.AccountId);
+                GameServer.Manager.RemoveWorld(this);
             }
             catch (Exception e)
             {
@@ -508,7 +508,7 @@ namespace LoESoft.GameServer.realm
                     FromWorldMap(stream);
                     break;
                 case MapType.Json:
-                    FromWorldMap(new MemoryStream(Json2Wmap.Convert(Program.Manager.GameData, new StreamReader(stream).ReadToEnd())));
+                    FromWorldMap(new MemoryStream(Json2Wmap.Convert(GameServer.Manager.GameData, new StreamReader(stream).ReadToEnd())));
                     break;
                 default:
                     throw new ArgumentException("Invalid MapType");
@@ -517,7 +517,7 @@ namespace LoESoft.GameServer.realm
 
         protected void LoadMap(string json)
         {
-            FromWorldMap(new MemoryStream(Json2Wmap.Convert(Program.Manager.GameData, json)));
+            FromWorldMap(new MemoryStream(Json2Wmap.Convert(GameServer.Manager.GameData, json)));
         }
 
         public void ChatReceived(string text)
