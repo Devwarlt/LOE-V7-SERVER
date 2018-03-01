@@ -55,6 +55,31 @@ namespace LoESoft.GameServer.networking
             UNKNOW_ERROR_INSTANCE = 255
         }
 
+        public void TryDisconnect(DisconnectReason reason)
+        {
+            using (TimedLock.Lock(DcLock))
+            {
+                if (State == ProtocolState.Disconnected)
+                    return;
+
+                State = ProtocolState.Disconnected;
+
+                Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{Account.Name} (Account ID: {Account.AccountId})'.");
+
+                if (Account != null)
+                    try
+                    {
+                        Save();
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error($"{e.Message}\n{e.StackTrace}");
+                    }
+                
+                _server.TryDisconnect(this);
+            }
+        }
+
         public void Reconnect(RECONNECT msg)
         {
             if (this == null)
@@ -77,7 +102,7 @@ namespace LoESoft.GameServer.networking
                             )
                 });
 
-                Manager.TryDisconnect(this, DisconnectReason.LOST_CONNECTION);
+                _manager.TryDisconnect(this, DisconnectReason.LOST_CONNECTION);
                 return;
             }
 
@@ -95,9 +120,9 @@ namespace LoESoft.GameServer.networking
                 Player?.SaveToCharacter();
 
                 if (Character != null)
-                    Manager.Database.SaveCharacter(Account, Character, false);
+                    _manager.Database.SaveCharacter(Account, Character, false);
                 if (Account != null)
-                    Manager.Database.ReleaseLock(Account);
+                    _manager.Database.ReleaseLock(Account);
             }
             catch (Exception ex)
             {

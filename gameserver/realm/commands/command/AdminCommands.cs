@@ -733,7 +733,7 @@ namespace LoESoft.GameServer.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         i.Value.Muted = true;
-                        i.Value.Client.Manager.Database.MuteAccount(i.Value.Client.Account);
+                        i.Value.Client._manager.Database.MuteAccount(i.Value.Client.Account);
                         player.SendInfo("Player Muted.");
                     }
                 }
@@ -760,7 +760,7 @@ namespace LoESoft.GameServer.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         i.Value.Muted = false;
-                        i.Value.Client.Manager.Database.UnmuteAccount(i.Value.Client.Account);
+                        i.Value.Client._manager.Database.UnmuteAccount(i.Value.Client.Account);
                         player.SendInfo("Player Unmuted.");
                     }
                 }
@@ -788,7 +788,7 @@ namespace LoESoft.GameServer.realm.commands
                     player.SendError("Player not found");
                     return false;
                 }
-                p.Client.Manager.Database.BanAccount(p.Client.Account);
+                p.Client._manager.Database.BanAccount(p.Client.Account);
                 GameServer.Manager.TryDisconnect(p.Client, DisconnectReason.PLAYER_BANNED);
                 return true;
             }

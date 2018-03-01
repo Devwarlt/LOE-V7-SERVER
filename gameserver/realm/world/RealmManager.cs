@@ -16,6 +16,7 @@ using LoESoft.Core.config;
 using LoESoft.GameServer.realm.entity.merchant;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.models;
+using System.Net.Sockets;
 
 #endregion
 
@@ -188,6 +189,7 @@ namespace LoESoft.GameServer.realm
         {
             if (client == null)
                 return;
+
             DisconnectHandler(client, reason == DisconnectReason.UNKNOW_ERROR_INSTANCE ? DisconnectReason.REALM_MANAGER_DISCONNECT : reason);
         }
 
@@ -197,23 +199,17 @@ namespace LoESoft.GameServer.realm
             {
                 if (ClientManager.ContainsKey(client.Account.AccountId))
                 {
-
                     ClientManager.TryRemove(client.Account.AccountId, out ClientData _disposableCData);
-
-                    Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.Client.Account.Name} (Account ID: {_disposableCData.Client.Account.AccountId})'.");
 
                     _disposableCData.Client.Save();
                     _disposableCData.Client.State = ProtocolState.Disconnected;
-                    _disposableCData.Client.Socket.Close();
-                    _disposableCData.Client.Dispose();
+                    _disposableCData.Client.TryDisconnect(reason);
                 }
                 else
                 {
-                    Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{client.Account.Name} (Account ID: {client.Account.AccountId})'.");
-
                     client.Save();
                     client.State = ProtocolState.Disconnected;
-                    client.Dispose();
+                    client.TryDisconnect(reason);
                 }
             }
             catch (NullReferenceException) { }

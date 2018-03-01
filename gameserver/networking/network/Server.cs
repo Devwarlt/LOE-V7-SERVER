@@ -8,12 +8,13 @@ using static LoESoft.GameServer.networking.Client;
 using System.Threading;
 using LoESoft.Core.config;
 using LoESoft.GameServer.networking.network;
+using System;
 
 #endregion
 
 namespace LoESoft.GameServer.networking
 {
-    internal class Server
+    public class Server
     {
         public Server(
             RealmManager manager,
@@ -45,12 +46,11 @@ namespace LoESoft.GameServer.networking
             {
                 var outgoing = CreateNewSendEventArgs();
                 var incoming = CreateNewReceiveEventArgs();
-                _clientManager.Push(new Client(_manager, outgoing, incoming, _outgoingCipher, _incomingCipher));
+                _clientManager.Push(new Client(this, _manager, outgoing, incoming, _outgoingCipher, _incomingCipher));
             }
         }
 
         private readonly BufferManager _buffManager;
-        private readonly ClientManager _clientManager;
         private readonly SocketAsyncEventArgsManager _eventArgsPoolAccept;
         private readonly Semaphore _maxConnectionsEnforcer;
         private readonly byte[] _outgoingCipher;
@@ -61,6 +61,8 @@ namespace LoESoft.GameServer.networking
         private const int BackLog = 1024;
 
         private Socket _listenSocket { get; set; }
+
+        internal readonly ClientManager _clientManager;
 
         public const int BufferSize = 0x20000;
 
@@ -159,13 +161,67 @@ namespace LoESoft.GameServer.networking
 
         public void Stop()
         {
+            try
+            {
+                _listenSocket.Shutdown(SocketShutdown.Both);
+            }
+            catch (Exception e)
+            {
+                var se = e as SocketException;
+                if (se == null || se.SocketErrorCode != SocketError.NotConnected)
+                    GameServer.log.Error(e);
+            }
+            _listenSocket.Close();
+
             foreach (ClientData cData in _manager.ClientManager.Values.ToArray())
             {
                 cData.Client.Save();
                 _manager.TryDisconnect(cData.Client, DisconnectReason.STOPING_SERVER);
             }
 
-            _listenSocket.Close();
+            DisposeAllSaeaObjects();
+        }
+
+        private void DisposeAllSaeaObjects()
+        {
+            while (_eventArgsPoolAccept.Count > 0)
+            {
+                var eventArgs = _eventArgsPoolAccept.Pop();
+                eventArgs.Dispose();
+            }
+
+            while (_clientManager.Count > 0)
+            {
+                var client = _clientManager.Pop();
+                client.Dispose();
+            }
+        }
+
+        public void TryDisconnect(Client client)
+        {
+            try
+            {
+                client.Socket.Shutdown(SocketShutdown.Both);
+            }
+            catch (Exception e)
+            {
+                var se = e as SocketException;
+                if (se == null || se.SocketErrorCode != SocketError.NotConnected)
+                    GameServer.log.Error(e);
+            }
+            client.Socket.Close();
+
+            client.Reset();
+            _clientManager.Push(client);
+
+            try
+            {
+                _maxConnectionsEnforcer.Release();
+            }
+            catch (SemaphoreFullException e)
+            {
+                GameServer.log.Error(e);
+            }
         }
     }
 }

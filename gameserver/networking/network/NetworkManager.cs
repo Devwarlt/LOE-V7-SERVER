@@ -59,7 +59,7 @@ namespace LoESoft.GameServer.networking.network
 
             if (_client.State == ProtocolState.Disconnected)
             {
-                _client.Manager.TryDisconnect(_client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
+                _client._manager.TryDisconnect(_client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
                 r.Reset();
                 return;
             }
@@ -71,7 +71,7 @@ namespace LoESoft.GameServer.networking.network
                 if (e.SocketError != SocketError.ConnectionReset)
                     dr = DisconnectReason.CONNECTION_RESETED;
 
-                _client.Manager.TryDisconnect(_client, dr);
+                _client._manager.TryDisconnect(_client, dr);
                 return;
             }
 
@@ -79,7 +79,7 @@ namespace LoESoft.GameServer.networking.network
 
             if (bytesNotRead == 0)
             {
-                _client.Manager.TryDisconnect(_client, DisconnectReason.BYTES_NOT_READY);
+                _client._manager.TryDisconnect(_client, DisconnectReason.BYTES_NOT_READY);
                 return;
             }
 
@@ -91,11 +91,11 @@ namespace LoESoft.GameServer.networking.network
                 {
                     r.MessageLength = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(r.MessageBytes, 0));
 
-                    if (e.Buffer[0] == 0x3c
-                            && e.Buffer[1] == 0x70
-                            && e.Buffer[2] == 0x6f
-                            && e.Buffer[3] == 0x6c
-                            && e.Buffer[4] == 0x69)
+                    if (r.MessageBytes[0] == 0x3c
+                            && r.MessageBytes[1] == 0x70
+                            && r.MessageBytes[2] == 0x6f
+                            && r.MessageBytes[3] == 0x6c
+                            && r.MessageBytes[4] == 0x69)
                     {
                         NWriter wtr = new NWriter(new NetworkStream(_client.Socket));
                         wtr.WriteNullTerminatedString(Settings.IS_PRODUCTION ? Settings.NETWORKING.INTERNAL.SELECTED_DOMAINS : Settings.NETWORKING.INTERNAL.LOCALHOST_DOMAINS);
@@ -103,23 +103,23 @@ namespace LoESoft.GameServer.networking.network
                         wtr.Write((byte)'\r');
                         wtr.Write((byte)'\n');
 
-                        _client.Manager.TryDisconnect(_client, DisconnectReason.PROCESS_POLICY_FILE);
+                        _client._manager.TryDisconnect(_client, DisconnectReason.PROCESS_POLICY_FILE);
 
                         r.Reset();
                         break;
                     }
 
-                    if (e.Buffer[0] == 0xae
-                        && e.Buffer[1] == 0x7a
-                        && e.Buffer[2] == 0xf2
-                        && e.Buffer[3] == 0xb2
-                        && e.Buffer[4] == 0x95)
+                    if (r.MessageBytes[0] == 0xae
+                        && r.MessageBytes[1] == 0x7a
+                        && r.MessageBytes[2] == 0xf2
+                        && r.MessageBytes[3] == 0xb2
+                        && r.MessageBytes[4] == 0x95)
                     {
-                        _client.Socket.Send(Encoding.ASCII.GetBytes($"{_client.Manager.MaxClients}:{GameServer.GameUsage}"));
+                        _client.Socket.Send(Encoding.ASCII.GetBytes($"{_client._manager.MaxClients}:{GameServer.GameUsage}"));
                         break;
                     }
 
-                    // discard invalid packets
+                    // discard invalid messages
                     if (r.MessageLength < _prefixLength
                         || r.MessageLength > _bufferSize)
                     {
@@ -131,7 +131,7 @@ namespace LoESoft.GameServer.networking.network
                 if (r.BytesRead == r.MessageLength)
                 {
                     if (_client.IsReady())
-                        _client.Manager.Network.AddPendingMessage(_client, r.GetMessageID(), r.GetMessageBody());
+                        _client._manager.Network.AddPendingMessage(_client, r.GetMessageID(), r.GetMessageBody());
 
                     r.Reset();
                 }
@@ -162,7 +162,7 @@ namespace LoESoft.GameServer.networking.network
         {
             if (_client.State == ProtocolState.Disconnected)
             {
-                _client.Manager.TryDisconnect(_client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
+                _client._manager.TryDisconnect(_client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
                 return;
             }
 
@@ -171,13 +171,24 @@ namespace LoESoft.GameServer.networking.network
             bool willRaiseEvent;
             try
             {
-                willRaiseEvent = e.AcceptSocket.ReceiveAsync(e);
+
+                if (e.SocketError != SocketError.Success)
+                {
+                    DisconnectReason dr = DisconnectReason.SOCKET_ERROR;
+
+                    if (e.SocketError != SocketError.ConnectionReset)
+                        dr = DisconnectReason.CONNECTION_RESETED;
+
+                    _client._manager.TryDisconnect(_client, dr);
+                    return;
+                }
+                else
+                    willRaiseEvent = e.AcceptSocket.ReceiveAsync(e);
 
             }
-            catch (Exception ex)
+            catch (ObjectDisposedException ex)
             {
                 GameServer.log.Error(ex);
-                _client.Manager.TryDisconnect(_client, DisconnectReason.UNKNOW_ERROR_INSTANCE);
                 return;
             }
 
@@ -191,14 +202,14 @@ namespace LoESoft.GameServer.networking.network
 
             if (_client.State == ProtocolState.Disconnected)
             {
-                _client.Manager.TryDisconnect(_client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
+                _client._manager.TryDisconnect(_client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
                 s.Reset();
                 return;
             }
 
             if (e.SocketError != SocketError.Success)
             {
-                _client.Manager.TryDisconnect(_client, DisconnectReason.SOCKET_ERROR);
+                _client._manager.TryDisconnect(_client, DisconnectReason.SOCKET_ERROR);
                 return;
             }
 
@@ -207,7 +218,7 @@ namespace LoESoft.GameServer.networking.network
 
             var delay = 0;
             if (s.BytesAvailable <= 0)
-                delay = _client.Manager.Logic.MsPT;
+                delay = _client._manager.Logic.MsPT;
 
             StartSend(e, delay);
         }
@@ -238,12 +249,22 @@ namespace LoESoft.GameServer.networking.network
             bool willRaiseEvent;
             try
             {
-                willRaiseEvent = e.AcceptSocket.SendAsync(e);
+                if (e.SocketError != SocketError.Success)
+                {
+                    DisconnectReason dr = DisconnectReason.SOCKET_ERROR;
+
+                    if (e.SocketError != SocketError.ConnectionReset)
+                        dr = DisconnectReason.CONNECTION_RESETED;
+
+                    _client._manager.TryDisconnect(_client, dr);
+                    return;
+                }
+                else
+                    willRaiseEvent = e.AcceptSocket.SendAsync(e);
             }
-            catch (Exception ex)
+            catch (ObjectDisposedException ex)
             {
                 GameServer.log.Error(ex);
-                _client.Manager.TryDisconnect(_client, DisconnectReason.UNKNOW_ERROR_INSTANCE);
                 return;
             }
 

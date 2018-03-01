@@ -24,6 +24,7 @@ namespace LoESoft.GameServer.networking
     {
         internal readonly object DcLock = new object();
 
+        public readonly Server _server;
         private readonly NetworkManager _handler;
 
         public DbChar Character { get; internal set; }
@@ -32,13 +33,14 @@ namespace LoESoft.GameServer.networking
         public int TargetWorld { get; internal set; }
         public string ConnectedBuild { get; internal set; }
         public Socket Socket { get; internal set; }
-        public RealmManager Manager { get; private set; }
+        public RealmManager _manager { get; private set; }
         public RC4 IncomingCipher { get; private set; }
         public RC4 OutgoingCipher { get; private set; }
 
         private bool Disposed { get; set; }
 
         public Client(
+            Server server,
             RealmManager manager,
             SocketAsyncEventArgs outgoing,
             SocketAsyncEventArgs incoming,
@@ -46,7 +48,8 @@ namespace LoESoft.GameServer.networking
             byte[] incomingCipher
             )
         {
-            Manager = manager;
+            _server = server;
+            _manager = manager;
 
             IncomingCipher = new RC4(incomingCipher);
             OutgoingCipher = new RC4(outgoingCipher);
@@ -97,7 +100,7 @@ namespace LoESoft.GameServer.networking
             
             IncomingCipher = null;
             OutgoingCipher = null;
-            Manager = null;
+            _manager = null;
             Socket = null;
             Character = null;
             Account = null;

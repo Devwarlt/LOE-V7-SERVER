@@ -32,7 +32,7 @@ namespace LoESoft.GameServer.networking
             }
             catch (NullReferenceException)
             {
-                Manager.TryDisconnect(this, DisconnectReason.ERROR_WHEN_HANDLING_MESSAGE);
+                _manager.TryDisconnect(this, DisconnectReason.ERROR_WHEN_HANDLING_MESSAGE);
             }
         }
 
