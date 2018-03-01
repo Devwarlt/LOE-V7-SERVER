@@ -1,4 +1,6 @@
 ﻿using LoESoft.Core.models;
+using LoESoft.GameServer.networking.error;
+using LoESoft.GameServer.networking.outgoing;
 using System;
 using System.IO;
 using System.Net;
@@ -63,18 +65,22 @@ namespace LoESoft.GameServer.networking
 
                         int len = (e.UserToken as IncomingToken).Length =
                             IPAddress.NetworkToHostOrder(BitConverter.ToInt32(e.Buffer, 0)) - 5;
+
                         if (len < 0 || len > BUFFER_SIZE)
                             throw new InternalBufferOverflowException();
+
+                        Message message = null;
+
                         try
                         {
-                            Message message = Message.Messages[(MessageID)e.Buffer[4]].CreateInstance();
-
-                            (e.UserToken as IncomingToken).Message = message;
+                            message = Message.Messages[(MessageID)e.Buffer[4]].CreateInstance();
                         }
                         catch
                         {
                             log.Error($"Message not added: {e.Buffer[4]}");
                         }
+
+                        (e.UserToken as IncomingToken).Message = message;
 
                         _outgoingState = OutgoingState.ReceivingBody;
 
@@ -84,7 +90,25 @@ namespace LoESoft.GameServer.networking
                     case OutgoingState.ReceivingBody:
                         if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
                         {
-                            Log.Error($"(Bytes: {e.BytesTransferred}/{(e.UserToken as IncomingToken).Length}) Error in message '{(e.UserToken as IncomingToken).Message.ID}':\n{(e.UserToken as IncomingToken).Message}");
+                            Log.Error($"(Bytes [{e.Buffer.Length}]: {e.BytesTransferred}/{(e.UserToken as IncomingToken).Length}) Error in message '{(e.UserToken as IncomingToken).Message.ID}':\n{(e.UserToken as IncomingToken).Message}");
+                            
+                            foreach (var i in e.Buffer)
+                                Log.Error($"{i}");
+
+                            string[] labels = new string[] { "{CLIENT_NAME}" };
+                            string[] arguments = new string[] { client.Account.Name };
+
+                            client.SendMessage(new FAILURE
+                            {
+                                ErrorId = (int)FailureIDs.JSON_DIALOG,
+                                ErrorDescription =
+                                    JSONErrorIDHandler.
+                                        FormatedJSONError(
+                                            errorID: ErrorIDs.LOST_CONNECTION,
+                                            labels: labels,
+                                            arguments: arguments
+                                        )
+                            });
 
                             Manager.TryDisconnect(client, DisconnectReason.RECEIVING_BODY);
 
