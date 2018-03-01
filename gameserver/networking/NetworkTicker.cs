@@ -4,6 +4,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 using LoESoft.GameServer.networking;
+using static LoESoft.GameServer.networking.Client;
 
 #endregion
 
@@ -49,7 +50,7 @@ namespace LoESoft.GameServer.realm
 
                             if (work.Item1.State == ProtocolState.Disconnected)
                             {
-                                Manager.TryDisconnect(work.Item1);
+                                Manager.TryDisconnect(work.Item1, DisconnectReason.NETWORK_TICKER_DISCONNECT);
                                 continue;
                             }
                             try

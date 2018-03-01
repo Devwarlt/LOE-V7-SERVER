@@ -19,11 +19,16 @@ using log4net;
 
 namespace LoESoft.GameServer
 {
+    internal static class Empty<T>
+    {
+        public static T[] Array = new T[0];
+    }
+
     internal static class GameServer
     {
         public static DateTime Uptime { get; private set; }
 
-        public static readonly ILog Logger = LogManager.GetLogger("Server");
+        public static readonly ILog log = LogManager.GetLogger("Server");
 
         private static readonly ManualResetEvent Shutdown = new ManualResetEvent(false);
 

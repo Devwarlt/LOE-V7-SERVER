@@ -9,8 +9,6 @@ namespace LoESoft.GameServer.networking
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
     public partial class Client
     {
-        public string[] time => DateTime.Now.ToString().Split(' ');
-
         public enum DisconnectReason : byte
         {
             FAILED_TO_LOAD_CHARACTER = 1,
@@ -48,14 +46,17 @@ namespace LoESoft.GameServer.networking
             VIP_ACCOUNT_OVER = 33,
             DEXTERITY_HACK_MOD = 34,
             RECONNECT = 35,
+            CONNECTION_RESET = 36,
+            SOCKET_ERROR = 37,
+            INVALID_BUFFER_LENGTH = 38,
+            OVERFLOW_EXCEPTION = 39,
+            NETWORK_TICKER_DISCONNECT = 40,
+            OLD_CLIENT_DISCONNECT = 41,
             UNKNOW_ERROR_INSTANCE = 255
         }
 
         public void Reconnect(RECONNECT msg)
         {
-            if (this == null)
-                return;
-
             if (Account == null)
             {
                 string[] labels = new string[] { "{CLIENT_NAME}" };

@@ -30,8 +30,10 @@ namespace LoESoft.GameServer.networking
         {
             Socket = skt;
             Manager = manager;
+
             IncomingCipher = ProcessRC4(Settings.NETWORKING.INCOMING_CIPHER);
             OutgoingCipher = ProcessRC4(Settings.NETWORKING.OUTGOING_CIPHER);
+
             BeginProcess();
         }
 
@@ -39,7 +41,7 @@ namespace LoESoft.GameServer.networking
 
         public void BeginProcess()
         {
-            handler = new NetworkHandler(this, Socket);
+            handler = new NetworkHandler(this);
             handler.BeginHandling();
         }
 
