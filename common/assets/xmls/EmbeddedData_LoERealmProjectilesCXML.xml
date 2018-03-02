@@ -411,7 +411,7 @@
 		<Class>Projectile</Class>
 		<Texture>
 			<File>lofiObj5</File>
-			<Index>0x8e</Index>
+			<Index>0x89</Index>
 		</Texture>
 		<AngleCorrection>1</AngleCorrection>
 	</Object>

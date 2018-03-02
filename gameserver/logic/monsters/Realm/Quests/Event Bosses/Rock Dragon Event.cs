@@ -64,27 +64,23 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(15000, "Spawn Segment")
                         )
                     ),
-                new Threshold(0.01,
-                    new TierLoot(8, ItemType.Weapon, .15),
-                    new TierLoot(9, ItemType.Weapon, .1),
-                    new TierLoot(10, ItemType.Weapon, .07),
-                    new TierLoot(11, ItemType.Weapon, .05),
-                    new TierLoot(4, ItemType.Ability, .15),
-                    new TierLoot(5, ItemType.Ability, .07),
-                    new TierLoot(8, ItemType.Armor, .2),
-                    new TierLoot(9, ItemType.Armor, .15),
-                    new TierLoot(10, ItemType.Armor, .10),
-                    new TierLoot(11, ItemType.Armor, .07),
-                    new TierLoot(12, ItemType.Armor, .04),
-                    new TierLoot(5, ItemType.Ring, .03),
-                    new ItemLoot("Potion of Defense", .1),
-                    new ItemLoot("Potion of Attack", .1),
-                    new ItemLoot("Potion of Vitality", .1),
-                    new ItemLoot("Potion of Wisdom", .1),
-                    new ItemLoot("Potion of Speed", .1),
-                    new ItemLoot("Potion of Dexterity", .1),
-                    new ItemLoot("Ray Katana", .01)
-                    )
+				   new OnlyOne(
+					new PurpleBag(ItemType.Weapon, 8),
+					new PurpleBag(ItemType.Weapon, 9),
+					new PurpleBag(ItemType.Armor, 8),
+					new PurpleBag(ItemType.Armor, 9),
+					new PurpleBag(ItemType.Ring, 4)
+					),
+				new OnlyOne(
+					new CyanBag(ItemType.Weapon, 10),
+					new CyanBag(ItemType.Weapon, 11),
+					new CyanBag(ItemType.Armor, 10),
+					new CyanBag(ItemType.Armor, 11),
+					new CyanBag(ItemType.Armor, 12),
+					new CyanBag(ItemType.Ring, 5)
+					),
+		       	new BlueBag(new[] { Potions.POTION_OF_DEFENSE, Potions.POTION_OF_VITALITY, Potions.POTION_OF_SPEED, Potions.POTION_OF_WISDOM, Potions.POTION_OF_ATTACK, Potions.POTION_OF_DEXTERITY }, new[] { true, false }),
+				new WhiteBag(new[] { "Ray Katana" })
             )
 
             .Init("Body Segment A", // A to I = 9Segment +1Tail | Proj Invis ? 
