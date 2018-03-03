@@ -64,23 +64,32 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(15000, "Spawn Segment")
                         )
                     ),
-				   new OnlyOne(
-					new PurpleBag(ItemType.Weapon, 8),
-					new PurpleBag(ItemType.Weapon, 9),
-					new PurpleBag(ItemType.Armor, 8),
-					new PurpleBag(ItemType.Armor, 9),
-					new PurpleBag(ItemType.Ring, 4)
-					),
-				new OnlyOne(
-					new CyanBag(ItemType.Weapon, 10),
-					new CyanBag(ItemType.Weapon, 11),
-					new CyanBag(ItemType.Armor, 10),
-					new CyanBag(ItemType.Armor, 11),
-					new CyanBag(ItemType.Armor, 12),
-					new CyanBag(ItemType.Ring, 5)
-					),
-		       	new BlueBag(new[] { Potions.POTION_OF_DEFENSE, Potions.POTION_OF_VITALITY, Potions.POTION_OF_SPEED, Potions.POTION_OF_WISDOM, Potions.POTION_OF_ATTACK, Potions.POTION_OF_DEXTERITY }, new[] { true, false }),
-				new WhiteBag(new[] { "Ray Katana" })
+                new Drops(
+                    new OnlyOne(
+                        new PurpleBag(ItemType.Weapon, 8),
+                        new PurpleBag(ItemType.Weapon, 9),
+                        new PurpleBag(ItemType.Armor, 8),
+                        new PurpleBag(ItemType.Armor, 9),
+                        new PurpleBag(ItemType.Ring, 4)
+                        ),
+                    new OnlyOne(
+                        new CyanBag(ItemType.Weapon, 10),
+                        new CyanBag(ItemType.Weapon, 11),
+                        new CyanBag(ItemType.Armor, 10),
+                        new CyanBag(ItemType.Armor, 11),
+                        new CyanBag(ItemType.Armor, 12),
+                        new CyanBag(ItemType.Ring, 5)
+                        ),
+                    new OnlyOne(
+                        new BlueBag(Potions.POTION_OF_ATTACK),
+                        new BlueBag(Potions.POTION_OF_DEFENSE),
+                        new BlueBag(Potions.POTION_OF_SPEED),
+                        new BlueBag(Potions.POTION_OF_DEXTERITY),
+                        new BlueBag(Potions.POTION_OF_VITALITY),
+                        new BlueBag(Potions.POTION_OF_WISDOM)
+                        ),
+                    new WhiteBag("Ray Katana")
+                    )
             )
 
             .Init("Body Segment A", // A to I = 9Segment +1Tail | Proj Invis ? 

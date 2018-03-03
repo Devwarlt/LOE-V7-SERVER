@@ -334,7 +334,7 @@ namespace LoESoft.GameServer.logic
                     new State("Die",
                         new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new TimedTransition(4000, "Suicide"),
-                        new Taunt("YOU KNOW NOT WHAT YOU HAVE DONE! FILISHA WILL AVENGE ME!"),
+                        new Taunt("YOU KNOW NOT WHAT YOU HAVE DONE!"),
                         new Flashing(0xFF0000, 0.5, 8)
                         ),
                     new State("Suicide",
@@ -342,22 +342,31 @@ namespace LoESoft.GameServer.logic
                         new Suicide()
                         )
                     ),
-			   new OnlyOne(
-					new PurpleBag(ItemType.Weapon, 9),
-					new PurpleBag(ItemType.Armor, 9)
-					),
-				new OnlyOne(
-					new CyanBag(ItemType.Weapon, 10),
-					new CyanBag(ItemType.Weapon, 11),
-					new CyanBag(ItemType.Armor, 10),
-					new CyanBag(ItemType.Armor, 11),
-					new CyanBag(ItemType.Armor, 12),
-					new CyanBag(ItemType.Ability, 5)
-					),
-				new BlueBag(new[] { Potions.POTION_OF_DEFENSE, Potions.POTION_OF_VITALITY, Potions.POTION_OF_SPEED, Potions.POTION_OF_WISDOM, Potions.POTION_OF_ATTACK, Potions.POTION_OF_DEXTERITY }, new[] { true, false }),
-				new WhiteBag("Tablet of the King’s Avatar")
-			)
-			.Init("shtrs Pillar 1", //Killer Pillar | Up Left
+                new Drops(
+                   new OnlyOne(
+                        new PurpleBag(ItemType.Weapon, 9),
+                        new PurpleBag(ItemType.Armor, 9)
+                        ),
+                    new OnlyOne(
+                        new CyanBag(ItemType.Weapon, 10),
+                        new CyanBag(ItemType.Weapon, 11),
+                        new CyanBag(ItemType.Armor, 10),
+                        new CyanBag(ItemType.Armor, 11),
+                        new CyanBag(ItemType.Armor, 12),
+                        new CyanBag(ItemType.Ability, 5)
+                        ),
+                    new OnlyOne(
+                        new BlueBag(Potions.POTION_OF_ATTACK),
+                        new BlueBag(Potions.POTION_OF_DEFENSE),
+                        new BlueBag(Potions.POTION_OF_SPEED),
+                        new BlueBag(Potions.POTION_OF_DEXTERITY),
+                        new BlueBag(Potions.POTION_OF_VITALITY),
+                        new BlueBag(Potions.POTION_OF_WISDOM)
+                        ),
+                    new WhiteBag("Tablet of the King's Avatar")
+                    )
+            )
+            .Init("shtrs Pillar 1", //Killer Pillar | Up Left
                 new State(
                     new State("Waiting Order",
                         new AddCond(ConditionEffectIndex.Invulnerable) // ok

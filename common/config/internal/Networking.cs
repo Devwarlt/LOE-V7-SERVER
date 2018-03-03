@@ -33,7 +33,8 @@ namespace LoESoft.Core.config
                 Add("1.5", false),
                 Add("1.5.1", false),
                 Add("1.6 edition 1: pre-beta", false),
-                Add("1.6.3 edition 1: pre-beta", true)
+                Add("1.6.3 edition 1: pre-beta", false),
+                Add("1.6.4 edition 1: pre-beta", true)
             };
 
             public static List<Tuple<string, bool>> SUPPORTED_VERSIONS()
