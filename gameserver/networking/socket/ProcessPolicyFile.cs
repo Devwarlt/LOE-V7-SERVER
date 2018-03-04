@@ -1,7 +1,6 @@
 ﻿using LoESoft.Core;
-using LoESoft.Core.config;
+using System;
 using System.Net.Sockets;
-using static LoESoft.GameServer.networking.Client;
 
 namespace LoESoft.GameServer.networking
 {
@@ -9,12 +8,24 @@ namespace LoESoft.GameServer.networking
     {
         private void ProcessPolicyFile()
         {
-            NetworkStream s = new NetworkStream(skt);
-            NWriter wtr = new NWriter(s);
-            wtr.WriteNullTerminatedString(Settings.IS_PRODUCTION ? Settings.NETWORKING.INTERNAL.SELECTED_DOMAINS : Settings.NETWORKING.INTERNAL.LOCALHOST_DOMAINS);
-            wtr.Write((byte)'\r');
-            wtr.Write((byte)'\n');
-            Manager.TryDisconnect(client, DisconnectReason.PROCESS_POLICY_FILE);
+            if (skt == null)
+                return;
+
+            try
+            {
+                var s = new NetworkStream(skt);
+                var wtr = new NWriter(s);
+                wtr.WriteNullTerminatedString(
+                    @"<cross-domain-policy>" +
+                    @"<allow-access-from domain=""*"" to-ports=""*"" />" +
+                    @"</cross-domain-policy>");
+                wtr.Write((byte)'\r');
+                wtr.Write((byte)'\n');
+            }
+            catch (Exception e)
+            {
+                GameServer.log.Error(e.ToString());
+            }
         }
     }
 }
