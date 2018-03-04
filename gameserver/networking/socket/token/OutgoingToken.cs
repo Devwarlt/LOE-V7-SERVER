@@ -2,7 +2,7 @@
 {
     internal partial class NetworkHandler
     {
-        private class OutgoingToken
+        private class IncomingToken
         {
             public Message Packet;
         }

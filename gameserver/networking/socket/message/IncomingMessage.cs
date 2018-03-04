@@ -29,7 +29,7 @@ namespace LoESoft.GameServer.networking
                 switch (_incomingState)
                 {
                     case IncomingStage.Ready:
-                        len = (e.UserToken as OutgoingToken).Packet.Write(client, _incomingBuff, 0);
+                        len = (e.UserToken as IncomingToken).Packet.Write(client, _incomingBuff, 0);
 
                         _incomingState = IncomingStage.Sending;
                         e.SetBuffer(0, len);
@@ -38,11 +38,11 @@ namespace LoESoft.GameServer.networking
                         skt.SendAsync(e);
                         break;
                     case IncomingStage.Sending:
-                        (e.UserToken as OutgoingToken).Packet = null;
+                        (e.UserToken as IncomingToken).Packet = null;
 
                         if (IncomingMessage(e, true))
                         {
-                            len = (e.UserToken as OutgoingToken).Packet.Write(client, _incomingBuff, 0);
+                            len = (e.UserToken as IncomingToken).Packet.Write(client, _incomingBuff, 0);
 
                             _incomingState = IncomingStage.Sending;
                             e.SetBuffer(0, len);
@@ -68,7 +68,7 @@ namespace LoESoft.GameServer.networking
                     return false;
                 if (pendingPackets.TryDequeue(out Message packet))
                 {
-                    (e.UserToken as OutgoingToken).Packet = packet;
+                    (e.UserToken as IncomingToken).Packet = packet;
                     _incomingState = IncomingStage.Ready;
                     return true;
                 }
@@ -83,7 +83,7 @@ namespace LoESoft.GameServer.networking
             pendingPackets.Enqueue(msg);
             if (IncomingMessage(_incoming, false))
             {
-                int len = (_incoming.UserToken as OutgoingToken).Packet.Write(client, _incomingBuff, 0);
+                int len = (_incoming.UserToken as IncomingToken).Packet.Write(client, _incomingBuff, 0);
 
                 _incomingState = IncomingStage.Sending;
                 _incoming.SetBuffer(_incomingBuff, 0, len);
@@ -99,7 +99,7 @@ namespace LoESoft.GameServer.networking
                 pendingPackets.Enqueue(i);
             if (IncomingMessage(_incoming, false))
             {
-                int len = (_incoming.UserToken as OutgoingToken).Packet.Write(client, _incomingBuff, 0);
+                int len = (_incoming.UserToken as IncomingToken).Packet.Write(client, _incomingBuff, 0);
 
                 _incomingState = IncomingStage.Sending;
                 _incoming.SetBuffer(_incomingBuff, 0, len);

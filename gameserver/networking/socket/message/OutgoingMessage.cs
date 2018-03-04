@@ -63,7 +63,7 @@ namespace LoESoft.GameServer.networking
                             return;
                         }
 
-                        int len = (e.UserToken as IncomingToken).Length =
+                        int len = (e.UserToken as OutgoingToken).Length =
                             IPAddress.NetworkToHostOrder(BitConverter.ToInt32(e.Buffer, 0)) - 5;
 
                         if (len < 0 || len > BUFFER_SIZE)
@@ -80,7 +80,7 @@ namespace LoESoft.GameServer.networking
                             log.Error($"Message not added: {e.Buffer[4]}");
                         }
 
-                        (e.UserToken as IncomingToken).Message = message;
+                        (e.UserToken as OutgoingToken).Message = message;
 
                         _outgoingState = OutgoingState.ReceivingBody;
 
@@ -88,9 +88,9 @@ namespace LoESoft.GameServer.networking
                         skt.ReceiveAsync(e);
                         break;
                     case OutgoingState.ReceivingBody:
-                        if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
+                        if (e.BytesTransferred < (e.UserToken as OutgoingToken).Length)
                         {
-                            Log.Error($"(Bytes [{e.Buffer.Length}]: {e.BytesTransferred}/{(e.UserToken as IncomingToken).Length}) Error in message '{(e.UserToken as IncomingToken).Message.ID}':\n{(e.UserToken as IncomingToken).Message}");
+                            Log.Error($"(Bytes [{e.Buffer.Length}]: {e.BytesTransferred}/{(e.UserToken as OutgoingToken).Length}) Error in message '{(e.UserToken as OutgoingToken).Message.ID}':\n{(e.UserToken as OutgoingToken).Message}");
                             
                             string[] labels = new string[] { "{CLIENT_NAME}" };
                             string[] arguments = new string[] { client.Account.Name };
@@ -112,8 +112,8 @@ namespace LoESoft.GameServer.networking
                             return;
                         }
 
-                        Message newMessage = (e.UserToken as IncomingToken).Message;
-                        newMessage.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
+                        Message newMessage = (e.UserToken as OutgoingToken).Message;
+                        newMessage.Read(client, e.Buffer, 0, (e.UserToken as OutgoingToken).Length);
 
                         _outgoingState = OutgoingState.Processing;
 

@@ -41,12 +41,12 @@ namespace LoESoft.GameServer.networking
 
             _incoming = new SocketAsyncEventArgs();
             _incoming.Completed += IncomingCompleted;
-            _incoming.UserToken = new OutgoingToken(); // target token
+            _incoming.UserToken = new IncomingToken();
             _incoming.SetBuffer(_incomingBuff = new byte[BUFFER_SIZE], 0, BUFFER_SIZE);
 
             _outgoing = new SocketAsyncEventArgs();
             _outgoing.Completed += OutgoingCompleted;
-            _outgoing.UserToken = new IncomingToken(); // target token
+            _outgoing.UserToken = new OutgoingToken();
             _outgoing.SetBuffer(_outgoingBuff = new byte[BUFFER_SIZE], 0, BUFFER_SIZE);
 
             _outgoingState = OutgoingState.ReceivingHdr;
