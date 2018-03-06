@@ -431,7 +431,7 @@
 		</Texture>
 		<Rotation>60</Rotation>
 	</Object>
-  <Object type="0x5744" id="Bone Arrow">
+  <Object type="0x575c" id="Bone Arrow">
     <Class>Projectile</Class>
     <Texture>
       <File>LRE</File>
@@ -439,7 +439,7 @@
     </Texture>
     <AngleCorrection>1</AngleCorrection>
   </Object>
-  <Object type="0x5745" id="Cursed-flame Bolt">
+  <Object type="0x575d" id="Cursed-flame Bolt">
     <Class>Projectile</Class>
     <Texture>
       <File>LRE</File>
