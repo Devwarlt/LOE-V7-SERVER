@@ -68,7 +68,7 @@ namespace LoESoft.GameServer
 
                 Console.CancelKeyPress += (sender, e) => e.Cancel = true;
 
-                Log.Info($"Game Versions (max 5):\n\t * {Settings.NETWORKING.SUPPORTED_VERSIONS_DISPLAY()}");
+                Settings.DISPLAY_SUPPORTED_VERSIONS();
 
                 Log.Info("Initializing GameServer...");
 

@@ -4,7 +4,6 @@ using LoESoft.Core;
 using LoESoft.Core.config;
 using LoESoft.GameServer.realm;
 using System;
-using System.Collections.Generic;
 using System.Net.Sockets;
 
 #endregion
@@ -45,22 +44,6 @@ namespace LoESoft.GameServer.networking
             handler.BeginHandling();
         }
 
-        public static Tuple<string, bool> CheckGameVersion(string build)
-        {
-            List<GameVersion> gameVersions = new List<GameVersion>();
-            foreach (Tuple<string, bool> i in Settings.NETWORKING.SUPPORTED_VERSIONS())
-                gameVersions.Add(
-                    new GameVersion()
-                    {
-                        version = i.Item1,
-                        access = i.Item2
-                    });
-            foreach (GameVersion j in gameVersions)
-                if (build == j.version && j.access)
-                    return Tuple.Create(build, false);
-            return Tuple.Create(gameVersions[gameVersions.Count - 1].version, true);
-        }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "handler")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")]
         public void Dispose()
@@ -81,12 +64,6 @@ namespace LoESoft.GameServer.networking
             Random = null;
             ConnectedBuild = null;
             disposed = true;
-        }
-
-        private class GameVersion
-        {
-            public string version;
-            public bool access;
         }
     }
 }

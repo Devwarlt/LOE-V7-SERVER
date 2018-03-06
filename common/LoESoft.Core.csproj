@@ -83,9 +83,10 @@
     <Compile Include="config\internal\Networking.cs" />
     <Compile Include="config\internal\Database.cs" />
     <Compile Include="config\internal\GameServer.cs" />
+    <Compile Include="config\Utils.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="models\AccountType.cs" />
-    <Compile Include="config\settings.cs" />
+    <Compile Include="config\Settings.cs" />
     <Compile Include="assets\EmbeddedData.cs" />
     <Compile Include="models\FameStats.cs" />
     <Compile Include="models\IFeedable.cs" />
