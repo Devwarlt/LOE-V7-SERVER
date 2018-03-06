@@ -185,18 +185,20 @@ namespace LoESoft.GameServer.logic
                             )
                         )
                     ),
-                new Threshold(.001,
-                    new TierLoot(2, ItemType.Ring, 0.15),
-                    new TierLoot(3, ItemType.Ring, 0.04),
-                    new TierLoot(6, ItemType.Weapon, 0.3),
-                    new TierLoot(7, ItemType.Weapon, 0.1),
-                    new TierLoot(6, ItemType.Armor, 0.3),
-                    new TierLoot(7, ItemType.Armor, 0.1),
-                    new TierLoot(1, ItemType.Ability, 0.95),
-                    new TierLoot(2, ItemType.Ability, 0.25),
-                    new TierLoot(3, ItemType.Ability, 0.05)
-                    ),
-                new ItemLoot("Health Potion", 0.7),
+			     new PinkBag(ItemType.Weapon, 6),
+				 new PinkBag(ItemType.Armor, 5),
+				 new PinkBag(ItemType.Armor, 7),
+				 new PinkBag(ItemType.Ability, 1),
+				 new PinkBag(ItemType.Ability, 2),
+				 new Drops(
+					new OnlyOne(
+						new PurpleBag(ItemType.Weapon, 7),
+						new PurpleBag(ItemType.Ability, 3),
+						new PurpleBag(ItemType.Ring, 2),
+						new PurpleBag(ItemType.Ring, 3)
+						)
+					 ),
+				new ItemLoot("Health Potion", 0.7),
                 new ItemLoot("Magic Potion", 0.7)
             )
 
@@ -262,10 +264,10 @@ namespace LoESoft.GameServer.logic
                     new Decay(60000)
                     ),
                 new ItemLoot("Magic Potion", 0.25),
-                new Threshold(.01,
+                new Threshold(.001,
                     new ItemLoot("Tincture of Life", 0.06),
                     new ItemLoot("Green Drake Egg", 0.08),
-                    new ItemLoot("Quiver of Thunder", 0.002),
+                    new WhiteBag("Quiver of Thunder"),
                     new TierLoot(8, ItemType.Armor, 0.3)
                     )
             )

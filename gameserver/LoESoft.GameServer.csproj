@@ -418,6 +418,7 @@
     <Compile Include="realm\entity\npc\NPC.Dictionary.cs" />
     <Compile Include="realm\entity\npc\NPC.Init.cs" />
     <Compile Include="realm\entity\npc\npcs\NPC.Gazer.cs" />
+    <Compile Include="realm\mapsetpiece\setpieces\Wingus.cs" />
     <Compile Include="realm\world\Collision.cs" />
     <Compile Include="realm\commands\command\AdminCommands.cs" />
     <Compile Include="realm\commands\Command.cs" />
@@ -725,6 +726,7 @@
     <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_5.json" />
     <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_1.json" />
     <EmbeddedResource Include="realm\world\maps\json\LoE-test.json" />
+    <EmbeddedResource Include="realm\mapsetpiece\maps\succubus.jm" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="realm\world\maps\json\dungeons\spider den\" />

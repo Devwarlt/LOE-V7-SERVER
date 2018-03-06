@@ -17,7 +17,83 @@ using System.Threading;
 
 namespace LoESoft.GameServer.realm.commands
 {
-    class ZombifyCommand : Command
+	internal class CFameCommand : Command
+	{
+		public CFameCommand()
+		: base("cfame", (int)AccountType.LOESOFT_ACCOUNT)
+		{
+		}
+
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			if (args[0] == "")
+			{
+				player.SendHelp("Usage: /cfame <Fame Amount>");
+				return false;
+			}
+			try
+			{
+				int newFame = Convert.ToInt32(args[0]);
+				int newXP = Convert.ToInt32(newFame.ToString() + "000");
+				player.Fame = newFame;
+				player.Experience = newXP;
+				player.SaveToCharacter();
+				player.Client.Save();
+				player.UpdateCount++;
+				player.SendInfo("Updated Character Fame To: " + newFame);
+			}
+			catch
+			{
+				player.SendInfo("Error Setting Fame");
+				return false;
+			}
+			return true;
+		}
+	}
+	internal class GlandCommand : Command
+	{
+		public GlandCommand()
+			: base("glands", (int)AccountType.FREE_ACCOUNT)
+		{
+		}
+
+		protected override bool Process(Player player, RealmTime time, string[] args)
+		{
+			if (args.Length == 1000 || args.Length == 1000)
+			{
+				player.SendHelp("Usage: /glands to tp to glands");
+			}
+			else
+			{
+				int x, y;
+				try
+				{
+					x = int.Parse("1000");
+					y = int.Parse("1000");
+				}
+				catch
+				{
+					player.SendError("Invalid coordinates!");
+					return false;
+				}
+				player.Move(x + 0.5f, y + 0.5f);
+				if (player.Pet != null)
+					player.Pet.Move(x + 0.5f, y + 0.5f);
+				player.UpdateCount++;
+				player.Owner.BroadcastPacket(new GOTO
+				{
+					ObjectId = player.Id,
+					Position = new Position
+					{
+						X = player.X,
+						Y = player.Y
+					}
+				}, null);
+			}
+			return true;
+		}
+	}
+	class ZombifyCommand : Command
     {
         public ZombifyCommand() : base("zombify", (int)AccountType.LOESOFT_ACCOUNT) { }
 

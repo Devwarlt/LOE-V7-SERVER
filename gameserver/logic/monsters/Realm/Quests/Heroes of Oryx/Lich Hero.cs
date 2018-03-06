@@ -155,22 +155,26 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(6000, "typeA")
                         )
                     ),
-                new TierLoot(2, ItemType.Ring, 0.11),
-                new TierLoot(3, ItemType.Ring, 0.01),
-                new TierLoot(5, ItemType.Weapon, 0.3),
-                new TierLoot(6, ItemType.Weapon, 0.2),
-                new TierLoot(7, ItemType.Weapon, 0.05),
-                new TierLoot(5, ItemType.Armor, 0.3),
-                new TierLoot(6, ItemType.Armor, 0.2),
-                new TierLoot(7, ItemType.Armor, 0.05),
-                new TierLoot(1, ItemType.Ability, 0.9),
-                new TierLoot(2, ItemType.Ability, 0.15),
-                new TierLoot(3, ItemType.Ability, 0.02),
-                new ItemLoot("Health Potion", 0.4),
-                new ItemLoot("Magic Potion", 0.4)
-            )
+			     new PinkBag(ItemType.Weapon, 5),
+				 new PinkBag(ItemType.Weapon, 6),
+				 new PinkBag(ItemType.Weapon, 7),
+				 new PinkBag(ItemType.Armor, 5),
+				 new PinkBag(ItemType.Armor, 6),
+				 new PinkBag(ItemType.Armor, 7),
+				 new PinkBag(ItemType.Ability, 1),
+				 new PinkBag(ItemType.Ability, 2),
+				 new PinkBag(ItemType.Ring, 2),
+				 new Drops(
+					new OnlyOne(
+						new PurpleBag(ItemType.Ring, 3),
+						new PurpleBag(ItemType.Ability, 3)
+						)
+					 ),
+				new ItemLoot("Health Potion", 0.7),
+				new ItemLoot("Magic Potion", 0.7)
+			)
 
-            .Init("Phylactery Bearer",
+			.Init("Phylactery Bearer",
                 new State(
                     new HealGroup(15, "Heros", coolDown: 200),
                     new State("Attack1",

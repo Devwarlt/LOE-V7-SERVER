@@ -248,20 +248,24 @@ namespace LoESoft.GameServer.logic
                     new Flashing(0xff000000, 0.4, 100),
                     new BackAndForth(5, distance: 3)
                     ),
-                new TierLoot(2, ItemType.Ring, 0.25),
-                new TierLoot(3, ItemType.Ring, 0.08),
-                new TierLoot(7, ItemType.Weapon, 0.3),
-                new TierLoot(8, ItemType.Weapon, 0.1),
-                new TierLoot(7, ItemType.Armor, 0.3),
-                new TierLoot(8, ItemType.Armor, 0.1),
-                new TierLoot(2, ItemType.Ability, 0.7),
-                new TierLoot(3, ItemType.Ability, 0.16),
-                new TierLoot(4, ItemType.Ability, 0.02),
-                new ItemLoot("Health Potion", 0.7),
-                new ItemLoot("Magic Potion", 0.7)
-            )
+				 new PinkBag(ItemType.Weapon, 6),
+				 new PinkBag(ItemType.Armor, 5),
+				 new PinkBag(ItemType.Armor, 6),
+			     new PinkBag(ItemType.Ability, 2),
+				 new Drops(
+					new OnlyOne(
+						new PurpleBag(ItemType.Weapon, 7),
+						new PurpleBag(ItemType.Weapon, 8),
+						new PurpleBag(ItemType.Armor, 7),
+						new PurpleBag(ItemType.Ability, 3),
+						new PurpleBag(ItemType.Ability, 4),
+						new PurpleBag(ItemType.Ring, 2),
+						new PurpleBag(ItemType.Ring, 3)
+						)
+					)
+			)
 
-            .Init("Small Ghost",
+			.Init("Small Ghost",
                 new State(
                     new TransformOnDeath("Medium Ghost"),
                     new State("NewLocation",
