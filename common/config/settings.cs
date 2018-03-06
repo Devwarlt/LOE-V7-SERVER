@@ -4,7 +4,7 @@ namespace LoESoft.Core.config
 {
     public partial class Settings
     {
-        public static bool IS_PRODUCTION = false;
+        public static bool IS_PRODUCTION = true;
 
         public static bool ENABLE_RESTART = true;
 
@@ -36,7 +36,7 @@ namespace LoESoft.Core.config
             new GameVersion(Version: "1.6.2 edition 1: pre-beta", Allowed: false),
             new GameVersion(Version: "1.6.3 edition 1: pre-beta", Allowed: false),
             new GameVersion(Version: "1.6.4 edition 1: pre-beta", Allowed: false),
-            new GameVersion(Version: "1.6.5 edition 1: pre-beta", Allowed: true),
+            new GameVersion(Version: "1.6.5 edition 1: pre-beta", Allowed: false),
             new GameVersion(Version: "1.6.6 edition 1: pre-beta", Allowed: true)
         };
     }
