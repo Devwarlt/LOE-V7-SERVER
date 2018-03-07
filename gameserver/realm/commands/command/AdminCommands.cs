@@ -265,30 +265,40 @@ namespace LoESoft.GameServer.realm.commands
                 return false;
             }
 
-            Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(GameServer.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
+            try
+            {
+                Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(GameServer.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
 
-            if (!icdatas.TryGetValue(name, out ushort objType))
+                if (!icdatas.TryGetValue(name, out ushort objType))
+                {
+                    player.SendError("Unknown type!");
+                    return false;
+                }
+
+                if (!GameServer.Manager.GameData.Items[objType].Secret || player.Client.Account.Admin)
+                {
+                    for (int i = 4; i < player.Inventory.Length; i++)
+                        if (player.Inventory[i] == null)
+                        {
+                            player.Inventory[i] = GameServer.Manager.GameData.Items[objType];
+                            player.UpdateCount++;
+                            player.SaveToCharacter();
+                            player.SendInfo("Success!");
+                            break;
+                        }
+                }
+                else
+                {
+                    player.SendError("An error occurred: inventory out of space, item cannot be given.");
+                    return false;
+                }
+            }
+            catch (KeyNotFoundException)
             {
-                player.SendError("Unknown type!");
+                player.SendError($"An error occurred: item '{name}' doesn't exist in game assets.");
                 return false;
             }
-            if (!GameServer.Manager.GameData.Items[objType].Secret || player.Client.Account.Admin)
-            {
-                for (int i = 4; i < player.Inventory.Length; i++)
-                    if (player.Inventory[i] == null)
-                    {
-                        player.Inventory[i] = GameServer.Manager.GameData.Items[objType];
-                        player.UpdateCount++;
-                        player.SaveToCharacter();
-                        player.SendInfo("Success!");
-                        break;
-                    }
-            }
-            else
-            {
-                player.SendError("Item cannot be given!");
-                return false;
-            }
+
             return true;
         }
     }

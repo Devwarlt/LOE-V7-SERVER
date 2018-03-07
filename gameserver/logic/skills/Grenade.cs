@@ -92,12 +92,12 @@ namespace LoESoft.GameServer.logic.behaviors
                         world.Aoe(target, radius, true, p =>
                         {
                             if (effect != ConditionEffectIndex.Hidden && effectDuration != -1)
-                                (p as Player).ApplyConditionEffect(new ConditionEffect
+                                (p as Player)?.ApplyConditionEffect(new ConditionEffect
                                 {
                                     Effect = effect,
                                     DurationMS = effectDuration
                                 });
-                            (p as IPlayer).Damage(damage, host, false);
+                            (p as IPlayer)?.Damage(damage, host, false);
                         });
                     }));
                 }
