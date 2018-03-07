@@ -13,6 +13,7 @@ namespace LoESoft.GameServer.realm.entity
         public Decoy(Player player, int duration, float speed)
             : base(0x0715, duration, true, true, true)
         {
+            this.player = player;
             this.duration = duration;
             this.speed = speed;
             IsJoinedWorld = false;

@@ -12,88 +12,186 @@ using LoESoft.GameServer.realm.world;
 using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
 using System.Threading;
+using LoESoft.GameServer.networking;
 
 #endregion
 
 namespace LoESoft.GameServer.realm.commands
 {
-	internal class CFameCommand : Command
-	{
-		public CFameCommand()
-		: base("cfame", (int)AccountType.LOESOFT_ACCOUNT)
-		{
-		}
+    class CFameCommand : Command
+    {
+        public CFameCommand() : base("cfame", (int)AccountType.LOESOFT_ACCOUNT) { }
 
-		protected override bool Process(Player player, RealmTime time, string[] args)
-		{
-			if (args[0] == "")
-			{
-				player.SendHelp("Usage: /cfame <Fame Amount>");
-				return false;
-			}
-			try
-			{
-				int newFame = Convert.ToInt32(args[0]);
-				int newXP = Convert.ToInt32(newFame.ToString() + "000");
-				player.Fame = newFame;
-				player.Experience = newXP;
-				player.SaveToCharacter();
-				player.Client.Save();
-				player.UpdateCount++;
-				player.SendInfo("Updated Character Fame To: " + newFame);
-			}
-			catch
-			{
-				player.SendInfo("Error Setting Fame");
-				return false;
-			}
-			return true;
-		}
-	}
-	internal class GlandCommand : Command
-	{
-		public GlandCommand()
-			: base("glands", (int)AccountType.FREE_ACCOUNT)
-		{
-		}
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (args[0] == "")
+            {
+                player.SendHelp("Usage: /cfame <Fame Amount>");
+                return false;
+            }
+            try
+            {
+                int newFame = Convert.ToInt32(args[0]);
+                int newXP = Convert.ToInt32(newFame.ToString() + "000");
+                player.Fame = newFame;
+                player.Experience = newXP;
+                player.SaveToCharacter();
+                player.Client.Save();
+                player.UpdateCount++;
+                player.SendInfo("Updated Character Fame To: " + newFame);
+            }
+            catch
+            {
+                player.SendInfo("Error Setting Fame");
+                return false;
+            }
+            return true;
+        }
+    }
 
-		protected override bool Process(Player player, RealmTime time, string[] args)
-		{
-			if (args.Length == 1000 || args.Length == 1000)
-			{
-				player.SendHelp("Usage: /glands to tp to glands");
-			}
-			else
-			{
-				int x, y;
-				try
-				{
-					x = int.Parse("1000");
-					y = int.Parse("1000");
-				}
-				catch
-				{
-					player.SendError("Invalid coordinates!");
-					return false;
-				}
-				player.Move(x + 0.5f, y + 0.5f);
-				if (player.Pet != null)
-					player.Pet.Move(x + 0.5f, y + 0.5f);
-				player.UpdateCount++;
-				player.Owner.BroadcastPacket(new GOTO
-				{
-					ObjectId = player.Id,
-					Position = new Position
-					{
-						X = player.X,
-						Y = player.Y
-					}
-				}, null);
-			}
-			return true;
-		}
-	}
-	class ZombifyCommand : Command
+    class VisitCommand : Command
+    {
+        public VisitCommand() : base("visit", (int)AccountType.LOESOFT_ACCOUNT) { }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (args.Length < 1)
+            {
+                player.SendHelp("Usage: /visit <player>");
+                return false;
+            }
+
+            foreach (ClientData i in GameServer.Manager.ClientManager.Values)
+            {
+                Player target = i.Client.Player;
+
+                if (target.Owner is Vault)
+                {
+                    player.SendInfo($"Player {target.Name} is at Vault.");
+                    return false;
+                }
+
+                if (target.Name.EqualsIgnoreCase(args[0]))
+                {
+                    if (player.Owner == target.Owner)
+                    {
+                        player.SendInfo($"You are already in the same world as this player {target.Name}.");
+                        return false;
+                    }
+
+                    player.Client.Reconnect(new RECONNECT
+                    {
+                        GameId = target.Owner.Id,
+                        Host = "",
+                        IsFromArena = false,
+                        Key = target.Owner.PortalKey,
+                        KeyTime = -1,
+                        Name = target.Owner.Name,
+                        Port = -1
+                    });
+                    return true;
+                }
+            }
+
+            player.SendError($"An error occurred: player {args[0]} couldn't be found.");
+            return false;
+        }
+    }
+
+    class GlandCommand : Command
+    {
+        public GlandCommand() : base("glands", (int)AccountType.FREE_ACCOUNT) { }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (!(player.Owner is IRealm))
+            {
+                player.SendInfo("You can only use this command at realm.");
+                return false;
+            }
+
+            player.Move(1000f, 1000f);
+
+            player.Owner.BroadcastPacket(new GOTO
+            {
+                ObjectId = player.Id,
+                Position = new Position
+                {
+                    X = player.X,
+                    Y = player.Y
+                }
+            }, null);
+            player.UpdateCount++;
+
+            return true;
+        }
+    }
+
+    class Summon : Command
+    {
+        public Summon()
+            : base("summon", 1)
+        {
+        }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (player.Owner is Vault)
+            {
+                player.SendInfo($"You cant summon player {args[0]} in your vault.");
+                return false;
+            }
+
+            foreach (ClientData i in GameServer.Manager.ClientManager.Values)
+            {
+                Player target = i.Client.Player;
+
+                if (target.Name.EqualsIgnoreCase(args[0]))
+                {
+                    Message msg;
+
+                    if (target.Owner == player.Owner)
+                    {
+                        target.Move(player.X, player.Y);
+
+                        msg = new GOTO
+                        {
+                            ObjectId = target.Id,
+                            Position = new Position(player.X, player.Y)
+                        };
+
+                        target.UpdateCount++;
+
+                        player.SendInfo($"Player {target.Name} was moved to near you.");
+                    }
+                    else
+                    {
+                        msg = new RECONNECT
+                        {
+                            GameId = player.Owner.Id,
+                            Host = "",
+                            IsFromArena = false,
+                            Key = player.Owner.PortalKey,
+                            KeyTime = -1,
+                            Name = player.Owner.Name,
+                            Port = -1
+                        };
+
+                        player.SendInfo($"Player {target.Name} is connecting to {player.Owner.Name}.");
+                    }
+
+                    i.Client.SendMessage(msg);
+
+                    return true;
+                }
+            }
+
+            player.SendError($"An error occurred: player '{args[0]}' couldn't be found.");
+            return false;
+        }
+    }
+
+    class ZombifyCommand : Command
     {
         public ZombifyCommand() : base("zombify", (int)AccountType.LOESOFT_ACCOUNT) { }
 
