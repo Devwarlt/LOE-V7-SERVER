@@ -225,3 +225,4 @@ pip-log.txt
 dump.rdb
 Game Launcher/flashplayer_28_sa.exe
 .vs/
+*.rdb
