@@ -106,11 +106,15 @@ namespace LoESoft.Core
 
         public void Flush()
         {
-            if (update == null) update = new Dictionary<string, byte[]>();
-            else update.Clear();
+            if (update == null)
+                update = new Dictionary<string, byte[]>();
+            else
+                update.Clear();
+
             foreach (var i in fields)
                 if (i.Value.Value)
                     update.Add(i.Key, i.Value.Key);
+
             Database.Hashes.Set(0, Key, update);
         }
 

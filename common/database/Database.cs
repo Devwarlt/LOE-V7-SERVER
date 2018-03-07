@@ -18,21 +18,18 @@ namespace LoESoft.Core
     {
         public static ILog log = LogManager.GetLogger(nameof(Database));
 
-        public class REDIS_PARAMETERS
-        {
-            public static string HOST = Settings.REDIS_DATABASE.HOST;
-            public static int PORT = Settings.REDIS_DATABASE.PORT;
-            public static int IO_TIMEOUT = Settings.REDIS_DATABASE.IO_TIMEOUT;
-            public static string PASSWORD = Settings.REDIS_DATABASE.PASSWORD == "" ? null : Settings.REDIS_DATABASE.PASSWORD;
-            public static int MAX_UNSENT = Settings.REDIS_DATABASE.MAX_UNSENT;
-            public static bool ALLOW_ADMIN = Settings.REDIS_DATABASE.ALLOW_ADMIN;
-            public static int SYNC_TIMEOUT = Settings.REDIS_DATABASE.SYNC_TIMEOUT;
-        }
-
         public Database()
-            : base(REDIS_PARAMETERS.HOST, REDIS_PARAMETERS.PORT, REDIS_PARAMETERS.IO_TIMEOUT, REDIS_PARAMETERS.PASSWORD, REDIS_PARAMETERS.MAX_UNSENT, REDIS_PARAMETERS.ALLOW_ADMIN, REDIS_PARAMETERS.SYNC_TIMEOUT)
+            : base(
+                  host: Settings.REDIS_DATABASE.HOST,
+                  port: Settings.REDIS_DATABASE.PORT,
+                  ioTimeout: Settings.REDIS_DATABASE.IO_TIMEOUT,
+                  password: Settings.REDIS_DATABASE.PASSWORD == "" ? null : Settings.REDIS_DATABASE.PASSWORD,
+                  maxUnsent: Settings.REDIS_DATABASE.MAX_UNSENT,
+                  allowAdmin: Settings.REDIS_DATABASE.ALLOW_ADMIN,
+                  syncTimeout: Settings.REDIS_DATABASE.SYNC_TIMEOUT
+                  )
         {
-            SetKeepAlive(60);
+            SetKeepAlive(Settings.RESTART_DELAY_MINUTES * 60);
             Open().Wait();
         }
 

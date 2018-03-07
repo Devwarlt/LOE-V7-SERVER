@@ -10,7 +10,7 @@
             public static readonly string PASSWORD = "";
             public static readonly int MAX_UNSENT = int.MaxValue;
             public static readonly bool ALLOW_ADMIN = false;
-            public static readonly int SYNC_TIMEOUT = 120000;
+            public static readonly int SYNC_TIMEOUT = RESTART_DELAY_MINUTES * 60 * 1000 * 2;
         }
     }
 }
