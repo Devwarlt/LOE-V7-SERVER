@@ -544,18 +544,27 @@ namespace LoESoft.GameServer.realm
             return Resolve(id);
         }
 
+        private static List<string> BlacklistType = new List<string>
+        {
+            "Projectile", "Player", "Pet"
+        };
+
         public static Entity Resolve(ushort id)
         {
             var node = GameServer.Manager.GameData.ObjectTypeToElement[id];
             var cls = node.Element("Class");
             var npc = node.Element("NPC") != null;
-            if (cls == null) throw new ArgumentException("Invalid XML Element, field class is missing");
+
+            if (cls == null)
+                throw new ArgumentException("Invalid XML Element, field class is missing");
+
             var type = cls.Value;
+
+            if (BlacklistType.Contains(type))
+                return null;
 
             switch (type)
             {
-                case "Projectile":
-                    throw new Exception("Projectile should not instantiated using Entity.Resolve");
                 case "Sign":
                     return new Sign(id);
                 case "Wall":
@@ -575,8 +584,6 @@ namespace LoESoft.GameServer.realm
                     return new GameObject(id, null, false, false, false);
                 case "Container":
                     return new Container(node);
-                case "Player":
-                    throw new Exception("Player should not instantiated using Entity.Resolve");
                 case "Character": //Other characters means enemy
                     return new Enemy(id, npc);
                 case "Portal":
@@ -600,8 +607,6 @@ namespace LoESoft.GameServer.realm
                 case "FortuneGround":
                 case "QuestRewards":
                     return new GameObject(id, null, true, false, false);
-                case "Pet":
-                    throw new Exception("Pets should not instantiated using Entity.Resolve");
                 default:
                     log4net.Warn("Not supported type: " + type);
                     return new Entity(id);
