@@ -52,6 +52,7 @@ namespace LoESoft.GameServer.networking
             OVERFLOW_EXCEPTION = 39,
             NETWORK_TICKER_DISCONNECT = 40,
             OLD_CLIENT_DISCONNECT = 41,
+            BYTES_NOT_READY = 42,
             UNKNOW_ERROR_INSTANCE = 255
         }
 

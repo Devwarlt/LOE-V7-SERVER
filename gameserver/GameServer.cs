@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.models;
 using log4net;
+using LoESoft.GameServer.networking.experimental;
 
 #endregion
 
@@ -64,6 +65,8 @@ namespace LoESoft.GameServer
                 Log._("Message", Message.Messages.Count);
 
                 Server server = new Server(Manager);
+                EServer eServer = new EServer(Manager, Settings.GAMESERVER.PORT, Settings.NETWORKING.MAX_CONNECTIONS);
+
                 PolicyServer policy = new PolicyServer();
 
                 Console.CancelKeyPress += (sender, e) => e.Cancel = true;
@@ -73,7 +76,11 @@ namespace LoESoft.GameServer
                 Log.Info("Initializing GameServer...");
 
                 policy.Start();
-                server.Start();
+
+                if (Settings.IS_EXPERIMENTAL_NETWORK)
+                    eServer.Start();
+                else
+                    server.Start();
 
                 if (AutoRestart)
                 {
@@ -96,7 +103,10 @@ namespace LoESoft.GameServer
 
                 Log.Info("Terminating...");
 
-                server?.Stop();
+                if (Settings.IS_EXPERIMENTAL_NETWORK)
+                    eServer?.Stop();
+                else
+                    server?.Stop();
                 policy?.Stop();
                 Manager?.Stop();
                 Shutdown?.Dispose();

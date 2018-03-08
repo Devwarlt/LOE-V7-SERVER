@@ -6,6 +6,8 @@ namespace LoESoft.Core.config
     {
         public static bool IS_PRODUCTION = true;
 
+        public static bool IS_EXPERIMENTAL_NETWORK = false; // its experimental, not sure if works properly
+
         public static bool ENABLE_RESTART = true;
 
         public static int RESTART_DELAY_MINUTES = 60;

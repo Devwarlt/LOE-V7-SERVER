@@ -50,20 +50,26 @@ namespace LoESoft.GameServer.networking
         {
             if (disposed)
                 return;
-            handler?.Dispose();
-            handler = null;
-            IncomingCipher = null;
-            OutgoingCipher = null;
-            Manager = null;
-            Socket = null;
-            Character = null;
-            Account = null;
-            if (Player.PetID != 0 && Player.Pet != null)
-                Player.Owner.LeaveWorld(Player.Pet);
-            Player = null;
-            Random = null;
-            ConnectedBuild = null;
-            disposed = true;
+
+            try
+            {
+                IncomingCipher = null;
+                OutgoingCipher = null;
+                Socket = null;
+                Character = null;
+                Account = null;
+
+                if (Player.PetID != 0 && Player.Pet != null)
+                    Player.Owner.LeaveWorld(Player.Pet);
+
+                Player = null;
+                Random = null;
+                ConnectedBuild = null;
+            }
+            catch
+            { return; }
+            finally
+            { disposed = true; }
         }
     }
 }
