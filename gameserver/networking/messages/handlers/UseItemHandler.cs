@@ -76,7 +76,7 @@ namespace LoESoft.GameServer.networking.handlers
                                     }
                                     client.Player.Owner.Timers.Add(new WorldTimer(8000, (world, j) =>
                                     {
-                                        switch (client.Player.HpPotionPrice)
+                                        switch (client?.Player?.HpPotionPrice)
                                         {
                                             case 5: break;
                                             case 10:
@@ -95,8 +95,11 @@ namespace LoESoft.GameServer.networking.handlers
                                             case 600: { client.Player.HpPotionPrice = 450; } break;
                                         }
                                     }));
+
                                     int currentCredits = client.Player.Credits - client.Player.HpPotionPrice;
+
                                     Manager.Database.UpdateCredit(client.Account, -client.Player.HpPotionPrice);
+
                                     client.Player.Credits = client.Account.Credits = currentCredits;
                                     client.Character.HP += 100;
                                     client.Player.SaveToCharacter();

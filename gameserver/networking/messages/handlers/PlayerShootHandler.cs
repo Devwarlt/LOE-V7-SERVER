@@ -21,15 +21,16 @@ namespace LoESoft.GameServer.networking.handlers
 
         private void Handle(Player player, PLAYERSHOOT message)
         {
-
             if (!GameServer.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out Item item))
                 return;
+
+            bool ability = TierLoot.AbilitySlotType.ToList().Contains(item.SlotType);
 
             DexterityCheatHandler _cheatHandler = new DexterityCheatHandler()
             {
                 Player = player,
                 Item = item,
-                IsAbility = TierLoot.AbilitySlotType.ToList().Contains(item.SlotType),
+                IsAbility = ability,
                 AttackAmount = message.AttackAmount,
                 MinAttackFrequency = message.MinAttackFrequency,
                 MaxAttackFrequency = message.MaxAttackFrequency,
@@ -50,7 +51,10 @@ namespace LoESoft.GameServer.networking.handlers
                 OwnerId = player.Id
             };
 
-            player.BroadcastSync(_allyShoot, p => p != player && p.Dist(player) <= 12);
+            if (ability)
+                player.BroadcastSync(_allyShoot, p => p.Dist(player) <= 12);
+            else
+                player.BroadcastSync(_allyShoot, p => p != player && p.Dist(player) <= 12);
 
             player.FameCounter.Shoot(_projectile);
         }
