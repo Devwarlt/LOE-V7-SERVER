@@ -144,7 +144,8 @@ namespace LoESoft.GameServer.networking.handlers
                                         case 450: { client.Player.MpPotionPrice = 600; } break;
                                         case 600: break;
                                     }
-                                    client.Player.Owner.Timers.Add(new WorldTimer(8000, (world, j) =>
+
+                                    client?.Player?.Owner?.Timers.Add(new WorldTimer(8000, (world, j) =>
                                     {
                                         switch (client.Player.MpPotionPrice)
                                         {
@@ -165,8 +166,11 @@ namespace LoESoft.GameServer.networking.handlers
                                             case 600: { client.Player.MpPotionPrice = 450; } break;
                                         }
                                     }));
+
                                     int currentCredits = client.Player.Credits - client.Player.MpPotionPrice;
+
                                     Manager.Database.UpdateCredit(client.Account, -client.Player.MpPotionPrice);
+
                                     client.Player.Credits = client.Account.Credits = currentCredits;
                                     client.Character.MP += 100;
                                     client.Player.SaveToCharacter();

@@ -5,7 +5,6 @@ using LoESoft.Core;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.realm;
 using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 using static LoESoft.GameServer.networking.Client;
 
@@ -22,7 +21,9 @@ namespace LoESoft.GameServer.networking.handlers
         private void Handle(Client client, CREATE message)
         {
             int skin = client.Account.OwnedSkins.Contains(message.SkinType) ? message.SkinType : 0;
+
             CreateStatus status = Manager.Database.CreateCharacter(Manager.GameData, client.Account, (ushort)message.ClassType, skin, out DbChar character);
+
             if (status == CreateStatus.ReachCharLimit)
             {
                 client.SendMessage(new FAILURE
@@ -33,28 +34,26 @@ namespace LoESoft.GameServer.networking.handlers
                 return;
             }
             client.Character = character;
-            World target = Manager.Worlds[client.TargetWorld];
-            target.Timers.Add(new WorldTimer(5000, (w, t) =>
+
+            if (status == CreateStatus.OK)
             {
-                if (status == CreateStatus.OK)
+                client.SendMessage(new CREATE_SUCCESS
                 {
-                    client.SendMessage(new CREATE_SUCCESS
-                    {
-                        CharacterID = client.Character.CharId,
-                        ObjectID =
-                           Manager.Worlds[client.TargetWorld].EnterWorld(
-                                client.Player = new Player(client))
-                    });
-                    client.State = ProtocolState.Ready;
-                }
-                else
+                    CharacterID = client.Character.CharId,
+                    ObjectID =
+                        Manager.Worlds[client.TargetWorld].EnterWorld(
+                            client.Player = new Player(client))
+                });
+
+                client.State = ProtocolState.Ready;
+            }
+            else
+            {
+                client.SendMessage(new FAILURE
                 {
-                    client.SendMessage(new FAILURE
-                    {
-                        ErrorDescription = "Failed to Load character."
-                    });
-                }
-            }));
+                    ErrorDescription = "Failed to Load character."
+                });
+            }
         }
     }
 }
