@@ -5,6 +5,7 @@ using log4net;
 using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.GameServer.realm;
+using LoESoft.Core.models;
 
 namespace LoESoft.GameServer.networking
 {
@@ -60,8 +61,10 @@ namespace LoESoft.GameServer.networking
                 ProcessIncomingMessage(null, _incoming);
         }
 
-        private void OnError()
+        private void OnError(Exception ex)
         {
+            Log.Error(ex.ToString());
+
             Manager.TryDisconnect(client, DisconnectReason.SOCKET_ERROR_DETECTED);
         }
 

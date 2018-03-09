@@ -16,7 +16,6 @@ using LoESoft.Core.config;
 using LoESoft.GameServer.realm.entity.merchant;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.models;
-using LoESoft.GameServer.networking.experimental;
 
 #endregion
 
@@ -49,7 +48,6 @@ namespace LoESoft.GameServer.realm
         public int MaxClients { get; private set; }
         public RealmPortalMonitor Monitor { get; private set; }
         public NetworkTicker Network { get; private set; }
-        public ENetworkTicker ENetwork { get; private set; }
         public Database Database { get; private set; }
         public bool Terminating { get; private set; }
         public int TPS { get; private set; }
@@ -119,20 +117,10 @@ namespace LoESoft.GameServer.realm
             logic.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
             logic.Start();
 
-            if (Settings.IS_EXPERIMENTAL_NETWORK)
-            {
-                ENetwork = new ENetworkTicker(this);
-                var enetwork = new Task(() => ENetwork.TickLoop(), TaskCreationOptions.LongRunning);
-                enetwork.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
-                enetwork.Start();
-            }
-            else
-            {
-                Network = new NetworkTicker(this);
-                var network = new Task(() => Network.TickLoop(), TaskCreationOptions.LongRunning);
-                network.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
-                network.Start();
-            }
+            Network = new NetworkTicker(this);
+            var network = new Task(() => Network.TickLoop(), TaskCreationOptions.LongRunning);
+            network.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
+            network.Start();
         }
 
         public void Stop()

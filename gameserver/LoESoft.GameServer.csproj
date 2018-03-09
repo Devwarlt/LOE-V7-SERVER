@@ -292,17 +292,6 @@
     <Compile Include="logic\transitions\PlayerWithinTransition.cs" />
     <Compile Include="logic\transitions\HpLessTransition.cs" />
     <Compile Include="logic\transitions\TimedTransition.cs" />
-    <Compile Include="networking\experimental\client\EClient.cs" />
-    <Compile Include="networking\experimental\client\EClientManager.cs" />
-    <Compile Include="networking\experimental\client\EConnection.cs" />
-    <Compile Include="networking\experimental\client\ESocketAsyncEventArgsManager.cs" />
-    <Compile Include="networking\experimental\client\EBufferManager.cs" />
-    <Compile Include="networking\experimental\token\EIncomingToken.cs" />
-    <Compile Include="networking\experimental\network\ENetworkManager.cs" />
-    <Compile Include="networking\experimental\network\ENetworkTicker.cs" />
-    <Compile Include="networking\experimental\token\EOutgoingToken.cs" />
-    <Compile Include="networking\experimental\message\EProcessMessage.cs" />
-    <Compile Include="networking\experimental\network\EServer.cs" />
     <Compile Include="networking\messages\handlers\hack\GodCheatHandler.cs" />
     <Compile Include="networking\messages\handlers\hack\ICheatHandler.cs" />
     <Compile Include="networking\messages\handlers\hack\DexterityCheatHandler.cs" />

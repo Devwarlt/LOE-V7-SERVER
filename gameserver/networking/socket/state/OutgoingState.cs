@@ -7,7 +7,7 @@
             Awaiting,
             ReceivingMessage,
             ReceivingData,
-            Processing
+            ProcessingMessage
         }
     }
 }

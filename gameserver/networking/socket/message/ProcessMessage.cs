@@ -1,5 +1,4 @@
-﻿using LoESoft.Core.config;
-using LoESoft.Core.models;
+﻿using LoESoft.Core.models;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.realm.entity.player;
 using System;
@@ -33,20 +32,10 @@ namespace LoESoft.GameServer.networking
 
         public bool IsReady() => State == ProtocolState.Disconnected ? false : (State != ProtocolState.Ready || (Player != null && (Player == null || Player.Owner != null)));
 
-        public void SendMessage(Message msg)
-        {
-            if (Settings.IS_EXPERIMENTAL_NETWORK)
-                SendMessage(msg, MessagePriority.Normal);
-            else
-                handler?.IncomingMessage(msg);
-        }
+        public void SendMessage(Message msg) =>
+            handler?.IncomingMessage(msg);
 
-        public void SendMessage(IEnumerable<Message> msgs)
-        {
-            if (Settings.IS_EXPERIMENTAL_NETWORK)
-                SendMessage(msgs, MessagePriority.Normal);
-            else
-                handler?.IncomingMessage(msgs);
-        }
+        public void SendMessage(IEnumerable<Message> msgs) =>
+            handler?.IncomingMessage(msgs);
     }
 }

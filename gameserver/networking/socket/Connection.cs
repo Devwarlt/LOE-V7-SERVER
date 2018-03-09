@@ -28,7 +28,7 @@ namespace LoESoft.GameServer.networking
             MP_POTION_CHEAT_ENGINE = 15,
             STOPING_SERVER = 16,
             SOCKET_IS_NOT_CONNECTED = 17,
-            RECEIVING_HDR = 18,
+            RECEIVING_MESSAGE = 18,
             RECEIVING_DATA = 19,
             ERROR_WHEN_HANDLING_MESSAGE = 20,
             SOCKET_ERROR_DETECTED = 21,

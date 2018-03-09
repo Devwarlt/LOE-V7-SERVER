@@ -54,10 +54,8 @@ namespace LoESoft.GameServer.networking
                         break;
                 }
             }
-            catch (Exception)
-            {
-                OnError();
-            }
+            catch (Exception ex)
+            { OnError(ex); }
         }
 
         private bool IncomingMessage(SocketAsyncEventArgs e, bool ignoreSending)

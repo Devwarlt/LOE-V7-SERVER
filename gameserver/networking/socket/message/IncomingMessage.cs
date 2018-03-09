@@ -1,5 +1,6 @@
 ﻿using LoESoft.Core.models;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -10,84 +11,110 @@ namespace LoESoft.GameServer.networking
     internal partial class NetworkHandler
     {
         private void ProcessIncomingMessage(object sender, SocketAsyncEventArgs e)
+        { RIMM(e); }
+
+        #region "Regular Incoming Message Manager"
+        private void RIMM(SocketAsyncEventArgs e)
         {
             try
             {
                 if (!skt.Connected)
                 {
-                    Manager.TryDisconnect(client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
+                    GameServer.Manager.TryDisconnect(client, DisconnectReason.CONNECTION_LOST);
                     return;
                 }
 
                 if (e.SocketError != SocketError.Success)
-                {
-                    DisconnectReason dr = DisconnectReason.SOCKET_ERROR;
+                    throw new SocketException((int)e.SocketError);
 
-                    if (e.SocketError != SocketError.ConnectionReset)
-                        dr = DisconnectReason.CONNECTION_RESET;
-
-                    Manager.TryDisconnect(client, dr);
-                    return;
-                }
-
-                var token = (IncomingToken)e.UserToken;
-                token.BytesRead = e.BytesTransferred;
-                token.MessageBytes = e.Buffer;
-                token.MessageLength = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(token.MessageBytes, 0)) - 5;
-
-                Log.Warn("New incoming token received!");
-                Log.Info($"Bytes read: {token.BytesRead}.");
-                Log.Info($"Message length: {token.MessageLength}");
-
-                if (token.BytesRead == MESSAGE_SIZE)
-                {
-                    if (token.MessageBytes[0] == 0xae
-                        && token.MessageBytes[1] == 0x7a
-                        && token.MessageBytes[2] == 0xf2
-                        && token.MessageBytes[3] == 0xb2
-                        && token.MessageBytes[4] == 0x95)
-                    {
-                        byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{GameServer.GameUsage}");
-                        skt.Send(c);
-
-                        token.Reset();
-                        return;
-                    }
-
-                    if (token.MessageBytes[0] == 0x3c
-                        && token.MessageBytes[1] == 0x70
-                        && token.MessageBytes[2] == 0x6f
-                        && token.MessageBytes[3] == 0x6c
-                        && token.MessageBytes[4] == 0x69)
-                    {
-                        ProcessPolicyFile();
-                        return;
-                    }
-                }
-
-                if (token.MessageLength < MESSAGE_SIZE || token.MessageLength > BUFFER_SIZE)
-                {
-                    token.Reset();
-                    return;
-                }
-
-                token.Message = Message.Messages[token.GetMessageID()].CreateInstance();
-                token.Message.Read(client, token.MessageBytes, 0, token.MessageLength);
-
-                Log.Info($"Receiving new message: '{token.Message}'.");
-
-                if (client.IsReady())
-                    GameServer.Manager.Network.AddPendingPacket(client, token.Message);
+                if (_incomingState == IncomingStage.ReceivingMessage)
+                    RPRM(e);
+                else if (_incomingState == IncomingStage.ReceivingData)
+                    RPRD(e);
                 else
-                    GameServer.Manager.TryDisconnect(client, DisconnectReason.CONNECTION_LOST);
+                    throw new InvalidOperationException(e.LastOperation.ToString());
+            }
+            catch (ObjectDisposedException)
+            { return; }
+        }
 
-                token.Reset();
+        private void RDiscardInvalidToken(SocketAsyncEventArgs e)
+        {
+            if (e.BytesTransferred < 5)
+            {
+                Manager.TryDisconnect(client, DisconnectReason.RECEIVING_MESSAGE);
+                return;
+            }
+        }
 
-                e.SetBuffer(0, token.MessageLength);
+        private void RDiscardInvalidMessage(SocketAsyncEventArgs e)
+        {
+            if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
+            {
+                Manager.TryDisconnect(client, DisconnectReason.RECEIVING_DATA);
+                return;
+            }
+        }
+
+        private void RPRM(SocketAsyncEventArgs e)
+        {
+            RDiscardInvalidToken(e);
+
+            if (e.Buffer[0] == 0xae
+                && e.Buffer[1] == 0x7a
+                && e.Buffer[2] == 0xf2
+                && e.Buffer[3] == 0xb2
+                && e.Buffer[4] == 0x95)
+            {
+                byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{GameServer.GameUsage}");
+                skt.Send(c);
+                return;
+            }
+
+            if (e.Buffer[0] == 0x3c
+                && e.Buffer[1] == 0x70
+                && e.Buffer[2] == 0x6f
+                && e.Buffer[3] == 0x6c
+                && e.Buffer[4] == 0x69)
+            {
+                ProcessPolicyFile();
+                return;
+            }
+
+            int len = (e.UserToken as IncomingToken).Length =
+                IPAddress.NetworkToHostOrder(BitConverter.ToInt32(e.Buffer, 0)) - 5;
+
+            try
+            { (e.UserToken as IncomingToken).Message = Message.Messages[(MessageID)e.Buffer[4]].CreateInstance(); }
+            catch
+            { log.ErrorFormat("Message ID not found: {0}", e.Buffer[4]); }
+
+            _incomingState = IncomingStage.ReceivingData;
+
+            e.SetBuffer(0, len);
+
+            skt.ReceiveAsync(e);
+        }
+
+        private void RPRD(SocketAsyncEventArgs e)
+        {
+            RDiscardInvalidMessage(e);
+
+            Message dummy = (e.UserToken as IncomingToken).Message;
+            dummy.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
+
+            _incomingState = IncomingStage.ProcessingMessage;
+
+            bool cont = IncomingMessageReceived(dummy);
+
+            if (cont && skt.Connected)
+            {
+                _incomingState = IncomingStage.ReceivingMessage;
+
+                e.SetBuffer(0, 5);
                 skt.ReceiveAsync(e);
             }
-            catch (Exception)
-            { OnError(); }
         }
+        #endregion
     }
 }
