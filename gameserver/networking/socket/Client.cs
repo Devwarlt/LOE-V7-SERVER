@@ -28,8 +28,6 @@ namespace LoESoft.GameServer.networking
 
         public Client(RealmManager manager, Socket skt)
         {
-            Log.Info($"Receiving new client from socket DNS '{skt.RemoteEndPoint.ToString().Split(':')[0]}'.");
-
             Socket = skt;
             Manager = manager;
 

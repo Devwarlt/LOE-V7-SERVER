@@ -1,5 +1,4 @@
-﻿using LoESoft.Core.models;
-using System;
+﻿using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -10,8 +9,8 @@ namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler
     {
-        private void ProcessIncomingMessage(object sender, SocketAsyncEventArgs e)
-        { RIMM(e); }
+        private void ProcessIncomingMessage(object sender, SocketAsyncEventArgs e) =>
+            RIMM(e);
 
         #region "Regular Incoming Message Manager"
         private void RIMM(SocketAsyncEventArgs e)
@@ -25,40 +24,32 @@ namespace LoESoft.GameServer.networking
                 }
 
                 if (e.SocketError != SocketError.Success)
-                    throw new SocketException((int)e.SocketError);
+                {
+                    GameServer.Manager.TryDisconnect(client, DisconnectReason.SOCKET_ERROR);
+                    return;
+                }
 
                 if (_incomingState == IncomingStage.ReceivingMessage)
                     RPRM(e);
                 else if (_incomingState == IncomingStage.ReceivingData)
                     RPRD(e);
                 else
-                    throw new InvalidOperationException(e.LastOperation.ToString());
+                {
+                    GameServer.Manager.TryDisconnect(client, DisconnectReason.CONNECTION_RESET);
+                    return;
+                }
             }
             catch (ObjectDisposedException)
             { return; }
         }
 
-        private void RDiscardInvalidToken(SocketAsyncEventArgs e)
+        private void RPRM(SocketAsyncEventArgs e)
         {
             if (e.BytesTransferred < 5)
             {
                 Manager.TryDisconnect(client, DisconnectReason.RECEIVING_MESSAGE);
                 return;
             }
-        }
-
-        private void RDiscardInvalidMessage(SocketAsyncEventArgs e)
-        {
-            if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
-            {
-                Manager.TryDisconnect(client, DisconnectReason.RECEIVING_DATA);
-                return;
-            }
-        }
-
-        private void RPRM(SocketAsyncEventArgs e)
-        {
-            RDiscardInvalidToken(e);
 
             if (e.Buffer[0] == 0xae
                 && e.Buffer[1] == 0x7a
@@ -98,7 +89,11 @@ namespace LoESoft.GameServer.networking
 
         private void RPRD(SocketAsyncEventArgs e)
         {
-            RDiscardInvalidMessage(e);
+            if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
+            {
+                Manager.TryDisconnect(client, DisconnectReason.RECEIVING_DATA);
+                return;
+            }
 
             Message dummy = (e.UserToken as IncomingToken).Message;
             dummy.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
