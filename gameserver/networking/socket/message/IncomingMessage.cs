@@ -1,111 +1,115 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Net.Sockets;
+using System.Text;
+using static LoESoft.GameServer.networking.Client;
 
 namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler
     {
-        private bool IncomingMessageReceived(Message pkt, bool ignore = false)
-        {
-            if (ignore)
-                return true;
+        private void ProcessIncomingMessage(object sender, SocketAsyncEventArgs e) =>
+            RIMM(e);
 
-            if (client.IsReady())
-            {
-                Manager.Network.AddPendingPacket(client, pkt);
-                return true;
-            }
-            return false;
-        }
-
-        private void IncomingCompleted(object sender, SocketAsyncEventArgs e)
+        #region "Regular Incoming Message Manager"
+        private void RIMM(SocketAsyncEventArgs e)
         {
             try
             {
-                if (!skt.Connected) return;
-
-                int len;
-                switch (_incomingState)
+                if (!skt.Connected)
                 {
-                    case IncomingStage.Ready:
-                        len = (e.UserToken as IncomingToken).Packet.Write(client, _incomingBuff, 0);
+                    GameServer.Manager.TryDisconnect(client, DisconnectReason.CONNECTION_LOST);
+                    return;
+                }
 
-                        _incomingState = IncomingStage.Sending;
-                        e.SetBuffer(0, len);
+                if (e.SocketError != SocketError.Success)
+                {
+                    GameServer.Manager.TryDisconnect(client, DisconnectReason.SOCKET_ERROR);
+                    return;
+                }
 
-                        if (!skt.Connected) return;
-                        skt.SendAsync(e);
-                        break;
-                    case IncomingStage.Sending:
-                        (e.UserToken as IncomingToken).Packet = null;
-
-                        if (IncomingMessage(e, true))
-                        {
-                            len = (e.UserToken as IncomingToken).Packet.Write(client, _incomingBuff, 0);
-
-                            _incomingState = IncomingStage.Sending;
-                            e.SetBuffer(0, len);
-
-                            if (!skt.Connected) return;
-                            skt.SendAsync(e);
-                        }
-                        break;
+                if (_incomingState == IncomingStage.ReceivingMessage)
+                    RPRM(e);
+                else if (_incomingState == IncomingStage.ReceivingData)
+                    RPRD(e);
+                else
+                {
+                    GameServer.Manager.TryDisconnect(client, DisconnectReason.CONNECTION_RESET);
+                    return;
                 }
             }
-            catch (Exception)
-            {
-                OnError();
-            }
+            catch (ObjectDisposedException)
+            { return; }
         }
 
-        private bool IncomingMessage(SocketAsyncEventArgs e, bool ignoreSending)
+        private void RPRM(SocketAsyncEventArgs e)
         {
-            lock (sendLock)
+            if (e.BytesTransferred < 5)
             {
-                if (_incomingState == IncomingStage.Ready ||
-                    (!ignoreSending && _incomingState == IncomingStage.Sending))
-                    return false;
-                if (pendingPackets.TryDequeue(out Message packet))
-                {
-                    (e.UserToken as IncomingToken).Packet = packet;
-                    _incomingState = IncomingStage.Ready;
-                    return true;
-                }
-                _incomingState = IncomingStage.Awaiting;
-                return false;
+                Manager.TryDisconnect(client, DisconnectReason.RECEIVING_MESSAGE);
+                return;
             }
+
+            if (e.Buffer[0] == 0xae
+                && e.Buffer[1] == 0x7a
+                && e.Buffer[2] == 0xf2
+                && e.Buffer[3] == 0xb2
+                && e.Buffer[4] == 0x95)
+            {
+                byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{GameServer.GameUsage}");
+                skt.Send(c);
+                return;
+            }
+
+            if (e.Buffer[0] == 0x3c
+                && e.Buffer[1] == 0x70
+                && e.Buffer[2] == 0x6f
+                && e.Buffer[3] == 0x6c
+                && e.Buffer[4] == 0x69)
+            {
+                ProcessPolicyFile();
+                return;
+            }
+
+            int len = (e.UserToken as IncomingToken).Length =
+                IPAddress.NetworkToHostOrder(BitConverter.ToInt32(e.Buffer, 0)) - 5;
+
+            try
+            { (e.UserToken as IncomingToken).Message = Message.Messages[(MessageID)e.Buffer[4]].CreateInstance(); }
+            catch
+            { log.ErrorFormat("Message ID not found: {0}", e.Buffer[4]); }
+
+            _incomingState = IncomingStage.ReceivingData;
+
+            e.SetBuffer(0, len);
+
+            skt.ReceiveAsync(e);
         }
 
-        public void IncomingMessage(Message msg)
+        private void RPRD(SocketAsyncEventArgs e)
         {
-            if (!skt.Connected) return;
-            pendingPackets.Enqueue(msg);
-            if (IncomingMessage(_incoming, false))
+            if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
             {
-                int len = (_incoming.UserToken as IncomingToken).Packet.Write(client, _incomingBuff, 0);
+                Manager.TryDisconnect(client, DisconnectReason.RECEIVING_DATA);
+                return;
+            }
 
-                _incomingState = IncomingStage.Sending;
-                _incoming.SetBuffer(_incomingBuff, 0, len);
-                if (!skt.SendAsync(_incoming))
-                    IncomingCompleted(this, _incoming);
+            Message dummy = (e.UserToken as IncomingToken).Message;
+            dummy.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
+
+            _incomingState = IncomingStage.ProcessingMessage;
+
+            bool cont = IncomingMessageReceived(dummy);
+
+            if (cont && skt.Connected)
+            {
+                _incomingState = IncomingStage.ReceivingMessage;
+
+                e.SetBuffer(0, 5);
+                skt.ReceiveAsync(e);
             }
         }
-
-        public void IncomingMessage(IEnumerable<Message> msgs)
-        {
-            if (!skt.Connected) return;
-            foreach (Message i in msgs)
-                pendingPackets.Enqueue(i);
-            if (IncomingMessage(_incoming, false))
-            {
-                int len = (_incoming.UserToken as IncomingToken).Packet.Write(client, _incomingBuff, 0);
-
-                _incomingState = IncomingStage.Sending;
-                _incoming.SetBuffer(_incomingBuff, 0, len);
-                if (!skt.SendAsync(_incoming))
-                    IncomingCompleted(this, _incoming);
-            }
-        }
+        #endregion
     }
 }

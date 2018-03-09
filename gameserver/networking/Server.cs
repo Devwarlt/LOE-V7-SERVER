@@ -35,9 +35,7 @@ namespace LoESoft.GameServer.networking
                 Socket.BeginAccept(Listen, null);
             }
             catch (Exception ex)
-            {
-                GameServer.ForceShutdown(ex);
-            }
+            { GameServer.ForceShutdown(ex); }
         }
 
         private void Listen(IAsyncResult ar)

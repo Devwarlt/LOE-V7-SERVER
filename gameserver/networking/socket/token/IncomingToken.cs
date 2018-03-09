@@ -1,11 +1,14 @@
-﻿namespace LoESoft.GameServer.networking
+﻿using LoESoft.Core.models;
+using System;
+
+namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler
     {
-        private class OutgoingToken
+        private sealed class IncomingToken
         {
-            public int Length { get; set; }
             public Message Message { get; set; }
+            public int Length { get; set; }
         }
     }
 }

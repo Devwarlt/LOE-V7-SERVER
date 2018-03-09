@@ -2,6 +2,7 @@
 
 using LoESoft.Core;
 using LoESoft.Core.config;
+using LoESoft.Core.models;
 using LoESoft.GameServer.realm;
 using System;
 using System.Net.Sockets;
@@ -30,16 +31,9 @@ namespace LoESoft.GameServer.networking
             Socket = skt;
             Manager = manager;
 
-            IncomingCipher = ProcessRC4(Settings.NETWORKING.INCOMING_CIPHER);
-            OutgoingCipher = ProcessRC4(Settings.NETWORKING.OUTGOING_CIPHER);
-
-            BeginProcess();
-        }
-
-        public RC4 ProcessRC4(byte[] cipher) => new RC4(cipher);
-
-        public void BeginProcess()
-        {
+            IncomingCipher = new RC4(Settings.NETWORKING.INCOMING_CIPHER);
+            OutgoingCipher = new RC4(Settings.NETWORKING.OUTGOING_CIPHER);
+            
             handler = new NetworkHandler(this, Socket);
             handler.BeginHandling();
         }
@@ -50,20 +44,26 @@ namespace LoESoft.GameServer.networking
         {
             if (disposed)
                 return;
-            handler?.Dispose();
-            handler = null;
-            IncomingCipher = null;
-            OutgoingCipher = null;
-            Manager = null;
-            Socket = null;
-            Character = null;
-            Account = null;
-            if (Player.PetID != 0 && Player.Pet != null)
-                Player.Owner.LeaveWorld(Player.Pet);
-            Player = null;
-            Random = null;
-            ConnectedBuild = null;
-            disposed = true;
+
+            try
+            {
+                IncomingCipher = null;
+                OutgoingCipher = null;
+                Socket = null;
+                Character = null;
+                Account = null;
+
+                if (Player.PetID != 0 && Player.Pet != null)
+                    Player.Owner.LeaveWorld(Player.Pet);
+
+                Player = null;
+                Random = null;
+                ConnectedBuild = null;
+            }
+            catch
+            { return; }
+            finally
+            { disposed = true; }
         }
     }
 }

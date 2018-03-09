@@ -2,12 +2,12 @@
 {
     internal partial class NetworkHandler
     {
-        private enum OutgoingState
+        private enum IncomingStage
         {
             Awaiting,
-            ReceivingHdr,
-            ReceivingBody,
-            Processing
+            ReceivingMessage,
+            ReceivingData,
+            ProcessingMessage
         }
     }
 }

@@ -28,8 +28,8 @@ namespace LoESoft.GameServer.networking
             MP_POTION_CHEAT_ENGINE = 15,
             STOPING_SERVER = 16,
             SOCKET_IS_NOT_CONNECTED = 17,
-            RECEIVING_HDR = 18,
-            RECEIVING_BODY = 19,
+            RECEIVING_MESSAGE = 18,
+            RECEIVING_DATA = 19,
             ERROR_WHEN_HANDLING_MESSAGE = 20,
             SOCKET_ERROR_DETECTED = 21,
             PROCESS_POLICY_FILE = 22,
@@ -48,10 +48,11 @@ namespace LoESoft.GameServer.networking
             RECONNECT = 35,
             CONNECTION_RESET = 36,
             SOCKET_ERROR = 37,
-            INVALID_BUFFER_LENGTH = 38,
+            CONNECTION_LOST = 38,
             OVERFLOW_EXCEPTION = 39,
             NETWORK_TICKER_DISCONNECT = 40,
             OLD_CLIENT_DISCONNECT = 41,
+            BYTES_NOT_READY = 42,
             UNKNOW_ERROR_INSTANCE = 255
         }
 

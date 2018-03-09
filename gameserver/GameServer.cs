@@ -64,6 +64,7 @@ namespace LoESoft.GameServer
                 Log._("Message", Message.Messages.Count);
 
                 Server server = new Server(Manager);
+
                 PolicyServer policy = new PolicyServer();
 
                 Console.CancelKeyPress += (sender, e) => e.Cancel = true;
