@@ -4,7 +4,7 @@ namespace LoESoft.Core.config
 {
     public partial class Settings
     {
-        public static bool IS_PRODUCTION = true;
+        public static bool IS_PRODUCTION = false;
 
         public static bool IS_EXPERIMENTAL_NETWORK = false; // its experimental, not sure if works properly
 

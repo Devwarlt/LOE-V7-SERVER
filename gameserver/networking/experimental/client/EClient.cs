@@ -1,4 +1,5 @@
-﻿using LoESoft.GameServer.networking.experimental;
+﻿using LoESoft.Core.models;
+using LoESoft.GameServer.networking.experimental;
 using LoESoft.GameServer.realm;
 using System.Net.Sockets;
 
@@ -40,6 +41,8 @@ namespace LoESoft.GameServer.networking
 
         public void BeginHandling(Socket skt)
         {
+            Log.Info($"Receiving new client from socket DNS '{skt.RemoteEndPoint.ToString().Split(':')[0]}'.");
+
             Socket = skt;
             _ehandler.BeginHandling(Socket);
         }

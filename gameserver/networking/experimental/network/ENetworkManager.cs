@@ -1,4 +1,5 @@
 ﻿using LoESoft.Core;
+using LoESoft.Core.models;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -47,9 +48,9 @@ namespace LoESoft.GameServer.networking.experimental
             _incoming.AcceptSocket = skt;
 
             _client.State = ProtocolState.Connected;
-
-            StartReceive(_incoming);
-            StartSend(_outgoing);
+            
+            /*StartReceive(_incoming);
+            StartSend(_outgoing);*/
         }
 
         private void ProcessIncomingMessage(object sender, SocketAsyncEventArgs e)
@@ -165,6 +166,12 @@ namespace LoESoft.GameServer.networking.experimental
                 GameServer.Manager.TryDisconnect(_client, DisconnectReason.SOCKET_IS_NOT_CONNECTED);
                 return;
             }
+
+            var token = (EIncomingToken)e.UserToken;
+            var messageId = token.GetMessageID();
+            var message = Message.Messages[messageId];
+
+            Log.Info($"Receiving new incoming message: {message.ID}.");
 
             e.SetBuffer(e.Offset, _bufferSize);
 

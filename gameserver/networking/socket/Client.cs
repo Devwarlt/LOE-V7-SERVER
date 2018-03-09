@@ -2,6 +2,7 @@
 
 using LoESoft.Core;
 using LoESoft.Core.config;
+using LoESoft.Core.models;
 using LoESoft.GameServer.realm;
 using System;
 using System.Net.Sockets;
@@ -27,19 +28,14 @@ namespace LoESoft.GameServer.networking
 
         public Client(RealmManager manager, Socket skt)
         {
+            Log.Info($"Receiving new client from socket DNS '{skt.RemoteEndPoint.ToString().Split(':')[0]}'.");
+
             Socket = skt;
             Manager = manager;
 
-            IncomingCipher = ProcessRC4(Settings.NETWORKING.INCOMING_CIPHER);
-            OutgoingCipher = ProcessRC4(Settings.NETWORKING.OUTGOING_CIPHER);
-
-            BeginProcess();
-        }
-
-        public RC4 ProcessRC4(byte[] cipher) => new RC4(cipher);
-
-        public void BeginProcess()
-        {
+            IncomingCipher = new RC4(Settings.NETWORKING.INCOMING_CIPHER);
+            OutgoingCipher = new RC4(Settings.NETWORKING.OUTGOING_CIPHER);
+            
             handler = new NetworkHandler(this, Socket);
             handler.BeginHandling();
         }

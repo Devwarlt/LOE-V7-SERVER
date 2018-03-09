@@ -2,7 +2,7 @@
 {
     internal partial class NetworkHandler
     {
-        private enum IncomingStage
+        private enum OutgoingStage
         {
             Awaiting,
             Ready,

@@ -394,7 +394,7 @@
     <Compile Include="networking\messages\MessageHandler.cs" />
     <Compile Include="networking\messages\MessageHandlers.cs" />
     <Compile Include="networking\socket\Connection.cs" />
-    <Compile Include="networking\socket\message\IncomingMessage.cs" />
+    <Compile Include="networking\socket\message\OutgoingMessage.cs" />
     <Compile Include="networking\socket\NetworkHandler.cs" />
     <Compile Include="networking\messages\outgoing\ARENA_DEATH.cs" />
     <Compile Include="networking\messages\outgoing\IMMINENT_ARENA_WAVE.cs" />
@@ -412,7 +412,7 @@
     <Compile Include="networking\messages\MessageID.cs" />
     <Compile Include="networking\PolicyServer.cs" />
     <Compile Include="networking\socket\Client.cs" />
-    <Compile Include="networking\socket\message\OutgoingMessage.cs" />
+    <Compile Include="networking\socket\message\IncomingMessage.cs" />
     <Compile Include="networking\socket\message\ProcessMessage.cs" />
     <Compile Include="networking\socket\ProcessPolicyFile.cs" />
     <Compile Include="networking\socket\state\ProtocolState.cs" />
