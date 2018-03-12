@@ -374,6 +374,7 @@
       <EffectInfo name="" description="Use to unlock Twin Succubus Skin." />
     </ExtraTooltipData>
     <Activate id="0x5192">Exchange</Activate>
+    <Consumable />
     <Soulbound />
     <BagType>4</BagType>
     <Track />
