@@ -23,7 +23,6 @@ namespace LoESoft.GameServer.logic
                     new Grenade(4, 100, 8, coolDown: 5000, effect: ConditionEffectIndex.Slowed, effectDuration: 6000),
                     new TransformOnDeath("Pentaract Tower Corpse"),
                     new CopyDamageOnDeath("Pentaract"),
-                    // needed to avoid crash, Oryx.cs needs player name otherwise hangs server (will patch that later)
                     new CopyDamageOnDeath("Pentaract Tower Corpse")
                     )
             )
@@ -42,7 +41,7 @@ namespace LoESoft.GameServer.logic
 
             .Init("Pentaract Tower Corpse",
                 new State(
-                    new AddCond(ConditionEffectIndex.Invincible),
+                    new AddCond(ConditionEffectIndex.Invulnerable),
                     new State("Waiting",
                         new TimedTransition(15000, "Spawn"),
                         new EntityNotExistsTransition("Pentaract Tower", 50, "Die")
