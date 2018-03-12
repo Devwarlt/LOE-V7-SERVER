@@ -89,11 +89,9 @@ namespace LoESoft.GameServer.networking
 
         private void RPRD(SocketAsyncEventArgs e)
         {
+            // bytes are not ready yet, then keep them in a loop until dispatch properly
             if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
-            {
-                Manager.TryDisconnect(client, DisconnectReason.RECEIVING_DATA);
                 return;
-            }
 
             Message dummy = (e.UserToken as IncomingToken).Message;
             dummy.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
