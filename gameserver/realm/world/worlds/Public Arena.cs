@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using LoESoft.Core.models;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
@@ -16,9 +15,9 @@ namespace LoESoft.GameServer.realm.world
     {
         private bool ready = true;
         private bool waiting = false;
-        public int wave = 1;
+        private int wave = 1;
         private List<string> entities = new List<string>();
-        private List<string> past_entities = new List<string>();
+        private Random rng = new Random();
 
         public PublicArena()
         {
@@ -30,7 +29,8 @@ namespace LoESoft.GameServer.realm.world
             AllowTeleport = true;
         }
 
-        protected override void Init() => LoadMap("arena", MapType.Wmap);
+        protected override void Init() =>
+            LoadMap("arena", MapType.Wmap);
 
         public override void Tick(RealmTime time)
         {
@@ -44,7 +44,7 @@ namespace LoESoft.GameServer.realm.world
             InitArena(time);
         }
 
-        private void InitArena(RealmTime time)
+        protected void InitArena(RealmTime time)
         {
             if (IsEmpty())
             {
@@ -59,6 +59,7 @@ namespace LoESoft.GameServer.realm.world
                     {
                         if (i.Value.Client == null)
                             continue;
+
                         i.Value.Client.SendMessage(new IMMINENT_ARENA_WAVE
                         {
                             CurrentRuntime = time.ElapsedMsDelta,
@@ -82,26 +83,37 @@ namespace LoESoft.GameServer.realm.world
             }
         }
 
+        private List<string> SeedArena(int currentWave)
+        {
+            List<string> newEntities = new List<string>();
+
+            if ((currentWave % 2 == 0) && (currentWave < 10))
+                for (int i = 0; i < currentWave / 2; i++)
+                    newEntities.Add(EntityWeak[rng.Next(EntityWeak.Count - 1)]);
+
+            if (currentWave % 3 == 0)
+                for (int i = 0; i < currentWave / 3; i++)
+                    newEntities.Add(EntityNormal[rng.Next(EntityNormal.Count - 1)]);
+
+            if ((currentWave % 2 == 0) && (currentWave >= 10))
+                for (int i = 0; i < currentWave / 4; i++)
+                    newEntities.Add(EntityGod[rng.Next(EntityGod.Count - 1)]);
+
+            if ((currentWave % 5 == 0) && (currentWave >= 20))
+                newEntities.Add(EntityQuest[rng.Next(EntityQuest.Count - 1)]);
+
+            return newEntities;
+        }
+
         private void PopulateArena()
         {
             try
             {
-                Random rng = new Random();
-                if ((wave % 2 == 0) && (wave < 10))
-                    for (int i = 0; i < wave / 2; i++)
-                        entities.Add(EntityWeak[rng.Next(EntityWeak.Count - 1)]);
-                if (wave % 3 == 0)
-                    for (int i = 0; i < wave / 3; i++)
-                        entities.Add(EntityNormal[rng.Next(EntityNormal.Count - 1)]);
-                if ((wave % 2 == 0) && (wave >= 10))
-                    for (int i = 0; i < wave / 4; i++)
-                        entities.Add(EntityGod[rng.Next(EntityGod.Count - 1)]);
-                if ((wave % 5 == 0) && (wave >= 20))
-                    entities.Add(EntityQuest[rng.Next(EntityQuest.Count - 1)]);
-                if ((entities.Count == 0))
-                    entities = past_entities;
-                else
-                    past_entities = entities;
+                entities = SeedArena(wave);
+
+                while (entities.Count == 0)
+                    entities = SeedArena(wave + 1);
+
                 foreach (string entity in entities)
                 {
                     Position position = new Position { X = rng.Next(12, Map.Width) - 6, Y = rng.Next(12, Map.Height) - 6 };
@@ -113,27 +125,30 @@ namespace LoESoft.GameServer.realm.world
 
                 entities.Clear();
             }
-            catch (Exception e)
-            {
-                Log.Error($"Arena error found! Error: {e}");
-            }
+            catch (Exception)
+            { return; }
         }
 
-        private int IsEmpty2()
+        private int CheckIfEmpty()
         {
             int quantity = Enemies.Count;
 
             foreach (Enemy enemy in Enemies.Values)
                 if (enemy.IsPet)
                     quantity--;
+
             return quantity;
         }
 
-        private bool IsEmpty() => IsEmpty2() == 0;
+        private bool IsEmpty() =>
+            CheckIfEmpty() == 0;
 
-        public bool OutOfBounds(float x, float y) => (Map.Height >= y && Map.Width >= x && x > -1 && y > 0) ? Map[(int)x, (int)y].Region == TileRegion.Outside_Arena : true;
+        public bool OutOfBounds(float x, float y) =>
+            (Map.Height >= y && Map.Width >= x && x > -1 && y > 0) ?
+                Map[(int)x, (int)y].Region == TileRegion.Outside_Arena :
+                true;
 
-        private void CheckOutOfBounds()
+        protected void CheckOutOfBounds()
         {
             foreach (KeyValuePair<int, Enemy> i in Enemies)
                 if (OutOfBounds(i.Value.X, i.Value.Y))
@@ -142,7 +157,7 @@ namespace LoESoft.GameServer.realm.world
 
         #region "Entities"
 
-        private readonly List<string> EntityWeak = new List<string>
+        protected readonly List<string> EntityWeak = new List<string>
         {
             "Flamer King",
             "Lair Skeleton King",
@@ -161,7 +176,7 @@ namespace LoESoft.GameServer.realm.world
             "Weretiger"
         };
 
-        private readonly List<string> EntityNormal = new List<string>
+        protected readonly List<string> EntityNormal = new List<string>
         {
             "Aberrant of Oryx",
             "Abomination of Oryx",
@@ -175,7 +190,7 @@ namespace LoESoft.GameServer.realm.world
             "Urgle"
         };
 
-        private readonly List<string> EntityGod = new List<string>
+        protected readonly List<string> EntityGod = new List<string>
         {
             "Beholder",
             "Ent God",
@@ -187,6 +202,7 @@ namespace LoESoft.GameServer.realm.world
             "Slime God",
             "Sprite God",
             "White Demon",
+            // Dream Island
             "Muzzlereaper",
             "Guzzlereaper",
             "Silencer",
@@ -195,7 +211,7 @@ namespace LoESoft.GameServer.realm.world
             "Eyeguard of Surrender"
         };
 
-        private readonly List<string> EntityQuest = new List<string>
+        protected readonly List<string> EntityQuest = new List<string>
         {
             "Crystal Prisoner",
             "Grand Sphinx",
@@ -203,6 +219,8 @@ namespace LoESoft.GameServer.realm.world
             "Frog King",
             "Cube God",
             "Skull Shrine",
+            "Lord of the Lost Lands",
+            "Pentaract Tower",
             "Oryx the Mad God 2",
             "Gigacorn"
         };
