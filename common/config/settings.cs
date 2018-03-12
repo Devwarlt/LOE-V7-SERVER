@@ -37,7 +37,8 @@ namespace LoESoft.Core.config
             new GameVersion(Version: "1.6.3 edition 1: pre-beta", Allowed: false),
             new GameVersion(Version: "1.6.4 edition 1: pre-beta", Allowed: false),
             new GameVersion(Version: "1.6.5 edition 1: pre-beta", Allowed: false),
-            new GameVersion(Version: "1.6.6 edition 1: pre-beta", Allowed: true)
+            new GameVersion(Version: "1.6.6 edition 1: pre-beta", Allowed: false),
+            new GameVersion(Version: "1.6.7 edition 1: pre-beta", Allowed: true)
         };
     }
 }
