@@ -369,7 +369,6 @@
     <Compile Include="networking\messages\handlers\PlayerTextHandler.cs" />
     <Compile Include="networking\messages\handlers\PongHandler.cs" />
     <Compile Include="networking\messages\handlers\ReskinHandler.cs" />
-    <Compile Include="networking\messages\handlers\TeleportHandler.cs" />
     <Compile Include="networking\messages\handlers\UpdateAckHandler.cs" />
     <Compile Include="networking\messages\handlers\PetYardCommandHandler.cs" />
     <Compile Include="networking\messages\handlers\UseItemHandler.cs" />
