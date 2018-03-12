@@ -1287,11 +1287,41 @@ namespace LoESoft.GameServer.realm.entity.player
                             UpdateCount++;
                         }
                         break;
+                    case ActivateEffects.Exchange:
+                        {
+                            if (Database.Names.Contains(Name))
+                            {
+                                SendInfo("Players without valid name couldn't use this feature. Please name your character to continue.");
+                                return true;
+                            }
+
+                            if (!Owner.Name.Contains("Vault"))
+                            {
+                                SendInfo("You have to be in Vault to use this item.");
+                                return false;
+                            }
+
+                            if (Inventory[4] != null && Inventory[5] != null && Inventory[6] != null && Inventory[7] != null &&
+                                Inventory[8] != null && Inventory[9] != null && Inventory[10] != null && Inventory[11] != null)
+                            {
+                                SendHelp("Your inventory need free space to enchant this item.");
+                                return true;
+                            }
+                            else
+                                for (int i = 4; i < 12; i++)
+                                    if (Inventory[i] == null)
+                                    {
+                                        Inventory[i] = GameServer.Manager.GameData.Items[(ushort)Utils.FromString(eff.Id)];
+                                        UpdateCount++;
+                                        SaveToCharacter();
+                                        return false;
+                                    }
+                            return true;
+                        }
                     case ActivateEffects.PermaPet:
                     case ActivateEffects.PetSkin:
                     case ActivateEffects.Unlock:
                     case ActivateEffects.MysteryDyes:
-                    case ActivateEffects.Exchange:
                     default: return true;
                 }
             }
