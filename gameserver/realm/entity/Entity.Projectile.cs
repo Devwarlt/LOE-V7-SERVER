@@ -46,11 +46,11 @@ namespace LoESoft.GameServer.realm.entity
 
         public bool IsValidType(Entity entity) =>
             (entity is Enemy
-            && ProjDesc.MultiHit)
+            && !ProjDesc.MultiHit)
             || (entity is GameObject
             && (entity as GameObject).Static
             && !(entity is Wall)
-            && ProjDesc.PassesCover);
+            && !ProjDesc.PassesCover);
 
         public void ForceHit(Entity entity, RealmTime time, bool killed)
         {
