@@ -7,6 +7,7 @@
       <File>lofiObj5</File>
       <Index>0xca</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -17,6 +18,7 @@
       <File>lofiObj5</File>
       <Index>200</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -27,6 +29,7 @@
       <File>lofiObj5</File>
       <Index>0xb9</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -37,6 +40,7 @@
       <File>lofiObj5</File>
       <Index>0xb8</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -47,6 +51,7 @@
       <File>lofiObj5</File>
       <Index>0xac</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -57,6 +62,7 @@
       <File>lofiObj5</File>
       <Index>0xab</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -67,6 +73,7 @@
       <File>lofiObj5</File>
       <Index>0xaa</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -77,6 +84,7 @@
       <File>lofiObj5</File>
       <Index>0xa9</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -87,6 +95,7 @@
       <File>lofiObj5</File>
       <Index>0xa8</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -97,6 +106,7 @@
       <File>lofiObj5</File>
       <Index>0xfd</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -107,6 +117,7 @@
       <File>lofiObj5</File>
       <Index>0xfc</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -117,6 +128,7 @@
       <File>lofiObj5</File>
       <Index>0xfb</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -127,6 +139,7 @@
       <File>lofiObj5</File>
       <Index>0xfa</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -137,6 +150,7 @@
       <File>lofiObj5</File>
       <Index>248</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -147,6 +161,7 @@
       <File>lofiObj4</File>
       <Index>0xc5</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -157,6 +172,7 @@
       <File>lofiObj6</File>
       <Index>0xc9</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -167,6 +183,7 @@
       <File>lofiObj6</File>
       <Index>0xe6</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -177,6 +194,7 @@
       <File>lofiObj6</File>
       <Index>0xe5</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -187,6 +205,7 @@
       <File>lofiObj6</File>
       <Index>0xe4</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -197,6 +216,7 @@
       <File>lofiObj6</File>
       <Index>0xe3</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -207,6 +227,7 @@
       <File>lofiObj6</File>
       <Index>0xd6</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -217,6 +238,7 @@
       <File>lofiObj6</File>
       <Index>0xd4</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -227,6 +249,7 @@
       <File>lofiObj6</File>
       <Index>0xd5</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -237,6 +260,7 @@
       <File>lofiObj6</File>
       <Index>0xd3</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -247,6 +271,7 @@
       <File>lofiObj6</File>
       <Index>0xe0</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -257,6 +282,7 @@
       <File>lofiObj6</File>
       <Index>0xe1</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -267,6 +293,7 @@
       <File>lofiObj6</File>
       <Index>0x9a</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -277,6 +304,7 @@
       <File>lofiObj5</File>
       <Index>0xf6</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -287,6 +315,7 @@
       <File>lofiObj5</File>
       <Index>0xf1</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -297,6 +326,7 @@
       <File>lofiObj5</File>
       <Index>0xef</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -307,6 +337,7 @@
       <File>lofiObj5</File>
       <Index>0xec</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -317,6 +348,7 @@
       <File>lofiObj5</File>
       <Index>0xeb</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -327,6 +359,7 @@
       <File>lofiObj5</File>
       <Index>0xea</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -337,6 +370,7 @@
       <File>lofiObj5</File>
       <Index>0xe9</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -347,6 +381,7 @@
       <File>lofiObj5</File>
       <Index>0xe6</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -357,6 +392,7 @@
       <File>lofiObj5</File>
       <Index>0xe5</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -367,6 +403,7 @@
       <File>lofiObj5</File>
       <Index>0xe4</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -377,6 +414,7 @@
       <File>lofiObj5</File>
       <Index>0xe3</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -387,6 +425,7 @@
       <File>lofiObj5</File>
       <Index>0xdf</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -397,6 +436,7 @@
       <File>lofiObj5</File>
       <Index>0xdd</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -407,6 +447,7 @@
       <File>lofiObj5</File>
       <Index>0xe1</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -417,6 +458,7 @@
       <File>lofiObj5</File>
       <Index>0xdc</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -427,6 +469,7 @@
       <File>lofiObj5</File>
       <Index>0xdb</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -437,6 +480,7 @@
       <File>lofiObj5</File>
       <Index>0x8b</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -447,6 +491,7 @@
       <File>lofiObj5</File>
       <Index>0x8a</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -457,6 +502,7 @@
       <File>lofiObj5</File>
       <Index>0x89</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -467,6 +513,7 @@
       <File>lofiObj5</File>
       <Index>0x88</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -477,6 +524,7 @@
       <File>lofiObj5</File>
       <Index>0x9c</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -487,6 +535,7 @@
       <File>lofiObj5</File>
       <Index>0x9b</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -497,6 +546,7 @@
       <File>lofiObj5</File>
       <Index>0x9a</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -507,6 +557,7 @@
       <File>lofiObj5</File>
       <Index>0x99</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -517,6 +568,7 @@
       <File>lofiObj5</File>
       <Index>0x98</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
@@ -527,6 +579,7 @@
       <File>lofiObj4</File>
       <Index>0xb5</Index>
     </Texture>
+    <Description/>
     <SlotType>10</SlotType>
     <BagType>6</BagType>
   </Object>
