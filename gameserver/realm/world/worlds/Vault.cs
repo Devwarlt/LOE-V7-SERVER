@@ -26,7 +26,7 @@ namespace LoESoft.GameServer.realm.world
         {
             Id = (int)WorldID.VAULT_ID;
             Name = "Vault";
-            ClientWorldName = "server.Vault";
+            ClientWorldName = "Vault";
             Background = 2;
             this.psr = psr;
             this.isLimbo = isLimbo;

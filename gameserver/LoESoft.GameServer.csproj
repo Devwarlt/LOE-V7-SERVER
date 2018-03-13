@@ -725,6 +725,7 @@
     <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_1.json" />
     <EmbeddedResource Include="realm\world\maps\json\LoE-test.json" />
     <EmbeddedResource Include="realm\mapsetpiece\maps\succubus.jm" />
+    <EmbeddedResource Include="realm\world\maps\json\Beach.jm" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="realm\world\maps\json\dungeons\spider den\" />

@@ -18,13 +18,14 @@ namespace LoESoft.GameServer.logic
                     new State("flashing",
                         new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xFF0000, 0.5, (int)(10 / 0.5)),
-                        new TimedTransition(10000, "final")
+                        new TimedTransition(5000, "final")
                         ),
                     new State("final",
-                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
+						new AddCond(ConditionEffectIndex.StunImmune),
+						new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(30, 9, 10, coolDown: 750, aim: 1),
-                        new Reproduce("Red Flaming Skull", 40, 20, coolDown: 500),
-                        new Reproduce("Blue Flaming Skull", 40, 20, coolDown: 500),
+                        new Reproduce("Red Flaming Skull", 40, 20, coolDown: 5000),
+                        new Reproduce("Blue Flaming Skull", 40, 20, coolDown: 5000),
                         new Flashing(0xFF0000, 0.5, int.MaxValue / 2)
                         )
                     ),

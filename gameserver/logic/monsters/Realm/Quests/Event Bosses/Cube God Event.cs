@@ -19,10 +19,11 @@ namespace LoESoft.GameServer.logic
                     new State("flashing",
                         new AddCond(ConditionEffectIndex.Invulnerable), // ok
                         new Flashing(0xFF0000, 0.5, (int)(10 / 0.5)),
-                        new TimedTransition(10000, "final")
+                        new TimedTransition(5000, "final")
                         ),
                     new State("final",
-                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
+						new AddCond(ConditionEffectIndex.StunImmune),
+						new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Wander(3),
                         new Shoot(30, 9, 10, 0, aim: .15, coolDown: 500),
                         new Shoot(30, 4, 10, 1, aim: .15, coolDown: 750),
@@ -68,8 +69,8 @@ namespace LoESoft.GameServer.logic
                         new Circle(3.75, 10, 30, "Cube God", .075, 5),
                         new Wander(3.75)
                         ),
-                    new Reproduce("Cube Defender", 12, 10, coolDown: 1000),
-                    new Reproduce("Cube Blaster", 30, 10, coolDown: 1000),
+                    new Reproduce("Cube Defender", 12, 5, coolDown: 1000),
+                    new Reproduce("Cube Blaster", 30, 5, coolDown: 1000),
                     new Shoot(10, 4, 10, 0, coolDown: 750),
                     new Shoot(10, index: 1, coolDown: 1500)
                     ),
