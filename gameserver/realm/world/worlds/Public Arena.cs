@@ -11,7 +11,9 @@ using LoESoft.GameServer.realm.terrain;
 
 namespace LoESoft.GameServer.realm.world
 {
-    public class PublicArena : World
+    public interface IArena { }
+
+    public class PublicArena : World, IArena
     {
         private bool ready = true;
         private bool waiting = false;

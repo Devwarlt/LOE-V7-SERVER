@@ -1,6 +1,7 @@
 ﻿#region
 
 using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.world;
 
 #endregion
 
@@ -12,6 +13,9 @@ namespace LoESoft.GameServer.logic.behaviors
         {
             parent.Death += (e, s) =>
             {
+                if (s.Host.Owner is IArena)
+                    return;
+
                 Entity en = s.Host.GetNearestEntity(100, 0x5e4b);
                 Entity portal = Entity.Resolve("Realm Portal");
 
@@ -26,7 +30,12 @@ namespace LoESoft.GameServer.logic.behaviors
 
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {
-            if (host.GetNearestEntity(100, 0x5e4b) != null) return;
+            if (host.Owner is IArena)
+                return;
+
+            if (host.GetNearestEntity(100, 0x5e4b) != null)
+                return;
+
             Entity opener = Entity.Resolve("Realm Portal Opener");
             host.Owner.EnterWorld(opener);
             opener.Move(host.X, host.Y);

@@ -13,7 +13,6 @@ using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core;
 using LoESoft.GameServer.logic.skills.Pets;
-using LoESoft.Core.models;
 
 #endregion
 

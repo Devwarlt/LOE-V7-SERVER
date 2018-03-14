@@ -1,12 +1,11 @@
 ﻿#region
 using LoESoft.GameServer.logic.behaviors;
-using LoESoft.GameServer.logic.loot;
 using LoESoft.GameServer.logic.transitions;
 #endregion
 
 namespace LoESoft.GameServer.logic
 {
-	partial class BehaviorDb
+    partial class BehaviorDb
 	{
 		private _ Avatar = () => Behav()
 			.Init("shtrs Defense System",

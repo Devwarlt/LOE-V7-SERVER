@@ -2,7 +2,6 @@
 
 using LoESoft.Core;
 using LoESoft.Core.config;
-using LoESoft.Core.models;
 using LoESoft.GameServer.realm;
 using System;
 using System.Net.Sockets;

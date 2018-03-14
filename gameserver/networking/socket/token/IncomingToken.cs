@@ -1,7 +1,4 @@
-﻿using LoESoft.Core.models;
-using System;
-
-namespace LoESoft.GameServer.networking
+﻿namespace LoESoft.GameServer.networking
 {
     internal partial class NetworkHandler
     {
