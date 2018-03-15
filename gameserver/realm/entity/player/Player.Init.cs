@@ -461,7 +461,7 @@ namespace LoESoft.GameServer.realm.entity.player
             if (candidates.Count != 0)
             {
                 Enemy newQuest = candidates.OrderByDescending(i => QuestPriority(i.ObjectDesc)).Take(3).ToList()[0];
-                
+
                 newQuestId = newQuest.Id;
                 Quest = newQuest;
             }

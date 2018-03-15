@@ -185,20 +185,20 @@ namespace LoESoft.GameServer.logic
                             )
                         )
                     ),
-			     new PinkBag(ItemType.Weapon, 6),
-				 new PinkBag(ItemType.Armor, 5),
-				 new PinkBag(ItemType.Armor, 7),
-				 new PinkBag(ItemType.Ability, 1),
-				 new PinkBag(ItemType.Ability, 2),
-				 new Drops(
-					new OnlyOne(
-						new PurpleBag(ItemType.Weapon, 7),
-						new PurpleBag(ItemType.Ability, 3),
-						new PurpleBag(ItemType.Ring, 2),
-						new PurpleBag(ItemType.Ring, 3)
-						)
-					 ),
-				new ItemLoot("Health Potion", 0.7),
+                 new PinkBag(ItemType.Weapon, 6),
+                 new PinkBag(ItemType.Armor, 5),
+                 new PinkBag(ItemType.Armor, 7),
+                 new PinkBag(ItemType.Ability, 1),
+                 new PinkBag(ItemType.Ability, 2),
+                 new Drops(
+                    new OnlyOne(
+                        new PurpleBag(ItemType.Weapon, 7),
+                        new PurpleBag(ItemType.Ability, 3),
+                        new PurpleBag(ItemType.Ring, 2),
+                        new PurpleBag(ItemType.Ring, 3)
+                        )
+                     ),
+                new ItemLoot("Health Potion", 0.7),
                 new ItemLoot("Magic Potion", 0.7)
             )
 

@@ -21,8 +21,8 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(5000, "final")
                         ),
                     new State("final",
-						new AddCond(ConditionEffectIndex.StunImmune),
-						new RemCond(ConditionEffectIndex.Invulnerable), // ok
+                        new AddCond(ConditionEffectIndex.StunImmune),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Shoot(30, 9, 10, coolDown: 750, aim: 1),
                         new Reproduce("Red Flaming Skull", 40, 20, coolDown: 5000),
                         new Reproduce("Blue Flaming Skull", 40, 20, coolDown: 5000),
@@ -62,7 +62,7 @@ namespace LoESoft.GameServer.logic
                     )
             )
 
-			.Init("Red Flaming Skull",
+            .Init("Red Flaming Skull",
                 new State(
                     new State("Orbit Skull Shrine",
                         new Prioritize(

@@ -22,8 +22,8 @@ namespace LoESoft.GameServer.logic
                         new TimedTransition(5000, "final")
                         ),
                     new State("final",
-						new AddCond(ConditionEffectIndex.StunImmune),
-						new RemCond(ConditionEffectIndex.Invulnerable), // ok
+                        new AddCond(ConditionEffectIndex.StunImmune),
+                        new RemCond(ConditionEffectIndex.Invulnerable), // ok
                         new Wander(3),
                         new Shoot(30, 9, 10, 0, aim: .15, coolDown: 500),
                         new Shoot(30, 4, 10, 1, aim: .15, coolDown: 750),

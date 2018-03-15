@@ -231,7 +231,8 @@ namespace LoESoft.GameServer.networking.handlers
                     client.Player.UpdateCount++;
                     client.Player.SaveToCharacter();
                 }, PendingPriority.Networking);
-            } catch (NullReferenceException ex)
+            }
+            catch (NullReferenceException ex)
             {
                 GameServer.log.Error(ex);
                 return;

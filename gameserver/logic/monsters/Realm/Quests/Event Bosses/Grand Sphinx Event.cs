@@ -7,7 +7,7 @@ namespace LoESoft.GameServer.logic
     partial class BehaviorDb
     {
         private _ EventBossesGrandSphinxEvent = () => Behav()
-		// credit: mike for making this
+            // credit: mike for making this
             .Init("Grand Sphinx",
             new State(
                 new DropPortalOnDeath("Tomb of the Ancients Portal", 20, PortalDespawnTimeSec: 45),

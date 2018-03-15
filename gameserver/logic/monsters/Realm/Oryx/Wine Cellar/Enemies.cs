@@ -22,7 +22,7 @@ namespace LoESoft.GameServer.logic
                 new Shoot(8, index: 1, shoots: 3, shootAngle: 20, coolDown: 1500, coolDownOffset: 500)
                 )
             )
-        
+
         .Init("Aberrant of Oryx",
             new State(
                 new Protect(8, "Henchman of Oryx", 15, 8, 2),
@@ -97,7 +97,7 @@ namespace LoESoft.GameServer.logic
                     )
                 )
             )
-        
+
         .Init("Monstrosity Scarab",
             new State(
                 new State("searching",

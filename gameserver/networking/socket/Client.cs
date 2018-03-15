@@ -32,7 +32,7 @@ namespace LoESoft.GameServer.networking
 
             IncomingCipher = new RC4(Settings.NETWORKING.INCOMING_CIPHER);
             OutgoingCipher = new RC4(Settings.NETWORKING.OUTGOING_CIPHER);
-            
+
             handler = new NetworkHandler(this, Socket);
             handler.BeginHandling();
         }

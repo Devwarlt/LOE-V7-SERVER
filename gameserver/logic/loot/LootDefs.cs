@@ -82,7 +82,7 @@ namespace LoESoft.GameServer.logic.loot
         private readonly ItemType itemType;
         private readonly byte tier;
 
-        public string Lootstate { get ; set ; }
+        public string Lootstate { get; set; }
 
         public PinkBag(ItemType itemType, byte tier)
         {

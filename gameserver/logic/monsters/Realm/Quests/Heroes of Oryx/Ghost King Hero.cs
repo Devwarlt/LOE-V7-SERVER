@@ -248,24 +248,24 @@ namespace LoESoft.GameServer.logic
                     new Flashing(0xff000000, 0.4, 100),
                     new BackAndForth(5, distance: 3)
                     ),
-				 new PinkBag(ItemType.Weapon, 6),
-				 new PinkBag(ItemType.Armor, 5),
-				 new PinkBag(ItemType.Armor, 6),
-			     new PinkBag(ItemType.Ability, 2),
-				 new Drops(
-					new OnlyOne(
-						new PurpleBag(ItemType.Weapon, 7),
-						new PurpleBag(ItemType.Weapon, 8),
-						new PurpleBag(ItemType.Armor, 7),
-						new PurpleBag(ItemType.Ability, 3),
-						new PurpleBag(ItemType.Ability, 4),
-						new PurpleBag(ItemType.Ring, 2),
-						new PurpleBag(ItemType.Ring, 3)
-						)
-					)
-			)
+                 new PinkBag(ItemType.Weapon, 6),
+                 new PinkBag(ItemType.Armor, 5),
+                 new PinkBag(ItemType.Armor, 6),
+                 new PinkBag(ItemType.Ability, 2),
+                 new Drops(
+                    new OnlyOne(
+                        new PurpleBag(ItemType.Weapon, 7),
+                        new PurpleBag(ItemType.Weapon, 8),
+                        new PurpleBag(ItemType.Armor, 7),
+                        new PurpleBag(ItemType.Ability, 3),
+                        new PurpleBag(ItemType.Ability, 4),
+                        new PurpleBag(ItemType.Ring, 2),
+                        new PurpleBag(ItemType.Ring, 3)
+                        )
+                    )
+            )
 
-			.Init("Small Ghost",
+            .Init("Small Ghost",
                 new State(
                     new TransformOnDeath("Medium Ghost"),
                     new State("NewLocation",

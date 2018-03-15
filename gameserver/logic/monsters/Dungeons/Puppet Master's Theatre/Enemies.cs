@@ -299,7 +299,7 @@ namespace LoESoft.GameServer.logic
                 new ItemLoot("Wine Cellar Incantation", 0.002)
                 )
             )
-        
+
         .Init("Minion Puppet",
                 new State(
                     new State(
