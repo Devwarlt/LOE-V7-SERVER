@@ -98,14 +98,25 @@ namespace LoESoft.GameServer.logic
                 rootState.Resolve(d);
                 rootState.ResolveChildren(d);
                 EmbeddedData dat = InitDb.Manager.GameData;
-                if (defs.Length > 0)
+                try
                 {
-                    var loot = new Loot(defs);
-                    rootState.Death += (sender, e) => loot.Handle((Enemy)e.Host, e.Time);
-                    InitDb.Definitions.Add(dat.IdToObjectType[objType], new Tuple<State, Loot>(rootState, loot));
+                    if (InitDb.Definitions.ContainsKey(dat.IdToObjectType[objType]))
+                        Log.Warn($"Duplicated behavior for entity '{objType}'.");
+                    else
+                    {
+                        if (defs.Length > 0)
+                        {
+                            var loot = new Loot(defs);
+                            rootState.Death += (sender, e) => loot.Handle((Enemy)e.Host, e.Time);
+                            InitDb.Definitions.Add(dat.IdToObjectType[objType], new Tuple<State, Loot>(rootState, loot));
+                        }
+                        else
+                            InitDb.Definitions.Add(dat.IdToObjectType[objType], new Tuple<State, Loot>(rootState, null));
+                    }
                 }
-                else
-                    InitDb.Definitions.Add(dat.IdToObjectType[objType], new Tuple<State, Loot>(rootState, null));
+                catch (KeyNotFoundException)
+                { Log.Warn($"[State: {rootState.ToString()}] There is no definition for entity '{objType}' in game assets."); }
+
                 return this;
             }
         }

@@ -240,17 +240,17 @@ namespace LoESoft.GameServer.logic
                         ),
                     new State("Close Bridge2",
                         new AddCond(ConditionEffectIndex.Invulnerable),
-                        new EntityOrder(46, "shtrs Bridge Closer2", "Closer"),
+                        //new EntityOrder(46, "shtrs Bridge Closer2", "Closer"),
                         new TimedTransition(5000, "Close Bridge3")
                         ),
                     new State("Close Bridge3",
                         new AddCond(ConditionEffectIndex.Invulnerable),
-                        new EntityOrder(46, "shtrs Bridge Closer3", "Closer"),
+                        //new EntityOrder(46, "shtrs Bridge Closer3", "Closer"),
                         new TimedTransition(5000, "Close Bridge4")
                         ),
                     new State("Close Bridge4",
                         new AddCond(ConditionEffectIndex.Invulnerable),
-                        new EntityOrder(46, "shtrs Bridge Closer4", "Closer"),
+                        //new EntityOrder(46, "shtrs Bridge Closer4", "Closer"),
                         new TimedTransition(6000, "BEGIN")
                         ),
                     new State("BEGIN",
@@ -355,7 +355,7 @@ namespace LoESoft.GameServer.logic
                             ),
                         new State("Suicide",
                             new Shoot(35, index: 0, shoots: 30),
-                            new EntityOrder(1, "shtrs Chest Spawner 1", "Open"),
+                            //new EntityOrder(1, "shtrs Chest Spawner 1", "Open"),
                             new EntityOrder(46, "shtrs Spawn Bridge", "Open"),
                             new Suicide()
                     )
@@ -553,7 +553,7 @@ namespace LoESoft.GameServer.logic
                             new AddCond(ConditionEffectIndex.Invulnerable),
                             new Taunt("IM..POSSI...BLE!"),
                             new CopyDamageOnDeath("shtrs Loot Balloon Mage"),
-                            new EntityOrder(1, "shtrs Chest Spawner 2", "Open"),
+                            //new EntityOrder(1, "shtrs Chest Spawner 2", "Open"),
                             new TimedTransition(2000, "Suicide")
                             ),
                         new State("Suicide",
@@ -1289,13 +1289,13 @@ namespace LoESoft.GameServer.logic
             )
         #endregion SomeMobs
         #region WOODENGATESSWITCHESBRIDGES
-            .Init("shtrs Wooden Gate 3",
-                new State(
-                    new State("Despawn",
-                        new Decay(0)
-                        )
-                    )
-            )
+            //.Init("shtrs Wooden Gate 3",
+            //    new State(
+            //        new State("Despawn",
+            //            new Decay(0)
+            //            )
+            //        )
+            //)
             //.Init("OBJECTHERE",
             //new State(
             //      new EntityNotExistTransition("shtrs Abandoned Switch 1", 10, "OPENGATE")
@@ -1315,16 +1315,16 @@ namespace LoESoft.GameServer.logic
                         )
                     )
             )
-            .Init("shtrs Wooden Gate 2",
-                new State(
-                    new State("Idle",
-                        new EntityNotExistsTransition("shtrs Abandoned Switch 2", 60, "Despawn")
-                        ),
-                    new State("Despawn",
-                        new Decay(0)
-                        )
-                    )
-            )
+            //.Init("shtrs Wooden Gate 2",
+            //    new State(
+            //        new State("Idle",
+            //            new EntityNotExistsTransition("shtrs Abandoned Switch 2", 60, "Despawn")
+            //            ),
+            //        new State("Despawn",
+            //            new Decay(0)
+            //            )
+            //        )
+            //)
         .Init("shtrs Bridge Closer",
             new State(
                 new State("Idle",
@@ -1343,60 +1343,60 @@ namespace LoESoft.GameServer.logic
                     )
                 )
             )
-        .Init("shtrs Bridge Closer2",
-            new State(
-                new State("Idle",
-                    new AddCond(ConditionEffectIndex.Invincible)
-                    ),
-                new State("Closer",
-                    new ChangeGroundOnDeath(new[] { "shtrs Bridge" }, new[] { "shtrs Pure Evil" },
-                        1),
-                    new Suicide()
-                    ),
-                new State("TwilightClose",
-                    new ChangeGroundOnDeath(new[] { "shtrs Shattered Floor", "shtrs Disaster Floor" }, new[] { "shtrs Pure Evil" },
-                        1),
-                    new Suicide()
+        //.Init("shtrs Bridge Closer2",
+        //    new State(
+        //        new State("Idle",
+        //            new AddCond(ConditionEffectIndex.Invincible)
+        //            ),
+        //        new State("Closer",
+        //            new ChangeGroundOnDeath(new[] { "shtrs Bridge" }, new[] { "shtrs Pure Evil" },
+        //                1),
+        //            new Suicide()
+        //            ),
+        //        new State("TwilightClose",
+        //            new ChangeGroundOnDeath(new[] { "shtrs Shattered Floor", "shtrs Disaster Floor" }, new[] { "shtrs Pure Evil" },
+        //                1),
+        //            new Suicide()
 
-                    )
-                )
-            )
-        .Init("shtrs Bridge Closer3",
-            new State(
-                new State("Idle",
-                    new AddCond(ConditionEffectIndex.Invincible)
-                    ),
-                new State("Closer",
-                    new ChangeGroundOnDeath(new[] { "shtrs Bridge" }, new[] { "shtrs Pure Evil" },
-                        1),
-                    new Suicide()
-                    ),
-                new State("TwilightClose",
-                    new ChangeGroundOnDeath(new[] { "shtrs Shattered Floor", "shtrs Disaster Floor" }, new[] { "shtrs Pure Evil" },
-                        1),
-                    new Suicide()
+        //            )
+        //        )
+        //    )
+        //.Init("shtrs Bridge Closer3",
+        //    new State(
+        //        new State("Idle",
+        //            new AddCond(ConditionEffectIndex.Invincible)
+        //            ),
+        //        new State("Closer",
+        //            new ChangeGroundOnDeath(new[] { "shtrs Bridge" }, new[] { "shtrs Pure Evil" },
+        //                1),
+        //            new Suicide()
+        //            ),
+        //        new State("TwilightClose",
+        //            new ChangeGroundOnDeath(new[] { "shtrs Shattered Floor", "shtrs Disaster Floor" }, new[] { "shtrs Pure Evil" },
+        //                1),
+        //            new Suicide()
 
-                    )
-                )
-            )
-        .Init("shtrs Bridge Closer4",
-            new State(
-                new State("Idle",
-                    new AddCond(ConditionEffectIndex.Invincible)
-                    ),
-                new State("Closer",
-                    new ChangeGroundOnDeath(new[] { "shtrs Bridge" }, new[] { "shtrs Pure Evil" },
-                        1),
-                    new Suicide()
-                    ),
-                new State("TwilightClose",
-                    new ChangeGroundOnDeath(new[] { "shtrs Shattered Floor", "shtrs Disaster Floor" }, new[] { "shtrs Pure Evil" },
-                        1),
-                    new Suicide()
+        //            )
+        //        )
+        //    )
+        //.Init("shtrs Bridge Closer4",
+        //    new State(
+        //        new State("Idle",
+        //            new AddCond(ConditionEffectIndex.Invincible)
+        //            ),
+        //        new State("Closer",
+        //            new ChangeGroundOnDeath(new[] { "shtrs Bridge" }, new[] { "shtrs Pure Evil" },
+        //                1),
+        //            new Suicide()
+        //            ),
+        //        new State("TwilightClose",
+        //            new ChangeGroundOnDeath(new[] { "shtrs Shattered Floor", "shtrs Disaster Floor" }, new[] { "shtrs Pure Evil" },
+        //                1),
+        //            new Suicide()
 
-                    )
-                )
-            )
+        //            )
+        //        )
+        //    )
         .Init("shtrs Spawn Bridge",
             new State(
                 new State("Idle",
@@ -1409,50 +1409,50 @@ namespace LoESoft.GameServer.logic
                     )
                 )
             )
-        .Init("shtrs Spawn Bridge 2",
-            new State(
-                new State("Idle",
-                    new AddCond(ConditionEffectIndex.Invincible),
-                    new EntityNotExistsTransition("shtrs Abandoned Switch 3", 500, "Open")
-                    ),
-                new State("Open",
-                    new ChangeGroundOnDeath(new[] { "shtrs Pure Evil" }, new[] { "shtrs Shattered Floor" },
-                        1),
-                    new Suicide()
-                    ),
-                new State("CloseBridge2",
-                    new ChangeGroundOnDeath(new[] { "shtrs Shattered Floor" }, new[] { "shtrs Pure Evil" },
-                        1),
-                    new Suicide()
-                    )
-                )
-            )
-        .Init("shtrs Spawn Bridge 3",
-            new State(
-                new State("Idle",
-                    new AddCond(ConditionEffectIndex.Invincible),
-                    new EntityNotExistsTransition("shtrs Twilight Archmage", 500, "Open")
-                    ),
-                new State("Open",
-                    new ChangeGroundOnDeath(new[] { "shtrs Pure Evil" }, new[] { "shtrs Shattered Floor" },
-                        1),
-                    new Suicide()
-                    )
-                )
-            )
-        .Init("shtrs Spawn Bridge 5",
-            new State(
-                new State("Idle",
-                    new AddCond(ConditionEffectIndex.Invincible),
-                    new EntityNotExistsTransition("shtrs Royal Guardian L", 100, "Open")
-                    ),
-                new State("Open",
-                    new ChangeGroundOnDeath(new[] { "Dark Cobblestone" }, new[] { "Hot Lava" },
-                        1),
-                    new Suicide()
-                    )
-                )
-            )
+        //.Init("shtrs Spawn Bridge 2",
+        //    new State(
+        //        new State("Idle",
+        //            new AddCond(ConditionEffectIndex.Invincible),
+        //            new EntityNotExistsTransition("shtrs Abandoned Switch 3", 500, "Open")
+        //            ),
+        //        new State("Open",
+        //            new ChangeGroundOnDeath(new[] { "shtrs Pure Evil" }, new[] { "shtrs Shattered Floor" },
+        //                1),
+        //            new Suicide()
+        //            ),
+        //        new State("CloseBridge2",
+        //            new ChangeGroundOnDeath(new[] { "shtrs Shattered Floor" }, new[] { "shtrs Pure Evil" },
+        //                1),
+        //            new Suicide()
+        //            )
+        //        )
+        //    )
+        //.Init("shtrs Spawn Bridge 3",
+        //    new State(
+        //        new State("Idle",
+        //            new AddCond(ConditionEffectIndex.Invincible),
+        //            new EntityNotExistsTransition("shtrs Twilight Archmage", 500, "Open")
+        //            ),
+        //        new State("Open",
+        //            new ChangeGroundOnDeath(new[] { "shtrs Pure Evil" }, new[] { "shtrs Shattered Floor" },
+        //                1),
+        //            new Suicide()
+        //            )
+        //        )
+        //    )
+        //.Init("shtrs Spawn Bridge 5",
+        //    new State(
+        //        new State("Idle",
+        //            new AddCond(ConditionEffectIndex.Invincible),
+        //            new EntityNotExistsTransition("shtrs Royal Guardian L", 100, "Open")
+        //            ),
+        //        new State("Open",
+        //            new ChangeGroundOnDeath(new[] { "Dark Cobblestone" }, new[] { "Hot Lava" },
+        //                1),
+        //            new Suicide()
+        //            )
+        //        )
+        //    )
         #endregion WOODENGATESSWITCHESBRIDGES
         #region 3rdboss
             .Init("shtrs The Forgotten King",
@@ -1865,7 +1865,7 @@ namespace LoESoft.GameServer.logic
                         new State("Death",
                             new AddCond(ConditionEffectIndex.Invulnerable),
                             new CopyDamageOnDeath("shtrs Loot Balloon King"),
-                            new EntityOrder(1, "shtrs Chest Spawner 3", "Open"),
+                            //new EntityOrder(1, "shtrs Chest Spawner 3", "Open"),
                             new Taunt("Impossible..........IMPOSSIBLE!"),
                             new TimedTransition(2000, "Suicide")
                             ),
