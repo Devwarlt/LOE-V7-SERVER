@@ -1,5 +1,243 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
+	<Object type="0xc400" id="shtrs Wooden Gate 2">
+		<Class>Wall</Class>
+		<RandomTexture>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x44f</Index>
+			</Texture>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x450</Index>
+			</Texture>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x451</Index>
+			</Texture>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x452</Index>
+			</Texture>
+		</RandomTexture>
+		<Top>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x574</Index>
+			</Texture>
+		</Top>
+		<HitSound>monster/wooden_walls_hit</HitSound>
+		<DeathSound>monster/wooden_walls_death</DeathSound>
+		<FullOccupy/>
+		<OccupySquare/>
+		<EnemyOccupySquare/>
+		<BlocksSight/>
+		<DisplayId>shtrs Wooden Gate 2</DisplayId>
+	</Object>
+	<Object type="0xc401" id="shtrs Wooden Gate 3">
+		<Class>Wall</Class>
+		<RandomTexture>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x44f</Index>
+			</Texture>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x450</Index>
+			</Texture>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x451</Index>
+			</Texture>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x452</Index>
+			</Texture>
+		</RandomTexture>
+		<Top>
+			<Texture>
+				<File>lofiObj3</File>
+				<Index>0x574</Index>
+			</Texture>
+		</Top>
+		<HitSound>monster/wooden_walls_hit</HitSound>
+		<DeathSound>monster/wooden_walls_death</DeathSound>
+		<FullOccupy/>
+		<OccupySquare/>
+		<EnemyOccupySquare/>
+		<BlocksSight/>
+		<Static/>
+		<DisplayId>shtrs Wooden Gate 3</DisplayId>
+	</Object>
+	<Object type="0xc412" id="shtrs Chest Spawner 1">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>shtrs Chest Spawner 1</DisplayId>
+	</Object>
+	<Object type="0xc413" id="shtrs Chest Spawner 2">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>shtrs Chest Spawner 2</DisplayId>
+	</Object>
+	<Object type="0xc414" id="shtrs Chest Spawner 3">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>shtrs Chest Spawner 3</DisplayId>
+	</Object>
+	<Object type="0xc405" id="shtrs Spawn Bridge 2">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs spawn bridge 2}</DisplayId>
+	</Object>
+	<Object type="0xc406" id="shtrs Spawn Bridge 3">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs spawn bridge 3}</DisplayId>
+	</Object>
+	<Object type="0xc407" id="shtrs Spawn Bridge 4">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs spawn bridge 4}</DisplayId>
+	</Object>
+	<Object type="0xc408" id="shtrs Spawn Bridge 5">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs spawn bridge 5}</DisplayId>
+	</Object>
+	<Object type="0xc409" id="shtrs Spawn Bridge 6">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs spawn bridge 6}</DisplayId>
+	</Object>
+	<Object type="0xc410" id="shtrs Spawn Bridge 7">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs spawn bridge 7}</DisplayId>
+	</Object>
+	<Object type="0xc411" id="shtrs Spawn Bridge 8">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs spawn bridge 8</DisplayId>
+	</Object>
+	<Object type="0xc402" id="shtrs Bridge Closer2">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs bridge closer 2}</DisplayId>
+	</Object>
+	<Object type="0xc403" id="shtrs Bridge Closer3">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs bridge closer 3</DisplayId>
+	</Object>
+	<Object type="0xc404" id="shtrs Bridge Closer4">
+		<Class>Character</Class>
+		<Enemy/>
+		<Texture>
+			<File>invisible</File>
+			<Index>0</Index>
+		</Texture>
+		<NoMiniMap/>
+		<Size>0</Size>
+		<XpMult>0.0</XpMult>
+		<StasisImmune/>
+		<DisplayId>{shtrs bridge closer 4</DisplayId>
+	</Object>
 	<Object type="0x6709" id="NPC Gazer">
 		<DisplayId>Gazer</DisplayId>
 		<Class>Character</Class>

@@ -28,7 +28,6 @@
 		</Top>
 		<HitSound>monster/wooden_walls_hit</HitSound>
 		<DeathSound>monster/wooden_walls_death</DeathSound>
-		<Static />
 		<FullOccupy />
 		<OccupySquare />
 		<EnemyOccupySquare />
@@ -1412,6 +1411,14 @@
 			<ConditionEffect duration="3">Slowed</ConditionEffect>
 			<Amplitude>1.5</Amplitude>
 			<Frequency>3</Frequency>
+		</Projectile>
+	<Projectile id="4">
+			<ObjectId>Fire Bullet</ObjectId>
+			<Speed>30</Speed>
+			<ArmorPiercing/>
+			<MinDamage>163</MinDamage>
+			<MaxDamage>213</MaxDamage>
+			<LifetimeMS>6000</LifetimeMS>
 		</Projectile>
 	</Object>
 	<Object type="0x728d" id="shtrs Firebomb">
