@@ -151,6 +151,8 @@
     <Compile Include="logic\monsters\Dungeons\Puppet Master%27s Theatre\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\Snake Pit\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\Spider Den\Enemies.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Bosses\Bridge Sentinel.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Bosses\TwilightMage.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Fire Adept.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Glassier Archmage.cs" />
@@ -158,7 +160,6 @@
     <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Lava Souls.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Stone Paladin.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Stone Knight.cs" />
-    <Compile Include="logic\monsters\Dungeons\The Shatters\The Forgotten King.cs" />
     <Compile Include="logic\monsters\Editions\Edition 1\Bosses.cs" />
     <Compile Include="logic\monsters\Editions\Edition 1\MiniBosses.cs" />
     <Compile Include="logic\monsters\Editions\Edition 1\Minions.cs" />
