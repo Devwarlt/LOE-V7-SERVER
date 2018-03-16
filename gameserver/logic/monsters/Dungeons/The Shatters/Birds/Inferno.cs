@@ -7,7 +7,7 @@ namespace LoESoft.GameServer.logic.monsters.Dungeons.The_Shatters.Regular_Enemie
 	public class Inferno : IBehavior
 	{
 		public State Behavior() =>
-			new State(
+			new State("Start",
 				new State(
 					new Circle(0.5, 4, 15, "shtrs Blizzard"),
 							new Shoot(0, index: 0, shoots: 6, shootAngle: 60, angleOffset: 15, coolDown: 4333),
@@ -16,3 +16,6 @@ namespace LoESoft.GameServer.logic.monsters.Dungeons.The_Shatters.Regular_Enemie
 							new Shoot(0, index: 0, shoots: 6, shootAngle: 60, angleOffset: 90, coolDown: 10000)
 				)
 			)
+			;
+	}
+}

@@ -151,7 +151,10 @@
     <Compile Include="logic\monsters\Dungeons\Puppet Master%27s Theatre\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\Snake Pit\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\Spider Den\Enemies.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Birds\Blizzard.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Birds\Inferno.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Bosses\Bridge Sentinel.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Bosses\ForgottenKing.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Bosses\TwilightMage.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Fire Adept.cs" />
