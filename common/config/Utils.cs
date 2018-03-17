@@ -38,8 +38,8 @@ namespace LoESoft.Core.config
         /// Return latest supportable version to play (min version required).
         /// </summary>
         /// <returns></returns>
-        public static GameVersion LatestSupportedVersion
-        { get { return PLAYABLE_VERSIONS()[0]; } }
+        public static GameVersion LatestSupportedVersion =>
+            PLAYABLE_VERSIONS()[0];
     }
 
     public partial class Settings

@@ -22,7 +22,7 @@ namespace LoESoft.Core.config
             public static class INTERNAL
             {
                 public static readonly List<string> PRODUCTION_DDNS = new List<string>{
-                    "testing.loesoft.org", "localhost"
+                    "testing.loesoftgames.ignorelist.com", "localhost"
                 };
 
                 /// <summary>
