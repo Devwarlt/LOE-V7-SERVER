@@ -112,7 +112,7 @@ namespace LoESoft.GameServer.realm.commands
 
             player.Move(1000f, 1000f);
 
-            player.Owner.BroadcastPacket(new GOTO
+            player.Owner.BroadcastMessage(new GOTO
             {
                 ObjectId = player.Id,
                 Position = new Position
@@ -426,7 +426,7 @@ namespace LoESoft.GameServer.realm.commands
                 }
                 player.Move(x + 0.5f, y + 0.5f);
                 player.UpdateCount++;
-                player.Owner.BroadcastPacket(new GOTO
+                player.Owner.BroadcastMessage(new GOTO
                 {
                     ObjectId = player.Id,
                     Position = new Position
@@ -637,7 +637,7 @@ namespace LoESoft.GameServer.realm.commands
             {
                 World world = w.Value;
                 if (w.Key != 0)
-                    world.BroadcastPacket(new TEXT
+                    world.BroadcastMessage(new TEXT
                     {
                         Name = "@ANNOUNCEMENT",
                         Stars = -1,
@@ -669,7 +669,7 @@ namespace LoESoft.GameServer.realm.commands
             }
             player.Move(player.Quest.X + 0.5f, player.Quest.Y + 0.5f);
             player.UpdateCount++;
-            player.Owner.BroadcastPacket(new GOTO
+            player.Owner.BroadcastMessage(new GOTO
             {
                 ObjectId = player.Id,
                 Position = new Position

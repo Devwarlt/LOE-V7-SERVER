@@ -86,7 +86,7 @@ namespace LoESoft.GameServer.realm.entity.player
                         {
                             List<Message> pkts = new List<Message>();
                             ActivateHealHp(this, eff.Amount, pkts);
-                            Owner?.BroadcastPackets(pkts, null);
+                            Owner?.BroadcastMessage(pkts, null);
                         }
                         break;
                     case ActivateEffects.HealNova:
@@ -115,7 +115,7 @@ namespace LoESoft.GameServer.realm.entity.player
                         {
                             List<Message> pkts = new List<Message>();
                             ActivateHealMp(this, eff.Amount, pkts);
-                            Owner?.BroadcastPackets(pkts, null);
+                            Owner?.BroadcastMessage(pkts, null);
                         }
                         break;
                     case ActivateEffects.MagicNova:
@@ -129,7 +129,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 Color = new ARGB(0xffffffff),
                                 PosA = new Position { X = eff.Range }
                             });
-                            Owner?.BroadcastPackets(pkts, null);
+                            Owner?.BroadcastMessage(pkts, null);
                         }
                         break;
                     case ActivateEffects.Teleport:
@@ -142,7 +142,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                             Move(target.X, target.Y);
                             UpdateCount++;
-                            Owner?.BroadcastPackets(new Message[]
+                            Owner?.BroadcastMessage(new Message[]
                             {
                                 new GOTO
                                 {
@@ -386,7 +386,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 {
                                     Owner.Timers.Add(new WorldTimer(1500, (world, t) =>
                                     {
-                                        world.BroadcastPacket(new SHOWEFFECT
+                                        world.BroadcastMessage(new SHOWEFFECT
                                         {
                                             EffectType = EffectType.Nova,
                                             Color = new ARGB(0xffddff00),
@@ -452,7 +452,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     case ActivateEffects.RemoveNegativeConditionsSelf:
                         {
                             ApplyConditionEffect(NegativeEffs);
-                            Owner?.BroadcastPacket(new SHOWEFFECT
+                            Owner?.BroadcastMessage(new SHOWEFFECT
                             {
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
@@ -562,14 +562,14 @@ namespace LoESoft.GameServer.realm.entity.player
                                 entity?.Move(X, Y);
                                 w?.EnterWorld(entity);
 
-                                w.BroadcastPacket(new NOTIFICATION
+                                w.BroadcastMessage(new NOTIFICATION
                                 {
                                     Color = c,
                                     Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Opened by " + Name + "\"}}",
                                     ObjectId = Client.Player.Id
                                 }, null);
 
-                                w.BroadcastPacket(new TEXT
+                                w.BroadcastMessage(new TEXT
                                 {
                                     BubbleTime = 0,
                                     Stars = -1,
@@ -745,7 +745,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 ObjectId = Client.Player.Id
                             });
 
-                            Owner?.BroadcastPacket(new TEXT
+                            Owner?.BroadcastMessage(new TEXT
                             {
                                 BubbleTime = 0,
                                 Stars = -1,
@@ -1046,7 +1046,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 Boost[idx] = OGstat;
                                 UpdateCount++;
                             }));
-                            Owner?.BroadcastPacket(new SHOWEFFECT
+                            Owner?.BroadcastMessage(new SHOWEFFECT
                             {
                                 EffectType = EffectType.Heal,
                                 TargetId = Id,
@@ -1200,7 +1200,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 DurationMS = durationCES
                             });
 
-                            Owner?.BroadcastPacket(new SHOWEFFECT
+                            Owner?.BroadcastMessage(new SHOWEFFECT
                             {
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
@@ -1254,7 +1254,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                             _outgoing.Add(_showeffect);
 
-                            Owner.BroadcastPackets(_outgoing, null);
+                            Owner.BroadcastMessage(_outgoing, null);
 
                             acc.AccountLifetime = DateTime.Now;
                             acc.AccountLifetime = acc.AccountLifetime.AddDays(days);
@@ -1425,7 +1425,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 tmr = new WorldTimer(100, (w, t) =>
                 {
                     if (enemy.Owner == null) return;
-                    w.BroadcastPacket(new SHOWEFFECT
+                    w.BroadcastMessage(new SHOWEFFECT
                     {
                         EffectType = EffectType.Poison,
                         TargetId = enemy.Id,

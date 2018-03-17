@@ -80,7 +80,7 @@ namespace LoESoft.GameServer.logic.behaviors
                                     Y = player.Y
                                 };
 
-                                host?.Owner.BroadcastPacket(new SHOWEFFECT
+                                host?.Owner.BroadcastMessage(new SHOWEFFECT
                                 {
                                     EffectType = EffectType.Throw,
                                     Color = new ARGB(_color),

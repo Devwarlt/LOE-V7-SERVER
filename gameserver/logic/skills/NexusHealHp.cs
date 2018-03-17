@@ -49,20 +49,20 @@ namespace LoESoft.GameServer.logic.behaviors
                         int n = newHp - entity.HP;
                         entity.HP = newHp;
                         entity.UpdateCount++;
-                        entity.Owner.BroadcastPacket(new SHOWEFFECT
+                        entity.Owner.BroadcastMessage(new SHOWEFFECT
                         {
                             EffectType = EffectType.Heal,
                             TargetId = entity.Id,
                             Color = new ARGB(0xffffffff)
                         }, null);
-                        entity.Owner.BroadcastPacket(new SHOWEFFECT
+                        entity.Owner.BroadcastMessage(new SHOWEFFECT
                         {
                             EffectType = EffectType.Line,
                             TargetId = host.Id,
                             PosA = new Position { X = entity.X, Y = entity.Y },
                             Color = new ARGB(0xffffffff)
                         }, null);
-                        entity.Owner.BroadcastPacket(new NOTIFICATION
+                        entity.Owner.BroadcastMessage(new NOTIFICATION
                         {
                             ObjectId = entity.Id,
                             Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"+" + n + "\"}}",

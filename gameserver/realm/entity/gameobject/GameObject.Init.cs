@@ -45,7 +45,7 @@ namespace LoESoft.GameServer.realm.entity
                         effect.Effect == ConditionEffectIndex.Dazed && ObjectDesc.DazedImmune) continue;
                     ApplyConditionEffect(effect);
                 }
-                Owner.BroadcastPacket(new DAMAGE
+                Owner.BroadcastMessage(new DAMAGE
                 {
                     TargetId = Id,
                     Effects = projectile.ConditionEffects,

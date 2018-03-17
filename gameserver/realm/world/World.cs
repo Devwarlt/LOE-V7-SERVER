@@ -163,7 +163,7 @@ namespace LoESoft.GameServer.realm
                 Music = DefaultMusic;
             else
                 Music = music;
-            BroadcastPacket(new SWITCH_MUSIC
+            BroadcastMessage(new SWITCH_MUSIC
             {
                 Music = Music[new wRandom().Next(0, Music.Length)]
             }, null);
@@ -407,28 +407,28 @@ namespace LoESoft.GameServer.realm
              select i.Value)
             .FirstOrDefault();
 
-        public void BroadcastPacket(Message pkt, Player exclude)
+        public void BroadcastMessage(Message msg, Player exclude)
         {
             foreach (var i in Players.Where(i => i.Value != exclude))
-                i.Value.Client.SendMessage(pkt);
+                i.Value.Client.SendMessage(msg);
         }
 
-        public void BroadcastPacketSync(Message pkt, Predicate<Player> exclude)
+        public void BroadcastMessageSync(Message msg, Predicate<Player> exclude)
         {
             foreach (var i in Players.Where(i => exclude(i.Value)))
-                i.Value.Client.SendMessage(pkt);
+                i.Value.Client.SendMessage(msg);
         }
 
-        public void BroadcastPackets(IEnumerable<Message> pkts, Player exclude)
+        public void BroadcastMessage(IEnumerable<Message> msgs, Player exclude)
         {
             foreach (var i in Players.Where(i => i.Value != exclude))
-                i.Value.Client.SendMessage(pkts);
+                i.Value.Client.SendMessage(msgs);
         }
 
-        public void BroadcastPacketsSync(IEnumerable<Message> pkts, Predicate<Player> exclude)
+        public void BroadcastMessageSync(IEnumerable<Message> msgs, Predicate<Player> exclude)
         {
             foreach (var i in Players.Where(i => exclude(i.Value)))
-                i.Value.Client.SendMessage(pkts);
+                i.Value.Client.SendMessage(msgs);
         }
 
         public virtual void Tick(RealmTime time)

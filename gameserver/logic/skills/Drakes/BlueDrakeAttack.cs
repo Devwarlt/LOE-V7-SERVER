@@ -33,14 +33,14 @@ namespace LoESoft.GameServer.logic.behaviors.Drakes
 
                 if (en != null & en.ObjectDesc.Enemy)
                 {
-                    en.Owner.BroadcastPacket(new SHOWEFFECT
+                    en.Owner.BroadcastMessage(new SHOWEFFECT
                     {
                         EffectType = EffectType.Nova,
                         Color = new ARGB(0x003298),
                         TargetId = en.Id,
                         PosA = new Position { X = 1, }
                     }, null);
-                    en.Owner.BroadcastPacket(new SHOWEFFECT
+                    en.Owner.BroadcastMessage(new SHOWEFFECT
                     {
                         EffectType = EffectType.Line,
                         TargetId = host.Id,

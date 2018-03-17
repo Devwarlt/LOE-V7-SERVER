@@ -126,7 +126,7 @@ namespace LoESoft.GameServer.logic.skills.Pets
 
                         _outgoing.Add(_notification);
 
-                        pet.Owner.BroadcastPackets(_outgoing, null);
+                        pet.Owner.BroadcastMessage(_outgoing, null);
 
                         state = cool;
                         return;
@@ -144,7 +144,21 @@ namespace LoESoft.GameServer.logic.skills.Pets
 
                     player.Owner.EnterWorld(prj);
 
-                    SERVERPLAYERSHOOT _shoot = new SERVERPLAYERSHOOT
+                    List<Message> _outgoingMessages = new List<Message>();
+
+                    ENEMYSHOOT _shoot = new ENEMYSHOOT
+                    {
+                        BulletId = 0,
+                        OwnerId = pet.Id,
+                        Position = prjPos,
+                        Angle = prj.Angle,
+                        Damage = 0,
+                        BulletType = 0,
+                        AngleInc = (float)shootAngle,
+                        NumShots = 0
+                    };
+
+                    SERVERPLAYERSHOOT _shoot2 = new SERVERPLAYERSHOOT
                     {
                         BulletId = prj.ProjectileId,
                         OwnerId = player.Id,
@@ -154,7 +168,10 @@ namespace LoESoft.GameServer.logic.skills.Pets
                         Damage = (short)prj.Damage
                     };
 
-                    player.Owner.BroadcastPacket(_shoot, null);
+                    _outgoingMessages.Add(_shoot); // visual, display no animation only activate pet set alt index
+                    _outgoingMessages.Add(_shoot2);
+
+                    player.Owner.BroadcastMessage(_outgoingMessages, null);
 
                     player.FameCounter.Shoot(prj);
 

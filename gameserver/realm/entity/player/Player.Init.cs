@@ -226,7 +226,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     break;
 
                 default:
-                    Owner.BroadcastPacket(new TEXT
+                    Owner.BroadcastMessage(new TEXT
                     {
                         BubbleTime = 0,
                         Stars = -1,
@@ -382,7 +382,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 return;
             }
 
-            Owner.BroadcastPacket(new GOTO
+            Owner.BroadcastMessage(new GOTO
             {
                 ObjectId = Id,
                 Position = new Position
@@ -391,7 +391,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     Y = Y
                 }
             }, null);
-            Owner.BroadcastPacket(new SHOWEFFECT
+            Owner.BroadcastMessage(new SHOWEFFECT
             {
                 EffectType = EffectType.Teleport,
                 TargetId = Id,
@@ -500,7 +500,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 newGoal = GetFameGoal(Fame);
             if (newGoal > FameGoal && AccountType < (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT)
             {
-                Owner.BroadcastPacket(new NOTIFICATION
+                Owner.BroadcastMessage(new NOTIFICATION
                 {
                     ObjectId = Id,
                     Color = new ARGB(0xFF00FF00),
@@ -554,7 +554,7 @@ namespace LoESoft.GameServer.realm.entity.player
         public bool EnemyKilled(Enemy enemy, int exp, bool killer)
         {
             if (enemy == Quest)
-                Owner.BroadcastPacket(new NOTIFICATION
+                Owner.BroadcastMessage(new NOTIFICATION
                 {
                     ObjectId = Id,
                     Color = new ARGB(0xFF00FF00),

@@ -86,7 +86,7 @@ namespace LoESoft.GameServer.logic.behaviors
                             });
                         }
                 }
-                host.Owner.BroadcastPackets(packets, null);
+                host.Owner.BroadcastMessage(packets, null);
                 cool = this.cool.Next(Random);
             }
             else

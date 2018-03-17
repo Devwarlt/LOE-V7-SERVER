@@ -48,7 +48,7 @@ namespace LoESoft.GameServer.realm.entity
                 if (duration > time.TotalElapsedMs - JoinedWorld)
                     ValidateAndMove(X + direction.X * EntitySpeed(speed, time), Y + direction.Y * EntitySpeed(speed, time));
                 else
-                    Owner?.BroadcastPacket(new SHOWEFFECT()
+                    Owner?.BroadcastMessage(new SHOWEFFECT()
                     {
                         EffectType = EffectType.Nova,
                         Color = new ARGB(0xffff0000),

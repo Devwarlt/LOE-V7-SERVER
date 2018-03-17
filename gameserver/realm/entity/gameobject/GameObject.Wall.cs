@@ -24,7 +24,7 @@ namespace LoESoft.GameServer.realm.entity
 
             HP -= dmg;
 
-            Owner.BroadcastPacket(new DAMAGE
+            Owner.BroadcastMessage(new DAMAGE
             {
                 TargetId = Id,
                 Effects = 0,

@@ -71,7 +71,7 @@ namespace LoESoft.GameServer.logic.behaviors
                             Y = player.Y,
                         };
 
-                    host.Owner.BroadcastPacket(new SHOWEFFECT
+                    host.Owner.BroadcastMessage(new SHOWEFFECT
                     {
                         EffectType = EffectType.Throw,
                         Color = new ARGB(0x9B30FF),
@@ -81,7 +81,7 @@ namespace LoESoft.GameServer.logic.behaviors
 
                     host.Owner.Timers.Add(new WorldTimer(1500, (world, t) =>
                     {
-                        world.BroadcastPacket(new AOE
+                        world.BroadcastMessage(new AOE
                         {
                             Position = target,
                             Radius = radius,

@@ -262,7 +262,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 HP = Stats[0] + Stats[0];
                 MP = Stats[1] + Stats[1];
                 Inventory[i] = null;
-                Owner.BroadcastPacket(new TEXT
+                Owner.BroadcastMessage(new TEXT
                 {
                     BubbleTime = 0,
                     Stars = -1,
@@ -536,7 +536,7 @@ namespace LoESoft.GameServer.realm.entity.player
         public void BroadcastSync(Message packet, Predicate<Player> cond)
         {
             if (worldBroadcast)
-                Owner.BroadcastPacketSync(packet, cond);
+                Owner.BroadcastMessageSync(packet, cond);
             else
                 pendingPackets.Enqueue(Tuple.Create(packet, cond));
         }
