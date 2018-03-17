@@ -560,13 +560,15 @@ namespace LoESoft.Core
             character.Dead = true;
             SaveCharacter(acc, character, acc.LockToken != null);
             var finalFame = stats.CalculateTotal(dat, character, new DbClassStats(acc), out bool firstBorn);
-            var death = new DbDeath(acc, character.CharId);
-            death.ObjectType = character.ObjectType;
-            death.Level = character.Level;
-            death.TotalFame = finalFame;
-            death.Killer = killer;
-            death.FirstBorn = firstBorn;
-            death.DeathTime = DateTime.Now;
+            var death = new DbDeath(acc, character.CharId)
+            {
+                ObjectType = character.ObjectType,
+                Level = character.Level,
+                TotalFame = finalFame,
+                Killer = killer,
+                FirstBorn = firstBorn,
+                DeathTime = DateTime.Now
+            };
             death.Flush();
 
             var idBuff = BitConverter.GetBytes(character.CharId);

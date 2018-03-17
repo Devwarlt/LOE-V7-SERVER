@@ -144,13 +144,15 @@ namespace LoESoft.GameServer.logic.skills.Pets
 
                     player.Owner.EnterWorld(prj);
 
-                    SERVERPLAYERSHOOT _shoot = new SERVERPLAYERSHOOT();
-                    _shoot.BulletId = prj.ProjectileId;
-                    _shoot.OwnerId = player.Id;
-                    _shoot.ContainerType = pet.ObjectType;
-                    _shoot.StartingPos = prj.BeginPos;
-                    _shoot.Angle = prj.Angle;
-                    _shoot.Damage = (short)prj.Damage;
+                    SERVERPLAYERSHOOT _shoot = new SERVERPLAYERSHOOT
+                    {
+                        BulletId = prj.ProjectileId,
+                        OwnerId = player.Id,
+                        ContainerType = pet.ObjectType,
+                        StartingPos = prj.BeginPos,
+                        Angle = prj.Angle,
+                        Damage = (short)prj.Damage
+                    };
 
                     player.Owner.BroadcastPacket(_shoot, null);
 
