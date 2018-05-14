@@ -4,7 +4,6 @@ using LoESoft.Core;
 using LoESoft.Core.config;
 using LoESoft.GameServer.realm;
 using System;
-using System.Collections.Generic;
 using System.Net.Sockets;
 
 #endregion
@@ -30,33 +29,12 @@ namespace LoESoft.GameServer.networking
         {
             Socket = skt;
             Manager = manager;
-            IncomingCipher = ProcessRC4(Settings.NETWORKING.INCOMING_CIPHER);
-            OutgoingCipher = ProcessRC4(Settings.NETWORKING.OUTGOING_CIPHER);
-            BeginProcess();
-        }
 
-        public RC4 ProcessRC4(byte[] cipher) => new RC4(cipher);
+            IncomingCipher = new RC4(Settings.NETWORKING.INCOMING_CIPHER);
+            OutgoingCipher = new RC4(Settings.NETWORKING.OUTGOING_CIPHER);
 
-        public void BeginProcess()
-        {
             handler = new NetworkHandler(this, Socket);
             handler.BeginHandling();
-        }
-
-        public static Tuple<string, bool> CheckGameVersion(string build)
-        {
-            List<GameVersion> gameVersions = new List<GameVersion>();
-            foreach (Tuple<string, bool> i in Settings.NETWORKING.SUPPORTED_VERSIONS())
-                gameVersions.Add(
-                    new GameVersion()
-                    {
-                        version = i.Item1,
-                        access = i.Item2
-                    });
-            foreach (GameVersion j in gameVersions)
-                if (build == j.version && j.access)
-                    return Tuple.Create(build, false);
-            return Tuple.Create(gameVersions[gameVersions.Count - 1].version, true);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "handler")]
@@ -65,26 +43,26 @@ namespace LoESoft.GameServer.networking
         {
             if (disposed)
                 return;
-            handler?.Dispose();
-            handler = null;
-            IncomingCipher = null;
-            OutgoingCipher = null;
-            Manager = null;
-            Socket = null;
-            Character = null;
-            Account = null;
-            if (Player.PetID != 0 && Player.Pet != null)
-                Player.Owner.LeaveWorld(Player.Pet);
-            Player = null;
-            Random = null;
-            ConnectedBuild = null;
-            disposed = true;
-        }
 
-        private class GameVersion
-        {
-            public string version;
-            public bool access;
+            try
+            {
+                IncomingCipher = null;
+                OutgoingCipher = null;
+                Socket = null;
+                Character = null;
+                Account = null;
+
+                if (Player.PetID != 0 && Player.Pet != null)
+                    Player.Owner.LeaveWorld(Player.Pet);
+
+                Player = null;
+                Random = null;
+                ConnectedBuild = null;
+            }
+            catch
+            { return; }
+            finally
+            { disposed = true; }
         }
     }
 }

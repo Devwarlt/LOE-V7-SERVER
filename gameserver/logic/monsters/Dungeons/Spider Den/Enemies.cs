@@ -40,7 +40,7 @@ namespace LoESoft.GameServer.logic
                      new ItemLoot("Healing Ichor", 1)
                      )
             )
-        
+
         .Init("Arachna Web Spoke 1",
             new State(
                 new State(":D",

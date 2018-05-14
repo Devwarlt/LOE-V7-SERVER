@@ -57,15 +57,17 @@ namespace LoESoft.GameServer.realm.entity.npc
             )
         {
             if (player == null) return;
-            TEXT _text = new TEXT();
-            _text.ObjectId = isNPC ? _NPC.Id : player.Id;
-            _text.BubbleTime = 10;
-            _text.Stars = isNPC ? _NPCStars : player.Stars;
-            _text.Name = isNPC ? _NPC.Name : player.Name;
-            _text.Admin = 0;
-            _text.Recipient = isNPC ? player.Name : _NPC.Name;
-            _text.Text = message.ToSafeText();
-            _text.CleanText = "";
+            TEXT _text = new TEXT
+            {
+                ObjectId = isNPC ? _NPC.Id : player.Id,
+                BubbleTime = 10,
+                Stars = isNPC ? _NPCStars : player.Stars,
+                Name = isNPC ? _NPC.Name : player.Name,
+                Admin = 0,
+                Recipient = isNPC ? player.Name : _NPC.Name,
+                Text = message.ToSafeText(),
+                CleanText = ""
+            };
             _text.NameColor = _text.TextColor = 0x123456;
             player.Client.SendMessage(_text);
         }

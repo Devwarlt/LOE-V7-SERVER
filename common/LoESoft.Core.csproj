@@ -63,8 +63,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1-beta3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -83,9 +82,10 @@
     <Compile Include="config\internal\Networking.cs" />
     <Compile Include="config\internal\Database.cs" />
     <Compile Include="config\internal\GameServer.cs" />
+    <Compile Include="config\Utils.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="models\AccountType.cs" />
-    <Compile Include="config\settings.cs" />
+    <Compile Include="config\Settings.cs" />
     <Compile Include="assets\EmbeddedData.cs" />
     <Compile Include="models\FameStats.cs" />
     <Compile Include="models\IFeedable.cs" />

@@ -7,6 +7,7 @@ namespace LoESoft.GameServer.logic
     partial class BehaviorDb
     {
         private _ EventBossesGrandSphinxEvent = () => Behav()
+            // credit: mike for making this
             .Init("Grand Sphinx",
             new State(
                 new DropPortalOnDeath("Tomb of the Ancients Portal", 20, PortalDespawnTimeSec: 45),
@@ -84,12 +85,12 @@ namespace LoESoft.GameServer.logic
                     new TimedTransition(3000, "flame_on")
                 )
             ),
-            new WhiteBag("Helm of the Juggernaut"),
-            new MostDamagers(15,
-                new ItemLoot("Potion of Vitality", 1),
-                new ItemLoot("Potion of Wisdom", 0.5)
+            new Drops(
+                new EggBasket(new EggType[] { EggType.TIER_0, EggType.TIER_1, EggType.TIER_2, EggType.TIER_3, EggType.TIER_4 }),
+                new BlueBag(new[] { Potions.POTION_OF_VITALITY, Potions.POTION_OF_WISDOM }, new[] { false, false }),
+                new WhiteBag("Helm of the Juggernaut")
                 )
-        )
+            )
 
         .Init("Horrid Reaper",
             new State(
@@ -130,6 +131,7 @@ namespace LoESoft.GameServer.logic
                     )
                 )
             )
+
         ;
     }
 }

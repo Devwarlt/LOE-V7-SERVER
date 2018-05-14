@@ -76,7 +76,7 @@ namespace LoESoft.GameServer.logic.behaviors
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
             if (targetState == null)
-                targetState = FindState(Program.Manager.Behaviors.Definitions[target].Item1, targetStateName);
+                targetState = FindState(GameServer.Manager.Behaviors.Definitions[target].Item1, targetStateName);
             foreach (Entity i in host.GetNearestEntities(range, target))
                 if (!i.CurrentState.Is(targetState))
                     i.SwitchTo(targetState);

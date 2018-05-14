@@ -10,7 +10,7 @@ namespace LoESoft.GameServer.realm.entity
     public class Projectile : Entity
     {
         public Projectile(ProjectileDesc desc)
-            : base(Program.Manager.GameData.IdToObjectType[desc.ObjectId])
+            : base(GameServer.Manager.GameData.IdToObjectType[desc.ObjectId])
         {
             ProjDesc = desc;
             CheatHandler = new GodCheatHandler();
@@ -46,11 +46,11 @@ namespace LoESoft.GameServer.realm.entity
 
         public bool IsValidType(Entity entity) =>
             (entity is Enemy
-            && ProjDesc.MultiHit)
+            && !ProjDesc.MultiHit)
             || (entity is GameObject
             && (entity as GameObject).Static
             && !(entity is Wall)
-            && ProjDesc.PassesCover);
+            && !ProjDesc.PassesCover);
 
         public void ForceHit(Entity entity, RealmTime time, bool killed)
         {

@@ -127,30 +127,32 @@ namespace LoESoft.GameServer.logic.loot.Loot_System
                         for (int i = 0; i < enemyLoot.Count; i++)
                             if (!addedLoot.Contains(Tuple.Create(enemyLoot[i].Attributes["name"].Value, Convert.ToInt32(enemyLoot[i]["Loot"].Attributes["id"].Value))))
                             {
-                                LootSerialization lootSerialized = new LootSerialization();
-                                lootSerialized.Name = enemyLoot[i].Attributes["name"].Value;
-                                lootSerialized.LootID = Convert.ToInt32(enemyLoot[i]["Loot"].Attributes["id"].Value);
-                                lootSerialized.ItemType =
+                                LootSerialization lootSerialized = new LootSerialization
+                                {
+                                    Name = enemyLoot[i].Attributes["name"].Value,
+                                    LootID = Convert.ToInt32(enemyLoot[i]["Loot"].Attributes["id"].Value),
+                                    ItemType =
                                     enemyLoot[i]["Loot"].Attributes["itemType"] == null ?
                                     ItemType.Any :
-                                    SerializeItemType(enemyLoot[i]["Loot"].Attributes["itemType"].Value.ToLower());
-                                lootSerialized.Tier =
+                                    SerializeItemType(enemyLoot[i]["Loot"].Attributes["itemType"].Value.ToLower()),
+                                    Tier =
                                     enemyLoot[i]["Loot"].Attributes["tier"] == null ?
                                     byte.MinValue :
-                                    Convert.ToByte(enemyLoot[i]["Loot"].Attributes["tier"].Value);
-                                lootSerialized.ItemName =
+                                    Convert.ToByte(enemyLoot[i]["Loot"].Attributes["tier"].Value),
+                                    ItemName =
                                     enemyLoot[i]["Loot"].Attributes["itemName"] == null ?
                                     null :
-                                    enemyLoot[i]["Loot"].Attributes["itemName"].Value;
-                                lootSerialized.ItemProbability =
+                                    enemyLoot[i]["Loot"].Attributes["itemName"].Value,
+                                    ItemProbability =
                                     enemyLoot[i]["Loot"].Attributes["prob"] == null ?
                                     double.MinValue :
-                                    Convert.ToDouble(enemyLoot[i]["Loot"].Attributes["prob"].Value);
-                                lootSerialized.EventChest =
+                                    Convert.ToDouble(enemyLoot[i]["Loot"].Attributes["prob"].Value),
+                                    EventChest =
                                     enemyLoot[i]["Loot"].Attributes["chest"] == null ?
                                     false :
-                                    Convert.ToBoolean(enemyLoot[i]["Loot"].Attributes["chest"].Value);
-                                lootSerialized.LootType = SerializeLootType(enemyLoot[i]["Loot"].InnerText.ToLower());
+                                    Convert.ToBoolean(enemyLoot[i]["Loot"].Attributes["chest"].Value),
+                                    LootType = SerializeLootType(enemyLoot[i]["Loot"].InnerText.ToLower())
+                                };
                                 loots.Add(
                                     lootSerialized.Name,
                                     GenerateLoot(

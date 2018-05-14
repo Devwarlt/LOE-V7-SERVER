@@ -4,7 +4,7 @@
     {
         private class OutgoingToken
         {
-            public Message Packet;
+            public Message Message;
         }
     }
 }

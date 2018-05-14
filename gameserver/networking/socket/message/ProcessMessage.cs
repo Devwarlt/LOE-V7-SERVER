@@ -32,8 +32,10 @@ namespace LoESoft.GameServer.networking
 
         public bool IsReady() => State == ProtocolState.Disconnected ? false : (State != ProtocolState.Ready || (Player != null && (Player == null || Player.Owner != null)));
 
-        public void SendMessage(Message msg) => handler?.IncomingMessage(msg);
+        public void SendMessage(Message msg) =>
+            handler?.IncomingMessage(msg);
 
-        public void SendMessage(IEnumerable<Message> msgs) => handler?.IncomingMessage(msgs);
+        public void SendMessage(IEnumerable<Message> msgs) =>
+            handler?.IncomingMessage(msgs);
     }
 }

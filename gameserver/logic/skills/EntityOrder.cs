@@ -1,6 +1,8 @@
 ﻿#region
 
+using LoESoft.Core.models;
 using LoESoft.GameServer.realm;
+using System.Collections.Generic;
 
 #endregion
 
@@ -19,8 +21,12 @@ namespace LoESoft.GameServer.logic.behaviors
             string targetState
             )
         {
-            this.range = range;
-            this.name = BehaviorDb.InitGameData.IdToObjectType[name];
+            this.range = range; try
+            {
+                this.name = BehaviorDb.InitGameData.IdToObjectType[name];
+            }
+            catch (KeyNotFoundException)
+            { Log.Error($"[State: {targetState}] Entity '{name}' doesn't contains in game assets."); }
             targetStateName = targetState;
         }
 
@@ -38,7 +44,7 @@ namespace LoESoft.GameServer.logic.behaviors
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
             if (targetState == null)
-                targetState = FindState(Program.Manager.Behaviors.Definitions[name].Item1, targetStateName);
+                targetState = FindState(GameServer.Manager.Behaviors.Definitions[name].Item1, targetStateName);
             foreach (Entity i in host.GetNearestEntities(range, name))
                 if (!i.CurrentState.Is(targetState))
                     i.SwitchTo(targetState);

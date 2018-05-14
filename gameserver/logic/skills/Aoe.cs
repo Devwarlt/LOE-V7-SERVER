@@ -52,7 +52,7 @@ namespace LoESoft.GameServer.logic.behaviors
                     if (enemy is Enemy)
                         (enemy as Enemy).Damage(null, time, damage, noDef);
 
-                    host.Owner.BroadcastPacket(new SHOWEFFECT
+                    host.Owner.BroadcastMessage(new SHOWEFFECT
                     {
                         EffectType = EffectType.Nova,
                         TargetId = host.Id,

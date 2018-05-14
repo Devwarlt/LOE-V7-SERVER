@@ -20,14 +20,22 @@ namespace LoESoft.GameServer.networking
             Manager = manager;
         }
 
-        public Socket Socket { get; private set; }
+        private Socket Socket { get; set; }
+
         public RealmManager Manager { get; private set; }
 
         public void Start()
         {
-            Socket.Bind(new IPEndPoint(IPAddress.Any, Settings.GAMESERVER.PORT));
-            Socket.Listen(0xff);
-            Socket.BeginAccept(Listen, null);
+            try
+            {
+                var lep = new IPEndPoint(IPAddress.Any, Settings.GAMESERVER.PORT);
+                Socket = new Socket(lep.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                Socket.Bind(lep);
+                Socket.Listen(1024);
+                Socket.BeginAccept(Listen, null);
+            }
+            catch (Exception ex)
+            { GameServer.ForceShutdown(ex); }
         }
 
         private void Listen(IAsyncResult ar)

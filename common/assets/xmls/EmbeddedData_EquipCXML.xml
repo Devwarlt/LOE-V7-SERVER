@@ -5649,7 +5649,7 @@
 		<feedPower>500</feedPower>
 		<Soulbound />
 	</Object>
-	<Object type="0xbad" id="Bracer of the Guardian">
+	<Object type="0xbad" id="Bracer of the Guardian" setType="0x0009" setName="Forgotten Sentinel Set">
 		<Class>Equipment</Class>
 		<Item />
 		<Texture>
@@ -5665,7 +5665,6 @@
 		<BagType>6</BagType>
 		<FameBonus>5</FameBonus>
 		<feedPower>500</feedPower>
-		<Soulbound />
 	</Object>
 	<Object type="0xba0" id="Ring of the Sphinx">
 		<Class>Equipment</Class>

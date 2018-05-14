@@ -79,7 +79,7 @@ namespace LoESoft.GameServer.logic.behaviors
                     return;
 
                 if (!invisiToss)
-                    host.Owner.BroadcastPacket(new SHOWEFFECT
+                    host.Owner.BroadcastMessage(new SHOWEFFECT
                     {
                         EffectType = EffectType.Throw,
                         Color = new ARGB(0xffffbf00),

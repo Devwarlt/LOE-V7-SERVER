@@ -201,26 +201,31 @@ namespace LoESoft.GameServer.logic
                             )
                         )
                     ),
-                new ItemLoot("Ghost Pirate Rum", .2),
-                new Threshold(0.01,
-                    new ItemLoot("Potion of Wisdom", .1),
-                    new TierLoot(8, ItemType.Weapon, 0.12),
-                    new TierLoot(9, ItemType.Weapon, 0.10),
-                    new TierLoot(8, ItemType.Armor, 0.12),
-                    new TierLoot(9, ItemType.Armor, 0.10),
-                    new TierLoot(3, ItemType.Ability, 0.12),
-                    new TierLoot(4, ItemType.Ability, 0.10),
-                    new TierLoot(4, ItemType.Ring, 0.07),
-                    new TierLoot(10, ItemType.Weapon, 0.06),
-                    new TierLoot(11, ItemType.Weapon, 0.04),
-                    new TierLoot(10, ItemType.Armor, 0.06),
-                    new TierLoot(11, ItemType.Armor, 0.04),
-                    new TierLoot(5, ItemType.Ability, 0.04),
-                    new TierLoot(5, ItemType.Ring, 0.04),
-                    new ItemLoot("Wine Cellar Incantation", .001)
+                new Drops(
+                    new ItemLoot("Ghost Pirate Rum", 1),
+                    new ItemLoot("Ghost Pirate Rum", 1),
+                    new OnlyOne(
+                        new PurpleBag(ItemType.Weapon, 8),
+                        new PurpleBag(ItemType.Weapon, 9),
+                        new PurpleBag(ItemType.Armor, 8),
+                        new PurpleBag(ItemType.Armor, 9),
+                        new PurpleBag(ItemType.Ability, 3),
+                        new PurpleBag(ItemType.Ability, 4),
+                        new PurpleBag(ItemType.Ring, 4)
+                        ),
+                    new EggBasket(new EggType[] { EggType.TIER_0, EggType.TIER_1, EggType.TIER_2, EggType.TIER_3, EggType.TIER_4 }),
+                    new OnlyOne(
+                        new CyanBag(ItemType.Weapon, 10),
+                        new CyanBag(ItemType.Weapon, 11),
+                        new CyanBag(ItemType.Armor, 10),
+                        new CyanBag(ItemType.Armor, 11),
+                        new CyanBag(ItemType.Ability, 5),
+                        new CyanBag(ItemType.Ring, 5),
+                        new CyanBag("Wine Cellar Incantation")
+                        ),
+                    new BlueBag(Potions.POTION_OF_WISDOM)
                     )
             )
-
             .Init("Ghost Ship Anchor",
                 new State(
                     new AddCond(ConditionEffectIndex.Invincible),

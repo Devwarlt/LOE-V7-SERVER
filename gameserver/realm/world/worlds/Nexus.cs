@@ -24,7 +24,7 @@ namespace LoESoft.GameServer.realm.world
             SafePlace = true;
         }
 
-        protected override void Init() => LoadMap(WINTER_RESOURCE, MapType.Json);
+        protected override void Init() => LoadMap(LoE_RESOURCE, MapType.Json);
 
         public override void Tick(RealmTime time)
         {
@@ -34,7 +34,7 @@ namespace LoESoft.GameServer.realm.world
 
         private void UpdatePortals()
         {
-            foreach (var i in Program.Manager.Monitor.portals)
+            foreach (var i in GameServer.Manager.Monitor.portals)
             {
                 foreach (var j in RealmManager.CurrentRealmNames)
                 {

@@ -45,8 +45,6 @@
 			<EffectInfo name="Additional Info" description="This item is a super rare version of Sword of the Mad God." />
 			<EffectInfo name="Super Bag Item" description="This stuff give +20% additional bonus on damage of original equipment stats base and +2% fame bonus." />
 		</ExtraTooltipData>
-		
-        -
 		<Soulbound />
 		<BagType>15</BagType>
 		<FameBonus>6</FameBonus>

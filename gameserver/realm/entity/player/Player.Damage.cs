@@ -28,7 +28,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                     UpdateCount++;
 
-                    Owner.BroadcastPacket(new NOTIFICATION
+                    Owner.BroadcastMessage(new NOTIFICATION
                     {
                         ObjectId = Id,
                         Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"-" + dmg + " MP\"}}",
@@ -53,7 +53,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     if (!HasConditionEffect(ConditionEffectIndex.Invulnerable))
                         HP -= dmg;
                     UpdateCount++;
-                    Owner.BroadcastPacket(new DAMAGE
+                    Owner.BroadcastMessage(new DAMAGE
                     {
                         TargetId = Id,
                         Effects = 0,

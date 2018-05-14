@@ -23,7 +23,6 @@ namespace LoESoft.GameServer.logic
                     new Grenade(4, 100, 8, coolDown: 5000, effect: ConditionEffectIndex.Slowed, effectDuration: 6000),
                     new TransformOnDeath("Pentaract Tower Corpse"),
                     new CopyDamageOnDeath("Pentaract"),
-                    // needed to avoid crash, Oryx.cs needs player name otherwise hangs server (will patch that later)
                     new CopyDamageOnDeath("Pentaract Tower Corpse")
                     )
             )
@@ -42,7 +41,7 @@ namespace LoESoft.GameServer.logic
 
             .Init("Pentaract Tower Corpse",
                 new State(
-                    new AddCond(ConditionEffectIndex.Invincible),
+                    new AddCond(ConditionEffectIndex.Invulnerable),
                     new State("Waiting",
                         new TimedTransition(15000, "Spawn"),
                         new EntityNotExistsTransition("Pentaract Tower", 50, "Die")
@@ -54,28 +53,35 @@ namespace LoESoft.GameServer.logic
                         new Suicide()
                         )
                     ),
-                new Threshold(0.01,
-                    new TierLoot(8, ItemType.Weapon, .15),
-                    new TierLoot(9, ItemType.Weapon, .1),
-                    new TierLoot(10, ItemType.Weapon, .07),
-                    new TierLoot(11, ItemType.Weapon, .05),
-                    new TierLoot(4, ItemType.Ability, .15),
-                    new TierLoot(5, ItemType.Ability, .07),
-                    new TierLoot(8, ItemType.Armor, .2),
-                    new TierLoot(9, ItemType.Armor, .15),
-                    new TierLoot(10, ItemType.Armor, .10),
-                    new TierLoot(11, ItemType.Armor, .07),
-                    new TierLoot(12, ItemType.Armor, .04),
-                    new TierLoot(3, ItemType.Ring, .15),
-                    new TierLoot(4, ItemType.Ring, .07),
-                    new TierLoot(5, ItemType.Ring, .03),
-                    new ItemLoot("Potion of Defense", .1),
-                    new ItemLoot("Potion of Attack", .1),
-                    new ItemLoot("Potion of Vitality", .1),
-                    new ItemLoot("Potion of Wisdom", .1),
-                    new ItemLoot("Potion of Speed", .1),
-                    new ItemLoot("Potion of Dexterity", .1),
-                    new ItemLoot("Seal of Blasphemous Prayer", .004)
+                new Drops(
+                    new OnlyOne(
+                        new PurpleBag(ItemType.Weapon, 8),
+                        new PurpleBag(ItemType.Weapon, 9),
+                        new PurpleBag(ItemType.Armor, 8),
+                        new PurpleBag(ItemType.Armor, 9),
+                        new PurpleBag(ItemType.Ability, 4),
+                        new PurpleBag(ItemType.Ring, 3),
+                        new PurpleBag(ItemType.Ring, 4)
+                        ),
+                    new EggBasket(new EggType[] { EggType.TIER_0, EggType.TIER_1, EggType.TIER_2, EggType.TIER_3, EggType.TIER_4 }),
+                    new OnlyOne(
+                        new CyanBag(ItemType.Weapon, 10),
+                        new CyanBag(ItemType.Weapon, 11),
+                        new CyanBag(ItemType.Armor, 10),
+                        new CyanBag(ItemType.Armor, 11),
+                        new CyanBag(ItemType.Armor, 12),
+                        new CyanBag(ItemType.Ring, 5),
+                        new CyanBag(ItemType.Ability, 5)
+                        ),
+                    new OnlyOne(
+                        new BlueBag(Potions.POTION_OF_ATTACK),
+                        new BlueBag(Potions.POTION_OF_DEFENSE),
+                        new BlueBag(Potions.POTION_OF_SPEED),
+                        new BlueBag(Potions.POTION_OF_DEXTERITY),
+                        new BlueBag(Potions.POTION_OF_VITALITY),
+                        new BlueBag(Potions.POTION_OF_WISDOM)
+                        ),
+                    new WhiteBag("Seal of Blasphemous Prayer")
                     )
             )
         ;

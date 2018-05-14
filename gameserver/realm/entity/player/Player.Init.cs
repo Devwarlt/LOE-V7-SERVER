@@ -13,7 +13,6 @@ using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core;
 using LoESoft.GameServer.logic.skills.Pets;
-using LoESoft.Core.models;
 
 #endregion
 
@@ -83,10 +82,10 @@ namespace LoESoft.GameServer.realm.entity.player
                 lootTierBoostFreeTimer = LootTierBoost;
                 FameGoal = (AccountType >= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? 0 : GetFameGoal(FameCounter.ClassStats[ObjectType].BestFame);
                 Glowing = false;
-                DbGuild guild = Program.Manager.Database.GetGuild(client.Account.GuildId);
+                DbGuild guild = GameServer.Manager.Database.GetGuild(client.Account.GuildId);
                 if (guild != null)
                 {
-                    Guild = Program.Manager.Database.GetGuild(client.Account.GuildId).Name;
+                    Guild = GameServer.Manager.Database.GetGuild(client.Account.GuildId).Name;
                     GuildRank = client.Account.GuildRank;
                 }
                 else
@@ -118,18 +117,18 @@ namespace LoESoft.GameServer.realm.entity.player
                             _ =>
                                 _ == -1
                                     ? null
-                                    : (Program.Manager.GameData.Items.ContainsKey((ushort)_) ? Program.Manager.GameData.Items[(ushort)_] : null))
+                                    : (GameServer.Manager.GameData.Items.ContainsKey((ushort)_) ? GameServer.Manager.GameData.Items[(ushort)_] : null))
                             .ToArray();
                     Item[] backpack =
                         client.Character.Backpack.Select(
                             _ =>
                                 _ == -1
                                     ? null
-                                    : (Program.Manager.GameData.Items.ContainsKey((ushort)_) ? Program.Manager.GameData.Items[(ushort)_] : null))
+                                    : (GameServer.Manager.GameData.Items.ContainsKey((ushort)_) ? GameServer.Manager.GameData.Items[(ushort)_] : null))
                             .ToArray();
 
                     Inventory = inv.Concat(backpack).ToArray();
-                    XElement xElement = Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
+                    XElement xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
                     if (xElement != null)
                     {
                         int[] slotTypes =
@@ -146,9 +145,9 @@ namespace LoESoft.GameServer.realm.entity.player
                                 _ =>
                                     _ == -1
                                         ? null
-                                        : (Program.Manager.GameData.Items.ContainsKey((ushort)_) ? Program.Manager.GameData.Items[(ushort)_] : null))
+                                        : (GameServer.Manager.GameData.Items.ContainsKey((ushort)_) ? GameServer.Manager.GameData.Items[(ushort)_] : null))
                                 .ToArray();
-                    XElement xElement = Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
+                    XElement xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
                     if (xElement != null)
                         SlotTypes =
                             Utils.FromCommaSepString32(
@@ -211,7 +210,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
             if (Client.Character.Dead)
             {
-                Program.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD);
+                GameServer.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD);
                 return;
             }
             GenerateGravestone();
@@ -227,7 +226,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     break;
 
                 default:
-                    Owner.BroadcastPacket(new TEXT
+                    Owner.BroadcastMessage(new TEXT
                     {
                         BubbleTime = 0,
                         Stars = -1,
@@ -245,8 +244,8 @@ namespace LoESoft.GameServer.realm.entity.player
 
                 SaveToCharacter();
 
-                Program.Manager.Database.SaveCharacter(Client.Account, Client.Character, true);
-                Program.Manager.Database.Death(Program.Manager.GameData, Client.Account, Client.Character, FameCounter.Stats, killer);
+                GameServer.Manager.Database.SaveCharacter(Client.Account, Client.Character, true);
+                GameServer.Manager.Database.Death(GameServer.Manager.GameData, Client.Account, Client.Character, FameCounter.Stats, killer);
 
                 if (Owner.Id != -6)
                 {
@@ -261,22 +260,19 @@ namespace LoESoft.GameServer.realm.entity.player
 
                     Client.SendMessage(_death);
 
-                    Log.Info($"Message details type '{_death.ID}':\n{_death}");
-
-                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => Program.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD)));
-
-                    Log.Info($"Removing from world '{Owner.Name}' player '{Name}' (Account ID: {AccountId}).");
+                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => GameServer.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD)));
 
                     Owner.LeaveWorld(this);
                 }
                 else
-                    Program.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
+                    GameServer.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
             }
             catch (Exception) { }
         }
 
         public override void Init(World owner)
         {
+            MaxHackEntries = 0;
             visibleTiles = new Dictionary<IntPoint, bool>();
             WorldInstance = owner;
             Random rand = new Random();
@@ -386,7 +382,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 return;
             }
 
-            Owner.BroadcastPacket(new GOTO
+            Owner.BroadcastMessage(new GOTO
             {
                 ObjectId = Id,
                 Position = new Position
@@ -395,7 +391,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     Y = Y
                 }
             }, null);
-            Owner.BroadcastPacket(new SHOWEFFECT
+            Owner.BroadcastMessage(new SHOWEFFECT
             {
                 EffectType = EffectType.Teleport,
                 TargetId = Id,
@@ -465,7 +461,7 @@ namespace LoESoft.GameServer.realm.entity.player
             if (candidates.Count != 0)
             {
                 Enemy newQuest = candidates.OrderByDescending(i => QuestPriority(i.ObjectDesc)).Take(3).ToList()[0];
-                
+
                 newQuestId = newQuest.Id;
                 Quest = newQuest;
             }
@@ -504,7 +500,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 newGoal = GetFameGoal(Fame);
             if (newGoal > FameGoal && AccountType < (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT)
             {
-                Owner.BroadcastPacket(new NOTIFICATION
+                Owner.BroadcastMessage(new NOTIFICATION
                 {
                     ObjectId = Id,
                     Color = new ARGB(0xFF00FF00),
@@ -522,12 +518,12 @@ namespace LoESoft.GameServer.realm.entity.player
             {
                 Level++;
                 ExperienceGoal = GetExpGoal(Level);
-                foreach (var i in Program.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease"))
+                foreach (var i in GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease"))
                 {
                     var rand = new Random();
                     var min = int.Parse(i.Attribute("min").Value);
                     var max = int.Parse(i.Attribute("max").Value) + 1;
-                    var xElement = Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value);
+                    var xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value);
                     if (xElement == null) continue;
                     var limit =
                         int.Parse(
@@ -558,7 +554,7 @@ namespace LoESoft.GameServer.realm.entity.player
         public bool EnemyKilled(Enemy enemy, int exp, bool killer)
         {
             if (enemy == Quest)
-                Owner.BroadcastPacket(new NOTIFICATION
+                Owner.BroadcastMessage(new NOTIFICATION
                 {
                     ObjectId = Id,
                     Color = new ARGB(0xFF00FF00),

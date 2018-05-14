@@ -74,7 +74,7 @@ namespace LoESoft.GameServer.logic.behaviors
                             prjId = prj.ProjectileId;
                     }
 
-                    host.Owner.BroadcastPacket(new ENEMYSHOOT
+                    host.Owner.BroadcastMessage(new ENEMYSHOOT
                     {
                         BulletId = prjId,
                         OwnerId = host.Id,

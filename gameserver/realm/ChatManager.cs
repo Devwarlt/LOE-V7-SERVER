@@ -73,7 +73,7 @@ namespace LoESoft.GameServer.realm
                 TextColor = 0x123456
             };
 
-            player.Owner.BroadcastPacket(_text, null);
+            player.Owner.BroadcastMessage(_text, null);
         }
 
         public void Announce(string text)
@@ -99,14 +99,14 @@ namespace LoESoft.GameServer.realm
                 TextColor = 0x123456
             };
 
-            world.BroadcastPacket(_text, null);
+            world.BroadcastMessage(_text, null);
         }
 
         public void Guild(Player player, string text, bool announce = false)
         {
             if (announce)
             {
-                foreach (ClientData cData in Program.Manager.ClientManager.Values)
+                foreach (ClientData cData in GameServer.Manager.ClientManager.Values)
                     if (cData.Client != null)
                         cData.Client.Player.SendInfo(text.ToSafeText());
             }

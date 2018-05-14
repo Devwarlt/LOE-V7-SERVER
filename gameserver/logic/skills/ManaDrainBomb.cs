@@ -71,7 +71,7 @@ namespace LoESoft.GameServer.logic.behaviors
                             Y = player.Y,
                         };
 
-                    host.Owner.BroadcastPacket(new SHOWEFFECT
+                    host.Owner.BroadcastMessage(new SHOWEFFECT
                     {
                         EffectType = EffectType.Throw,
                         Color = new ARGB(0x9B30FF),
@@ -81,7 +81,7 @@ namespace LoESoft.GameServer.logic.behaviors
 
                     host.Owner.Timers.Add(new WorldTimer(1500, (world, t) =>
                     {
-                        world.BroadcastPacket(new AOE
+                        world.BroadcastMessage(new AOE
                         {
                             Position = target,
                             Radius = radius,
@@ -95,12 +95,12 @@ namespace LoESoft.GameServer.logic.behaviors
                         world.Aoe(target, radius, true, p =>
                         {
                             if (effect != ConditionEffectIndex.Hidden && effectDuration != -1)
-                                (p as Player).ApplyConditionEffect(new ConditionEffect
+                                (p as Player)?.ApplyConditionEffect(new ConditionEffect
                                 {
                                     Effect = effect,
                                     DurationMS = effectDuration
                                 });
-                            (p as IPlayer).Damage(damage, host, false, true);
+                            (p as IPlayer)?.Damage(damage, host, false, true);
                         });
                     }));
                 }

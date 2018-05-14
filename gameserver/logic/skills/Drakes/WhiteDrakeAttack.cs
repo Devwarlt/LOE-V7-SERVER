@@ -41,20 +41,20 @@ namespace LoESoft.GameServer.logic.behaviors.Drakes
                                 var n = hp - entity.HP;
                                 entity.HP = hp;
                                 entity.UpdateCount++;
-                                entity.Owner.BroadcastPacket(new SHOWEFFECT
+                                entity.Owner.BroadcastMessage(new SHOWEFFECT
                                 {
                                     EffectType = EffectType.Heal,
                                     TargetId = entity.Id,
                                     Color = new ARGB(0xFFFFFF)
                                 }, null);
-                                entity.Owner.BroadcastPacket(new SHOWEFFECT
+                                entity.Owner.BroadcastMessage(new SHOWEFFECT
                                 {
                                     EffectType = EffectType.Line,
                                     TargetId = host.Id,
                                     PosA = new Position { X = entity.X, Y = entity.Y },
                                     Color = new ARGB(0xFFFFFF)
                                 }, null);
-                                entity.Owner.BroadcastPacket(new NOTIFICATION
+                                entity.Owner.BroadcastMessage(new NOTIFICATION
                                 {
                                     ObjectId = entity.Id,
                                     Text = "+" + n,

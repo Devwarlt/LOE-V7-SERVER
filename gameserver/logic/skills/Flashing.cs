@@ -30,7 +30,7 @@ namespace LoESoft.GameServer.logic.behaviors
 
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {
-            host.Owner.BroadcastPacket(new SHOWEFFECT
+            host.Owner.BroadcastMessage(new SHOWEFFECT
             {
                 EffectType = EffectType.Flash,
                 PosA = new Position { X = flashPeriod, Y = flashRepeats },

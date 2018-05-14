@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace LoESoft.Core.config
 {
@@ -20,40 +19,10 @@ namespace LoESoft.Core.config
                 public static int RESTART_DELAY_MINUTES = Settings.RESTART_DELAY_MINUTES;
             }
 
-            public static readonly List<Tuple<string, bool>> GAME_VERSIONS = new List<Tuple<string, bool>>
-            {
-                Tuple.Create("v6-1.0", false),
-                Tuple.Create("v6-1.1", false),
-                Tuple.Create("v6-1.2", false),
-                Tuple.Create("v6-1.3", false),
-                Tuple.Create("v6-1.4", false),
-                Tuple.Create("v6-1.5", false),
-                Tuple.Create("v6-1.5.1", false),
-                Tuple.Create("v6-1.6 edition 1: pre-beta", true)
-            };
-
-            public static List<Tuple<string, bool>> SUPPORTED_VERSIONS()
-            {
-                List<Tuple<string, bool>> supportedVersions = new List<Tuple<string, bool>>();
-                for (int i = GAME_VERSIONS.Count - 1; i > GAME_VERSIONS.Count - 6; i--)
-                    supportedVersions.Add(GAME_VERSIONS[i]);
-                return supportedVersions;
-            }
-
-            public static string SUPPORTED_VERSIONS_DISPLAY()
-            {
-                List<string> data = new List<string>();
-                foreach (Tuple<string, bool> i in SUPPORTED_VERSIONS())
-                    data.Add($"Version: {i.Item1}\t\t(access: {i.Item2})");
-                string lastData = data[data.Count - 1];
-                data.Remove(data[data.Count - 1]);
-                return $"{string.Join("\n\t * ", data.ToArray())}\n\t * {lastData}";
-            }
-
             public static class INTERNAL
             {
                 public static readonly List<string> PRODUCTION_DDNS = new List<string>{
-                    "testing.loesoft.org", "localhost"
+                    "testing.loesoftgames.ignorelist.com", "localhost"
                 };
 
                 /// <summary>

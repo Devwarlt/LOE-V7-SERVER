@@ -69,7 +69,7 @@ namespace LoESoft.GameServer.networking.handlers
                     switch (portal.ObjectType)
                     {
                         case 0x0720:
-                            world = Program.Manager.PlayerVault(client);
+                            world = GameServer.Manager.PlayerVault(client);
                             setWorldInstance = false;
                             break;
                         case 0x0704:
@@ -78,31 +78,31 @@ namespace LoESoft.GameServer.networking.handlers
                         case 0x070d:
                         case 0x070e:
                             {
-                                if (Program.Manager.LastWorld.ContainsKey(player.AccountId))
+                                if (GameServer.Manager.LastWorld.ContainsKey(player.AccountId))
                                 {
-                                    World w = Program.Manager.LastWorld[player.AccountId];
+                                    World w = GameServer.Manager.LastWorld[player.AccountId];
 
-                                    if (w != null && Program.Manager.Worlds.ContainsKey(w.Id))
+                                    if (w != null && GameServer.Manager.Worlds.ContainsKey(w.Id))
                                         world = w;
                                     else
-                                        world = Program.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                                        world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
                                 }
                                 else
-                                    world = Program.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                                    world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
                                 setWorldInstance = false;
                             }
                             break;
                         case 0x0750:
-                            world = Program.Manager.GetWorld((int)WorldID.MARKET);
+                            world = GameServer.Manager.GetWorld((int)WorldID.MARKET);
                             break;
                         case 0x071d:
-                            world = Program.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                            world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
                             break;
                         case 0x0712:
-                            world = Program.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                            world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
                             break;
                         case 0x1756:
-                            world = Program.Manager.GetWorld((int)WorldID.DAILY_QUEST_ID);
+                            world = GameServer.Manager.GetWorld((int)WorldID.DAILY_QUEST_ID);
                             break;
                         case 0x072f:
                             if (player.Guild != null)
@@ -147,12 +147,12 @@ namespace LoESoft.GameServer.networking.handlers
                     return;
                 }
 
-                if (Program.Manager.LastWorld.ContainsKey(player.AccountId))
+                if (GameServer.Manager.LastWorld.ContainsKey(player.AccountId))
                 {
-                    Program.Manager.LastWorld.TryRemove(player.AccountId, out World dummy);
+                    GameServer.Manager.LastWorld.TryRemove(player.AccountId, out World dummy);
                 }
                 if (player.Owner is Nexus || player.Owner is GameWorld)
-                    Program.Manager.LastWorld.TryAdd(player.AccountId, player.Owner);
+                    GameServer.Manager.LastWorld.TryAdd(player.AccountId, player.Owner);
 
                 client?.Reconnect(new RECONNECT
                 {

@@ -114,12 +114,12 @@ namespace LoESoft.GameServer.realm
         {
             Logic = new LogicTicker(this);
             var logic = new Task(() => Logic.TickLoop(), TaskCreationOptions.LongRunning);
-            logic.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
+            logic.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
             logic.Start();
 
             Network = new NetworkTicker(this);
             var network = new Task(() => Network.TickLoop(), TaskCreationOptions.LongRunning);
-            network.ContinueWith(Program.Stop, TaskContinuationOptions.OnlyOnFaulted);
+            network.ContinueWith(GameServer.Stop, TaskContinuationOptions.OnlyOnFaulted);
             network.Start();
         }
 
@@ -166,7 +166,7 @@ namespace LoESoft.GameServer.realm
                 {
                     if (_cData.Client != null)
                     {
-                        TryDisconnect(ClientManager[_cData.ID].Client); // Old client.
+                        TryDisconnect(ClientManager[_cData.ID].Client, DisconnectReason.OLD_CLIENT_DISCONNECT); // Old client.
 
                         return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.
                     }

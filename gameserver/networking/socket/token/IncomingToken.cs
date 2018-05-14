@@ -2,10 +2,10 @@
 {
     internal partial class NetworkHandler
     {
-        private class IncomingToken
+        private sealed class IncomingToken
         {
+            public Message Message { get; set; }
             public int Length { get; set; }
-            public Message Packet { get; set; }
         }
     }
 }

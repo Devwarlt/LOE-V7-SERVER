@@ -21,29 +21,40 @@ namespace LoESoft.GameServer.networking.handlers
 
         private void Handle(Player player, PLAYERSHOOT message)
         {
-
-            if (!Program.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out Item item))
+            if (!GameServer.Manager.GameData.Items.TryGetValue((ushort)message.ContainerType, out Item item))
                 return;
 
-            DexterityCheatHandler _cheatHandler = new DexterityCheatHandler();
-            _cheatHandler.SetPlayer(player);
-            _cheatHandler.SetItem(item);
-            _cheatHandler.SetAbility(TierLoot.AbilitySlotType.ToList().Contains(item.SlotType));
-            _cheatHandler.SetPeriod(message.AttackPeriod);
-            _cheatHandler.SetAmount(message.AttackAmount);
+            bool ability = TierLoot.AbilitySlotType.ToList().Contains(item.SlotType);
+
+            DexterityCheatHandler _cheatHandler = new DexterityCheatHandler()
+            {
+                Player = player,
+                Item = item,
+                IsAbility = ability,
+                AttackAmount = message.AttackAmount,
+                MinAttackFrequency = message.MinAttackFrequency,
+                MaxAttackFrequency = message.MaxAttackFrequency,
+                WeaponRateOfFire = message.WeaponRateOfFire
+            };
+
             _cheatHandler.Handler();
 
             Projectile _projectile = player.PlayerShootProjectile(message.BulletId, item.Projectiles[0], item.ObjectType, Manager.Logic.CurrentTime.TotalElapsedMs, message.Position, message.Angle);
 
             player.Owner.EnterWorld(_projectile);
 
-            ALLYSHOOT _allyShoot = new ALLYSHOOT();
-            _allyShoot.Angle = message.Angle;
-            _allyShoot.BulletId = message.BulletId;
-            _allyShoot.ContainerType = message.ContainerType;
-            _allyShoot.OwnerId = player.Id;
+            ALLYSHOOT _allyShoot = new ALLYSHOOT
+            {
+                Angle = message.Angle,
+                BulletId = message.BulletId,
+                ContainerType = message.ContainerType,
+                OwnerId = player.Id
+            };
 
-            player.BroadcastSync(_allyShoot, p => p != player && p.Dist(player) <= 12);
+            if (ability)
+                player.BroadcastSync(_allyShoot, p => p.Dist(player) <= 12);
+            else
+                player.BroadcastSync(_allyShoot, p => p != player && p.Dist(player) <= 12);
 
             player.FameCounter.Shoot(_projectile);
         }

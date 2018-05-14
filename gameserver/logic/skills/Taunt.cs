@@ -157,7 +157,7 @@ namespace LoESoft.GameServer.logic.behaviors
                 TextColor = 0x123456
             };
             if (broadcast)
-                host.Owner.BroadcastPacket(packet, null);
+                host.Owner.BroadcastMessage(packet, null);
             else
                 foreach (Player i in host.Owner.PlayersCollision.HitTest(host.X, host.Y, 15).OfType<Player>())
                     if (host.Dist(i) < 15)

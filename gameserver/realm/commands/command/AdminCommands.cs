@@ -12,11 +12,185 @@ using LoESoft.GameServer.realm.world;
 using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
 using System.Threading;
+using LoESoft.GameServer.networking;
 
 #endregion
 
 namespace LoESoft.GameServer.realm.commands
 {
+    class CFameCommand : Command
+    {
+        public CFameCommand() : base("cfame", (int)AccountType.LOESOFT_ACCOUNT) { }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (args[0] == "")
+            {
+                player.SendHelp("Usage: /cfame <Fame Amount>");
+                return false;
+            }
+            try
+            {
+                int newFame = Convert.ToInt32(args[0]);
+                int newXP = Convert.ToInt32(newFame.ToString() + "000");
+                player.Fame = newFame;
+                player.Experience = newXP;
+                player.SaveToCharacter();
+                player.Client.Save();
+                player.UpdateCount++;
+                player.SendInfo("Updated Character Fame To: " + newFame);
+            }
+            catch
+            {
+                player.SendInfo("Error Setting Fame");
+                return false;
+            }
+            return true;
+        }
+    }
+
+    class VisitCommand : Command
+    {
+        public VisitCommand() : base("visit", (int)AccountType.LOESOFT_ACCOUNT) { }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (args.Length < 1)
+            {
+                player.SendHelp("Usage: /visit <player>");
+                return false;
+            }
+
+            foreach (ClientData i in GameServer.Manager.ClientManager.Values)
+            {
+                Player target = i.Client.Player;
+
+                if (target.Owner is Vault)
+                {
+                    player.SendInfo($"Player {target.Name} is at Vault.");
+                    return false;
+                }
+
+                if (target.Name.EqualsIgnoreCase(args[0]))
+                {
+                    if (player.Owner == target.Owner)
+                    {
+                        player.SendInfo($"You are already in the same world as this player {target.Name}.");
+                        return false;
+                    }
+
+                    player.Client.Reconnect(new RECONNECT
+                    {
+                        GameId = target.Owner.Id,
+                        Host = "",
+                        IsFromArena = false,
+                        Key = target.Owner.PortalKey,
+                        KeyTime = -1,
+                        Name = target.Owner.Name,
+                        Port = -1
+                    });
+                    return true;
+                }
+            }
+
+            player.SendError($"An error occurred: player {args[0]} couldn't be found.");
+            return false;
+        }
+    }
+
+    class GlandCommand : Command
+    {
+        public GlandCommand() : base("glands", (int)AccountType.FREE_ACCOUNT) { }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (!(player.Owner is IRealm))
+            {
+                player.SendInfo("You can only use this command at realm.");
+                return false;
+            }
+
+            player.Move(1000f, 1000f);
+
+            player.Owner.BroadcastMessage(new GOTO
+            {
+                ObjectId = player.Id,
+                Position = new Position
+                {
+                    X = player.X,
+                    Y = player.Y
+                }
+            }, null);
+            player.UpdateCount++;
+
+            return true;
+        }
+    }
+
+    class Summon : Command
+    {
+        public Summon()
+            : base("summon", 1)
+        {
+        }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (player.Owner is Vault)
+            {
+                player.SendInfo($"You cant summon player {args[0]} in your vault.");
+                return false;
+            }
+
+            foreach (ClientData i in GameServer.Manager.ClientManager.Values)
+            {
+                Player target = i.Client.Player;
+
+                if (target.Name.EqualsIgnoreCase(args[0]))
+                {
+                    Message msg;
+
+                    if (target.Owner == player.Owner)
+                    {
+                        target.Move(player.X, player.Y);
+
+                        msg = new GOTO
+                        {
+                            ObjectId = target.Id,
+                            Position = new Position(player.X, player.Y)
+                        };
+
+                        target.UpdateCount++;
+
+                        player.SendInfo($"Player {target.Name} was moved to near you.");
+                    }
+                    else
+                    {
+                        msg = new RECONNECT
+                        {
+                            GameId = player.Owner.Id,
+                            Host = "",
+                            IsFromArena = false,
+                            Key = player.Owner.PortalKey,
+                            KeyTime = -1,
+                            Name = player.Owner.Name,
+                            Port = -1
+                        };
+
+                        player.SendInfo($"Player {target.Name} is connecting to {player.Owner.Name}.");
+                    }
+
+                    i.Client.SendMessage(msg);
+
+                    return true;
+                }
+            }
+
+            player.SendError($"An error occurred: player '{args[0]}' couldn't be found.");
+            return false;
+        }
+    }
+
     class ZombifyCommand : Command
     {
         public ZombifyCommand() : base("zombify", (int)AccountType.LOESOFT_ACCOUNT) { }
@@ -48,7 +222,7 @@ namespace LoESoft.GameServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => Program.Manager.AddWorld(_.Result), TaskScheduler.Default);
+            Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => GameServer.Manager.AddWorld(_.Result), TaskScheduler.Default);
             return true;
         }
     }
@@ -65,10 +239,10 @@ namespace LoESoft.GameServer.realm.commands
                 string name = string.Join(" ", args.Skip(1).ToArray());
                 //creates a new case insensitive dictionary based on the XmlDatas
                 Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                    Program.Manager.GameData.IdToObjectType,
+                    GameServer.Manager.GameData.IdToObjectType,
                     StringComparer.OrdinalIgnoreCase);
                 if (!icdatas.TryGetValue(name, out ushort objType) ||
-                    !Program.Manager.GameData.ObjectDescs.ContainsKey(objType))
+                    !GameServer.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendInfo("Unknown entity!");
                     return false;
@@ -87,10 +261,10 @@ namespace LoESoft.GameServer.realm.commands
                 string name = string.Join(" ", args);
                 //creates a new case insensitive dictionary based on the XmlDatas
                 Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                    Program.Manager.GameData.IdToObjectType,
+                    GameServer.Manager.GameData.IdToObjectType,
                     StringComparer.OrdinalIgnoreCase);
                 if (!icdatas.TryGetValue(name, out ushort objType) ||
-                    !Program.Manager.GameData.ObjectDescs.ContainsKey(objType))
+                    !GameServer.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendHelp("Usage: /spawn <entityname>");
                     return false;
@@ -169,7 +343,8 @@ namespace LoESoft.GameServer.realm.commands
 
         private List<string> Blacklist = new List<string>
         {
-            "admin sword", "admin wand", "admin staff", "admin dagger", "admin bow", "admin katana", "crown"
+            "admin sword", "admin wand", "admin staff", "admin dagger", "admin bow", "admin katana", "crown",
+            "public arena key"
         };
 
         protected override bool Process(Player player, RealmTime time, string[] args)
@@ -188,30 +363,40 @@ namespace LoESoft.GameServer.realm.commands
                 return false;
             }
 
-            Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(Program.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
+            try
+            {
+                Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(GameServer.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
 
-            if (!icdatas.TryGetValue(name, out ushort objType))
+                if (!icdatas.TryGetValue(name, out ushort objType))
+                {
+                    player.SendError("Unknown type!");
+                    return false;
+                }
+
+                if (!GameServer.Manager.GameData.Items[objType].Secret || player.Client.Account.Admin)
+                {
+                    for (int i = 4; i < player.Inventory.Length; i++)
+                        if (player.Inventory[i] == null)
+                        {
+                            player.Inventory[i] = GameServer.Manager.GameData.Items[objType];
+                            player.UpdateCount++;
+                            player.SaveToCharacter();
+                            player.SendInfo("Success!");
+                            break;
+                        }
+                }
+                else
+                {
+                    player.SendError("An error occurred: inventory out of space, item cannot be given.");
+                    return false;
+                }
+            }
+            catch (KeyNotFoundException)
             {
-                player.SendError("Unknown type!");
+                player.SendError($"An error occurred: item '{name}' doesn't exist in game assets.");
                 return false;
             }
-            if (!Program.Manager.GameData.Items[objType].Secret || player.Client.Account.Admin)
-            {
-                for (int i = 4; i < player.Inventory.Length; i++)
-                    if (player.Inventory[i] == null)
-                    {
-                        player.Inventory[i] = Program.Manager.GameData.Items[objType];
-                        player.UpdateCount++;
-                        player.SaveToCharacter();
-                        player.SendInfo("Success!");
-                        break;
-                    }
-            }
-            else
-            {
-                player.SendError("Item cannot be given!");
-                return false;
-            }
+
             return true;
         }
     }
@@ -241,7 +426,7 @@ namespace LoESoft.GameServer.realm.commands
                 }
                 player.Move(x + 0.5f, y + 0.5f);
                 player.UpdateCount++;
-                player.Owner.BroadcastPacket(new GOTO
+                player.Owner.BroadcastMessage(new GOTO
                 {
                     ObjectId = player.Id,
                     Position = new Position
@@ -302,7 +487,7 @@ namespace LoESoft.GameServer.realm.commands
                     if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
                     {
                         player.SendInfo($"Player {i.Value.Name} has been disconnected!");
-                        Program.Manager.TryDisconnect(i.Value.Client, DisconnectReason.PLAYER_KICK);
+                        GameServer.Manager.TryDisconnect(i.Value.Client, DisconnectReason.PLAYER_KICK);
                     }
                 }
             }
@@ -369,7 +554,7 @@ namespace LoESoft.GameServer.realm.commands
         {
             StringBuilder sb = new StringBuilder("Online at this moment: ");
 
-            foreach (KeyValuePair<int, World> w in Program.Manager.Worlds)
+            foreach (KeyValuePair<int, World> w in GameServer.Manager.Worlds)
             {
                 World world = w.Value;
                 if (w.Key != 0)
@@ -405,7 +590,7 @@ namespace LoESoft.GameServer.realm.commands
             }
             string saytext = string.Join(" ", args);
 
-            foreach (ClientData cData in Program.Manager.ClientManager.Values)
+            foreach (ClientData cData in GameServer.Manager.ClientManager.Values)
             {
                 cData.Client.SendMessage(new TEXT
                 {
@@ -427,7 +612,7 @@ namespace LoESoft.GameServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            foreach (ClientData cData in Program.Manager.ClientManager.Values)
+            foreach (ClientData cData in GameServer.Manager.ClientManager.Values)
             {
                 if (cData.Client.Account.Name.EqualsIgnoreCase(args[0]))
                 {
@@ -448,11 +633,11 @@ namespace LoESoft.GameServer.realm.commands
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
-            foreach (KeyValuePair<int, World> w in Program.Manager.Worlds)
+            foreach (KeyValuePair<int, World> w in GameServer.Manager.Worlds)
             {
                 World world = w.Value;
                 if (w.Key != 0)
-                    world.BroadcastPacket(new TEXT
+                    world.BroadcastMessage(new TEXT
                     {
                         Name = "@ANNOUNCEMENT",
                         Stars = -1,
@@ -465,7 +650,7 @@ namespace LoESoft.GameServer.realm.commands
 
             Thread.Sleep(4000);
 
-            Program.ForceShutdown();
+            GameServer.ForceShutdown();
 
             return true;
         }
@@ -484,7 +669,7 @@ namespace LoESoft.GameServer.realm.commands
             }
             player.Move(player.Quest.X + 0.5f, player.Quest.Y + 0.5f);
             player.UpdateCount++;
-            player.Owner.BroadcastPacket(new GOTO
+            player.Owner.BroadcastMessage(new GOTO
             {
                 ObjectId = player.Id,
                 Position = new Position
@@ -595,7 +780,7 @@ namespace LoESoft.GameServer.realm.commands
             }
             else if (args.Length == 3)
             {
-                foreach (ClientData cData in Program.Manager.ClientManager.Values)
+                foreach (ClientData cData in GameServer.Manager.ClientManager.Values)
                 {
                     if (cData.Client.Account.Name.EqualsIgnoreCase(args[0]))
                     {
@@ -781,14 +966,14 @@ namespace LoESoft.GameServer.realm.commands
         {
             try
             {
-                Player p = Program.Manager.FindPlayer(args[0]);
+                Player p = GameServer.Manager.FindPlayer(args[0]);
                 if (p == null)
                 {
                     player.SendError("Player not found");
                     return false;
                 }
                 p.Client.Manager.Database.BanAccount(p.Client.Account);
-                Program.Manager.TryDisconnect(p.Client, DisconnectReason.PLAYER_BANNED);
+                GameServer.Manager.TryDisconnect(p.Client, DisconnectReason.PLAYER_BANNED);
                 return true;
             }
             catch

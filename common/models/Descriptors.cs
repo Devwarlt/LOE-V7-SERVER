@@ -750,7 +750,7 @@ public class PortalDesc
         {
             DungeonName = elem.Element("DungeonName").Value;
         }
-        TimeoutTime = ObjectId == "The Shatters" ? 70 : 30;
+        TimeoutTime = ObjectId == "Public Arena" ? 120 : (ObjectId == "The Shatters" ? 70 : 30);
     }
 
     public ushort ObjectType { get; private set; }
@@ -788,7 +788,7 @@ public class Item : IFeedable
             else
                 Tier = -1;
             MinStars = elem.Attribute("minStars") != null ? int.Parse(elem.Attribute("minStars").Value) : 0;
-            Description = elem.Element("Description").Value;
+            Description = elem.Element("Description") != null ? elem.Element("Description").Value : null;
             RateOfFire = (n = elem.Element("RateOfFire")) != null ? float.Parse(n.Value, NumberStyles.Any, ci) : 1;
             Usable = elem.Element("Usable") != null;
             BagType = (n = elem.Element("BagType")) != null ? Utils.FromString(n.Value) : 0;

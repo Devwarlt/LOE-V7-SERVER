@@ -149,7 +149,7 @@ namespace LoESoft.GameServer.logic.behaviors
                                     Y = player.Y,
                                 };
 
-                            host.Owner.BroadcastPacket(new SHOWEFFECT
+                            host.Owner.BroadcastMessage(new SHOWEFFECT
                             {
                                 EffectType = EffectType.Coneblast,
                                 Color = new ARGB(rotateColor),
@@ -159,7 +159,7 @@ namespace LoESoft.GameServer.logic.behaviors
                             }, null);
                         }
 
-                        host.Owner.BroadcastPacket(new ENEMYSHOOT
+                        host.Owner.BroadcastMessage(new ENEMYSHOOT
                         {
                             BulletId = prjId,
                             OwnerId = host.Id,

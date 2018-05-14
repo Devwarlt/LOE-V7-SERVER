@@ -31,7 +31,7 @@ namespace LoESoft.GameServer.logic.skills.Pets
                     Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"New Pet!\"}}"
                 };
 
-                host.Owner.BroadcastPacket(_notification, null);
+                host.Owner.BroadcastMessage(_notification, null);
 
                 player.HatchlingNotification = true;
 

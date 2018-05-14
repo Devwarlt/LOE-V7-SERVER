@@ -37,7 +37,7 @@ namespace LoESoft.AppEngine.@char
                     var list = CharList.FromDb(Database, acc);
                     list.Servers = GetServerList();
 
-                    WriteLine(list.ToXml(Program.GameData, acc));
+                    WriteLine(list.ToXml(AppEngine.GameData, acc));
                 }
                 else
                     WriteErrorLine(status.GetInfo());

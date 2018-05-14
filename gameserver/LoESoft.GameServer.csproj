@@ -104,8 +104,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1-beta3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -128,6 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="logic\engine\Behavior.cs" />
+    <Compile Include="logic\engine\IBehavior.cs" />
     <Compile Include="logic\engine\task\TaskManager.Dictionary.cs" />
     <Compile Include="logic\engine\task\TaskManager.Init.cs" />
     <Compile Include="logic\engine\task\TaskManager.Instances.cs" />
@@ -151,8 +151,18 @@
     <Compile Include="logic\monsters\Dungeons\Puppet Master%27s Theatre\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\Snake Pit\Enemies.cs" />
     <Compile Include="logic\monsters\Dungeons\Spider Den\Enemies.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Birds\Blizzard.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Birds\Inferno.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Bosses\Bridge Sentinel.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Bosses\ForgottenKing.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Bosses\TwilightMage.cs" />
     <Compile Include="logic\monsters\Dungeons\The Shatters\Enemies.cs" />
-    <Compile Include="logic\monsters\Dungeons\The Shatters\The Forgotten King.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Fire Adept.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Glassier Archmage.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Ice Adept.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Lava Souls.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Stone Paladin.cs" />
+    <Compile Include="logic\monsters\Dungeons\The Shatters\Regular Enemies\Stone Knight.cs" />
     <Compile Include="logic\monsters\Editions\Edition 1\Bosses.cs" />
     <Compile Include="logic\monsters\Editions\Edition 1\MiniBosses.cs" />
     <Compile Include="logic\monsters\Editions\Edition 1\Minions.cs" />
@@ -175,6 +185,8 @@
     <Compile Include="logic\monsters\Realm\Miscellaneous\Satellite.cs" />
     <Compile Include="logic\monsters\Realm\Mountains\Mountains Gods.cs" />
     <Compile Include="logic\monsters\Realm\Mountains\Mountains Special.cs" />
+    <Compile Include="logic\monsters\Realm\Oryx\Wine Cellar\Enemies.cs" />
+    <Compile Include="logic\monsters\Realm\Oryx\Wine Cellar\Oryx 2.cs" />
     <Compile Include="logic\monsters\Realm\Quests\Event Bosses\Avatar of the Forgotten King Event.cs" />
     <Compile Include="logic\monsters\Realm\Quests\Event Bosses\Cube God Event.cs" />
     <Compile Include="logic\monsters\Realm\Quests\Event Bosses\Ghost Ship Event.cs" />
@@ -336,7 +348,6 @@
     <Compile Include="networking\messages\incoming\PETUPGRADEREQUEST.cs" />
     <Compile Include="networking\messages\incoming\USEITEM.cs" />
     <Compile Include="networking\messages\incoming\USEPORTAL.cs" />
-    <Compile Include="Empty.cs" />
     <Compile Include="networking\messages\incoming\QUEST_FETCH_ASK.cs" />
     <Compile Include="networking\messages\incoming\QUEST_REDEEM_RESPONSE.cs" />
     <Compile Include="networking\messages\handlers\BuyHandler.cs" />
@@ -369,7 +380,6 @@
     <Compile Include="networking\messages\handlers\PlayerTextHandler.cs" />
     <Compile Include="networking\messages\handlers\PongHandler.cs" />
     <Compile Include="networking\messages\handlers\ReskinHandler.cs" />
-    <Compile Include="networking\messages\handlers\TeleportHandler.cs" />
     <Compile Include="networking\messages\handlers\UpdateAckHandler.cs" />
     <Compile Include="networking\messages\handlers\PetYardCommandHandler.cs" />
     <Compile Include="networking\messages\handlers\UseItemHandler.cs" />
@@ -383,7 +393,7 @@
     <Compile Include="networking\messages\MessageHandler.cs" />
     <Compile Include="networking\messages\MessageHandlers.cs" />
     <Compile Include="networking\socket\Connection.cs" />
-    <Compile Include="networking\socket\message\IncomingMessage.cs" />
+    <Compile Include="networking\socket\message\OutgoingMessage.cs" />
     <Compile Include="networking\socket\NetworkHandler.cs" />
     <Compile Include="networking\messages\outgoing\ARENA_DEATH.cs" />
     <Compile Include="networking\messages\outgoing\IMMINENT_ARENA_WAVE.cs" />
@@ -401,15 +411,15 @@
     <Compile Include="networking\messages\MessageID.cs" />
     <Compile Include="networking\PolicyServer.cs" />
     <Compile Include="networking\socket\Client.cs" />
-    <Compile Include="networking\socket\message\OutgoingMessage.cs" />
+    <Compile Include="networking\socket\message\IncomingMessage.cs" />
     <Compile Include="networking\socket\message\ProcessMessage.cs" />
     <Compile Include="networking\socket\ProcessPolicyFile.cs" />
     <Compile Include="networking\socket\state\ProtocolState.cs" />
-    <Compile Include="networking\socket\token\IncomingToken.cs" />
+    <Compile Include="networking\socket\token\OutgoingToken.cs" />
     <Compile Include="networking\socket\state\IncomingState.cs" />
     <Compile Include="networking\socket\state\OutgoingState.cs" />
-    <Compile Include="networking\socket\token\OutgoingToken.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="networking\socket\token\IncomingToken.cs" />
+    <Compile Include="GameServer.cs" />
     <Compile Include="realm\ChatColor.cs" />
     <Compile Include="realm\ChatManager.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Frog.cs" />
@@ -417,6 +427,7 @@
     <Compile Include="realm\entity\npc\NPC.Dictionary.cs" />
     <Compile Include="realm\entity\npc\NPC.Init.cs" />
     <Compile Include="realm\entity\npc\npcs\NPC.Gazer.cs" />
+    <Compile Include="realm\mapsetpiece\setpieces\Wingus.cs" />
     <Compile Include="realm\world\Collision.cs" />
     <Compile Include="realm\commands\command\AdminCommands.cs" />
     <Compile Include="realm\commands\Command.cs" />
@@ -507,6 +518,7 @@
     <Compile Include="realm\TradeManager.cs" />
     <Compile Include="realm\Utils.cs" />
     <Compile Include="realm\world\World.cs" />
+    <Compile Include="realm\world\worlds\Public Arena.cs" />
     <Compile Include="realm\world\worlds\Arena.cs" />
     <Compile Include="realm\world\worlds\dungeons\Beachzone.cs" />
     <Compile Include="realm\world\worlds\dungeons\BelladonnasGarden.cs" />
@@ -723,6 +735,8 @@
     <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_5.json" />
     <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_1.json" />
     <EmbeddedResource Include="realm\world\maps\json\LoE-test.json" />
+    <EmbeddedResource Include="realm\mapsetpiece\maps\succubus.jm" />
+    <EmbeddedResource Include="realm\world\maps\json\Beach.jm" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="realm\world\maps\json\dungeons\spider den\" />

@@ -13,14 +13,22 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.models;
+using log4net;
 
 #endregion
 
 namespace LoESoft.GameServer
 {
-    internal static class Program
+    internal static class Empty<T>
+    {
+        public static T[] Array = new T[0];
+    }
+
+    internal static class GameServer
     {
         public static DateTime Uptime { get; private set; }
+
+        public static readonly ILog log = LogManager.GetLogger("Server");
 
         private static readonly ManualResetEvent Shutdown = new ManualResetEvent(false);
 
@@ -56,11 +64,12 @@ namespace LoESoft.GameServer
                 Log._("Message", Message.Messages.Count);
 
                 Server server = new Server(Manager);
+
                 PolicyServer policy = new PolicyServer();
 
                 Console.CancelKeyPress += (sender, e) => e.Cancel = true;
 
-                Log.Info($"Game Versions (max 5):\n\t * {Settings.NETWORKING.SUPPORTED_VERSIONS_DISPLAY()}");
+                Settings.DISPLAY_SUPPORTED_VERSIONS();
 
                 Log.Info("Initializing GameServer...");
 

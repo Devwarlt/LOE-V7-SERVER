@@ -225,3 +225,5 @@ pip-log.txt
 dump.rdb
 Game Launcher/flashplayer_28_sa.exe
 .vs/
+*.rdb
+storage_engine/redis 3.2.100/loesoft_games_database__log

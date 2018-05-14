@@ -12,6 +12,7 @@ using System;
 using LoESoft.GameServer.networking.error;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.config;
+using System.Collections.Generic;
 
 #endregion
 
@@ -23,8 +24,9 @@ namespace LoESoft.GameServer.networking.handlers
 
         protected override void HandleMessage(Client client, HELLO message)
         {
-            Tuple<string, bool> checkGameVersion = CheckGameVersion(message.BuildVersion);
-            if (checkGameVersion.Item2)
+            KeyValuePair<string, bool> versionStatus = Settings.CheckClientVersion(message.BuildVersion);
+
+            if (!versionStatus.Value)
             {
                 client.SendMessage(new FAILURE
                 {
@@ -34,16 +36,21 @@ namespace LoESoft.GameServer.networking.handlers
                             FormatedJSONError(
                                 errorID: ErrorIDs.OUTDATED_CLIENT,
                                 labels: new[] { "{CLIENT_BUILD_VERSION}", "{SERVER_BUILD_VERSION}" },
-                                arguments: new[] { message.BuildVersion, checkGameVersion.Item1 }
+                                arguments: new[] { message.BuildVersion, versionStatus.Key }
                             )
                 });
+
                 Manager.TryDisconnect(client, DisconnectReason.OUTDATED_CLIENT);
+
                 return;
             }
+
             LoginStatus s1 = Manager.Database.Verify(message.GUID, message.Password, out DbAccount acc);
+
             if (s1 == LoginStatus.AccountNotExists)
             {
                 RegisterStatus s2 = Manager.Database.Register(message.GUID, message.Password, true, out acc); //Register guest but do not allow join game.
+
                 client.SendMessage(new FAILURE()
                 {
                     ErrorId = (int)FailureIDs.JSON_DIALOG,
@@ -55,9 +62,12 @@ namespace LoESoft.GameServer.networking.handlers
                                 arguments: null
                             )
                 });
+
                 Manager.TryDisconnect(client, DisconnectReason.DISABLE_GUEST_ACCOUNT);
+
                 return;
             }
+
             else if (s1 == LoginStatus.InvalidCredentials)
             {
                 client.SendMessage(new FAILURE
@@ -65,18 +75,22 @@ namespace LoESoft.GameServer.networking.handlers
                     ErrorId = (int)FailureIDs.DEFAULT,
                     ErrorDescription = "Bad login."
                 });
+
                 Manager.TryDisconnect(client, DisconnectReason.BAD_LOGIN);
             }
+
             client.ConnectedBuild = message.BuildVersion;
             client.Account = acc;
+
             ConnectionProtocol TryConnect = Manager.TryConnect(client);
+
             if (!TryConnect.Connected)
             {
-                client.Account = null;
                 ErrorIDs errorID = TryConnect.ErrorID;
                 string[] labels;
                 string[] arguments;
                 DisconnectReason reason;
+
                 switch (errorID)
                 {
                     case ErrorIDs.SERVER_FULL:
@@ -115,6 +129,7 @@ namespace LoESoft.GameServer.networking.handlers
                         }
                         break;
                 }
+
                 client.SendMessage(new FAILURE
                 {
                     ErrorId = (int)FailureIDs.JSON_DIALOG,
@@ -126,7 +141,9 @@ namespace LoESoft.GameServer.networking.handlers
                                 arguments: arguments
                             )
                 });
+
                 Manager.TryDisconnect(client, reason);
+
                 return;
             }
             else
@@ -139,33 +156,17 @@ namespace LoESoft.GameServer.networking.handlers
                 if (world == null && message.GameId == (int)WorldID.TUT_ID)
                     world = Manager.AddWorld(new Tutorial(false));
 
-                if (!Manager.Database.AcquireLock(acc))
-                {
-                    int accountInUseTime = Manager.Database.GetLockTime(acc);
-                    client.SendMessage(new FAILURE
-                    {
-                        ErrorId = (int)FailureIDs.JSON_DIALOG,
-                        ErrorDescription =
-                            JSONErrorIDHandler
-                                .FormatedJSONError(
-                                    errorID: ErrorIDs.ACCOUNT_IN_USE,
-                                    labels: new[] { "{CLIENT_NAME}", "{TIME_LEFT}" },
-                                    arguments: new[] { acc.Name, $"{accountInUseTime} second{(accountInUseTime > 1 ? "s" : "")}" }
-                                )
-                    });
-                    Manager.TryDisconnect(client, DisconnectReason.ACCOUNT_IN_USE);
-                    return;
-                }
-
                 if (acc.AccountType == (int)AccountType.VIP_ACCOUNT)
                 {
                     DateTime _currentTime = DateTime.Now;
                     DateTime _vipRegistration = acc.AccountLifetime;
+
                     if (_vipRegistration <= _currentTime)
                     {
                         acc.AccountType = (int)AccountType.FREE_ACCOUNT;
                         acc.Flush();
                         acc.Reload();
+
                         FAILURE _failure = new FAILURE
                         {
                             ErrorId = (int)FailureIDs.JSON_DIALOG,
@@ -177,8 +178,11 @@ namespace LoESoft.GameServer.networking.handlers
                                     arguments: new[] { acc.Name, string.Format(new DateProvider(), "{0}", DateTime.Now), string.Format(new DateProvider(), "{0}", acc.AccountLifetime.AddDays(-30)), string.Format(new DateProvider(), "{0}", acc.AccountLifetime) }
                                 )
                         };
+
                         client.SendMessage(_failure);
+
                         Manager.TryDisconnect(client, DisconnectReason.VIP_ACCOUNT_OVER);
+
                         return;
                     }
                 }
@@ -190,7 +194,9 @@ namespace LoESoft.GameServer.networking.handlers
                         ErrorId = (int)FailureIDs.DEFAULT,
                         ErrorDescription = "Invalid world."
                     });
+
                     Manager.TryDisconnect(client, DisconnectReason.INVALID_WORLD);
+
                     return;
                 }
 
@@ -203,7 +209,9 @@ namespace LoESoft.GameServer.networking.handlers
                             ErrorId = (int)FailureIDs.DEFAULT,
                             ErrorDescription = "Invalid portal key."
                         });
+
                         Manager.TryDisconnect(client, DisconnectReason.INVALID_PORTAL_KEY);
+
                         return;
                     }
 
@@ -214,7 +222,9 @@ namespace LoESoft.GameServer.networking.handlers
                             ErrorId = (int)FailureIDs.DEFAULT,
                             ErrorDescription = "Portal key expired."
                         });
+
                         Manager.TryDisconnect(client, DisconnectReason.PORTAL_KEY_EXPIRED);
+
                         return;
                     }
                 }
@@ -226,6 +236,7 @@ namespace LoESoft.GameServer.networking.handlers
 
                 client.Random = new wRandom(world.Seed);
                 client.TargetWorld = world.Id;
+
                 client.SendMessage(new MAPINFO
                 {
                     Width = world.Map.Width,
@@ -241,6 +252,7 @@ namespace LoESoft.GameServer.networking.handlers
                     ExtraXML = Manager.GameData.AdditionXml,
                     Music = world.Name
                 });
+
                 client.State = ProtocolState.Handshaked;
             }
         }

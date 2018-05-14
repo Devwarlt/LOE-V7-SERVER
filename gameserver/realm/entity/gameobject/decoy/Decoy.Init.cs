@@ -10,12 +10,13 @@ namespace LoESoft.GameServer.realm.entity
 {
     partial class Decoy : GameObject, IPlayer
     {
-        public Decoy(Player player, int duration, float tps)
+        public Decoy(Player player, int duration, float speed)
             : base(0x0715, duration, true, true, true)
         {
             this.player = player;
             this.duration = duration;
-            speed = tps;
+            this.speed = speed;
+            IsJoinedWorld = false;
 
             Position? history = player.TryGetHistory(1000);
 
@@ -24,6 +25,7 @@ namespace LoESoft.GameServer.realm.entity
             else
             {
                 direction = new Vector2(player.X - history.Value.X, player.Y - history.Value.Y);
+
                 if (direction.LengthSquared() == 0)
                     direction = GetRandDirection();
                 else
@@ -31,26 +33,30 @@ namespace LoESoft.GameServer.realm.entity
             }
         }
 
+        private long JoinedWorld { get; set; }
+        private bool IsJoinedWorld { get; set; }
+
         public override void Tick(RealmTime time)
         {
-            if (HP > duration / 2)
+            if (!IsJoinedWorld)
             {
-                ValidateAndMove(
-                    X + direction.X * speed * time.ElapsedMsDelta / 1000,
-                    Y + direction.Y * speed * time.ElapsedMsDelta / 1000
-                );
+                IsJoinedWorld = true;
+                JoinedWorld = time.TotalElapsedMs;
             }
-            if (HP < 250 && !exploded)
+            else
             {
-                exploded = true;
-                Owner.BroadcastPacket(new SHOWEFFECT()
-                {
-                    EffectType = EffectType.Nova,
-                    Color = new ARGB(0xffff0000),
-                    TargetId = Id,
-                    PosA = new Position() { X = 1 }
-                }, null);
+                if (duration > time.TotalElapsedMs - JoinedWorld)
+                    ValidateAndMove(X + direction.X * EntitySpeed(speed, time), Y + direction.Y * EntitySpeed(speed, time));
+                else
+                    Owner?.BroadcastMessage(new SHOWEFFECT()
+                    {
+                        EffectType = EffectType.Nova,
+                        Color = new ARGB(0xffff0000),
+                        TargetId = Id,
+                        PosA = new Position() { X = 1 }
+                    }, null);
             }
+
             base.Tick(time);
         }
     }

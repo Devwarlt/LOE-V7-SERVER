@@ -86,7 +86,7 @@ namespace LoESoft.GameServer.realm.entity.player
                         {
                             List<Message> pkts = new List<Message>();
                             ActivateHealHp(this, eff.Amount, pkts);
-                            Owner?.BroadcastPackets(pkts, null);
+                            Owner?.BroadcastMessage(pkts, null);
                         }
                         break;
                     case ActivateEffects.HealNova:
@@ -115,7 +115,7 @@ namespace LoESoft.GameServer.realm.entity.player
                         {
                             List<Message> pkts = new List<Message>();
                             ActivateHealMp(this, eff.Amount, pkts);
-                            Owner?.BroadcastPackets(pkts, null);
+                            Owner?.BroadcastMessage(pkts, null);
                         }
                         break;
                     case ActivateEffects.MagicNova:
@@ -129,7 +129,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 Color = new ARGB(0xffffffff),
                                 PosA = new Position { X = eff.Range }
                             });
-                            Owner?.BroadcastPackets(pkts, null);
+                            Owner?.BroadcastMessage(pkts, null);
                         }
                         break;
                     case ActivateEffects.Teleport:
@@ -142,7 +142,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                             Move(target.X, target.Y);
                             UpdateCount++;
-                            Owner?.BroadcastPackets(new Message[]
+                            Owner?.BroadcastMessage(new Message[]
                             {
                                 new GOTO
                                 {
@@ -386,7 +386,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 {
                                     Owner.Timers.Add(new WorldTimer(1500, (world, t) =>
                                     {
-                                        world.BroadcastPacket(new SHOWEFFECT
+                                        world.BroadcastMessage(new SHOWEFFECT
                                         {
                                             EffectType = EffectType.Nova,
                                             Color = new ARGB(0xffddff00),
@@ -430,7 +430,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 for (int i = 4; i < 12; i++)
                                     if (Inventory[i] == null)
                                     {
-                                        Inventory[i] = Program.Manager.GameData.Items[reward];
+                                        Inventory[i] = GameServer.Manager.GameData.Items[reward];
                                         UpdateCount++;
                                         SaveToCharacter();
                                         return false;
@@ -452,7 +452,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     case ActivateEffects.RemoveNegativeConditionsSelf:
                         {
                             ApplyConditionEffect(NegativeEffs);
-                            Owner?.BroadcastPacket(new SHOWEFFECT
+                            Owner?.BroadcastMessage(new SHOWEFFECT
                             {
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
@@ -483,7 +483,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             Stats[idx] += eff.Amount;
                             int limit =
                                 int.Parse(
-                                    Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element(
+                                    GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element(
                                         StatsManager.StatsIndexToName(idx))
                                         .Attribute("max")
                                         .Value);
@@ -499,7 +499,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 return true;
                             }
 
-                            Portal portal = this.GetNearestEntity(5, Program.Manager.GameData.IdToObjectType[eff.LockedName]) as Portal;
+                            Portal portal = this.GetNearestEntity(5, GameServer.Manager.GameData.IdToObjectType[eff.LockedName]) as Portal;
 
                             Message[] packets = new Message[3];
                             packets[0] = new SHOWEFFECT
@@ -547,29 +547,29 @@ namespace LoESoft.GameServer.realm.entity.player
 
                             if (Stars >= 10 || AccountPerks.ByPassKeysRequirements())
                             {
-                                if (!Program.Manager.GameData.IdToObjectType.TryGetValue(eff.Id, out ushort objType) || !Program.Manager.GameData.Portals.ContainsKey(objType))
+                                if (!GameServer.Manager.GameData.IdToObjectType.TryGetValue(eff.Id, out ushort objType) || !GameServer.Manager.GameData.Portals.ContainsKey(objType))
                                 {
                                     SendHelp("Dungeon not implemented yet.");
                                     return true;
                                 }
                                 Entity entity = Resolve(objType);
-                                World w = Program.Manager.GetWorld(Owner.Id); //can't use Owner here, as it goes out of scope
-                                int TimeoutTime = Program.Manager.GameData.Portals[objType].TimeoutTime;
-                                string DungName = Program.Manager.GameData.Portals[objType].DungeonName;
+                                World w = GameServer.Manager.GetWorld(Owner.Id); //can't use Owner here, as it goes out of scope
+                                int TimeoutTime = GameServer.Manager.GameData.Portals[objType].TimeoutTime;
+                                string DungName = GameServer.Manager.GameData.Portals[objType].DungeonName;
 
                                 ARGB c = new ARGB(0x00FF00);
 
                                 entity?.Move(X, Y);
                                 w?.EnterWorld(entity);
 
-                                w.BroadcastPacket(new NOTIFICATION
+                                w.BroadcastMessage(new NOTIFICATION
                                 {
                                     Color = c,
                                     Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Opened by " + Name + "\"}}",
                                     ObjectId = Client.Player.Id
                                 }, null);
 
-                                w.BroadcastPacket(new TEXT
+                                w.BroadcastMessage(new TEXT
                                 {
                                     BubbleTime = 0,
                                     Stars = -1,
@@ -635,7 +635,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                     Effect = ConditionEffectIndex.Speedy,
                                     DurationMS = 0
                                 });
-                                Program.Manager.GameData.IdToObjectType.TryGetValue(item.ObjectId, out ushort obj);
+                                GameServer.Manager.GameData.IdToObjectType.TryGetValue(item.ObjectId, out ushort obj);
                                 if (MP >= item.MpEndCost)
                                 {
                                     Shoot(time, item, pkt.ItemUsePos);
@@ -658,7 +658,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             {
                                 if (!Client.Account.OwnedSkins.Contains(item.ActivateEffects[0].SkinType))
                                 {
-                                    Program.Manager.Database.AddSkin(Client.Account, item.ActivateEffects[0].SkinType);
+                                    GameServer.Manager.Database.AddSkin(Client.Account, item.ActivateEffects[0].SkinType);
                                     SendInfo("New skin unlocked successfully. Change skins in your Vault, or start a new character to use.");
                                     Client.SendMessage(new RESKIN_UNLOCK
                                     {
@@ -730,7 +730,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 "Lair of Shaitan Portal"
                             };
 
-                            PortalDesc[] descs = Program.Manager.GameData.Portals.Where(_ => dungeons.Contains(_.Value.ObjectId)).Select(_ => _.Value).ToArray();
+                            PortalDesc[] descs = GameServer.Manager.GameData.Portals.Where(_ => dungeons.Contains(_.Value.ObjectId)).Select(_ => _.Value).ToArray();
                             PortalDesc portalDesc = descs[Random.Next(0, descs.Count())];
                             Entity por = Resolve(portalDesc.ObjectId);
                             por?.Move(X, Y);
@@ -745,7 +745,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 ObjectId = Client.Player.Id
                             });
 
-                            Owner?.BroadcastPacket(new TEXT
+                            Owner?.BroadcastMessage(new TEXT
                             {
                                 BubbleTime = 0,
                                 Stars = -1,
@@ -1006,7 +1006,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 for (int i = 4; i < 12; i++)
                                     if (Inventory[i] == null)
                                     {
-                                        Inventory[i] = Program.Manager.GameData.Items[convertedEgg];
+                                        Inventory[i] = GameServer.Manager.GameData.Items[convertedEgg];
                                         UpdateCount++;
                                         SaveToCharacter();
                                         return false;
@@ -1046,7 +1046,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 Boost[idx] = OGstat;
                                 UpdateCount++;
                             }));
-                            Owner?.BroadcastPacket(new SHOWEFFECT
+                            Owner?.BroadcastMessage(new SHOWEFFECT
                             {
                                 EffectType = EffectType.Heal,
                                 TargetId = Id,
@@ -1200,7 +1200,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 DurationMS = durationCES
                             });
 
-                            Owner?.BroadcastPacket(new SHOWEFFECT
+                            Owner?.BroadcastMessage(new SHOWEFFECT
                             {
                                 EffectType = EffectType.Nova,
                                 TargetId = Id,
@@ -1230,7 +1230,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }
 
                             List<Message> _outgoing = new List<Message>();
-                            World _world = Program.Manager.GetWorld(Owner.Id);
+                            World _world = GameServer.Manager.GetWorld(Owner.Id);
                             DbAccount acc = Client.Account;
                             int days = eff.Amount;
 
@@ -1254,7 +1254,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                             _outgoing.Add(_showeffect);
 
-                            Owner.BroadcastPackets(_outgoing, null);
+                            Owner.BroadcastMessage(_outgoing, null);
 
                             acc.AccountLifetime = DateTime.Now;
                             acc.AccountLifetime = acc.AccountLifetime.AddDays(days);
@@ -1283,15 +1283,45 @@ namespace LoESoft.GameServer.realm.entity.player
                             if (Database.Names.Contains(Name))
                                 return true;
                             Credits += eff.Amount;
-                            Program.Manager.Database.UpdateCredit(Client.Account, eff.Amount);
+                            GameServer.Manager.Database.UpdateCredit(Client.Account, eff.Amount);
                             UpdateCount++;
                         }
                         break;
+                    case ActivateEffects.Exchange:
+                        {
+                            if (Database.Names.Contains(Name))
+                            {
+                                SendInfo("Players without valid name couldn't use this feature. Please name your character to continue.");
+                                return true;
+                            }
+
+                            if (!Owner.Name.Contains("Vault"))
+                            {
+                                SendInfo("You have to be in Vault to use this item.");
+                                return false;
+                            }
+
+                            if (Inventory[4] != null && Inventory[5] != null && Inventory[6] != null && Inventory[7] != null &&
+                                Inventory[8] != null && Inventory[9] != null && Inventory[10] != null && Inventory[11] != null)
+                            {
+                                SendHelp("Your inventory need free space to enchant this item.");
+                                return true;
+                            }
+                            else
+                                for (int i = 4; i < 12; i++)
+                                    if (Inventory[i] == null)
+                                    {
+                                        Inventory[i] = GameServer.Manager.GameData.Items[(ushort)Utils.FromString(eff.Id)];
+                                        UpdateCount++;
+                                        SaveToCharacter();
+                                        return false;
+                                    }
+                            return true;
+                        }
                     case ActivateEffects.PermaPet:
                     case ActivateEffects.PetSkin:
                     case ActivateEffects.Unlock:
                     case ActivateEffects.MysteryDyes:
-                    case ActivateEffects.Exchange:
                     default: return true;
                 }
             }
@@ -1395,7 +1425,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 tmr = new WorldTimer(100, (w, t) =>
                 {
                     if (enemy.Owner == null) return;
-                    w.BroadcastPacket(new SHOWEFFECT
+                    w.BroadcastMessage(new SHOWEFFECT
                     {
                         EffectType = EffectType.Poison,
                         TargetId = enemy.Id,
@@ -1416,7 +1446,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                     tmr.Reset();
 
-                    Program.Manager.Logic.AddPendingAction(_ => w.Timers.Add(tmr), PendingPriority.Creation);
+                    GameServer.Manager.Logic.AddPendingAction(_ => w.Timers.Add(tmr), PendingPriority.Creation);
                 });
                 Owner?.Timers.Add(tmr);
             }
@@ -1431,7 +1461,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 if (player?.Client.Account.AccountType >= (int)Core.config.AccountType.TUTOR_ACCOUNT)
                     player.SendInfo(string.Format("Cheat engine detected for player {0},\nItem should be {1}, but its {2}.",
                 Name, Inventory[pkt.SlotObject.SlotId].ObjectId, item.ObjectId));
-            Program.Manager.TryDisconnect(Client, DisconnectReason.CHEAT_ENGINE_DETECTED);
+            GameServer.Manager.TryDisconnect(Client, DisconnectReason.CHEAT_ENGINE_DETECTED);
             return true;
         }
 
@@ -1446,7 +1476,7 @@ namespace LoESoft.GameServer.realm.entity.player
             Array.Resize(ref inventory, 20);
             int[] slotTypes =
                 Utils.FromCommaSepString32(
-                    Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes").Value);
+                    GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes").Value);
             Array.Resize(ref slotTypes, 20);
             for (int i = 0; i < slotTypes.Length; i++)
                 if (slotTypes[i] == 0) slotTypes[i] = 10;

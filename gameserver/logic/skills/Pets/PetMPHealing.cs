@@ -50,14 +50,14 @@ namespace LoESoft.GameServer.logic.skills.Pets
                         {
                             if (player.HasConditionEffect(ConditionEffectIndex.Sick) || player.HasConditionEffect(ConditionEffectIndex.PetDisable))
                             {
-                                player.Owner.BroadcastPacket(new SHOWEFFECT
+                                player.Owner.BroadcastMessage(new SHOWEFFECT
                                 {
                                     EffectType = EffectType.Line,
                                     TargetId = host.Id,
                                     PosA = new Position { X = player.X, Y = player.Y },
                                     Color = new ARGB(0xffffffff)
                                 }, null);
-                                player.Owner.BroadcastPacket(new NOTIFICATION
+                                player.Owner.BroadcastMessage(new NOTIFICATION
                                 {
                                     ObjectId = player.Id,
                                     Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"No Effect\"}}",
@@ -70,20 +70,20 @@ namespace LoESoft.GameServer.logic.skills.Pets
                             int n = newmp - player.MP;
                             player.MP = newmp;
                             player.UpdateCount++;
-                            player.Owner.BroadcastPacket(new SHOWEFFECT
+                            player.Owner.BroadcastMessage(new SHOWEFFECT
                             {
                                 EffectType = EffectType.Heal,
                                 TargetId = player.Id,
                                 Color = new ARGB(0x6084e0)
                             }, null);
-                            player.Owner.BroadcastPacket(new SHOWEFFECT
+                            player.Owner.BroadcastMessage(new SHOWEFFECT
                             {
                                 EffectType = EffectType.Line,
                                 TargetId = host.Id,
                                 PosA = new Position { X = player.X, Y = player.Y },
                                 Color = new ARGB(0xffffffff)
                             }, null);
-                            player.Owner.BroadcastPacket(new NOTIFICATION
+                            player.Owner.BroadcastMessage(new NOTIFICATION
                             {
                                 ObjectId = player.Id,
                                 Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"+" + n + "\"}}",

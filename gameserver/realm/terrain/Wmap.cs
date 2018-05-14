@@ -229,8 +229,10 @@ namespace LoESoft.GameServer.realm.terrain
                 var c = rdr.ReadInt16();
                 for (var i = 0; i < c; i++)
                 {
-                    var tile = new WmapTile();
-                    tile.TileId = rdr.ReadUInt16();
+                    var tile = new WmapTile
+                    {
+                        TileId = rdr.ReadUInt16()
+                    };
                     tile.TileDesc = data.Tiles[tile.TileId];
                     var obj = rdr.ReadString();
                     tile.ObjType = string.IsNullOrEmpty(obj) ? (ushort)0 : data.IdToObjectType[obj];

@@ -262,7 +262,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 HP = Stats[0] + Stats[0];
                 MP = Stats[1] + Stats[1];
                 Inventory[i] = null;
-                Owner.BroadcastPacket(new TEXT
+                Owner.BroadcastMessage(new TEXT
                 {
                     BubbleTime = 0,
                     Stars = -1,
@@ -288,7 +288,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
         private void GenerateGravestone()
         {
-            var maxed = (from i in Program.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease") let xElement = Program.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value) where xElement != null let limit = int.Parse(xElement.Attribute("max").Value) let idx = StatsManager.StatsNameToIndex(i.Value) where Stats[idx] >= limit select limit).Count();
+            var maxed = (from i in GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease") let xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value) where xElement != null let limit = int.Parse(xElement.Attribute("max").Value) let idx = StatsManager.StatsNameToIndex(i.Value) where Stats[idx] >= limit select limit).Count();
 
             ushort objType;
             int? time;
@@ -536,7 +536,7 @@ namespace LoESoft.GameServer.realm.entity.player
         public void BroadcastSync(Message packet, Predicate<Player> cond)
         {
             if (worldBroadcast)
-                Owner.BroadcastPacketSync(packet, cond);
+                Owner.BroadcastMessageSync(packet, cond);
             else
                 pendingPackets.Enqueue(Tuple.Create(packet, cond));
         }

@@ -34,7 +34,7 @@ namespace LoESoft.GameServer.realm.entity
         {
             if (t / 500 == p)
             {
-                Owner.BroadcastPacket(new SHOWEFFECT
+                Owner.BroadcastMessage(new SHOWEFFECT
                 {
                     EffectType = EffectType.Ring,
                     Color = new ARGB(0xff9000ff),
@@ -60,7 +60,7 @@ namespace LoESoft.GameServer.realm.entity
 
         private void Explode(RealmTime time)
         {
-            Owner.BroadcastPacket(new SHOWEFFECT
+            Owner.BroadcastMessage(new SHOWEFFECT
             {
                 EffectType = EffectType.Nova,
                 Color = new ARGB(0xff9000ff),

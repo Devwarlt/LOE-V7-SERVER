@@ -17,9 +17,11 @@ namespace LoESoft.GameServer
 
         public static BitmapData Read(NReader rdr)
         {
-            BitmapData ret = new BitmapData();
-            ret.Width = rdr.ReadInt32();
-            ret.Height = rdr.ReadInt32();
+            BitmapData ret = new BitmapData
+            {
+                Width = rdr.ReadInt32(),
+                Height = rdr.ReadInt32()
+            };
             ret.Bytes = new byte[ret.Width * ret.Height * 4];
             ret.Bytes = rdr.ReadBytes(ret.Bytes.Length);
             return ret;
@@ -67,11 +69,13 @@ namespace LoESoft.GameServer
 
         public static TradeItem Read(NReader rdr)
         {
-            TradeItem ret = new TradeItem();
-            ret.Item = rdr.ReadInt32();
-            ret.SlotType = rdr.ReadInt32();
-            ret.Tradeable = rdr.ReadBoolean();
-            ret.Included = rdr.ReadBoolean();
+            TradeItem ret = new TradeItem
+            {
+                Item = rdr.ReadInt32(),
+                SlotType = rdr.ReadInt32(),
+                Tradeable = rdr.ReadBoolean(),
+                Included = rdr.ReadBoolean()
+            };
             return ret;
         }
 
@@ -125,11 +129,13 @@ namespace LoESoft.GameServer
 
         public static ARGB Read(NReader rdr)
         {
-            ARGB ret = new ARGB();
-            ret.A = rdr.ReadByte();
-            ret.R = rdr.ReadByte();
-            ret.G = rdr.ReadByte();
-            ret.B = rdr.ReadByte();
+            ARGB ret = new ARGB
+            {
+                A = rdr.ReadByte(),
+                R = rdr.ReadByte(),
+                G = rdr.ReadByte(),
+                B = rdr.ReadByte()
+            };
             return ret;
         }
 
@@ -150,10 +156,12 @@ namespace LoESoft.GameServer
 
         public static ObjectSlot Read(NReader rdr)
         {
-            ObjectSlot ret = new ObjectSlot();
-            ret.ObjectId = rdr.ReadInt32();
-            ret.SlotId = rdr.ReadByte();
-            ret.ObjectType = (ushort)rdr.ReadInt16();
+            ObjectSlot ret = new ObjectSlot
+            {
+                ObjectId = rdr.ReadInt32(),
+                SlotId = rdr.ReadByte(),
+                ObjectType = (ushort)rdr.ReadInt16()
+            };
             return ret;
         }
 
@@ -177,9 +185,11 @@ namespace LoESoft.GameServer
 
         public static TimedPosition Read(NReader rdr)
         {
-            TimedPosition ret = new TimedPosition();
-            ret.Time = rdr.ReadInt32();
-            ret.Position = Position.Read(rdr);
+            TimedPosition ret = new TimedPosition
+            {
+                Time = rdr.ReadInt32(),
+                Position = Position.Read(rdr)
+            };
             return ret;
         }
 
@@ -208,9 +218,11 @@ namespace LoESoft.GameServer
 
         public static Position Read(NReader rdr)
         {
-            Position ret = new Position();
-            ret.X = rdr.ReadSingle();
-            ret.Y = rdr.ReadSingle();
+            Position ret = new Position
+            {
+                X = rdr.ReadSingle(),
+                Y = rdr.ReadSingle()
+            };
             return ret;
         }
 
@@ -233,9 +245,11 @@ namespace LoESoft.GameServer
 
         public static ObjectDef Read(NReader rdr)
         {
-            ObjectDef ret = new ObjectDef();
-            ret.ObjectType = (ushort)rdr.ReadInt16();
-            ret.Stats = ObjectStatusData.Read(rdr);
+            ObjectDef ret = new ObjectDef
+            {
+                ObjectType = (ushort)rdr.ReadInt16(),
+                Stats = ObjectStatusData.Read(rdr)
+            };
             return ret;
         }
 
@@ -254,10 +268,12 @@ namespace LoESoft.GameServer
 
         public static ObjectStatusData Read(NReader rdr)
         {
-            ObjectStatusData ret = new ObjectStatusData();
-            ret.Id = rdr.ReadInt32();
-            ret.Position = Position.Read(rdr);
-            ret.Stats = new KeyValuePair<StatsType, object>[rdr.ReadInt16()];
+            ObjectStatusData ret = new ObjectStatusData
+            {
+                Id = rdr.ReadInt32(),
+                Position = Position.Read(rdr),
+                Stats = new KeyValuePair<StatsType, object>[rdr.ReadInt16()]
+            };
             for (int i = 0; i < ret.Stats.Length; i++)
             {
                 StatsType type = rdr.ReadByte();

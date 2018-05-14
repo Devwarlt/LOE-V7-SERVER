@@ -116,7 +116,7 @@ namespace LoESoft.GameServer.realm.entity
                 ApplyConditionEffect(effs);
                 if (from != null)
                 {
-                    Owner?.BroadcastPacket(new DAMAGE
+                    Owner?.BroadcastMessage(new DAMAGE
                     {
                         TargetId = Id,
                         Effects = 0,
@@ -130,7 +130,7 @@ namespace LoESoft.GameServer.realm.entity
                 }
                 else
                 {
-                    Owner?.BroadcastPacket(new DAMAGE
+                    Owner?.BroadcastMessage(new DAMAGE
                     {
                         TargetId = Id,
                         Effects = 0,
@@ -167,7 +167,7 @@ namespace LoESoft.GameServer.realm.entity
                 foreach (ConditionEffect effect in projectile.ProjDesc.Effects.Where(effect => (effect.Effect != ConditionEffectIndex.Stunned || !ObjectDesc.StunImmune) && (effect.Effect != ConditionEffectIndex.Paralyzed || !ObjectDesc.ParalyzedImmune) && (effect.Effect != ConditionEffectIndex.Dazed || !ObjectDesc.DazedImmune)))
                     ApplyConditionEffect(effect);
 
-                Owner.BroadcastPacket(new DAMAGE
+                Owner.BroadcastMessage(new DAMAGE
                 {
                     TargetId = Id,
                     Effects = projectile.ConditionEffects,

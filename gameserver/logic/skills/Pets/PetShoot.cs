@@ -126,7 +126,7 @@ namespace LoESoft.GameServer.logic.skills.Pets
 
                         _outgoing.Add(_notification);
 
-                        pet.Owner.BroadcastPackets(_outgoing, null);
+                        pet.Owner.BroadcastMessage(_outgoing, null);
 
                         state = cool;
                         return;
@@ -144,15 +144,34 @@ namespace LoESoft.GameServer.logic.skills.Pets
 
                     player.Owner.EnterWorld(prj);
 
-                    SERVERPLAYERSHOOT _shoot = new SERVERPLAYERSHOOT();
-                    _shoot.BulletId = prj.ProjectileId;
-                    _shoot.OwnerId = player.Id;
-                    _shoot.ContainerType = pet.ObjectType;
-                    _shoot.StartingPos = prj.BeginPos;
-                    _shoot.Angle = prj.Angle;
-                    _shoot.Damage = (short)prj.Damage;
+                    List<Message> _outgoingMessages = new List<Message>();
 
-                    player.Owner.BroadcastPacket(_shoot, null);
+                    ENEMYSHOOT _shoot = new ENEMYSHOOT
+                    {
+                        BulletId = 0,
+                        OwnerId = pet.Id,
+                        Position = prjPos,
+                        Angle = prj.Angle,
+                        Damage = 0,
+                        BulletType = 0,
+                        AngleInc = (float)shootAngle,
+                        NumShots = 0
+                    };
+
+                    SERVERPLAYERSHOOT _shoot2 = new SERVERPLAYERSHOOT
+                    {
+                        BulletId = prj.ProjectileId,
+                        OwnerId = player.Id,
+                        ContainerType = pet.ObjectType,
+                        StartingPos = prj.BeginPos,
+                        Angle = prj.Angle,
+                        Damage = (short)prj.Damage
+                    };
+
+                    _outgoingMessages.Add(_shoot); // visual, display no animation only activate pet set alt index
+                    _outgoingMessages.Add(_shoot2);
+
+                    player.Owner.BroadcastMessage(_outgoingMessages, null);
 
                     player.FameCounter.Shoot(prj);
 

@@ -1,0 +1,42 @@
+{
+  "dict": [
+    { "ground": "Bloody Ground" },
+    { "ground": "Dark Grass" },
+    {
+      "ground": "Dark Grass",
+      "objs": [ { "id": "Bloody Rose" } ]
+    },
+    {
+      "ground": "Dark Grass",
+      "objs": [ { "id": "Bloody Tree" } ]
+    },
+    { "ground": "Blood Water" },
+    {
+      "ground": "Blood Water",
+      "objs": [ { "id": "Bloody Rose" } ]
+    },
+    {
+      "ground": "Bloody Ground",
+      "objs": [ { "id": "Human Skeleton" } ]
+    },
+    {
+      "ground": "Bloody Ground",
+      "objs": [ { "id": "Bloody Tree" } ]
+    },
+    {
+      "ground": "Bloody Ground",
+      "objs": [ { "id": "Pool of Blood" } ]
+    },
+    {
+      "ground": "Snow White",
+      "objs": [ { "id": "Wingus the Succubus Queen" } ]
+    },
+    {
+      "ground": "Blood Water",
+      "objs": [ { "id": "Bloody Tree" } ]
+    }
+  ],
+  "data": "eNrNltkSgyAMRVmulPb/P7gqUmO4gTr6oI7LmMzJBonOPerw9BzJfZcRCCPOF+azvjNGWOVFU8uLBlY2hn5gs1UPUJ3q65ERN+l04KOhFAsw/MAvWu3D8kzUFyunbRRtRIEyQofAKJYf0STIby9BaRlaO4s7r5FmHDV5LDCsli+tLZ5TULs8c7q2rpsrJs10jY0pXPI+oetMi1DV2fVSo59uyce1uvD1kU+uj95eyX+t0zigWN3o2r5lew5m/8iGD54wbAr3IdJeOFEKJ1h1KbKPkRc5eUD6WBCTgdlwYi4tb6CzQU6NvVsmkkl0YxnN26AI/lk/DV8xnAND",
+  "width": 34,
+  "height": 33
+}
