@@ -1,5 +1,5 @@
-# LOE-V6-SERVER
-LoE Realm version 6 production server source code project.
+# LOE-V7-SERVER
+LoE Realm version 7 production server source code project.
 
 # Discord:
 - [![Join Us!](https://discordapp.com/api/guilds/345060662260531202/embed.png)](https://discord.gg/jHNTjun)
