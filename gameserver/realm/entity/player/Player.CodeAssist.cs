@@ -483,6 +483,53 @@ namespace LoESoft.GameServer.realm.entity.player
             catch (Exception) { }
         }
 
+        #region "Feature: Infinite Leveling"
+        private static int GetLevelExperience(int lvl)
+            => lvl == 1 ? 0 : (75 * (lvl ^ 3) - 125 * (lvl ^ 2) + 900 * lvl)/3;
+
+        private static int GetNextLevelExperience(int lvl)
+            => GetLevelExperience(lvl + 1);
+
+        private bool VerifyLevel()
+        {
+            if (Experience >= ExperienceGoal && Level < 20)
+            {
+                Level++;
+                ExperienceGoal = GetExpGoal(Level);
+                foreach (var i in GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease"))
+                {
+                    var rand = new Random();
+                    var min = int.Parse(i.Attribute("min").Value);
+                    var max = int.Parse(i.Attribute("max").Value) + 1;
+                    var xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value);
+                    if (xElement == null) continue;
+                    var limit =
+                        int.Parse(
+                            xElement.Attribute("max").Value);
+                    var idx = StatsManager.StatsNameToIndex(i.Value);
+                    Stats[idx] += rand.Next(min, max);
+                    if (Stats[idx] > limit) Stats[idx] = limit;
+                }
+                HP = Stats[0] + Boost[0];
+                MP = Stats[1] + Boost[1];
+
+                UpdateCount++;
+
+                if (Level == 20)
+                {
+                    foreach (var i in Owner.Players.Values)
+                        i.SendInfo(Name + " achieved level 20");
+                    XpBoosted = false;
+                    XpBoostTimeLeft = 0;
+                }
+                Quest = null;
+                return true;
+            }
+            CalculateFame();
+            return false;
+        }
+        #endregion
+
         private static int GetExpGoal(int level) => 50 + (level - 1) * 100;
 
         private static int GetLevelExp(int level) => level == 1 ? 0 : 50 * (level - 1) + (level - 2) * (level - 1) * 50;
