@@ -217,7 +217,7 @@ namespace LoESoft.GameServer.realm.entity.player
             chr.Level = Level;
             chr.Tex1 = Texture1;
             chr.Tex2 = Texture2;
-            chr.Fame = Fame;
+            chr.Fame = 0;
             chr.HP = HP;
             chr.MP = MP;
             if (PetID != 0)
@@ -483,33 +483,43 @@ namespace LoESoft.GameServer.realm.entity.player
             catch (Exception) { }
         }
 
-        private static int GetExpGoal(int level) => 50 + (level - 1) * 100;
+        #region "Feature: Infinite Leveling"
+        private static List<int> LevelAchievement = new List<int>
+        { 50, 100, 150, 200 };
 
-        private static int GetLevelExp(int level) => level == 1 ? 0 : 50 * (level - 1) + (level - 2) * (level - 1) * 50;
+        private static int GetLevelExperience(int lvl)
+            => lvl == 1 ? 0 : (75 * (lvl ^ 3) - 125 * (lvl ^ 2) + 900 * lvl) / 3;
 
-        private static int GetFameGoal(int fame)
+        private static int GetNextLevelExperience(int lvl)
+            => GetLevelExperience(lvl + 1);
+
+        private bool VerifyLevel()
         {
-            if (fame >= 2000) return 0;
-            if (fame >= 800) return 2000;
-            if (fame >= 400) return 800;
-            if (fame >= 150) return 400;
-            return fame >= 20 ? 150 : 0;
-        }
-
-        public int GetStars()
-        {
-            var ret = 0;
-            foreach (var i in FameCounter.ClassStats.AllKeys)
+            if (Experience >= ExperienceGoal)
             {
-                var entry = FameCounter.ClassStats[ushort.Parse(i)];
-                if (entry.BestFame >= 2000) ret += 5;
-                else if (entry.BestFame >= 800) ret += 4;
-                else if (entry.BestFame >= 400) ret += 3;
-                else if (entry.BestFame >= 150) ret += 2;
-                else if (entry.BestFame >= 20) ret += 1;
+                Level++;
+                ExperienceGoal = GetNextLevelExperience(Level);
+
+                /* TODO: implement level up regular stats increment.
+                 * - Hit Points
+                 * - Magic Points
+                 * - Speed Points
+                 */
+
+                UpdateCount++;
+
+                // Announce to all players online when user advanced in level (every 50 levels).
+                if (Level % 50 == 0)
+                    foreach (var i in GameServer.Manager.ClientManager.Values)
+                        i.Client.Player.SendInfo($"{Name} advanced from Level {Level - 1} to Level {Level}.");
+
+                Quest = null;
+                return true;
             }
-            return ret;
+
+            return false;
         }
+        #endregion
 
         private static float Dist(Entity a, Entity b)
         {
