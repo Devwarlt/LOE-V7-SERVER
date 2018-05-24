@@ -15,13 +15,13 @@ namespace LoESoft.GameServer.realm.entity.player
             stats[StatsType.ACCOUNT_ID_STAT] = AccountId;
             stats[StatsType.NAME_STAT] = Name;
 
-            stats[StatsType.EXP_STAT] = Experience - GetLevelExp(Level);
-            stats[StatsType.NEXT_LEVEL_EXP_STAT] = ExperienceGoal;
+            stats[StatsType.EXP_STAT] = Experience - GetLevelExperience(Level);
+            stats[StatsType.NEXT_LEVEL_EXP_STAT] = ExperienceGoal - GetLevelExperience(Level);
             stats[StatsType.LEVEL_STAT] = Level;
 
             stats[StatsType.FAME_STAT] = CurrentFame;
-            stats[StatsType.CURR_FAME_STAT] = Fame;
-            stats[StatsType.NEXT_CLASS_QUEST_FAME_STAT] = FameGoal;
+            stats[StatsType.CURR_FAME_STAT] = 0;
+            stats[StatsType.NEXT_CLASS_QUEST_FAME_STAT] = 0;
             stats[StatsType.NUM_STARS_STAT] = Stars;
 
             stats[StatsType.GUILD_NAME_STAT] = Guild;
