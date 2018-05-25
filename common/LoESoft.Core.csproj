@@ -108,6 +108,9 @@
     <Compile Include="models\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\xmls\TUKAssets_IoA_Grounds.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\xmls\TUKAssets_Vocations.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
