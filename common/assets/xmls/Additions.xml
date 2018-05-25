@@ -1,13 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Ids able to use.
-  - Items (weapons, abilities, armors and rings): 0x5000 to 0x56FF;
-  - Projectiles: 0x5700 to 0x5FFF;
-  - Eggs: 0x4000 to 0x46FF;
-  - Pets: 0x4700 to 0x4FFF;
-  - Entities: 0x6700 to 0x7FFF.
-
   You can add all additions here if you want to make your progress organized,
   also could even create new files to organize new additions too, but use this
   asset organization for testing purposes.
