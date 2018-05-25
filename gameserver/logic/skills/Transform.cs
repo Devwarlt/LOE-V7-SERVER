@@ -8,7 +8,7 @@ namespace LoESoft.GameServer.logic.behaviors
 {
     public class Transform : Behavior
     {
-        private readonly ushort target;
+        private readonly int target;
 
         public Transform(
             string target

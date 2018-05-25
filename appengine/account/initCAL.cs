@@ -19,12 +19,7 @@ namespace LoESoft.AppEngine.account
                 if (status == LoginStatus.OK)
                 {
                     if (acc.Admin)
-                    {
-                        var ca = new DbClassAvailability(acc);
-                        ca.Init(GameData);
-                        ca.Flush();
                         WriteLine("<Success />");
-                    }
                     else
                         WriteLine("<Failure />");
                 }

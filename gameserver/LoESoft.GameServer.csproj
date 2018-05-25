@@ -137,10 +137,6 @@
     <Compile Include="logic\skills\ManaDrainBomb.cs" />
     <Compile Include="logic\skills\MoveLine.cs" />
     <Compile Include="logic\skills\NPCs\engine\NPCEngine.cs" />
-    <Compile Include="logic\skills\Pets\PetFollow.cs" />
-    <Compile Include="logic\skills\Pets\PetHPHealing.cs" />
-    <Compile Include="logic\skills\Pets\PetMPHealing.cs" />
-    <Compile Include="logic\skills\Pets\PetShoot.cs" />
     <Compile Include="logic\skills\TossSetpiece.cs" />
     <Compile Include="logic\skills\ApplySetpiece.cs" />
     <Compile Include="logic\skills\BackAndForth.cs" />
@@ -152,13 +148,6 @@
     <Compile Include="logic\skills\AddCond.cs" />
     <Compile Include="logic\skills\CopyDamageOnDeath.cs" />
     <Compile Include="logic\skills\CopyLootState.cs" />
-    <Compile Include="logic\skills\Drakes\BlueDrakeAttack.cs" />
-    <Compile Include="logic\skills\Drakes\DrakeFollow.cs" />
-    <Compile Include="logic\skills\Drakes\GreenDrakeAttack.cs" />
-    <Compile Include="logic\skills\Drakes\OrangeDrakeAttack.cs" />
-    <Compile Include="logic\skills\Drakes\PurpleDrakeAttack.cs" />
-    <Compile Include="logic\skills\Drakes\WhiteDrakeAttack.cs" />
-    <Compile Include="logic\skills\Drakes\YellowDrakeAttack.cs" />
     <Compile Include="logic\skills\DropPortalOnDeath.cs" />
     <Compile Include="logic\skills\HpLessOrder.cs" />
     <Compile Include="logic\skills\JumpToRandomOffset.cs" />
@@ -170,7 +159,6 @@
     <Compile Include="logic\transitions\EntitiesNotExistsTransition.cs" />
     <Compile Include="logic\skills\MoveTo.cs" />
     <Compile Include="logic\skills\SpecificHeal.cs" />
-    <Compile Include="logic\skills\NexusHealHp.cs" />
     <Compile Include="logic\skills\PlaySound.cs" />
     <Compile Include="logic\skills\ReturnToSpawn.cs" />
     <Compile Include="logic\skills\SetLootState.cs" />
@@ -206,7 +194,6 @@
     <Compile Include="logic\engine\Cooldown.cs" />
     <Compile Include="logic\engine\DamageCounter.cs" />
     <Compile Include="logic\engine\CycleBehavior.cs" />
-    <Compile Include="logic\engine\FameCounter.cs" />
     <Compile Include="logic\loot\LootDefs.cs" />
     <Compile Include="logic\loot\Loots.cs" />
     <Compile Include="logic\engine\State.cs" />
@@ -346,7 +333,6 @@
     <Compile Include="realm\entity\gameobject\GameObject.OneWayContainer.cs" />
     <Compile Include="realm\entity\gameobject\GameObject.Placeholder.cs" />
     <Compile Include="realm\entity\player\Player.CodeAssist.cs" />
-    <Compile Include="realm\entity\player\Player.Boosts.cs" />
     <Compile Include="realm\entity\player\Player.Chat.cs" />
     <Compile Include="realm\entity\player\Player.Damage.cs" />
     <Compile Include="realm\entity\player\Player.Effects.cs" />
@@ -457,7 +443,6 @@
     <Compile Include="networking\messages\handlers\AoEAckHandler.cs" />
     <Compile Include="networking\ISManager.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\EyeOfTheDragon.cs" />
-    <Compile Include="realm\entity\Entity.ActivateBoost.cs" />
     <Compile Include="logic\loot\Loot System\LootSystem.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 {
     public abstract class Character : Entity
     {
-        public Character(ushort objType, wRandom rand)
+        public Character(int objType, wRandom rand)
             : base(objType)
         {
             Random = rand;

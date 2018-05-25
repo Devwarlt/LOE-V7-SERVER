@@ -149,64 +149,6 @@ namespace LoESoft.GameServer.realm.entity.player
 
         private Tuple<bool, AccType> GetAccountType() => (AccountType >= (int)Core.config.AccountType.VIP_ACCOUNT && AccountType <= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int)Core.config.AccountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
 
-        public void CalculateBoost()
-        {
-
-
-            CheckSetTypeSkin();
-
-            if (Boost == null)
-                Boost = new int[12];
-
-            if (ActivateBoost == null)
-            {
-                ActivateBoost = new ActivateBoost[8];
-                for (int i = 0; i < 8; i++)
-                    ActivateBoost[i] = new ActivateBoost();
-            }
-
-            for (var i = 0; i < Boost.Length; i++)
-                Boost[i] = 0;
-
-            for (var i = 0; i < 4; i++)
-            {
-                if (Inventory.Length < i || Inventory.Length == 0)
-                    return;
-
-                if (Inventory[i] == null)
-                    continue;
-
-                foreach (var pair in Inventory[i].StatsBoost)
-                {
-                    if (pair.Key == StatsType.MAX_HP_STAT)
-                        Boost[0] += GetAccountType().Item1 ? (Stats[0] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
-                    if (pair.Key == StatsType.MAX_MP_STAT)
-                        Boost[1] += GetAccountType().Item1 ? (Stats[1] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
-                    if (pair.Key == StatsType.ATTACK_STAT)
-                        Boost[2] += GetAccountType().Item1 ? (Stats[2] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
-                    if (pair.Key == StatsType.DEFENSE_STAT)
-                        Boost[3] += GetAccountType().Item1 ? (Stats[3] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
-                    if (pair.Key == StatsType.SPEED_STAT)
-                        Boost[4] += GetAccountType().Item1 ? (Stats[4] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
-                    if (pair.Key == StatsType.VITALITY_STAT)
-                        Boost[5] += GetAccountType().Item1 ? (Stats[5] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
-                    if (pair.Key == StatsType.WISDOM_STAT)
-                        Boost[6] += GetAccountType().Item1 ? (Stats[6] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
-                    if (pair.Key == StatsType.DEXTERITY_STAT)
-                        Boost[7] += GetAccountType().Item1 ? (Stats[7] / (GetAccountType().Item2 == AccType.VIP_ACCOUNT ? 10 : 20 / 3)) + pair.Value : pair.Value;
-                }
-            }
-
-            for (int i = 0; i < 8; i++)
-                Boost[i] += ActivateBoost[i].GetBoost();
-
-            if (setTypeBoosts == null)
-                return;
-
-            for (var i = 0; i < 8; i++)
-                Boost[i] += setTypeBoosts[i];
-        }
-
         public bool CompareName(string name) => name.ToLower().Split(' ')[0].StartsWith("[") || Name.Split(' ').Length == 1 ? Name.ToLower().StartsWith(name.ToLower()) : Name.Split(' ')[1].ToLower().StartsWith(name.ToLower());
 
         public void SaveToCharacter()
@@ -214,98 +156,14 @@ namespace LoESoft.GameServer.realm.entity.player
             var chr = Client.Character;
             chr.Experience = Experience;
             chr.Level = Level;
-            chr.Tex1 = Texture1;
-            chr.Tex2 = Texture2;
-            chr.Fame = 0;
             chr.HP = HP;
             chr.MP = MP;
-            if (PetID != 0)
-                chr.Pet = PetID;
-            try
-            {
-                switch (Inventory.Length)
-                {
-                    case 20:
-                        int[] equip = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
-                        int[] backpack = new int[8];
-                        Array.Copy(equip, 12, backpack, 0, 8);
-                        Array.Resize(ref equip, 12);
-                        chr.Items = equip;
-                        chr.Backpack = backpack;
-                        break;
-                    default:
-                        chr.Items = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
-                        break;
-                }
-            }
-            catch (Exception) { }
-
-            chr.Stats = Stats;
-            chr.HealthPotions = HealthPotions;
-            chr.MagicPotions = MagicPotions;
-            chr.HasBackpack = HasBackpack;
-            chr.Skin = PlayerSkin;
-            chr.LootDropTimer = (int)LootDropBoostTimeLeft;
-            chr.LootTierTimer = (int)LootTierBoostTimeLeft;
-            chr.FameStats = FameCounter.Stats.Write();
-            chr.LastSeen = DateTime.Now;
-        }
-
-        private void GenerateGravestone()
-        {
-            var maxed = (from i in GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Elements("LevelIncrease") let xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element(i.Value) where xElement != null let limit = int.Parse(xElement.Attribute("max").Value) let idx = StatsManager.StatsNameToIndex(i.Value) where Stats[idx] >= limit select limit).Count();
-
-            ushort objType;
-            int? time;
-            switch (maxed)
-            {
-                case 8: { objType = 0x0735; time = null; } break;
-                case 7: { objType = 0x0734; time = null; } break;
-                case 6: { objType = 0x072b; time = null; } break;
-                case 5: { objType = 0x072a; time = null; } break;
-                case 4: { objType = 0x0729; time = null; } break;
-                case 3: { objType = 0x0728; time = null; } break;
-                case 2: { objType = 0x0727; time = null; } break;
-                case 1: { objType = 0x0726; time = null; } break;
-                default:
-                    if (Level <= 1) { objType = 0x0723; time = 30 * 1000; }
-                    else if (Level < 20) { objType = 0x0724; time = 60 * 1000; }
-                    else { objType = 0x0725; time = 5 * 60 * 1000; }
-                    break;
-            }
-            var obj = new GameObject(objType, time, true, time != null, false);
-            obj.Move(X, Y);
-            obj.Name = Name;
-            Owner.EnterWorld(obj);
+            chr.Equipments = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
         }
 
         private void HandleRegen(RealmTime time)
         {
-            if (HP == Stats[0] + Boost[0] || !CanHpRegen())
-                hpRegenCounter = 0;
-            else
-            {
-                hpRegenCounter += StatsManager.GetHPRegen() * time.ElapsedMsDelta / 1000f;
-                var regen = (int)hpRegenCounter;
-                if (regen > 0)
-                {
-                    HP = Math.Min(Stats[0] + Boost[0], HP + regen);
-                    hpRegenCounter -= regen;
-                    UpdateCount++;
-                }
-            }
-
-            if (MP == Stats[1] + Boost[1] || !CanMpRegen())
-                mpRegenCounter = 0;
-            else
-            {
-                mpRegenCounter += StatsManager.GetMPRegen() * time.ElapsedMsDelta / 1000f;
-                var regen = (int)mpRegenCounter;
-                if (regen <= 0) return;
-                MP = Math.Min(Stats[1] + Boost[1], MP + regen);
-                mpRegenCounter -= regen;
-                UpdateCount++;
-            }
+            // TODO: implement regen.
         }
 
         public bool IsVisibleToEnemy()
@@ -319,9 +177,9 @@ namespace LoESoft.GameServer.realm.entity.player
             return true;
         }
 
-        private bool CanHpRegen() => (HasConditionEffect(ConditionEffectIndex.Sick) || HasConditionEffect(ConditionEffectIndex.Bleeding) || OxygenBar == 0) ? false : true;
+        private bool CanHpRegen() => !(HasConditionEffect(ConditionEffectIndex.Sick) || HasConditionEffect(ConditionEffectIndex.Bleeding));
 
-        private bool CanMpRegen() => (HasConditionEffect(ConditionEffectIndex.Quiet) || ninjaShoot) ? false : true;
+        private bool CanMpRegen() => !HasConditionEffect(ConditionEffectIndex.Quiet);
 
         internal void SetNewbiePeriod() => newbieTime = 3000;
 
@@ -510,7 +368,7 @@ namespace LoESoft.GameServer.realm.entity.player
             if (worldBroadcast)
                 Owner.BroadcastMessageSync(packet, cond);
             else
-                pendingPackets.Enqueue(Tuple.Create(packet, cond));
+                pendingMessages.Enqueue(Tuple.Create(packet, cond));
         }
 
         private void BroadcastSync(IEnumerable<Message> packets)
@@ -530,10 +388,11 @@ namespace LoESoft.GameServer.realm.entity.player
             if (Owner != null)
             {
                 foreach (var i in Owner.Players.Values)
-                    foreach (var j in pendingPackets.Where(j => j.Item2(i)))
+                    foreach (var j in pendingMessages.Where(j => j.Item2(i)))
                         i.Client.SendMessage(j.Item1);
             }
-            pendingPackets.Clear();
+
+            pendingMessages.Clear();
         }
 
         public void ChangeTrade(RealmTime time, CHANGETRADE pkt) => HandleTrade?.TradeChanged(this, pkt.Offers);
@@ -543,30 +402,5 @@ namespace LoESoft.GameServer.realm.entity.player
         public void CancelTrade(RealmTime time, CANCELTRADE pkt) => HandleTrade?.CancelTrade(this);
 
         public void TradeCanceled() => HandleTrade = null;
-
-        private float UseWisMod(float value, int offset = 1)
-        {
-            double totalWisdom = Stats[6] + 2 * Boost[6];
-
-            if (totalWisdom < 30)
-                return value;
-
-            double m = (value < 0) ? -1 : 1;
-            double n = (value * totalWisdom / 150) + (value * m);
-            n = Math.Floor(n * Math.Pow(10, offset)) / Math.Pow(10, offset);
-            if (n - (int)n * m >= 1 / Math.Pow(10, offset) * m)
-            {
-                return ((int)(n * 10)) / 10.0f;
-            }
-
-            return (int)n;
-        }
-
-        internal static List<ushort> Special = new List<ushort>
-        {
-            0x750d, 0x750e, 0x222c, 0x222d
-        };
-
-        private static bool IsSpecial(ushort objType) => Special.Contains(objType) ? true : false;
     }
 }

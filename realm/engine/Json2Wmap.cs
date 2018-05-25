@@ -16,7 +16,7 @@ namespace LoESoft.RealmTerrain.engine
     {
         public static byte[] Convert(EmbeddedData data, string json)
         {
-            var obj = JsonConvert.DeserializeObject<json_dat>(json);
+            var obj = JsonConvert.DeserializeObject<Json_dat>(json);
             var dat = ZlibStream.UncompressBuffer(obj.data);
 
             Dictionary<short, RealmTile> tileDict = new Dictionary<short, RealmTile>();
@@ -26,7 +26,7 @@ namespace LoESoft.RealmTerrain.engine
                 tileDict[(short)i] = new RealmTile()
                 {
                     TileId = o.ground == null ? (ushort)0xff : data.IdToTileType[o.ground],
-                    TileObj = o.objs == null ? null : o.objs[0].id,
+                    TileObj = o.objs?[0].id,
                     Name = o.objs == null ? "" : o.objs[0].name ?? "",
                     Terrain = RealmTerrainType.None,
                     Region = o.regions == null ? RealmTileRegion.None : (RealmTileRegion)Enum.Parse(typeof(RealmTileRegion), o.regions[0].id.Replace(' ', '_'))
@@ -35,9 +35,8 @@ namespace LoESoft.RealmTerrain.engine
 
             var tiles = new RealmTile[obj.width, obj.height];
             //creates a new case insensitive dictionary based on the XmlDatas
-            Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                data.IdToObjectType,
-                StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, int> icdatas = new Dictionary<string, int>(data.IdToObjectType, StringComparer.OrdinalIgnoreCase);
+
             using (NReader rdr = new NReader(new MemoryStream(dat)))
                 for (int y = 0; y < obj.height; y++)
                 {
@@ -62,7 +61,7 @@ namespace LoESoft.RealmTerrain.engine
                         }
                         else
                         {
-                            if (!icdatas.TryGetValue(tiles[x, y].TileObj, out ushort objType) ||
+                            if (!icdatas.TryGetValue(tiles[x, y].TileObj, out int objType) ||
                                 !data.ObjectDescs.ContainsKey(objType))
                             {
                             }
@@ -85,24 +84,24 @@ namespace LoESoft.RealmTerrain.engine
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct json_dat
+        public struct Json_dat
         {
             public byte[] data;
             public int width;
             public int height;
-            public loc[] dict;
+            public Loc[] dict;
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct loc
+        public struct Loc
         {
             public string ground;
-            public obj[] objs;
-            public obj[] regions;
+            public Obj[] objs;
+            public Obj[] regions;
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct obj
+        public struct Obj
         {
             public string name;
             public string id;

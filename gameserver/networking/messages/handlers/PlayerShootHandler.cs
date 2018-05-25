@@ -55,8 +55,6 @@ namespace LoESoft.GameServer.networking.handlers
                 player.BroadcastSync(_allyShoot, p => p.Dist(player) <= 12);
             else
                 player.BroadcastSync(_allyShoot, p => p != player && p.Dist(player) <= 12);
-
-            player.FameCounter.Shoot(_projectile);
         }
     }
 }

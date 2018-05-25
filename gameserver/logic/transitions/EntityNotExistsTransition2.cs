@@ -11,8 +11,8 @@ namespace LoESoft.GameServer.logic.transitions
         //State storage: none
 
         private readonly double dist;
-        private readonly ushort target;
-        private readonly ushort target2;
+        private readonly int target;
+        private readonly int target2;
 
         public EntityNotExistsTransition2(string target, string target2, double dist, string targetState)
             : base(targetState)

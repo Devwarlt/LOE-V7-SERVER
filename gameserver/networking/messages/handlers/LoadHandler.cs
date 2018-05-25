@@ -20,25 +20,13 @@ namespace LoESoft.GameServer.networking.handlers
             client.Character = Manager.Database.LoadCharacter(client.Account, message.CharacterId);
             if (client.Character != null)
             {
-                if (client.Character.Dead)
+                World target = Manager.Worlds[client.TargetWorld];
+                client.SendMessage(new CREATE_SUCCESS
                 {
-                    client.SendMessage(new FAILURE
-                    {
-                        ErrorId = (int)FailureIDs.DEFAULT,
-                        ErrorDescription = "Character is dead."
-                    });
-                    Manager.TryDisconnect(client, DisconnectReason.CHARACTER_IS_DEAD);
-                }
-                else
-                {
-                    World target = Manager.Worlds[client.TargetWorld];
-                    client.SendMessage(new CREATE_SUCCESS
-                    {
-                        CharacterID = client.Character.CharId,
-                        ObjectID = Manager.Worlds[client.TargetWorld].EnterWorld(client.Player = new Player(client))
-                    });
-                    client.State = ProtocolState.Ready;
-                }
+                    CharacterID = client.Character.CharId,
+                    ObjectID = Manager.Worlds[client.TargetWorld].EnterWorld(client.Player = new Player(client))
+                });
+                client.State = ProtocolState.Ready;
             }
             else
             {

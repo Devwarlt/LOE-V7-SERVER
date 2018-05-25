@@ -24,7 +24,7 @@ namespace LoESoft.GameServer.networking.handlers
 
             DbAccount acc = client.Account;
 
-            if (acc.Fame < 1000)
+            if (acc.Credits < 1000)
             {
                 SendError(client, "Insufficient funds.");
                 return;
@@ -59,10 +59,9 @@ namespace LoESoft.GameServer.networking.handlers
                 return;
             }
 
-            Manager.Database.UpdateFame(acc, -1000);
-            client.Player.CurrentFame = acc.Fame;
             client.Player.Guild = guild.Name;
             client.Player.GuildRank = 40;
+
             SendSuccess(client);
         }
 

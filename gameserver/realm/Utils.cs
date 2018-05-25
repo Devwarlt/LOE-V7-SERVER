@@ -47,7 +47,7 @@ namespace LoESoft.GameServer.realm
             return false;
         }
 
-        public static Entity GetNearestEntity(this Entity entity, double dist, ushort? objType) //Null for player
+        public static Entity GetNearestEntity(this Entity entity, double dist, int? objType) //Null for player
         {
 
             Entity[] entities = entity.GetNearestEntities(dist, objType).ToArray();
@@ -76,7 +76,7 @@ namespace LoESoft.GameServer.realm
             }
         }
 
-        public static IEnumerable<Entity> GetNearestEntities(this Entity entity, double dist, ushort? objType, bool pets = false)
+        public static IEnumerable<Entity> GetNearestEntities(this Entity entity, double dist, int? objType, bool pets = false)
         //Null for player
         {
             if (entity.Owner == null) yield break;
@@ -151,7 +151,7 @@ namespace LoESoft.GameServer.realm
             }
         }
 
-        public static int CountEntity(this Entity entity, double dist, ushort? objType)
+        public static int CountEntity(this Entity entity, double dist, int? objType)
         {
             if (entity.Owner == null) return 0;
             int ret = 0;

@@ -13,7 +13,7 @@ namespace LoESoft.GameServer.logic.behaviors
         private readonly int max;
         private readonly int min;
         private readonly float probability;
-        private readonly ushort target;
+        private readonly int target;
         private readonly bool returnToSpawn;
         private readonly double range;
         private readonly string targetStateName;

@@ -288,30 +288,6 @@ namespace LoESoft.Core
             set { SetValue("credits", value); }
         }
 
-        public int Fame
-        {
-            get { return GetValue("fame", Settings.STARTUP.FAME); }
-            set { SetValue("fame", value); }
-        }
-
-        public int TotalFame
-        {
-            get { return GetValue("totalFame", Settings.STARTUP.TOTAL_FAME); }
-            set { SetValue("totalFame", value); }
-        }
-
-        public int GuildFame
-        {
-            get { return GetValue<int>("guildFame"); }
-            set { SetValue("guildFame", value); }
-        }
-
-        public int FortuneTokens
-        {
-            get { return GetValue("fortuneTokens", Settings.STARTUP.TOKENS); }
-            set { SetValue("fortuneTokens", value); }
-        }
-
         public int EmpiresCoin
         {
             get { return GetValue("empiresCoin", Settings.STARTUP.EMPIRES_COIN); }
@@ -330,22 +306,10 @@ namespace LoESoft.Core
             set { SetValue("gifts", value); }
         }
 
-        public int PetYardType
-        {
-            get { return GetValue("petYardType", 1); }
-            set { SetValue("petYardType", value); }
-        }
-
         public int IsAgeVerified
         {
             get { return GetValue("isAgeVerified", Settings.STARTUP.IS_AGE_VERIFIED); }
             set { SetValue("isAgeVerified", value); }
-        }
-
-        public int[] OwnedSkins
-        {
-            get { return GetValue<int[]>("ownedSkins"); }
-            set { SetValue("ownedSkins", value); }
         }
 
         public int[] PurchasedPackages
@@ -358,18 +322,6 @@ namespace LoESoft.Core
         {
             get { return GetValue<int[]>("PurchasedBoxes"); }
             set { SetValue("PurchasedBoxes", value); }
-        }
-
-        public string[] Friends
-        {
-            get { return Utils.CommaToArray<string>(GetValue("friends", "1")); }
-            set { SetValue("friends", value.ToCommaSepString()); }
-        }
-
-        public string[] FriendRequests
-        {
-            get { return Utils.CommaToArray<string>(GetValue("friendRequests", "1")); }
-            set { SetValue("friendRequests", value.ToCommaSepString()); }
         }
 
         public string AuthToken
@@ -403,107 +355,13 @@ namespace LoESoft.Core
         }
     }
 
-    public struct DbClassAvailabilityEntry
-    {
-        public string Id { get; set; }
-        public string Restricted { get; set; }
-    }
-
-    public struct DbClassStatsEntry
-    {
-        public int BestLevel { get; set; }
-        public int BestFame { get; set; }
-    }
-
-    public class DbClassAvailability : RedisObject
-    {
-        public DbAccount Account { get; private set; }
-
-        public DbClassAvailability(DbAccount acc)
-        {
-            Account = acc;
-            Init(acc.Database, $"classAvailability.{acc.AccountId}");
-        }
-
-        public void Init(EmbeddedData data)
-        {
-            ObjectDesc field = null;
-            foreach (var i in data.ObjectDescs.Where(_ => _.Value.Player || _.Value.Class == "Player"))
-            {
-                field = i.Value;
-                SetValue(field.ObjectType.ToString(), JsonConvert.SerializeObject(new DbClassAvailabilityEntry()
-                {
-                    Id = field.ObjectId,
-                    Restricted = field.ObjectType == 782 ? "unrestricted" : "restricted"
-                }));
-            }
-        }
-
-        public DbClassAvailabilityEntry this[ushort type]
-        {
-            get
-            {
-                string v = GetValue<string>(type.ToString());
-                if (v != null) return JsonConvert.DeserializeObject<DbClassAvailabilityEntry>(v);
-                else return default(DbClassAvailabilityEntry);
-            }
-            set
-            {
-                SetValue(type.ToString(), JsonConvert.SerializeObject(value));
-            }
-        }
-    }
-
-    public class DbClassStats : RedisObject
-    {
-        public DbAccount Account { get; private set; }
-
-        public DbClassStats(DbAccount acc)
-        {
-            Account = acc;
-            Init(acc.Database, "classStats." + acc.AccountId);
-        }
-
-        public void Update(DbChar character)
-        {
-            var field = character.ObjectType.ToString();
-            string json = GetValue<string>(field);
-            if (json == null)
-                SetValue(field, JsonConvert.SerializeObject(new DbClassStatsEntry()
-                {
-                    BestLevel = character.Level,
-                    BestFame = character.Fame
-                }));
-            else
-            {
-                var entry = JsonConvert.DeserializeObject<DbClassStatsEntry>(json);
-                if (character.Level > entry.BestLevel)
-                    entry.BestLevel = character.Level;
-                if (character.Fame > entry.BestFame)
-                    entry.BestFame = character.Fame;
-                SetValue(field, JsonConvert.SerializeObject(entry));
-            }
-        }
-
-        public DbClassStatsEntry this[ushort type]
-        {
-            get
-            {
-                string v = GetValue<string>(type.ToString());
-                if (v != null) return JsonConvert.DeserializeObject<DbClassStatsEntry>(v);
-                else return default(DbClassStatsEntry);
-            }
-            set
-            {
-                SetValue(type.ToString(), JsonConvert.SerializeObject(value));
-            }
-        }
-    }
-
     public class DbChar : RedisObject
     {
-        public DbAccount Account { get; private set; }
-        public int CharId { get; private set; }
+        public DbAccount Account
+        { get; private set; }
+
+        public int CharId
+        { get; private set; }
 
         internal DbChar(DbAccount acc, int charId)
         {
@@ -512,203 +370,88 @@ namespace LoESoft.Core
             Init(acc.Database, "char." + acc.AccountId + "." + charId);
         }
 
-        public ushort ObjectType
+        public int Vocation
         {
-            get { return GetValue<ushort>("charType", 782); }
-            set { SetValue("charType", value); }
+            get { return GetValue("vocation", Settings.NewCharacter.VocationType); }
+            set { SetValue("vocation", value); }
         }
 
         public int Level
         {
-            get { return GetValue("level", 1); }
+            get { return GetValue("level", Settings.NewCharacter.InitialLevel); }
             set { SetValue("level", value); }
         }
 
-        public int Experience
+        public double Experience
         {
-            get { return GetValue("exp", 0); }
-            set { SetValue("exp", value); }
+            get { return GetValue("experience", Settings.NewCharacter.InitialExperience); }
+            set { SetValue("experience", value); }
         }
 
-        public int Fame
+        public int MaxHP
         {
-            get { return GetValue("fame", 0); }
-            set { SetValue("fame", value); }
+            get { return GetValue("max_hp", Settings.NewCharacter.InitialHealthPoints); }
+            set { SetValue("max_hp", value); }
         }
 
-        public int[] Items
+        public int MaxMP
         {
-            get { return GetValue<int[]>("items"); }
-            set { SetValue("items", value); }
-        }
-
-        public int[] Backpack
-        {
-            get { return GetValue<int[]>("backpack"); }
-            set { SetValue("backpack", value); }
+            get { return GetValue("max_mp", Settings.NewCharacter.InitialMagicPoints); }
+            set { SetValue("max_mp", value); }
         }
 
         public int HP
         {
-            get { return GetValue("hp", 100); }
+            get { return GetValue("hp", Settings.NewCharacter.InitialHealthPoints); }
             set { SetValue("hp", value); }
         }
 
         public int MP
         {
-            get { return GetValue("mp", 100); }
+            get { return GetValue("mp", Settings.NewCharacter.InitialMagicPoints); }
             set { SetValue("mp", value); }
         }
 
-        public int[] Stats
+        public int Speed
         {
-            get { return GetValue<int[]>("stats"); }
-            set { SetValue("stats", value); }
+            get { return GetValue("speed", Settings.NewCharacter.InitialSpeedBase); }
+            set { SetValue("speed", value); }
         }
 
-        public int Tex1
+        public int Attack
         {
-            get { return GetValue("tex1", 0); }
-            set { SetValue("tex1", value); }
+            get { return GetValue("attack", Settings.NewCharacter.InitialAttackLevel); }
+            set { SetValue("attack", value); }
         }
 
-        public int Tex2
+        public int Defense
         {
-            get { return GetValue("tex2", 0); }
-            set { SetValue("tex2", value); }
+            get { return GetValue("defense", Settings.NewCharacter.InitialDefenseLevel); }
+            set { SetValue("defense", value); }
         }
 
-        public int Skin
+        public double AttackExp
         {
-            get { return GetValue("skin", -1); }
-            set { SetValue("skin", value); }
+            get { return GetValue("attack_exp", Settings.NewCharacter.InitialAttackExperience); }
+            set { SetValue("attack_exp", value); }
         }
 
-        public int Pet
+        public double DefenseExp
         {
-            get { return GetValue("pet", 0); }
-            set { SetValue("pet", value); }
+            get { return GetValue("defense_exp", Settings.NewCharacter.InitialDefenseExperience); }
+            set { SetValue("defense_exp", value); }
         }
 
-        public byte[] FameStats
+        public int Outfit
         {
-            get { return GetValue("fameStats", new byte[] { }); }
-            set { SetValue("fameStats", value); }
+            get { return GetValue("outfit", Settings.NewCharacter.InitialOutfit); }
+            set { SetValue("outfit", value); }
         }
 
-        public string TaskStats
+        public int[] Equipments
         {
-            get { return GetValue("taskStats", string.Empty); }
-            set { SetValue("taskStats", value); }
-        }
-
-        public DateTime CreateTime
-        {
-            get { return GetValue("createTime", DateTime.Now); }
-            set { SetValue("createTime", value); }
-        }
-
-        public DateTime LastSeen
-        {
-            get { return GetValue("lastSeen", DateTime.Now); }
-            set { SetValue("lastSeen", value); }
-        }
-
-        public bool Dead
-        {
-            get { return GetValue("dead", false); }
-            set { SetValue("dead", value); }
-        }
-
-        public int HealthPotions
-        {
-            get { return GetValue("healthPotions", 1); }
-            set { SetValue("healthPotions", value); }
-        }
-
-        public int MagicPotions
-        {
-            get { return GetValue("magicPotions", 0); }
-            set { SetValue("magicPotions", value); }
-        }
-
-        public bool HasBackpack
-        {
-            get { return GetValue("hasBackpack", false); }
-            set { SetValue("hasBackpack", value); }
-        }
-
-        public int LootDropTimer
-        {
-            get { return GetValue("lootDropTimer", 0); }
-            set { SetValue("lootDropTimer", value); }
-        }
-
-        public int LootTierTimer
-        {
-            get { return GetValue("lootTierTimer", 0); }
-            set { SetValue("lootTierTimer", value); }
-        }
-
-        public int XPBoostTimer
-        {
-            get { return GetValue("xpBoostTimer", 0); }
-            set { SetValue("xpBoostTimer", value); }
-        }
-
-        public bool XPBoosted
-        {
-            get { return GetValue("xpBoosted", false); }
-            set { SetValue("xpBoosted", value); }
-        }
-    }
-
-    public class DbDeath : RedisObject
-    {
-        public DbAccount Account { get; private set; }
-        public int CharId { get; private set; }
-
-        public DbDeath(DbAccount acc, int charId)
-        {
-            Account = acc;
-            CharId = charId;
-            Init(acc.Database, "death." + acc.AccountId + "." + charId);
-        }
-
-        public ushort ObjectType
-        {
-            get { return GetValue<ushort>("objType"); }
-            set { SetValue("objType", value); }
-        }
-
-        public int Level
-        {
-            get { return GetValue<int>("level"); }
-            set { SetValue("level", value); }
-        }
-
-        public int TotalFame
-        {
-            get { return GetValue<int>("totalFame"); }
-            set { SetValue("totalFame", value); }
-        }
-
-        public string Killer
-        {
-            get { return GetValue<string>("killer"); }
-            set { SetValue("killer", value); }
-        }
-
-        public bool FirstBorn
-        {
-            get { return GetValue<bool>("firstBorn"); }
-            set { SetValue("firstBorn", value); }
-        }
-
-        public DateTime DeathTime
-        {
-            get { return GetValue<DateTime>("deathTime"); }
-            set { SetValue("deathTime", value); }
+            get { return GetValue<int[]>("items"); }
+            set { SetValue("items", value); }
         }
     }
 
@@ -767,35 +510,6 @@ namespace LoESoft.Core
         }
     }
 
-    public struct DbNewsEntry
-    {
-        [JsonIgnore]
-        public DateTime Date { get; set; }
-
-        public string Icon { get; set; }
-        public string Title { get; set; }
-        public string Text { get; set; }
-        public string Link { get; set; }
-    }
-
-    public class DbNews
-    {
-        public DbNews(Database db, int count)
-        {
-            News = db.SortedSets.Range(0, "news", 0, 10, false).Exec()
-                .Select(x =>
-                {
-                    var ret = JsonConvert.DeserializeObject<DbNewsEntry>(
-                        Encoding.UTF8.GetString(x.Key));
-                    ret.Date = new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(x.Value);
-                    return ret;
-                }).ToArray();
-        }
-
-        private DbNewsEntry[] News { get; set; }
-        public DbNewsEntry[] Entries => News;
-    }
-
     public class DbVault : RedisObject
     {
         public DbAccount Account { get; private set; }
@@ -811,56 +525,5 @@ namespace LoESoft.Core
             get { return GetValue<int[]>("vault." + index); }
             set { SetValue("vault." + index, value); }
         }
-    }
-
-    public struct DbLegendEntry
-    {
-        public int TotalFame { get; set; }
-        public int AccId { get; set; }
-        public int ChrId { get; set; }
-    }
-
-    public enum DbLegendTimeSpan
-    {
-        All,
-        Month,
-        Week
-    }
-
-    public class DbLegend
-    {
-        public DbLegend(Database db, DbLegendTimeSpan timeSpan, int count)
-        {
-            double begin;
-            if (timeSpan == DbLegendTimeSpan.Week)
-                begin = DateTime.Now.Subtract(TimeSpan.FromDays(7)).ToUnixTimestamp();
-            else if (timeSpan == DbLegendTimeSpan.Month)
-                begin = DateTime.Now.AddMonths(-1).ToUnixTimestamp();
-            else
-                begin = 0;
-
-            Entries = db.SortedSets.Range(0, "legends", begin, double.PositiveInfinity, false, count: count).Exec()
-                .Select(x => new DbLegendEntry()
-                {
-                    TotalFame = BitConverter.ToInt32(x.Key, 0),
-                    AccId = BitConverter.ToInt32(x.Key, 4),
-                    ChrId = BitConverter.ToInt32(x.Key, 8)
-                })
-                .OrderByDescending(x => x.TotalFame)
-                .ToArray();
-        }
-
-        public static void Insert(Database db, DateTime time, DbLegendEntry entry)
-        {
-            double t = time.ToUnixTimestamp();
-            byte[] buff = new byte[12];
-            Buffer.BlockCopy(BitConverter.GetBytes(entry.TotalFame), 0, buff, 0, 4);
-            Buffer.BlockCopy(BitConverter.GetBytes(entry.AccId), 0, buff, 4, 4);
-            Buffer.BlockCopy(BitConverter.GetBytes(entry.ChrId), 0, buff, 8, 4);
-            db.SortedSets.Add(0, "legends", buff, t);
-        }
-
-        private DbLegendEntry[] Entries { get; set; }
-        public DbLegendEntry[] GetEntries => Entries;
     }
 }

@@ -25,46 +25,14 @@ namespace LoESoft.GameServer.networking.handlers
             {
                 Entity en1 = client.Player.Owner.GetEntity(message.SlotObject1.ObjectId);
                 Entity en2 = client.Player.Owner.GetEntity(message.SlotObject2.ObjectId);
+
                 IContainer con1 = en1 as IContainer;
                 IContainer con2 = en2 as IContainer;
-
-                if (message.SlotObject1.SlotId == 254 || message.SlotObject1.SlotId == 255 ||
-                    message.SlotObject2.SlotId == 254 || message.SlotObject2.SlotId == 255)
-                {
-                    if (message.SlotObject2.SlotId == 254)
-                        if (client.Player.HealthPotions < 6)
-                        {
-                            client.Player.HealthPotions++;
-                            con1.Inventory[message.SlotObject1.SlotId] = null;
-                        }
-                    if (message.SlotObject2.SlotId == 255)
-                        if (client.Player.MagicPotions < 6)
-                        {
-                            client.Player.MagicPotions++;
-                            con1.Inventory[message.SlotObject1.SlotId] = null;
-                        }
-                    if (message.SlotObject1.SlotId == 254)
-                        if (client.Player.HealthPotions > 0)
-                        {
-                            client.Player.HealthPotions--;
-                            con2.Inventory[message.SlotObject2.SlotId] = null;
-                        }
-                    if (message.SlotObject1.SlotId == 255)
-                        if (client.Player.MagicPotions > 0)
-                        {
-                            client.Player.MagicPotions--;
-                            con2.Inventory[message.SlotObject1.SlotId] = null;
-                        }
-                    if (en1 is Player)
-                        (en1 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
-                    else if (en2 is Player)
-                        (en2 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
-                    return;
-                }
+                
                 //TODO: locker
                 Item item1 = con1.Inventory[message.SlotObject1.SlotId];
                 Item item2 = con2.Inventory[message.SlotObject2.SlotId];
-                List<ushort> publicbags = new List<ushort>
+                List<int> publicbags = new List<int>
                 {
                     0x0500,
                     0x0506,
@@ -101,7 +69,7 @@ namespace LoESoft.GameServer.networking.handlers
                     {
                         string name2 = Regex.Replace(item2.ObjectId, "\\d+", "") + (item2.Quantity + 1);
 
-                        if (Manager.GameData.IdToObjectType.TryGetValue(name2, out ushort objType))
+                        if (Manager.GameData.IdToObjectType.TryGetValue(name2, out int objType))
                         {
                             string name1 = Regex.Replace(item1.ObjectId, "\\d+", "") + (item1.Quantity - 1);
 
@@ -110,10 +78,11 @@ namespace LoESoft.GameServer.networking.handlers
 
                             con1.Inventory[message.SlotObject1.SlotId] = item1;
                             con2.Inventory[message.SlotObject2.SlotId] = item2;
-
-                            (en1 as Player).CalculateBoost();
+                            
                             client.Player.SaveToCharacter();
+
                             client.Save();
+
                             en1.UpdateCount++;
                         }
                         else break;
@@ -148,11 +117,14 @@ namespace LoESoft.GameServer.networking.handlers
 
                     con1.Inventory[message.SlotObject1.SlotId] = null;
                     con2.Inventory[message.SlotObject2.SlotId] = item1;
-                    (en2 as Player).CalculateBoost();
+
                     client.Player.SaveToCharacter();
+
                     en1.UpdateCount++;
                     en2.UpdateCount++;
+
                     (en2 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
+
                     return;
                 }
 
@@ -187,14 +159,12 @@ namespace LoESoft.GameServer.networking.handlers
                 {
                     if (en1.Owner.Name == "Vault")
                         (en1 as Player).Client.Player.SaveToCharacter();
-                    (en1 as Player).CalculateBoost();
                     (en1 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
                 }
                 if (en2 is Player)
                 {
                     if (en2.Owner.Name == "Vault")
                         (en2 as Player).Client.Player.SaveToCharacter();
-                    (en2 as Player).CalculateBoost();
                     (en2 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
                 }
 

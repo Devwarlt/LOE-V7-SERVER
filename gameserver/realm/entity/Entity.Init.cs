@@ -38,13 +38,13 @@ namespace LoESoft.GameServer.realm
 
         public wRandom Random { get; private set; }
 
-        public Entity(ushort objType)
+        public Entity(int objType)
             : this(objType, true, false) { }
 
-        public Entity(ushort objType, bool interactive)
+        public Entity(int objType, bool interactive)
             : this(objType, interactive, false) { }
 
-        protected Entity(ushort objType, bool interactive, bool isPet)
+        protected Entity(int objType, bool interactive, bool isPet)
         {
             ObjectType = objType;
             Name = "";
@@ -83,7 +83,7 @@ namespace LoESoft.GameServer.realm
 
         public int UpdateCount { get; set; }
 
-        public ushort ObjectType { get; private set; }
+        public int ObjectType { get; private set; }
         public int Id { get; internal set; }
 
         public bool Usable { get; set; }
@@ -538,7 +538,7 @@ namespace LoESoft.GameServer.realm
 
         public static Entity Resolve(string name)
         {
-            if (!GameServer.Manager.GameData.IdToObjectType.TryGetValue(name, out ushort id))
+            if (!GameServer.Manager.GameData.IdToObjectType.TryGetValue(name, out int id))
                 return null;
 
             return Resolve(id);
@@ -549,7 +549,7 @@ namespace LoESoft.GameServer.realm
             "Projectile", "Player", "Pet"
         };
 
-        public static Entity Resolve(ushort id)
+        public static Entity Resolve(int id)
         {
             var node = GameServer.Manager.GameData.ObjectTypeToElement[id];
             var cls = node.Element("Class");
@@ -615,7 +615,7 @@ namespace LoESoft.GameServer.realm
 
         public Projectile CreateProjectile(
             ProjectileDesc desc,
-            ushort container,
+            int container,
             int dmg,
             long time,
             Position pos,
@@ -626,7 +626,7 @@ namespace LoESoft.GameServer.realm
             {
                 ProjectileOwner = this,
                 ProjectileId = ProjectileId++,
-                Container = (short)container,
+                Container = container,
                 Damage = dmg,
                 BeginTime = time,
                 BeginPos = pos,

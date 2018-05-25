@@ -9,7 +9,7 @@ namespace LoESoft.GameServer.logic.behaviors
 {
     public class CopyLootState : Behavior
     {
-        private readonly ushort children;
+        private readonly int children;
         private readonly double radius;
 
         public CopyLootState(

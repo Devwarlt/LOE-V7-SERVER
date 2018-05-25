@@ -29,10 +29,6 @@ namespace LoESoft.GameServer.realm.entity.player
                     var owner = (i as Container).BagOwners?.Length == 1 ? (i as Container).BagOwners[0] : null;
                     if (owner != null && owner != AccountId) continue;
 
-                    if (owner == AccountId)
-                        if ((LootDropBoost || LootTierBoost) && (i.ObjectType != 0x500 || i.ObjectType != 0x506))
-                            (i as Container).BoostedBag = true; //boosted bag
-
                 }
                 if (!(MathsUtils.DistSqr(i.X, i.Y, X, Y) <= SIGHTRADIUS * SIGHTRADIUS)) continue;
                 if (visibleTiles.ContainsKey(new IntPoint((int)i.X, (int)i.Y)))
@@ -140,8 +136,6 @@ namespace LoESoft.GameServer.realm.entity.player
                 tiles[x, y] = tile.UpdateCount;
                 sent++;
             }
-
-            FameCounter.TileSent(sent);
 
             int[] dropEntities = GetRemovedEntities().Distinct().ToArray();
             clientEntities.RemoveWhere(_ => Array.IndexOf(dropEntities, _.Id) != -1);

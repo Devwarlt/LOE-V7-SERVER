@@ -10,7 +10,7 @@ namespace LoESoft.GameServer.logic.behaviors
 {
     public class Reproduce : Behavior
     {
-        private readonly ushort? name;
+        private readonly int? name;
         private readonly int max;
         private readonly double range;
         private readonly double radius;
@@ -24,7 +24,7 @@ namespace LoESoft.GameServer.logic.behaviors
             Cooldown coolDown = new Cooldown()
             )
         {
-            this.name = name == null ? null : (ushort?)BehaviorDb.InitGameData.IdToObjectType[name];
+            this.name = name == null ? null : (int?)BehaviorDb.InitGameData.IdToObjectType[name];
             this.range = range;
             this.max = max;
             this.coolDown = coolDown.Normalize(60000);

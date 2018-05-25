@@ -9,7 +9,7 @@ namespace LoESoft.GameServer.logic.behaviors
 {
     public class Spawn : Behavior
     {
-        private readonly ushort children;
+        private readonly int children;
         private readonly int initialSpawn;
         private readonly int maxChildren;
         private Cooldown coolDown;

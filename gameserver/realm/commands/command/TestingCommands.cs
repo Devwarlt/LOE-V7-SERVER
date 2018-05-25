@@ -54,15 +54,10 @@ namespace LoESoft.GameServer.realm.commands
                     {
                         if (cmd == "mine")
                             player.SendInfo($"Your ID is: {player.Id}");
-
-                        if (cmd == "pet" && player.Pet != null)
-                            player.SendInfo($"Your Pet ID is: {player.Pet.Id}");
-                        else
-                            player.SendInfo($"You don't have any pet yet.");
                     }
                     break;
                 default:
-                    player.SendHelp("Available testing commands: 'chatdata' (my / all), 'clients', 'projectiles' (ids / all) and 'id' (mine / pet).");
+                    player.SendHelp("Available testing commands: 'chatdata' (my / all), 'clients', 'projectiles' (ids / all) and 'id' (mine).");
                     break;
             }
             return true;

@@ -15,12 +15,6 @@ namespace LoESoft.GameServer.realm.entity.player
     {
         public int MaxHackEntries { get; set; }
         public AccountTypePerks AccountPerks { get; set; }
-        public int PetID { get; set; }
-        public List<List<int>> PetHealing { get; set; }
-        public List<int> PetAttack { get; set; }
-        public Entity Pet { get; set; }
-        public bool HatchlingPet { get; set; }
-        public bool HatchlingNotification { get; set; }
         public int AccountType { get; set; }
         public DateTime AccountLifetime { get; set; }
         public bool IsVip { get; set; }
@@ -38,59 +32,31 @@ namespace LoESoft.GameServer.realm.entity.player
         private readonly ConcurrentQueue<int> _serverTimeLog = new ConcurrentQueue<int>();
         public int LastClientTime = -1;
         public long LastServerTime = -1;
-        private bool lootDropBoostFreeTimer;
-        private bool lootTierBoostFreeTimer;
-        private bool ninjaShoot;
-        private bool ninjaFreeTimer;
-        private bool xpFreeTimer;
         private bool dying;
         private Item[] inventory;
         private float hpRegenCounter;
         private float mpRegenCounter;
-        private bool resurrecting;
         private byte[,] tiles;
         private SetTypeSkin setTypeSkin;
         public string AccountId { get; }
-        public int[] Boost { get; private set; }
-        public ActivateBoost[] ActivateBoost { get; private set; }
         public Client Client { get; }
         public int Credits { get; set; }
-        public int Tokens { get; set; }
-        public int CurrentFame { get; set; }
-        public int Experience { get; set; }
-        public int ExperienceGoal { get; set; }
-        public FameCounter FameCounter { get; }
+        public double Experience { get; set; }
+        public double ExperienceGoal { get; set; }
         public TaskManager TaskManager { get; }
         public bool Glowing { get; set; }
-        public bool HasBackpack { get; set; }
-        public int HealthPotions { get; set; }
         public List<string> Ignored { get; set; }
         public bool Invited { get; set; }
         public bool Muted { get; set; }
         public int Level { get; set; }
         public List<string> Locked { get; set; }
-        public bool LootDropBoost { get { return LootDropBoostTimeLeft > 0; } set { LootDropBoostTimeLeft = value ? LootDropBoostTimeLeft : 0.0f; } }
-        public float LootDropBoostTimeLeft { get; set; }
-        public bool LootTierBoost { get { return LootTierBoostTimeLeft > 0; } set { LootTierBoostTimeLeft = value ? LootTierBoostTimeLeft : 0.0f; } }
-        public float LootTierBoostTimeLeft { get; set; }
-        public bool XpBoosted { get; set; }
-        public float XpBoostTimeLeft { get; set; }
-        public int MagicPotions { get; set; }
-        public ushort HpPotionPrice { get; set; }
-        public ushort MpPotionPrice { get; set; }
-        public bool HpFirstPurchaseTime { get; set; }
-        public bool MpFirstPurchaseTime { get; set; }
         public int MaxHp { get; set; }
         public int MaxMp { get; set; }
         public int MP { get; set; }
         public bool NameChosen { get; set; }
-        public int OxygenBar { get; set; }
         public int PlayerSkin { get; set; }
         public int Stars { get; set; }
-        public int[] Stats { get; }
         public StatsManager StatsManager { get; }
-        public int Texture1 { get; set; }
-        public int Texture2 { get; set; }
         public Item[] Inventory { get { return inventory; } set { inventory = value; } }
         public string Guild { get; set; }
         public int GuildRank { get; set; }
@@ -106,7 +72,7 @@ namespace LoESoft.GameServer.realm.entity.player
         private int updateLastSeen;
         public Enemy Quest { get; private set; }
         private bool worldBroadcast = true;
-        private readonly Queue<Tuple<Message, Predicate<Player>>> pendingPackets = new Queue<Tuple<Message, Predicate<Player>>>();
+        private readonly Queue<Tuple<Message, Predicate<Player>>> pendingMessages = new Queue<Tuple<Message, Predicate<Player>>>();
         public TradeManager HandleTrade { get; private set; }
         public int UpdatesSend { get; private set; }
         public int UpdatesReceived { get; set; }

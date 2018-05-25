@@ -35,10 +35,8 @@ namespace LoESoft.GameServer.realm.commands
             {
                 string name = string.Join(" ", args.Skip(1).ToArray());
                 //creates a new case insensitive dictionary based on the XmlDatas
-                Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                    GameServer.Manager.GameData.IdToObjectType,
-                    StringComparer.OrdinalIgnoreCase);
-                if (!icdatas.TryGetValue(name, out ushort objType) ||
+                Dictionary<string, int> icdatas = new Dictionary<string, int>(GameServer.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
+                if (!icdatas.TryGetValue(name, out int objType) ||
                     !GameServer.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendInfo("Unknown entity!");
@@ -57,10 +55,8 @@ namespace LoESoft.GameServer.realm.commands
             {
                 string name = string.Join(" ", args);
                 //creates a new case insensitive dictionary based on the XmlDatas
-                Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(
-                    GameServer.Manager.GameData.IdToObjectType,
-                    StringComparer.OrdinalIgnoreCase);
-                if (!icdatas.TryGetValue(name, out ushort objType) ||
+                Dictionary<string, int> icdatas = new Dictionary<string, int>(GameServer.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
+                if (!icdatas.TryGetValue(name, out int objType) ||
                     !GameServer.Manager.GameData.ObjectDescs.ContainsKey(objType))
                 {
                     player.SendHelp("Usage: /spawn <entityname>");
@@ -162,9 +158,9 @@ namespace LoESoft.GameServer.realm.commands
 
             try
             {
-                Dictionary<string, ushort> icdatas = new Dictionary<string, ushort>(GameServer.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
+                Dictionary<string, int> icdatas = new Dictionary<string, int>(GameServer.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
 
-                if (!icdatas.TryGetValue(name, out ushort objType))
+                if (!icdatas.TryGetValue(name, out int objType))
                 {
                     player.SendError("Unknown type!");
                     return false;

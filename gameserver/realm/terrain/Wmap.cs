@@ -96,7 +96,7 @@ namespace LoESoft.GameServer.realm.terrain
         public byte Elevation;
         public string Name;
         public int ObjId;
-        public ushort ObjType;
+        public int ObjType;
         public TileRegion Region;
         public WmapTerrain Terrain;
         public ushort TileId;
@@ -198,7 +198,7 @@ namespace LoESoft.GameServer.realm.terrain
 
         private readonly EmbeddedData data;
         public HashSet<Tuple<IntPoint, TileRegion>> Regions { get; private set; } // not the best idea to make public
-        private Tuple<IntPoint, ushort, string>[] entities;
+        private Tuple<IntPoint, int, string>[] entities;
         private WmapTile[,] tilesOriginal;
         private WmapTile[,] tiles;
 
@@ -235,7 +235,7 @@ namespace LoESoft.GameServer.realm.terrain
                     };
                     tile.TileDesc = data.Tiles[tile.TileId];
                     var obj = rdr.ReadString();
-                    tile.ObjType = string.IsNullOrEmpty(obj) ? (ushort)0 : data.IdToObjectType[obj];
+                    tile.ObjType = string.IsNullOrEmpty(obj) ? 0 : data.IdToObjectType[obj];
                     tile.Name = rdr.ReadString();
                     tile.Terrain = (WmapTerrain)rdr.ReadByte();
                     tile.Region = (TileRegion)rdr.ReadByte();
@@ -251,7 +251,7 @@ namespace LoESoft.GameServer.realm.terrain
                 tiles = new WmapTile[Width, Height];
 
                 var enCount = 0;
-                var entities = new List<Tuple<IntPoint, ushort, string>>();
+                var entities = new List<Tuple<IntPoint, int, string>>();
                 for (var y = 0; y < Height; y++)
                     for (var x = 0; x < Width; x++)
                     {
@@ -267,7 +267,7 @@ namespace LoESoft.GameServer.realm.terrain
                         var desc = tile.ObjDesc;
                         if (tile.ObjType != 0 && (desc == null || !desc.Static || desc.Enemy))
                         {
-                            entities.Add(new Tuple<IntPoint, ushort, string>(new IntPoint(x, y), tile.ObjType, tile.Name));
+                            entities.Add(new Tuple<IntPoint, int, string>(new IntPoint(x, y), tile.ObjType, tile.Name));
                             if (desc == null || !(desc.Enemy && desc.Static))
                                 tile.ObjType = 0;
                         }
@@ -287,14 +287,14 @@ namespace LoESoft.GameServer.realm.terrain
             }
         }
 
-        private bool isGuildMerchant(ushort objId)
+        private bool IsGuildMerchant(ushort objId)
         {
             return objId == 1846 || objId == 1847 || objId == 1848;
         }
 
         public IEnumerable<Entity> InstantiateEntities(RealmManager manager)
         {
-            foreach (Tuple<IntPoint, ushort, string> i in entities)
+            foreach (Tuple<IntPoint, int, string> i in entities)
             {
                 Entity entity = Entity.Resolve(i.Item2);
                 entity.Move(i.Item1.X + 0.5f, i.Item1.Y + 0.5f);

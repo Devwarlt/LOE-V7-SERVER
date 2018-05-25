@@ -20,16 +20,10 @@ namespace LoESoft.AppEngine.gamestore
         {
             INVALID = -1,
             GOLD = 0,
-            FAME = 1,
-            GUILD_FAME = 2,
-            FORTUNE_TOKENS = 3,
             EMPIRES_COIN = 4
         }
 
         private int Credits(DbAccount acc) => acc.Credits;
-        private int Fame(DbAccount acc) => acc.Fame;
-        private int GuildFame(DbAccount acc) => acc.GuildFame;
-        private int FortuneTokens(DbAccount acc) => acc.FortuneTokens;
         private int EmpiresCoin(DbAccount acc) => acc.EmpiresCoin;
 
         private bool Validate(DbAccount acc, int currency, int total)
@@ -37,9 +31,6 @@ namespace LoESoft.AppEngine.gamestore
             switch ((Currency)currency)
             {
                 case Currency.GOLD: return Credits(acc) >= total;
-                case Currency.FAME: return Fame(acc) >= total;
-                case Currency.GUILD_FAME: return GuildFame(acc) >= total;
-                case Currency.FORTUNE_TOKENS: return FortuneTokens(acc) >= total;
                 case Currency.EMPIRES_COIN: return EmpiresCoin(acc) >= total;
                 case Currency.INVALID:
                 default: return false;
@@ -59,9 +50,6 @@ namespace LoESoft.AppEngine.gamestore
             switch ((Currency)currency)
             {
                 case Currency.GOLD: return "credits";
-                case Currency.FAME: return "fame";
-                case Currency.GUILD_FAME: return "guild fame";
-                case Currency.FORTUNE_TOKENS: return "fortune tokens";
                 case Currency.EMPIRES_COIN: return "empires coin";
                 case Currency.INVALID:
                 default: return "invalid";
@@ -75,22 +63,6 @@ namespace LoESoft.AppEngine.gamestore
                 case Currency.GOLD:
                     {
                         acc.Credits -= total;
-                    }
-                    break;
-                case Currency.FAME:
-                    {
-                        acc.Fame -= total;
-                        acc.TotalFame -= total;
-                    }
-                    break;
-                case Currency.GUILD_FAME:
-                    {
-                        acc.GuildFame -= total;
-                    }
-                    break;
-                case Currency.FORTUNE_TOKENS:
-                    {
-                        acc.FortuneTokens -= total;
                     }
                     break;
                 case Currency.EMPIRES_COIN:
@@ -162,15 +134,6 @@ namespace LoESoft.AppEngine.gamestore
                         if (k.CurrencyType == (int)Currency.GOLD)
                             for (int l = 0; l < k.Quantity; l++)
                                 credits.Add(k.ObjectType);
-                        if (k.CurrencyType == (int)Currency.FAME)
-                            for (int l = 0; l < k.Quantity; l++)
-                                fame.Add(k.ObjectType);
-                        if (k.CurrencyType == (int)Currency.GUILD_FAME)
-                            for (int l = 0; l < k.Quantity; l++)
-                                guild_fame.Add(k.ObjectType);
-                        if (k.CurrencyType == (int)Currency.FORTUNE_TOKENS)
-                            for (int l = 0; l < k.Quantity; l++)
-                                fortune_tokens.Add(k.ObjectType);
                         if (k.CurrencyType == (int)Currency.EMPIRES_COIN)
                             for (int l = 0; l < k.Quantity; l++)
                                 empires_coin.Add(k.ObjectType);

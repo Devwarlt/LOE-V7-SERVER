@@ -141,7 +141,6 @@
     <Compile Include="account\forgotPassword.cs" />
     <Compile Include="account\playFortuneGame.cs" />
     <Compile Include="account\purchaseCharSlot.cs" />
-    <Compile Include="account\purchaseSkin.cs" />
     <Compile Include="account\resetPassword.cs" />
     <Compile Include="account\sendVerifyEmail.cs" />
     <Compile Include="account\setName.cs" />
@@ -150,12 +149,9 @@
     <Compile Include="AppEngineManager.cs" />
     <Compile Include="app\inGameNews\getNews.cs" />
     <Compile Include="char\delete.cs" />
-    <Compile Include="char\fame.cs" />
     <Compile Include="char\list.cs" />
-    <Compile Include="char\purchaseClassUnlock.cs" />
     <Compile Include="credits\getoffers.cs" />
     <Compile Include="crossdomain.cs" />
-    <Compile Include="fame\list.cs" />
     <Compile Include="gamestore\getOffers.cs" />
     <Compile Include="gamestore\purchaseOffers.cs" />
     <Compile Include="guild\getBoard.cs" />

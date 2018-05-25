@@ -27,7 +27,7 @@ namespace LoESoft.GameServer.realm.entity
 
         public Entity ProjectileOwner { get; set; }
         public new byte ProjectileId { get; set; }
-        public short Container { get; set; }
+        public int Container { get; set; }
         public int Damage { get; set; }
         public long BeginTime { get; set; }
         public Position BeginPos { get; set; }

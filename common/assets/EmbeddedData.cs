@@ -30,13 +30,13 @@ namespace LoESoft.Core
         private int PetAmount = 0;
         private int SkinAmount = 0;
 
-        private readonly Dictionary<string, ushort> id2type_obj;
+        private readonly Dictionary<string, int> id2type_obj;
         private readonly Dictionary<string, ushort> id2type_tile;
-        private readonly Dictionary<ushort, Item> items;
-        private readonly Dictionary<ushort, ObjectDesc> objDescs;
-        private readonly Dictionary<ushort, PortalDesc> portals;
+        private readonly Dictionary<int, Item> items;
+        private readonly Dictionary<int, ObjectDesc> objDescs;
+        private readonly Dictionary<int, PortalDesc> portals;
         private readonly Dictionary<ushort, TileDesc> tiles;
-        private readonly Dictionary<ushort, XElement> type2elem_obj;
+        private readonly Dictionary<int, XElement> type2elem_obj;
         private readonly Dictionary<ushort, XElement> type2elem_tile;
         private readonly Dictionary<string, PetSkin> id2pet_skin;
         private readonly Dictionary<ushort, PetStruct> type2pet;
@@ -44,13 +44,13 @@ namespace LoESoft.Core
         private readonly Dictionary<ushort, string> type2id_tile;
         private readonly Dictionary<ushort, SetTypeSkin> setTypeSkins;
 
-        public IDictionary<ushort, XElement> ObjectTypeToElement
+        public IDictionary<int, XElement> ObjectTypeToElement
         { get; private set; }
 
         public IDictionary<ushort, string> ObjectTypeToId
         { get; private set; }
 
-        public IDictionary<string, ushort> IdToObjectType
+        public IDictionary<string, int> IdToObjectType
         { get; private set; }
 
         public IDictionary<ushort, XElement> TileTypeToElement
@@ -65,13 +65,13 @@ namespace LoESoft.Core
         public IDictionary<ushort, TileDesc> Tiles
         { get; private set; }
 
-        public IDictionary<ushort, Item> Items
+        public IDictionary<int, Item> Items
         { get; private set; }
 
-        public IDictionary<ushort, ObjectDesc> ObjectDescs
+        public IDictionary<int, ObjectDesc> ObjectDescs
         { get; private set; }
 
-        public IDictionary<ushort, PortalDesc> Portals
+        public IDictionary<int, PortalDesc> Portals
         { get; private set; }
 
         public IDictionary<ushort, PetStruct> TypeToPet
@@ -91,16 +91,16 @@ namespace LoESoft.Core
         {
             bool loaded = false;
 
-            ObjectTypeToElement = new ReadOnlyDictionary<ushort, XElement>(type2elem_obj = new Dictionary<ushort, XElement>());
+            ObjectTypeToElement = new ReadOnlyDictionary<int, XElement>(type2elem_obj = new Dictionary<int, XElement>());
             ObjectTypeToId = new ReadOnlyDictionary<ushort, string>(type2id_obj = new Dictionary<ushort, string>());
-            IdToObjectType = new ReadOnlyDictionary<string, ushort>(id2type_obj = new Dictionary<string, ushort>(StringComparer.InvariantCultureIgnoreCase));
+            IdToObjectType = new ReadOnlyDictionary<string, int>(id2type_obj = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase));
             TileTypeToElement = new ReadOnlyDictionary<ushort, XElement>(type2elem_tile = new Dictionary<ushort, XElement>());
             TileTypeToId = new ReadOnlyDictionary<ushort, string>(type2id_tile = new Dictionary<ushort, string>());
             IdToTileType = new ReadOnlyDictionary<string, ushort>(id2type_tile = new Dictionary<string, ushort>(StringComparer.InvariantCultureIgnoreCase));
             Tiles = new ReadOnlyDictionary<ushort, TileDesc>(tiles = new Dictionary<ushort, TileDesc>());
-            Items = new artic.ReadOnlyDictionary<ushort, Item>(items = new Dictionary<ushort, Item>());
-            ObjectDescs = new ReadOnlyDictionary<ushort, ObjectDesc>(objDescs = new Dictionary<ushort, ObjectDesc>());
-            Portals = new ReadOnlyDictionary<ushort, PortalDesc>(portals = new Dictionary<ushort, PortalDesc>());
+            Items = new artic.ReadOnlyDictionary<int, Item>(items = new Dictionary<int, Item>());
+            ObjectDescs = new ReadOnlyDictionary<int, ObjectDesc>(objDescs = new Dictionary<int, ObjectDesc>());
+            Portals = new ReadOnlyDictionary<int, PortalDesc>(portals = new Dictionary<int, PortalDesc>());
             TypeToPet = new ReadOnlyDictionary<ushort, PetStruct>(type2pet = new Dictionary<ushort, PetStruct>());
             IdToPetSkin = new ReadOnlyDictionary<string, PetSkin>(id2pet_skin = new Dictionary<string, PetSkin>());
             SetTypeSkins = new ReadOnlyDictionary<ushort, SetTypeSkin>(setTypeSkins = new Dictionary<ushort, SetTypeSkin>());

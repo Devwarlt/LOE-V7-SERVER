@@ -94,14 +94,8 @@ namespace LoESoft.GameServer.logic.loot
                     {
                         if (i.LootState == enemy.LootState || i.LootState == null)
                         {
-                            double prob = dat.Item1.LootDropBoost ? i.Probabilty * 1.5 : i.Probabilty;
-                            if (rand.NextDouble() < prob)
-                            {
-                                if (dat.Item1.LootTierBoost)
-                                    playerLoot.Add(IncreaseTier(GameServer.Manager, i.Item, consideration));
-                                else
-                                    playerLoot.Add(i.Item);
-                            }
+                            if (rand.NextDouble() < i.Probabilty)
+                                playerLoot.Add(i.Item);
                         }
                     }
                 }

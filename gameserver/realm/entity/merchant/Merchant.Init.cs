@@ -13,7 +13,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
 {
     partial class Merchant : SellableObject
     {
-        public Merchant(ushort objType, World owner = null)
+        public Merchant(int objType, World owner = null)
             : base(objType)
         {
             MType = -1;
@@ -316,7 +316,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
             List<int> largeclothlist = new List<int>();
 
             // region 1 + region 2
-            foreach (KeyValuePair<ushort, Item> item in data.Items.Where(_ => BLACKLIST.keys.All(i => (i != _.Value.ObjectType))))
+            foreach (KeyValuePair<int, Item> item in data.Items.Where(_ => BLACKLIST.keys.All(i => (i != _.Value.ObjectType))))
                 if (item.Value.SlotType == 10 && item.Value.ObjectId.Contains("Key") && item.Value.Class == "Equipment" && item.Value.Soulbound && item.Value.Consumable)
                 {
                     region1list.Add(item.Value.ObjectType);
@@ -324,7 +324,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 }
 
             // region 3
-            foreach (KeyValuePair<ushort, Item> item in data.Items)
+            foreach (KeyValuePair<int, Item> item in data.Items)
                 if (item.Value.SlotType == 10 && item.Value.ObjectId.Contains("(SB)") && item.Value.ObjectId.Contains("Skin") && item.Value.Class == "Equipment" && item.Value.Soulbound && item.Value.Consumable)
                 {
                     region3list.Add(item.Value.ObjectType);
@@ -332,12 +332,12 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 }
 
             // region 4
-            foreach (KeyValuePair<ushort, Item> item in data.Items)
+            foreach (KeyValuePair<int, Item> item in data.Items)
                 if (item.Value.SlotType == 10 && item.Value.Description.Contains("Food for your pet.") && item.Value.Soulbound)
                     region4list.Add(item.Value.ObjectType);
 
             // region 5
-            foreach (KeyValuePair<ushort, Item> item in data.Items)
+            foreach (KeyValuePair<int, Item> item in data.Items)
                 if (item.Value.SlotType == 26 && item.Value.ObjectId.Contains("Egg") && item.Value.Consumable && item.Value.Soulbound && item.Value.FeedPower >= 300 && (item.Value.Tier < 3 || item.Value.ObjectId.Contains("Mystery")))
                 {
                     region5list.Add(item.Value.ObjectType);
@@ -345,7 +345,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 }
 
             // region 6
-            foreach (KeyValuePair<ushort, Item> item in data.Items)
+            foreach (KeyValuePair<int, Item> item in data.Items)
                 if (abilitySlotType.Contains(item.Value.SlotType) && !item.Value.Soulbound && item.Value.Tier >= 5 && item.Value.Tier <= 6)
                 {
                     region6list.Add(item.Value.ObjectType);
@@ -353,7 +353,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 }
 
             // region 7
-            foreach (KeyValuePair<ushort, Item> item in data.Items.Where(_ => BLACKLIST.weapons.All(i => (i != _.Value.ObjectId))))
+            foreach (KeyValuePair<int, Item> item in data.Items.Where(_ => BLACKLIST.weapons.All(i => (i != _.Value.ObjectId))))
                 if (!item.Value.ObjectId.Contains("Infected") && weaponSlotType.Contains(item.Value.SlotType) && !item.Value.Soulbound && item.Value.Tier >= 8 && item.Value.Tier <= 12)
                 {
                     region7list.Add(item.Value.ObjectType);
@@ -361,7 +361,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 }
 
             // region 8
-            foreach (KeyValuePair<ushort, Item> item in data.Items.Where(_ => BLACKLIST.weapons.All(i => (i != _.Value.ObjectId))))
+            foreach (KeyValuePair<int, Item> item in data.Items.Where(_ => BLACKLIST.weapons.All(i => (i != _.Value.ObjectId))))
                 if ((armorSlotType.Contains(item.Value.SlotType) && item.Value.Tier >= 9 && item.Value.Tier <= 13) || (ringSlotType.Contains(item.Value.SlotType) && item.Value.Tier >= 4 && item.Value.Tier <= 5) && !item.Value.Soulbound)
                 {
                     region8list.Add(item.Value.ObjectType);
@@ -369,7 +369,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 }
 
             // restricted clothes (small)
-            foreach (KeyValuePair<ushort, Item> item in data.Items.Where(_ => BLACKLIST.small.All(i => (i != _.Value.ObjectId))))
+            foreach (KeyValuePair<int, Item> item in data.Items.Where(_ => BLACKLIST.small.All(i => (i != _.Value.ObjectId))))
                 if (item.Value.Texture2 != 0 && item.Value.ObjectId.Contains("Cloth") && item.Value.ObjectId.Contains("Small"))
                 {
                     smallclothlist.Add(item.Value.ObjectType);
@@ -377,7 +377,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 }
 
             // restricted clothes (large)
-            foreach (KeyValuePair<ushort, Item> item in data.Items.Where(_ => BLACKLIST.large.All(i => (i != _.Value.ObjectId))))
+            foreach (KeyValuePair<int, Item> item in data.Items.Where(_ => BLACKLIST.large.All(i => (i != _.Value.ObjectId))))
                 if (item.Value.Texture1 != 0 && item.Value.ObjectId.Contains("Cloth") && item.Value.ObjectId.Contains("Large"))
                 {
                     largeclothlist.Add(item.Value.ObjectType);
@@ -385,7 +385,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 }
 
             // accessory dye
-            foreach (KeyValuePair<ushort, Item> item in data.Items)
+            foreach (KeyValuePair<int, Item> item in data.Items)
                 if (item.Value.Texture2 != 0 && item.Value.ObjectId.Contains("Accessory") && item.Value.Class == "Dye")
                 {
                     accessorylist.Add(item.Value.ObjectType);
@@ -393,7 +393,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 }
 
             // clothing dye
-            foreach (KeyValuePair<ushort, Item> item in data.Items)
+            foreach (KeyValuePair<int, Item> item in data.Items)
                 if (item.Value.Texture1 != 0 && item.Value.ObjectId.Contains("Clothing") && item.Value.Class == "Dye")
                 {
                     clothinglist.Add(item.Value.ObjectType);

@@ -3,16 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LoESoft.GameServer.logic;
 using LoESoft.GameServer.networking;
-using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
 using System.Xml.Linq;
 using LoESoft.GameServer.realm.terrain;
 using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core;
-using LoESoft.GameServer.logic.skills.Pets;
 
 #endregion
 
@@ -31,7 +28,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
     public partial class Player : Character, IContainer, IPlayer
     {
-        public Player(Client client) : base(client.Character.ObjectType, client.Random)
+        public Player(Client client) : base(client.Character.Vocation, client.Random)
         {
             try
             {
@@ -45,40 +42,13 @@ namespace LoESoft.GameServer.realm.entity.player
                 StatsManager = new StatsManager(this, client.Random.CurrentSeed);
                 Name = client.Account.Name;
                 AccountId = client.Account.AccountId;
-                FameCounter = new FameCounter(this);
                 //TaskManager = new TaskManager(this); // pending addition for future versions
-                Tokens = client.Account.FortuneTokens;
-                HpPotionPrice = 5;
-                MpPotionPrice = 5;
                 Level = client.Character.Level == 0 ? 1 : client.Character.Level;
                 Experience = client.Character.Experience;
                 ExperienceGoal = GetNextLevelExperience(Level);
                 Stars = AccountType >= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT ? 70 : 28;
-                Texture1 = client.Character.Tex1;
-                Texture2 = client.Character.Tex2;
                 Credits = client.Account.Credits;
                 NameChosen = client.Account.NameChosen;
-                CurrentFame = client.Account.Fame;
-                PetHealing = null;
-                PetAttack = null;
-                if (client.Character.Pet != 0)
-                {
-                    PetHealing = new List<List<int>>();
-                    PetAttack = new List<int>();
-                    PetID = client.Character.Pet;
-                    Tuple<int, int, double> HPData = PetHPHealing.MinMaxBonus(Resolve((ushort)PetID).ObjectDesc.HPTier, Stars);
-                    Tuple<int, int, double> MPData = PetMPHealing.MinMaxBonus(Resolve((ushort)PetID).ObjectDesc.MPTier, Stars);
-                    PetHealing.Add(new List<int> { HPData.Item1, HPData.Item2, (int)((HPData.Item3 - 1) * 100) });
-                    PetHealing.Add(new List<int> { MPData.Item1, MPData.Item2, (int)((MPData.Item3 - 1) * 100) });
-                    PetAttack.Add(7750 - Stars * 100);
-                    PetAttack.Add(30 + Stars);
-                    PetAttack.Add(Resolve((ushort)PetID).ObjectDesc.Projectiles[0].MinDamage);
-                    PetAttack.Add(Resolve((ushort)PetID).ObjectDesc.Projectiles[0].MaxDamage);
-                }
-                LootDropBoostTimeLeft = client.Character.LootDropTimer;
-                lootDropBoostFreeTimer = LootDropBoost;
-                LootTierBoostTimeLeft = client.Character.LootTierTimer;
-                lootTierBoostFreeTimer = LootTierBoost;
                 Glowing = false;
                 DbGuild guild = GameServer.Manager.Database.GetGuild(client.Account.GuildId);
                 if (guild != null)
@@ -94,11 +64,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 HP = client.Character.HP <= 0 ? (int)ObjectDesc.MaxHP : client.Character.HP;
                 MP = client.Character.MP;
                 ConditionEffects = 0;
-                OxygenBar = 100;
-                HasBackpack = client.Character.HasBackpack == true;
-                PlayerSkin = Client.Account.OwnedSkins.Contains(Client.Character.Skin) ? Client.Character.Skin : 0;
-                HealthPotions = client.Character.HealthPotions < 0 ? 0 : client.Character.HealthPotions;
-                MagicPotions = client.Character.MagicPotions < 0 ? 0 : client.Character.MagicPotions;
+                PlayerSkin = Client.Character.Outfit;
 
                 try
                 {
@@ -108,50 +74,20 @@ namespace LoESoft.GameServer.realm.entity.player
                 }
                 catch (Exception) { }
 
-                if (HasBackpack)
-                {
-                    Item[] inv =
-                        client.Character.Items.Select(
-                            _ =>
-                                _ == -1
-                                    ? null
-                                    : (GameServer.Manager.GameData.Items.ContainsKey((ushort)_) ? GameServer.Manager.GameData.Items[(ushort)_] : null))
-                            .ToArray();
-                    Item[] backpack =
-                        client.Character.Backpack.Select(
+                Inventory =
+                        client.Character.Equipments.Select(
                             _ =>
                                 _ == -1
                                     ? null
                                     : (GameServer.Manager.GameData.Items.ContainsKey((ushort)_) ? GameServer.Manager.GameData.Items[(ushort)_] : null))
                             .ToArray();
 
-                    Inventory = inv.Concat(backpack).ToArray();
-                    XElement xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
-                    if (xElement != null)
-                    {
-                        int[] slotTypes =
-                            Utils.FromCommaSepString32(
-                                xElement.Value);
-                        Array.Resize(ref slotTypes, 20);
-                        SlotTypes = slotTypes;
-                    }
-                }
-                else
-                {
-                    Inventory =
-                            client.Character.Items.Select(
-                                _ =>
-                                    _ == -1
-                                        ? null
-                                        : (GameServer.Manager.GameData.Items.ContainsKey((ushort)_) ? GameServer.Manager.GameData.Items[(ushort)_] : null))
-                                .ToArray();
-                    XElement xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
-                    if (xElement != null)
-                        SlotTypes =
-                            Utils.FromCommaSepString32(
-                                xElement.Value);
-                }
-                Stats = (int[])client.Character.Stats.Clone();
+                XElement xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
+                
+                if (xElement != null)
+                    SlotTypes =
+                        Utils.FromCommaSepString32(
+                            xElement.Value);
 
                 for (var i = 0; i < SlotTypes.Length; i++)
                     if (SlotTypes[i] == 0) SlotTypes[i] = 10;
@@ -167,18 +103,7 @@ namespace LoESoft.GameServer.realm.entity.player
         }
 
         public override void Move(float x, float y)
-        {
-            if (Pet != null)
-            {
-                if (Dist(this, Pet) > 20f)
-                {
-                    Pet.Move(X, Y);
-                    UpdateCount++;
-                }
-            }
-
-            base.Move(x, y);
-        }
+        { base.Move(x, y); }
 
         public void Death(string killer, ObjectDesc desc = null)
         {
@@ -187,15 +112,11 @@ namespace LoESoft.GameServer.realm.entity.player
 
             dying = true;
 
-            if (Client.State == ProtocolState.Disconnected || resurrecting)
+            if (Client.State == ProtocolState.Disconnected)
                 return;
+            
+            // TODO: implement corpse spawn.
 
-            if (Client.Character.Dead)
-            {
-                GameServer.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD);
-                return;
-            }
-            GenerateGravestone();
             if (desc != null)
                 if (desc.DisplayId != null)
                     killer = desc.DisplayId;
@@ -222,12 +143,10 @@ namespace LoESoft.GameServer.realm.entity.player
 
             try
             {
-                Client.Character.Dead = true;
-
                 SaveToCharacter();
 
                 GameServer.Manager.Database.SaveCharacter(Client.Account, Client.Character, true);
-                GameServer.Manager.Database.Death(GameServer.Manager.GameData, Client.Account, Client.Character, FameCounter.Stats, killer);
+                GameServer.Manager.Database.Death(GameServer.Manager.GameData, Client.Account, Client.Character, killer);
 
                 if (Owner.Id != -6)
                 {
@@ -255,35 +174,36 @@ namespace LoESoft.GameServer.realm.entity.player
         public override void Init(World owner)
         {
             MaxHackEntries = 0;
+
             visibleTiles = new Dictionary<IntPoint, bool>();
+
             WorldInstance = owner;
+
             Random rand = new Random();
+
             int x, y;
+
             do
             {
                 x = rand.Next(0, owner.Map.Width);
                 y = rand.Next(0, owner.Map.Height);
             } while (owner.Map[x, y].Region != TileRegion.Spawn);
+
             Move(x + 0.5f, y + 0.5f);
+
             tiles = new byte[owner.Map.Width, owner.Map.Height];
+
             SetNewbiePeriod();
+
             base.Init(owner);
+
             List<int> gifts = Client.Account.Gifts.ToList();
+
             Client.SendMessage(new GLOBAL_NOTIFICATION
             {
                 Type = 0,
                 Text = gifts.Count > 0 ? "giftChestOccupied" : "giftChestEmpty"
             });
-            if (Client.Character.Pet != 0)
-            {
-                HatchlingPet = false;
-                HatchlingNotification = false;
-                Pet = Resolve((ushort)PetID);
-                Pet.Move(x, y);
-                Pet.SetPlayerOwner(this);
-                Owner.EnterWorld(Pet);
-                Pet.IsPet = true;
-            }
 
             SendAccountList(Locked, ACCOUNTLIST.LOCKED_LIST_ID);
             SendAccountList(Ignored, ACCOUNTLIST.IGNORED_LIST_ID);
@@ -394,25 +314,20 @@ namespace LoESoft.GameServer.realm.entity.player
                 }, null);
             if (exp > 0)
             {
-                if (XpBoosted)
-                    Experience += exp * 2;
-                else
-                    Experience += exp;
+                Experience += exp;
                 UpdateCount++;
 
                 foreach (var i in Owner.PlayersCollision.HitTest(X, Y, 16).Where(i => i != this).OfType<Player>())
                 {
                     try
                     {
-                        i.Experience += i.XpBoosted ? exp * 2 : exp;
+                        i.Experience += exp;
                         i.UpdateCount++;
                         i.VerifyLevel();
                     }
                     catch (Exception) { }
                 }
             }
-
-            FameCounter.Killed(enemy, killer);
 
             return VerifyLevel();
         }
@@ -445,22 +360,11 @@ namespace LoESoft.GameServer.realm.entity.player
                 return;
             }
 
-            if (Stats != null && Boost != null)
-            {
-                MaxHp = Stats[0] + Boost[0];
-                MaxMp = Stats[1] + Boost[1];
-            }
-
-            if (Boost == null)
-                CalculateBoost();
-
             if (!HasConditionEffect(ConditionEffects.Paused))
             {
                 HandleRegen(time);
 
                 HandleGround(time);
-
-                FameCounter.Tick(time);
             }
 
             HandleTrade?.Tick(time);
@@ -472,8 +376,6 @@ namespace LoESoft.GameServer.realm.entity.player
             catch (NullReferenceException) { }
 
             HandleEffects(time);
-
-            HandleBoosts();
 
             if (MP < 0)
                 MP = 0;

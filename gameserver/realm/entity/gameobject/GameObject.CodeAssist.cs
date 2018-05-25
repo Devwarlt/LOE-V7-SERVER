@@ -25,7 +25,7 @@ namespace LoESoft.GameServer.realm.entity
             return null;
         }
 
-        private static bool IsInteractive(ushort objType)
+        private static bool IsInteractive(int objType)
         {
             if (GameServer.Manager.GameData.ObjectDescs.TryGetValue(objType, out ObjectDesc desc))
             {
