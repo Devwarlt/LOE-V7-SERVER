@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Objects>
+  <!-- 
+  
+  Vocation IDs:
+  - 0: Apprentice
+  - 1: Paladin
+  - 2: Hunter
+  - 3: Warlock
+  
+  Vocation Slot Type:
+  - 0: Any Type
+  - 1: Amulet Type
+  - 2: Helmet Type
+  - 3: Weapon Type
+  - 4: Armor Type
+  - 5: Shield Type
+  - 6: Ring Type
+  - 7: Legs Type
+  - 8: Boots Type
+  
+  Slot Type (length: 28):
+  1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+  
+  Equipment (length: 28):
+  -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
+  
+  -->
+  <Object type="0" id="Apprentice">
+    <Class>Player</Class>
+    <AnimatedTexture>
+      <File>Vocation_SP</File>
+      <Index>0x00</Index>
+    </AnimatedTexture>
+    <CorpseTexture>
+      <File>VocationCorpse_SP</File>
+      <Index>0x00</Index>
+    </CorpseTexture>
+    <HitSound>player/archer_hit</HitSound>
+    <DeathSound>player/archer_death</DeathSound>
+    <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+    <Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
+    <Status level="1" experience="0" speedbase="0" hp="100" mp="0" att="0" def="0" />
+    <HP amount="5" healing="1" cooldown="3000" />
+    <MP amount="5" healing="1" cooldown="5000" />
+  </Object>
+  <Object type="1" id="Paladin">
+    <Class>Player</Class>
+    <AnimatedTexture>
+      <File>Vocation_SP</File>
+      <Index>0x01</Index>
+    </AnimatedTexture>
+    <CorpseTexture>
+      <File>VocationCorpse_SP</File>
+      <Index>0x01</Index>
+    </CorpseTexture>
+    <HitSound>player/warrior_hit</HitSound>
+    <DeathSound>player/warrior_death</DeathSound>
+    <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+    <HP amount="15" healing="2" cooldown="3000" />
+    <MP amount="5" healing="1" cooldown="5000" />
+  </Object>
+  <Object type="2" id="Hunter">
+    <Class>Player</Class>
+    <AnimatedTexture>
+      <File>Vocation_SP</File>
+      <Index>0x02</Index>
+    </AnimatedTexture>
+    <CorpseTexture>
+      <File>VocationCorpse_SP</File>
+      <Index>0x02</Index>
+    </CorpseTexture>
+    <HitSound>player/archer_hit</HitSound>
+    <DeathSound>player/archer_death</DeathSound>
+    <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+    <HP amount="10" healing="1" cooldown="4000" />
+    <MP amount="10" healing="2" cooldown="4000" />
+  </Object>
+  <Object type="3" id="Warlock">
+    <Class>Player</Class>
+    <AnimatedTexture>
+      <File>Vocation_SP</File>
+      <Index>0x03</Index>
+    </AnimatedTexture>
+    <CorpseTexture>
+      <File>VocationCorpse_SP</File>
+      <Index>0x03</Index>
+    </CorpseTexture>
+    <HitSound>player/wizard_hit</HitSound>
+    <DeathSound>player/wizard_death</DeathSound>
+    <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+    <HP amount="5" healing="1" cooldown="5000" />
+    <MP amount="30" healing="2" cooldown="3000" />
+  </Object>
+</Objects>
