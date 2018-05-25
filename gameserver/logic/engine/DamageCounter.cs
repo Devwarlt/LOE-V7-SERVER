@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.realm.world;
 using LoESoft.Core;
 
 #endregion
@@ -128,9 +127,6 @@ namespace LoESoft.GameServer.logic
 
                 (Parent ?? this).LastHitter.FameCounter.LevelUpAssist(lvUps);
             }
-
-            if (enemy.Owner is GameWorld)
-                (enemy.Owner as GameWorld).EnemyKilled(enemy, (Parent ?? this).LastHitter);
         }
 
         private float ProcessExperience(double hp)

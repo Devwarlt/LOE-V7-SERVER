@@ -6,7 +6,6 @@ using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.realm.world;
 
 #endregion
 
@@ -82,9 +81,6 @@ namespace LoESoft.GameServer.networking.handlers
                             });
                             (entity as Player).Client.Player.SaveToCharacter();
                         }
-                        if (client.Player.Owner is Vault)
-                            if ((client.Player.Owner as Vault).PlayerOwnerName == client.Account.Name)
-                                return;
                     }
                     catch (Exception ex)
                     {

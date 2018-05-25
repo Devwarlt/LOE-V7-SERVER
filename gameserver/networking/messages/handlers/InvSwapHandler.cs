@@ -6,7 +6,6 @@ using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.realm.world;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -199,9 +198,6 @@ namespace LoESoft.GameServer.networking.handlers
                     (en2 as Player).Client.SendMessage(new INVRESULT { Result = 0 });
                 }
 
-                if (client.Player.Owner is Vault)
-                    if ((client.Player.Owner as Vault).PlayerOwnerName == client.Account.Name)
-                        return;
                 client.Player.SaveToCharacter();
             }, PendingPriority.Networking);
         }

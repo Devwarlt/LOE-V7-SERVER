@@ -148,13 +148,7 @@ namespace LoESoft.GameServer.networking.handlers
             }
             else
             {
-                if (message.GameId == (int)WorldID.NEXUS_LIMBO)
-                    message.GameId = (int)WorldID.NEXUS_ID;
-
                 World world = Manager.GetWorld(message.GameId);
-
-                if (world == null && message.GameId == (int)WorldID.TUT_ID)
-                    world = Manager.AddWorld(new Tutorial(false));
 
                 if (acc.AccountType == (int)AccountType.VIP_ACCOUNT)
                 {

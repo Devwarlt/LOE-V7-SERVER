@@ -6,7 +6,6 @@ using LoESoft.GameServer.networking;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
-using LoESoft.GameServer.realm.world;
 
 #endregion
 
@@ -55,10 +54,8 @@ namespace LoESoft.GameServer.logic.behaviors
                             Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Quest Complete!\"}}"
                         });
 
-                    if (host.Owner is GameWorld)
-                        (host.Owner as GameWorld).EnemyKilled(host as Enemy,
-                            (entities.Last() as Enemy).DamageCounter.Parent.LastHitter);
                     new Decay(0).Tick(host, time);
+
                     foreach (var i in entities)
                         new Suicide().Tick(i, time);
                 }
