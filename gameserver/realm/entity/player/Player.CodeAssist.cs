@@ -1,5 +1,6 @@
 ﻿#region
 
+using LoESoft.Core.config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -249,6 +250,40 @@ namespace LoESoft.GameServer.realm.entity.player
             chr.LootTierTimer = (int)LootTierBoostTimeLeft;
             chr.FameStats = FameCounter.Stats.Write();
             chr.LastSeen = DateTime.Now;
+        }
+
+        private bool CheckResurrection()
+        {
+            for (var i = 0; i < 4; i++)
+            {
+                var item = Inventory[i];
+                if (item == null || !item.Resurrects) continue;
+
+                HP = Stats[0] + Stats[0];
+                MP = Stats[1] + Stats[1];
+                Inventory[i] = null;
+                Owner.BroadcastMessage(new TEXT
+                {
+                    BubbleTime = 0,
+                    Stars = -1,
+                    Name = "",
+                    Text = $"{Name}'s {item.ObjectId} breaks and he disappears",
+                    NameColor = 0x123456,
+                    TextColor = 0x123456
+                }, null);
+                Client.Reconnect(new RECONNECT
+                {
+                    Host = "",
+                    Port = Settings.GAMESERVER.PORT,
+                    GameId = (int)WorldID.NEXUS_ID,
+                    Name = "Nexus",
+                    Key = Empty<byte>.Array,
+                });
+
+                resurrecting = true;
+                return true;
+            }
+            return false;
         }
 
         private void GenerateGravestone()

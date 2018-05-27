@@ -182,12 +182,28 @@ namespace LoESoft.GameServer.realm.entity.player
 
         public void Death(string killer, ObjectDesc desc = null)
         {
-            if (dying)
-                return;
-
+            if (dying) return;
             dying = true;
-
+            switch (Owner.Name)
+            {
+                case "Arena":
+                    {
+                        Client.SendMessage(new ARENA_DEATH
+                        {
+                            RestartPrice = 100
+                        });
+                        HP = (int)ObjectDesc.MaxHP;
+                        ApplyConditionEffect(new ConditionEffect
+                        {
+                            Effect = ConditionEffectIndex.Paused,
+                            DurationMS = -1
+                        });
+                        return;
+                    }
+            }
             if (Client.State == ProtocolState.Disconnected || resurrecting)
+                return;
+            if (CheckResurrection())
                 return;
 
             if (Client.Character.Dead)
@@ -269,11 +285,14 @@ namespace LoESoft.GameServer.realm.entity.player
             SetNewbiePeriod();
             base.Init(owner);
             List<int> gifts = Client.Account.Gifts.ToList();
-            Client.SendMessage(new GLOBAL_NOTIFICATION
+            if (owner.Id == (int)WorldID.NEXUS_ID || owner.Name == "Vault")
             {
-                Type = 0,
-                Text = gifts.Count > 0 ? "giftChestOccupied" : "giftChestEmpty"
-            });
+                Client.SendMessage(new GLOBAL_NOTIFICATION
+                {
+                    Type = 0,
+                    Text = gifts.Count > 0 ? "giftChestOccupied" : "giftChestEmpty"
+                });
+            }
             if (Client.Character.Pet != 0)
             {
                 HatchlingPet = false;
@@ -310,6 +329,77 @@ namespace LoESoft.GameServer.realm.entity.player
             }
 
             ApplyConditionEffect(AccountPerks.SetAccountTypeIcon());
+        }
+
+        public void Teleport(RealmTime time, TELEPORT packet)
+        {
+            var obj = Client.Player.Owner.GetEntity(packet.ObjectId);
+            try
+            {
+                if (obj == null) return;
+                if (!TPCooledDown())
+                {
+                    SendError("Player.teleportCoolDown");
+                    return;
+                }
+                if (obj.HasConditionEffect(ConditionEffectIndex.Invisible))
+                {
+                    SendError("server.no_teleport_to_invisible");
+                    return;
+                }
+                if (obj.HasConditionEffect(ConditionEffectIndex.Paused))
+                {
+                    SendError("server.no_teleport_to_paused");
+                    return;
+                }
+                if (obj is Player player && !player.NameChosen)
+                {
+                    SendError("server.teleport_needs_name");
+                    return;
+                }
+                if (obj.Id == Id)
+                {
+                    SendError("server.teleport_to_self");
+                    return;
+                }
+                if (!Owner.AllowTeleport)
+                {
+                    SendError(GetLanguageString("server.no_teleport_in_realm", new KeyValuePair<string, object>("realm", Owner.Name)));
+                    return;
+                }
+
+                SetTPDisabledPeriod();
+                Move(obj.X, obj.Y);
+                FameCounter.Teleport();
+                SetNewbiePeriod();
+                UpdateCount++;
+            }
+            catch (Exception)
+            {
+                SendError("player.cannotTeleportTo");
+                return;
+            }
+
+            Owner.BroadcastMessage(new GOTO
+            {
+                ObjectId = Id,
+                Position = new Position
+                {
+                    X = X,
+                    Y = Y
+                }
+            }, null);
+            Owner.BroadcastMessage(new SHOWEFFECT
+            {
+                EffectType = EffectType.Teleport,
+                TargetId = Id,
+                PosA = new Position
+                {
+                    X = X,
+                    Y = Y
+                },
+                Color = new ARGB(0xFFFFFFFF)
+            }, null);
         }
 
         private int QuestPriority(ObjectDesc enemy)

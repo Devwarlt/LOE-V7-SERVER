@@ -124,7 +124,7 @@ namespace LoESoft.AppEngine
 
             _websocket.Stop();
             _webevent.Set();
-
+            
             AppEngine.Manager?.Dispose();
 
             Log.Warn("Terminated WebServer.");

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using LoESoft.Core;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
 
 #endregion
 
@@ -59,12 +60,36 @@ namespace LoESoft.GameServer.realm.entity
 
         public virtual void Buy(Player player)
         {
+            if (ObjectType == 0x0505) //Vault chest
+            {
+                if (TryDeduct(player))
+                {
+                    GameServer.Manager.Database.UpdateCredit(player.Client.Account, -Price);
+                    player.Credits = player.Client.Account.Credits;
+                    player.UpdateCount++;
+                    player.SaveToCharacter();
+                    (Owner as Vault).AddChest(this);
+                    player.Client.SendMessage(new BUYRESULT
+                    {
+                        Result = 0,
+                        Message = "{\"key\":\"server.buy_success\"}"
+                    });
+                }
+                else
+                {
+                    player.Client.SendMessage(new BUYRESULT
+                    {
+                        Result = BUY_NO_GOLD,
+                        Message = "{\"key\":\"server.not_enough_gold\"}"
+                    });
+                }
+            }
             if (ObjectType == 0x0736)
             {
                 player.Client.SendMessage(new BUYRESULT()
                 {
                     Result = 9,
-                    Message = "{\"key\":\"server.not_enough_fame\"}"
+                    Message = "{\"key\":\"server.not_enough_game\"}"
                 });
             }
         }

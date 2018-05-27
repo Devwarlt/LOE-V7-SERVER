@@ -14,7 +14,7 @@ namespace LoESoft.GameServer.realm.world
 
         public Test()
         {
-            Id = (int)TownID.TEST;
+            Id = (int)WorldID.TEST_ID;
             Name = "Test";
             Background = 0;
             Dungeon = true;
@@ -39,5 +39,7 @@ namespace LoESoft.GameServer.realm.world
                 }
             }
         }
+
+        protected override void Init() { }
     }
 }

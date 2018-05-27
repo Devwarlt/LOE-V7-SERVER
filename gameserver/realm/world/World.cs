@@ -10,6 +10,7 @@ using LoESoft.GameServer.networking;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
 using LoESoft.GameServer.realm.terrain;
 using LoESoft.Core.models;
 
@@ -19,10 +20,18 @@ namespace LoESoft.GameServer.realm
 {
     public interface IDungeon { }
 
-    public enum TownID : int
+    public enum WorldID : int
     {
-        ISLE_OF_APPRENTICES = -1,
-        TEST = -2
+        TUT_ID = -1,
+        NEXUS_ID = -2,
+        NEXUS_LIMBO = -3,
+        VAULT_ID = -5,
+        TEST_ID = -6,
+        GAUNTLET = -7,
+        WC = -8,
+        ARENA = -9,
+        MARKET = -11,
+        DAILY_QUEST_ID = -13
     }
 
     public abstract class World : IDisposable
@@ -64,14 +73,6 @@ namespace LoESoft.GameServer.realm
                 Init();
             }
         }
-
-        public static Dictionary<string, KeyValuePair<string, MapType>> GAME_MAPS = new Dictionary<string, KeyValuePair<string, MapType>>
-        {
-            { "server.isle_of_apprentices", GetMap(map: "isle_of_apprentices", mapType: MapType.Json) }
-        };
-
-        public static KeyValuePair<string, MapType> GetMap(string map, MapType mapType)
-            => new KeyValuePair<string, MapType>(map, mapType);
 
         private int entityInc;
         private RealmManager manager;
@@ -151,8 +152,7 @@ namespace LoESoft.GameServer.realm
             return true;
         }
 
-        protected void Init()
-            => LoadMap(GAME_MAPS[ClientWorldName].Key, GAME_MAPS[ClientWorldName].Value);
+        protected abstract void Init();
 
         public string[] Music { get; set; }
         public string[] DefaultMusic { get; set; }
@@ -477,6 +477,8 @@ namespace LoESoft.GameServer.realm
 
                 if (Players.Count != 0 || !canBeClosed || !IsDungeon())
                     return;
+                if (this is Vault vault)
+                    GameServer.Manager.RemoveVault(vault.AccountId);
                 GameServer.Manager.RemoveWorld(this);
             }
             catch (Exception e)

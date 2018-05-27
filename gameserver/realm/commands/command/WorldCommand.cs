@@ -1,11 +1,13 @@
 ﻿#region
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
+using LoESoft.Core.config;
 using LoESoft.GameServer.realm.entity.npc;
 using LoESoft.GameServer.logic;
 
@@ -38,6 +40,24 @@ namespace LoESoft.GameServer.realm.commands
             }
 
             GameServer.Manager.Chat.Guild(player, string.Join(" ", args));
+            return true;
+        }
+    }
+
+    class TutorialCommand : Command
+    {
+        public TutorialCommand() : base("tutorial") { }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            player.Client.Reconnect(new RECONNECT
+            {
+                Host = "",
+                Port = Settings.GAMESERVER.PORT,
+                GameId = (int)WorldID.TUT_ID,
+                Name = "Tutorial",
+                Key = Empty<byte>.Array,
+            });
             return true;
         }
     }
@@ -124,6 +144,41 @@ namespace LoESoft.GameServer.realm.commands
                 player.SendInfo("Game paused.");
             }
             return true;
+        }
+    }
+
+    class TeleportCommand : Command
+    {
+        public TeleportCommand() : base("teleport") { }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            try
+            {
+                if (string.Equals(player.Name.ToLower(), args[0].ToLower()))
+                {
+                    player.SendInfo("You are already at yourself, and always will be!");
+                    return false;
+                }
+
+                foreach (KeyValuePair<int, Player> i in player.Owner.Players)
+                {
+                    if (i.Value.Name.ToLower() == args[0].ToLower().Trim())
+                    {
+                        player.Teleport(time, new TELEPORT
+                        {
+                            ObjectId = i.Value.Id
+                        });
+                        return true;
+                    }
+                }
+                player.SendInfo(string.Format("Cannot teleport, {0} not found!", args[0].Trim()));
+            }
+            catch
+            {
+                player.SendHelp("Usage: /teleport <player name>");
+            }
+            return false;
         }
     }
 
@@ -233,4 +288,6 @@ namespace LoESoft.GameServer.realm.commands
             return false;
         }
     }
+
+
 }

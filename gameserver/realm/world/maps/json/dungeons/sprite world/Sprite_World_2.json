@@ -1,0 +1,253 @@
+{
+  "height": 128,
+  "width": 128,
+  "data": "eNrtnIly4yAMhh0s0jRl2267u+m55/u/4zo+YsBSwBdgW/NPHMd2JnxICHG0WZbtNqxt07NYLBaLxWKxWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8Vi+UpslBrTltm3UQfCS9slX2MdiIFKjyEcexo1MK5kYgKl7LVzs8ergbGlE4vmH1tCMbHSj9Zz0ouF9VVi0TUwtoxi0fwiOH9eCMrj+R0yWbwvk18M+v7eEJTHNfLnhWUbO+fG9Zv6+mHx9heD+H38X6yMH8rP+icXv4jMn9dlq8oNk/HfePOLRPhvJ+Dv7/9p8B8msn+X/+jBL5Lx/7vJ+NPKg+hfViW/KiTL874lVyW/qpVqJhgq/m2P32zxy+NvctMmTx1OgGe4qfPr7f/LKP5x7V8s1v/987+8/jVZPyWZn/kj84+PXHtSQFyXl7N18ANBDEQ94PzxakCO6rmX4P877/afb4z/7J33hse62jlY3ivJdg5XrsnylQK/Xbq+/DanRJ4E7Wr7RAr86jJ6k/W5+8mzHrJHzf4KFWjv8nK1HW3KBMbA3RL78IOW7UqEGK8HvS6klS/vovv/V6f/Azqf7+7/gcgBZAL8VUR+8oj/TTyHy1nTb4yP/7vI/PnK+ene+zCCn+r/n7VPzx78Kc3/T8Gvf/pW1MCW+d3+H3/9S3rN3DwWanowvf9TSO9m939mvyit/j8+v1/Wj3vHGuyf10fQSi0D8YuN88e3f9WW7VaL8SsieuD5L1xp/+16URh+WVuhkW6zLdjfj//O4tf7vPa4Xn5g/sD8uwT4v2v8hw3y6/Y/Fq+bYPzh9r+puhTU7Ay+klndfahfzfPX54WkYzbI7GHD8Telk9aeDTe/XV/X5gUVUccSuR9y/UvWpZB1Dahe/CahX16U0hp40/7b+ofsh2ERil+vIyD41WT8c9WB0LLQrgdU5ZfG2FYh9ofZ7T9XDZiztxKZkxXZfXYyZmu7ax5A7JHB10/N34hbA0Pyn2Z2sOnJDkT/R40LzP4vrg8M5W9J+s+LLJX/rhd/O/99tGphHL9YiP3p/Y86/0t0fnPHKvZ7r1fiP53/mNkBnhfBwH118/BT0Xjf6RHw+L9HvvXm2PGTEr8k7I9FMvf4p/L/Z+f4x/z9ZvwDjn3D8/Ar7z2c+Go2/YR55xH9jjKy0Ov7xkP6P3bPnf/sjRZg3nm5fBvQ/SHu7CiM/1ce+46sf/n4/4dH/DfH/7fR/L+xwMmo/ZNhF5f97SdkZ0eQ/37Jz8D2x/J/0PyXjt8/B+fytk49/F9MzF/lPr9Kmz1Z/n8+/jbmP3Ov+a/++wXjxX8z/+vyY+3/WOhzo/z9//7R/Y2P5PjdjK78pw9/TPuf0L2Z1d635hyQGE/H/7dR8xyhMmA99+vOf0pj/yc1kvlDrPO2c8mvo2PD3Pk/5f96+wcyk8H3v72XMTKfJDaGGP9Qf7vXXf+ze76/k7T/2ON/iv/DyQ+r5vf3/xD8S/n/D3NpWv5/m6bP/gP9RYAO",
+  "dict": [
+    { "objs": [ { "id": "All Black Wall" } ] },
+    {},
+    { "ground": "Space" },
+    { "ground": "White Alpha Square" },
+    { "ground": "Green Alpha Square" },
+    { "ground": "Blue Alpha Square" },
+    { "ground": "Red Alpha Square" },
+    {
+      "ground": "White Alpha Square",
+      "objs": [
+        {
+          "id": "Native Ice Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "White Alpha Square",
+      "objs": [
+        {
+          "id": "Native Fire Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Blue Alpha Square",
+      "objs": [
+        {
+          "id": "Native Nature Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "White Alpha Square",
+      "objs": [
+        {
+          "id": "Native Nature Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Green Alpha Square",
+      "objs": [
+        {
+          "id": "Native Ice Sprite",
+          "name": ""
+        }
+      ]
+    },
+    { "ground": "Purple Alpha Square" },
+    {
+      "ground": "Purple Alpha Square",
+      "objs": [
+        {
+          "id": "Native Fire Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Red Alpha Square",
+      "objs": [
+        {
+          "id": "Native Fire Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Purple Alpha Square",
+      "objs": [
+        {
+          "id": "Native Nature Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Purple Alpha Square",
+      "objs": [
+        {
+          "id": "Native Darkness Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Red Alpha Square",
+      "objs": [
+        {
+          "id": "Native Ice Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "White Alpha Square",
+      "objs": [
+        {
+          "id": "Native Magic Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "White Alpha Square",
+      "objs": [
+        {
+          "id": "Trap",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "White Alpha Square",
+      "objs": [
+        {
+          "id": "Limon the Sprite God",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Blue Alpha Square",
+      "objs": [
+        {
+          "id": "Trap",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "objs": [
+        {
+          "id": "Glowing Portal of Cowardice",
+          "name": ""
+        }
+      ],
+      "regions": [ { "id": "Spawn" } ],
+      "ground": "Purple Alpha Square"
+    },
+    {
+      "ground": "Red Alpha Square",
+      "objs": [
+        {
+          "id": "Native Darkness Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Green Alpha Square",
+      "objs": [
+        {
+          "id": "Native Darkness Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Purple Alpha Square",
+      "objs": [
+        {
+          "id": "Native Magic Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Red Alpha Square",
+      "objs": [
+        {
+          "id": "Native Nature Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Blue Alpha Square",
+      "objs": [
+        {
+          "id": "Native Fire Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Blue Alpha Square",
+      "objs": [
+        {
+          "id": "Native Ice Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Green Alpha Square",
+      "objs": [
+        {
+          "id": "Native Magic Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Red Alpha Square",
+      "objs": [
+        {
+          "id": "Native Magic Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Blue Alpha Square",
+      "objs": [
+        {
+          "id": "Native Magic Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Green Alpha Square",
+      "objs": [
+        {
+          "id": "Native Fire Sprite",
+          "name": ""
+        }
+      ]
+    },
+    {
+      "ground": "Purple Alpha Square",
+      "objs": [ { "id": "Native Nature Sprite" } ]
+    },
+    {
+      "ground": "Green Alpha Square",
+      "objs": [ { "id": "Native Nature Sprite" } ]
+    },
+    {
+      "ground": "Space",
+      "objs": [ { "id": "All Black Wall" } ]
+    }
+  ]
+}

@@ -22,7 +22,10 @@ namespace LoESoft.GameServer.networking.handlers
 
         protected override void HandleMessage(Client client, USEPORTAL message) => Manager.Logic.AddPendingAction(t => Handle(client, client.Player, message), PendingPriority.Networking);
 
-        private readonly List<string> Blacklist = new List<string>();
+        private readonly List<string> Blacklist = new List<string>
+        {
+            "Cloth Bazaar"
+        };
 
         private void Handle(Client client, Player player, USEPORTAL message)
         {
@@ -63,24 +66,74 @@ namespace LoESoft.GameServer.networking.handlers
                         player.SendHelp($"'{desc.DungeonName}' is under maintenance and disabled to access until further notice from LoESoft Games.");
                         return;
                     }
-
-                    Type worldType =
-                        Type.GetType("LoESoft.GameServer.realm.world." + desc.DungeonName.Replace(" ", string.Empty).Replace("'", string.Empty));
-                    if (worldType != null)
+                    switch (portal.ObjectType)
                     {
-                        try
-                        {
-                            world = Manager.AddWorld((World)Activator.CreateInstance(worldType,
-                            System.Reflection.BindingFlags.CreateInstance, null, null,
-                            CultureInfo.InvariantCulture, null));
-                        }
-                        catch
-                        {
-                            player.SendError($"Dungeon instance \"{desc.DungeonName}\" isn't declared yet and under maintenance until further notice.");
-                        }
+                        case 0x0720:
+                            world = GameServer.Manager.PlayerVault(client);
+                            setWorldInstance = false;
+                            break;
+                        case 0x0704:
+                        case 0x0703: //portal of cowardice
+                        case 0x0d40:
+                        case 0x070d:
+                        case 0x070e:
+                            {
+                                if (GameServer.Manager.LastWorld.ContainsKey(player.AccountId))
+                                {
+                                    World w = GameServer.Manager.LastWorld[player.AccountId];
+
+                                    if (w != null && GameServer.Manager.Worlds.ContainsKey(w.Id))
+                                        world = w;
+                                    else
+                                        world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                                }
+                                else
+                                    world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                                setWorldInstance = false;
+                            }
+                            break;
+                        case 0x0750:
+                            world = GameServer.Manager.GetWorld((int)WorldID.MARKET);
+                            break;
+                        case 0x071d:
+                            world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                            break;
+                        case 0x0712:
+                            world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                            break;
+                        case 0x1756:
+                            world = GameServer.Manager.GetWorld((int)WorldID.DAILY_QUEST_ID);
+                            break;
+                        case 0x072f:
+                            if (player.Guild != null)
+                            {
+                                //client.Player.SendInfo(
+                                //    "Sorry, you are unable to enter the GuildHall because of a possible memory leak, check back later");
+                                player.SendInfo("Thanks.");
+                            }
+                            break;
+                        default:
+                            {
+                                Type worldType =
+                                    Type.GetType("LoESoft.GameServer.realm.world." + desc.DungeonName.Replace(" ", string.Empty).Replace("'", string.Empty));
+                                if (worldType != null)
+                                {
+                                    try
+                                    {
+                                        world = Manager.AddWorld((World)Activator.CreateInstance(worldType,
+                                        System.Reflection.BindingFlags.CreateInstance, null, null,
+                                        CultureInfo.InvariantCulture, null));
+                                    }
+                                    catch
+                                    {
+                                        player.SendError($"Dungeon instance \"{desc.DungeonName}\" isn't declared yet and under maintenance until further notice.");
+                                    }
+                                }
+                                else
+                                    player.SendHelp($"Dungeon instance \"{desc.DungeonName}\" isn't declared yet and under maintenance until further notice.");
+                            }
+                            break;
                     }
-                    else
-                        player.SendHelp($"Dungeon instance \"{desc.DungeonName}\" isn't declared yet and under maintenance until further notice.");
                 }
                 if (setWorldInstance)
                     portal.WorldInstance = world;
@@ -98,7 +151,7 @@ namespace LoESoft.GameServer.networking.handlers
                 {
                     GameServer.Manager.LastWorld.TryRemove(player.AccountId, out World dummy);
                 }
-                if (player.Owner is Isle_of_Apprentices)
+                if (player.Owner is Nexus || player.Owner is GameWorld)
                     GameServer.Manager.LastWorld.TryAdd(player.AccountId, player.Owner);
 
                 client?.Reconnect(new RECONNECT
@@ -106,7 +159,7 @@ namespace LoESoft.GameServer.networking.handlers
                     Host = "",
                     Port = Settings.GAMESERVER.PORT,
                     GameId = world.Id,
-                    Name = string.IsNullOrEmpty(world.Name) ? world.ClientWorldName : world.Name,
+                    Name = world.Name,
                     Key = world.PortalKey,
                 });
             }

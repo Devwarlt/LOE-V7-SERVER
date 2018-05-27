@@ -52,6 +52,8 @@ namespace LoESoft.GameServer.realm
         public bool Terminating { get; private set; }
         public int TPS { get; private set; }
 
+        private ConcurrentDictionary<string, Vault> Vaults { get; set; }
+
 #pragma warning disable CS0649 // Field 'RealmManager.logic' is never assigned to, and will always have its default value null
         private Thread logic;
 #pragma warning restore CS0649 // Field 'RealmManager.logic' is never assigned to, and will always have its default value null
@@ -67,6 +69,7 @@ namespace LoESoft.GameServer.realm
             ClientManager = new ConcurrentDictionary<string, ClientData>();
             Worlds = new ConcurrentDictionary<int, World>();
             LastWorld = new ConcurrentDictionary<string, World>();
+            Vaults = new ConcurrentDictionary<string, Vault>();
             Random = new Random();
             Database = db;
         }
@@ -85,10 +88,15 @@ namespace LoESoft.GameServer.realm
 
             Merchant.HandleMerchant(GameData);
 
-            AddWorld((int)TownID.ISLE_OF_APPRENTICES, Worlds[0] = new Isle_of_Apprentices());
-            AddWorld((int)TownID.TEST, new Test());
+            AddWorld((int)WorldID.NEXUS_ID, Worlds[0] = new Nexus());
+            AddWorld((int)WorldID.MARKET, new ClothBazaar());
+            AddWorld((int)WorldID.TEST_ID, new Test());
+            AddWorld((int)WorldID.TUT_ID, new Tutorial(true));
+            AddWorld((int)WorldID.DAILY_QUEST_ID, new DailyQuestRoom());
 
             Monitor = new RealmPortalMonitor(this);
+
+            Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => AddWorld(_.Result), TaskScheduler.Default);
 
             InterServer = new ISManager(this);
 
@@ -124,7 +132,7 @@ namespace LoESoft.GameServer.realm
                 saveAccountUnlock.Add(cData.Client);
                 TryDisconnect(cData.Client, DisconnectReason.STOPPING_REALM_MANAGER);
             }
-
+            
             logic?.Join();
             network?.Join();
         }
@@ -264,14 +272,25 @@ namespace LoESoft.GameServer.realm
             return ret;
         }
 
+        public bool RemoveVault(string accountId)
+        {
+            return Vaults.TryRemove(accountId, out Vault dummy);
+        }
+
         private void OnWorldAdded(World world)
         {
             if (world.Manager == null)
                 world.Manager = this;
+            if (world is GameWorld)
+                Monitor.WorldAdded(world);
         }
 
         private void OnWorldRemoved(World world)
-            => world.Manager = null;
+        {
+            world.Manager = null;
+            if (world is GameWorld)
+                Monitor.WorldRemoved(world);
+        }
 
         #endregion
 
@@ -298,6 +317,16 @@ namespace LoESoft.GameServer.realm
                         return dummy;
             return null;
         }
+
+        public Vault PlayerVault(Client processor)
+        {
+            if (!Vaults.TryGetValue(processor.Account.AccountId, out Vault v))
+                Vaults.TryAdd(processor.Account.AccountId, v = (Vault)AddWorld(new Vault(false, processor)));
+            else
+                v.Reload(processor);
+            return v;
+        }
+
         #endregion
     }
 
