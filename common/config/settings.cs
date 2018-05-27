@@ -4,9 +4,9 @@ namespace LoESoft.Core.config
 {
     public partial class Settings
     {
-        public static bool IS_PRODUCTION = true;
+        public static bool IS_PRODUCTION = false;
 
-        public static bool ENABLE_RESTART = true;
+        public static bool ENABLE_RESTART = false;
 
         public static int RESTART_DELAY_MINUTES = 60;
 

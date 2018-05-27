@@ -40,18 +40,6 @@ namespace LoESoft.GameServer.realm.world
 
         public string PlayerOwnerName { get; private set; }
 
-        protected override void Init()
-        {
-            if (!(IsLimbo = isLimbo))
-            {
-                LoadMap("vault", MapType.Wmap);
-                if (psr != null)
-                    Init(psr);
-                else
-                    Init(null);
-            }
-        }
-
         private void Init(Client psr)
         {
             if (psr == null)

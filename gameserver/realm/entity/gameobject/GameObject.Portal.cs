@@ -45,13 +45,6 @@ namespace LoESoft.GameServer.realm.entity
             };
         }
 
-        public override void Tick(RealmTime time)
-        {
-            if (WorldInstance != null && IsRealmPortal)
-                Usable = !(WorldInstance.Players.Count >= RealmManager.MAX_REALM_PLAYERS);
-            base.Tick(time);
-        }
-
         public override bool HitByProjectile(Projectile projectile, RealmTime time)
         {
             return false;
