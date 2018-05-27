@@ -15,7 +15,7 @@ using LoESoft.Core.models;
 
 namespace LoESoft.Core
 {
-    public class EmbeddedData
+    public class EmbeddedData : IDisposable
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(EmbeddedData));
 
@@ -86,6 +86,7 @@ namespace LoESoft.Core
         private string[] addXml;
         private int prevUpdateCount = -1;
         private int updateCount;
+        private AutoAssign assign;
 
         public EmbeddedData(string path = "assets/xmls")
         {
@@ -104,6 +105,8 @@ namespace LoESoft.Core
             TypeToPet = new ReadOnlyDictionary<ushort, PetStruct>(type2pet = new Dictionary<ushort, PetStruct>());
             IdToPetSkin = new ReadOnlyDictionary<string, PetSkin>(id2pet_skin = new Dictionary<string, PetSkin>());
             SetTypeSkins = new ReadOnlyDictionary<ushort, SetTypeSkin>(setTypeSkins = new Dictionary<ushort, SetTypeSkin>());
+
+            assign = new AutoAssign(this);
 
             addition = new XElement("Additions");
 
@@ -152,6 +155,11 @@ namespace LoESoft.Core
             }
         }
 
+        public void Dispose()
+        {
+            assign.Dispose();
+        }
+
         public void AddSetTypes(XElement root)
         {
             foreach (XElement elem in root.XPathSelectElements("//EquipmentSet"))
@@ -159,7 +167,10 @@ namespace LoESoft.Core
                 string id = elem.Attribute("id").Value;
                 ushort type;
                 XAttribute typeAttr = elem.Attribute("type");
-                type = (ushort)Utils.FromString(typeAttr.Value);
+                if (typeAttr == null)
+                    type = (ushort)assign.Assign(id, elem);
+                else
+                    type = (ushort)Utils.FromString(typeAttr.Value);
                 setTypeSkins[type] = new SetTypeSkin(elem, type);
                 XAttribute extAttr = elem.Attribute("ext");
                 if (extAttr != null && bool.TryParse(extAttr.Value, out bool ext) && ext)
@@ -171,15 +182,15 @@ namespace LoESoft.Core
         }
 
         /* LoE Object:
-         * - element 'File' of element 'AnimatedTexture' contains: TUK or
-         * element 'File' of element 'Texture' contains: TUK
+         * - element 'File' of element 'AnimatedTexture' contains: LR or
+         * element 'File' of element 'Texture' contains: LR
          */
         private bool IsLoEObject(XElement e)
         {
             if (e.Element("AnimatedTexture") != null)
-                return e.Element("AnimatedTexture").Element("File").Value.ToLower().StartsWith("tuk");
+                return e.Element("AnimatedTexture").Element("File").Value.ToLower().StartsWith("lr");
             if (e.Element("Texture") != null)
-                return e.Element("Texture").Element("File").Value.ToLower().StartsWith("tuk");
+                return e.Element("Texture").Element("File").Value.ToLower().StartsWith("lr");
             return false;
         }
 
@@ -298,14 +309,17 @@ namespace LoESoft.Core
 
                 ushort type;
                 XAttribute typeAttr = e.Attribute("type");
-                type = (ushort)Utils.FromString(typeAttr.Value);
+                if (typeAttr == null)
+                    type = (ushort)assign.Assign(id, e);
+                else
+                    type = (ushort)Utils.FromString(typeAttr.Value);
 
                 if (cls == "PetBehavior" || cls == "PetAbility") continue;
 
                 if (type2id_obj.ContainsKey(type))
-                    Log.Warn($"'{id}' and '{type2id_obj[type]}' has the same ID of {type}!");
+                    Log.Warn($"'{id}' and '{type2id_obj[type]}' has the same ID of 0x{type:x4}!");
                 if (id2type_obj.ContainsKey(id))
-                    Log.Warn($"{type} and {id2type_obj[id]} has the same name of {id}!");
+                    Log.Warn($"0x{type:x4} and 0x{id2type_obj[id]:x4} has the same name of {id}!");
 
                 type2id_obj[type] = id;
                 id2type_obj[id] = type;
@@ -369,12 +383,15 @@ namespace LoESoft.Core
 
                 ushort type;
                 XAttribute typeAttr = e.Attribute("type");
-                type = (ushort)Utils.FromString(typeAttr.Value);
+                if (typeAttr == null)
+                    type = (ushort)assign.Assign(id, e);
+                else
+                    type = (ushort)Utils.FromString(typeAttr.Value);
 
                 if (type2id_tile.ContainsKey(type))
-                    Log.Warn($"'{id}' and '{type2id_tile[type]}' has the same ID of {type}!");
+                    Log.Warn($"'{id}' and '{type2id_tile[type]}' has the same ID of 0x{type:x4}!");
                 if (id2type_tile.ContainsKey(id))
-                    Log.Warn($"{type} and {id2type_tile[id]} has the same name of {id}!");
+                    Log.Warn($"0x{type:x4} and 0x{id2type_tile[id]:x4} has the same name of {id}!");
 
                 type2id_tile[type] = id;
                 id2type_tile[id] = type;
