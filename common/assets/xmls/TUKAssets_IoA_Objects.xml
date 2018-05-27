@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Objects>
+  <Object type="50005" id="Tree">
+    <Class>GameObject</Class>
+    <Texture>
+      <File>TUK_IoA_T</File>
+      <Index>0x01</Index>
+    </Texture>
+    <Static/>
+    <OccupySquare/>
+  </Object>
+</Objects>

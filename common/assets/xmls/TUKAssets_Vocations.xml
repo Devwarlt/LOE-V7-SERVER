@@ -3,30 +3,30 @@
   <!-- 
   
   Vocation IDs:
-  - 0: Apprentice
-  - 1: Paladin
-  - 2: Hunter
-  - 3: Warlock
+  - 50000: Apprentice
+  - 50001: Paladin
+  - 50002: Hunter
+  - 50003: Warlock
   
   Vocation Slot Type:
-  - 0: Any Type
-  - 1: Amulet Type
-  - 2: Helmet Type
-  - 3: Weapon Type
-  - 4: Armor Type
-  - 5: Shield Type
-  - 6: Ring Type
-  - 7: Legs Type
-  - 8: Boots Type
+  - 1000: Any Type
+  - 1001: Amulet Type
+  - 1002: Helmet Type
+  - 1003: Weapon Type
+  - 1004: Armor Type
+  - 1005: Shield Type
+  - 1006: Ring Type
+  - 1007: Legs Type
+  - 1008: Boots Type
   
   Slot Type (length: 28):
-  1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+  1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000
   
   Equipment (length: 28):
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
   
   -->
-  <Object type="0" id="Apprentice">
+  <Object type="50000" id="Apprentice">
     <Class>Player</Class>
     <AnimatedTexture>
       <File>TUK_Voc</File>
@@ -38,10 +38,10 @@
     </CorpseTexture>
     <HitSound>player/archer_hit</HitSound>
     <DeathSound>player/archer_death</DeathSound>
-    <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+    <SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000</SlotTypes>
     <Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
   </Object>
-  <Object type="1" id="Paladin">
+  <Object type="50001" id="Paladin">
     <Class>Player</Class>
     <AnimatedTexture>
       <File>TUK_Voc</File>
@@ -53,10 +53,10 @@
     </CorpseTexture>
     <HitSound>player/warrior_hit</HitSound>
     <DeathSound>player/warrior_death</DeathSound>
-    <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+    <SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000</SlotTypes>
     <Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
   </Object>
-  <Object type="2" id="Hunter">
+  <Object type="50002" id="Hunter">
     <Class>Player</Class>
     <AnimatedTexture>
       <File>TUK_Voc</File>
@@ -68,10 +68,10 @@
     </CorpseTexture>
     <HitSound>player/archer_hit</HitSound>
     <DeathSound>player/archer_death</DeathSound>
-    <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+    <SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000</SlotTypes>
     <Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
   </Object>
-  <Object type="3" id="Warlock">
+  <Object type="50003" id="Warlock">
     <Class>Player</Class>
     <AnimatedTexture>
       <File>TUK_Voc</File>
@@ -83,7 +83,7 @@
     </CorpseTexture>
     <HitSound>player/wizard_hit</HitSound>
     <DeathSound>player/wizard_death</DeathSound>
-    <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
+    <SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000</SlotTypes>
     <Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
   </Object>
 </Objects>

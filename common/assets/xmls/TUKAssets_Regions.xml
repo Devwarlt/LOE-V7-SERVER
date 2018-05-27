@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Regions>
+  <Region type="1006" id="Player Spawn">
+    <Color>0x00FF00</Color>
+  </Region>
+  <Region type="1007" id="Enemy Spawn (30s)">
+    <Color>0xFF00FF</Color>
+  </Region>
+  <Region type="1008" id="Enemy Spawn (45s)">
+    <Color>0xEE82EE</Color>
+  </Region>
+  <Region type="1009" id="Enemy Spawn (1m)">
+    <Color>0xDA70D6</Color>
+  </Region>
+  <Region type="1010" id="Enemy Spawn (3m)">
+    <Color>0xBA55D3</Color>
+  </Region>
+  <Region type="1011" id="Enemy Spawn (5m)">
+    <Color>0x9932CC</Color>
+  </Region>
+  <Region type="1012" id="Enemy Spawn (10m)">
+    <Color>0x9400D3</Color>
+  </Region>
+  <Region type="1013" id="Enemy Spawn (30m)">
+    <Color>0x8A2BE2</Color>
+  </Region>
+  <Region type="1014" id="Enemy Spawn (1h)">
+    <Color>0xA020F0</Color>
+  </Region>
+</Regions>
