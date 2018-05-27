@@ -33,7 +33,6 @@ namespace LoESoft.GameServer.networking.handlers
                 Manager.TryDisconnect(client, DisconnectReason.FAILED_TO_LOAD_CHARACTER);
                 return;
             }
-
             client.Character = character;
 
             if (status == CreateStatus.OK)
