@@ -132,7 +132,8 @@ namespace LoESoft.GameServer.realm
                 saveAccountUnlock.Add(cData.Client);
                 TryDisconnect(cData.Client, DisconnectReason.STOPPING_REALM_MANAGER);
             }
-            
+
+            GameData?.Dispose();
             logic?.Join();
             network?.Join();
         }
