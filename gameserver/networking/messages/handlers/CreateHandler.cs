@@ -1,5 +1,6 @@
 ﻿#region
 
+using System.Linq;
 using LoESoft.Core;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
@@ -19,13 +20,15 @@ namespace LoESoft.GameServer.networking.handlers
 
         private void Handle(Client client, CREATE message)
         {
-            CreateStatus status = Manager.Database.CreateCharacter(Manager.GameData, client.Account, (ushort)message.VocationType, message.SkinType, out DbChar character);
+            int skin = client.Account.OwnedSkins.Contains(message.SkinType) ? message.SkinType : 0;
+
+            CreateStatus status = Manager.Database.CreateCharacter(Manager.GameData, client.Account, (ushort)message.ClassType, skin, out DbChar character);
 
             if (status == CreateStatus.ReachCharLimit)
             {
                 client.SendMessage(new FAILURE
                 {
-                    ErrorDescription = "You reached max limit to create new character. Make sure to unlock more character slots for your account."
+                    ErrorDescription = "Failed to Load character."
                 });
                 Manager.TryDisconnect(client, DisconnectReason.FAILED_TO_LOAD_CHARACTER);
                 return;

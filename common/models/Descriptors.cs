@@ -761,7 +761,7 @@ public class PortalDesc
     public bool NexusPortal { get; private set; }
 }
 
-public class Item
+public class Item : IFeedable
 {
     private const bool DISABLE_SOULBOUND_UT = false;
 

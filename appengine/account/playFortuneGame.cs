@@ -66,6 +66,13 @@ namespace LoESoft.AppEngine.account
                                 return;
                             }
                             break;
+                        case CONSTANTS.FORTUNETOKENS:
+                            if (acc.FortuneTokens < box.PriceFG.firstInToken)
+                            {
+                                WriteLine("<Error>Not enough fortune tokens.</Error>");
+                                return;
+                            }
+                            break;
                         default:
                             {
                                 WriteLine($"<Error>Invalid currency type ID {currency}.</Error>");
@@ -100,6 +107,22 @@ namespace LoESoft.AppEngine.account
                                             <Candidates>{0}</Candidates>
                                             <Gold>{1}</Gold>
                                         </Success>", Utils.GetCommaSepString(candidates.ToArray()), acc.Credits - price);
+                                        break;
+                                    case CONSTANTS.FORTUNETOKENS:
+                                        if (acc.FortuneTokens < box.PriceFG.firstInToken)
+                                        {
+                                            WriteLine("<Error>Not enough fortune tokens.</Error>");
+                                            return;
+                                        }
+                                        if (CurrentGames.ContainsKey(acc.AccountId))
+                                            CurrentGames.Remove(acc.AccountId);
+                                        CurrentGames.Add(acc.AccountId, candidates.ToArray());
+                                        price = box.PriceFG.firstInToken;
+                                        data =
+                                            string.Format(@"<Success>
+                                            <Candidates>{0}</Candidates>
+                                            <FortuneToken>{1}</FortuneToken>
+                                        </Success>", Utils.GetCommaSepString(candidates.ToArray()), acc.FortuneTokens - price);
                                         break;
                                     default:
                                         {
@@ -210,6 +233,11 @@ namespace LoESoft.AppEngine.account
                         case CONSTANTS.GOLD:
                             {
                                 Database.UpdateCredit(acc, price < 0 ? 0 : -price);
+                            }
+                            break;
+                        case CONSTANTS.FORTUNETOKENS:
+                            {
+                                Database.UpdateTokens(acc, price < 0 ? 0 : -price);
                             }
                             break;
                         default:

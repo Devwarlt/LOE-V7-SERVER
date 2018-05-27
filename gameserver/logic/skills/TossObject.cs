@@ -11,7 +11,7 @@ namespace LoESoft.GameServer.logic.behaviors
 {
     public class TossObject : Behavior
     {
-        private readonly int child;
+        private readonly ushort child;
         private readonly int coolDownOffset;
         private readonly bool randomToss;
         private readonly double range;

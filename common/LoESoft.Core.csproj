@@ -87,6 +87,8 @@
     <Compile Include="models\AccountType.cs" />
     <Compile Include="config\Settings.cs" />
     <Compile Include="assets\EmbeddedData.cs" />
+    <Compile Include="models\FameStats.cs" />
+    <Compile Include="models\IFeedable.cs" />
     <Compile Include="database\NWriter.cs" />
     <Compile Include="database\NReader.cs" />
     <Compile Include="models\Log.cs" />

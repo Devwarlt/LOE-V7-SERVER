@@ -31,7 +31,14 @@ namespace LoESoft.GameServer.realm.entity.player
         {
             if (HasConditionEffect(ConditionEffectIndex.Healing))
             {
-                // TODO: implement healing condition.
+                if (healing > 1)
+                {
+                    HP = Math.Min(Stats[0] + Boost[0], HP + (int)healing);
+                    healing -= (int)healing;
+                    UpdateCount++;
+                    healCount++;
+                }
+                healing += 28 * (time.ElapsedMsDelta / 1000f);
             }
             if (HasConditionEffect(ConditionEffectIndex.Quiet) &&
                 MP > 0)

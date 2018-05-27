@@ -27,7 +27,7 @@ namespace LoESoft.GameServer.realm.entity
         public bool CheckDeath { get; set; }
         private bool Done { get; set; }
 
-        public Enemy(int objType, bool npc)
+        public Enemy(ushort objType, bool npc)
             : base(objType, new wRandom())
         {
             npc = Npc;

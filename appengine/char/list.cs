@@ -29,6 +29,11 @@ namespace LoESoft.AppEngine.@char
                         Context.Response.Close();
                     }
 
+                    var ca = new DbClassAvailability(acc);
+                    if (ca.IsNull)
+                        ca.Init(GameData);
+                    ca.Flush();
+
                     var list = CharList.FromDb(Database, acc);
                     list.Servers = GetServerList();
 

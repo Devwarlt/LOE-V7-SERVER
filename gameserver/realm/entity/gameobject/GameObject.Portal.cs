@@ -8,7 +8,7 @@ namespace LoESoft.GameServer.realm.entity
 {
     public partial class Portal : GameObject
     {
-        public Portal(int objType, int? life)
+        public Portal(ushort objType, int? life)
             : base(objType, life, false, true, false)
         {
             Usable = objType != 0x0721;

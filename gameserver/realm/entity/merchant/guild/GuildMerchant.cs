@@ -15,11 +15,11 @@ namespace LoESoft.GameServer.realm.entity
         public const int UP3 = 0x0738;
         public const int UP3C = 250000;
 
-        public GuildMerchant(int objType)
+        public GuildMerchant(ushort objType)
             : base(objType)
         {
             RankReq = 0;
-            Currency = CurrencyType.Gold;
+            Currency = CurrencyType.GuildFame;
             switch (objType)
             {
                 case UP1:

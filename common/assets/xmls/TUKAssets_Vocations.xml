@@ -40,6 +40,9 @@
     <DeathSound>player/archer_death</DeathSound>
     <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
     <Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
+    <Status level="1" experience="0" speedbase="10" hp="100" mp="0" att="0" def="0" />
+    <HP amount="5" healing="1" cooldown="3000" />
+    <MP amount="5" healing="1" cooldown="5000" />
   </Object>
   <Object type="1" id="Paladin">
     <Class>Player</Class>
@@ -54,7 +57,8 @@
     <HitSound>player/warrior_hit</HitSound>
     <DeathSound>player/warrior_death</DeathSound>
     <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
-    <Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
+    <HP amount="15" healing="2" cooldown="3000" />
+    <MP amount="5" healing="1" cooldown="5000" />
   </Object>
   <Object type="2" id="Hunter">
     <Class>Player</Class>
@@ -69,7 +73,8 @@
     <HitSound>player/archer_hit</HitSound>
     <DeathSound>player/archer_death</DeathSound>
     <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
-    <Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
+    <HP amount="10" healing="1" cooldown="4000" />
+    <MP amount="10" healing="2" cooldown="4000" />
   </Object>
   <Object type="3" id="Warlock">
     <Class>Player</Class>
@@ -84,6 +89,7 @@
     <HitSound>player/wizard_hit</HitSound>
     <DeathSound>player/wizard_death</DeathSound>
     <SlotTypes>1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
-    <Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
+    <HP amount="5" healing="1" cooldown="5000" />
+    <MP amount="30" healing="2" cooldown="3000" />
   </Object>
 </Objects>

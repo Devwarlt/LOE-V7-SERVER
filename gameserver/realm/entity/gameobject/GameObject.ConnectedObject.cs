@@ -113,7 +113,7 @@ namespace LoESoft.GameServer.realm.entity
 
     partial class ConnectedObject : GameObject
     {
-        public ConnectedObject(int objType)
+        public ConnectedObject(ushort objType)
             : base(objType, null, true, false, true) { }
 
         public ConnectionInfo Connection { get; set; }

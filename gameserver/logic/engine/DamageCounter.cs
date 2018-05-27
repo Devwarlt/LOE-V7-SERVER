@@ -46,6 +46,8 @@ namespace LoESoft.GameServer.logic
 
             LastProjectile = projectile;
             LastHitter = player;
+
+            player.FameCounter.Hit(projectile, enemy);
         }
 
         public Tuple<Player, int>[] GetPlayerData()
@@ -86,7 +88,7 @@ namespace LoESoft.GameServer.logic
 
             if (totalPlayer != 0)
             {
-                double totalExp, playerXp, lowerLimit, upperLimit;
+                float totalExp, playerXp, lowerLimit, upperLimit;
 
                 bool newExpMethod = enemy.ObjectDesc.NewExperience;
 
@@ -104,8 +106,8 @@ namespace LoESoft.GameServer.logic
                     else
                     {
                         playerXp = totalExp * i.Item2 / totalDamage;
-                        lowerLimit = totalExp / totalPlayer * 0.1;
-                        upperLimit = i.Item1.ExperienceGoal * 0.1;
+                        lowerLimit = totalExp / totalPlayer * 0.1f;
+                        upperLimit = i.Item1.ExperienceGoal * 0.1f;
 
                         if (i.Item1.Quest == enemy)
                             upperLimit = i.Item1.ExperienceGoal * 0.5f;
@@ -122,6 +124,8 @@ namespace LoESoft.GameServer.logic
                     if (i.Item1.EnemyKilled(enemy, i.Item1.AccountPerks.Experience(i.Item1.Level, (int)playerXp), killer) && !killer)
                         lvUps++;
                 }
+
+                (Parent ?? this).LastHitter.FameCounter.LevelUpAssist(lvUps);
             }
         }
 

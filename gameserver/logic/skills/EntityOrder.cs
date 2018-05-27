@@ -10,7 +10,7 @@ namespace LoESoft.GameServer.logic.behaviors
 {
     public class EntityOrder : Behavior
     {
-        private readonly int name;
+        private readonly ushort name;
         private readonly double range;
         private readonly string targetStateName;
         private State targetState;

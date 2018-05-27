@@ -10,7 +10,7 @@ namespace LoESoft.GameServer.realm.entity
     public partial class GameObject : Entity
     {
         //Stats
-        public GameObject(int objType, int? lifeTime, bool stat, bool dying, bool hittestable)
+        public GameObject(ushort objType, int? lifeTime, bool stat, bool dying, bool hittestable)
             : base(objType, IsInteractive(objType))
         {
             if (Vulnerable = lifeTime.HasValue)

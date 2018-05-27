@@ -10,7 +10,7 @@ namespace LoESoft.GameServer.realm.entity
 {
     partial class Wall : GameObject
     {
-        public Wall(int objType, XElement node)
+        public Wall(ushort objType, XElement node)
             : base(objType, GetHP(node), true, false, true) { }
 
 

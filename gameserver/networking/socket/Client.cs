@@ -51,6 +51,10 @@ namespace LoESoft.GameServer.networking
                 Socket = null;
                 Character = null;
                 Account = null;
+
+                if (Player.PetID != 0 && Player.Pet != null)
+                    Player.Owner.LeaveWorld(Player.Pet);
+
                 Player = null;
                 Random = null;
                 ConnectedBuild = null;

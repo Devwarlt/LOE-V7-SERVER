@@ -240,14 +240,14 @@ namespace LoESoft.GameServer
 
     public struct ObjectDef
     {
-        public int ObjectType;
+        public ushort ObjectType;
         public ObjectStatusData Stats;
 
         public static ObjectDef Read(NReader rdr)
         {
             ObjectDef ret = new ObjectDef
             {
-                ObjectType = rdr.ReadInt32(),
+                ObjectType = (ushort)rdr.ReadInt16(),
                 Stats = ObjectStatusData.Read(rdr)
             };
             return ret;

@@ -11,7 +11,7 @@ namespace LoESoft.GameServer.logic.behaviors
     {
         private readonly float dist;
         private readonly float threshold;
-        private readonly int children;
+        private readonly ushort children;
         private readonly string targetStateName;
         private State targetState;
 

@@ -29,16 +29,25 @@ namespace LoESoft.GameServer.networking.handlers
                 const ushort SOUL_BAG = 0x0507;
 
                 Entity entity = client.Player.Owner.GetEntity(message.SlotObject.ObjectId);
-
                 IContainer con = entity as IContainer;
-
                 Item item = null;
+                if (message.SlotObject.SlotId == 254)
+                {
+                    client.Player.HealthPotions--;
+                    item = GameServer.Manager.GameData.Items[0xa22];
+                }
+                else if (message.SlotObject.SlotId == 255)
+                {
+                    client.Player.MagicPotions--;
+                    item = GameServer.Manager.GameData.Items[0xa23];
+                }
+                else
+                {
+                    if (con.Inventory[message.SlotObject.SlotId] == null) return;
 
-                if (con.Inventory[message.SlotObject.SlotId] == null)
-                    return;
-
-                item = con.Inventory[message.SlotObject.SlotId];
-                con.Inventory[message.SlotObject.SlotId] = null;
+                    item = con.Inventory[message.SlotObject.SlotId];
+                    con.Inventory[message.SlotObject.SlotId] = null;
+                }
                 entity.UpdateCount++;
 
                 if (item != null)

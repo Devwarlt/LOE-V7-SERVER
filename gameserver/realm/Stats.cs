@@ -9,7 +9,10 @@ namespace LoESoft.GameServer.realm
 {
     public enum CurrencyType
     {
-        Gold = 0
+        Gold = 0,
+        Fame = 1,
+        GuildFame = 2,
+        FortuneTokens = 3
     }
 
     public struct StatsType

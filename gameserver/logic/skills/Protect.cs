@@ -10,7 +10,7 @@ namespace LoESoft.GameServer.logic.behaviors
     public class Protect : CycleBehavior
     {
         private readonly float sightRange;
-        private readonly int target;
+        private readonly ushort target;
         private readonly float protectRange;
         private readonly float reprotectRange;
         private readonly float speed;

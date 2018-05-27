@@ -13,7 +13,22 @@ namespace LoESoft.GameServer.realm.entity
     {
         private const int BUY_NO_GOLD = 3;
 
-        public SellableObject(int objType) : base(objType, null, true, false, false) { }
+        public SellableObject(ushort objType)
+            : base(objType, null, true, false, false)
+        {
+            if (objType == 0x0505) //Vault chest
+            {
+                Price = 500;
+                Currency = CurrencyType.Gold;
+                RankReq = 0;
+            }
+            else if (objType == 0x0736)
+            {
+                Currency = CurrencyType.GuildFame;
+                Price = 10000;
+                RankReq = 0;
+            }
+        }
 
         public int Price { get; set; }
         public CurrencyType Currency { get; set; }
@@ -30,12 +45,11 @@ namespace LoESoft.GameServer.realm.entity
         protected virtual bool TryDeduct(Player player)
         {
             DbAccount acc = player.Client.Account;
+            if (!player.NameChosen) return false;
+            if (player.Stars < RankReq) return false;
 
-            if (!player.NameChosen)
-                return false;
-
-            if (player.Stars < RankReq)
-                return false;
+            if (Currency == CurrencyType.Fame)
+                if (acc.Fame < Price) return false;
 
             if (Currency == CurrencyType.Gold)
                 if (acc.Credits < Price) return false;

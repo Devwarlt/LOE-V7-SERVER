@@ -44,7 +44,7 @@ namespace LoESoft.GameServer.logic
         {
             Manager = manager;
 
-            Definitions = new Dictionary<int, Tuple<State, Loot>>();
+            Definitions = new Dictionary<ushort, Tuple<State, Loot>>();
 
             if (Interlocked.Exchange(ref initializing, 1) == 1)
             {
@@ -77,7 +77,7 @@ namespace LoESoft.GameServer.logic
         internal static EmbeddedData InitGameData
         { get { return InitDb.Manager.GameData; } }
 
-        public Dictionary<int, Tuple<State, Loot>> Definitions
+        public Dictionary<ushort, Tuple<State, Loot>> Definitions
         { get; private set; }
 
         public void ResolveBehavior(Entity entity)

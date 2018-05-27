@@ -55,6 +55,13 @@ namespace LoESoft.AppEngine.account
                                     return;
                                 }
                                 break;
+                            case CONSTANTS.FAME:
+                                if (acc.Fame < box.Sale.Price)
+                                {
+                                    WriteLine("<Error>Not enough fame.</Error>");
+                                    return;
+                                }
+                                break;
                             default:
                                 {
                                     WriteLine($"<Error>Invalid currency type ID {box.Sale.Currency}.</Error>");
@@ -70,6 +77,13 @@ namespace LoESoft.AppEngine.account
                                 if (acc.Credits < box.PriceMB.Amount)
                                 {
                                     WriteLine("<Error>Not enough gold.</Error>");
+                                    return;
+                                }
+                                break;
+                            case CONSTANTS.FAME:
+                                if (acc.Fame < box.PriceMB.Amount)
+                                {
+                                    WriteLine("<Error>Not enough fame.</Error>");
                                     return;
                                 }
                                 break;
@@ -105,6 +119,12 @@ namespace LoESoft.AppEngine.account
                                     res.GoldLeft = acc.Credits;
                                 }
                                 break;
+                            case CONSTANTS.FAME:
+                                {
+                                    Database.UpdateFame(acc, -box.Sale.Price);
+                                    res.GoldLeft = acc.Fame;
+                                }
+                                break;
                             default:
                                 {
                                     WriteLine($"<Error>Invalid currency type ID {box.Sale.Currency}.</Error>");
@@ -122,6 +142,12 @@ namespace LoESoft.AppEngine.account
                                     res.GoldLeft = acc.Credits;
                                 }
                                 break;
+                            case CONSTANTS.FAME:
+                                {
+                                    Database.UpdateFame(acc, box.PriceMB.Amount < 0 ? 0 : -box.PriceMB.Amount);
+                                    res.GoldLeft = acc.Fame;
+                                }
+                                break;
                             default:
                                 {
                                     WriteLine($"<Error>Invalid currency type ID {box.PriceMB.Currency}.</Error>");
@@ -134,7 +160,7 @@ namespace LoESoft.AppEngine.account
                     else
                         res.Currency = box.PriceMB.Currency;
 
-                    SendMysteryBoxResult(Context.Response.OutputStream, res);
+                    sendMysteryBoxResult(Context.Response.OutputStream, res);
 
                     int[] gifts = Utils.FromCommaSepString32(res.Awards);
 
@@ -164,7 +190,7 @@ namespace LoESoft.AppEngine.account
         #endregion "Process package awards"
 
         #region "Send package result"
-        private void SendMysteryBoxResult(Stream stream, MysteryBoxResult res)
+        private void sendMysteryBoxResult(Stream stream, MysteryBoxResult res)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode success = doc.CreateElement("Success");

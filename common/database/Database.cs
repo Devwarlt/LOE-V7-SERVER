@@ -68,14 +68,20 @@ namespace LoESoft.Core
                 Converted = false,
                 GuildId = "-1",
                 GuildRank = -1,
+                GuildFame = -1,
                 VaultCount = 1,
                 MaxCharSlot = Settings.STARTUP.MAX_CHAR_SLOTS,
                 RegTime = DateTime.Now,
                 Guest = true,
+                Fame = Settings.STARTUP.FAME,
+                TotalFame = Settings.STARTUP.TOTAL_FAME,
                 Credits = Settings.STARTUP.GOLD,
                 EmpiresCoin = Settings.STARTUP.EMPIRES_COIN,
+                FortuneTokens = Settings.STARTUP.TOKENS,
                 Gifts = new int[] { },
+                PetYardType = 1,
                 IsAgeVerified = 0,
+                OwnedSkins = new int[] { },
                 PurchasedPackages = new int[] { },
                 PurchasedBoxes = new int[] { }
             };
@@ -140,17 +146,17 @@ namespace LoESoft.Core
             }
         }
 
-        public IDisposable Lock(DbAccount acc) => new L(this, acc);
+        public IDisposable Lock(DbAccount acc) => new l(this, acc);
 
-        public bool LockOk(IDisposable l) => ((L)l).lockOk;
+        public bool LockOk(IDisposable l) => ((l)l).lockOk;
 
-        private struct L : IDisposable
+        private struct l : IDisposable
         {
             private Database db;
             private DbAccount acc;
             internal bool lockOk;
 
-            public L(Database db, DbAccount acc)
+            public l(Database db, DbAccount acc)
             {
                 this.db = db;
                 this.acc = acc;
@@ -259,14 +265,20 @@ namespace LoESoft.Core
                 Converted = false,
                 GuildId = "-1",
                 GuildRank = 0,
+                GuildFame = 0,
                 VaultCount = 1,
                 MaxCharSlot = Settings.STARTUP.MAX_CHAR_SLOTS,
                 RegTime = DateTime.Now,
                 Guest = isGuest,
+                Fame = Settings.STARTUP.FAME,
+                TotalFame = Settings.STARTUP.TOTAL_FAME,
                 Credits = Settings.STARTUP.GOLD,
                 EmpiresCoin = Settings.STARTUP.EMPIRES_COIN,
+                FortuneTokens = Settings.STARTUP.TOKENS,
                 Gifts = new int[] { },
+                PetYardType = 1,
                 IsAgeVerified = Settings.STARTUP.IS_AGE_VERIFIED,
+                OwnedSkins = new int[] { },
                 PurchasedPackages = new int[] { },
                 PurchasedBoxes = new int[] { },
                 AuthToken = GenerateRandomString(128),
@@ -275,7 +287,6 @@ namespace LoESoft.Core
                 Locked = new int[] { 0 },
                 Ignored = new int[] { 0 }
             };
-
             acc.Flush();
 
             var login = new DbLoginInfo(this, uuid);
@@ -289,6 +300,9 @@ namespace LoESoft.Core
             login.Salt = salt;
             login.AccountId = acc.AccountId;
             login.Flush();
+
+            var stats = new DbClassStats(acc);
+            stats.Flush();
 
             var vault = new DbVault(acc);
             vault[0] = Enumerable.Repeat(-1, 8).ToArray();
@@ -317,12 +331,21 @@ namespace LoESoft.Core
             return ret;
         }
 
-        public string ResolveId(string name) => Hashes.GetString(0, "names", name.ToUpperInvariant()).Exec() ?? "0";
+        public string ResolveId(string name) => Hashes.GetString(0, "names", name.ToUpperInvariant()).Exec() == null ? "0" : Hashes.GetString(0, "names", name.ToUpperInvariant()).Exec();
 
         public string ResolveIgn(string accId) => Hashes.GetString(0, $"account.{accId}", "name").Exec();
 
         public string ResolveIgn(DbAccount acc) => Hashes.GetString(0, $"account.{acc.AccountId}", "name").Exec();
-        
+
+        public void AddSkin(DbAccount acc, int skin)
+        {
+            List<int> skinList = acc.OwnedSkins.ToList();
+            skinList.Add(skin);
+            int[] result = skinList.ToArray();
+            acc.OwnedSkins = result;
+            Update(acc);
+        }
+
         public bool CheckMysteryBox(DbAccount acc, int box, int total)
         {
             List<int> boxList = acc.PurchasedBoxes.ToList();
@@ -376,6 +399,26 @@ namespace LoESoft.Core
             Update(acc);
         }
 
+        public void UpdateFame(DbAccount acc, int amount)
+        {
+            if (amount > 0)
+                WaitAll(
+                    Hashes.Increment(0, acc.Key, "totalFame", amount),
+                    Hashes.Increment(0, acc.Key, "fame", amount));
+            else
+                Hashes.Increment(0, acc.Key, "fame", amount).Wait();
+            Update(acc);
+        }
+
+        public void UpdateTokens(DbAccount acc, int amount)
+        {
+            if (amount > 0)
+                WaitAll(Hashes.Increment(0, acc.Key, "fortuneTokens", amount));
+            else
+                Hashes.Increment(0, acc.Key, "fortuneTokens", amount).Wait();
+            Update(acc);
+        }
+
         public void UpdateAccountLifetime(DbAccount acc, AccountType accType, int amount)
         {
             acc.AccountLifetime = DateTime.Now;
@@ -390,6 +433,8 @@ namespace LoESoft.Core
             acc.Reload();
         }
 
+        public DbClassStats ReadClassStats(DbAccount acc) => new DbClassStats(acc);
+
         public DbVault ReadVault(DbAccount acc) => new DbVault(acc);
 
         public int CreateChest(DbVault vault)
@@ -401,7 +446,29 @@ namespace LoESoft.Core
             return newid;
         }
 
-        public CreateStatus CreateCharacter(EmbeddedData dat, DbAccount acc, ushort type, int outfit, out DbChar character)
+        public DbChar GetAliveCharacter(DbAccount acc)
+        {
+            int chara = 1;
+            foreach (var i in Sets.GetAll(0, "alive." + acc.AccountId).Exec().Reverse())
+                chara = BitConverter.ToInt32(i, 0);
+            return LoadCharacter(acc, chara);
+        }
+
+        public IEnumerable<int> GetAliveCharacters(DbAccount acc)
+        {
+            foreach (var i in Sets.GetAll(0, "alive." + acc.AccountId).Exec())
+                yield return BitConverter.ToInt32(i, 0);
+        }
+
+        public IEnumerable<int> GetDeadCharacters(DbAccount acc)
+        {
+            foreach (var i in Lists.Range(0, "dead." + acc.AccountId, 0, int.MaxValue).Exec())
+                yield return BitConverter.ToInt32(i, 0);
+        }
+
+        public bool IsAlive(DbChar character) => Sets.Contains(0, $"alive.{character.Account.AccountId}", BitConverter.GetBytes(character.CharId)).Exec();
+
+        public CreateStatus CreateCharacter(EmbeddedData dat, DbAccount acc, ushort type, int skin, out DbChar character)
         {
             var @class = dat.ObjectTypeToElement[type];
 
@@ -414,13 +481,32 @@ namespace LoESoft.Core
             int newId = (int)Hashes.Increment(0, acc.Key, "nextCharId").Exec();
             character = new DbChar(acc, newId)
             {
-                Vocation = type,
+                ObjectType = type,
                 Level = 1,
                 Experience = 0,
-                Equipments = @class.Element("Equipment").Value.CommaToArray<int>(),
+                Fame = 0,
+                HasBackpack = false,
+                Items = @class.Element("Equipment").Value.Replace("0xa22", "-1").CommaToArray<int>(),
+                Stats = new int[]{
+                    int.Parse(@class.Element("MaxHitPoints").Value),
+                    int.Parse(@class.Element("MaxMagicPoints").Value),
+                    int.Parse(@class.Element("Attack").Value),
+                    int.Parse(@class.Element("Defense").Value),
+                    int.Parse(@class.Element("Speed").Value),
+                    int.Parse(@class.Element("Dexterity").Value),
+                    int.Parse(@class.Element("HpRegen").Value),
+                    int.Parse(@class.Element("MpRegen").Value),
+                },
                 HP = int.Parse(@class.Element("MaxHitPoints").Value),
                 MP = int.Parse(@class.Element("MaxMagicPoints").Value),
-                Outfit = outfit,
+                Tex1 = 0,
+                Tex2 = 0,
+                Skin = skin,
+                Pet = 0,
+                FameStats = new byte[0],
+                TaskStats = string.Empty,
+                CreateTime = DateTime.Now,
+                LastSeen = DateTime.Now
             };
             character.Flush();
             Sets.Add(0, "alive." + acc.AccountId, BitConverter.GetBytes(newId));
@@ -454,6 +540,9 @@ namespace LoESoft.Core
                     trans.AddCondition(Condition.KeyEquals(1,
                         $"lock.{acc.AccountId}", acc.LockToken));
                 character.Flush(trans);
+                var stats = new DbClassStats(acc);
+                stats.Update(character);
+                stats.Flush(trans);
                 return trans.Execute().Exec();
             }
         }
@@ -466,29 +555,56 @@ namespace LoESoft.Core
             Lists.Remove(0, $"dead.{acc.AccountId}", buff);
         }
 
-        public DbChar GetAliveCharacter(DbAccount acc)
+        public void Death(EmbeddedData dat, DbAccount acc, DbChar character, FameStats stats, string killer)
         {
-            int chara = 1;
-            foreach (var i in Sets.GetAll(0, "alive." + acc.AccountId).Exec().Reverse())
-                chara = BitConverter.ToInt32(i, 0);
-            return LoadCharacter(acc, chara);
-        }
-
-        public IEnumerable<int> GetAliveCharacters(DbAccount acc)
-        {
-            foreach (var i in Sets.GetAll(0, "alive." + acc.AccountId).Exec())
-                yield return BitConverter.ToInt32(i, 0);
-        }
-
-        public void Death(EmbeddedData dat, DbAccount acc, DbChar character, string killer)
-        {
-            // TODO: implement death penalty.
+            character.Dead = true;
             SaveCharacter(acc, character, acc.LockToken != null);
+            var finalFame = stats.CalculateTotal(dat, character, new DbClassStats(acc), out bool firstBorn);
+            var death = new DbDeath(acc, character.CharId)
+            {
+                ObjectType = character.ObjectType,
+                Level = character.Level,
+                TotalFame = finalFame,
+                Killer = killer,
+                FirstBorn = firstBorn,
+                DeathTime = DateTime.Now
+            };
+            death.Flush();
+
+            var idBuff = BitConverter.GetBytes(character.CharId);
+            Sets.Remove(0, $"alive.{acc.AccountId}", idBuff);
+            Lists.AddFirst(0, $"dead.{acc.AccountId}", idBuff);
+
+            UpdateFame(acc, finalFame);
+
+            var entry = new DbLegendEntry()
+            {
+                AccId = int.Parse(acc.AccountId),
+                ChrId = character.CharId,
+                TotalFame = finalFame
+            };
+            DbLegend.Insert(this, death.DeathTime, entry);
         }
 
         public void VerifyAge(DbAccount acc)
         {
             Hashes.Set(0, acc.Key, "isAgeVerified", "1");
+            Update(acc);
+        }
+
+        public void ChangeClassAvailability(DbAccount acc, EmbeddedData data, ushort type)
+        {
+            int price;
+            if (acc.Credits < (price = data.ObjectDescs[type].UnlockCost))
+                return;
+
+            Hashes.Set(0, $"classAvailability.{acc.AccountId}", type.ToString(),
+                JsonConvert.SerializeObject(new DbClassAvailabilityEntry()
+                {
+                    Id = data.ObjectTypeToId[type],
+                    Restricted = "unrestricted"
+                }));
+            UpdateCredit(acc, -price);
             Update(acc);
         }
 
@@ -576,10 +692,8 @@ namespace LoESoft.Core
             }
             catch
             {
-                List<int> x = new List<int>
-                {
-                    lockId
-                };
+                List<int> x = new List<int>();
+                x.Add(lockId);
                 int[] result = x.ToArray();
                 acc.Locked = result;
                 Update(acc);
@@ -608,10 +722,8 @@ namespace LoESoft.Core
             }
             catch
             {
-                List<int> x = new List<int>
-                {
-                    lockId
-                };
+                List<int> x = new List<int>();
+                x.Add(lockId);
                 int[] result = x.ToArray();
                 acc.Ignored = result;
                 Update(acc);
@@ -677,10 +789,9 @@ namespace LoESoft.Core
 
             if (guild.Members == null)
             {
-                List<int> gfounder = new List<int>
-                {
-                    Convert.ToInt32(acc.AccountId)
-                };
+                List<int> gfounder = new List<int>();
+
+                gfounder.Add(Convert.ToInt32(acc.AccountId));
                 guild.Members = gfounder.ToArray();
             }
             else
@@ -726,6 +837,7 @@ namespace LoESoft.Core
 
             acc.GuildId = "-1";
             acc.GuildRank = -1;
+            acc.GuildFame = -1;
             Update(acc);
             return true;
         }
