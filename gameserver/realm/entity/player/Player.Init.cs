@@ -12,6 +12,7 @@ using LoESoft.GameServer.realm.terrain;
 using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core;
+using LoESoft.GameServer.logic.skills.Pets;
 
 #endregion
 
@@ -58,6 +59,22 @@ namespace LoESoft.GameServer.realm.entity.player
                 Credits = client.Account.Credits;
                 NameChosen = client.Account.NameChosen;
                 CurrentFame = client.Account.Fame;
+                PetHealing = null;
+                PetAttack = null;
+                if (client.Character.Pet != 0)
+                {
+                    PetHealing = new List<List<int>>();
+                    PetAttack = new List<int>();
+                    PetID = client.Character.Pet;
+                    Tuple<int, int, double> HPData = PetHPHealing.MinMaxBonus(Resolve((ushort)PetID).ObjectDesc.HPTier, Stars);
+                    Tuple<int, int, double> MPData = PetMPHealing.MinMaxBonus(Resolve((ushort)PetID).ObjectDesc.MPTier, Stars);
+                    PetHealing.Add(new List<int> { HPData.Item1, HPData.Item2, (int)((HPData.Item3 - 1) * 100) });
+                    PetHealing.Add(new List<int> { MPData.Item1, MPData.Item2, (int)((MPData.Item3 - 1) * 100) });
+                    PetAttack.Add(7750 - Stars * 100);
+                    PetAttack.Add(30 + Stars);
+                    PetAttack.Add(Resolve((ushort)PetID).ObjectDesc.Projectiles[0].MinDamage);
+                    PetAttack.Add(Resolve((ushort)PetID).ObjectDesc.Projectiles[0].MaxDamage);
+                }
                 LootDropBoostTimeLeft = client.Character.LootDropTimer;
                 lootDropBoostFreeTimer = LootDropBoost;
                 LootTierBoostTimeLeft = client.Character.LootTierTimer;
@@ -268,7 +285,7 @@ namespace LoESoft.GameServer.realm.entity.player
             SetNewbiePeriod();
             base.Init(owner);
             List<int> gifts = Client.Account.Gifts.ToList();
-            if (owner.Id == (int)WorldID.ISLE_OF_APPRENTICES || owner.Name == "Vault")
+            if (owner.Id == (int)WorldID.NEXUS_ID || owner.Name == "Vault")
             {
                 Client.SendMessage(new GLOBAL_NOTIFICATION
                 {

@@ -20,7 +20,6 @@ namespace LoESoft.GameServer.logic
 
         public void Initialize(RealmManager manager)
         {
-            /*
             // Initialize NPCs bellow
             Gazer = new Gazer();
 
@@ -30,14 +29,13 @@ namespace LoESoft.GameServer.logic
             // Process all NPCs creating new instance for each one
             foreach (KeyValuePair<string, NPC> i in Database)
                 i.Value.Config(Entity.Resolve(i.Key), null, false);
-            */
         }
     }
 
-    /*partial class BehaviorDb
+    partial class BehaviorDb
     {
         private _ NPCCache = () => Behav()
             .Init("NPC Gazer", new State(new NPCEngine(NPCStars: 70)))
         ;
-    }*/
+    }
 }

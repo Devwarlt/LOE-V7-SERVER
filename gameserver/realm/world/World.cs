@@ -23,7 +23,7 @@ namespace LoESoft.GameServer.realm
     public enum WorldID : int
     {
         TUT_ID = -1,
-        ISLE_OF_APPRENTICES = -2,
+        NEXUS_ID = -2,
         NEXUS_LIMBO = -3,
         VAULT_ID = -5,
         TEST_ID = -6,
@@ -50,7 +50,7 @@ namespace LoESoft.GameServer.realm
             AllowTeleport = true;
             ShowDisplays = true;
             MaxPlayers = -1;
-            MapType = MapType.Json;
+
             SetMusic("main");
 
             Timers.Add(new WorldTimer(120 * 1000, (w, t) =>
@@ -74,7 +74,6 @@ namespace LoESoft.GameServer.realm
             }
         }
 
-        public MapType MapType { get; protected set; }
         private int entityInc;
         private RealmManager manager;
         private bool canBeClosed;
@@ -153,8 +152,7 @@ namespace LoESoft.GameServer.realm
             return true;
         }
 
-        protected void Init()
-            => LoadMap(Name.Replace(" ", string.Empty), MapType);
+        protected abstract void Init();
 
         public string[] Music { get; set; }
         public string[] DefaultMusic { get; set; }
@@ -165,7 +163,6 @@ namespace LoESoft.GameServer.realm
                 Music = DefaultMusic;
             else
                 Music = music;
-
             BroadcastMessage(new SWITCH_MUSIC
             {
                 Music = Music[new wRandom().Next(0, Music.Length)]

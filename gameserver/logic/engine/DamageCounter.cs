@@ -128,6 +128,9 @@ namespace LoESoft.GameServer.logic
 
                 (Parent ?? this).LastHitter.FameCounter.LevelUpAssist(lvUps);
             }
+
+            if (enemy.Owner is GameWorld)
+                (enemy.Owner as GameWorld).EnemyKilled(enemy, (Parent ?? this).LastHitter);
         }
 
         private float ProcessExperience(double hp)

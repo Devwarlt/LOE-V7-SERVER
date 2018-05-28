@@ -275,7 +275,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 {
                     Host = "",
                     Port = Settings.GAMESERVER.PORT,
-                    GameId = (int)WorldID.ISLE_OF_APPRENTICES,
+                    GameId = (int)WorldID.NEXUS_ID,
                     Name = "Nexus",
                     Key = Empty<byte>.Array,
                 });

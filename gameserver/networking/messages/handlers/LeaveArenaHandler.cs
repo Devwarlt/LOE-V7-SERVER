@@ -17,7 +17,7 @@ namespace LoESoft.GameServer.networking.handlers
         {
             if (client.Player.Owner == null) return;
             World world = Manager.GetWorld(client.Player.Owner.Id);
-            if (world.Id == (int)WorldID.ISLE_OF_APPRENTICES)
+            if (world.Id == (int)WorldID.NEXUS_ID)
             {
                 client.SendMessage(new TEXT
                 {
@@ -34,7 +34,7 @@ namespace LoESoft.GameServer.networking.handlers
             {
                 Host = "",
                 Port = Settings.GAMESERVER.PORT,
-                GameId = (int)WorldID.ISLE_OF_APPRENTICES,
+                GameId = (int)WorldID.NEXUS_ID,
                 Name = "nexus.Nexus",
                 Key = Empty<byte>.Array,
             });
