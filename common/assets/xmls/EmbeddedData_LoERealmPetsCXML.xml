@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Objects>
+	<Object type="0x4700" id="Little Ghost">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets8x8</File>
+			<Index>0</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>0</HPTier>
+		<MPTier>0</MPTier>
+		<Projectile id="0">
+			<ObjectId>White Superblast</ObjectId>
+			<ConditionEffect duration="3">Slowed</ConditionEffect>
+			<Damage>10</Damage>
+			<Speed>100</Speed>
+			<LifetimeMS>750</LifetimeMS>
+		</Projectile>
+		<DisplayId>Little Ghost</DisplayId>
+	</Object>
+	<Object type="0x4701" id="Chilling Fire">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets8x8</File>
+			<Index>1</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>1</HPTier>
+		<MPTier>1</MPTier>
+		<Projectile id="0">
+			<ObjectId>LavaBombBlast</ObjectId>
+			<ConditionEffect duration="5">Slowed</ConditionEffect>
+			<Damage>25</Damage>
+			<Speed>100</Speed>
+			<LifetimeMS>780</LifetimeMS>
+		</Projectile>
+		<DisplayId>Chilling Fire</DisplayId>
+	</Object>
+	<Object type="0x4702" id="Mini Tree">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets8x8</File>
+			<Index>2</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>2</HPTier>
+		<MPTier>2</MPTier>
+		<Projectile id="0">
+			<ObjectId>Stick</ObjectId>
+			<ConditionEffect duration="6">Slowed</ConditionEffect>
+			<Damage>55</Damage>
+			<Speed>100</Speed>
+			<LifetimeMS>810</LifetimeMS>
+		</Projectile>
+		<DisplayId>Mini Tree</DisplayId>
+	</Object>
+	<Object type="0x4703" id="Mini Icycle">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets8x8</File>
+			<Index>3</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>3</HPTier>
+		<MPTier>3</MPTier>
+		<Projectile id="0">
+			<ObjectId>Ice Burst</ObjectId>
+			<ConditionEffect duration="2">Weak</ConditionEffect>
+			<Damage>85</Damage>
+			<Speed>100</Speed>
+			<LifetimeMS>840</LifetimeMS>
+		</Projectile>
+		<DisplayId>Mini Icycle</DisplayId>
+	</Object>
+	<Object type="0x4704" id="Volcano Guard">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets8x8</File>
+			<Index>4</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>4</HPTier>
+		<MPTier>4</MPTier>
+		<Projectile id="0">
+			<ObjectId>Fireball</ObjectId>
+			<ConditionEffect duration="2">Weak</ConditionEffect>
+			<ConditionEffect duration="4">Slowed</ConditionEffect>
+			<Damage>110</Damage>
+			<Speed>100</Speed>
+			<LifetimeMS>870</LifetimeMS>
+		</Projectile>
+		<DisplayId>Volcano Guard</DisplayId>
+	</Object>
+	<Object type="0x4705" id="Blaze Guard">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets8x8</File>
+			<Index>5</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>5</HPTier>
+		<MPTier>5</MPTier>
+		<Projectile id="0">
+			<ObjectId>Fireball 2</ObjectId>
+			<ConditionEffect duration="3">Weak</ConditionEffect>
+			<ConditionEffect duration="5">Slowed</ConditionEffect>
+			<Damage>120</Damage>
+			<Speed>100</Speed>
+			<LifetimeMS>890</LifetimeMS>
+		</Projectile>
+		<DisplayId>Blaze Guard</DisplayId>
+	</Object>
+	<Object type="0x4706" id="Sudden Death">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets8x8</File>
+			<Index>6</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>6</HPTier>
+		<MPTier>6</MPTier>
+		<Projectile id="0">
+			<ObjectId>Skull Bolt</ObjectId>
+			<ConditionEffect duration="3">Weak</ConditionEffect>
+			<ConditionEffect duration="5">Slowed</ConditionEffect>
+			<Damage>135</Damage>
+			<Speed>100</Speed>
+			<LifetimeMS>920</LifetimeMS>
+		</Projectile>
+		<DisplayId>Sudden Death</DisplayId>
+	</Object>
+	<Object type="0x4707" id="Evil Blob">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets8x8</File>
+			<Index>7</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>7</HPTier>
+		<MPTier>7</MPTier>
+		<Projectile id="0">
+			<ObjectId>Black Eye</ObjectId>
+			<ConditionEffect duration="3">Weak</ConditionEffect>
+			<ConditionEffect duration="5">Slowed</ConditionEffect>
+			<Damage>215</Damage>
+			<Speed>200</Speed>
+			<LifetimeMS>920</LifetimeMS>
+		</Projectile>
+		<DisplayId>Evil Blob</DisplayId>
+	</Object>
+	<Object type="0x4708" id="Muzzlereaper Minion">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets16x16</File>
+			<Index>1</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>6</HPTier>
+		<MPTier>6</MPTier>
+		<Projectile id="0">
+			<ObjectId>Muscle Ball</ObjectId>
+			<MinDamage>90</MinDamage>
+			<MaxDamage>135</MaxDamage>
+			<Speed>100</Speed>
+			<LifetimeMS>900</LifetimeMS>
+		</Projectile>
+		<Projectile id="1">
+			<ObjectId>Muscle Shuriken</ObjectId>
+			<ConditionEffect duration="3">Slowed</ConditionEffect>
+			<Damage>85</Damage>
+			<Speed>30</Speed>
+			<LifetimeMS>1500</LifetimeMS>
+		</Projectile>
+		<Projectile id="2">
+			<ObjectId>Nightmare Blasterball</ObjectId>
+			<ConditionEffect duration="1">Dazed</ConditionEffect>
+			<Damage>215</Damage>
+			<ArmorPiercing />
+			<Speed>100</Speed>
+			<LifetimeMS>900</LifetimeMS>
+		</Projectile>
+		<DisplayId>Muzzlereaper Minion</DisplayId>
+	</Object>
+	<Object type="0x4709" id="Living Leaf">
+		<NewPet />
+		<Class>Character</Class>
+		<AnimatedTexture>
+			<File>LRPets8x8</File>
+			<Index>8</Index>
+		</AnimatedTexture>
+		<NoMiniMap />
+		<HPTier>6</HPTier>
+		<MPTier>6</MPTier>
+		<Projectile id="0">
+			<ObjectId>Leaf Arrow</ObjectId>
+			<MinDamage>40</MinDamage>
+			<MaxDamage>50</MaxDamage>
+			<Speed>70</Speed>
+			<LifetimeMS>1400</LifetimeMS>
+		</Projectile>
+		<DisplayId>Living Leaf</DisplayId>
+	</Object>
+</Objects>

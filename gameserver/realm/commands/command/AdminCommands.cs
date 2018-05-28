@@ -18,6 +18,37 @@ using LoESoft.GameServer.networking;
 
 namespace LoESoft.GameServer.realm.commands
 {
+    class CFameCommand : Command
+    {
+        public CFameCommand() : base("cfame", (int)AccountType.LOESOFT_ACCOUNT) { }
+
+        protected override bool Process(Player player, RealmTime time, string[] args)
+        {
+            if (args[0] == "")
+            {
+                player.SendHelp("Usage: /cfame <Fame Amount>");
+                return false;
+            }
+            try
+            {
+                int newFame = Convert.ToInt32(args[0]);
+                int newXP = Convert.ToInt32(newFame.ToString() + "000");
+                player.Fame = newFame;
+                player.Experience = newXP;
+                player.SaveToCharacter();
+                player.Client.Save();
+                player.UpdateCount++;
+                player.SendInfo("Updated Character Fame To: " + newFame);
+            }
+            catch
+            {
+                player.SendInfo("Error Setting Fame");
+                return false;
+            }
+            return true;
+        }
+    }
+
     class VisitCommand : Command
     {
         public VisitCommand() : base("visit", (int)AccountType.LOESOFT_ACCOUNT) { }

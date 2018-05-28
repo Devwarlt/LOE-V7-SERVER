@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Objects>
+	<Object type="0x5744" id="Ice Shard">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>0</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5745" id="Ice Enchanted Bullet">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>1</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5746" id="Fire Shard">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>2</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5747" id="Fire Enchanted Bullet">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>3</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5748" id="Nevasca">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>4</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5749" id="Vulcanum">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>5</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x574a" id="Icicle">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>6</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x574b" id="Giant Icicle">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>7</Index>
+		</Texture>
+	</Object>
+	<Object type="0x574c" id="Fire Spark">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>8</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x574d" id="Whirlwind Deadly Spark">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>9</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+		<Rotation>60</Rotation>
+	</Object>
+	<Object type="0x574e" id="Eternal Mayhem">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP8x8</File>
+			<Index>10</Index>
+		</Texture>
+	</Object>
+	<Object type="0x574f" id="Blizzard">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>0</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5750" id="Infernum">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>1</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5751" id="Ice Kiss">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>2</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5752" id="Ice Temptation">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>3</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5753" id="Giant Fireball">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>4</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5754" id="Hot Kiss">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>5</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5755" id="Fire Temptation">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>6</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5756" id="Death Kiss">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>7</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5757" id="Poison Kiss">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>8</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5758" id="Bloody Kiss">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>9</Index>
+		</Texture>
+	</Object>
+	<Object type="0x5759" id="The Final Pleasure">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LREP16x16</File>
+			<Index>10</Index>
+		</Texture>
+	</Object>
+</Objects>
