@@ -484,6 +484,9 @@ namespace LoESoft.GameServer.realm.entity.player
         }
 
         #region "Feature: Infinite Leveling"
+        private static List<int> LevelAchievement = new List<int>
+        { 50, 100, 150, 200 };
+
         private static int GetLevelExperience(int lvl)
             => lvl == 1 ? 0 : (75 * (lvl ^ 3) - 125 * (lvl ^ 2) + 900 * lvl) / 3;
 
