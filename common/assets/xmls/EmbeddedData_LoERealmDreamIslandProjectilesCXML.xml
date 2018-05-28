@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Objects>
+	<Object type="0x5700" id="Muscle Ball">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x00</Index>
+		</Texture>
+		<Rotation>60</Rotation>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5701" id="Muscle Shuriken">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x01</Index>
+		</Texture>
+		<Rotation>-60</Rotation>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5702" id="Nightmare Blasterball">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x02</Index>
+		</Texture>
+		<Rotation>120</Rotation>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5703" id="Heavy Nightmare Blasterball">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x03</Index>
+		</Texture>
+		<Rotation>120</Rotation>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5704" id="Silencer Roar">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x04</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5705" id="Silencer Slash">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x05</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5706" id="Nightmare Spin">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x06</Index>
+		</Texture>
+		<Rotation>120</Rotation>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5707" id="Eyeguard Slash">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x07</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5708" id="Eyeguard Megapunch">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x08</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x5709" id="Enchanted Spear of the Wrath">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x09</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x570a" id="Critical Slash">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x0a</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x570b" id="Acid">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x0b</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x570c" id="Bloody Punch">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x0c</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+	<Object type="0x570d" id="Heavy Rock">
+		<Class>Projectile</Class>
+		<Texture>
+			<File>LRDIP8x8</File>
+			<Index>0x0d</Index>
+		</Texture>
+		<AngleCorrection>1</AngleCorrection>
+	</Object>
+</Objects>

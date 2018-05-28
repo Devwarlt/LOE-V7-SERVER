@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Objects>
+	<Object type="0x3007" id="ldc crown t0">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LRCrowns</File>
+			<Index>0</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A magnificent crown of solid gold.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="Bonus" description="This item grant 30 days of VIP account lifetime and 300 realm gold coins when consumed." />
+		</ExtraTooltipData>
+		<Sound>use_potion</Sound>
+		<Activate amount="30">AccountLifetime</Activate>
+		<Activate amount="300">Gold</Activate>
+		<Consumable />
+		<BagType>4</BagType>
+		<DisplayId>Golden Crown</DisplayId>
+	</Object>
+	<Object type="0x3008" id="ldc crown t1">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LRCrowns</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A magnificent crown of solid gold.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="Bonus" description="This item grant 30 days of VIP account lifetime and 600 realm gold coins when consumed." />
+		</ExtraTooltipData>
+		<Sound>use_potion</Sound>
+		<Activate amount="30">AccountLifetime</Activate>
+		<Activate amount="600">Gold</Activate>
+		<Consumable />
+		<BagType>4</BagType>
+		<DisplayId>Royal Golden Crown</DisplayId>
+	</Object>
+	<Object type="0x3009" id="ldc crown t2">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LRCrowns</File>
+			<Index>2</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A magnificent crown of solid gold.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="Bonus" description="This item grant 30 days of VIP account lifetime and 1200 realm gold coins when consumed." />
+		</ExtraTooltipData>
+		<Sound>use_potion</Sound>
+		<Activate amount="30">AccountLifetime</Activate>
+		<Activate amount="1200">Gold</Activate>
+		<Consumable />
+		<BagType>4</BagType>
+		<DisplayId>Grand Golden Crown</DisplayId>
+	</Object>
+	<Object type="0x300a" id="ldc crown t3">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>LRCrowns</File>
+			<Index>3</Index>
+		</Texture>
+		<SlotType>10</SlotType>
+		<Description>A magnificent crown of solid gold.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="Bonus" description="This item grant 30 days of VIP account lifetime and 2400 realm gold coins when consumed." />
+		</ExtraTooltipData>
+		<Sound>use_potion</Sound>
+		<Activate amount="30">AccountLifetime</Activate>
+		<Activate amount="2400">Gold</Activate>
+		<Consumable />
+		<BagType>4</BagType>
+		<DisplayId>Majestic Golden Crown</DisplayId>
+	</Object>
+</Objects>

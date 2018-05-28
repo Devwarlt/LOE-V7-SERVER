@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Objects>
+	<Object type="0x4000" id="lcp egg t0-100" successChance="100%" minStars="0">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0b</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 0.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4700" chance="100">SpecialPet</Activate>
+		<DisplayId>Little Ghost Egg</DisplayId>
+	</Object>
+	<Object type="0x4001" id="lcp egg t0-75" successChance="75%" minStars="0">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0b</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 0.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4700" chance="75">SpecialPet</Activate>
+		<DisplayId>Little Ghost Egg</DisplayId>
+	</Object>
+	<Object type="0x4002" id="lcp egg t0-50" successChance="50%" minStars="0">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0b</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 0.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4700" chance="50">SpecialPet</Activate>
+		<DisplayId>Little Ghost Egg</DisplayId>
+	</Object>
+	<Object type="0x4003" id="lcp egg t1-100" successChance="100%" minStars="4">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0c</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 1.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4701" chance="100">SpecialPet</Activate>
+		<DisplayId>Chilling Fire Egg</DisplayId>
+	</Object>
+	<Object type="0x4004" id="lcp egg t1-75" successChance="75%" minStars="4">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0c</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 1.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4701" chance="75">SpecialPet</Activate>
+		<DisplayId>Chilling Fire Egg</DisplayId>
+	</Object>
+	<Object type="0x4005" id="lcp egg t1-50" successChance="50%" minStars="4">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0c</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 1.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4701" chance="50">SpecialPet</Activate>
+		<DisplayId>Chilling Fire Egg</DisplayId>
+	</Object>
+	<Object type="0x4006" id="lcp egg t2-100" successChance="100%" minStars="8">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0d</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 2.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4702" chance="100">SpecialPet</Activate>
+		<DisplayId>Mini Tree Egg</DisplayId>
+	</Object>
+	<Object type="0x4007" id="lcp egg t2-75" successChance="75%" minStars="8">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0d</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 2.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4702" chance="75">SpecialPet</Activate>
+		<DisplayId>Mini Tree Egg</DisplayId>
+	</Object>
+	<Object type="0x4008" id="lcp egg t2-50" successChance="50%" minStars="8">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0d</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 2.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4702" chance="50">SpecialPet</Activate>
+		<DisplayId>Mini Tree Egg</DisplayId>
+	</Object>
+	<Object type="0x4009" id="lcp egg t3-100" successChance="100%" minStars="12">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0e</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 3.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4703" chance="100">SpecialPet</Activate>
+		<DisplayId>Mini Icycle Egg</DisplayId>
+	</Object>
+	<Object type="0x400a" id="lcp egg t3-75" successChance="75%" minStars="12">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0e</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 3.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4703" chance="75">SpecialPet</Activate>
+		<DisplayId>Mini Icycle Egg</DisplayId>
+	</Object>
+	<Object type="0x400b" id="lcp egg t3-50" successChance="50%" minStars="12">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0e</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 3.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4703" chance="50">SpecialPet</Activate>
+		<DisplayId>Mini Icycle Egg</DisplayId>
+	</Object>
+	<Object type="0x400c" id="lcp egg t4-100" successChance="100%" minStars="16">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0f</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 4.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4704" chance="100">SpecialPet</Activate>
+		<DisplayId>Volcano Guard Egg</DisplayId>
+	</Object>
+	<Object type="0x400d" id="lcp egg t4-75" successChance="75%" minStars="16">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0f</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 4.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4704" chance="75">SpecialPet</Activate>
+		<DisplayId>Volcano Guard Egg</DisplayId>
+	</Object>
+	<Object type="0x400e" id="lcp egg t4-50" successChance="50%" minStars="16">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x0f</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 4.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4704" chance="50">SpecialPet</Activate>
+		<DisplayId>Volcano Guard Egg</DisplayId>
+	</Object>
+	<Object type="0x400f" id="lcp egg t5-100" successChance="100%" minStars="20">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x10</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 5.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4705" chance="100">SpecialPet</Activate>
+		<DisplayId>Blaze Guard Egg</DisplayId>
+	</Object>
+	<Object type="0x4010" id="lcp egg t5-75" successChance="75%" minStars="20">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x10</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 5.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4705" chance="75">SpecialPet</Activate>
+		<DisplayId>Blaze Guard Egg</DisplayId>
+	</Object>
+	<Object type="0x4011" id="lcp egg t5-50" successChance="50%" minStars="20">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x10</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 5.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4705" chance="50">SpecialPet</Activate>
+		<DisplayId>Blaze Guard Egg</DisplayId>
+	</Object>
+	<Object type="0x4012" id="lcp egg t6-100" successChance="100%" minStars="24">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x11</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 6.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4706" chance="100">SpecialPet</Activate>
+		<DisplayId>Sudden Death Egg</DisplayId>
+	</Object>
+	<Object type="0x4013" id="lcp egg t6-75" successChance="75%" minStars="24">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x11</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 6.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4706" chance="75">SpecialPet</Activate>
+		<DisplayId>Sudden Death Egg</DisplayId>
+	</Object>
+	<Object type="0x4014" id="lcp egg t6-50" successChance="50%" minStars="24">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x11</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 6.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4706" chance="50">SpecialPet</Activate>
+		<DisplayId>Sudden Death Egg</DisplayId>
+	</Object>
+	<Object type="0x4015" id="lcp egg t7-100" successChance="100%" minStars="28">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x12</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 7.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4707" chance="100">SpecialPet</Activate>
+		<DisplayId>Evil Blob Egg</DisplayId>
+	</Object>
+	<Object type="0x4016" id="lcp egg t7-75" successChance="75%" minStars="28">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x12</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 7.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4707" chance="75">SpecialPet</Activate>
+		<DisplayId>Evil Blob Egg</DisplayId>
+	</Object>
+	<Object type="0x4017" id="lcp egg t7-50" successChance="50%" minStars="28">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9000</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x12</Index>
+		</Texture>
+		<Description>This egg give to you a pet with tier 7.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4707" chance="50">SpecialPet</Activate>
+		<DisplayId>Evil Blob Egg</DisplayId>
+	</Object>
+	<Object type="0x4018" id="lcp egg dream t0-100" successChance="100%" minStars="0" theme="Dream Island">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x13</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4708" chance="100">SpecialPet</Activate>
+		<DisplayId>Muzzlereaper Minion Egg</DisplayId>
+	</Object>
+	<Object type="0x4019" id="lcp egg dream t0-75" successChance="75%" minStars="0" theme="Dream Island">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x13</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4708" chance="75">SpecialPet</Activate>
+		<DisplayId>Muzzlereaper Minion Egg</DisplayId>
+	</Object>
+	<Object type="0x401a" id="lcp egg dream t0-50" successChance="50%" minStars="0" theme="Dream Island">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x13</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4708" chance="50">SpecialPet</Activate>
+		<DisplayId>Muzzlereaper Minion Egg</DisplayId>
+	</Object>
+	<Object type="0x401b" id="lcp egg en t0-100" successChance="100%" minStars="0" theme="Earth and Nature Elements">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x14</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4709" chance="100">SpecialPet</Activate>
+		<DisplayId>Living Leaf Egg</DisplayId>
+	</Object>
+	<Object type="0x401c" id="lcp egg en t0-75" successChance="75%" minStars="0" theme="Earth and Nature Elements">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x14</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4709" chance="75">SpecialPet</Activate>
+		<DisplayId>Living Leaf Egg</DisplayId>
+	</Object>
+	<Object type="0x401d" id="lcp egg en t0-50" successChance="50%" minStars="0" theme="Earth and Nature Elements">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x14</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4709" chance="50">SpecialPet</Activate>
+		<DisplayId>Living Leaf Egg</DisplayId>
+	</Object>
+	<Object type="0x401e" id="lcp egg dream t0-100 sb" successChance="100%" minStars="0" theme="Dream Island">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x13</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Soulbound />
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4708" chance="100">SpecialPet</Activate>
+		<DisplayId>Muzzlereaper Minion Egg (SB)</DisplayId>
+	</Object>
+	<Object type="0x401f" id="lcp egg dream t0-75 sb" successChance="75%" minStars="0" theme="Dream Island">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x13</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Soulbound />
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4708" chance="75">SpecialPet</Activate>
+		<DisplayId>Muzzlereaper Minion Egg (SB)</DisplayId>
+	</Object>
+	<Object type="0x4020" id="lcp egg dream t0-50 sb" successChance="50%" minStars="0" theme="Dream Island">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x13</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Soulbound />
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4708" chance="50">SpecialPet</Activate>
+		<DisplayId>Muzzlereaper Minion Egg (SB)</DisplayId>
+	</Object>
+	<Object type="0x4021" id="lcp egg en t0-100 sb" successChance="100%" minStars="0" theme="Earth and Nature Elements">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x14</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Soulbound />
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4709" chance="100">SpecialPet</Activate>
+		<DisplayId>Living Leaf Egg (SB)</DisplayId>
+	</Object>
+	<Object type="0x4022" id="lcp egg en t0-75 sb" successChance="75%" minStars="0" theme="Earth and Nature Elements">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x14</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Soulbound />
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4709" chance="75">SpecialPet</Activate>
+		<DisplayId>Living Leaf Egg (SB)</DisplayId>
+	</Object>
+	<Object type="0x4023" id="lcp egg en t0-50 sb" successChance="50%" minStars="0" theme="Earth and Nature Elements">
+		<Class>Equipment</Class>
+		<Item />
+		<SlotType>9001</SlotType>
+		<Texture>
+			<File>LRE</File>
+			<Index>0x14</Index>
+		</Texture>
+		<Description>This egg give to you a limited pet.</Description>
+		<ExtraTooltipData>
+			<EffectInfo name="" description="You can only use this item in your Vault." />
+		</ExtraTooltipData>
+		<BagType>3</BagType>
+		<Soulbound />
+		<Consumable />
+		<Potion />
+		<Activate petType="0x4709" chance="50">SpecialPet</Activate>
+		<DisplayId>Living Leaf Egg (SB)</DisplayId>
+	</Object>
+</Objects>

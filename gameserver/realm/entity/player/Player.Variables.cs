@@ -59,8 +59,10 @@ namespace LoESoft.GameServer.realm.entity.player
         public int CurrentFame { get; set; }
         public int Experience { get; set; }
         public int ExperienceGoal { get; set; }
+        public int Fame { get; set; }
         public FameCounter FameCounter { get; }
         public TaskManager TaskManager { get; }
+        public int FameGoal { get; set; }
         public bool Glowing { get; set; }
         public bool HasBackpack { get; set; }
         public int HealthPotions { get; set; }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Objects>
+  <Object type="0x9007" id="FrogKing">
+    <Skin />
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>172</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x0320</PlayerClassType>
+    <UnlockSpecial>Frog Skin</UnlockSpecial>
+  </Object>
+  <Object type="0x9006" id="Uzumaki Naruto">
+    <Skin />
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>169</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x0326</PlayerClassType>
+    <UnlockSpecial>Uzumaki Naruto</UnlockSpecial>
+  </Object>
+  <Object type="0x9005" id="Happy Clown">
+    <Skin />
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>168</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x0324</PlayerClassType>
+    <UnlockSpecial>Skin of dangergun (cuz he's a troll)</UnlockSpecial>
+  </Object>
+  <Object type="0x9004" id="Chinese Warrior Set Skin">
+    <Skin />
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>playerskins16</File>
+      <Index>12</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x031d</PlayerClassType>
+    <UnlockSpecial>Set Skin</UnlockSpecial>
+    <NoSkinSelect />
+  </Object>
+  <Object type="0x9003" id="Dragon">
+    <Skin />
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>171</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x030e</PlayerClassType>
+    <UnlockSpecial>Skin of PnG !!</UnlockSpecial>
+  </Object>
+  <Object type="0x9002" id="Lil'Athena">
+    <Skin />
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>170</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x031f</PlayerClassType>
+    <UnlockSpecial>Skin of Filisha!</UnlockSpecial>
+  </Object>
+  <Object type="0x9001" id="K is Bae">
+    <Skin />
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>166</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x0307</PlayerClassType>
+    <UnlockSpecial>Skin of Admin K</UnlockSpecial>
+    <DisplayId>K is Bae</DisplayId>
+  </Object>
+  <Object type="0x5191" id="Twin Succubus">
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>LRES8x8</File>
+      <Index>0</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x0321</PlayerClassType>
+    <UnlockSpecial>Edition 1 special skin. Special thanks to: Davy and John.</UnlockSpecial>
+    <DisplayId>Twin Succubus Skin</DisplayId>
+  </Object>
+  <Object type="0x9000" id="Deverino">
+    <Skin />
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>167</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x0324</PlayerClassType>
+    <UnlockSpecial>Skin of Admin and Founder Devwarlt</UnlockSpecial>
+    <DisplayId>Deverino</DisplayId>
+  </Object>
+  <Object type="0x5190" id="Forgotten Sentinel Set">
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>LRES8x8</File>
+      <Index>1</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x031d</PlayerClassType>
+    <UnlockSpecial>Set Skin</UnlockSpecial>
+    <NoSkinSelect/>
+    <DisplayId>Forgotten Sentinel Set</DisplayId>
+  </Object>
+  <Object type="0x517d" id="The Rusher">
+    <Skin/>
+    <Class>Skin</Class>
+    <AnimatedTexture>
+      <File>LRES8x8</File>
+      <Index>2</Index>
+    </AnimatedTexture>
+    <PlayerClassType>0x031d</PlayerClassType>
+    <UnlockSpecial>Unlocked during pre-beta Test Server.</UnlockSpecial>
+    <DisplayId>The Rusher</DisplayId>
+  </Object>
+</Objects>

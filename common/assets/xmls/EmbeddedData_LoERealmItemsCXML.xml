@@ -1,0 +1,1032 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Objects>
+  <Object type="0x575a" id="Public Arena Key">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>0x17</Index>
+    </Texture>
+    <SlotType>10</SlotType>
+    <Description>A key which opens an entrance to an Public Arena.\n\nKeys can only be used once you have 10 or more stars!</Description>
+    <Sound>use_key</Sound>
+    <Consumable />
+    <Soulbound />
+    <Activate id="Public Arena">Create</Activate>
+    <BagType>5</BagType>
+    <Track />
+  </Object>
+  <Object type="0x575b" id="Public Arena">
+    <Class>Portal</Class>
+    <IntergamePortal />
+    <DisplayId>Public Arena</DisplayId>
+    <DungeonName>Public Arena</DungeonName>
+    <Texture>
+      <File>LRE</File>
+      <Index>0x16</Index>
+    </Texture>
+  </Object>
+  <Object type="0x5054" id="Blue Star Ensign">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>116</Index>
+    </Texture>
+    <SlotType>10</SlotType>
+    <Description>This is a reward of Blue Star Package.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Gold Consumable" description="Can be used to obtain 3000 gold." />
+      <EffectInfo name="Package" description="1 of 5" />
+    </ExtraTooltipData>
+    <Sound>use_potion</Sound>
+    <Activate amount="3000">Gold</Activate>
+    <Consumable />
+    <BagType>4</BagType>
+    <DisplayId>Ensign of Fortune</DisplayId>
+  </Object>
+  <Object type="0x5053" id="Red Star Ensign">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>117</Index>
+    </Texture>
+    <SlotType>10</SlotType>
+    <Description>This is a reward of Red Star Package.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Gold Consumable" description="Can be used to obtain 7200 gold." />
+      <EffectInfo name="Package" description="2 of 5" />
+    </ExtraTooltipData>
+    <Sound>use_potion</Sound>
+    <Activate amount="7200">Gold</Activate>
+    <Consumable />
+    <BagType>4</BagType>
+    <DisplayId>Ensign of Fortune</DisplayId>
+  </Object>
+  <Object type="0x5052" id="Orange Star Ensign">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>118</Index>
+    </Texture>
+    <SlotType>10</SlotType>
+    <Description>This is a reward of Orange Star Package.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Gold Consumable" description="Can be used to obtain 11400 gold." />
+      <EffectInfo name="Package" description="3 of 5" />
+    </ExtraTooltipData>
+    <Sound>use_potion</Sound>
+    <Activate amount="11400">Gold</Activate>
+    <Consumable />
+    <BagType>4</BagType>
+    <DisplayId>Ensign of Fortune</DisplayId>
+  </Object>
+  <Object type="0x5051" id="Yellow Star Ensign">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>119</Index>
+    </Texture>
+    <SlotType>10</SlotType>
+    <Description>This is a reward of Yellow Star Package.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Gold Consumable" description="Can be used to obtain 42000 gold." />
+      <EffectInfo name="Package" description="4 of 5" />
+    </ExtraTooltipData>
+    <Sound>use_potion</Sound>
+    <Activate amount="42000">Gold</Activate>
+    <Consumable />
+    <BagType>4</BagType>
+    <DisplayId>Ensign of Fortune</DisplayId>
+  </Object>
+  <Object type="0x5050" id="White Star Ensign">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>120</Index>
+    </Texture>
+    <SlotType>10</SlotType>
+    <Description>This is a reward of Yellow Star Package.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Gold Consumable" description="Can be used to obtain 96000 gold." />
+      <EffectInfo name="Package" description="5 of 5" />
+    </ExtraTooltipData>
+    <Sound>use_potion</Sound>
+    <Activate amount="96000">Gold</Activate>
+    <Consumable />
+    <BagType>4</BagType>
+    <DisplayId>Ensign of Fortune</DisplayId>
+  </Object>
+  <Object type="0x5049" id="Frozen Ring">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>115</Index>
+    </Texture>
+    <SlotType>9</SlotType>
+    <Description>Not even the most wise kings are able to use this ring. Only the most courageous and fearless warriors can use it! Thanks to: Solceon.</Description>
+    <ActivateOnEquip stat="0" amount="60">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="3" amount="60">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="21" amount="4">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="28" amount="4">IncrementStat</ActivateOnEquip>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <feedPower>500</feedPower>
+    <Soulbound />
+    <DisplayId>Frozen Ring</DisplayId>
+  </Object>
+  <Object type="0x5048" id="Frozen Plate">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>114</Index>
+    </Texture>
+    <SlotType>7</SlotType>
+    <Description>Neither the mad god's sword is able to pierce that armor! Guarded the gates of the depths of the Ice Cave, human returned from there with even more mystery about this legendary artifact. Thanks to: Solceon.</Description>
+    <ActivateOnEquip stat="21" amount="24">IncrementStat</ActivateOnEquip>
+    <Soulbound />
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <feedPower>435</feedPower>
+    <DisplayId>Frozen Plate</DisplayId>
+  </Object>
+  <Object type="0x5047" id="Frozen Shield">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>113</Index>
+    </Texture>
+    <SlotType>5</SlotType>
+    <Description>A magnificent shield forged over a thousand centuries by Yetis returned to resonate the voices of Nexus peasants. Thanks to: Solceon.</Description>
+    <Sound>spell/fire_spray</Sound>
+    <Projectile>
+      <ObjectId>Silver Shield</ObjectId>
+      <Speed>160</Speed>
+      <MinDamage>300</MinDamage>
+      <MaxDamage>360</MaxDamage>
+      <LifetimeMS>200</LifetimeMS>
+      <Size>140</Size>
+      <ConditionEffect duration="3">Stunned</ConditionEffect>
+      <MultiHit />
+      <PassesCover />
+      <ParticleTrail>0x00F5FF</ParticleTrail>
+    </Projectile>
+    <ActivateOnEquip stat="21" amount="12">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="26" amount="2">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="27" amount="2">IncrementStat</ActivateOnEquip>
+    <ConditionEffect duration="3">Stunned</ConditionEffect>
+    <Usable />
+    <Soulbound />
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <MpCost>100</MpCost>
+    <Activate>Shoot</Activate>
+    <NumProjectiles>5</NumProjectiles>
+    <feedPower>380</feedPower>
+    <DisplayId>Frozen Shield</DisplayId>
+  </Object>
+  <Object type="0x5046" id="Frozen Sword">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>112</Index>
+    </Texture>
+    <SlotType>1</SlotType>
+    <Description>Built in Arctic ice crystals, formed a new material capable of withstanding high temperatures as Abyss of the Demos and the most intense cold of the Ice Cave! Thanks to: Solsceon.</Description>
+    <RateOfFire>1.2</RateOfFire>
+    <Sound>weapon/mithril_sword</Sound>
+    <Projectile>
+      <ObjectId>Blue Bolt</ObjectId>
+      <Speed>100</Speed>
+      <MinDamage>184</MinDamage>
+      <MaxDamage>231</MaxDamage>
+      <LifetimeMS>325</LifetimeMS>
+    </Projectile>
+    <Soulbound />
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>bladeSwing</OldSound>
+    <feedPower>500</feedPower>
+    <DisplayId>Frozen Sword</DisplayId>
+  </Object>
+  <Object type="0x5015" id="Bone Marrow">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>59</Index>
+    </Texture>
+    <SlotType>3</SlotType>
+    <Description>A bow made from bones with marrow strings.</Description>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/golden_bow</Sound>
+    <Projectile>
+      <ObjectId>Bone Arrow</ObjectId>
+      <Speed>100</Speed>
+      <MinDamage>35</MinDamage>
+      <MaxDamage>70</MaxDamage>
+      <LifetimeMS>600</LifetimeMS>
+      <MultiHit />
+    </Projectile>
+    <BagType>6</BagType>
+    <FameBonus>6</FameBonus>
+    <NumProjectiles>4</NumProjectiles>
+    <OldSound>arrowShoot</OldSound>
+    <feedPower>600</feedPower>
+    <Soulbound />
+    <DisplayId>Bone Marrow</DisplayId>
+  </Object>
+  <Object type="0x5014" id="Cursed Skull Quiver">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>60</Index>
+    </Texture>
+    <SlotType>15</SlotType>
+    <Description>The cursed skull of an archdemon formed into a lethal quiver.</Description>
+    <Sound>spell/fire_spray</Sound>
+    <Projectile>
+      <ObjectId>Cursed-flame Bolt</ObjectId>
+      <Speed>130</Speed>
+      <MinDamage>100</MinDamage>
+      <MaxDamage>275</MaxDamage>
+      <LifetimeMS>1000</LifetimeMS>
+      <MultiHit />
+      <Size>150</Size>
+      <ParticleTrail />
+      <ArmorPiercing />
+    </Projectile>
+    <ActivateOnEquip stat="21" amount="4">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="28" amount="-4">IncrementStat</ActivateOnEquip>
+    <Usable />
+    <BagType>6</BagType>
+    <FameBonus>7</FameBonus>
+    <NumProjectiles>2</NumProjectiles>
+    <MpCost>135</MpCost>
+    <Activate>Shoot</Activate>
+    <feedPower>750</feedPower>
+    <Soulbound />
+    <DisplayId>Cursed Skull Quiver</DisplayId>
+  </Object>
+  <Object type="0x5013" id="Bone Carapace">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>61</Index>
+    </Texture>
+    <SlotType>6</SlotType>
+    <Description>A sturdy bone armor composed of the skeletal remains of a cyclops.</Description>
+    <ExtraTooltipData />
+    <ActivateOnEquip stat="21" amount="13">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="0" amount="45">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="3" amount="45">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="27" amount="5">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="-5">IncrementStat</ActivateOnEquip>
+    <BagType>6</BagType>
+    <FameBonus>6</FameBonus>
+    <feedPower>670</feedPower>
+    <Soulbound />
+    <DisplayId>Bone Carapace</DisplayId>
+  </Object>
+  <Object type="0x5012" id="Gem of Blight">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>62</Index>
+    </Texture>
+    <SlotType>9</SlotType>
+    <Description>A vile gem cursed by those who haunt the ether.</Description>
+    <ActivateOnEquip stat="28" amount="5">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="20" amount="5">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="0" amount="80">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="3" amount="-30">IncrementStat</ActivateOnEquip>
+    <BagType>6</BagType>
+    <FameBonus>6</FameBonus>
+    <feedPower>500</feedPower>
+    <Soulbound />
+    <DisplayId>Gem of Blight</DisplayId>
+  </Object>
+  <Object type="0x5011" id="Umbral Staff">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>80</Index>
+    </Texture>
+    <Tier>14</Tier>
+    <SlotType>17</SlotType>
+    <Description>The Oryx servants are terrified in the presence of this equipment!</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Umbral Series" description="This item is a better version of tops released on update 5.00 and add +1 point on all of your status, except health and magic points." />
+    </ExtraTooltipData>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/wand_of_death</Sound>
+    <Projectile>
+      <ObjectId>umbral staff prj</ObjectId>
+      <Speed>180</Speed>
+      <MinDamage>60</MinDamage>
+      <MaxDamage>105</MaxDamage>
+      <LifetimeMS>475</LifetimeMS>
+      <ParticleTrail intensity="0.8" lifetimeMS="250">0xc30e0e</ParticleTrail>
+      <Amplitude>0.5</Amplitude>
+      <Frequency>2</Frequency>
+    </Projectile>
+    <Umbral />
+    <ActivateOnEquip stat="20" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="21" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="26" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="27" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="28" amount="1">IncrementStat</ActivateOnEquip>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <NumProjectiles>2</NumProjectiles>
+    <ArcGap>0</ArcGap>
+    <OldSound>magicShoot</OldSound>
+    <DisplayId>Umbral Staff</DisplayId>
+  </Object>
+  <Object type="0x5010" id="Umbral Wand">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>90</Index>
+    </Texture>
+    <SlotType>8</SlotType>
+    <Tier>14</Tier>
+    <Description>The Oryx servants are terrified in the presence of this equipment!</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Umbral Series" description="This item is a better version of tops released on update 5.00 and add +1 point on all of your status, except health and magic points." />
+    </ExtraTooltipData>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/wand_of_death</Sound>
+    <Projectile>
+      <ObjectId>umbral wand prj</ObjectId>
+      <Speed>150</Speed>
+      <LifetimeMS>600</LifetimeMS>
+      <ParticleTrail intensity="0.8" lifetimeMS="250">0xc30e0e</ParticleTrail>
+      <MinDamage>95</MinDamage>
+      <MaxDamage>135</MaxDamage>
+      <MultiHit />
+    </Projectile>
+    <Umbral />
+    <ActivateOnEquip stat="20" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="21" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="26" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="27" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="28" amount="1">IncrementStat</ActivateOnEquip>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>magicShoot</OldSound>
+    <DisplayId>Umbral Wand</DisplayId>
+  </Object>
+  <Object type="0x500f" id="Umbral Sword">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>82</Index>
+    </Texture>
+    <SlotType>1</SlotType>
+    <Tier>14</Tier>
+    <Description>The Oryx servants are terrified in the presence of this equipment!</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Umbral Series" description="This item is a better version of tops released on update 5.00 and add +1 point on all of your status, except health and magic points." />
+    </ExtraTooltipData>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/mithril_sword</Sound>
+    <Projectile>
+      <ObjectId>umbral sword prj</ObjectId>
+      <Speed>100</Speed>
+      <MinDamage>225</MinDamage>
+      <MaxDamage>285</MaxDamage>
+      <LifetimeMS>350</LifetimeMS>
+      <ParticleTrail intensity="0.8" lifetimeMS="250">0xc30e0e</ParticleTrail>
+    </Projectile>
+    <Umbral />
+    <ActivateOnEquip stat="20" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="21" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="26" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="27" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="28" amount="1">IncrementStat</ActivateOnEquip>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>bladeSwing</OldSound>
+    <DisplayId>Umbral Sword</DisplayId>
+  </Object>
+  <Object type="0x500e" id="Umbral Bow">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>84</Index>
+    </Texture>
+    <SlotType>3</SlotType>
+    <Tier>14</Tier>
+    <Description>The Oryx servants are terrified in the presence of this equipment!</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Umbral Series" description="This item is a better version of tops released on update 5.00 and add +1 point on all of your status, except health and magic points." />
+    </ExtraTooltipData>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/golden_bow</Sound>
+    <Projectile>
+      <ObjectId>umbral bow prj</ObjectId>
+      <Speed>160</Speed>
+      <MinDamage>50</MinDamage>
+      <MaxDamage>75</MaxDamage>
+      <LifetimeMS>440</LifetimeMS>
+      <ParticleTrail intensity="0.8" lifetimeMS="250">0xc30e0e</ParticleTrail>
+      <MultiHit />
+    </Projectile>
+    <Umbral />
+    <ActivateOnEquip stat="20" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="21" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="26" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="27" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="28" amount="1">IncrementStat</ActivateOnEquip>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <NumProjectiles>3</NumProjectiles>
+    <OldSound>arrowShoot</OldSound>
+    <DisplayId>Umbral Bow</DisplayId>
+  </Object>
+  <Object type="0x500d" id="Umbral Dagger">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>86</Index>
+    </Texture>
+    <SlotType>2</SlotType>
+    <Tier>14</Tier>
+    <Description>The Oryx servants are terrified in the presence of this equipment!</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Umbral Series" description="This item is a better version of tops released on update 5.00 and add +1 point on all of your status, except health and magic points." />
+    </ExtraTooltipData>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/fire_dagger</Sound>
+    <Projectile>
+      <ObjectId>umbral dagger prj</ObjectId>
+      <Speed>140</Speed>
+      <MinDamage>95</MinDamage>
+      <MaxDamage>180</MaxDamage>
+      <LifetimeMS>400</LifetimeMS>
+      <ParticleTrail intensity="0.8" lifetimeMS="250">0xc30e0e</ParticleTrail>
+    </Projectile>
+    <Umbral />
+    <ActivateOnEquip stat="20" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="21" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="26" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="27" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="28" amount="1">IncrementStat</ActivateOnEquip>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>daggerSwing</OldSound>
+    <DisplayId>Umbral Dagger</DisplayId>
+  </Object>
+  <Object type="0x500c" id="Umbral Katana">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>88</Index>
+    </Texture>
+    <SlotType>24</SlotType>
+    <Tier>14</Tier>
+    <Description>The Oryx servants are terrified in the presence of this equipment!</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="Umbral Series" description="This item is a better version of tops released on update 5.00 and add +1 point on all of your status, except health and magic points." />
+    </ExtraTooltipData>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/long_sword</Sound>
+    <Projectile>
+      <ObjectId>umbral katana prj</ObjectId>
+      <Speed>120</Speed>
+      <MinDamage>150</MinDamage>
+      <MaxDamage>170</MaxDamage>
+      <LifetimeMS>350</LifetimeMS>
+      <ParticleTrail intensity="0.8" lifetimeMS="250">0xc30e0e</ParticleTrail>
+      <MultiHit />
+    </Projectile>
+    <Umbral />
+    <ActivateOnEquip stat="20" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="21" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="26" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="27" amount="1">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="28" amount="1">IncrementStat</ActivateOnEquip>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>bladeSwing</OldSound>
+    <DisplayId>Umbral Katana</DisplayId>
+  </Object>
+  <Object type="0x500b" id="Infected Staff of the Cosmic Whole">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>48</Index>
+    </Texture>
+    <SlotType>17</SlotType>
+    <Tier>12</Tier>
+    <Description>An infected golden staff of transcendent understanding, made from crystals present at the formation of the universe.</Description>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/wand_of_death</Sound>
+    <Projectile>
+      <ObjectId>inf cwhole prj</ObjectId>
+      <Speed>180</Speed>
+      <MinDamage>60</MinDamage>
+      <MaxDamage>100</MaxDamage>
+      <LifetimeMS>475</LifetimeMS>
+      <Amplitude>0.5</Amplitude>
+      <Frequency>2</Frequency>
+    </Projectile>
+    <ExtraTooltipData>
+      <EffectInfo name="Infected Series" description="This item is a reskin of Staff of the Cosmic Whole." />
+    </ExtraTooltipData>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <NumProjectiles>2</NumProjectiles>
+    <ArcGap>0</ArcGap>
+    <OldSound>magicShoot</OldSound>
+    <feedPower>450</feedPower>
+    <DisplayId>Infected Staff of the Cosmic Whole</DisplayId>
+  </Object>
+  <Object type="0x500a" id="Infected Sword of Acclaim">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>49</Index>
+    </Texture>
+    <SlotType>1</SlotType>
+    <Tier>12</Tier>
+    <Description>An infected great sword of recognition, forged by the gods for the champions of humankind.</Description>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/mithril_sword</Sound>
+    <Projectile>
+      <ObjectId>inf acclaim prj</ObjectId>
+      <Speed>100</Speed>
+      <MinDamage>220</MinDamage>
+      <MaxDamage>275</MaxDamage>
+      <LifetimeMS>350</LifetimeMS>
+    </Projectile>
+    <ExtraTooltipData>
+      <EffectInfo name="Infected Series" description="This item is a reskin of Sword of Acclaim." />
+    </ExtraTooltipData>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>bladeSwing</OldSound>
+    <feedPower>450</feedPower>
+    <DisplayId>Infected Sword of Acclaim</DisplayId>
+  </Object>
+  <Object type="0x5009" id="Infected Bow of Covert Havens">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>50</Index>
+    </Texture>
+    <SlotType>3</SlotType>
+    <Tier>12</Tier>
+    <Description>An infected diamondwire bow used by guardians of the unseen ethereal shrines.</Description>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/golden_bow</Sound>
+    <Projectile>
+      <ObjectId>inf covert prj</ObjectId>
+      <Speed>160</Speed>
+      <MinDamage>50</MinDamage>
+      <MaxDamage>70</MaxDamage>
+      <LifetimeMS>440</LifetimeMS>
+      <MultiHit />
+    </Projectile>
+    <ExtraTooltipData>
+      <EffectInfo name="Infected Series" description="This item is a reskin of Bow of Covert Havens." />
+    </ExtraTooltipData>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <NumProjectiles>3</NumProjectiles>
+    <OldSound>arrowShoot</OldSound>
+    <feedPower>450</feedPower>
+    <DisplayId>Infected Bow of Covert Havens</DisplayId>
+  </Object>
+  <Object type="0x5008" id="Infected Dagger of Foul Malevolence">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>51</Index>
+    </Texture>
+    <SlotType>2</SlotType>
+    <Tier>12</Tier>
+    <Description>An infected crimson felsteel dagger saturated with evil deeds and the hatred of the gods.</Description>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/fire_dagger</Sound>
+    <Projectile>
+      <ObjectId>inf foul prj</ObjectId>
+      <Speed>140</Speed>
+      <MinDamage>95</MinDamage>
+      <MaxDamage>175</MaxDamage>
+      <LifetimeMS>400</LifetimeMS>
+    </Projectile>
+    <ExtraTooltipData>
+      <EffectInfo name="Infected Series" description="This item is a reskin of Dagger of Foul Malevolence." />
+    </ExtraTooltipData>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>daggerSwing</OldSound>
+    <feedPower>450</feedPower>
+    <DisplayId>Infected Dagger of Foul Malevolence</DisplayId>
+  </Object>
+  <Object type="0x5007" id="Infected Masamune">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>52</Index>
+    </Texture>
+    <SlotType>24</SlotType>
+    <Tier>12</Tier>
+    <Description>An infected magnificent legendary blade which only cuts those who deserve death.</Description>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/long_sword</Sound>
+    <Projectile>
+      <ObjectId>inf masa prj</ObjectId>
+      <Speed>120</Speed>
+      <MinDamage>140</MinDamage>
+      <MaxDamage>160</MaxDamage>
+      <LifetimeMS>350</LifetimeMS>
+      <MultiHit />
+    </Projectile>
+    <ExtraTooltipData>
+      <EffectInfo name="Infected Series" description="This item is a reskin of Masamune." />
+    </ExtraTooltipData>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>bladeSwing</OldSound>
+    <feedPower>450</feedPower>
+    <DisplayId>Infected Masamune</DisplayId>
+  </Object>
+  <Object type="0x5006" id="Infected Wand of Recompense">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>53</Index>
+    </Texture>
+    <SlotType>8</SlotType>
+    <Tier>12</Tier>
+    <Description>An infected great golden wand of the heavens, created by angels to wreak justice on the slayers of the innocent.</Description>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/wand_of_death</Sound>
+    <Projectile>
+      <ObjectId>inf recomp prj</ObjectId>
+      <Speed>150</Speed>
+      <LifetimeMS>600</LifetimeMS>
+      <MinDamage>90</MinDamage>
+      <MaxDamage>130</MaxDamage>
+      <MultiHit />
+    </Projectile>
+    <ExtraTooltipData>
+      <EffectInfo name="Infected Series" description="This item is a reskin of Wand of Recompense." />
+    </ExtraTooltipData>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>magicShoot</OldSound>
+    <feedPower>450</feedPower>
+    <DisplayId>Infected Wand of Recompense</DisplayId>
+  </Object>
+  <Object type="0x5005" id="Shattered Armor">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>3</Index>
+    </Texture>
+    <SlotType>6</SlotType>
+    <Description>This armor fell into the ruins of The Shatters and never heard talk about it.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="ReSkin Series" description="This item is a reskin of Harlequin Armor." />
+    </ExtraTooltipData>
+    <ActivateOnEquip stat="21" amount="14">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="27" amount="5">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="3">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="3" amount="80">IncrementStat</ActivateOnEquip>
+    <FameBonus>5</FameBonus>
+    <BagType>6</BagType>
+    <feedPower>250</feedPower>
+    <Soulbound />
+    <DisplayId>Shattered Armor</DisplayId>
+  </Object>
+  <Object type="0x5004" id="Shattered War-axe">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>4</Index>
+    </Texture>
+    <SlotType>1</SlotType>
+    <Description>Another relic that fell on the ruins of The Shatters. Despite being a relic, this war-axe was used by The Forgotten King during his rise to RotMG realms.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="ReSkin Series" description="This item is a reskin of Ancient Stone Sword." />
+    </ExtraTooltipData>
+    <RateOfFire>0.6</RateOfFire>
+    <Sound>weapon/glass_sword</Sound>
+    <Projectile>
+      <ObjectId>Grey Boomerang</ObjectId>
+      <Speed>100</Speed>
+      <MinDamage>340</MinDamage>
+      <MaxDamage>390</MaxDamage>
+      <LifetimeMS>400</LifetimeMS>
+    </Projectile>
+    <BagType>6</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>bladeSwing</OldSound>
+    <feedPower>900</feedPower>
+    <Soulbound />
+    <DisplayId>Shattered War-axe</DisplayId>
+  </Object>
+  <Object type="0x5003" id="Royal Ring">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>8</Index>
+    </Texture>
+    <SlotType>9</SlotType>
+    <Description>One of the most sacred and mysterious relics throughout the kingdom.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="ReSkin Series" description="This item is a reskin of The Forgotten Crown." />
+    </ExtraTooltipData>
+    <ActivateOnEquip stat="28" amount="6">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="20" amount="6">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="0" amount="110">IncrementStat</ActivateOnEquip>
+    <BagType>6</BagType>
+    <FameBonus>5</FameBonus>
+    <feedPower>500</feedPower>
+    <Soulbound />
+    <DisplayId>Royal Ring</DisplayId>
+  </Object>
+  <Object type="0x5002" id="Royal Breastplate">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>7</Index>
+    </Texture>
+    <SlotType>7</SlotType>
+    <Description>Anyone who holds the power that surrounds this sacred armor will be able to dominate all realms.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="ReSkin Series" description="This item is a reskin of Fire Dragon Battle Armor." />
+    </ExtraTooltipData>
+    <ActivateOnEquip stat="20" amount="3">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="21" amount="15">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="3">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="26" amount="3">IncrementStat</ActivateOnEquip>
+    <BagType>6</BagType>
+    <FameBonus>5</FameBonus>
+    <feedPower>450</feedPower>
+    <Soulbound />
+    <DisplayId>Royal Breastplate</DisplayId>
+  </Object>
+  <Object type="0x5001" id="Royal Battleshield">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>6</Index>
+    </Texture>
+    <SlotType>5</SlotType>
+    <Description>This sacred shield is the true coat of arms that represents all the powers that prowl the realms.</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="ReSkin Series" description="This item is a reskin of Shield of Ogmur." />
+    </ExtraTooltipData>
+    <Sound>spell/fire_spray</Sound>
+    <Projectile>
+      <ObjectId>Idol Wave</ObjectId>
+      <Speed>160</Speed>
+      <MinDamage>300</MinDamage>
+      <MaxDamage>400</MaxDamage>
+      <LifetimeMS>200</LifetimeMS>
+      <Size>140</Size>
+      <ConditionEffect duration="4">Armor Broken</ConditionEffect>
+      <MultiHit />
+      <PassesCover />
+      <ParticleTrail>0xEEDD82</ParticleTrail>
+    </Projectile>
+    <ActivateOnEquip stat="21" amount="14">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="0" amount="60">IncrementStat</ActivateOnEquip>
+    <ConditionEffect duration="4">Armor Broken</ConditionEffect>
+    <Usable />
+    <BagType>6</BagType>
+    <FameBonus>6</FameBonus>
+    <MpCost>100</MpCost>
+    <Activate>Shoot</Activate>
+    <NumProjectiles>5</NumProjectiles>
+    <feedPower>1000</feedPower>
+    <Soulbound />
+    <DisplayId>Royal Battleshield</DisplayId>
+  </Object>
+  <Object type="0x5000" id="Royal Blade">
+    <Class>Equipment</Class>
+    <Item />
+    <Texture>
+      <File>LRE</File>
+      <Index>5</Index>
+    </Texture>
+    <SlotType>1</SlotType>
+    <Description>The Oryx servants are terrified in the presence of this equipment!</Description>
+    <ExtraTooltipData>
+      <EffectInfo name="ReSkin Series" description="This item is a reskin of Umbral Sword." />
+    </ExtraTooltipData>
+    <RateOfFire>1</RateOfFire>
+    <Sound>weapon/mithril_sword</Sound>
+    <Projectile>
+      <ObjectId>Idol Blast</ObjectId>
+      <Speed>100</Speed>
+      <MinDamage>225</MinDamage>
+      <MaxDamage>285</MaxDamage>
+      <LifetimeMS>350</LifetimeMS>
+      <ParticleTrail intensity="0.2" lifetimeMS="250">0xEEDD82</ParticleTrail>
+    </Projectile>
+    <BagType>4</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>bladeSwing</OldSound>
+    <DisplayId>Royal Blade</DisplayId>
+  </Object>
+  <Object type="0x5107" id="K is Bae Skin">
+    <Class>Equipment</Class>
+    <Item />
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>166</Index>
+    </AnimatedTexture>
+    <SlotType>10</SlotType>
+    <Description>K is Bae! Thanks to: Devwarlt (and the frog).</Description>
+    <Activate skinType="36865">UnlockSkin</Activate>
+    <Consumable />
+    <BagType>6</BagType>
+    <DisplayId>K is Bae Skin</DisplayId>
+  </Object>
+  <Object type="0x5106" id="Deverino Skin">
+    <Class>Equipment</Class>
+    <Item />
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>167</Index>
+    </AnimatedTexture>
+    <SlotType>10</SlotType>
+    <LT />
+    <Description>Rare skin around the LoE Realm!</Description>
+    <Activate skinType="36864">UnlockSkin</Activate>
+    <Consumable />
+    <BagType>6</BagType>
+    <DisplayId>Deverino Skin</DisplayId>
+  </Object>
+  <Object type="0x5083" id="Happy Clown Skin">
+    <Class>Equipment</Class>
+    <Item />
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>168</Index>
+    </AnimatedTexture>
+    <SlotType>10</SlotType>
+    <Description>It's time to play and to laugh! Have fun with your friends using this incredible and cheerful skin. Thanks to: NPEtoPPEx.</Description>
+    <Activate skinType="36869">UnlockSkin</Activate>
+    <Consumable />
+    <BagType>6</BagType>
+    <DisplayId>Happy Clown Skin</DisplayId>
+  </Object>
+  <Object type="0x5073" id="Uzumaki Naruto Skin">
+    <Class>Equipment</Class>
+    <Item />
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>169</Index>
+    </AnimatedTexture>
+    <SlotType>10</SlotType>
+    <Description>Only the strongest of all ninja is worthy of this skin! Thanks to: NPEtoPPEx and Devwarlt(and the frog).</Description>
+    <Activate skinType="36870">UnlockSkin</Activate>
+    <Consumable />
+    <BagType>6</BagType>
+    <DisplayId>Uzumaki Naruto Skin</DisplayId>
+  </Object>
+  <Object type="0x5067" id="Dragon Skin">
+    <Class>Equipment</Class>
+    <Item />
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>171</Index>
+    </AnimatedTexture>
+    <SlotType>10</SlotType>
+    <Description>Customize your Wizard with the Dragon Skin.</Description>
+    <Activate skinType="36867">UnlockSkin</Activate>
+    <Consumable />
+    <BagType>6</BagType>
+    <DisplayId>Dragon Skin</DisplayId>
+  </Object>
+  <Object type="0x5066" id="Frog King Skin">
+    <Class>Equipment</Class>
+    <Item />
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>172</Index>
+    </AnimatedTexture>
+    <SlotType>10</SlotType>
+    <Description>Customize your Assassin with the Frog King Skin.</Description>
+    <Activate skinType="36871">UnlockSkin</Activate>
+    <Consumable />
+    <BagType>6</BagType>
+    <DisplayId>Frog King Skin</DisplayId>
+  </Object>
+  <Object type="0x5065" id="Lil'Athena Skin">
+    <Class>Equipment</Class>
+    <Item />
+    <AnimatedTexture>
+      <File>playerskins</File>
+      <Index>170</Index>
+    </AnimatedTexture>
+    <SlotType>10</SlotType>
+    <Description>Only the strongest of all Palidin can attain this! Thanks to:Filisha.</Description>
+    <Activate skinType="36866">UnlockSkin</Activate>
+    <Consumable />
+    <BagType>6</BagType>
+    <DisplayId>Lil'Athena Skin</DisplayId>
+  </Object>
+  <Object type="0x518e" id="Warden Two-handed Sword" setType="0x0009" setName="Forgotten Sentinel Set">
+    <Class>Equipment</Class>
+    <Item/>
+    <Texture>
+      <File>LRE</File>
+      <Index>0</Index>
+    </Texture>
+    <SlotType>1</SlotType>
+    <Description>Two-Handed Sword of the forgotten sentinel.</Description>
+    <RateOfFire>0.6</RateOfFire>
+    <Sound>weapon/glass_sword</Sound>
+    <Projectile>
+      <ObjectId>White Orb</ObjectId>
+      <Speed>85</Speed>
+      <MinDamage>340</MinDamage>
+      <MaxDamage>390</MaxDamage>
+      <LifetimeMS>400</LifetimeMS>
+    </Projectile>
+    <BagType>6</BagType>
+    <FameBonus>4</FameBonus>
+    <OldSound>bladeSwing</OldSound>
+    <DisplayId>Warden Two-handed Sword</DisplayId>
+  </Object>
+  <Object type="0x518f" id="Warden Helmet" setType="0x0009" setName="Forgotten Sentinel Set">
+    <Class>Equipment</Class>
+    <Item/>
+    <Texture>
+      <File>LRE</File>
+      <Index>1</Index>
+    </Texture>
+    <SlotType>16</SlotType>
+    <Description>Helmet of the forgotten sentinel.</Description>
+    <ActivateOnEquip stat="21" amount="10">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="22" amount="5">IncrementStat</ActivateOnEquip>
+    <Usable/>
+    <BagType>6</BagType>
+    <FameBonus>6</FameBonus>
+    <MpCost>110</MpCost>
+    <Activate effect="Healing" duration="4.5" range="4" useWisMod="true">ConditionEffectAura</Activate>
+    <Activate effect="Invulnerable" duration="1.2" useWisMod="true">ConditionEffectSelf</Activate>
+    <Cooldown>6</Cooldown>
+    <DisplayId>Warden Helmet</DisplayId>
+  </Object>
+  <Object type="0x518d" id="The Sentinel Warden" setType="0x0009" setName="Forgotten Sentinel Set">
+    <Class>Equipment</Class>
+    <Item/>
+    <Texture>
+      <File>LRE</File>
+      <Index>2</Index>
+    </Texture>
+    <SlotType>7</SlotType>
+    <Description>Armor of the forgotten sentinel.</Description>
+    <ActivateOnEquip stat="20" amount="2">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="21" amount="20">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="26" amount="6">IncrementStat</ActivateOnEquip>
+    <ActivateOnEquip stat="0" amount="60">IncrementStat</ActivateOnEquip>
+    <BagType>6</BagType>
+    <FameBonus>5</FameBonus>
+    <Legacy/>
+    <DisplayId>The Sentinel Warden</DisplayId>
+  </Object>
+</Objects>
