@@ -96,50 +96,13 @@ namespace LoESoft.GameServer.realm
             Done = true;
 
             world.Timers.Add(new WorldTimer(100000, (ww, tt) => GameServer.Manager.CloseWorld(world)));
-            world.Timers.Add(new WorldTimer(120000, (ww, tt) => CloseRealm()));
 
-            GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID).Timers.Add(new WorldTimer(130000, (w, t) =>
+            GameServer.Manager.GetWorld((int)WorldID.ISLE_OF_APPRENTICES).Timers.Add(new WorldTimer(130000, (w, t) =>
                 Task.Factory.StartNew(() =>
                     GameWorld.AutoName(1, true))
                     .ContinueWith(_ => GameServer.Manager.AddWorld(_.Result)
                 , TaskScheduler.Default)
             ));
-        }
-
-        public void CloseRealm()
-        {
-            World ocWorld = null;
-            world.Timers.Add(new WorldTimer(2000, (w, t) =>
-            {
-                ocWorld = GameServer.Manager.AddWorld(new OryxCastle());
-                ocWorld.Manager = GameServer.Manager;
-            }));
-            world.Timers.Add(new WorldTimer(8000, (w, t) =>
-            {
-                foreach (var i in world.Players.Values)
-                {
-                    if (ocWorld == null) GameServer.Manager.TryDisconnect(i.Client, DisconnectReason.RECONNECT_TO_CASTLE);
-                    i.Client.SendMessage(new RECONNECT
-                    {
-                        Host = "",
-                        Port = Settings.GAMESERVER.PORT,
-                        GameId = ocWorld.Id,
-                        Name = ocWorld.Name,
-                        Key = ocWorld.PortalKey
-                    });
-                }
-            }));
-            foreach (var i in world.Players.Values)
-            {
-                SendMsg(i, "MY MINIONS HAVE FAILED ME!", "#Oryx the Mad God");
-                SendMsg(i, "BUT NOW YOU SHALL FEEL MY WRATH!", "#Oryx the Mad God");
-                SendMsg(i, "COME MEET YOUR DOOM AT THE WALLS OF MY CASTLE!", "#Oryx the Mad God");
-                i.Client.SendMessage(new SHOWEFFECT
-                {
-                    EffectType = EffectType.Jitter
-                });
-            }
-            world.Timers.Add(new WorldTimer(10000, (w, t) => GameServer.Manager.RemoveWorld(w)));
         }
 
         public void OnPlayerEntered(Player player)

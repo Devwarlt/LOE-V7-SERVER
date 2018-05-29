@@ -445,6 +445,27 @@ namespace LoESoft.AppEngine
 
     internal class Character
     {
+        /*
+         * CharLevel
+         * CharExperience
+         * CharHealthPoints
+         * CharMagicPoints
+         * CharAttackLevel
+         * CharAttackExperience
+         * CharDefenseLevel
+         * CharDefenseExperience
+         * CharSpeed
+         */
+        public int CharLevel { get; private set; }
+        public double CharExperience { get; private set; }
+        public int CharHealthPoints { get; private set; }
+        public int CharMagicPoints { get; private set; }
+        public int CharAttackLevel { get; private set; }
+        public double CharAttackExperience { get; private set; }
+        public int CharDefenseLevel { get; private set; }
+        public double CharDefenseExperience { get; private set; }
+        public int CharSpeed { get; private set; }
+
         public int CharacterId { get; private set; }
         public ushort ObjectType { get; private set; }
         public int Level { get; private set; }
@@ -481,6 +502,15 @@ namespace LoESoft.AppEngine
             {
                 CharacterId = character.CharId,
                 ObjectType = character.ObjectType,
+                CharLevel = character.CharLevel,
+                CharExperience = character.CharExperience,
+                CharHealthPoints = character.CharHealthPoints,
+                CharMagicPoints = character.CharMagicPoints,
+                CharAttackLevel = character.CharAttackLevel,
+                CharAttackExperience = character.CharAttackExperience,
+                CharDefenseLevel = character.CharDefenseLevel,
+                CharDefenseExperience = character.CharDefenseExperience,
+                CharSpeed = character.CharSpeed,
                 Level = character.Level,
                 Exp = character.Experience,
                 CurrentFame = character.Fame,
@@ -544,7 +574,16 @@ namespace LoESoft.AppEngine
                     new XElement("XpTimer", XpTimer),
                     new XElement("LDTimer", LDTimer),
                     new XElement("LTTimer", LTTimer),
-                    new XElement("HasBackpack", HasBackpack ? 1 : 0)
+                    new XElement("HasBackpack", HasBackpack ? 1 : 0),
+                    new XElement("CharLevel", CharLevel),
+                    new XElement("CharExperience", CharExperience),
+                    new XElement("CharHealthPoints", CharHealthPoints),
+                    new XElement("CharMagicPoints", CharMagicPoints),
+                    new XElement("CharAttackLevel", CharAttackLevel),
+                    new XElement("CharAttackExperience", CharAttackExperience),
+                    new XElement("CharDefenseLevel", CharDefenseLevel),
+                    new XElement("CharDefenseExperience", CharDefenseExperience),
+                    new XElement("CharSpeed", CharSpeed)
                 );
         }
     }

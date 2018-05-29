@@ -13,6 +13,16 @@ namespace LoESoft.GameServer.realm.entity.player
 {
     partial class Player
     {
+        public int CharLevel { get; set; }
+        public double CharExperience { get; set; }
+        public int CharHealthPoints { get; set; }
+        public int CharMagicPoints { get; set; }
+        public int CharAttackLevel { get; set; }
+        public double CharAttackExperience { get; set; }
+        public int CharDefenseLevel { get; set; }
+        public double CharDefenseExperience { get; set; }
+        public int CharSpeed { get; set; }
+
         public int MaxHackEntries { get; set; }
         public AccountTypePerks AccountPerks { get; set; }
         public int PetID { get; set; }

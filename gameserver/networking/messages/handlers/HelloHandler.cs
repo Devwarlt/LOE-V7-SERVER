@@ -149,7 +149,7 @@ namespace LoESoft.GameServer.networking.handlers
             else
             {
                 if (message.GameId == (int)WorldID.NEXUS_LIMBO)
-                    message.GameId = (int)WorldID.NEXUS_ID;
+                    message.GameId = (int)WorldID.ISLE_OF_APPRENTICES;
 
                 World world = Manager.GetWorld(message.GameId);
 

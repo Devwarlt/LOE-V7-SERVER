@@ -502,6 +502,8 @@ namespace LoESoft.Core
 
     public class DbChar : RedisObject
     {
+        public static readonly ushort APPRENTICE_TYPE = 0x0300;
+
         public DbAccount Account { get; private set; }
         public int CharId { get; private set; }
 
@@ -518,6 +520,73 @@ namespace LoESoft.Core
             set { SetValue("charType", value); }
         }
 
+        /*
+         * CharLevel
+         * CharExperience
+         * CharHealthPoints
+         * CharMagicPoints
+         * CharAttackLevel
+         * CharAttackExperience
+         * CharDefenseLevel
+         * CharDefenseExperience
+         * CharSpeed
+         */
+        #region "New character stats"
+        public int CharLevel
+        {
+            get { return GetValue("charLvl", 1); }
+            set { SetValue("charLvl", value); }
+        }
+
+        public double CharExperience
+        {
+            get { return GetValue("charExp", 0); }
+            set { SetValue("charExp", value); }
+        }
+
+        public int CharHealthPoints
+        {
+            get { return GetValue("charHP", 100); }
+            set { SetValue("charHP", value); }
+        }
+
+        public int CharMagicPoints
+        {
+            get { return GetValue("charMP", 0); }
+            set { SetValue("charMP", value); }
+        }
+
+        public int CharAttackLevel
+        {
+            get { return GetValue("charAttLvl", 0); }
+            set { SetValue("charAttLvl", value); }
+        }
+
+        public double CharAttackExperience
+        {
+            get { return GetValue("charAttExp", 0); }
+            set { SetValue("charAttExp", value); }
+        }
+
+        public int CharDefenseLevel
+        {
+            get { return GetValue("charDefLvl", 0); }
+            set { SetValue("charDefLvl", value); }
+        }
+
+        public double CharDefenseExperience
+        {
+            get { return GetValue("charAttExp", 0); }
+            set { SetValue("charAttExp", value); }
+        }
+
+        public int CharSpeed
+        {
+            get { return GetValue("charSpd", 0); }
+            set { SetValue("charSpd", value); }
+        }
+        #endregion
+
         public int Level
         {
             get { return GetValue("level", 1); }
@@ -528,6 +597,12 @@ namespace LoESoft.Core
         {
             get { return GetValue("exp", 0); }
             set { SetValue("exp", value); }
+        }
+
+        public int Stars
+        {
+            get { return GetValue("stars", 0); }
+            set { SetValue("stars", value); }
         }
 
         public int Fame

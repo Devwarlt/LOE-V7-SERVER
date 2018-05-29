@@ -85,10 +85,10 @@ namespace LoESoft.GameServer.networking.handlers
                                     if (w != null && GameServer.Manager.Worlds.ContainsKey(w.Id))
                                         world = w;
                                     else
-                                        world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                                        world = GameServer.Manager.GetWorld((int)WorldID.ISLE_OF_APPRENTICES);
                                 }
                                 else
-                                    world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                                    world = GameServer.Manager.GetWorld((int)WorldID.ISLE_OF_APPRENTICES);
                                 setWorldInstance = false;
                             }
                             break;
@@ -96,10 +96,10 @@ namespace LoESoft.GameServer.networking.handlers
                             world = GameServer.Manager.GetWorld((int)WorldID.MARKET);
                             break;
                         case 0x071d:
-                            world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                            world = GameServer.Manager.GetWorld((int)WorldID.ISLE_OF_APPRENTICES);
                             break;
                         case 0x0712:
-                            world = GameServer.Manager.GetWorld((int)WorldID.NEXUS_ID);
+                            world = GameServer.Manager.GetWorld((int)WorldID.ISLE_OF_APPRENTICES);
                             break;
                         case 0x1756:
                             world = GameServer.Manager.GetWorld((int)WorldID.DAILY_QUEST_ID);
@@ -151,7 +151,7 @@ namespace LoESoft.GameServer.networking.handlers
                 {
                     GameServer.Manager.LastWorld.TryRemove(player.AccountId, out World dummy);
                 }
-                if (player.Owner is Nexus || player.Owner is GameWorld)
+                if (player.Owner is IsleofApprentices || player.Owner is GameWorld)
                     GameServer.Manager.LastWorld.TryAdd(player.AccountId, player.Owner);
 
                 client?.Reconnect(new RECONNECT
