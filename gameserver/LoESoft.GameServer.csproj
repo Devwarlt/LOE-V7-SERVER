@@ -574,10 +574,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="realm\mapsetpiece\maps\succubus.jm" />
+    <EmbeddedResource Include="realm\world\maps\json\IsleofApprentices.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="logic\monsters\Dungeons\" />
-    <Folder Include="realm\world\maps\json\" />
     <Folder Include="realm\world\maps\wmap\" />
   </ItemGroup>
   <ItemGroup>

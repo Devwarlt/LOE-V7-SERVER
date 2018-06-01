@@ -13,6 +13,7 @@ using LoESoft.GameServer.networking.error;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.config;
 using System.Collections.Generic;
+using LoESoft.Core.models;
 
 #endregion
 
@@ -148,9 +149,6 @@ namespace LoESoft.GameServer.networking.handlers
             }
             else
             {
-                if (message.GameId == (int)TownID.ISLE_OF_APPRENTICES_LIMBO_ID)
-                    message.GameId = (int)TownID.ISLE_OF_APPRENTICES_ID;
-
                 World world = Manager.GetWorld(message.GameId);
 
                 if (acc.AccountType == (int)AccountType.VIP_ACCOUNT)

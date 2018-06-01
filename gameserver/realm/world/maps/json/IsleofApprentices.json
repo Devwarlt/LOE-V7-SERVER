@@ -1,0 +1,70 @@
+﻿{
+  "width": 21,
+  "dict": [
+    { "objs": [ { "id": "DS Wall" } ] },
+    { "ground": "Pet Yard Grass" },
+    { "ground": "Tutorial Floor" },
+    { "ground": "Road" },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Fir Tree 1" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Bloody Rose" } ]
+    },
+    {
+      "ground": "Tutorial Floor",
+      "objs": [ { "id": "Temple Candle Stand" } ]
+    },
+    {
+      "ground": "Tutorial Floor",
+      "objs": [ { "id": "Temple Candle Stand NoFire" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Earth Blue Flowers" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Fir Tree 2" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Fir Tree 3" } ]
+    },
+    { "ground": "Pet Yard Dirt" },
+    { "ground": "Light Sand" },
+    { "ground": "Dark Sand" },
+    { "ground": "Water" },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Dead Bush 8" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "regions": [ { "id": "Spawn" } ],
+      "ground": "Light Sand"
+    },
+    {
+      "ground": "Dark Sand",
+      "objs": [ { "id": "Dead Bush 5" } ]
+    },
+    { "objs": [ { "id": "Cave Wall" } ] },
+    { "ground": "Dark Water Flowing" },
+    {
+      "ground": "Dark Sand",
+      "objs": [ { "id": "Dead Bush 3" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Dead Bush 2" } ]
+    },
+    { "ground": "Dark Water" }
+  ],
+  "data": "eNqV0OsCgiAMBtBpKihKFy3f/02DbcBmZun3B9hxEwFOPJUIQA0XTP1RifuGd23YdSxNWLd8brOkdYNS9kyyF7L03Eqrplc/pmtpv/RslOwPpqf5cvqA0rDsWA6qpz3sWeE36O/c+/P7d3chJt897vTdXT5zMIaQjCuX33copxDHGVXSaRTx8bia4LpxFKp5lp71CDes3rN7oPIoZ1hCyD5Frxf3i5Uo5pBVWOosp5JbWRab9JSnkiuSbNJeqIXrRRYtU2paHuWc/DNv5ugR/Q==",
+  "height": 24
+}

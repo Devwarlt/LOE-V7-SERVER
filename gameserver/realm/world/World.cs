@@ -23,9 +23,8 @@ namespace LoESoft.GameServer.realm
     public enum TownID : int
     {
         ISLE_OF_APPRENTICES_ID = -1,
-        ISLE_OF_APPRENTICES_LIMBO_ID = -3,
-        VAULT_ID = -5,
-        TEST_ID = -6
+        TEST_ID = -2,
+        VAULT_ID = -3
     }
 
     public abstract class World : IDisposable
