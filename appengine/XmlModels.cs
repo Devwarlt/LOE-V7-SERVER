@@ -216,15 +216,15 @@ namespace LoESoft.AppEngine
 
     internal class Vault
     {
-        private int[][] chests { get; set; }
+        private int[][] Chests { get; set; }
 
-        public int[] this[int index] => chests[index];
+        public int[] this[int index] => Chests[index];
 
         public static Vault FromDb(DbAccount acc, DbVault vault)
         {
             return new Vault()
             {
-                chests = Enumerable.Range(1, acc.VaultCount).
+                Chests = Enumerable.Range(1, acc.VaultCount).
                             Select(x => vault[x] ??
                                 Enumerable.Repeat(-1, 8).ToArray()).ToArray()
             };
@@ -234,7 +234,7 @@ namespace LoESoft.AppEngine
         {
             return
                 new XElement("Vault",
-                    chests.Select(x => new XElement("Chest", x.ToCommaSepString()))
+                    Chests.Select(x => new XElement("Chest", x.ToCommaSepString()))
                 );
         }
     }

@@ -20,18 +20,12 @@ namespace LoESoft.GameServer.realm
 {
     public interface IDungeon { }
 
-    public enum WorldID : int
+    public enum TownID : int
     {
-        TUT_ID = -1,
-        NEXUS_ID = -2,
-        NEXUS_LIMBO = -3,
+        ISLE_OF_APPRENTICES_ID = -1,
+        ISLE_OF_APPRENTICES_LIMBO_ID = -3,
         VAULT_ID = -5,
-        TEST_ID = -6,
-        GAUNTLET = -7,
-        WC = -8,
-        ARENA = -9,
-        MARKET = -11,
-        DAILY_QUEST_ID = -13
+        TEST_ID = -6
     }
 
     public abstract class World : IDisposable

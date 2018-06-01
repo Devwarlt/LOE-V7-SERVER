@@ -1268,7 +1268,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
                             RECONNECT _reconnect = new RECONNECT
                             {
-                                GameId = (int)WorldID.NEXUS_ID, // change to Drasta Citadel in future versions!
+                                GameId = (int)TownID.ISLE_OF_APPRENTICES_ID, // change to Drasta Citadel in future versions!
                                 Host = string.Empty,
                                 Key = Empty<byte>.Array,
                                 Name = "Nexus",

@@ -14,7 +14,7 @@ namespace LoESoft.GameServer.realm.world
 
         public Test()
         {
-            Id = (int)WorldID.TEST_ID;
+            Id = (int)TownID.TEST_ID;
             Name = "Test";
             Background = 0;
             Dungeon = true;

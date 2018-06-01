@@ -44,24 +44,6 @@ namespace LoESoft.GameServer.realm.commands
         }
     }
 
-    class TutorialCommand : Command
-    {
-        public TutorialCommand() : base("tutorial") { }
-
-        protected override bool Process(Player player, RealmTime time, string[] args)
-        {
-            player.Client.Reconnect(new RECONNECT
-            {
-                Host = "",
-                Port = Settings.GAMESERVER.PORT,
-                GameId = (int)WorldID.TUT_ID,
-                Name = "Tutorial",
-                Key = Empty<byte>.Array,
-            });
-            return true;
-        }
-    }
-
     class TradeCommand : Command
     {
         public TradeCommand() : base("trade") { }

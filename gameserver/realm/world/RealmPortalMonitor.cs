@@ -14,7 +14,7 @@ namespace LoESoft.GameServer.realm
     public class RealmPortalMonitor
     {
         private readonly RealmManager manager;
-        private readonly Nexus nexus;
+        private readonly IsleofApprentices nexus;
         private readonly Random rand = new Random();
         private readonly object worldLock = new object();
         public Dictionary<World, Portal> portals = new Dictionary<World, Portal>();
@@ -22,13 +22,7 @@ namespace LoESoft.GameServer.realm
         public RealmPortalMonitor(RealmManager manager)
         {
             this.manager = manager;
-            nexus = manager.Worlds[(int)WorldID.NEXUS_ID] as Nexus;
-            lock (worldLock)
-                foreach (KeyValuePair<int, World> i in manager.Worlds)
-                {
-                    if (i.Value is GameWorld)
-                        WorldAdded(i.Value);
-                }
+            nexus = manager.Worlds[(int)TownID.ISLE_OF_APPRENTICES_ID] as IsleofApprentices;
         }
 
         private Position GetRandPosition()
@@ -109,7 +103,7 @@ namespace LoESoft.GameServer.realm
             {
                 World[] worlds = portals.Keys.ToArray();
                 if (worlds.Length == 0)
-                    return manager.Worlds[(int)WorldID.NEXUS_ID];
+                    return manager.Worlds[(int)TownID.ISLE_OF_APPRENTICES_ID];
                 return worlds[Environment.TickCount % worlds.Length];
             }
         }

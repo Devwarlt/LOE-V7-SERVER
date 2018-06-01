@@ -88,15 +88,10 @@ namespace LoESoft.GameServer.realm
 
             Merchant.HandleMerchant(GameData);
 
-            AddWorld((int)WorldID.NEXUS_ID, Worlds[0] = new Nexus());
-            AddWorld((int)WorldID.MARKET, new ClothBazaar());
-            AddWorld((int)WorldID.TEST_ID, new Test());
-            AddWorld((int)WorldID.TUT_ID, new Tutorial(true));
-            AddWorld((int)WorldID.DAILY_QUEST_ID, new DailyQuestRoom());
+            AddWorld((int)TownID.ISLE_OF_APPRENTICES_ID, Worlds[0] = new IsleofApprentices());
+            AddWorld((int)TownID.TEST_ID, new Test());
 
             Monitor = new RealmPortalMonitor(this);
-
-            Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => AddWorld(_.Result), TaskScheduler.Default);
 
             InterServer = new ISManager(this);
 
@@ -282,15 +277,11 @@ namespace LoESoft.GameServer.realm
         {
             if (world.Manager == null)
                 world.Manager = this;
-            if (world is GameWorld)
-                Monitor.WorldAdded(world);
         }
 
         private void OnWorldRemoved(World world)
         {
             world.Manager = null;
-            if (world is GameWorld)
-                Monitor.WorldRemoved(world);
         }
 
         #endregion

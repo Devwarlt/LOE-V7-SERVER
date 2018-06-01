@@ -98,35 +98,6 @@ namespace LoESoft.GameServer.realm.commands
         }
     }
 
-    class GlandCommand : Command
-    {
-        public GlandCommand() : base("glands", (int)AccountType.FREE_ACCOUNT) { }
-
-        protected override bool Process(Player player, RealmTime time, string[] args)
-        {
-            if (!(player.Owner is IRealm))
-            {
-                player.SendInfo("You can only use this command at realm.");
-                return false;
-            }
-
-            player.Move(1000f, 1000f);
-
-            player.Owner.BroadcastMessage(new GOTO
-            {
-                ObjectId = player.Id,
-                Position = new Position
-                {
-                    X = player.X,
-                    Y = player.Y
-                }
-            }, null);
-            player.UpdateCount++;
-
-            return true;
-        }
-    }
-
     class Summon : Command
     {
         public Summon()
@@ -215,18 +186,6 @@ namespace LoESoft.GameServer.realm.commands
             return true;
         }
     }
-
-    class AddRealmCommand : Command
-    {
-        public AddRealmCommand() : base("addrealm", (int)AccountType.LOESOFT_ACCOUNT) { }
-
-        protected override bool Process(Player player, RealmTime time, string[] args)
-        {
-            Task.Factory.StartNew(() => GameWorld.AutoName(1, true)).ContinueWith(_ => GameServer.Manager.AddWorld(_.Result), TaskScheduler.Default);
-            return true;
-        }
-    }
-
 
     class SpawnCommand : Command
     {

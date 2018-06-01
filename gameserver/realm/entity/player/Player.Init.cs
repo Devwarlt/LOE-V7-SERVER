@@ -287,7 +287,7 @@ namespace LoESoft.GameServer.realm.entity.player
             SetNewbiePeriod();
             base.Init(owner);
             List<int> gifts = Client.Account.Gifts.ToList();
-            if (owner.Id == (int)WorldID.NEXUS_ID || owner.Name == "Vault")
+            if (owner.Id == (int)TownID.ISLE_OF_APPRENTICES_ID || owner.Name == "Vault")
             {
                 Client.SendMessage(new GLOBAL_NOTIFICATION
                 {

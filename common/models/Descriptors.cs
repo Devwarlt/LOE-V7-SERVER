@@ -788,7 +788,7 @@ public class Item : IFeedable
             else
                 Tier = -1;
             MinStars = elem.Attribute("minStars") != null ? int.Parse(elem.Attribute("minStars").Value) : 0;
-            Description = elem.Element("Description") != null ? elem.Element("Description").Value : null;
+            Description = elem.Element("Description")?.Value;
             RateOfFire = (n = elem.Element("RateOfFire")) != null ? float.Parse(n.Value, NumberStyles.Any, ci) : 1;
             Usable = elem.Element("Usable") != null;
             BagType = (n = elem.Element("BagType")) != null ? Utils.FromString(n.Value) : 0;

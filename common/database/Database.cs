@@ -146,17 +146,17 @@ namespace LoESoft.Core
             }
         }
 
-        public IDisposable Lock(DbAccount acc) => new l(this, acc);
+        public IDisposable Lock(DbAccount acc) => new L(this, acc);
 
-        public bool LockOk(IDisposable l) => ((l)l).lockOk;
+        public bool LockOk(IDisposable l) => ((L)l).lockOk;
 
-        private struct l : IDisposable
+        private struct L : IDisposable
         {
             private Database db;
             private DbAccount acc;
             internal bool lockOk;
 
-            public l(Database db, DbAccount acc)
+            public L(Database db, DbAccount acc)
             {
                 this.db = db;
                 this.acc = acc;
@@ -331,7 +331,7 @@ namespace LoESoft.Core
             return ret;
         }
 
-        public string ResolveId(string name) => Hashes.GetString(0, "names", name.ToUpperInvariant()).Exec() == null ? "0" : Hashes.GetString(0, "names", name.ToUpperInvariant()).Exec();
+        public string ResolveId(string name) => Hashes.GetString(0, "names", name.ToUpperInvariant()).Exec() ?? "0";
 
         public string ResolveIgn(string accId) => Hashes.GetString(0, $"account.{accId}", "name").Exec();
 
@@ -692,8 +692,10 @@ namespace LoESoft.Core
             }
             catch
             {
-                List<int> x = new List<int>();
-                x.Add(lockId);
+                List<int> x = new List<int>
+                {
+                    lockId
+                };
                 int[] result = x.ToArray();
                 acc.Locked = result;
                 Update(acc);
@@ -722,8 +724,10 @@ namespace LoESoft.Core
             }
             catch
             {
-                List<int> x = new List<int>();
-                x.Add(lockId);
+                List<int> x = new List<int>
+                {
+                    lockId
+                };
                 int[] result = x.ToArray();
                 acc.Ignored = result;
                 Update(acc);
@@ -789,9 +793,10 @@ namespace LoESoft.Core
 
             if (guild.Members == null)
             {
-                List<int> gfounder = new List<int>();
-
-                gfounder.Add(Convert.ToInt32(acc.AccountId));
+                List<int> gfounder = new List<int>
+                {
+                    Convert.ToInt32(acc.AccountId)
+                };
                 guild.Members = gfounder.ToArray();
             }
             else

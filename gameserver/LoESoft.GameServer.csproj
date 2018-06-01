@@ -177,7 +177,6 @@
     <Compile Include="logic\skills\RemoveEntity.cs" />
     <Compile Include="logic\transitions\ChatTransition.cs" />
     <Compile Include="logic\transitions\EntitiesNotExistsTransition.cs" />
-    <Compile Include="logic\skills\RealmPortalDrop.cs" />
     <Compile Include="logic\skills\MoveTo.cs" />
     <Compile Include="logic\skills\SpecificHeal.cs" />
     <Compile Include="logic\skills\NexusHealHp.cs" />
@@ -433,11 +432,6 @@
     <Compile Include="realm\mapsetpiece\setpieces\TempleA.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\TempleB.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Tower.cs" />
-    <Compile Include="realm\world\realms\RealmEvents.cs" />
-    <Compile Include="realm\world\realms\RealmHeroes.cs" />
-    <Compile Include="realm\world\realms\RealmSpawns.cs" />
-    <Compile Include="realm\world\realms\RealmTaunts.cs" />
-    <Compile Include="realm\world\realms\RealmUtils.cs" />
     <Compile Include="realm\world\Sight.cs" />
     <Compile Include="realm\Stats.cs" />
     <Compile Include="realm\StatsManager.cs" />
@@ -448,34 +442,8 @@
     <Compile Include="realm\TradeManager.cs" />
     <Compile Include="realm\Utils.cs" />
     <Compile Include="realm\world\World.cs" />
-    <Compile Include="realm\world\worlds\Public Arena.cs" />
-    <Compile Include="realm\world\worlds\Arena.cs" />
-    <Compile Include="realm\world\worlds\dungeons\Beachzone.cs" />
-    <Compile Include="realm\world\worlds\dungeons\BelladonnasGarden.cs" />
-    <Compile Include="realm\world\worlds\dungeons\CandylandHuntingGrounds.cs" />
-    <Compile Include="realm\world\worlds\ClothBazaar.cs" />
-    <Compile Include="realm\world\worlds\dungeons\DavyJonesLocker.cs" />
-    <Compile Include="realm\world\worlds\dungeons\ForestMaze.cs" />
-    <Compile Include="realm\world\worlds\DailyQuestRoom.cs" />
-    <Compile Include="realm\world\worlds\dungeons\MadLab.cs" />
-    <Compile Include="realm\world\worlds\dungeons\PirateCave.cs" />
-    <Compile Include="realm\world\worlds\dungeons\SpiderDen.cs" />
-    <Compile Include="realm\world\worlds\dungeons\SpriteWorld.cs" />
-    <Compile Include="realm\world\worlds\dungeons\TheShatters.cs" />
-    <Compile Include="realm\world\worlds\dungeons\SnakePit.cs" />
-    <Compile Include="realm\world\worlds\dungeons\TomboftheAncients.cs" />
-    <Compile Include="realm\world\worlds\dungeons\LairofShaitan.cs" />
-    <Compile Include="realm\world\worlds\dungeons\AbyssofDemons.cs" />
-    <Compile Include="realm\world\worlds\GameWorld.cs" />
-    <Compile Include="realm\world\worlds\Kitchen.cs" />
-    <Compile Include="realm\world\worlds\Nexus.cs" />
-    <Compile Include="realm\world\realms\Realm.cs" />
-    <Compile Include="realm\world\worlds\dungeons\OceanTrench.cs" />
-    <Compile Include="realm\world\worlds\dungeons\OryxCastle.cs" />
+    <Compile Include="realm\world\worlds\IsleofApprentices.cs" />
     <Compile Include="realm\world\worlds\Test.cs" />
-    <Compile Include="realm\world\worlds\Tutorial.cs" />
-    <Compile Include="realm\world\worlds\dungeons\UndeadLair.cs" />
-    <Compile Include="realm\world\worlds\dungeons\WineCellar.cs" />
     <Compile Include="realm\world\WorldTimer.cs" />
     <Compile Include="networking\Server.cs" />
     <Compile Include="Structures.cs" />
@@ -599,77 +567,18 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <EmbeddedResource Include="realm\world\maps\wmap\nexus.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\world2.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\world3.wmap" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EmbeddedResource Include="realm\world\maps\wmap\vault.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\nexusprod.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\vaulttest.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\world1.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\abyss.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\kitchen.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\oceantrench.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\OryxCastle.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\gameworld.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\PetYard_Legendary.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\tutorial.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\arena.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\winecellar.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\abyss2.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\nexusLimbo.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\tomb.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\UDL1.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\UDL2.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\belladonnasGarden.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\shaitansmap.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\shittersmep.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\PetYard_Common.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\PetYard_Divine.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\PetYard_Rare.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\PetYard_Uncommon.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\bazzar.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\beachzone.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\ghall0.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\ghall1.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\ghall2.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\ghall3.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\snakepit.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\dailyQuest.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\candyland.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\forestmaze.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\pcave.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\spiderden.wmap" />
-    <EmbeddedResource Include="realm\world\maps\wmap\spriteworld.wmap" />
     <EmbeddedResource Include="realm\mapsetpiece\maps\eyeofthedragon.jm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="realm\world\maps\json\nexus_summer.json" />
-    <EmbeddedResource Include="realm\world\maps\json\nexus_winter.json" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_1.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_10.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_2.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_3.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_4.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_5.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_6.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_7.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_8.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\pirate cave\pirate_cave_9.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_2.json" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_3.json" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_4.json" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_5.json" />
-    <EmbeddedResource Include="realm\world\maps\json\dungeons\sprite world\Sprite_World_1.json" />
-    <EmbeddedResource Include="realm\world\maps\json\LoE-test.json" />
     <EmbeddedResource Include="realm\mapsetpiece\maps\succubus.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\Beach.jm" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="logic\monsters\Dungeons\" />
-    <Folder Include="realm\world\maps\json\dungeons\spider den\" />
+    <Folder Include="realm\world\maps\json\" />
+    <Folder Include="realm\world\maps\wmap\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="loesoft.ico" />
