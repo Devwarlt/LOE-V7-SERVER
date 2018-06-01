@@ -482,6 +482,17 @@ namespace LoESoft.Core
             character = new DbChar(acc, newId)
             {
                 ObjectType = type,
+                CharLevel = Settings.Beginner.CharLevel,
+                CharExperience = Settings.Beginner.CharExperience,
+                CharHealthPoints = Settings.Beginner.CharHealthPoints,
+                CharMagicPoints = Settings.Beginner.CharMagicPoints,
+                CharAttackLevel = Settings.Beginner.CharAttackLevel,
+                CharAttackExperience = Settings.Beginner.CharAttackExperience,
+                CharDefenseLevel = Settings.Beginner.CharDefenseLevel,
+                CharDefenseExperience = Settings.Beginner.CharDefenseExperience,
+                CharSpeed = Settings.Beginner.CharSpeed,
+                CharPosition = Settings.Beginner.CharPosition,
+                CharTownID = Settings.Beginner.CharTownID,
                 Level = 1,
                 Experience = 0,
                 Fame = 0,

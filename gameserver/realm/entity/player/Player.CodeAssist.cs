@@ -208,6 +208,12 @@ namespace LoESoft.GameServer.realm.entity.player
                 Boost[i] += setTypeBoosts[i];
         }
 
+        public Position ProcessPosition(string data)
+           => new Position(Convert.ToSingle(data.Split(';')[0].Split(':')[1]), Convert.ToSingle(data.Split(';')[1].Split(':')[1]));
+
+        public string ProcessPosition(Position data)
+            => $"X:{data.X};Y:{data.Y}";
+
         public bool CompareName(string name) => name.ToLower().Split(' ')[0].StartsWith("[") || Name.Split(' ').Length == 1 ? Name.ToLower().StartsWith(name.ToLower()) : Name.Split(' ')[1].ToLower().StartsWith(name.ToLower());
 
         public void SaveToCharacter()

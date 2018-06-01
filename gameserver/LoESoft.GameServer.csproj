@@ -575,6 +575,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="realm\mapsetpiece\maps\succubus.jm" />
     <EmbeddedResource Include="realm\world\maps\json\IsleofApprentices.json" />
+    <EmbeddedResource Include="realm\world\maps\json\IsleofApprenticesBETAv1.json" />
+    <EmbeddedResource Include="realm\world\maps\json\IsleofApprenticesBETAv2.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="logic\monsters\Dungeons\" />

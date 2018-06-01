@@ -8,6 +8,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using LoESoft.AppEngine.account;
+using static LoESoft.Core.config.Settings.APPENGINE;
 
 #endregion
 
@@ -447,6 +448,17 @@ namespace LoESoft.AppEngine
     {
         public int CharacterId { get; private set; }
         public ushort ObjectType { get; private set; }
+        public int CharLevel { get; private set; }
+        public double CharExperience { get; private set; }
+        public int CharHealthPoints { get; private set; }
+        public int CharMagicPoints { get; private set; }
+        public int CharAttackLevel { get; private set; }
+        public double CharAttackExperience { get; private set; }
+        public int CharDefenseLevel { get; private set; }
+        public double CharDefenseExperience { get; private set; }
+        public int CharSpeed { get; private set; }
+        public string CharPosition { get; private set; }
+        public int CharTownID { get; private set; }
         public int Level { get; private set; }
         public int Exp { get; private set; }
         public int CurrentFame { get; private set; }
@@ -481,6 +493,17 @@ namespace LoESoft.AppEngine
             {
                 CharacterId = character.CharId,
                 ObjectType = character.ObjectType,
+                CharLevel = character.CharLevel,
+                CharExperience = character.CharExperience,
+                CharHealthPoints = character.CharHealthPoints,
+                CharMagicPoints = character.CharMagicPoints,
+                CharAttackLevel = character.CharAttackLevel,
+                CharAttackExperience = character.CharAttackExperience,
+                CharDefenseLevel = character.CharDefenseLevel,
+                CharDefenseExperience = character.CharDefenseExperience,
+                CharSpeed = character.CharSpeed,
+                CharPosition = character.CharPosition,
+                CharTownID = character.CharTownID,
                 Level = character.Level,
                 Exp = character.Experience,
                 CurrentFame = character.Fame,
@@ -517,6 +540,17 @@ namespace LoESoft.AppEngine
                 new XElement("Char",
                     new XAttribute("id", CharacterId),
                     new XElement("ObjectType", ObjectType),
+                    new XElement("CharLevel", CharLevel),
+                    new XElement("CharExperience", CharExperience),
+                    new XElement("CharHealthPoints", CharHealthPoints),
+                    new XElement("CharMagicPoints", CharMagicPoints),
+                    new XElement("CharAttackLevel", CharAttackLevel),
+                    new XElement("CharAttackExperience", CharAttackExperience),
+                    new XElement("CharDefenseLevel", CharDefenseLevel),
+                    new XElement("CharDefenseExperience", CharDefenseExperience),
+                    new XElement("CharSpeed", CharSpeed),
+                    new XElement("CharPosition", CharPosition),
+                    new XElement("CharTownID", CharTownID),
                     new XElement("Level", Level),
                     new XElement("Exp", Exp),
                     new XElement("CurrentFame", CurrentFame),
@@ -558,7 +592,7 @@ namespace LoESoft.AppEngine
         public Account Account { get; private set; }
 
         public IEnumerable<NewsItem> News { get; private set; }
-        public IEnumerable<Settings.APPENGINE.ServerItem> Servers { get; set; }
+        public IEnumerable<ServerItem> Servers { get; set; }
         public ClassAvailabilityList ClassAvailabilityList { get; private set; }
 
         public double? Lat { get; set; }

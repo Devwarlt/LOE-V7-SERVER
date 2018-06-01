@@ -512,6 +512,74 @@ namespace LoESoft.Core
             Init(acc.Database, "char." + acc.AccountId + "." + charId);
         }
 
+        #region "New character stats"
+        public int CharLevel
+        {
+            get { return GetValue("charLvl", Settings.Beginner.CharLevel); }
+            set { SetValue("charLvl", value); }
+        }
+
+        public double CharExperience
+        {
+            get { return GetValue("charExp", Settings.Beginner.CharExperience); }
+            set { SetValue("charExp", value); }
+        }
+
+        public int CharHealthPoints
+        {
+            get { return GetValue("charHP", Settings.Beginner.CharHealthPoints); }
+            set { SetValue("charHP", value); }
+        }
+
+        public int CharMagicPoints
+        {
+            get { return GetValue("charMP", Settings.Beginner.CharMagicPoints); }
+            set { SetValue("charMP", value); }
+        }
+
+        public int CharAttackLevel
+        {
+            get { return GetValue("charAttLvl", Settings.Beginner.CharAttackLevel); }
+            set { SetValue("charAttLvl", value); }
+        }
+
+        public double CharAttackExperience
+        {
+            get { return GetValue("charAttExp", Settings.Beginner.CharAttackExperience); }
+            set { SetValue("charAttExp", value); }
+        }
+
+        public int CharDefenseLevel
+        {
+            get { return GetValue("charDefLvl", Settings.Beginner.CharDefenseLevel); }
+            set { SetValue("charDefLvl", value); }
+        }
+
+        public double CharDefenseExperience
+        {
+            get { return GetValue("charAttExp", Settings.Beginner.CharDefenseExperience); }
+            set { SetValue("charAttExp", value); }
+        }
+
+        public int CharSpeed
+        {
+            get { return GetValue("charSpd", Settings.Beginner.CharSpeed); }
+            set { SetValue("charSpd", value); }
+        }
+
+        public string CharPosition
+        {
+            get { return GetValue("charPos", Settings.Beginner.CharPosition); }
+            set { SetValue("charPos", value); }
+        }
+
+        public int CharTownID
+        {
+            get { return GetValue("charTown", Settings.Beginner.CharTownID); }
+            set { SetValue("charTown", value); }
+        }
+        #endregion
+
         public ushort ObjectType
         {
             get { return GetValue<ushort>("charType", 782); }

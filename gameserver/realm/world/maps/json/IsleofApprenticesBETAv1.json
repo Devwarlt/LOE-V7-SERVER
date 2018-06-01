@@ -1,0 +1,184 @@
+﻿{
+  "dict": [
+    {
+      "ground": "Dark Water",
+      "objs": [ { "id": "Cave Wall" } ]
+    },
+    { "ground": "Dark Water" },
+    { "ground": "Dark Sand" },
+    { "ground": "Light Sand" },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Dead Fir Tree 4" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Saguaro Cactus 1" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Rock Path" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Palm Tree" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Small Saguaro Cactus 1" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Cave Wall" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Dead Fir Tree 3" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Small Saguaro Cactus 2" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "DS Wall 2" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Brown Wall Tunnel Left" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Brown Wall Tunnel Middle" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Brown Wall Tunnel Right" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Spider Web" } ]
+    },
+    { "ground": "Road" },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "All Black Wall" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Patty Clover1" } ]
+    },
+    { "ground": "Pet Yard Grass" },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Jungle Grass" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Bloody Rose" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Jungle Brazier" } ]
+    },
+    { "ground": "Pet Yard Dirt" },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Apple Tree" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Bush" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Patty Plant" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Wooden Wall" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Earth Blue Flowers" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Table" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Weapon Rack" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Tree A" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Castle Pot" } ]
+    },
+    {
+      "ground": "Road",
+      "objs": [ { "id": "Table" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Wooden Wall Torch Tutorial" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Saguaro Cactus 3" } ]
+    },
+    {
+      "ground": "Tutorial Floor",
+      "objs": [ { "id": "Temple Lantern 1" } ]
+    },
+    {
+      "ground": "Tutorial Floor",
+      "objs": [ { "id": "Temple Candle Stand" } ]
+    },
+    { "ground": "Tutorial Wood Floor" },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Saguaro Cactus 2" } ]
+    },
+    { "ground": "Tutorial Floor" },
+    {
+      "ground": "Road",
+      "objs": [ { "id": "Patty Plant" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Target" } ]
+    },
+    {
+      "ground": "Pet Yard Grass",
+      "objs": [ { "id": "Arena Spell Table" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Death Tree" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "DS Pillar" } ]
+    },
+    { "ground": "Dirt" },
+    {
+      "ground": "Dirt",
+      "regions": [ { "id": "Spawn" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Road Marker" } ]
+    },
+    {
+      "ground": "Light Sand",
+      "objs": [ { "id": "Dead Fir Tree 2" } ]
+    }
+  ],
+  "width": 64,
+  "data": "eNrtmet20zAMgB15a1ZWYIW0g47C2I2Nywq8/8MRx4lj6+JLWk7/rDo9a2rXn2TLlqwpdfRXdUR54R+aDwfhQ3IcYD/DAfnAjE5bK/K5RIeQz400fAdIaD/7pFvJ14Dywf3V/Vhjm3bi87VjAnkq5etgFI0spfxQKx30gEn241EqxD9B/H3o1P/wLEOihfJP91h/aZblmQHB+ty9nMcP6TNvBkJ+zfwOkFdDFr/OWGXfU8/YuQHSN8UHwf6QPA9E0gwyvJLyddLL5kTGtlfCfpD2hLT/zkUvm7Oik8J7IT1/RjlhZrIu5s/cKFPOHyrl9pfsP/B2mJGFE8x/rd6ot+7pQuyvo2dR3P/MeMtOxnEH+rtOBg3G9qH/sIthMr8O+O9Vo1Zq3fMu1YdOLvvnddvWtBLyU9aX2N+oj+173Wuw6r9vevq6b+f4UBh/IOAPYu2zGhjawB+em64Hv/6yDlz+hTXYeGJ1uPL4g15+rwU5j/L2H6fBQn1ysunmeOvoVoNtN/cbr98iERFz8k+f/7mVLx3f2mrJ104DMyOG/7XrOZUPIn+pbtr3bcdfOvq102DZzf9t34/np85fYHK9u4Dvi2HfBxpYCfk0J43xNZtrGv4N4hvug/rWvrEGpufAD6PnI7sKHB+I//H2PyXsp9lTLP6DkDfg9f/uNHhKrD+9o+gon499g///cP6/JGJOAeP/PwP/xz4HifyHz5no/l8Rurz/oTj/x9ksd/41iC6ff+XxB68+Pv9DDfxvroLz/2JS/KkIP4x/9rRt0Pm/7ddgxcQ/Pfn+cY74Y6xZMfZL8T++Bun5x/kPznOk76fy7S9+RfI5I89q18kz2S1c/+n2y2L5qV51wgNS909Jn53Hr8ndVO8R//H9j9Ngl2H94yQ+d/+EKB0is1TKH8eZMfyaXXkaM4HRCbLrT/TmFI5ErafVq3C0s8l8bgVGeiq+QcYZmMsHV13aqd+On6rQpldA4tdiBUS2P5ZFT7n/SxUoQ/+TFV0B2QKZ/DtG67x6Dq5S235/RW1x/hMjQKQ6yVWoS+tPkFG9kHJZyIocufbLNeiKqeNx88LNQF79C1crQbCVes1pdMVy/J+r1kKyli/Pld8KRfffqkgHiJ4HkF1/y9GhtC1eAz/M/99y6v3/k//y/899+Ed9/QMs20qZ",
+  "height": 64
+}
