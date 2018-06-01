@@ -502,6 +502,8 @@ namespace LoESoft.Core
 
     public class DbChar : RedisObject
     {
+        public static readonly ushort APPRENTICE_TYPE = 0x0300;
+
         public DbAccount Account { get; private set; }
         public int CharId { get; private set; }
 
@@ -518,71 +520,70 @@ namespace LoESoft.Core
             set { SetValue("charType", value); }
         }
 
+        /*
+         * CharLevel
+         * CharExperience
+         * CharHealthPoints
+         * CharMagicPoints
+         * CharAttackLevel
+         * CharAttackExperience
+         * CharDefenseLevel
+         * CharDefenseExperience
+         * CharSpeed
+         */
         #region "New character stats"
         public int CharLevel
         {
-            get { return GetValue("charLvl", Settings.Beginner.CharLevel); }
+            get { return GetValue("charLvl", 1); }
             set { SetValue("charLvl", value); }
         }
 
         public double CharExperience
         {
-            get { return GetValue("charExp", Settings.Beginner.CharExperience); }
+            get { return GetValue("charExp", 0); }
             set { SetValue("charExp", value); }
         }
 
         public int CharHealthPoints
         {
-            get { return GetValue("charHP", Settings.Beginner.CharHealthPoints); }
+            get { return GetValue("charHP", 100); }
             set { SetValue("charHP", value); }
         }
 
         public int CharMagicPoints
         {
-            get { return GetValue("charMP", Settings.Beginner.CharMagicPoints); }
+            get { return GetValue("charMP", 0); }
             set { SetValue("charMP", value); }
         }
 
         public int CharAttackLevel
         {
-            get { return GetValue("charAttLvl", Settings.Beginner.CharAttackLevel); }
+            get { return GetValue("charAttLvl", 0); }
             set { SetValue("charAttLvl", value); }
         }
 
         public double CharAttackExperience
         {
-            get { return GetValue("charAttExp", Settings.Beginner.CharAttackExperience); }
+            get { return GetValue("charAttExp", 0); }
             set { SetValue("charAttExp", value); }
         }
 
         public int CharDefenseLevel
         {
-            get { return GetValue("charDefLvl", Settings.Beginner.CharDefenseLevel); }
+            get { return GetValue("charDefLvl", 0); }
             set { SetValue("charDefLvl", value); }
         }
 
         public double CharDefenseExperience
         {
-            get { return GetValue("charAttExp", Settings.Beginner.CharDefenseExperience); }
+            get { return GetValue("charAttExp", 0); }
             set { SetValue("charAttExp", value); }
         }
 
         public int CharSpeed
         {
-            get { return GetValue("charSpd", Settings.Beginner.CharSpeed); }
+            get { return GetValue("charSpd", 0); }
             set { SetValue("charSpd", value); }
-        }
-
-        public string CharPosition
-        {
-            get { return GetValue("charPos", Settings.Beginner.CharPosition); }
-            set { SetValue("charPos", value); }
-        }
-
-        public int CharTownID
-        {
-            get { return GetValue("charTown", Settings.Beginner.CharTownID); }
-            set { SetValue("charTown", value); }
         }
         #endregion
 

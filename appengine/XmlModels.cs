@@ -455,8 +455,6 @@ namespace LoESoft.AppEngine
          * CharDefenseLevel
          * CharDefenseExperience
          * CharSpeed
-         * CharPosition
-         * CharTownID
          */
         public int CharLevel { get; private set; }
         public double CharExperience { get; private set; }
@@ -467,8 +465,6 @@ namespace LoESoft.AppEngine
         public int CharDefenseLevel { get; private set; }
         public double CharDefenseExperience { get; private set; }
         public int CharSpeed { get; private set; }
-        public string CharPosition { get; private set; }
-        public int CharTownID { get; private set; }
 
         public int CharacterId { get; private set; }
         public ushort ObjectType { get; private set; }
@@ -515,8 +511,6 @@ namespace LoESoft.AppEngine
                 CharDefenseLevel = character.CharDefenseLevel,
                 CharDefenseExperience = character.CharDefenseExperience,
                 CharSpeed = character.CharSpeed,
-                CharPosition = character.CharPosition,
-                CharTownID = character.CharTownID,
                 Level = character.Level,
                 Exp = character.Experience,
                 CurrentFame = character.Fame,
@@ -589,9 +583,7 @@ namespace LoESoft.AppEngine
                     new XElement("CharAttackExperience", CharAttackExperience),
                     new XElement("CharDefenseLevel", CharDefenseLevel),
                     new XElement("CharDefenseExperience", CharDefenseExperience),
-                    new XElement("CharSpeed", CharSpeed),
-                    new XElement("CharPosition", CharPosition),
-                    new XElement("CharTownID", CharTownID)
+                    new XElement("CharSpeed", CharSpeed)
                 );
         }
     }

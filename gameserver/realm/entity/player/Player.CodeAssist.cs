@@ -210,12 +210,6 @@ namespace LoESoft.GameServer.realm.entity.player
 
         public bool CompareName(string name) => name.ToLower().Split(' ')[0].StartsWith("[") || Name.Split(' ').Length == 1 ? Name.ToLower().StartsWith(name.ToLower()) : Name.Split(' ')[1].ToLower().StartsWith(name.ToLower());
 
-        public Position ProcessPosition(string data)
-            => new Position(Convert.ToSingle(data.Split(';')[0].Split(':')[1]), Convert.ToSingle(data.Split(';')[1].Split(':')[1]));
-
-        public string ProcessPosition(Position data)
-            => $"X:{data.X};Y:{data.Y}";
-
         public void SaveToCharacter()
         {
             var @char = Client.Character;
@@ -228,8 +222,6 @@ namespace LoESoft.GameServer.realm.entity.player
             @char.CharDefenseLevel = CharDefenseLevel;
             @char.CharDefenseExperience = CharDefenseExperience;
             @char.CharSpeed = CharSpeed;
-            @char.CharPosition = ProcessPosition(CharPosition);
-            @char.CharTownID = CharTownID;
 
             @char.Experience = Experience;
             @char.Level = Level;
