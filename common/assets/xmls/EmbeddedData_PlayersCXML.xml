@@ -36,15 +36,6 @@
 		<LevelIncrease min="5" max="5">MaxHitPoints</LevelIncrease>
 		<LevelIncrease min="5" max="5">MaxMagicPoints</LevelIncrease>
 		<LevelIncrease min="1" max="1">Speed</LevelIncrease>
-    <CharLevel>1</CharLevel>
-    <CharExperience>0</CharExperience>
-    <CharHealthPoints>100</CharHealthPoints>
-    <CharMagicPoints>0</CharMagicPoints>
-    <CharAttackLevel>0</CharAttackLevel>
-    <CharAttackExperience>0</CharAttackExperience>
-    <CharDefenseLevel>0</CharDefenseLevel>
-    <CharDefenseExperience>0</CharDefenseExperience>
-    <CharSpeed>0</CharSpeed>
 	</Object>
 	<Object type="0x0307" id="Magician">
 		<Class>Player</Class>

@@ -45,6 +45,8 @@ namespace LoESoft.GameServer.realm.entity.player
                 CharDefenseLevel = @char.CharDefenseLevel;
                 CharDefenseExperience = @char.CharDefenseExperience;
                 CharSpeed = @char.CharSpeed;
+                CharPosition = ProcessPosition(@char.CharPosition);
+                CharTownID = @char.CharTownID;
 
                 if (client.Account.Admin == true)
                     Admin = 1;
@@ -286,18 +288,22 @@ namespace LoESoft.GameServer.realm.entity.player
             MaxHackEntries = 0;
             visibleTiles = new Dictionary<IntPoint, bool>();
             WorldInstance = owner;
+
             Random rand = new Random();
-            int x, y;
-            do
-            {
-                x = rand.Next(0, owner.Map.Width);
-                y = rand.Next(0, owner.Map.Height);
-            } while (owner.Map[x, y].Region != TileRegion.Spawn);
-            Move(x + 0.5f, y + 0.5f);
+
+            float x = CharPosition.X;
+            float y = CharPosition.Y;
+
+            Move(x, y);
+
             tiles = new byte[owner.Map.Width, owner.Map.Height];
+
             SetNewbiePeriod();
+
             base.Init(owner);
+
             List<int> gifts = Client.Account.Gifts.ToList();
+
             if (owner.Id == (int)WorldID.ISLE_OF_APPRENTICES || owner.Name == "Vault")
             {
                 Client.SendMessage(new GLOBAL_NOTIFICATION
@@ -306,6 +312,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     Text = gifts.Count > 0 ? "giftChestOccupied" : "giftChestEmpty"
                 });
             }
+
             if (Client.Character.Pet != 0)
             {
                 HatchlingPet = false;

@@ -648,7 +648,8 @@
     <EmbeddedResource Include="realm\world\maps\json\LoE-test.json" />
     <EmbeddedResource Include="realm\mapsetpiece\maps\succubus.jm" />
     <EmbeddedResource Include="realm\world\maps\json\Beach.jm" />
-    <EmbeddedResource Include="realm\world\maps\json\IsleofApprentices.json" />
+    <EmbeddedResource Include="realm\world\maps\json\IsleofApprentices2.json" />
+    <EmbeddedResource Include="realm\world\maps\json\IsleofApprentices1.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="logic\monsters\Dungeons\" />
