@@ -7,6 +7,7 @@ using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
 using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 using static LoESoft.GameServer.networking.Client;
+using LoESoft.GameServer.networking.error;
 
 #endregion
 
@@ -28,11 +29,21 @@ namespace LoESoft.GameServer.networking.handlers
             {
                 client.SendMessage(new FAILURE
                 {
-                    ErrorDescription = "Failed to Load character."
+                    ErrorId = (int)FailureIDs.JSON_DIALOG,
+                    ErrorDescription =
+                        JSONErrorIDHandler.
+                            FormatedJSONError(
+                                errorID: ErrorIDs.NORMAL_CONNECTION,
+                                labels: new[] { "{UNKNOW_ERROR_INSTANCE}" },
+                                arguments: new[] { "You reached <b>max</b> limit of characters per account." }
+                            )
                 });
+
                 Manager.TryDisconnect(client, DisconnectReason.FAILED_TO_LOAD_CHARACTER);
+
                 return;
             }
+
             client.Character = character;
 
             if (status == CreateStatus.OK)
@@ -51,8 +62,19 @@ namespace LoESoft.GameServer.networking.handlers
             {
                 client.SendMessage(new FAILURE
                 {
-                    ErrorDescription = "Failed to Load character."
+                    ErrorId = (int)FailureIDs.JSON_DIALOG,
+                    ErrorDescription =
+                        JSONErrorIDHandler.
+                            FormatedJSONError(
+                                errorID: ErrorIDs.NORMAL_CONNECTION,
+                                labels: new[] { "{UNKNOW_ERROR_INSTANCE}" },
+                                arguments: new[] { "You couldn't create your character, try again later." }
+                            )
                 });
+
+                Manager.TryDisconnect(client, DisconnectReason.FAILED_TO_LOAD_CHARACTER);
+
+                return;
             }
         }
     }

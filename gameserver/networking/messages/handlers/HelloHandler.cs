@@ -223,7 +223,8 @@ namespace LoESoft.GameServer.networking.handlers
                         return;
                     }
                 }
-                if (message.MapInfo.Length > 0 || world.Id == -6) //Test World
+
+                if (message.MapInfo.Length > 0 || world.Id == (int)TownID.TEST_ID)
                     (world as Test).LoadJson(Encoding.Default.GetString(message.MapInfo));
 
                 if (world.IsLimbo)

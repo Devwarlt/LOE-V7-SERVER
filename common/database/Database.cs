@@ -2,6 +2,7 @@
 
 using BookSleeve;
 using LoESoft.Core.config;
+using LoESoft.Core.models;
 using log4net;
 using Newtonsoft.Json;
 using System;
@@ -479,26 +480,29 @@ namespace LoESoft.Core
             }
 
             int newId = (int)Hashes.Increment(0, acc.Key, "nextCharId").Exec();
-            character = new DbChar(acc, newId)
+
+            try
             {
-                ObjectType = type,
-                CharLevel = Settings.Beginner.CharLevel,
-                CharExperience = Settings.Beginner.CharExperience,
-                CharHealthPoints = Settings.Beginner.CharHealthPoints,
-                CharMagicPoints = Settings.Beginner.CharMagicPoints,
-                CharAttackLevel = Settings.Beginner.CharAttackLevel,
-                CharAttackExperience = Settings.Beginner.CharAttackExperience,
-                CharDefenseLevel = Settings.Beginner.CharDefenseLevel,
-                CharDefenseExperience = Settings.Beginner.CharDefenseExperience,
-                CharSpeed = Settings.Beginner.CharSpeed,
-                CharPosition = Settings.Beginner.CharPosition,
-                CharTownID = Settings.Beginner.CharTownID,
-                Level = 1,
-                Experience = 0,
-                Fame = 0,
-                HasBackpack = false,
-                Items = @class.Element("Equipment").Value.Replace("0xa22", "-1").CommaToArray<int>(),
-                Stats = new int[]{
+                character = new DbChar(acc, newId)
+                {
+                    ObjectType = type,
+                    CharLevel = Settings.Beginner.CharLevel,
+                    CharExperience = Settings.Beginner.CharExperience,
+                    CharHealthPoints = Settings.Beginner.CharHealthPoints,
+                    CharMagicPoints = Settings.Beginner.CharMagicPoints,
+                    CharAttackLevel = Settings.Beginner.CharAttackLevel,
+                    CharAttackExperience = Settings.Beginner.CharAttackExperience,
+                    CharDefenseLevel = Settings.Beginner.CharDefenseLevel,
+                    CharDefenseExperience = Settings.Beginner.CharDefenseExperience,
+                    CharSpeed = Settings.Beginner.CharSpeed,
+                    CharPosition = Settings.Beginner.CharPosition,
+                    CharTownID = Settings.Beginner.CharTownID,
+                    Level = 1,
+                    Experience = 0,
+                    Fame = 0,
+                    HasBackpack = false,
+                    Items = @class.Element("Equipment").Value.Replace("0xa22", "-1").CommaToArray<int>(),
+                    Stats = new int[]{
                     int.Parse(@class.Element("MaxHitPoints").Value),
                     int.Parse(@class.Element("MaxMagicPoints").Value),
                     int.Parse(@class.Element("Attack").Value),
@@ -508,20 +512,32 @@ namespace LoESoft.Core
                     int.Parse(@class.Element("HpRegen").Value),
                     int.Parse(@class.Element("MpRegen").Value),
                 },
-                HP = int.Parse(@class.Element("MaxHitPoints").Value),
-                MP = int.Parse(@class.Element("MaxMagicPoints").Value),
-                Tex1 = 0,
-                Tex2 = 0,
-                Skin = skin,
-                Pet = 0,
-                FameStats = new byte[0],
-                TaskStats = string.Empty,
-                CreateTime = DateTime.Now,
-                LastSeen = DateTime.Now
-            };
-            character.Flush();
-            Sets.Add(0, "alive." + acc.AccountId, BitConverter.GetBytes(newId));
-            return CreateStatus.OK;
+                    HP = int.Parse(@class.Element("MaxHitPoints").Value),
+                    MP = int.Parse(@class.Element("MaxMagicPoints").Value),
+                    Tex1 = 0,
+                    Tex2 = 0,
+                    Skin = skin,
+                    Pet = 0,
+                    FameStats = new byte[0],
+                    TaskStats = string.Empty,
+                    CreateTime = DateTime.Now,
+                    LastSeen = DateTime.Now
+                };
+
+                character.Flush();
+
+                Sets.Add(0, "alive." + acc.AccountId, BitConverter.GetBytes(newId));
+
+                return CreateStatus.OK;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+
+                character = null;
+
+                return CreateStatus.AnErrorOccurred;
+            }
         }
 
         public DbChar LoadCharacter(DbAccount acc, int charId)

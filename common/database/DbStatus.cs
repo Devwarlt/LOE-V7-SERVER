@@ -40,7 +40,8 @@ namespace LoESoft.Core
     public enum CreateStatus
     {
         OK,
-        ReachCharLimit
+        ReachCharLimit,
+        AnErrorOccurred
     }
 
     public static class StatusInfo
