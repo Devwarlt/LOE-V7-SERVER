@@ -481,16 +481,7 @@ namespace LoESoft.Core
             int newId = (int)Hashes.Increment(0, acc.Key, "nextCharId").Exec();
             character = new DbChar(acc, newId)
             {
-                ObjectType = DbChar.APPRENTICE_TYPE,
-                CharLevel = Convert.ToInt32(@class.Element("CharLevel").Value),
-                CharExperience = Convert.ToDouble(@class.Element("CharExperience").Value),
-                CharHealthPoints = Convert.ToInt32(@class.Element("CharHealthPoints").Value),
-                CharMagicPoints = Convert.ToInt32(@class.Element("CharMagicPoints").Value),
-                CharAttackLevel = Convert.ToInt32(@class.Element("CharAttackLevel").Value),
-                CharAttackExperience = Convert.ToDouble(@class.Element("CharAttackExperience").Value),
-                CharDefenseLevel = Convert.ToInt32(@class.Element("CharDefenseLevel").Value),
-                CharDefenseExperience = Convert.ToDouble(@class.Element("CharDefenseExperience").Value),
-                CharSpeed = Convert.ToInt32(@class.Element("CharSpeed").Value),
+                ObjectType = type,
                 Level = 1,
                 Experience = 0,
                 Fame = 0,

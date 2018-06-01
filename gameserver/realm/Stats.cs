@@ -126,16 +126,6 @@ namespace LoESoft.GameServer.realm
         public readonly static StatsType PET_ATTACK_DAMAGE_MIN = 109;
         public readonly static StatsType PET_ATTACK_DAMAGE_MAX = 110;
 
-        public readonly static StatsType CHAR_LEVEL = 111;
-        public readonly static StatsType CHAR_EXPERIENCE = 112;
-        public readonly static StatsType CHAR_HEALTH_POINTS = 113;
-        public readonly static StatsType CHAR_MAGIC_POINTS = 114;
-        public readonly static StatsType CHAR_ATTACK_LEVEL = 115;
-        public readonly static StatsType CHAR_ATTACK_EXPERIENCE = 116;
-        public readonly static StatsType CHAR_DEFENSE_LEVEL = 117;
-        public readonly static StatsType CHAR_DEFENSE_EXPERIENCE = 118;
-        public readonly static StatsType CHAR_SPEED = 119;
-
         private byte _type;
 
         private StatsType(byte type)

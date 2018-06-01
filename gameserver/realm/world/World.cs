@@ -23,7 +23,7 @@ namespace LoESoft.GameServer.realm
     public enum WorldID : int
     {
         TUT_ID = -1,
-        ISLE_OF_APPRENTICES = -2,
+        NEXUS_ID = -2,
         NEXUS_LIMBO = -3,
         VAULT_ID = -5,
         TEST_ID = -6,

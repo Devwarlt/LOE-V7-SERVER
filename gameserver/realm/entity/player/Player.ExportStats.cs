@@ -128,16 +128,6 @@ namespace LoESoft.GameServer.realm.entity.player
                 }
                 catch (ArgumentOutOfRangeException) { } // just don't return errors, hold this exception without export any value
             }
-
-            stats[StatsType.CHAR_LEVEL] = CharLevel;
-            stats[StatsType.CHAR_EXPERIENCE] = CharExperience;
-            stats[StatsType.CHAR_HEALTH_POINTS] = CharHealthPoints;
-            stats[StatsType.CHAR_MAGIC_POINTS] = CharMagicPoints;
-            stats[StatsType.CHAR_ATTACK_LEVEL] = CharAttackLevel;
-            stats[StatsType.CHAR_ATTACK_EXPERIENCE] = CharAttackExperience;
-            stats[StatsType.CHAR_DEFENSE_LEVEL] = CharDefenseLevel;
-            stats[StatsType.CHAR_DEFENSE_EXPERIENCE] = CharDefenseExperience;
-            stats[StatsType.CHAR_SPEED] = CharSpeed;
         }
     }
 }

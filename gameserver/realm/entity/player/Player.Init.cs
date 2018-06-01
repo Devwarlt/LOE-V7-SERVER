@@ -35,17 +35,6 @@ namespace LoESoft.GameServer.realm.entity.player
         {
             try
             {
-                var @char = client.Character;
-                CharLevel = @char.CharLevel;
-                CharExperience = @char.CharExperience;
-                CharHealthPoints = @char.CharHealthPoints;
-                CharMagicPoints = @char.CharMagicPoints;
-                CharAttackLevel = @char.CharAttackLevel;
-                CharAttackExperience = @char.CharAttackExperience;
-                CharDefenseLevel = @char.CharDefenseLevel;
-                CharDefenseExperience = @char.CharDefenseExperience;
-                CharSpeed = @char.CharSpeed;
-
                 if (client.Account.Admin == true)
                     Admin = 1;
                 AccountType = client.Account.AccountType;
@@ -64,7 +53,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 Level = client.Character.Level == 0 ? 1 : client.Character.Level;
                 Experience = client.Character.Experience;
                 ExperienceGoal = GetExpGoal(Level);
-                Stars = 1337;// AccountType >= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT ? 70 : client.Character.Stars;
+                Stars = AccountType >= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT ? 70 : GetStars();
                 Texture1 = client.Character.Tex1;
                 Texture2 = client.Character.Tex2;
                 Credits = client.Account.Credits;
@@ -298,7 +287,7 @@ namespace LoESoft.GameServer.realm.entity.player
             SetNewbiePeriod();
             base.Init(owner);
             List<int> gifts = Client.Account.Gifts.ToList();
-            if (owner.Id == (int)WorldID.ISLE_OF_APPRENTICES || owner.Name == "Vault")
+            if (owner.Id == (int)WorldID.NEXUS_ID || owner.Name == "Vault")
             {
                 Client.SendMessage(new GLOBAL_NOTIFICATION
                 {

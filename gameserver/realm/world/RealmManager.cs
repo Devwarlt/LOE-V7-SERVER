@@ -88,7 +88,7 @@ namespace LoESoft.GameServer.realm
 
             Merchant.HandleMerchant(GameData);
 
-            AddWorld((int)WorldID.ISLE_OF_APPRENTICES, Worlds[0] = new IsleofApprentices());
+            AddWorld((int)WorldID.NEXUS_ID, Worlds[0] = new Nexus());
             AddWorld((int)WorldID.MARKET, new ClothBazaar());
             AddWorld((int)WorldID.TEST_ID, new Test());
             AddWorld((int)WorldID.TUT_ID, new Tutorial(true));

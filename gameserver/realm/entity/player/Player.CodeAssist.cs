@@ -212,26 +212,16 @@ namespace LoESoft.GameServer.realm.entity.player
 
         public void SaveToCharacter()
         {
-            var @char = Client.Character;
-            @char.CharLevel = CharLevel;
-            @char.CharExperience = CharExperience;
-            @char.CharHealthPoints = CharHealthPoints;
-            @char.CharMagicPoints = CharMagicPoints;
-            @char.CharAttackLevel = CharAttackLevel;
-            @char.CharAttackExperience = CharAttackExperience;
-            @char.CharDefenseLevel = CharDefenseLevel;
-            @char.CharDefenseExperience = CharDefenseExperience;
-            @char.CharSpeed = CharSpeed;
-
-            @char.Experience = Experience;
-            @char.Level = Level;
-            @char.Tex1 = Texture1;
-            @char.Tex2 = Texture2;
-            @char.Fame = Fame;
-            @char.HP = HP;
-            @char.MP = MP;
+            var chr = Client.Character;
+            chr.Experience = Experience;
+            chr.Level = Level;
+            chr.Tex1 = Texture1;
+            chr.Tex2 = Texture2;
+            chr.Fame = Fame;
+            chr.HP = HP;
+            chr.MP = MP;
             if (PetID != 0)
-                @char.Pet = PetID;
+                chr.Pet = PetID;
             try
             {
                 switch (Inventory.Length)
@@ -241,25 +231,25 @@ namespace LoESoft.GameServer.realm.entity.player
                         int[] backpack = new int[8];
                         Array.Copy(equip, 12, backpack, 0, 8);
                         Array.Resize(ref equip, 12);
-                        @char.Items = equip;
-                        @char.Backpack = backpack;
+                        chr.Items = equip;
+                        chr.Backpack = backpack;
                         break;
                     default:
-                        @char.Items = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
+                        chr.Items = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
                         break;
                 }
             }
             catch (Exception) { }
 
-            @char.Stats = Stats;
-            @char.HealthPotions = HealthPotions;
-            @char.MagicPotions = MagicPotions;
-            @char.HasBackpack = HasBackpack;
-            @char.Skin = PlayerSkin;
-            @char.LootDropTimer = (int)LootDropBoostTimeLeft;
-            @char.LootTierTimer = (int)LootTierBoostTimeLeft;
-            @char.FameStats = FameCounter.Stats.Write();
-            @char.LastSeen = DateTime.Now;
+            chr.Stats = Stats;
+            chr.HealthPotions = HealthPotions;
+            chr.MagicPotions = MagicPotions;
+            chr.HasBackpack = HasBackpack;
+            chr.Skin = PlayerSkin;
+            chr.LootDropTimer = (int)LootDropBoostTimeLeft;
+            chr.LootTierTimer = (int)LootTierBoostTimeLeft;
+            chr.FameStats = FameCounter.Stats.Write();
+            chr.LastSeen = DateTime.Now;
         }
 
         private bool CheckResurrection()
@@ -285,7 +275,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 {
                     Host = "",
                     Port = Settings.GAMESERVER.PORT,
-                    GameId = (int)WorldID.ISLE_OF_APPRENTICES,
+                    GameId = (int)WorldID.NEXUS_ID,
                     Name = "Nexus",
                     Key = Empty<byte>.Array,
                 });

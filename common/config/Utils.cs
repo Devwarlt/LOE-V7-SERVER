@@ -14,7 +14,7 @@ namespace LoESoft.Core.config
             bool Allowed
             )
         {
-            this.Version = Version;
+            this.Version = $"v6-{Version}";
             this.Allowed = Allowed;
         }
 
