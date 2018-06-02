@@ -215,19 +215,32 @@ namespace LoESoft.GameServer.realm.entity.player
             => $"X:{data.X};Y:{data.Y}";
 
         public bool CompareName(string name) => name.ToLower().Split(' ')[0].StartsWith("[") || Name.Split(' ').Length == 1 ? Name.ToLower().StartsWith(name.ToLower()) : Name.Split(' ')[1].ToLower().StartsWith(name.ToLower());
-
+        
         public void SaveToCharacter()
         {
-            var chr = Client.Character;
-            chr.Experience = Experience;
-            chr.Level = Level;
-            chr.Tex1 = Texture1;
-            chr.Tex2 = Texture2;
-            chr.Fame = Fame;
-            chr.HP = HP;
-            chr.MP = MP;
+            var @char = Client.Character;
+
+            @char.CharLevel = CharLevel;
+            @char.CharExperience = CharExperience.ToString();
+            @char.CharHealthPoints = CharHealthPoints;
+            @char.CharMagicPoints = CharMagicPoints;
+            @char.CharAttackLevel = CharAttackLevel;
+            @char.CharAttackExperience = CharAttackExperience.ToString();
+            @char.CharDefenseLevel = CharDefenseLevel;
+            @char.CharDefenseExperience = CharDefenseExperience.ToString();
+            @char.CharSpeed = CharSpeed;
+            @char.CharPosition = ProcessPosition(CharPosition);
+            @char.CharTownID = CharTownID;
+
+            @char.Experience = Experience;
+            @char.Level = Level;
+            @char.Tex1 = Texture1;
+            @char.Tex2 = Texture2;
+            @char.Fame = Fame;
+            @char.HP = HP;
+            @char.MP = MP;
             if (PetID != 0)
-                chr.Pet = PetID;
+                @char.Pet = PetID;
             try
             {
                 switch (Inventory.Length)
@@ -237,25 +250,25 @@ namespace LoESoft.GameServer.realm.entity.player
                         int[] backpack = new int[8];
                         Array.Copy(equip, 12, backpack, 0, 8);
                         Array.Resize(ref equip, 12);
-                        chr.Items = equip;
-                        chr.Backpack = backpack;
+                        @char.Items = equip;
+                        @char.Backpack = backpack;
                         break;
                     default:
-                        chr.Items = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
+                        @char.Items = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
                         break;
                 }
             }
             catch (Exception) { }
 
-            chr.Stats = Stats;
-            chr.HealthPotions = HealthPotions;
-            chr.MagicPotions = MagicPotions;
-            chr.HasBackpack = HasBackpack;
-            chr.Skin = PlayerSkin;
-            chr.LootDropTimer = (int)LootDropBoostTimeLeft;
-            chr.LootTierTimer = (int)LootTierBoostTimeLeft;
-            chr.FameStats = FameCounter.Stats.Write();
-            chr.LastSeen = DateTime.Now;
+            @char.Stats = Stats;
+            @char.HealthPotions = HealthPotions;
+            @char.MagicPotions = MagicPotions;
+            @char.HasBackpack = HasBackpack;
+            @char.Skin = PlayerSkin;
+            @char.LootDropTimer = (int)LootDropBoostTimeLeft;
+            @char.LootTierTimer = (int)LootTierBoostTimeLeft;
+            @char.FameStats = FameCounter.Stats.Write();
+            @char.LastSeen = DateTime.Now;
         }
 
         private bool CheckResurrection()

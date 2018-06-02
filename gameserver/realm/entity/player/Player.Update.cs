@@ -185,6 +185,7 @@ namespace LoESoft.GameServer.realm.entity.player
         private void HandleNewTick(RealmTime time)
         {
             List<Entity> sendEntities = new List<Entity>();
+
             try
             {
                 foreach (Entity i in clientEntities.Where(i => i?.UpdateCount > lastUpdate[i]).ToList())
@@ -209,7 +210,9 @@ namespace LoESoft.GameServer.realm.entity.player
                 TickTime = time.ElapsedMsDelta,
                 Statuses = sendEntities.Select(_ => _.ExportStats()).ToArray()
             });
+
             blocksight.Clear();
+
             AwaitMove(tickId);
         }
     }

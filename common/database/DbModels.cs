@@ -519,7 +519,7 @@ namespace LoESoft.Core
             set { SetValue("charLvl", value); }
         }
 
-        public double CharExperience
+        public string CharExperience
         {
             get { return GetValue("charExp", Settings.Beginner.CharExperience); }
             set { SetValue("charExp", value); }
@@ -543,7 +543,7 @@ namespace LoESoft.Core
             set { SetValue("charAttLvl", value); }
         }
 
-        public double CharAttackExperience
+        public string CharAttackExperience
         {
             get { return GetValue("charAttExp", Settings.Beginner.CharAttackExperience); }
             set { SetValue("charAttExp", value); }
@@ -555,7 +555,7 @@ namespace LoESoft.Core
             set { SetValue("charDefLvl", value); }
         }
 
-        public double CharDefenseExperience
+        public string CharDefenseExperience
         {
             get { return GetValue("charAttExp", Settings.Beginner.CharDefenseExperience); }
             set { SetValue("charAttExp", value); }

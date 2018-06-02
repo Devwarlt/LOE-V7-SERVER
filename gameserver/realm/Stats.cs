@@ -125,6 +125,15 @@ namespace LoESoft.GameServer.realm
         public readonly static StatsType PET_ATTACK_CHANCE = 108;
         public readonly static StatsType PET_ATTACK_DAMAGE_MIN = 109;
         public readonly static StatsType PET_ATTACK_DAMAGE_MAX = 110;
+        public readonly static StatsType CHAR_LEVEL = 111;
+        public readonly static StatsType CHAR_EXPERIENCE = 112;
+        public readonly static StatsType CHAR_HEALTH_POINTS = 113;
+        public readonly static StatsType CHAR_MAGIC_POINTS = 114;
+        public readonly static StatsType CHAR_ATTACK_LEVEL = 115;
+        public readonly static StatsType CHAR_ATTACK_EXPERIENCE = 116;
+        public readonly static StatsType CHAR_DEFENSE_LEVEL = 117;
+        public readonly static StatsType CHAR_DEFENSE_EXPERIENCE = 118;
+        public readonly static StatsType CHAR_SPEED = 119;
 
         private byte _type;
 
@@ -135,11 +144,39 @@ namespace LoESoft.GameServer.realm
 
         internal static List<StatsType> UTF = new List<StatsType>
         {
-            NAME_STAT, ACCOUNT_ID_STAT, OWNER_ACCOUNT_ID_STAT, GUILD_NAME_STAT, PET_NAME_STAT
+            NAME_STAT,
+            ACCOUNT_ID_STAT,
+            OWNER_ACCOUNT_ID_STAT,
+            GUILD_NAME_STAT,
+            PET_NAME_STAT,
+            CHAR_EXPERIENCE,
+            CHAR_ATTACK_EXPERIENCE,
+            CHAR_DEFENSE_EXPERIENCE
         };
 
-        public bool IsUTF() => UTF.Contains(this) ? true : false;
+        public bool IsUTF
+            => UTF.Contains(this);
 
+        public static string GetType<Any>(Any any)
+        {
+            string value = null;
+            Type type = any.GetType();
+
+            if (type == typeof(int))
+                value = "Int";
+            else if (type == typeof(string))
+                value = "String";
+            else if (type == typeof(float))
+                value = "Float";
+            else if (type == typeof(double))
+                value = "Double";
+            else if (type == typeof(bool))
+                value = "Boolean";
+            else
+                value = "Unknown";
+
+            return $"{value}{(value != null ? "\t(Not Null)" : "\t(Null)")}";
+        }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
         public static implicit operator StatsType(int type)
         {

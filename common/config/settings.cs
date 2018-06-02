@@ -27,13 +27,13 @@ namespace LoESoft.Core.config
              */
             public static ushort Apprentice = 0x0300;
             public static int CharLevel = 1;
-            public static double CharExperience = 0;
+            public static string CharExperience = "0";
             public static int CharHealthPoints = 100;
             public static int CharMagicPoints = 0;
             public static int CharAttackLevel = 0;
-            public static double CharAttackExperience = 0;
+            public static string CharAttackExperience = "0";
             public static int CharDefenseLevel = 0;
-            public static double CharDefenseExperience = 0;
+            public static string CharDefenseExperience = "0";
             public static int CharSpeed = 0;
             public static string CharPosition = "X:25;Y:51";
             public static int CharTownID = -2;

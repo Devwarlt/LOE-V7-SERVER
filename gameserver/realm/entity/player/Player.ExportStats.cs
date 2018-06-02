@@ -1,5 +1,6 @@
 ﻿#region
 
+using LoESoft.Core.models;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +13,7 @@ namespace LoESoft.GameServer.realm.entity.player
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {
             base.ExportStats(stats);
+
             stats[StatsType.ACCOUNT_ID_STAT] = AccountId;
             stats[StatsType.NAME_STAT] = Name;
 
@@ -105,6 +107,7 @@ namespace LoESoft.GameServer.realm.entity.player
             stats[StatsType.ADMIN] = Admin;
 
             stats[StatsType.PET_OBJECT_ID] = PetID;
+
             if (PetID != 0)
             {
                 try
@@ -128,6 +131,16 @@ namespace LoESoft.GameServer.realm.entity.player
                 }
                 catch (ArgumentOutOfRangeException) { } // just don't return errors, hold this exception without export any value
             }
+
+            stats[StatsType.CHAR_LEVEL] = CharLevel;
+            stats[StatsType.CHAR_EXPERIENCE] = CharExperience;
+            stats[StatsType.CHAR_HEALTH_POINTS] = CharHealthPoints;
+            stats[StatsType.CHAR_MAGIC_POINTS] = CharMagicPoints;
+            stats[StatsType.CHAR_ATTACK_LEVEL] = CharAttackLevel;
+            stats[StatsType.CHAR_ATTACK_EXPERIENCE] = CharAttackExperience;
+            stats[StatsType.CHAR_DEFENSE_LEVEL] = CharDefenseLevel;
+            stats[StatsType.CHAR_DEFENSE_EXPERIENCE] = CharDefenseExperience;
+            stats[StatsType.CHAR_SPEED] = CharSpeed;
         }
     }
 }

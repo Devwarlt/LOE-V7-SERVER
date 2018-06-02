@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using LoESoft.GameServer.realm;
 using LoESoft.Core;
+using LoESoft.Core.models;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
@@ -277,6 +279,7 @@ namespace LoESoft.GameServer
             for (int i = 0; i < ret.Stats.Length; i++)
             {
                 StatsType type = rdr.ReadByte();
+
                 if (type == StatsType.GUILD_NAME_STAT || type == StatsType.NAME_STAT)
                     ret.Stats[i] = new KeyValuePair<StatsType, object>(type, rdr.ReadUTF());
                 else
@@ -287,19 +290,35 @@ namespace LoESoft.GameServer
 
         public void Write(NWriter wtr)
         {
-            try
+            wtr.Write(Id);
+
+            Position.Write(wtr);
+
+            wtr.Write((ushort)Stats.Length);
+
+            foreach (KeyValuePair<StatsType, object> i in Stats)
             {
-                wtr.Write(Id);
-                Position.Write(wtr);
-                wtr.Write((ushort)Stats.Length);
-                foreach (KeyValuePair<StatsType, object> i in Stats)
+                try
                 {
                     wtr.Write(i.Key);
-                    if (i.Key.IsUTF() && i.Value != null) wtr.WriteUTF(i.Value.ToString());
-                    else wtr.Write((int)i.Value);
+
+                    if (i.Key.IsUTF && i.Value != null)
+                        wtr.WriteUTF(i.Value.ToString());
+                    else if (i.Key.GetType() == typeof(double))
+                        wtr.Write((double)i.Value);
+                    else
+                        wtr.Write((int)i.Value);
+                }
+                catch (Exception e)
+                {
+                    Log.Error($"Error while exporting stats data:" +
+                        $"\n\t- StatData ID: {i.Key};" +
+                        $"\n\t- Value: {i.Value};" +
+                        $"\n\t- Type: {StatsType.GetType(i.Value)};" +
+                        $"\n\t- StackTrace: {e.StackTrace}"
+                        );
                 }
             }
-            catch (Exception) { }
         }
     }
 }

@@ -449,13 +449,13 @@ namespace LoESoft.AppEngine
         public int CharacterId { get; private set; }
         public ushort ObjectType { get; private set; }
         public int CharLevel { get; private set; }
-        public double CharExperience { get; private set; }
+        public string CharExperience { get; private set; }
         public int CharHealthPoints { get; private set; }
         public int CharMagicPoints { get; private set; }
         public int CharAttackLevel { get; private set; }
-        public double CharAttackExperience { get; private set; }
+        public string CharAttackExperience { get; private set; }
         public int CharDefenseLevel { get; private set; }
-        public double CharDefenseExperience { get; private set; }
+        public string CharDefenseExperience { get; private set; }
         public int CharSpeed { get; private set; }
         public string CharPosition { get; private set; }
         public int CharTownID { get; private set; }

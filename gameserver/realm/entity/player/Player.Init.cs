@@ -35,6 +35,19 @@ namespace LoESoft.GameServer.realm.entity.player
         {
             try
             {
+                var @char = client.Character;
+                CharLevel = @char.CharLevel;
+                CharExperience = Convert.ToDouble(@char.CharExperience);
+                CharHealthPoints = @char.CharHealthPoints;
+                CharMagicPoints = @char.CharMagicPoints;
+                CharAttackLevel = @char.CharAttackLevel;
+                CharAttackExperience = Convert.ToDouble(@char.CharAttackExperience);
+                CharDefenseLevel = @char.CharDefenseLevel;
+                CharDefenseExperience = Convert.ToDouble(@char.CharDefenseExperience);
+                CharSpeed = @char.CharSpeed;
+                CharPosition = ProcessPosition(@char.CharPosition);
+                CharTownID = @char.CharTownID;
+
                 if (client.Account.Admin == true)
                     Admin = 1;
                 AccountType = client.Account.AccountType;
@@ -273,28 +286,45 @@ namespace LoESoft.GameServer.realm.entity.player
         public override void Init(World owner)
         {
             MaxHackEntries = 0;
+
             visibleTiles = new Dictionary<IntPoint, bool>();
+
             WorldInstance = owner;
+
             Random rand = new Random();
+
             int x, y;
+
             do
             {
                 x = rand.Next(0, owner.Map.Width);
                 y = rand.Next(0, owner.Map.Height);
             } while (owner.Map[x, y].Region != TileRegion.Spawn);
+
             Move(x + 0.5f, y + 0.5f);
+            
+            /*float x = CharPosition.X;
+            float y = CharPosition.Y;
+
+            Move(x, y);*/
+
             tiles = new byte[owner.Map.Width, owner.Map.Height];
+
             SetNewbiePeriod();
+
             base.Init(owner);
-            List<int> gifts = Client.Account.Gifts.ToList();
-            if (owner.Id == (int)TownID.ISLE_OF_APPRENTICES_ID || owner.Name == "Vault")
+
+            if (owner.Id == (int)TownID.ISLE_OF_APPRENTICES_ID || owner.Id == (int)TownID.VAULT_ID)
             {
+                List<int> gifts = Client.Account.Gifts.ToList();
+
                 Client.SendMessage(new GLOBAL_NOTIFICATION
                 {
                     Type = 0,
                     Text = gifts.Count > 0 ? "giftChestOccupied" : "giftChestEmpty"
                 });
             }
+
             if (Client.Character.Pet != 0)
             {
                 HatchlingPet = false;
