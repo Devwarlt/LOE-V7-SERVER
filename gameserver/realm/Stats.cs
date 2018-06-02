@@ -177,6 +177,7 @@ namespace LoESoft.GameServer.realm
 
             return $"{value}{(value != null ? "\t(Not Null)" : "\t(Null)")}";
         }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
         public static implicit operator StatsType(int type)
         {
