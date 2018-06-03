@@ -21,9 +21,7 @@ namespace LoESoft.GameServer.networking.handlers
 
         private void Handle(Client client, CREATE message)
         {
-            int skin = client.Account.OwnedSkins.Contains(message.SkinType) ? message.SkinType : 0;
-
-            CreateStatus status = Manager.Database.CreateCharacter(Manager.GameData, client.Account, (ushort)message.ClassType, skin, out DbChar character);
+            CreateStatus status = Manager.Database.CreateCharacter(Manager.GameData, client.Account, (ushort)message.ClassType, 0, out DbChar character);
 
             if (status == CreateStatus.ReachCharLimit)
             {

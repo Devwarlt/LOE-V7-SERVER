@@ -1,14 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LoESoft.Core.config
 {
     public partial class Settings
     {
+        [Flags]
+        public enum ServerMode
+        {
+            Local,
+            ClosedTest,
+            Production
+        }
+
         public static bool IS_PRODUCTION = false;
 
         public static bool ENABLE_RESTART = false;
 
         public static int RESTART_DELAY_MINUTES = 60;
+
+        public static ServerMode SERVER_MODE = ServerMode.ClosedTest;
+
+        public static readonly List<GameVersion> GAME_VERSIONS = new List<GameVersion>
+        {
+            new GameVersion(Version: "0.0.1", Allowed: true)
+        };
+
+        public static readonly List<string> ALLOWED_LOCAL_DNS = new List<string>
+        {
+            "::1", "localhost", "127.0.0.1"
+        };
 
         public class Beginner
         {
@@ -50,10 +71,5 @@ namespace LoESoft.Core.config
             public static readonly int IS_AGE_VERIFIED = 1;
             public static readonly bool VERIFIED = true;
         }
-
-        public static readonly List<GameVersion> GAME_VERSIONS = new List<GameVersion>
-        {
-            new GameVersion(Version: "0.0.1", Allowed: true)
-        };
     }
 }

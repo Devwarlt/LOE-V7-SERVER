@@ -232,6 +232,7 @@
     <Compile Include="logic\transitions\PlayerWithinTransition.cs" />
     <Compile Include="logic\transitions\HpLessTransition.cs" />
     <Compile Include="logic\transitions\TimedTransition.cs" />
+    <Compile Include="networking\messages\handlers\ClosedTestHandler.cs" />
     <Compile Include="networking\messages\handlers\hack\GodCheatHandler.cs" />
     <Compile Include="networking\messages\handlers\hack\ICheatHandler.cs" />
     <Compile Include="networking\messages\handlers\hack\DexterityCheatHandler.cs" />

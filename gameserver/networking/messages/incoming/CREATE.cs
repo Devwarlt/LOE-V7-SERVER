@@ -9,7 +9,6 @@ namespace LoESoft.GameServer.networking.incoming
     public class CREATE : IncomingMessage
     {
         public int ClassType { get; set; }
-        public int SkinType { get; set; }
 
         public override MessageID ID => MessageID.CREATE;
 
@@ -18,13 +17,11 @@ namespace LoESoft.GameServer.networking.incoming
         protected override void Read(NReader rdr)
         {
             ClassType = rdr.ReadInt16();
-            SkinType = rdr.ReadInt16();
         }
 
         protected override void Write(NWriter wtr)
         {
             wtr.Write((ushort)ClassType);
-            wtr.Write((ushort)SkinType);
         }
     }
 }

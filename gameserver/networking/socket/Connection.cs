@@ -53,6 +53,9 @@ namespace LoESoft.GameServer.networking
             NETWORK_TICKER_DISCONNECT = 40,
             OLD_CLIENT_DISCONNECT = 41,
             BYTES_NOT_READY = 42,
+            SERVER_MODE_LOCAL_ONLY = 43,
+            SERVER_MODE_CLOSED_TEST_ONLY = 44,
+            SERVER_MODE_PRODUCTION_ONLY = 45,
             UNKNOW_ERROR_INSTANCE = 255
         }
 
