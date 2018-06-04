@@ -15,10 +15,6 @@ namespace LoESoft.GameServer.networking
         {
             try
             {
-                if (msg.ID == (MessageID)255)
-                    return;
-
-
                 if (!MessageHandler.Handlers.TryGetValue(msg.ID, out IMessage handler))
                     Log.Warn($"Unhandled message ID '{msg.ID}'.");
                 else
@@ -26,6 +22,7 @@ namespace LoESoft.GameServer.networking
             }
             catch (NullReferenceException)
             {
+                Log.Warn($"Unhandled Message ID '{msg.ID}'.");
                 Manager.TryDisconnect(this, DisconnectReason.ERROR_WHEN_HANDLING_MESSAGE);
             }
         }

@@ -11,12 +11,13 @@ namespace LoESoft.Core.config
             public static readonly string APPENGINE_URL = "https://loesoft-games.github.io"; //"http://appengine.loesoft.org";
             public static readonly int CPU_HANDLER = 4096;
             public static readonly int MAX_CONNECTIONS = 25;
-            public static readonly bool DISABLE_NAGLES_ALGORITHM = IS_PRODUCTION;
+            public static readonly bool DISABLE_NAGLES_ALGORITHM = SERVER_MODE != ServerMode.Local;
 
             public static class RESTART
             {
-                public static bool ENABLE_RESTART = Settings.ENABLE_RESTART;
-                public static int RESTART_DELAY_MINUTES = Settings.RESTART_DELAY_MINUTES;
+                public static readonly bool ENABLE_RESTART = ENABLE_RESTART_SYSTEM;
+                public static readonly int RESTART_DELAY_MINUTES = Settings.RESTART_DELAY_MINUTES;
+                public static readonly int RESTART_APPENGINE_DELAY_MINUTES = Settings.RESTART_APPENGINE_DELAY_MINUTES;
             }
 
             public static class INTERNAL

@@ -25,6 +25,8 @@ namespace LoESoft.GameServer.networking.handlers
 
             if (newX != player.X || newY != player.Y)
             {
+                player.CharPosition = new Position(x: newX, y: newY, town: player.Owner.Id);
+                player.Client.Character.CharPosition = player.ProcessPosition(player.CharPosition);
                 player.Move(newX, newY);
                 player.ClientTick(time, message);
                 CheckLabConditions(player, message);

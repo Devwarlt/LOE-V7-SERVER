@@ -13,13 +13,13 @@ namespace LoESoft.Core.config
             Production
         }
 
-        public static bool IS_PRODUCTION = false;
+        public static readonly ServerMode SERVER_MODE = ServerMode.ClosedTest;
 
-        public static bool ENABLE_RESTART = false;
+        public static readonly bool ENABLE_RESTART_SYSTEM = true;
 
-        public static int RESTART_DELAY_MINUTES = 60;
+        public static readonly int RESTART_APPENGINE_DELAY_MINUTES = 4 * 60;
 
-        public static ServerMode SERVER_MODE = ServerMode.ClosedTest;
+        public static readonly int RESTART_DELAY_MINUTES = 60;
 
         public static readonly List<GameVersion> GAME_VERSIONS = new List<GameVersion>
         {
@@ -56,8 +56,8 @@ namespace LoESoft.Core.config
             public static int CharDefenseLevel = 0;
             public static string CharDefenseExperience = "0";
             public static int CharSpeed = 0;
-            public static string CharPosition = "X:25;Y:51";
-            public static int CharTownID = -2;
+            public static string CharPosition = "X:25;Y:51;Town:-1";
+            public static int CharTownID = -1;
         }
 
         public static class STARTUP

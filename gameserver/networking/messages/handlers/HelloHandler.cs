@@ -13,7 +13,6 @@ using LoESoft.GameServer.networking.error;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.config;
 using System.Collections.Generic;
-using LoESoft.Core.models;
 
 #endregion
 
@@ -250,57 +249,6 @@ namespace LoESoft.GameServer.networking.handlers
                 });
 
                 client.State = ProtocolState.Handshaked;
-
-                string DNS = client.Socket.RemoteEndPoint.ToString().Split(':')[0];
-
-                switch (Settings.SERVER_MODE)
-                {
-                    case Settings.ServerMode.Local:
-                        if (!Settings.ALLOWED_LOCAL_DNS.Contains(DNS))
-                        {
-                            client.SendMessage(new FAILURE
-                            {
-                                ErrorId = (int)FailureIDs.JSON_DIALOG,
-                                ErrorDescription =
-                                    JSONErrorIDHandler.
-                                        FormatedJSONError(
-                                            errorID: ErrorIDs.NORMAL_CONNECTION,
-                                            labels: new[] { "{UNKNOW_ERROR_INSTANCE}" },
-                                            arguments: new[] { "You cannot access server while in <b>local</b> server mode." }
-                                        )
-                            });
-
-                            Manager.TryDisconnect(client, DisconnectReason.SERVER_MODE_LOCAL_ONLY);
-
-                            return;
-                        }
-                        break;
-                    case Settings.ServerMode.ClosedTest:
-                        ClosedTestHandler closedTestHandler = new ClosedTestHandler(Client: client);
-
-                        if (closedTestHandler.Validate())
-                        {
-                            client.SendMessage(new FAILURE
-                            {
-                                ErrorId = (int)FailureIDs.JSON_DIALOG,
-                                ErrorDescription =
-                                    JSONErrorIDHandler.
-                                        FormatedJSONError(
-                                            errorID: ErrorIDs.NORMAL_CONNECTION,
-                                            labels: new[] { "{UNKNOW_ERROR_INSTANCE}" },
-                                            arguments: new[] { "You cannot access server while in <b>closed test</b> server mode without a valid <b>Closed Test Token</b>. Contact Devwarlt on Discord to claim your token." }
-                                        )
-                            });
-
-                            Manager.TryDisconnect(client, DisconnectReason.SERVER_MODE_LOCAL_ONLY);
-
-                            return;
-                        }
-
-                        break;
-                    default:
-                        break;
-                }
             }
         }
     }

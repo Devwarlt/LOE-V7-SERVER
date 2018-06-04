@@ -13,6 +13,8 @@ using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core;
 using LoESoft.GameServer.logic.skills.Pets;
+using LoESoft.GameServer.networking.error;
+using LoESoft.Core.models;
 
 #endregion
 
@@ -181,6 +183,9 @@ namespace LoESoft.GameServer.realm.entity.player
             catch (Exception) { }
         }
 
+        private float LastPosX { get; set; }
+        private float LastPosY { get; set; }
+
         public override void Move(float x, float y)
         {
             if (Pet != null)
@@ -195,30 +200,26 @@ namespace LoESoft.GameServer.realm.entity.player
             base.Move(x, y);
         }
 
+        public void TeleportToTemple()
+        {
+            Client.Reconnect(new RECONNECT
+            {
+                GameId = CharTownID,
+                Host = string.Empty,
+                Key = Empty<byte>.Array,
+                Name = "Town Temple",
+                Port = Settings.GAMESERVER.PORT
+            });
+        }
+
         public void Death(string killer, ObjectDesc desc = null)
         {
-            if (dying) return;
-            dying = true;
-            switch (Owner.Name)
-            {
-                case "Arena":
-                    {
-                        Client.SendMessage(new ARENA_DEATH
-                        {
-                            RestartPrice = 100
-                        });
-                        HP = (int)ObjectDesc.MaxHP;
-                        ApplyConditionEffect(new ConditionEffect
-                        {
-                            Effect = ConditionEffectIndex.Paused,
-                            DurationMS = -1
-                        });
-                        return;
-                    }
-            }
-            if (Client.State == ProtocolState.Disconnected || resurrecting)
+            if (dying)
                 return;
-            if (CheckResurrection())
+
+            dying = true;
+
+            if (Client.State == ProtocolState.Disconnected)
                 return;
 
             if (Client.Character.Dead)
@@ -226,12 +227,13 @@ namespace LoESoft.GameServer.realm.entity.player
                 GameServer.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD);
                 return;
             }
-            GenerateGravestone();
+
             if (desc != null)
                 if (desc.DisplayId != null)
                     killer = desc.DisplayId;
                 else
                     killer = desc.ObjectId;
+
             switch (killer)
             {
                 case "":
@@ -251,36 +253,11 @@ namespace LoESoft.GameServer.realm.entity.player
                     break;
             }
 
-            try
-            {
-                Client.Character.Dead = true;
+            CharPosition = World.TownTemples[(TownID)CharTownID];
 
-                SaveToCharacter();
+            SaveToCharacter();
 
-                GameServer.Manager.Database.SaveCharacter(Client.Account, Client.Character, true);
-                GameServer.Manager.Database.Death(GameServer.Manager.GameData, Client.Account, Client.Character, FameCounter.Stats, killer);
-
-                if (Owner.Id != -6)
-                {
-                    DEATH _death = new DEATH
-                    {
-                        AccountId = AccountId,
-                        CharId = Client.Character.CharId,
-                        Killer = killer,
-                        zombieId = -1,
-                        zombieType = -1
-                    };
-
-                    Client.SendMessage(_death);
-
-                    Owner.Timers.Add(new WorldTimer(1000, (w, t) => GameServer.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD)));
-
-                    Owner.LeaveWorld(this);
-                }
-                else
-                    GameServer.Manager.TryDisconnect(Client, DisconnectReason.CHARACTER_IS_DEAD_ERROR);
-            }
-            catch (Exception) { }
+            TeleportToTemple();
         }
 
         public override void Init(World owner)
@@ -293,20 +270,10 @@ namespace LoESoft.GameServer.realm.entity.player
 
             Random rand = new Random();
 
-            int x, y;
+            float x = LastPosX = CharPosition.X;
+            float y = LastPosY = CharPosition.Y;
 
-            do
-            {
-                x = rand.Next(0, owner.Map.Width);
-                y = rand.Next(0, owner.Map.Height);
-            } while (owner.Map[x, y].Region != TileRegion.Spawn);
-
-            Move(x + 0.5f, y + 0.5f);
-            
-            /*float x = CharPosition.X;
-            float y = CharPosition.Y;
-
-            Move(x, y);*/
+            Move(x, y);
 
             tiles = new byte[owner.Map.Width, owner.Map.Height];
 
@@ -361,6 +328,44 @@ namespace LoESoft.GameServer.realm.entity.player
             }
 
             ApplyConditionEffect(AccountPerks.SetAccountTypeIcon());
+
+            string DNS = Client.Socket.RemoteEndPoint.ToString().Split(':')[0];
+
+            switch (Settings.SERVER_MODE)
+            {
+                case Settings.ServerMode.Local:
+                    if (!Settings.ALLOWED_LOCAL_DNS.Contains(DNS))
+                    {
+                        Client.SendMessage(new networking.outgoing.FAILURE
+                        {
+                            ErrorId = (int)FailureIDs.JSON_DIALOG,
+                            ErrorDescription =
+                                JSONErrorIDHandler.
+                                    FormatedJSONError(
+                                        errorID: ErrorIDs.NORMAL_CONNECTION,
+                                        labels: new[] { "{UNKNOW_ERROR_INSTANCE}" },
+                                        arguments: new[] { "You cannot access server while in <b>local</b> server mode." }
+                                    )
+                        });
+
+                        GameServer.Manager.TryDisconnect(Client, DisconnectReason.SERVER_MODE_LOCAL_ONLY);
+                    }
+                    break;
+                case Settings.ServerMode.ClosedTest:
+                    if (!Client.Account.ClosedTester)
+                    {
+                        CTTSendHandler CTTHandler = new CTTSendHandler
+                        {
+                            Client = Client
+                        };
+
+                        CTTHandler.SendRequest();
+                    }
+
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void Teleport(RealmTime time, TELEPORT packet)

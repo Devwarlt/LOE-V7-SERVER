@@ -211,11 +211,13 @@ namespace LoESoft.GameServer
     {
         public float X;
         public float Y;
+        public int Town;
 
-        public Position(float x, float y)
+        public Position(float x, float y, int town = (int)TownID.ISLE_OF_APPRENTICES_ID)
         {
             X = x;
             Y = y;
+            Town = town;
         }
 
         public static Position Read(NReader rdr)

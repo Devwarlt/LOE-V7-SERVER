@@ -209,10 +209,10 @@ namespace LoESoft.GameServer.realm.entity.player
         }
 
         public Position ProcessPosition(string data)
-           => new Position(Convert.ToSingle(data.Split(';')[0].Split(':')[1]), Convert.ToSingle(data.Split(';')[1].Split(':')[1]));
+           => new Position(Convert.ToSingle(data.Split(';')[0].Split(':')[1]), Convert.ToSingle(data.Split(';')[1].Split(':')[1]), Convert.ToInt32(data.Split(';')[2].Split(':')[1]));
 
         public string ProcessPosition(Position data)
-            => $"X:{data.X};Y:{data.Y}";
+            => $"X:{data.X};Y:{data.Y};Town:{data.Town}";
 
         public bool CompareName(string name) => name.ToLower().Split(' ')[0].StartsWith("[") || Name.Split(' ').Length == 1 ? Name.ToLower().StartsWith(name.ToLower()) : Name.Split(' ')[1].ToLower().StartsWith(name.ToLower());
         

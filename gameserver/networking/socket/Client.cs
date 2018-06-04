@@ -21,12 +21,17 @@ namespace LoESoft.GameServer.networking
         public RealmManager Manager { get; private set; }
         public RC4 IncomingCipher { get; private set; }
         public RC4 OutgoingCipher { get; private set; }
+        public int CTTUses { get; set; }
+
+        public static readonly int MaxNumberAttemptsPerCTT = 5;
 
         private NetworkHandler handler;
         private bool disposed;
 
         public Client(RealmManager manager, Socket skt)
         {
+            CTTUses = 0;
+
             Socket = skt;
             Manager = manager;
 

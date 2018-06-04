@@ -33,6 +33,7 @@ namespace LoESoft.GameServer
         private static readonly ManualResetEvent Shutdown = new ManualResetEvent(false);
 
         public static int GameUsage { get; private set; }
+
         public static bool AutoRestart { get; private set; }
 
         public static ChatManager Chat { get; set; }
@@ -40,6 +41,8 @@ namespace LoESoft.GameServer
         public static RealmManager Manager;
 
         public static DateTime WhiteListTurnOff { get; private set; }
+
+        public static CTTManager CTTManager { get; private set; }
 
         private static void Main(string[] args)
         {
@@ -70,6 +73,12 @@ namespace LoESoft.GameServer
                 Console.CancelKeyPress += (sender, e) => e.Cancel = true;
 
                 Settings.DISPLAY_SUPPORTED_VERSIONS();
+
+                if (Settings.SERVER_MODE == Settings.ServerMode.ClosedTest)
+                {
+                    CTTManager = new CTTManager();
+                    CTTManager.Init();
+                }
 
                 Log.Info("Initializing GameServer...");
 
@@ -109,6 +118,43 @@ namespace LoESoft.GameServer
                 Environment.Exit(0);
             }
         }
+
+        #region "Useful Tools"
+        /*
+        public void OrganizeMessages()
+        {
+            List<string> messages = new List<string>();
+            foreach (var i in Enum.GetValues(typeof(MessageID)))
+                messages.Add(i + " = " + (int)i);
+            messages.Sort();
+            for (int j = 0; j < messages.Count; j++)
+                Console.WriteLine(messages[j] + (j + 1 == messages.Count ? "" : ","));
+        }
+
+        public void CheckUnusedMessages()
+        {
+            Dictionary<int, string> messages = new Dictionary<int, string>();
+            List<string> cache = new List<string>();
+            int highestID = 0;
+
+            foreach (var i in Enum.GetValues(typeof(MessageID)))
+            {
+                if ((int)i > highestID)
+                    highestID = (int)i;
+                messages.Add((int)i, i.ToString());
+            }
+
+            for (int j = 0; j <= highestID; j++)
+                if (messages.ContainsKey(j))
+                    cache.Add(messages[j] + " = " + j);
+                else
+                    cache.Add("// Unregistered MessageID '" + j + "'");
+
+            for (int k = 0; k < cache.Count; k++)
+                Console.WriteLine(cache[k] + (k + 1 == cache.Count ? "" : ","));
+        }
+        */
+        #endregion
 
         static int ToMiliseconds(int minutes) => minutes * 60 * 1000;
 

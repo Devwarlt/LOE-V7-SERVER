@@ -2402,5 +2402,9 @@
   [ "server.trade_successful", "Trade Successful", "en" ],
   [ "server.trade_error", "Trade Error", "en" ],
   [ "server.trade_other_left", "Other player left the trade.", "en" ],
-  [ "server.wine_cellar", "Wine Cellar", "en" ]
+  [ "server.wine_cellar", "Wine Cellar", "en" ],
+  [ "server.ctt_label_request", "Closed Test Token", "en" ],
+  [ "discord.invite_link_label", "Join", "en" ],
+  [ "discord.invite_link_title", "Discord Invite", "en" ],
+  [ "discord.invite_link_title_desc", "Join LoESoft Games official discord and check all latest updates of LoE Realm project.", "en" ]
 ]

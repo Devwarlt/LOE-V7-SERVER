@@ -200,6 +200,12 @@ namespace LoESoft.Core
             set { SetValue("accountType", value); }
         }
 
+        public bool ClosedTester
+        {
+            get { return GetValue("closedTester", false); }
+            set { SetValue("closedTester", value); }
+        }
+
         public string AccountId { get; private set; }
 
         internal string LockToken { get; set; }

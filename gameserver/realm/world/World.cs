@@ -29,6 +29,11 @@ namespace LoESoft.GameServer.realm
 
     public abstract class World : IDisposable
     {
+        public static readonly Dictionary<TownID, Position> TownTemples = new Dictionary<TownID, Position>
+        {
+            { TownID.ISLE_OF_APPRENTICES_ID, new Position(x: 29, y: 30, town: (int)TownID.ISLE_OF_APPRENTICES_ID) }
+        };
+
         protected World()
         {
             Players = new ConcurrentDictionary<int, Player>();

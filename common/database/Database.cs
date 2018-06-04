@@ -60,6 +60,7 @@ namespace LoESoft.Core
             return new DbAccount(this, "0")
             {
                 AccountType = (int)AccountType.FREE_ACCOUNT,
+                ClosedTester = false,
                 AccountLifetime = DateTime.MinValue,
                 UUID = uuid,
                 Name = Names[(uint)uuid.GetHashCode() % Names.Length],
@@ -257,6 +258,7 @@ namespace LoESoft.Core
             acc = new DbAccount(this, newAccId.ToString())
             {
                 AccountType = (int)AccountType.FREE_ACCOUNT,
+                ClosedTester = false,
                 AccountLifetime = DateTime.MinValue,
                 UUID = uuid,
                 Name = Names[(uint)uuid.GetHashCode() % Names.Length],

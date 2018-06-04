@@ -82,7 +82,7 @@ namespace LoESoft.Core.config
                                 DNS = CheckDDNS(SERVERS[i].Item2, i),
                                 Lat = 0,
                                 Long = 0,
-                                Usage = IS_PRODUCTION ? GetUsage(CheckDDNS(SERVERS[i].Item2, i), GAMESERVER.PORT) : SERVERS[i].Item3,
+                                Usage = SERVER_MODE != ServerMode.Local ? GetUsage(CheckDDNS(SERVERS[i].Item2, i), GAMESERVER.PORT) : SERVERS[i].Item3,
                                 AdminOnly = false
                             });
                 }
@@ -142,7 +142,7 @@ namespace LoESoft.Core.config
                 {
                     try
                     {
-                        if (!socket.BeginConnect(dns, port, null, null).AsyncWaitHandle.WaitOne(2000, true))
+                        if (!socket.BeginConnect(dns, port, null, null).AsyncWaitHandle.WaitOne(3000, true))
                         {
                             socket.Close();
                             return false;

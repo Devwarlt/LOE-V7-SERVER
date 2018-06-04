@@ -14,6 +14,6 @@
             SafePlace = true;
         }
 
-        protected override void Init() => LoadMap("IsleofApprenticesBETAv1", MapType.Json);
+        protected override void Init() => LoadMap("IsleofApprentices", MapType.Json);
     }
 }

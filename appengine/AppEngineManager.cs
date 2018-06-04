@@ -20,7 +20,7 @@ namespace LoESoft.AppEngine
     public class AppEngineManager
     {
         public int PORT
-        { get { return Settings.IS_PRODUCTION ? Settings.APPENGINE.PRODUCTION_PORT : Settings.APPENGINE.TESTING_PORT; } }
+        { get { return Settings.SERVER_MODE != Settings.ServerMode.Local ? Settings.APPENGINE.PRODUCTION_PORT : Settings.APPENGINE.TESTING_PORT; } }
 
         public HttpListener _websocket
         { get; private set; }
@@ -88,7 +88,8 @@ namespace LoESoft.AppEngine
         {
             Thread parallel_thread = new Thread(() =>
             {
-                Thread.Sleep(ToMiliseconds(Settings.NETWORKING.RESTART.RESTART_DELAY_MINUTES));
+                Thread.Sleep(ToMiliseconds(Settings.NETWORKING.RESTART.RESTART_APPENGINE_DELAY_MINUTES));
+
                 int i = 5;
                 do
                 {
@@ -99,7 +100,7 @@ namespace LoESoft.AppEngine
 
                 IAsyncResult webSocketIAsyncResult = new WebSocketDelegate(SafeShutdown).BeginInvoke(new AsyncCallback(SafeDispose), null);
 
-                if (webSocketIAsyncResult.AsyncWaitHandle.WaitOne())
+                if (webSocketIAsyncResult.AsyncWaitHandle.WaitOne(5000, true))
                     Process.Start(Settings.APPENGINE.FILE);
             });
 
@@ -159,7 +160,7 @@ namespace LoESoft.AppEngine
 
         private void WebSocket()
         {
-            string _webaddress = $"http://{(Settings.IS_PRODUCTION ? "*" : "localhost")}:{PORT}/";
+            string _webaddress = $"http://{(Settings.SERVER_MODE != Settings.ServerMode.Local ? "*" : "localhost")}:{PORT}/";
 
             WebSocketAddAddress(_webaddress, Environment.UserDomainName, Environment.UserName);
 

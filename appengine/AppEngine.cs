@@ -68,7 +68,7 @@ namespace LoESoft.AppEngine
                 Log.Warn("Terminating AppEngine, disposing all instances.");
 
                 IAsyncResult webSocketIAsyncResult = new WebSocketDelegate(AppEngineManager.SafeShutdown).BeginInvoke(new AsyncCallback(AppEngineManager.SafeDispose), null);
-                webSocketIAsyncResult.AsyncWaitHandle.WaitOne();
+                webSocketIAsyncResult.AsyncWaitHandle.WaitOne(5000, true);
             }
         }
     }
