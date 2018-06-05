@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -93,11 +94,19 @@ namespace LoESoft.GameServer.networking
                 return;
 
             Message dummy = (e.UserToken as IncomingToken).Message;
-            dummy.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
 
-            _incomingState = IncomingStage.ProcessingMessage;
+            bool cont = false;
 
-            bool cont = IncomingMessageReceived(dummy);
+            try
+            {
+                dummy.Read(client, e.Buffer, 0, (e.UserToken as IncomingToken).Length);
+
+                cont = IncomingMessageReceived(dummy);
+            }
+            catch (EndOfStreamException)
+            { cont = false; }
+            finally
+            { _incomingState = IncomingStage.ProcessingMessage; }
 
             if (cont && skt.Connected)
             {
