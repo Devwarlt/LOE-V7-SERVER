@@ -13,9 +13,9 @@ namespace LoESoft.Core.config
             Production
         }
 
-        public static readonly ServerMode SERVER_MODE = ServerMode.ClosedTest;
+        public static readonly ServerMode SERVER_MODE = ServerMode.Local;
 
-        public static readonly bool ENABLE_RESTART_SYSTEM = true;
+        public static readonly bool ENABLE_RESTART_SYSTEM = false;
 
         public static readonly int RESTART_APPENGINE_DELAY_MINUTES = 4 * 60;
 
@@ -28,7 +28,7 @@ namespace LoESoft.Core.config
 
         public static readonly List<string> ALLOWED_LOCAL_DNS = new List<string>
         {
-            "::1", "localhost", "127.0.0.1"
+            "::1", "localhost", "127.0.0.1", "189.61.24.57"
         };
 
         public class Beginner

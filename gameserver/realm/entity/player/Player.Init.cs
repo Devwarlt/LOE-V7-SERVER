@@ -335,21 +335,7 @@ namespace LoESoft.GameServer.realm.entity.player
             {
                 case Settings.ServerMode.Local:
                     if (!Settings.ALLOWED_LOCAL_DNS.Contains(DNS))
-                    {
-                        Client.SendMessage(new networking.outgoing.FAILURE
-                        {
-                            ErrorId = (int)FailureIDs.JSON_DIALOG,
-                            ErrorDescription =
-                                JSONErrorIDHandler.
-                                    FormatedJSONError(
-                                        errorID: ErrorIDs.NORMAL_CONNECTION,
-                                        labels: new[] { "{UNKNOW_ERROR_INSTANCE}" },
-                                        arguments: new[] { "You cannot access server while in <b>local</b> server mode." }
-                                    )
-                        });
-
                         GameServer.Manager.TryDisconnect(Client, DisconnectReason.SERVER_MODE_LOCAL_ONLY);
-                    }
                     break;
                 case Settings.ServerMode.ClosedTest:
                     if (!Client.Account.ClosedTester)
