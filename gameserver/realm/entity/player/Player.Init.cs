@@ -665,13 +665,7 @@ namespace LoESoft.GameServer.realm.entity.player
             {
                 HandleNewTick(time);
 
-                HandleUpdate(time);
-            }
-
-            if (HP < 0 && !dying)
-            {
-                Death("Unknown");
-                return;
+                ExperimentalHandleUpdate();
             }
 
             base.Tick(time);

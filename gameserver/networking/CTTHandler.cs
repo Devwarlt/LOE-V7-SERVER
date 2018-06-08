@@ -66,7 +66,7 @@ namespace LoESoft.GameServer.networking
                 case CTTStatus.InvalidCTT:
                     Client.SendMessage(new CTT_SEND
                     {
-                        CTTSendMessage = "{\"name\":\"Closed Test Token Request\", \"message\":\"In order to access the Closed Test server, you need to insert a valid token bellow for approvation:\"}"
+                        CTTSendMessage = "{\"name\":\"Closed Test Token Request\", \"message\":\"In order to access the Closed Test server, you need to insert a valid token below for approvation:\"}"
                     });
 
                     client.Player.SendInfo($"Token '{message.CTTAuth}' is invalid, you have {client.CTTUses} of {MaxNumberAttemptsPerCTT} attempts until disconnect.");

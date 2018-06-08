@@ -1,5 +1,6 @@
 ﻿#region
 
+using LoESoft.Core.models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,28 @@ using System.Linq;
 
 namespace LoESoft.GameServer
 {
+    public class ElapsedTime
+    {
+        private string From { get; set; }
+        private DateTime BeginTime { get; set; }
+        private DateTime EndTime { get; set; }
+
+        public ElapsedTime(string From)
+        {
+            this.From = From;
+        }
+
+        public void Start()
+            => BeginTime = DateTime.Now;
+
+        public void End()
+        {
+            EndTime = DateTime.Now;
+
+            Log.Warn($"[{From}] Elapsed Time: {(EndTime - BeginTime).TotalMilliseconds:n8} ms.");
+        }
+    }
+
     public class DateProvider : IFormatProvider, ICustomFormatter
     {
         public object GetFormat(Type formatType)

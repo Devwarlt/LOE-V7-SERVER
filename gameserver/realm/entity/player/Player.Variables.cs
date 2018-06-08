@@ -124,7 +124,7 @@ namespace LoESoft.GameServer.realm.entity.player
         public TradeManager HandleTrade { get; private set; }
         public int UpdatesSend { get; private set; }
         public int UpdatesReceived { get; set; }
-        public const int SIGHTRADIUS = 2048;
+        public const int SIGHTRADIUS = 12;
         private const int APPOX_AREA_OF_SIGHT = (int)(Math.PI * SIGHTRADIUS * SIGHTRADIUS + 1);
         private readonly HashSet<Entity> clientEntities = new HashSet<Entity>();
         private readonly HashSet<IntPoint> clientStatic = new HashSet<IntPoint>(new IntPointComparer());

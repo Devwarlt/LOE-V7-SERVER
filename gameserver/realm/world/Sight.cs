@@ -12,6 +12,17 @@ namespace LoESoft.GameServer.realm
     {
         private static readonly Dictionary<int, IntPoint[]> points = new Dictionary<int, IntPoint[]>();
 
+        public static List<IntPoint> GetSquare(int radius)
+        {
+            List<IntPoint> square = new List<IntPoint>();
+
+            for (int x = -radius; x <= radius; x++)
+                for (int y = -radius; y <= radius; y++)
+                    square.Add(new IntPoint(x, y));
+
+            return square;
+        }
+
         public static IntPoint[] GetSightCircle(int radius)
         {
             if (!points.TryGetValue(radius, out IntPoint[] ret))

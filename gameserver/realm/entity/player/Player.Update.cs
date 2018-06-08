@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LoESoft.Core.models;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.terrain;
 
@@ -99,6 +100,68 @@ namespace LoESoft.GameServer.realm.entity.player
                    let objId = Owner.Map[i.X, i.Y].ObjId
                    where objId != 0
                    select i;
+        }
+
+        public void ExperimentalHandleUpdate()
+        {
+            WmapTile tile;
+            World world = GameServer.Manager.GetWorld(Owner.Id);
+            HashSet<Entity> sendEntities = new HashSet<Entity>(GetNewEntities());
+            List<UPDATE.TileData> tilesUpdate = new List<UPDATE.TileData>(APPOX_AREA_OF_SIGHT);
+
+            mapWidth = Owner.Map.Width;
+            mapHeight = Owner.Map.Height;
+            blocksight = world.Dungeon ? Sight.RayCast(this, SIGHTRADIUS).ToList() : Sight.GetSquare(SIGHTRADIUS);
+
+            foreach (IntPoint i in blocksight.ToList())
+            {
+                int x = i.X + (int)X;
+                int y = i.Y + (int)Y;
+
+                if (x < 0 || x >= Owner.Map.Width || y < 0 || y >= Owner.Map.Height || tiles[x, y] >= (tile = Owner.Map[x, y]).UpdateCount) continue;
+
+                if (!visibleTiles.ContainsKey(new IntPoint(x, y)))
+                    visibleTiles[new IntPoint(x, y)] = true;
+
+                tilesUpdate.Add(new UPDATE.TileData
+                {
+                    X = (short)x,
+                    Y = (short)y,
+                    Tile = tile.TileId
+                });
+
+                tiles[x, y] = tile.UpdateCount;
+            }
+
+            int[] dropEntities = GetRemovedEntities().Distinct().ToArray();
+
+            clientEntities.RemoveWhere(_ => Array.IndexOf(dropEntities, _.Id) != -1);
+
+            List<Entity> toRemove = lastUpdate.Keys.Where(i => !clientEntities.Contains(i)).ToList();
+            toRemove.ForEach(i => lastUpdate.TryRemove(i, out int val));
+
+            foreach (var i in sendEntities)
+                lastUpdate[i] = i.UpdateCount;
+
+            IEnumerable<ObjectDef> newStatics = GetNewStatics((int)X, (int)Y);
+            IEnumerable<IntPoint> removeStatics = GetRemovedStatics((int)X, (int)Y);
+
+            List<int> removedIds = new List<int>();
+
+            if (!world.Dungeon)
+                foreach (IntPoint i in removeStatics.ToArray())
+                {
+                    removedIds.Add(Owner.Map[i.X, i.Y].ObjId);
+                    clientStatic.Remove(i);
+                }
+
+            if (sendEntities.Count > 0 || tilesUpdate.Count > 0 || dropEntities.Length > 0 || newStatics.ToArray().Length > 0 || removedIds.Count > 0)
+                Client.SendMessage(new UPDATE()
+                {
+                    Tiles = tilesUpdate.ToArray(),
+                    NewObjects = sendEntities.Select(_ => _.ToDefinition()).Concat(newStatics.ToArray()).ToArray(),
+                    RemovedObjectIds = dropEntities.Concat(removedIds).ToArray()
+                });
         }
 
         public void HandleUpdate(RealmTime time)
@@ -208,8 +271,6 @@ namespace LoESoft.GameServer.realm.entity.player
             });
 
             blocksight.Clear();
-
-            AwaitMove(tickId);
         }
     }
 }

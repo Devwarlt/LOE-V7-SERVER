@@ -387,8 +387,6 @@ namespace LoESoft.GameServer.realm.entity.player
 
         public bool HasSlot(int slot) => Inventory[slot] != null;
 
-        public void AwaitMove(int tickId) => _move.Enqueue(tickId);
-
         public bool KeepAlive(RealmTime time)
         {
             try
