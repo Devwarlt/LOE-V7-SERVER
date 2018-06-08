@@ -1,6 +1,5 @@
 ﻿#region
 
-using System.Linq;
 using LoESoft.Core;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;

@@ -114,7 +114,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
             mapWidth = Owner.Map.Width;
             mapHeight = Owner.Map.Height;
-            blocksight = (world.Dungeon ? Sight.RayCast(this, 15) : Sight.GetSightCircle(SIGHTRADIUS)).ToList();
+            blocksight = (world.Dungeon ? Sight.RayCast(this, SIGHTRADIUS) : Sight.GetSightCircle(SIGHTRADIUS)).ToList();
 
             foreach (IntPoint i in blocksight.ToList())
             {
@@ -140,8 +140,6 @@ namespace LoESoft.GameServer.realm.entity.player
                 tiles[x, y] = tile.UpdateCount;
                 sent++;
             }
-
-            FameCounter.TileSent(sent);
 
             int[] dropEntities = GetRemovedEntities().Distinct().ToArray();
             clientEntities.RemoveWhere(_ => Array.IndexOf(dropEntities, _.Id) != -1);
@@ -170,14 +168,12 @@ namespace LoESoft.GameServer.realm.entity.player
                 && removedIds.Count <= 0)
                 return;
 
-            UPDATE packet = new UPDATE()
+            Client.SendMessage(new UPDATE()
             {
                 Tiles = list.ToArray(),
                 NewObjects = sendEntities.Select(_ => _.ToDefinition()).Concat(newStatics.ToArray()).ToArray(),
                 RemovedObjectIds = dropEntities.Concat(removedIds).ToArray()
-            };
-
-            Client.SendMessage(packet);
+            });
 
             UpdatesSend++;
         }

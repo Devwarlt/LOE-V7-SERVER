@@ -262,6 +262,12 @@ namespace LoESoft.AppEngine
             {
                 string _path;
 
+                if (_webcontext.Request.Url.LocalPath.Contains("ping"))
+                {
+                    _webcontext.Response.Close();
+                    return;
+                }
+
                 if (_webcontext.Request.Url.LocalPath.Contains("crossdomain"))
                 {
                     new crossdomain().HandleRequest(_webcontext);
@@ -302,6 +308,8 @@ namespace LoESoft.AppEngine
                 }
                 else
                     Log.Warn($"[{(_webcontext.Request.RemoteEndPoint.Address.ToString() == "::1" ? "localhost" : $"{_webcontext.Request.RemoteEndPoint.Address.ToString()}")}] Request\t->\t{_webcontext.Request.Url.LocalPath}");
+
+                _webcontext.Response.Close();
             }
             catch (Exception)
             {
@@ -311,8 +319,6 @@ namespace LoESoft.AppEngine
                 using (StreamWriter stream = new StreamWriter(_webcontext.Response.OutputStream))
                     stream.Write($"<h1>Bad request!</h1>\n{_webcontext.Request.Url.LocalPath}");
             }
-
-            _webcontext?.Response.Close();
         }
     }
 }

@@ -7,7 +7,6 @@ using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
-using LoESoft.GameServer.realm.world;
 using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 using LoESoft.GameServer.realm.entity.player;
 using System.Collections.Generic;

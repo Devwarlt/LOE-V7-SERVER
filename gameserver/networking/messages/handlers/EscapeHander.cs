@@ -1,9 +1,6 @@
 ﻿#region
 
-using LoESoft.Core.config;
 using LoESoft.GameServer.networking.incoming;
-using LoESoft.GameServer.networking.outgoing;
-using LoESoft.GameServer.realm;
 
 #endregion
 

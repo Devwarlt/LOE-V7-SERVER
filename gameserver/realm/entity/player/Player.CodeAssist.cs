@@ -215,7 +215,7 @@ namespace LoESoft.GameServer.realm.entity.player
             => $"X:{data.X};Y:{data.Y};Town:{data.Town}";
 
         public bool CompareName(string name) => name.ToLower().Split(' ')[0].StartsWith("[") || Name.Split(' ').Length == 1 ? Name.ToLower().StartsWith(name.ToLower()) : Name.Split(' ')[1].ToLower().StartsWith(name.ToLower());
-        
+
         public void SaveToCharacter()
         {
             var @char = Client.Character;
@@ -388,30 +388,6 @@ namespace LoESoft.GameServer.realm.entity.player
         public bool HasSlot(int slot) => Inventory[slot] != null;
 
         public void AwaitMove(int tickId) => _move.Enqueue(tickId);
-
-        public void ClientTick(RealmTime time, MOVE pkt)
-        {
-            int lastClientTime = LastClientTime;
-            long lastServerTime = LastServerTime;
-
-            LastClientTime = pkt.Time;
-            LastServerTime = time.TotalElapsedMs;
-
-            if (lastClientTime == -1)
-                return;
-
-            _clientTimeLog.Enqueue(pkt.Time - lastClientTime);
-            _serverTimeLog.Enqueue((int)(time.TotalElapsedMs - lastServerTime));
-
-            if (_clientTimeLog.Count < 30)
-                return;
-
-            if (_clientTimeLog.Count > 30)
-            {
-                _clientTimeLog.TryDequeue(out int ignore);
-                _serverTimeLog.TryDequeue(out ignore);
-            }
-        }
 
         public bool KeepAlive(RealmTime time)
         {

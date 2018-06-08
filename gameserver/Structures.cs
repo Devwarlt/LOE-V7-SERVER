@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using LoESoft.GameServer.realm;
 using LoESoft.Core;
 using LoESoft.Core.models;
-using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 

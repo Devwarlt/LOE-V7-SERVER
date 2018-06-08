@@ -1,6 +1,4 @@
-﻿using LoESoft.Core.models;
-using LoESoft.GameServer.networking.error;
-using LoESoft.GameServer.networking.incoming;
+﻿using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
 using System;
 using System.Threading;

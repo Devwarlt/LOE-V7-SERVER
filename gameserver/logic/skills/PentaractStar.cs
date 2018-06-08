@@ -6,7 +6,6 @@ using LoESoft.GameServer.networking;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
-using LoESoft.GameServer.realm.world;
 
 #endregion
 
@@ -54,7 +53,7 @@ namespace LoESoft.GameServer.logic.behaviors
                             Color = new ARGB(0xFF00FF00),
                             Text = "{\"key\":\"blank\",\"tokens\":{\"data\":\"Quest Complete!\"}}"
                         });
-                    
+
                     new Decay(0).Tick(host, time);
 
                     foreach (var i in entities)

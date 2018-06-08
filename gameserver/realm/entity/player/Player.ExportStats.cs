@@ -1,6 +1,5 @@
 ﻿#region
 
-using LoESoft.Core.models;
 using System;
 using System.Collections.Generic;
 

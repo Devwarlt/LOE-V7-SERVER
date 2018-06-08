@@ -3,11 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.realm.mapsetpiece;
 using LoESoft.GameServer.realm.world;
 using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;

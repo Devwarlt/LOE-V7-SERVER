@@ -1,13 +1,7 @@
 ﻿#region
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
-using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
-using LoESoft.Core.config;
 using LoESoft.GameServer.realm.entity.npc;
 using LoESoft.GameServer.logic;
 
