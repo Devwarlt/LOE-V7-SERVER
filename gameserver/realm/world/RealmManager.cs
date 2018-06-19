@@ -163,11 +163,15 @@ namespace LoESoft.GameServer.realm
                     {
                         TryDisconnect(ClientManager[_cData.ID].Client, DisconnectReason.OLD_CLIENT_DISCONNECT); // Old client.
 
+                        _cData.Client.AccountInUseMonitor.Start();
+
                         return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.
                     }
 
                     return new ConnectionProtocol(false, ErrorIDs.LOST_CONNECTION); // User dropped connection while reconnect.
                 }
+                
+                _cData.Client.AccountInUseMonitor.Start();
 
                 return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.
             }
@@ -197,6 +201,10 @@ namespace LoESoft.GameServer.realm
 
                     Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.Client.Account.Name} (Account ID: {_disposableCData.Client.Account.AccountId})'.");
 
+                    if (AccountInUseManager.ContainsKey(_disposableCData.Client.Account.AccountId))
+                        _disposableCData.Client.RemoveAccountInUse();
+
+                    _disposableCData.Client.AddAccountInUse();
                     _disposableCData.Client.Save();
                     _disposableCData.Client.State = ProtocolState.Disconnected;
                     _disposableCData.Client.Socket.Close();
@@ -206,6 +214,10 @@ namespace LoESoft.GameServer.realm
                 {
                     Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{client.Account.Name} (Account ID: {client.Account.AccountId})'.");
 
+                    if (AccountInUseManager.ContainsKey(client.Account.AccountId))
+                        client.RemoveAccountInUse();
+
+                    client.AddAccountInUse();
                     client.Save();
                     client.State = ProtocolState.Disconnected;
                     client.Dispose();

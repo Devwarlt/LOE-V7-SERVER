@@ -16,7 +16,7 @@ namespace LoESoft.GameServer.networking
     {
         public ConcurrentDictionary<string, CTT> CTTData { get; private set; }
 
-        private readonly string Path = "C:/LoESoft/Github/LOE-V7-SERVER/ctt_data.xml";
+        private readonly string Path = "C:/LoESoft/Github/LOE-V7-SERVER/tokens/ctt_data.xml";
 
         private XmlDocument CTTLoadData { get; set; }
         private XDocument CTTSaveData { get; set; }

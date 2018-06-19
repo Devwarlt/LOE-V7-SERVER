@@ -23,23 +23,27 @@ namespace LoESoft.GameServer.networking
         {
             try
             {
-                TcpClient cli = (ar.AsyncState as TcpListener).EndAcceptTcpClient(ar);
+                var cli = (ar.AsyncState as TcpListener).EndAcceptTcpClient(ar);
+
                 (ar.AsyncState as TcpListener).BeginAcceptTcpClient(ServePolicyFile, ar.AsyncState);
-                NetworkStream s = cli.GetStream();
-                NReader rdr = new NReader(s);
-                NWriter wtr = new NWriter(s);
+
+                var s = cli.GetStream();
+                var rdr = new NReader(s);
+                var wtr = new NWriter(s);
+
                 if (rdr.ReadNullTerminatedString() == "<policy-file-request/>")
                 {
-                    wtr.WriteNullTerminatedString(@"<cross-domain-policy>
-     <allow-access-from domain=""*"" to-ports=""*"" />
-</cross-domain-policy>");
+                    wtr.WriteNullTerminatedString(
+                        @"<cross-domain-policy>" +
+                        @"<allow-access-from domain=""*"" to-ports=""*"" />" +
+                        @"</cross-domain-policy>");
                     wtr.Write((byte)'\r');
                     wtr.Write((byte)'\n');
                 }
+
                 cli.Close();
             }
-            catch (ObjectDisposedException) { }
-            catch (Exception) { }
+            catch { }
         }
 
         public void Start()
@@ -50,10 +54,11 @@ namespace LoESoft.GameServer.networking
                 listener.BeginAcceptTcpClient(ServePolicyFile, listener);
                 started = true;
             }
-            catch (ObjectDisposedException) { }
-            catch (Exception)
+            catch
             {
                 started = false;
+
+                GameServer.ForceShutdown();
             }
         }
 

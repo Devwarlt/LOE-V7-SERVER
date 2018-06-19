@@ -8,12 +8,12 @@ namespace LoESoft.GameServer.networking
     {
         private void ProcessPolicyFile()
         {
-            if (skt == null)
+            if (socket == null)
                 return;
 
             try
             {
-                var s = new NetworkStream(skt);
+                var s = new NetworkStream(socket);
                 var wtr = new NWriter(s);
                 wtr.WriteNullTerminatedString(
                     @"<cross-domain-policy>" +

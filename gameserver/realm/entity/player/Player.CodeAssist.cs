@@ -7,10 +7,9 @@ using System.Linq;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking;
-using LoESoft.GameServer.networking.error;
-using FAILURE = LoESoft.GameServer.networking.incoming.FAILURE;
-using LoESoft.GameServer.realm.world;
 using LoESoft.Core;
+using System.Threading;
+using LoESoft.Core.models;
 
 #endregion
 
@@ -400,26 +399,22 @@ namespace LoESoft.GameServer.realm.entity.player
                     _pongTime = time.TotalElapsedMs;
                 }
 
-                if (time.TotalElapsedMs - _pongTime > DcThresold)
+                if (time.TotalElapsedMs - _pongTime > DcThreshold)
                 {
+                    SendHelp($"Connection lost, reconnecting to world {Owner.Name}...");
 
-                    string[] labels = new string[] { "{CLIENT_NAME}" };
-                    string[] arguments = new string[] { (Client?.Account?.Name ?? "_null_") };
+                    Thread.Sleep(3 * 1000);
 
-                    if (arguments == new string[] { "_null_" })
-                        return false;
-                    else
-                        Client?.SendMessage(new FAILURE
-                        {
-                            ErrorId = (int)FailureIDs.JSON_DIALOG,
-                            ErrorDescription =
-                                JSONErrorIDHandler.
-                                    FormatedJSONError(
-                                        errorID: ErrorIDs.LOST_CONNECTION,
-                                        labels: labels,
-                                        arguments: arguments
-                                    )
-                        });
+                    Client.AddReconnect(new Position(X, Y));
+                    Client.Reconnect(new RECONNECT
+                    {
+                        Host = "",
+                        Port = Settings.SERVER_MODE != Settings.ServerMode.Local ? Settings.APPENGINE.PRODUCTION_PORT : Settings.APPENGINE.TESTING_PORT,
+                        GameId = Owner.Id,
+                        Name = Owner.Name,
+                        Key = Empty<byte>.Array,
+                    });
+
                     return false;
                 }
 
@@ -437,24 +432,17 @@ namespace LoESoft.GameServer.realm.entity.player
             }
             catch (Exception e)
             {
-                log4net.Info(e);
+                Log.Error(e.ToString());
                 return false;
             }
         }
 
         private bool UpdateOnPing()
         {
-            try
-            {
-                if (!(Owner is Test))
-                    SaveToCharacter();
-                return true;
-            }
-            catch
-            {
-                Client?.Save();
-                return false;
-            }
+            try { SaveToCharacter(); }
+            catch { return false; } // User dropped connection and host is inaccessible.
+
+            return true;
         }
 
         public void Pong(RealmTime time, PONG pkt)

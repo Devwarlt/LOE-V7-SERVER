@@ -1,5 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using LoESoft.Core.models;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -17,7 +17,7 @@ namespace LoESoft.GameServer.networking
         {
             try
             {
-                if (!skt.Connected)
+                if (!socket.Connected)
                 {
                     GameServer.Manager.TryDisconnect(client, DisconnectReason.CONNECTION_LOST);
                     return;
@@ -47,7 +47,7 @@ namespace LoESoft.GameServer.networking
         {
             if (e.BytesTransferred < 5)
             {
-                Manager.TryDisconnect(client, DisconnectReason.RECEIVING_MESSAGE);
+                Manager.TryDisconnect(client, DisconnectReason.INVALID_MESSAGE_LENGTH);
                 return;
             }
 
@@ -58,7 +58,7 @@ namespace LoESoft.GameServer.networking
                 && e.Buffer[4] == 0x95)
             {
                 byte[] c = Encoding.ASCII.GetBytes($"{Manager.MaxClients}:{GameServer.GameUsage}");
-                skt.Send(c);
+                socket.Send(c);
                 return;
             }
 
@@ -76,20 +76,25 @@ namespace LoESoft.GameServer.networking
                 IPAddress.NetworkToHostOrder(BitConverter.ToInt32(e.Buffer, 0)) - 5;
 
             try
-            { (e.UserToken as IncomingToken).Message = Message.Messages[(MessageID)e.Buffer[4]].CreateInstance(); }
+            {
+                (e.UserToken as IncomingToken).Message = Message.Messages[(MessageID)e.Buffer[4]].CreateInstance();
+
+                _incomingState = IncomingStage.ReceivingData;
+
+                e.SetBuffer(0, len);
+
+                socket.ReceiveAsync(e);
+            }
             catch
-            { log.ErrorFormat("Message ID not found: {0}", e.Buffer[4]); }
-
-            _incomingState = IncomingStage.ReceivingData;
-
-            e.SetBuffer(0, len);
-
-            skt.ReceiveAsync(e);
+            {
+                Log.Warn($"[({e.Buffer[4]}) {((MessageID)e.Buffer[4]).ToString()}] Message has been disposed.");
+                e.Dispose();
+            }
         }
 
         private void RPRD(SocketAsyncEventArgs e)
         {
-            // bytes are not ready yet, then keep them in a loop until dispatch properly
+            // Burst of bytes are not ready yet, then keep them in a loop until dispatch properly
             if (e.BytesTransferred < (e.UserToken as IncomingToken).Length)
                 return;
 
@@ -103,18 +108,20 @@ namespace LoESoft.GameServer.networking
 
                 cont = IncomingMessageReceived(dummy);
             }
-            catch (EndOfStreamException)
+            catch
             { cont = false; }
             finally
             { _incomingState = IncomingStage.ProcessingMessage; }
 
-            if (cont && skt.Connected)
+            if (cont && socket.Connected)
             {
                 _incomingState = IncomingStage.ReceivingMessage;
 
                 e.SetBuffer(0, 5);
-                skt.ReceiveAsync(e);
+                socket.ReceiveAsync(e);
             }
+            else
+                e.Dispose();
         }
         #endregion
     }

@@ -23,7 +23,7 @@ namespace LoESoft.GameServer.networking
         {
             try
             {
-                if (!skt.Connected)
+                if (!socket.Connected)
                     return;
 
                 int len;
@@ -35,8 +35,8 @@ namespace LoESoft.GameServer.networking
                         _outgoingState = OutgoingStage.Sending;
                         e.SetBuffer(0, len);
 
-                        if (!skt.Connected) return;
-                        skt.SendAsync(e);
+                        if (!socket.Connected) return;
+                        socket.SendAsync(e);
                         break;
                     case OutgoingStage.Sending:
                         (e.UserToken as OutgoingToken).Message = null;
@@ -48,8 +48,8 @@ namespace LoESoft.GameServer.networking
                             _outgoingState = OutgoingStage.Sending;
                             e.SetBuffer(0, len);
 
-                            if (!skt.Connected) return;
-                            skt.SendAsync(e);
+                            if (!socket.Connected) return;
+                            socket.SendAsync(e);
                         }
                         break;
                 }
@@ -78,7 +78,7 @@ namespace LoESoft.GameServer.networking
 
         public void IncomingMessage(Message msg)
         {
-            if (!skt.Connected)
+            if (!socket.Connected)
                 return;
 
             pending.Enqueue(msg);
@@ -90,14 +90,14 @@ namespace LoESoft.GameServer.networking
                 _outgoingState = OutgoingStage.Sending;
                 _outgoing.SetBuffer(_outgoingBuff, 0, len);
 
-                if (!skt.SendAsync(_outgoing))
+                if (!socket.SendAsync(_outgoing))
                     ProcessOutgoingMessage(null, _outgoing);
             }
         }
 
         public void IncomingMessage(IEnumerable<Message> msgs)
         {
-            if (!skt.Connected) return;
+            if (!socket.Connected) return;
             foreach (Message i in msgs)
                 pending.Enqueue(i);
             if (IncomingMessage(_outgoing, false))
@@ -106,7 +106,7 @@ namespace LoESoft.GameServer.networking
 
                 _outgoingState = OutgoingStage.Sending;
                 _outgoing.SetBuffer(_outgoingBuff, 0, len);
-                if (!skt.SendAsync(_outgoing))
+                if (!socket.SendAsync(_outgoing))
                     ProcessOutgoingMessage(null, _outgoing);
             }
         }

@@ -1,5 +1,7 @@
 ﻿using LoESoft.Core.models;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace LoESoft.Core.config
@@ -45,6 +47,15 @@ namespace LoESoft.Core.config
     public partial class Settings
     {
         public static string ProcessFile(string path) => $"_{path}_only.bat";
+
+        public static IEnumerable<string> SplitToken(string s)
+        {
+            for (var i = 0; i < s.Length; i += 2)
+                yield return s.Substring(i, Math.Min(2, s.Length - i));
+        }
+
+        public static byte[] ProcessToken(string token)
+            => String.Join(",", SplitToken(token)).Split(',').Select(s => byte.Parse(s, NumberStyles.HexNumber)).ToArray();
 
         public static void DISPLAY_SUPPORTED_VERSIONS()
         {

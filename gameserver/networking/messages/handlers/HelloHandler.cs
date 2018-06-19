@@ -13,6 +13,7 @@ using LoESoft.GameServer.networking.error;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.config;
 using System.Collections.Generic;
+using System.Threading;
 
 #endregion
 
@@ -81,6 +82,39 @@ namespace LoESoft.GameServer.networking.handlers
 
             client.ConnectedBuild = message.BuildVersion;
             client.Account = acc;
+            client.AccountId = acc.AccountId;
+
+            if (AccountInUseManager.ContainsKey(client.AccountId))
+            {
+                do
+                {
+                    double timeout = client.CheckAccountInUseTimeout;
+
+                    if (timeout <= 0) break;
+
+                    List<Message> outgoing = new List<Message>
+                        {
+                            new FAILURE
+                            {
+                                ErrorId = (int)ErrorIDs.NORMAL_CONNECTION,
+                                ErrorDescription = $"Account in use ({timeout:n0} second{(timeout > 1 ? "s" : "")} until timeout)."
+                            },
+                            new FAILURE
+                            {
+                                ErrorId = (int)ErrorIDs.NORMAL_CONNECTION,
+                                ErrorDescription = $"Connection failed! Retrying..."
+                            }
+                        };
+
+                    client.SendMessage(outgoing);
+
+                    Thread.Sleep(3 * 1000);
+
+                    if (client.CheckAccountInUseTimeout <= 0) break;
+                } while (client.Socket.Connected && client.State != ProtocolState.Disconnected);
+
+                client.RemoveAccountInUse();
+            }
 
             ConnectionProtocol TryConnect = Manager.TryConnect(client);
 

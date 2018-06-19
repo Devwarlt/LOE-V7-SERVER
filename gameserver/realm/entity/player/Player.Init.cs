@@ -270,7 +270,30 @@ namespace LoESoft.GameServer.realm.entity.player
             float x = LastPosX = CharPosition.X;
             float y = LastPosY = CharPosition.Y;
 
-            Move(x, y);
+            if (Client.CheckReconnect)
+            {
+                SendInfo("You have been reconnected to the game.");
+
+                ApplyConditionEffect(
+                    new ConditionEffect
+                    {
+                        Effect = ConditionEffectIndex.Invincible,
+                        DurationMS = 5000
+                    },
+                    new ConditionEffect
+                    {
+                        Effect = ConditionEffectIndex.Paused,
+                        DurationMS = 3000
+                    });
+
+                Move(Client.ReconnectManager[AccountId].X, Client.ReconnectManager[AccountId].Y);
+
+                SaveToCharacter();
+
+                Client.RemoveReconnect();
+            }
+            else
+                Move(x, y);
 
             tiles = new byte[owner.Map.Width, owner.Map.Height];
 

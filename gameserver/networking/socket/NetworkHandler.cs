@@ -20,7 +20,7 @@ namespace LoESoft.GameServer.networking
         private readonly Client client;
         private readonly ConcurrentQueue<Message> pending = new ConcurrentQueue<Message>();
         private readonly object sendLock = new object();
-        private readonly Socket skt;
+        private readonly Socket socket;
 
         private SocketAsyncEventArgs _outgoing;
         private byte[] _outgoingBuff;
@@ -30,16 +30,19 @@ namespace LoESoft.GameServer.networking
         private byte[] _incomingBuff;
         private IncomingStage _incomingState = IncomingStage.Awaiting;
 
-        public NetworkHandler(Client client, Socket skt)
+        public NetworkHandler(Client client, Socket socket)
         {
             this.client = client;
-            this.skt = skt;
+            this.socket = socket;
         }
 
         public void BeginHandling()
         {
-            skt.NoDelay = Settings.NETWORKING.DISABLE_NAGLES_ALGORITHM;
-            skt.UseOnlyOverlappedIO = true;
+            socket.NoDelay = Settings.NETWORKING.DISABLE_NAGLES_ALGORITHM;
+            socket.UseOnlyOverlappedIO = true;
+            socket.SendTimeout = 1 * 1000;
+            socket.ReceiveTimeout = 1 * 1000;
+            socket.Ttl = 112;
 
             _outgoing = new SocketAsyncEventArgs();
             _outgoing.Completed += ProcessOutgoingMessage;
@@ -57,7 +60,7 @@ namespace LoESoft.GameServer.networking
 
             _incoming.SetBuffer(0, 5);
 
-            if (!skt.ReceiveAsync(_incoming))
+            if (!socket.ReceiveAsync(_incoming))
                 ProcessIncomingMessage(null, _incoming);
         }
 

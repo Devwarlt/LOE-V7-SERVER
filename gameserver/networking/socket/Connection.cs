@@ -29,7 +29,7 @@ namespace LoESoft.GameServer.networking
             MP_POTION_CHEAT_ENGINE = 15,
             STOPING_SERVER = 16,
             SOCKET_IS_NOT_CONNECTED = 17,
-            RECEIVING_MESSAGE = 18,
+            INVALID_MESSAGE_LENGTH = 18,
             RECEIVING_DATA = 19,
             ERROR_WHEN_HANDLING_MESSAGE = 20,
             SOCKET_ERROR_DETECTED = 21,
@@ -269,7 +269,7 @@ namespace LoESoft.GameServer.networking
             UNKNOW_ERROR_INSTANCE = 255
         }
 
-        public void Reconnect(RECONNECT msg)
+        public bool Reconnect(RECONNECT msg)
         {
             if (Account == null)
             {
@@ -289,7 +289,8 @@ namespace LoESoft.GameServer.networking
                 });
 
                 Manager.TryDisconnect(this, DisconnectReason.LOST_CONNECTION);
-                return;
+
+                return false;
             }
 
             Log.Info($"[({(int)DisconnectReason.RECONNECT}) {DisconnectReason.RECONNECT.ToString()}] Reconnect player '{Account.Name} (Account ID: {Account.AccountId})' to {msg.Name}.");
@@ -297,6 +298,8 @@ namespace LoESoft.GameServer.networking
             Save();
 
             SendMessage(msg);
+
+            return true;
         }
 
         public void Save()

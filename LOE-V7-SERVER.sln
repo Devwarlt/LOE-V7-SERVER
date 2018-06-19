@@ -15,8 +15,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoESoft.RealmTerrain", "rea
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{8FDA27C5-057C-4BF7-A62E-B2B86138989C}"
 	ProjectSection(SolutionItems) = preProject
-		ctt_cache.xml = ctt_cache.xml
 		RotMG.Common.dll = RotMG.Common.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tokens", "tokens", "{AAC7F13F-DFFA-473B-ADBD-719FF78D3F83}"
+	ProjectSection(SolutionItems) = preProject
+		tokens\ct_emails.txt = tokens\ct_emails.txt
+		tokens\ctt_data.xml = tokens\ctt_data.xml
+		tokens\ptt_data.xml = tokens\ptt_data.xml
+		tokens\vvt_data.xml = tokens\vvt_data.xml
 	EndProjectSection
 EndProject
 Global
@@ -112,6 +119,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AAC7F13F-DFFA-473B-ADBD-719FF78D3F83} = {8FDA27C5-057C-4BF7-A62E-B2B86138989C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79C7EFA2-7A4B-4221-9727-3F09B614C6C1}
