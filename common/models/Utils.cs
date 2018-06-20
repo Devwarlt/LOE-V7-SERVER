@@ -18,6 +18,20 @@ using System.Threading.Tasks;
 
 public static class Utils
 {
+    public static string SHA256Encrypt()
+    {
+        SHA256Managed crypt = new SHA256Managed();
+
+        string hash = string.Empty;
+
+        byte[] crypto = crypt.ComputeHash(Encoding.ASCII.GetBytes(new Random().Next(int.MinValue, int.MaxValue).ToString()), 0, Encoding.ASCII.GetByteCount(new Random().Next(int.MinValue, int.MaxValue).ToString()));
+
+        foreach (byte theByte in crypto)
+            hash += theByte.ToString("x2");
+
+        return hash;
+    }
+
     public static string FirstCharToUpper(string input)
     {
         switch (input)
