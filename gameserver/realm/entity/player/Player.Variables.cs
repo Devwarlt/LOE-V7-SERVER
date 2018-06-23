@@ -136,8 +136,6 @@ namespace LoESoft.GameServer.realm.entity.player
         public List<IntPoint> blocksight = new List<IntPoint>();
         public static int Oldstat { get; set; }
         public static Position Targetlink { get; set; }
-        private const int PingPeriod = 3000;
-        public const int DcThreshold = 10000;
         private long _pingTime = -1;
         private long _pongTime = -1;
         private int _cnt;

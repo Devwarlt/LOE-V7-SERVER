@@ -10,6 +10,7 @@ namespace LoESoft.GameServer.networking.handlers
     {
         public override MessageID ID => MessageID.SHOOTACK;
 
-        protected override void HandleMessage(Client client, SHOOTACK packet) => NotImplementedMessageHandler();
+        protected override void HandleMessage(Client client, SHOOTACK packet)
+            => NotImplementedMessageHandler();
     }
 }

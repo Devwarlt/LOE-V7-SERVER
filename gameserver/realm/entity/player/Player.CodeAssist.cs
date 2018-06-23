@@ -8,8 +8,6 @@ using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking;
 using LoESoft.Core;
-using System.Threading;
-using LoESoft.Core.models;
 
 #endregion
 
@@ -117,7 +115,8 @@ namespace LoESoft.GameServer.realm.entity.player
             return PlayerShootStatus.OK;
         }
 
-        public void DropNextRandom() => Client.Random.NextInt();
+        public void DropNextRandom()
+            => Client.Random.NextInt();
 
         public static class Resize16x16Skins
         {
@@ -147,12 +146,11 @@ namespace LoESoft.GameServer.realm.entity.player
             NULL
         }
 
-        private Tuple<bool, AccType> GetAccountType() => (AccountType >= (int)Core.config.AccountType.VIP_ACCOUNT && AccountType <= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int)Core.config.AccountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
+        private Tuple<bool, AccType> GetAccountType()
+            => (AccountType >= (int)Core.config.AccountType.VIP_ACCOUNT && AccountType <= (int)Core.config.AccountType.LEGENDS_OF_LOE_ACCOUNT) ? Tuple.Create(true, AccountType == (int)Core.config.AccountType.VIP_ACCOUNT ? AccType.VIP_ACCOUNT : AccType.LEGENDS_OF_LOE_ACCOUNT) : Tuple.Create(false, AccType.NULL);
 
         public void CalculateBoost()
         {
-
-
             CheckSetTypeSkin();
 
             if (Boost == null)
@@ -213,12 +211,12 @@ namespace LoESoft.GameServer.realm.entity.player
         public string ProcessPosition(Position data)
             => $"X:{data.X};Y:{data.Y};Town:{data.Town}";
 
-        public bool CompareName(string name) => name.ToLower().Split(' ')[0].StartsWith("[") || Name.Split(' ').Length == 1 ? Name.ToLower().StartsWith(name.ToLower()) : Name.Split(' ')[1].ToLower().StartsWith(name.ToLower());
+        public bool CompareName(string name)
+            => name.ToLower().Split(' ')[0].StartsWith("[") || Name.Split(' ').Length == 1 ? Name.ToLower().StartsWith(name.ToLower()) : Name.Split(' ')[1].ToLower().StartsWith(name.ToLower());
 
         public void SaveToCharacter()
         {
             var @char = Client.Character;
-
             @char.CharLevel = CharLevel;
             @char.CharExperience = CharExperience.ToString();
             @char.CharHealthPoints = CharHealthPoints;
@@ -372,101 +370,32 @@ namespace LoESoft.GameServer.realm.entity.player
             return true;
         }
 
-        private bool CanHpRegen() => (HasConditionEffect(ConditionEffectIndex.Sick) || HasConditionEffect(ConditionEffectIndex.Bleeding) || OxygenBar == 0) ? false : true;
+        private bool CanHpRegen()
+            => (HasConditionEffect(ConditionEffectIndex.Sick) || HasConditionEffect(ConditionEffectIndex.Bleeding) || OxygenBar == 0) ? false : true;
 
-        private bool CanMpRegen() => (HasConditionEffect(ConditionEffectIndex.Quiet) || ninjaShoot) ? false : true;
+        private bool CanMpRegen()
+            => (HasConditionEffect(ConditionEffectIndex.Quiet) || ninjaShoot) ? false : true;
 
-        internal void SetNewbiePeriod() => newbieTime = 3000;
+        internal void SetNewbiePeriod()
+            => newbieTime = 3000;
 
-        internal void SetTPDisabledPeriod() => CanTPCooldownTime = 10 * 1000;
+        internal void SetTPDisabledPeriod()
+            => CanTPCooldownTime = 10 * 1000;
 
-        public bool TPCooledDown() => CanTPCooldownTime > 0 ? false : true;
+        public bool TPCooledDown()
+            => CanTPCooldownTime > 0 ? false : true;
 
-        public string ResolveGuildChatName() => Name;
+        public string ResolveGuildChatName()
+            => Name;
 
-        public bool HasSlot(int slot) => Inventory[slot] != null;
+        public bool HasSlot(int slot)
+            => Inventory[slot] != null;
 
-        public bool KeepAlive(RealmTime time)
-        {
-            try
-            {
-                if (Client == null)
-                    return false;
+        private static int GetExpGoal(int level)
+            => 50 + (level - 1) * 100;
 
-                if (_pingTime == -1)
-                {
-                    _pingTime = time.TotalElapsedMs - PingPeriod;
-                    _pongTime = time.TotalElapsedMs;
-                }
-
-                if (time.TotalElapsedMs - _pongTime > DcThreshold)
-                {
-                    SendHelp($"Connection lost, reconnecting to world {Owner.Name}...");
-
-                    Thread.Sleep(3 * 1000);
-
-                    Client.AddReconnect(new Position(X, Y));
-                    Client.Reconnect(new RECONNECT
-                    {
-                        Host = "",
-                        Port = Settings.SERVER_MODE != Settings.ServerMode.Local ? Settings.APPENGINE.PRODUCTION_PORT : Settings.APPENGINE.TESTING_PORT,
-                        GameId = Owner.Id,
-                        Name = Owner.Name,
-                        Key = Empty<byte>.Array,
-                    });
-
-                    return false;
-                }
-
-                if (time.TotalElapsedMs - _pingTime < PingPeriod)
-                    return true;
-
-                _pingTime = time.TotalElapsedMs;
-
-                Client.SendMessage(new PING()
-                {
-                    Serial = (int)time.TotalElapsedMs
-                });
-
-                return UpdateOnPing();
-            }
-            catch (Exception e)
-            {
-                Log.Error(e.ToString());
-                return false;
-            }
-        }
-
-        private bool UpdateOnPing()
-        {
-            try { SaveToCharacter(); }
-            catch { return false; } // User dropped connection and host is inaccessible.
-
-            return true;
-        }
-
-        public void Pong(RealmTime time, PONG pkt)
-        {
-            try
-            {
-                updateLastSeen++;
-
-                _cnt++;
-
-                _sum += time.TotalElapsedMs - pkt.Time;
-                TimeMap = _sum / _cnt;
-
-                _latSum += (time.TotalElapsedMs - pkt.Serial) / 2;
-                Latency = (int)_latSum / _cnt;
-
-                _pongTime = time.TotalElapsedMs;
-            }
-            catch (Exception) { }
-        }
-
-        private static int GetExpGoal(int level) => 50 + (level - 1) * 100;
-
-        private static int GetLevelExp(int level) => level == 1 ? 0 : 50 * (level - 1) + (level - 2) * (level - 1) * 50;
+        private static int GetLevelExp(int level)
+            => level == 1 ? 0 : 50 * (level - 1) + (level - 2) * (level - 1) * 50;
 
         private static int GetFameGoal(int fame)
         {
@@ -512,46 +441,14 @@ namespace LoESoft.GameServer.realm.entity.player
             });
         }
 
-        public void BroadcastSync(Message packet) => BroadcastSync(packet, _ => true);
-
-        public void BroadcastSync(Message packet, Predicate<Player> cond)
-        {
-            if (worldBroadcast)
-                Owner.BroadcastMessageSync(packet, cond);
-            else
-                pendingPackets.Enqueue(Tuple.Create(packet, cond));
-        }
-
-        private void BroadcastSync(IEnumerable<Message> packets)
-        {
-            foreach (var i in packets)
-                BroadcastSync(i, _ => true);
-        }
-
-        private void BroadcastSync(IEnumerable<Message> packets, Predicate<Player> cond)
-        {
-            foreach (var i in packets)
-                BroadcastSync(i, cond);
-        }
-
-        public void Flush()
-        {
-            if (Owner != null)
-            {
-                foreach (var i in Owner.Players.Values)
-                    foreach (var j in pendingPackets.Where(j => j.Item2(i)))
-                        i.Client.SendMessage(j.Item1);
-            }
-            pendingPackets.Clear();
-        }
-
         public void ChangeTrade(RealmTime time, CHANGETRADE pkt) => HandleTrade?.TradeChanged(this, pkt.Offers);
 
         public void AcceptTrade(RealmTime time, ACCEPTTRADE pkt) => HandleTrade?.AcceptTrade(this, pkt);
 
         public void CancelTrade(RealmTime time, CANCELTRADE pkt) => HandleTrade?.CancelTrade(this);
 
-        public void TradeCanceled() => HandleTrade = null;
+        public void TradeCanceled()
+            => HandleTrade = null;
 
         private float UseWisMod(float value, int offset = 1)
         {
@@ -576,6 +473,7 @@ namespace LoESoft.GameServer.realm.entity.player
             0x750d, 0x750e, 0x222c, 0x222d
         };
 
-        private static bool IsSpecial(ushort objType) => Special.Contains(objType) ? true : false;
+        private static bool IsSpecial(ushort objType)
+            => Special.Contains(objType) ? true : false;
     }
 }
