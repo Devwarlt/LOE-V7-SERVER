@@ -214,6 +214,7 @@ namespace LoESoft.GameServer.realm
                         Log.Error(e.ToString());
                     }
                 }
+
             EnemiesCollision = new CollisionMap<Entity>(0, w, h);
             PlayersCollision = new CollisionMap<Entity>(1, w, h);
 
@@ -222,11 +223,13 @@ namespace LoESoft.GameServer.realm
             Enemies.Clear();
             Players.Clear();
             Entities.Clear();
+
             foreach (var i in Map.InstantiateEntities(GameServer.Manager))
             {
                 if (i.ObjectDesc != null &&
                     (i.ObjectDesc.OccupySquare || i.ObjectDesc.EnemyOccupySquare))
                     Obstacles[(int)(i.X - 0.5), (int)(i.Y - 0.5)] = 2;
+
                 EnterWorld(i);
             }
         }

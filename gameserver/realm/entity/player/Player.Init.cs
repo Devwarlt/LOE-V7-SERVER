@@ -372,6 +372,8 @@ namespace LoESoft.GameServer.realm.entity.player
                 default:
                     break;
             }
+
+            _pingTime = -1;
         }
 
         public void Teleport(RealmTime time, TELEPORT packet)
@@ -633,7 +635,7 @@ namespace LoESoft.GameServer.realm.entity.player
             )
         {
             ProjectileId = id;
-            return CreateProjectile(desc, objType, (int)StatsManager.GetAttackDamage(desc.MinDamage, desc.MaxDamage), time, position, angle);
+            return CreateProjectile(desc, objType, (int)StatsManager.GetAttackDamage(desc.MinDamage, desc.MaxDamage), C2STime(time), position, angle);
         }
 
         public override void Tick(RealmTime time)
@@ -641,7 +643,10 @@ namespace LoESoft.GameServer.realm.entity.player
             if (Client == null)
                 return;
 
-            if (!KeepAlive(time) || Client.State == ProtocolState.Disconnected)
+            if (_pingTime == -1)
+                PingReset(time.TotalElapsedMs);
+
+            if (!PlayerNetworkingHandler(time) || Client.State == ProtocolState.Disconnected)
             {
                 if (Owner != null)
                     Owner.LeaveWorld(this);
@@ -688,7 +693,8 @@ namespace LoESoft.GameServer.realm.entity.player
             {
                 HandleNewTick(time);
 
-                ExperimentalHandleUpdate();
+                HandleUpdatev2(time);
+                //HandleUpdate(time);
             }
 
             base.Tick(time);

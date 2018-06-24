@@ -10,6 +10,7 @@ namespace LoESoft.GameServer.networking.handlers
     {
         public override MessageID ID => MessageID.UPDATEACK;
 
-        protected override void HandleMessage(Client client, UPDATEACK message) => client.Player.UpdatesReceived++;
+        protected override void HandleMessage(Client client, UPDATEACK message)
+            => client.Player.UpdateAckReceived();
     }
 }

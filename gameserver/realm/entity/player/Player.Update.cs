@@ -101,7 +101,67 @@ namespace LoESoft.GameServer.realm.entity.player
                    select i;
         }
 
-        public void ExperimentalHandleUpdate()
+        private void HandleUpdatev2(RealmTime time)
+        {
+            var world = GameServer.Manager.GetWorld(Owner.Id);
+            var blockSight = world.Dungeon ? Sight.RayCast(this, SIGHTRADIUS).ToList() : Sight.GetSquare(SIGHTRADIUS);
+
+            // get list of tiles for update
+            var tilesUpdate = new List<UPDATE.TileData>(APPOX_AREA_OF_SIGHT);
+
+            foreach (var point in blockSight)
+            {
+                var x = point.X;
+                var y = point.Y;
+                var tile = Owner.Map[x, y];
+
+                if (tile.TileId == 255 ||
+                    tiles[x, y] >= tile.UpdateCount)
+                    continue;
+
+                tilesUpdate.Add(new UPDATE.TileData()
+                {
+                    X = (short)x,
+                    Y = (short)y,
+                    Tile = tile.TileId
+                });
+                tiles[x, y] = tile.UpdateCount;
+            }
+
+            // get list of new static objects to add
+            var staticsUpdate = GetNewStatics((int)X, (int)Y).ToArray();
+
+            // get dropped entities list
+            var entitiesRemove = new HashSet<int>(GetRemovedEntities().Distinct().ToArray());
+
+            // removed stale entities
+            clientEntities.RemoveWhere(_ => Array.IndexOf(entitiesRemove.ToArray(), _.Id) != -1);
+
+            // get list of added entities
+            var entitiesAdd = GetNewEntities().ToArray();
+
+            // get dropped statics list
+            var staticsRemove = new HashSet<IntPoint>(GetRemovedStatics((int)X, (int)Y));
+
+            clientStatic.ExceptWith(staticsRemove);
+
+            if (tilesUpdate.Count > 0 || entitiesRemove.Count > 0 || staticsRemove.Count > 0 ||
+                entitiesAdd.Length > 0 || staticsUpdate.Length > 0)
+            {
+                entitiesRemove.UnionWith(staticsRemove.Select(s => Owner.Map[s.X, s.Y].ObjId));
+
+                Client.SendMessage(new UPDATE
+                {
+                    Tiles = tilesUpdate.ToArray(),
+                    NewObjects = entitiesAdd.Select(_ => _.ToDefinition()).Concat(staticsUpdate).ToArray(),
+                    RemovedObjectIds = entitiesRemove.ToArray()
+                });
+
+                AwaitUpdateAck(time.TotalElapsedMs);
+            }
+        }
+
+        public void HandleUpdate(RealmTime time)
         {
             WmapTile tile;
             World world = GameServer.Manager.GetWorld(Owner.Id);
@@ -110,6 +170,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
             mapWidth = Owner.Map.Width;
             mapHeight = Owner.Map.Height;
+
             blocksight = world.Dungeon ? Sight.RayCast(this, SIGHTRADIUS).ToList() : Sight.GetSquare(SIGHTRADIUS);
 
             foreach (IntPoint i in blocksight.ToList())
@@ -155,89 +216,16 @@ namespace LoESoft.GameServer.realm.entity.player
                 }
 
             if (sendEntities.Count > 0 || tilesUpdate.Count > 0 || dropEntities.Length > 0 || newStatics.ToArray().Length > 0 || removedIds.Count > 0)
+            {
                 Client.SendMessage(new UPDATE()
                 {
                     Tiles = tilesUpdate.ToArray(),
                     NewObjects = sendEntities.Select(_ => _.ToDefinition()).Concat(newStatics.ToArray()).ToArray(),
                     RemovedObjectIds = dropEntities.Concat(removedIds).ToArray()
                 });
-        }
 
-        public void HandleUpdate(RealmTime time)
-        {
-            Wmap map = Owner.Map;
-            WmapTile tile;
-            World world = GameServer.Manager.GetWorld(Owner.Id);
-            int xBase = (int)X;
-            int yBase = (int)Y;
-            int sent = 0;
-            HashSet<Entity> sendEntities = new HashSet<Entity>(GetNewEntities());
-            List<UPDATE.TileData> list = new List<UPDATE.TileData>(APPOX_AREA_OF_SIGHT);
-
-            mapWidth = Owner.Map.Width;
-            mapHeight = Owner.Map.Height;
-            blocksight = (world.Dungeon ? Sight.RayCast(this, SIGHTRADIUS) : Sight.GetSightCircle(SIGHTRADIUS)).ToList();
-
-            foreach (IntPoint i in blocksight.ToList())
-            {
-                int x = i.X + xBase;
-                int y = i.Y + yBase;
-
-                if (x < 0
-                 || x >= mapWidth
-                 || y < 0
-                 || y >= mapHeight
-                 || tiles[x, y] >= (tile = map[x, y]).UpdateCount)
-                    continue;
-
-                if (!visibleTiles.ContainsKey(new IntPoint(x, y)))
-                    visibleTiles[new IntPoint(x, y)] = true;
-
-                list.Add(new UPDATE.TileData
-                {
-                    X = (short)x,
-                    Y = (short)y,
-                    Tile = tile.TileId
-                });
-                tiles[x, y] = tile.UpdateCount;
-                sent++;
+                AwaitUpdateAck(time.TotalElapsedMs);
             }
-
-            int[] dropEntities = GetRemovedEntities().Distinct().ToArray();
-            clientEntities.RemoveWhere(_ => Array.IndexOf(dropEntities, _.Id) != -1);
-
-            List<Entity> toRemove = lastUpdate.Keys.Where(i => !clientEntities.Contains(i)).ToList();
-            toRemove.ForEach(i => lastUpdate.TryRemove(i, out int val));
-
-            foreach (var i in sendEntities)
-                lastUpdate[i] = i.UpdateCount;
-
-            IEnumerable<ObjectDef> newStatics = GetNewStatics(xBase, yBase);
-            IEnumerable<IntPoint> removeStatics = GetRemovedStatics(xBase, yBase);
-            List<int> removedIds = new List<int>();
-
-            if (!world.Dungeon)
-                foreach (IntPoint i in removeStatics.ToArray())
-                {
-                    removedIds.Add(Owner.Map[i.X, i.Y].ObjId);
-                    clientStatic.Remove(i);
-                }
-
-            if (sendEntities.Count <= 0
-                && list.Count <= 0
-                && dropEntities.Length <= 0
-                && newStatics.ToArray().Length <= 0
-                && removedIds.Count <= 0)
-                return;
-
-            Client.SendMessage(new UPDATE()
-            {
-                Tiles = list.ToArray(),
-                NewObjects = sendEntities.Select(_ => _.ToDefinition()).Concat(newStatics.ToArray()).ToArray(),
-                RemovedObjectIds = dropEntities.Concat(removedIds).ToArray()
-            });
-
-            UpdatesSend++;
         }
 
         private void HandleNewTick(RealmTime time)

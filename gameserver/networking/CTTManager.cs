@@ -3,6 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -15,8 +16,7 @@ namespace LoESoft.GameServer.networking
     public class CTTManager
     {
         public ConcurrentDictionary<string, CTT> CTTData { get; private set; }
-
-        private readonly string Path = "C:/LoESoft/Github/LOE-V7-SERVER/tokens/ctt_data.xml";
+        private readonly string Path = "../tokens/ctt_data.xml";
 
         private XmlDocument CTTLoadData { get; set; }
         private XDocument CTTSaveData { get; set; }

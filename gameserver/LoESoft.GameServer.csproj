@@ -354,6 +354,7 @@
     <Compile Include="GameServer.cs" />
     <Compile Include="realm\ChatColor.cs" />
     <Compile Include="realm\ChatManager.cs" />
+    <Compile Include="realm\entity\player\Player.Networking.cs" />
     <Compile Include="realm\mapsetpiece\setpieces\Frog.cs" />
     <Compile Include="realm\commands\command\TestingCommands.cs" />
     <Compile Include="realm\entity\npc\NPC.Dictionary.cs" />
