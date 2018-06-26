@@ -372,8 +372,6 @@ namespace LoESoft.GameServer.realm.entity.player
                 default:
                     break;
             }
-
-            _pingTime = -1;
         }
 
         public void Teleport(RealmTime time, TELEPORT packet)
@@ -643,9 +641,6 @@ namespace LoESoft.GameServer.realm.entity.player
             if (Client == null)
                 return;
 
-            if (_pingTime == -1)
-                PingReset(time.TotalElapsedMs);
-
             if (!PlayerNetworkingHandler(time) || Client.State == ProtocolState.Disconnected)
             {
                 if (Owner != null)
@@ -693,8 +688,8 @@ namespace LoESoft.GameServer.realm.entity.player
             {
                 HandleNewTick(time);
 
-                HandleUpdatev2(time);
-                //HandleUpdate(time);
+                //HandleUpdatev2(time);
+                HandleUpdate(time);
             }
 
             base.Tick(time);

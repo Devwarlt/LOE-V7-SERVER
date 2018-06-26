@@ -115,9 +115,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 var y = point.Y;
                 var tile = Owner.Map[x, y];
 
-                if (tile.TileId == 255 ||
-                    tiles[x, y] >= tile.UpdateCount)
-                    continue;
+                if (x < 0 || x >= Owner.Map.Width || y < 0 || y >= Owner.Map.Height || tiles[x, y] >= (tile = Owner.Map[x, y]).UpdateCount) continue;
 
                 tilesUpdate.Add(new UPDATE.TileData()
                 {
@@ -125,6 +123,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     Y = (short)y,
                     Tile = tile.TileId
                 });
+
                 tiles[x, y] = tile.UpdateCount;
             }
 

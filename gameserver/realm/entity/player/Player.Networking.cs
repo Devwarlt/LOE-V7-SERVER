@@ -22,34 +22,26 @@ namespace LoESoft.GameServer.realm.entity.player
 
         private readonly ConcurrentQueue<long> _updateAckTimeout = new ConcurrentQueue<long>();
 
-        public void PingReset(long time, bool save = false, bool sendPing = false)
-        {
-            _pingTime = time - PingPeriod;
-            _pongTime = time;
-
-            if (save)
-                SaveToCharacter();
-
-            if (sendPing)
-                Client.SendMessage(new PING() { Serial = (int)time });
-        }
-
         public bool PlayerNetworkingHandler(RealmTime time)
         {
             try
             {
-                long elapsedTime = time.TotalElapsedMs;
-                bool onPing = elapsedTime - _pingTime >= PingPeriod;
-                bool onLag = elapsedTime - _pongTime >= LagLatency;
-
                 if (Client == null)
                     return false;
 
-                if (onLag)
+                if (_pingTime == -1)
                 {
-                    SendHelp($"Connection lost, reconnecting to world {Owner.Name}...");
+                    _pingTime = time.TotalElapsedMs - PingPeriod;
+                    _pongTime = time.TotalElapsedMs;
+                }
 
-                    Thread.Sleep(3 * 1000);
+                if (time.TotalElapsedMs - _pongTime >= LagLatency)
+                {
+                    SendHelp($"Connection lost.");//, reconnecting to world {Owner.Name}...");
+
+                    Client.SendMessage(new PING() { Serial = (int)time.TotalElapsedMs });
+
+                    /*Thread.Sleep(3 * 1000);
 
                     Client.AddReconnect(new Position(X, Y));
                     Client.Reconnect(new RECONNECT
@@ -61,11 +53,13 @@ namespace LoESoft.GameServer.realm.entity.player
                         Key = Empty<byte>.Array,
                     });
 
-                    return false;
+                    return false;*/
                 }
 
-                if (onPing)
-                    PingReset(elapsedTime, true, true);
+                Client.SendMessage(new PING() { Serial = (int)time.TotalElapsedMs });
+
+                try { SaveToCharacter(); }
+                catch { return false; }
 
                 return true;
             }
