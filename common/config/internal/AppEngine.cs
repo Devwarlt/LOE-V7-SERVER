@@ -59,33 +59,18 @@ namespace LoESoft.Core.config
             public static List<ServerItem> GetServerItem()
             {
                 List<ServerItem> gameserver = new List<ServerItem>();
-                int serverAmount = AMOUNT;
-                if (serverAmount == 1)
-                {
+
+                for (int i = 0; i < AMOUNT; i++)
                     gameserver.Add(new ServerItem()
                     {
-                        Name = SERVERS[0].Item1,
-                        DNS = CheckDDNS(SERVERS[0].Item2, 0),
+                        Name = SERVERS[i].Item1,
+                        DNS = CheckDDNS(SERVERS[i].Item2, i),
                         Lat = 0,
                         Long = 0,
-                        Usage = SERVERS[0].Item3,
+                        Usage = SERVER_MODE != ServerMode.Local ? GetUsage(CheckDDNS(SERVERS[i].Item2, i), GAMESERVER.PORT) : SERVERS[i].Item3,
                         AdminOnly = false
                     });
-                }
-                else
-                {
-                    for (int i = 0; i < serverAmount; i++)
-                        if (SERVERS[i].Item1 != "Localhost")
-                            gameserver.Add(new ServerItem()
-                            {
-                                Name = SERVERS[i].Item1,
-                                DNS = CheckDDNS(SERVERS[i].Item2, i),
-                                Lat = 0,
-                                Long = 0,
-                                Usage = SERVER_MODE != ServerMode.Local ? GetUsage(CheckDDNS(SERVERS[i].Item2, i), GAMESERVER.PORT) : SERVERS[i].Item3,
-                                AdminOnly = false
-                            });
-                }
+
                 return gameserver;
             }
 

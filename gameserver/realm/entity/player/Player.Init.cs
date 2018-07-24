@@ -687,8 +687,6 @@ namespace LoESoft.GameServer.realm.entity.player
             if (Owner != null)
             {
                 HandleNewTick(time);
-
-                //HandleUpdatev2(time);
                 HandleUpdate(time);
             }
 
