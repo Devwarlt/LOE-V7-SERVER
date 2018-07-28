@@ -140,6 +140,11 @@ namespace LoESoft.GameServer.realm.entity.player
             stats[StatsType.CHAR_DEFENSE_LEVEL] = CharDefenseLevel;
             stats[StatsType.CHAR_DEFENSE_EXPERIENCE] = CharDefenseExperience;
             stats[StatsType.CHAR_SPEED] = CharSpeed;
+            stats[StatsType.CHAR_MAX_HEALTH_POINTS] = CharMaxHealthPoints;
+            stats[StatsType.CHAR_MAX_MAGIC_POINTS] = CharMaxMagicPoints;
+            stats[StatsType.CHAR_NEXT_EXPERIENCE] = CharNextExperience;
+            stats[StatsType.CHAR_NEXT_ATTACK_EXPERIENCE] = CharNextAttackExperience;
+            stats[StatsType.CHAR_NEXT_DEFENSE_EXPERIENCE] = CharNextDefenseExperience;
         }
     }
 }

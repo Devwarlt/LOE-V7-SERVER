@@ -573,6 +573,36 @@ namespace LoESoft.Core
             set { SetValue("charSpd", value); }
         }
 
+        public int CharMaxHealthPoints
+        {
+            get { return GetValue("charMaxHP", Settings.Beginner.CharMaxHealthPoints); }
+            set { SetValue("charMaxHP", value); }
+        }
+
+        public int CharMaxMagicPoints
+        {
+            get { return GetValue("charMaxMP", Settings.Beginner.CharMaxMagicPoints); }
+            set { SetValue("charMaxMP", value); }
+        }
+
+        public string CharNextExperience
+        {
+            get { return GetValue("charNextExp", Settings.Beginner.CharNextExperience); }
+            set { SetValue("charNextExp", value); }
+        }
+
+        public string CharNextAttackExperience
+        {
+            get { return GetValue("charNextAttExp", Settings.Beginner.CharNextAttackExperience); }
+            set { SetValue("charNextAttExp", value); }
+        }
+
+        public string CharNextDefenseExperience
+        {
+            get { return GetValue("charNextDefExp", Settings.Beginner.CharNextDefenseExperience); }
+            set { SetValue("charNextDefExp", value); }
+        }
+
         public string CharPosition
         {
             get { return GetValue("charPos", Settings.Beginner.CharPosition); }

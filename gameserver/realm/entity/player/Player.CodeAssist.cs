@@ -226,6 +226,11 @@ namespace LoESoft.GameServer.realm.entity.player
             @char.CharDefenseLevel = CharDefenseLevel;
             @char.CharDefenseExperience = CharDefenseExperience.ToString();
             @char.CharSpeed = CharSpeed;
+            @char.CharMaxHealthPoints = CharMaxHealthPoints;
+            @char.CharMaxMagicPoints = CharMaxMagicPoints;
+            @char.CharNextExperience = CharNextExperience.ToString();
+            @char.CharNextAttackExperience = CharNextAttackExperience.ToString();
+            @char.CharNextDefenseExperience = CharNextDefenseExperience.ToString();
             @char.CharPosition = ProcessPosition(CharPosition);
             @char.CharTownID = CharTownID;
 

@@ -58,6 +58,11 @@ namespace LoESoft.Core.config
             public static int CharDefenseLevel = 0;
             public static string CharDefenseExperience = "0";
             public static int CharSpeed = 0;
+            public static int CharMaxHealthPoints = 100;
+            public static int CharMaxMagicPoints = 0;
+            public static string CharNextExperience = "100";
+            public static string CharNextAttackExperience = "25";
+            public static string CharNextDefenseExperience = "25";
             public static string CharPosition = "X:25;Y:51;Town:-1";
             public static int CharTownID = -1;
         }

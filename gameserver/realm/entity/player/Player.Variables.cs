@@ -22,6 +22,11 @@ namespace LoESoft.GameServer.realm.entity.player
         public int CharDefenseLevel { get; set; }
         public double CharDefenseExperience { get; set; }
         public int CharSpeed { get; set; }
+        public int CharMaxHealthPoints { get; set; }
+        public int CharMaxMagicPoints { get; set; }
+        public double CharNextExperience { get; set; }
+        public double CharNextAttackExperience { get; set; }
+        public double CharNextDefenseExperience { get; set; }
         public Position CharPosition { get; set; }
         public int CharTownID { get; set; }
 

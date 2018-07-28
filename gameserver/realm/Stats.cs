@@ -134,6 +134,11 @@ namespace LoESoft.GameServer.realm
         public readonly static StatsType CHAR_DEFENSE_LEVEL = 117;
         public readonly static StatsType CHAR_DEFENSE_EXPERIENCE = 118;
         public readonly static StatsType CHAR_SPEED = 119;
+        public readonly static StatsType CHAR_MAX_HEALTH_POINTS = 120;
+        public readonly static StatsType CHAR_MAX_MAGIC_POINTS = 121;
+        public readonly static StatsType CHAR_NEXT_EXPERIENCE = 122;
+        public readonly static StatsType CHAR_NEXT_ATTACK_EXPERIENCE = 123;
+        public readonly static StatsType CHAR_NEXT_DEFENSE_EXPERIENCE = 124;
 
         private byte _type;
 
@@ -151,7 +156,10 @@ namespace LoESoft.GameServer.realm
             PET_NAME_STAT,
             CHAR_EXPERIENCE,
             CHAR_ATTACK_EXPERIENCE,
-            CHAR_DEFENSE_EXPERIENCE
+            CHAR_DEFENSE_EXPERIENCE,
+            CHAR_NEXT_EXPERIENCE,
+            CHAR_NEXT_ATTACK_EXPERIENCE,
+            CHAR_NEXT_DEFENSE_EXPERIENCE
         };
 
         public bool IsUTF
