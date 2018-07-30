@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using LoESoft.Core;
+using LoESoft.Core.models;
 
 #endregion
 
@@ -841,6 +842,24 @@ public class Item : IFeedable
             XpBooster = elem.Element("XpBoost") != null;
             LootDropBooster = elem.Element("LDBoosted") != null;
             LootTierBooster = elem.Element("LTBoosted") != null;
+
+            if ((n = elem.Element("ItemData")) != null)
+            {
+                SlotTypes slot = (SlotTypes)int.Parse(n.Element("SlotType").Value);
+                string parameters = n.Element("Parameters").Value;
+
+                switch (slot)
+                {
+                    case SlotTypes.AMULET_SLOT: ItemData = new AmuletSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
+                    case SlotTypes.ARMOR_SLOT: ItemData = new ArmorSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
+                    case SlotTypes.FOOT_SLOT: ItemData = new FootSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
+                    case SlotTypes.HEAD_SLOT: ItemData = new HeadSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
+                    case SlotTypes.LEFT_HAND_SLOT: ItemData = new LeftHandSlotData(ObjectId, Description, int.Parse(n.Element("Attack").Value), n.Element("TwoHanded") != null, parameters); break;
+                    case SlotTypes.LEGS_SLOT: ItemData = new LegsSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
+                    case SlotTypes.RIGHT_HAND_SLOT: ItemData = new RightHandSlotData(ObjectId, Description, int.Parse(n.Element("Defense").Value), parameters); break;
+                    case SlotTypes.RING_SLOT: ItemData = new RingSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
+                }
+            }
         }
         catch (Exception ex)
         {
@@ -848,6 +867,8 @@ public class Item : IFeedable
             Console.ReadLine();
         }
     }
+
+    public ItemData ItemData { get; set; }
 
     public ushort ObjectType { get; private set; }
     public string ObjectId { get; private set; }
