@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="assets\jsons\EmbeddedItemData_Amulets.json" />
     <Compile Include="config\internal\AppEngine.cs" />
     <Compile Include="config\internal\Networking.cs" />
     <Compile Include="config\internal\Database.cs" />
