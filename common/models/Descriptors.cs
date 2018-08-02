@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using LoESoft.Core;
+using LoESoft.Core.assets.itemdata;
 using LoESoft.Core.models;
 
 #endregion
@@ -846,18 +847,18 @@ public class Item : IFeedable
             if ((n = elem.Element("ItemData")) != null)
             {
                 SlotTypes slot = (SlotTypes)int.Parse(n.Element("SlotType").Value);
-                string parameters = n.Element("Parameters").Value;
+                XElement parameters = n.Element("Parameters");
 
                 switch (slot)
                 {
-                    case SlotTypes.AMULET_SLOT: ItemData = new AmuletSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
-                    case SlotTypes.ARMOR_SLOT: ItemData = new ArmorSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
-                    case SlotTypes.FOOT_SLOT: ItemData = new FootSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
-                    case SlotTypes.HEAD_SLOT: ItemData = new HeadSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
-                    case SlotTypes.LEFT_HAND_SLOT: ItemData = new LeftHandSlotData(ObjectId, Description, int.Parse(n.Element("Attack").Value), n.Element("TwoHanded") != null, parameters); break;
-                    case SlotTypes.LEGS_SLOT: ItemData = new LegsSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
-                    case SlotTypes.RIGHT_HAND_SLOT: ItemData = new RightHandSlotData(ObjectId, Description, int.Parse(n.Element("Defense").Value), parameters); break;
-                    case SlotTypes.RING_SLOT: ItemData = new RingSlotData(ObjectId, Description, int.Parse(n.Element("Arm").Value), parameters); break;
+                    case SlotTypes.AMULET_SLOT: ItemData = new Amulet() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
+                    case SlotTypes.ARMOR_SLOT: ItemData = new Armor() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
+                    case SlotTypes.FOOT_SLOT: ItemData = new Foot() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
+                    case SlotTypes.HEAD_SLOT: ItemData = new Head() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
+                    case SlotTypes.WEAPON_SLOT: ItemData = new Weapon { Name = ObjectId, Description = Description, Attack = ItemData.GetData<int>(parameters, "Attack"), TwoHanded = ItemData.GetData<bool>(parameters, "TwoHanded") }; break;
+                    case SlotTypes.LEGS_SLOT: ItemData = new Legs() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
+                    case SlotTypes.SHIELD_SLOT: ItemData = new Shield() { Name = ObjectId, Description = Description, Defense = ItemData.GetData<int>(parameters, "Defense") }; break;
+                    case SlotTypes.RING_SLOT: ItemData = new Ring() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
                 }
             }
         }

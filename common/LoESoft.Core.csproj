@@ -78,6 +78,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="assets\itemdata\ItemData.cs" />
+    <Compile Include="assets\itemdata\Slot.cs" />
+    <Compile Include="assets\itemdata\SlotTypes.cs" />
     <Compile Include="assets\jsons\EmbeddedItemData_Amulets.json" />
     <Compile Include="config\internal\AppEngine.cs" />
     <Compile Include="config\internal\Networking.cs" />
@@ -92,7 +95,6 @@
     <Compile Include="models\IFeedable.cs" />
     <Compile Include="database\NWriter.cs" />
     <Compile Include="database\NReader.cs" />
-    <Compile Include="models\ItemData.cs" />
     <Compile Include="models\Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="models\AutoAssign.cs" />
