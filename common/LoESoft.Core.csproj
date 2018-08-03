@@ -78,10 +78,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="assets\itemdata\ItemData.cs" />
+    <Compile Include="assets\itemdata\ItemDataAttribute.cs" />
+    <Compile Include="assets\itemdata\ItemDataManager.cs" />
     <Compile Include="assets\itemdata\Slot.cs" />
     <Compile Include="assets\itemdata\SlotTypes.cs" />
-    <Compile Include="assets\jsons\EmbeddedItemData_Amulets.json" />
     <Compile Include="config\internal\AppEngine.cs" />
     <Compile Include="config\internal\Networking.cs" />
     <Compile Include="config\internal\Database.cs" />
@@ -112,6 +112,9 @@
     <Compile Include="models\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\items\Amulets.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\xmls\Additions.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -7,7 +7,6 @@ using System.Linq;
 using System.Xml.Linq;
 using LoESoft.Core;
 using LoESoft.Core.assets.itemdata;
-using LoESoft.Core.models;
 
 #endregion
 
@@ -843,24 +842,6 @@ public class Item : IFeedable
             XpBooster = elem.Element("XpBoost") != null;
             LootDropBooster = elem.Element("LDBoosted") != null;
             LootTierBooster = elem.Element("LTBoosted") != null;
-
-            if ((n = elem.Element("ItemData")) != null)
-            {
-                SlotTypes slot = (SlotTypes)int.Parse(n.Element("SlotType").Value);
-                XElement parameters = n.Element("Parameters");
-
-                switch (slot)
-                {
-                    case SlotTypes.AMULET_SLOT: ItemData = new Amulet() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
-                    case SlotTypes.ARMOR_SLOT: ItemData = new Armor() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
-                    case SlotTypes.FOOT_SLOT: ItemData = new Foot() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
-                    case SlotTypes.HEAD_SLOT: ItemData = new Head() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
-                    case SlotTypes.WEAPON_SLOT: ItemData = new Weapon { Name = ObjectId, Description = Description, Attack = ItemData.GetData<int>(parameters, "Attack"), TwoHanded = ItemData.GetData<bool>(parameters, "TwoHanded") }; break;
-                    case SlotTypes.LEGS_SLOT: ItemData = new Legs() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
-                    case SlotTypes.SHIELD_SLOT: ItemData = new Shield() { Name = ObjectId, Description = Description, Defense = ItemData.GetData<int>(parameters, "Defense") }; break;
-                    case SlotTypes.RING_SLOT: ItemData = new Ring() { Name = ObjectId, Description = Description, Arm = ItemData.GetData<int>(parameters, "Arm") }; break;
-                }
-            }
         }
         catch (Exception ex)
         {
@@ -868,8 +849,6 @@ public class Item : IFeedable
             Console.ReadLine();
         }
     }
-
-    public ItemData ItemData { get; set; }
 
     public ushort ObjectType { get; private set; }
     public string ObjectId { get; private set; }

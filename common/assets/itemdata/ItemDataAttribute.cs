@@ -4,23 +4,16 @@ using System.Xml.Linq;
 
 namespace LoESoft.Core.assets.itemdata
 {
-    /// <summary>
-    /// Item Data
-    /// Author: DV
-    /// </summary>
-    public abstract class ItemData
+    public abstract class GameItem
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public virtual SlotTypes SlotType { get; protected set; }
 
-        public string Export<SlotData>(SlotData slotData)
-            => JsonConvert.SerializeObject(slotData);
+        public Slot Import<Slot>(string slot) => (Slot)JsonConvert.DeserializeObject(slot);
 
-        public SlotData Import<SlotData>(string slotData)
-            => (SlotData)JsonConvert.DeserializeObject(slotData);
+        public string Export<Slot>(Slot slot) => JsonConvert.SerializeObject(slot);
 
-        public static T GetData<T>(XElement parent, string child)
+        public static T GetInheritData<T>(XElement parent, string child)
         {
             if (typeof(T) == typeof(int))
                 return (T)(object)int.Parse(parent.Element(child).Value);
@@ -29,7 +22,17 @@ namespace LoESoft.Core.assets.itemdata
             if (typeof(T) == typeof(bool))
                 return (T)(object)bool.Parse(parent.Element(child).Value);
 
-            return (T)(object) null;
+            return (T)(object)null;
+        }
+    }
+
+    public class ItemDataAttribute : Attribute
+    {
+        public SlotTypes SlotType { get; private set; }
+
+        public ItemDataAttribute(SlotTypes slotTypes)
+        {
+            SlotType = slotTypes;
         }
     }
 }
