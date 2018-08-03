@@ -1,13 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace LoESoft.Core.assets.itemdata
 {
     public abstract class GameItem
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Description { get; set; }
+        public virtual SlotTypes SlotType { get { return GetAttribute.SlotType; } }
+
+        private ItemDataAttribute GetAttribute => GetType().GetCustomAttributes(typeof(ItemDataAttribute), true).FirstOrDefault() as ItemDataAttribute;
 
         public Slot Import<Slot>(string slot) => (Slot)JsonConvert.DeserializeObject(slot);
 
@@ -26,13 +30,14 @@ namespace LoESoft.Core.assets.itemdata
         }
     }
 
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ItemDataAttribute : Attribute
     {
-        public SlotTypes SlotType { get; private set; }
+        public SlotTypes SlotType { get; set; }
 
-        public ItemDataAttribute(SlotTypes slotTypes)
+        public ItemDataAttribute(SlotTypes slotType)
         {
-            SlotType = slotTypes;
+            SlotType = slotType;
         }
     }
 }
