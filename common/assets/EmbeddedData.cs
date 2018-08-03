@@ -424,7 +424,7 @@ namespace LoESoft.Core
             }
         }
 
-        private class AutoAssign : LoESoft.Core.AutoAssign
+        private class AutoAssign : Core.AutoAssign
         {
             private EmbeddedData dat;
             private int nextFullId;

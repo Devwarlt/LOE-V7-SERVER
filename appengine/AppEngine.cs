@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using LoESoft.Core.config;
 using LoESoft.Core.models;
+using LoESoft.Core.assets.itemdata;
 
 #endregion
 
@@ -25,6 +26,9 @@ namespace LoESoft.AppEngine
         { get; set; }
 
         internal static EmbeddedData GameData
+        { get; set; }
+
+        internal static ItemDataManager ItemDataManager
         { get; set; }
 
         internal static ISManager Manager
@@ -49,6 +53,10 @@ namespace LoESoft.AppEngine
             using (Database = new Database())
             {
                 GameData = new EmbeddedData();
+
+                ItemDataManager = new ItemDataManager();
+                ItemDataManager.Start();
+
                 InstanceId = Guid.NewGuid().ToString();
 
                 Manager = new ISManager();

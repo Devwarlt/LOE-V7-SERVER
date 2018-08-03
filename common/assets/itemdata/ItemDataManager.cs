@@ -1,5 +1,6 @@
 ﻿using LoESoft.Core.models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -25,15 +26,21 @@ namespace LoESoft.Core.assets.itemdata
             { SlotTypes.TROUSER_SLOT, "//Trouser" },
             { SlotTypes.WEAPON_SLOT, "//Weapon" }
         };
+        private ConcurrentDictionary<SlotTypes, int> ItemDatasCount { get; set; }
 
         public IDictionary<string, GameItem> ItemDatas { get; private set; }
 
         public ItemDataManager()
         {
+            ItemDatasCount = new ConcurrentDictionary<SlotTypes, int>();
+
+            foreach (var i in Slots.Keys)
+                ItemDatasCount.TryAdd(i, 0);
+
             ItemDatas = new ReadOnlyDictionary<string, GameItem>(itemDatas = new Dictionary<string, GameItem>());
         }
 
-        public void Load()
+        public void Start()
         {
             bool loaded = false;
             string[] xmls = Directory.EnumerateFiles(DirectoryAssemblyPath, "*.xml", SearchOption.AllDirectories).ToArray();
@@ -47,6 +54,11 @@ namespace LoESoft.Core.assets.itemdata
                     if (i + 1 == xmls.Length)
                         loaded = true;
                 }
+
+                Log._("item data assets", xmls.Length, false, "Loaded ", " ", ".");
+
+                foreach (var i in Slots)
+                    Log._(i.Value.Replace("//", null).ToLower(), ItemDatasCount[i.Key]);
             }
             catch (Exception ex) { Log.Error(ex.ToString()); }
 
@@ -85,6 +97,8 @@ namespace LoESoft.Core.assets.itemdata
                         Description = e.Element("Description").Value,
                         Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
                     };
+
+                ItemDatasCount[SlotTypes.AMULET_SLOT] += 1;
             }
         }
 
@@ -107,6 +121,8 @@ namespace LoESoft.Core.assets.itemdata
                         Description = e.Element("Description").Value,
                         Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
                     };
+
+                ItemDatasCount[SlotTypes.ARMOR_SLOT] += 1;
             }
         }
 
@@ -129,6 +145,8 @@ namespace LoESoft.Core.assets.itemdata
                         Description = e.Element("Description").Value,
                         Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
                     };
+
+                ItemDatasCount[SlotTypes.BOOT_SLOT] += 1;
             }
         }
 
@@ -151,6 +169,8 @@ namespace LoESoft.Core.assets.itemdata
                         Description = e.Element("Description").Value,
                         Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
                     };
+
+                ItemDatasCount[SlotTypes.HELMET_SLOT] += 1;
             }
         }
 
@@ -173,6 +193,8 @@ namespace LoESoft.Core.assets.itemdata
                         Description = e.Element("Description").Value,
                         Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
                     };
+
+                ItemDatasCount[SlotTypes.RING_SLOT] += 1;
             }
         }
 
@@ -195,6 +217,8 @@ namespace LoESoft.Core.assets.itemdata
                         Description = e.Element("Description").Value,
                         Defense = GameItem.GetInheritData<int>(e.Element("ItemData"), "Defense")
                     };
+
+                ItemDatasCount[SlotTypes.SHIELD_SLOT] += 1;
             }
         }
 
@@ -217,6 +241,8 @@ namespace LoESoft.Core.assets.itemdata
                         Description = e.Element("Description").Value,
                         Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
                     };
+
+                ItemDatasCount[SlotTypes.TROUSER_SLOT] += 1;
             }
         }
 
@@ -240,6 +266,8 @@ namespace LoESoft.Core.assets.itemdata
                         Attack = GameItem.GetInheritData<int>(e.Element("ItemData"), "Attack"),
                         TwoHanded = GameItem.GetInheritData<bool>(e.Element("ItemData"), "TwoHanded")
                     };
+
+                ItemDatasCount[SlotTypes.WEAPON_SLOT] += 1;
             }
         }
     }
