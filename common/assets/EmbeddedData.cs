@@ -99,7 +99,7 @@ namespace LoESoft.Core
             TileTypeToId = new ReadOnlyDictionary<ushort, string>(type2id_tile = new Dictionary<ushort, string>());
             IdToTileType = new ReadOnlyDictionary<string, ushort>(id2type_tile = new Dictionary<string, ushort>(StringComparer.InvariantCultureIgnoreCase));
             Tiles = new ReadOnlyDictionary<ushort, TileDesc>(tiles = new Dictionary<ushort, TileDesc>());
-            Items = new artic.ReadOnlyDictionary<ushort, Item>(items = new Dictionary<ushort, Item>());
+            Items = new ReadOnlyDictionary<ushort, Item>(items = new Dictionary<ushort, Item>());
             ObjectDescs = new ReadOnlyDictionary<ushort, ObjectDesc>(objDescs = new Dictionary<ushort, ObjectDesc>());
             Portals = new ReadOnlyDictionary<ushort, PortalDesc>(portals = new Dictionary<ushort, PortalDesc>());
             TypeToPet = new ReadOnlyDictionary<ushort, PetStruct>(type2pet = new Dictionary<ushort, PetStruct>());
