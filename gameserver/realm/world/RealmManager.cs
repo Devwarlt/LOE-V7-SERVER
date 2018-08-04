@@ -16,6 +16,7 @@ using LoESoft.Core.config;
 using LoESoft.GameServer.realm.entity.merchant;
 using static LoESoft.GameServer.networking.Client;
 using LoESoft.Core.models;
+using LoESoft.Core.assets.itemdata;
 
 #endregion
 
@@ -43,6 +44,7 @@ namespace LoESoft.GameServer.realm
         public ISManager InterServer { get; private set; }
         public CommandManager Commands { get; private set; }
         public EmbeddedData GameData { get; private set; }
+        public ItemDataManager ItemDataManager { get; private set; }
         public string InstanceId { get; private set; }
         public LogicTicker Logic { get; private set; }
         public int MaxClients { get; private set; }
@@ -79,6 +81,9 @@ namespace LoESoft.GameServer.realm
         public void Initialize()
         {
             GameData = new EmbeddedData();
+
+            ItemDataManager = new ItemDataManager();
+            ItemDataManager.Start();
 
             //LootSerialization.PopulateLoot();
 
@@ -170,7 +175,7 @@ namespace LoESoft.GameServer.realm
 
                     return new ConnectionProtocol(false, ErrorIDs.LOST_CONNECTION); // User dropped connection while reconnect.
                 }
-                
+
                 _cData.Client.AccountInUseMonitor.Start();
 
                 return new ConnectionProtocol(ClientManager.TryAdd(_cData.ID, _cData), ErrorIDs.NORMAL_CONNECTION); // Normal connection with reconnect type.

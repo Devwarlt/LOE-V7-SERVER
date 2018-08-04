@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Amulet>
   <Item id="amulet_0" name="Sample Amulet">
-    <Asset index="0x00">Amulets</Asset>
+    <AssetData>
+      <File>Amulets</File>
+      <Index>0x00</Index>
+    </AssetData>
     <Description>This is a sample description.</Description>
     <ItemData>
       <Arm>0</Arm>

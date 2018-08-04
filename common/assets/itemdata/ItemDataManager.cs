@@ -93,16 +93,21 @@ namespace LoESoft.Core.assets.itemdata
                 }
 
                 XElement itemData = e.Element("ItemData");
+                XElement assetData = e.Element("AssetData");
 
                 itemDatas[id] =
                     new Amulet()
                     {
+                        File = GameItem.GetInheritData<string>(assetData, "File"),
+                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
                         DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
                         HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
                         MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Vocation = GameItem.GetInheritData<Vocations>(itemData, "Vocation"),
+                        LevelBase = GameItem.GetInheritData<int>(itemData, "LevelBase"),
                         Arm = GameItem.GetInheritData<int>(itemData, "Arm"),
                     };
 
@@ -123,16 +128,21 @@ namespace LoESoft.Core.assets.itemdata
                 }
 
                 XElement itemData = e.Element("ItemData");
+                XElement assetData = e.Element("AssetData");
 
                 itemDatas[id] =
                     new Armor()
                     {
+                        File = GameItem.GetInheritData<string>(assetData, "File"),
+                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
                         DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
                         HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
                         MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Vocation = GameItem.GetInheritData<Vocations>(itemData, "Vocation"),
+                        LevelBase = GameItem.GetInheritData<int>(itemData, "LevelBase"),
                         Arm = GameItem.GetInheritData<int>(itemData, "Arm")
                     };
 
@@ -153,16 +163,21 @@ namespace LoESoft.Core.assets.itemdata
                 }
 
                 XElement itemData = e.Element("ItemData");
+                XElement assetData = e.Element("AssetData");
 
                 itemDatas[id] =
                     new Boot()
                     {
+                        File = GameItem.GetInheritData<string>(assetData, "File"),
+                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
                         DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
                         HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
                         MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Vocation = GameItem.GetInheritData<Vocations>(itemData, "Vocation"),
+                        LevelBase = GameItem.GetInheritData<int>(itemData, "LevelBase"),
                         Arm = GameItem.GetInheritData<int>(itemData, "Arm")
                     };
 
@@ -183,16 +198,21 @@ namespace LoESoft.Core.assets.itemdata
                 }
 
                 XElement itemData = e.Element("ItemData");
+                XElement assetData = e.Element("AssetData");
 
                 itemDatas[id] =
                     new Helmet()
                     {
+                        File = GameItem.GetInheritData<string>(assetData, "File"),
+                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
                         DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
                         HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
                         MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Vocation = GameItem.GetInheritData<Vocations>(itemData, "Vocation"),
+                        LevelBase = GameItem.GetInheritData<int>(itemData, "LevelBase"),
                         Arm = GameItem.GetInheritData<int>(itemData, "Arm")
                     };
 
@@ -213,16 +233,21 @@ namespace LoESoft.Core.assets.itemdata
                 }
 
                 XElement itemData = e.Element("ItemData");
+                XElement assetData = e.Element("AssetData");
 
                 itemDatas[id] =
                     new Object()
                     {
+                        File = GameItem.GetInheritData<string>(assetData, "File"),
+                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = 0,
                         DefenseBonus = 0,
                         HPBonus = 0,
                         MPBonus = 0,
+                        Vocation = Vocations.ANY,
+                        LevelBase = -1,
                         Amount = 1,
                         Stackable = GameItem.GetInheritData<bool>(itemData, "Stackable"),
                         Consumable = GameItem.GetInheritData<bool>(itemData, "Consumable"),
@@ -247,16 +272,21 @@ namespace LoESoft.Core.assets.itemdata
                 }
 
                 XElement itemData = e.Element("ItemData");
+                XElement assetData = e.Element("AssetData");
 
                 itemDatas[id] =
                     new Ring()
                     {
+                        File = GameItem.GetInheritData<string>(assetData, "File"),
+                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
                         DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
                         HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
                         MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Vocation = GameItem.GetInheritData<Vocations>(itemData, "Vocation"),
+                        LevelBase = GameItem.GetInheritData<int>(itemData, "LevelBase"),
                         Arm = GameItem.GetInheritData<int>(itemData, "Arm")
                     };
 
@@ -277,16 +307,21 @@ namespace LoESoft.Core.assets.itemdata
                 }
 
                 XElement itemData = e.Element("ItemData");
+                XElement assetData = e.Element("AssetData");
 
                 itemDatas[id] =
                     new Shield()
                     {
+                        File = GameItem.GetInheritData<string>(assetData, "File"),
+                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
                         DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
                         HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
                         MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Vocation = GameItem.GetInheritData<Vocations>(itemData, "Vocation"),
+                        LevelBase = GameItem.GetInheritData<int>(itemData, "LevelBase"),
                         Defense = GameItem.GetInheritData<int>(itemData, "Defense"),
                         BlockChance = GameItem.GetInheritData<int>(itemData, "BlockChance")
                     };
@@ -308,14 +343,21 @@ namespace LoESoft.Core.assets.itemdata
                 }
 
                 XElement itemData = e.Element("ItemData");
+                XElement assetData = e.Element("AssetData");
 
                 itemDatas[id] =
                     new Trouser()
                     {
+                        File = GameItem.GetInheritData<string>(assetData, "File"),
+                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
                         DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
+                        HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
+                        MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Vocation = GameItem.GetInheritData<Vocations>(itemData, "Vocation"),
+                        LevelBase = GameItem.GetInheritData<int>(itemData, "LevelBase"),
                         Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
                     };
 
@@ -336,14 +378,21 @@ namespace LoESoft.Core.assets.itemdata
                 }
 
                 XElement itemData = e.Element("ItemData");
+                XElement assetData = e.Element("AssetData");
 
                 itemDatas[id] =
                     new Weapon()
                     {
+                        File = GameItem.GetInheritData<string>(assetData, "File"),
+                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
                         DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
+                        HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
+                        MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Vocation = GameItem.GetInheritData<Vocations>(itemData, "Vocation"),
+                        LevelBase = GameItem.GetInheritData<int>(itemData, "LevelBase"),
                         Attack = GameItem.GetInheritData<int>(itemData, "Attack"),
                         Mana = GameItem.GetInheritData<int>(itemData, "Mana"),
                         HitChance = GameItem.GetInheritData<int>(itemData, "HitChance"),
