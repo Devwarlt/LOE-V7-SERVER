@@ -23,10 +23,6 @@ namespace LoESoft.Core.assets.itemdata
 
         private ItemDataAttribute GetAttribute => GetType().GetCustomAttributes(typeof(ItemDataAttribute), true).FirstOrDefault() as ItemDataAttribute;
 
-        public static Slot Import<Slot>(string slot) => (Slot)JsonConvert.DeserializeObject(slot);
-
-        public static string Export<Slot>(Slot slot) => JsonConvert.SerializeObject(slot);
-
         public static T GetInheritData<T>(XElement parent, string child)
         {
             string data = !(parent.Element(child) == null) ? parent.Element(child).Value : null;
@@ -57,5 +53,9 @@ namespace LoESoft.Core.assets.itemdata
         {
             SlotType = slotType;
         }
+
+        public static Slot Import<Slot>(string slot) => (Slot)JsonConvert.DeserializeObject(slot);
+
+        public static string Export<Slot>(Slot slot) => JsonConvert.SerializeObject(slot);
     }
 }
