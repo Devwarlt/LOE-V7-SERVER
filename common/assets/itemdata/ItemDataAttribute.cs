@@ -7,9 +7,14 @@ namespace LoESoft.Core.assets.itemdata
 {
     public abstract class GameItem
     {
-        public virtual string Name { get; set; }
-        public virtual string Description { get; set; }
-        public virtual SlotTypes SlotType { get { return GetAttribute.SlotType; } }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int AttackBonus { get; set; }
+        public int DefenseBonus { get; set; }
+        public int HPBonus { get; set; }
+        public int MPBonus { get; set; }
+
+        public virtual SlotTypes SlotType => GetAttribute.SlotType;
 
         private ItemDataAttribute GetAttribute => GetType().GetCustomAttributes(typeof(ItemDataAttribute), true).FirstOrDefault() as ItemDataAttribute;
 
@@ -20,11 +25,13 @@ namespace LoESoft.Core.assets.itemdata
         public static T GetInheritData<T>(XElement parent, string child)
         {
             if (typeof(T) == typeof(int))
-                return (T)(object)int.Parse(parent.Element(child).Value);
+                return (T)(object)int.Parse(parent.Element(child) == null ? parent.Element(child).Value : "0");
             if (typeof(T) == typeof(string))
-                return (T)(object)parent.Element(child).Value;
+                return (T)(object)(parent.Element(child) == null ? parent.Element(child).Value : "null");
             if (typeof(T) == typeof(bool))
-                return (T)(object)bool.Parse(parent.Element(child).Value);
+                return (T)(object)bool.Parse(parent.Element(child) == null ? parent.Element(child).Value : "false");
+            if (typeof(T) == typeof(double))
+                return (T)(object)double.Parse(parent.Element(child) == null ? parent.Element(child).Value : "0");
 
             return (T)(object)null;
         }
@@ -33,7 +40,7 @@ namespace LoESoft.Core.assets.itemdata
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ItemDataAttribute : Attribute
     {
-        public SlotTypes SlotType { get; set; }
+        public SlotTypes SlotType { get; }
 
         public ItemDataAttribute(SlotTypes slotType)
         {

@@ -21,6 +21,7 @@ namespace LoESoft.Core.assets.itemdata
             { SlotTypes.ARMOR_SLOT, "//Armor" },
             { SlotTypes.BOOT_SLOT, "//Boot" },
             { SlotTypes.HELMET_SLOT, "//Helmet" },
+            { SlotTypes.OBJECT_SLOT, "//Object" },
             { SlotTypes.RING_SLOT, "//Ring" },
             { SlotTypes.SHIELD_SLOT, "//Shield" },
             { SlotTypes.TROUSER_SLOT, "//Trouser" },
@@ -72,6 +73,7 @@ namespace LoESoft.Core.assets.itemdata
             Armors(root);
             Boots(root);
             Helmets(root);
+            Objects(root);
             Rings(root);
             Shields(root);
             Trousers(root);
@@ -90,12 +92,18 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
+                XElement itemData = e.Element("ItemData");
+
                 itemDatas[id] =
                     new Amulet()
                     {
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
-                        Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
+                        AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
+                        DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
+                        HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
+                        MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Arm = GameItem.GetInheritData<int>(itemData, "Arm"),
                     };
 
                 ItemDatasCount[SlotTypes.AMULET_SLOT] += 1;
@@ -114,12 +122,18 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
+                XElement itemData = e.Element("ItemData");
+
                 itemDatas[id] =
                     new Armor()
                     {
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
-                        Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
+                        AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
+                        DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
+                        HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
+                        MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Arm = GameItem.GetInheritData<int>(itemData, "Arm")
                     };
 
                 ItemDatasCount[SlotTypes.ARMOR_SLOT] += 1;
@@ -138,12 +152,18 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
+                XElement itemData = e.Element("ItemData");
+
                 itemDatas[id] =
                     new Boot()
                     {
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
-                        Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
+                        AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
+                        DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
+                        HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
+                        MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Arm = GameItem.GetInheritData<int>(itemData, "Arm")
                     };
 
                 ItemDatasCount[SlotTypes.BOOT_SLOT] += 1;
@@ -162,15 +182,55 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
+                XElement itemData = e.Element("ItemData");
+
                 itemDatas[id] =
                     new Helmet()
                     {
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
-                        Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
+                        AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
+                        DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
+                        HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
+                        MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Arm = GameItem.GetInheritData<int>(itemData, "Arm")
                     };
 
                 ItemDatasCount[SlotTypes.HELMET_SLOT] += 1;
+            }
+        }
+
+        private void Objects(XElement root)
+        {
+            foreach (XElement e in root.XPathSelectElements(Slots[SlotTypes.OBJECT_SLOT]))
+            {
+                string id = e.Attribute("id").Value;
+
+                if (itemDatas.ContainsKey(id))
+                {
+                    Log.Warn($"Duplicated ItemData for 'Objects': {id}.");
+                    continue;
+                }
+
+                XElement itemData = e.Element("ItemData");
+
+                itemDatas[id] =
+                    new Object()
+                    {
+                        Name = e.Attribute("name").Value,
+                        Description = e.Element("Description").Value,
+                        AttackBonus = 0,
+                        DefenseBonus = 0,
+                        HPBonus = 0,
+                        MPBonus = 0,
+                        Amount = 1,
+                        Stackable = GameItem.GetInheritData<bool>(itemData, "Stackable"),
+                        Consumable = GameItem.GetInheritData<bool>(itemData, "Consumable"),
+                        HP = GameItem.GetInheritData<int>(itemData, "HP"),
+                        MP = GameItem.GetInheritData<int>(itemData, "MP")
+                    };
+
+                ItemDatasCount[SlotTypes.OBJECT_SLOT] += 1;
             }
         }
 
@@ -186,12 +246,18 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
+                XElement itemData = e.Element("ItemData");
+
                 itemDatas[id] =
                     new Ring()
                     {
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
-                        Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
+                        AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
+                        DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
+                        HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
+                        MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Arm = GameItem.GetInheritData<int>(itemData, "Arm")
                     };
 
                 ItemDatasCount[SlotTypes.RING_SLOT] += 1;
@@ -210,12 +276,19 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
+                XElement itemData = e.Element("ItemData");
+
                 itemDatas[id] =
                     new Shield()
                     {
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
-                        Defense = GameItem.GetInheritData<int>(e.Element("ItemData"), "Defense")
+                        AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
+                        DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
+                        HPBonus = GameItem.GetInheritData<int>(itemData, "HPBonus"),
+                        MPBonus = GameItem.GetInheritData<int>(itemData, "MPBonus"),
+                        Defense = GameItem.GetInheritData<int>(itemData, "Defense"),
+                        BlockChance = GameItem.GetInheritData<int>(itemData, "BlockChance")
                     };
 
                 ItemDatasCount[SlotTypes.SHIELD_SLOT] += 1;
@@ -234,11 +307,15 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
+                XElement itemData = e.Element("ItemData");
+
                 itemDatas[id] =
                     new Trouser()
                     {
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
+                        AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
+                        DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
                         Arm = GameItem.GetInheritData<int>(e.Element("ItemData"), "Arm")
                     };
 
@@ -258,13 +335,19 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
+                XElement itemData = e.Element("ItemData");
+
                 itemDatas[id] =
                     new Weapon()
                     {
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
-                        Attack = GameItem.GetInheritData<int>(e.Element("ItemData"), "Attack"),
-                        TwoHanded = GameItem.GetInheritData<bool>(e.Element("ItemData"), "TwoHanded")
+                        AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
+                        DefenseBonus = GameItem.GetInheritData<int>(itemData, "DefenseBonus"),
+                        Attack = GameItem.GetInheritData<int>(itemData, "Attack"),
+                        Mana = GameItem.GetInheritData<int>(itemData, "Mana"),
+                        HitChance = GameItem.GetInheritData<int>(itemData, "HitChance"),
+                        TwoHanded = GameItem.GetInheritData<bool>(itemData, "TwoHanded")
                     };
 
                 ItemDatasCount[SlotTypes.WEAPON_SLOT] += 1;

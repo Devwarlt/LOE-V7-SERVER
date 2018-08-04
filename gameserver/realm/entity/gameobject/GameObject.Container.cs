@@ -1,5 +1,6 @@
 ﻿#region
 
+using LoESoft.Core.assets.itemdata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace LoESoft.GameServer.realm.entity
     {
         int[] SlotTypes { get; }
         Item[] Inventory { get; }
+        List<GameItem> InventoryData { get; }
     }
 
     partial class Container : GameObject, IContainer
@@ -22,6 +24,7 @@ namespace LoESoft.GameServer.realm.entity
         {
             Inventory = new Item[8];
             SlotTypes = new int[8];
+            InventoryData = new List<GameItem>();
 
             for (int i = 0; i < SlotTypes.Length; i++)
                 if (SlotTypes[i] == 0) SlotTypes[i] = 10;
@@ -46,6 +49,7 @@ namespace LoESoft.GameServer.realm.entity
         public string[] BagOwners { get; set; }
         public int[] SlotTypes { get; private set; }
         public Item[] Inventory { get; set; }
+        public List<GameItem> InventoryData { get; set; }
         public bool BoostedBag { get; set; }
 
         public override ObjectDef ToDefinition()

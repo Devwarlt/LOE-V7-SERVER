@@ -1,5 +1,6 @@
 ﻿#region
 
+using LoESoft.Core.assets.itemdata;
 using System.Collections.Generic;
 
 #endregion
@@ -20,6 +21,7 @@ namespace LoESoft.GameServer.realm.entity
 
         public int[] SlotTypes { get; private set; }
         public Item[] Inventory { get; private set; }
+        public List<GameItem> InventoryData { get; private set; }
 
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {

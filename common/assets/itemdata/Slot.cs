@@ -16,6 +16,8 @@
     public class Weapon : GameItem
     {
         public int Attack { get; set; }
+        public int Mana { get; set; }
+        public int HitChance { get; set; }
         public bool TwoHanded { get; set; }
     }
 
@@ -29,6 +31,7 @@
     public class Shield : GameItem
     {
         public int Defense { get; set; }
+        public int BlockChance { get; set; }
     }
 
     [ItemData(SlotTypes.RING_SLOT)]
@@ -47,5 +50,15 @@
     public class Boot : GameItem
     {
         public int Arm { get; set; }
+    }
+
+    [ItemData(SlotTypes.OBJECT_SLOT)]
+    public class Object : GameItem
+    {
+        public int Amount { get; set; }
+        public bool Stackable { get; set; }
+        public bool Consumable { get; set; }
+        public int HP { get; set; }
+        public int MP { get; set; }
     }
 }
