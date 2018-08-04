@@ -82,6 +82,7 @@
     <Compile Include="assets\itemdata\ItemDataManager.cs" />
     <Compile Include="assets\itemdata\Slot.cs" />
     <Compile Include="assets\itemdata\SlotTypes.cs" />
+    <Compile Include="assets\itemdata\Vocations.cs" />
     <Compile Include="config\internal\AppEngine.cs" />
     <Compile Include="config\internal\Networking.cs" />
     <Compile Include="config\internal\Database.cs" />
