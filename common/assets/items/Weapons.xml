@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Weapons>
+  <Weapon id="weapon_0" name="Sample Weapon">
+    <AssetData>
+      <File>Weapons</File>
+      <Index>0x00</Index>
+    </AssetData>
+    <Description>This is a sample description.</Description>
+    <ItemData>
+      <Attack>1</Attack>
+      <HitChance>100</HitChance>
+      <TwoHanded>false</TwoHanded>
+    </ItemData>
+  </Weapon>
+</Weapons>

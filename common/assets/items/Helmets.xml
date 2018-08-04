@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Amulets>
-  <Amulet id="amulet_0" name="Sample Amulet">
+<Helmets>
+  <Helmet id="helmet_0" name="Sample Helmet">
     <AssetData>
-      <File>Amulets</File>
+      <File>Helmets</File>
       <Index>0x00</Index>
     </AssetData>
     <Description>This is a sample description.</Description>
     <ItemData>
       <Arm>1</Arm>
     </ItemData>
-  </Amulet>
-</Amulets>
+  </Helmet>
+</Helmets>

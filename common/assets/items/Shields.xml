@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Amulets>
-  <Amulet id="amulet_0" name="Sample Amulet">
+<Shields>
+  <Shield id="shield_0" name="Sample Shield">
     <AssetData>
-      <File>Amulets</File>
+      <File>Shields</File>
       <Index>0x00</Index>
     </AssetData>
     <Description>This is a sample description.</Description>
     <ItemData>
-      <Arm>1</Arm>
+      <Defense>1</Defense>
+      <BlockChance>100</BlockChance>
     </ItemData>
-  </Amulet>
-</Amulets>
+  </Shield>
+</Shields>

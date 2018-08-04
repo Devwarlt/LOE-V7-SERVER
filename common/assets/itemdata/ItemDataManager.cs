@@ -56,7 +56,12 @@ namespace LoESoft.Core.assets.itemdata
                         loaded = true;
                 }
 
-                Log._("item data assets", xmls.Length, false, "Loaded ", " ", ".");
+                int total = 0;
+
+                foreach (var i in Slots)
+                    total += ItemDatasCount[i.Key];
+
+                Log._($"item data assets and {total} item{(total > 1 ? "s" : "")}", xmls.Length, false, "Loaded ", " ", ".");
 
                 foreach (var i in Slots)
                     Log._(i.Value.Replace("//", null).ToLower(), ItemDatasCount[i.Key]);
