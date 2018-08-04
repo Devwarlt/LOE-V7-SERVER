@@ -99,7 +99,7 @@ namespace LoESoft.Core.assets.itemdata
                     new Amulet()
                     {
                         File = GameItem.GetInheritData<string>(assetData, "File"),
-                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
+                        Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
@@ -134,7 +134,7 @@ namespace LoESoft.Core.assets.itemdata
                     new Armor()
                     {
                         File = GameItem.GetInheritData<string>(assetData, "File"),
-                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
+                        Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
@@ -169,7 +169,7 @@ namespace LoESoft.Core.assets.itemdata
                     new Boot()
                     {
                         File = GameItem.GetInheritData<string>(assetData, "File"),
-                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
+                        Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
@@ -204,7 +204,7 @@ namespace LoESoft.Core.assets.itemdata
                     new Helmet()
                     {
                         File = GameItem.GetInheritData<string>(assetData, "File"),
-                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
+                        Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
@@ -239,7 +239,7 @@ namespace LoESoft.Core.assets.itemdata
                     new Object()
                     {
                         File = GameItem.GetInheritData<string>(assetData, "File"),
-                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
+                        Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = 0,
@@ -278,7 +278,7 @@ namespace LoESoft.Core.assets.itemdata
                     new Ring()
                     {
                         File = GameItem.GetInheritData<string>(assetData, "File"),
-                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
+                        Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
@@ -313,7 +313,7 @@ namespace LoESoft.Core.assets.itemdata
                     new Shield()
                     {
                         File = GameItem.GetInheritData<string>(assetData, "File"),
-                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
+                        Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
@@ -349,7 +349,7 @@ namespace LoESoft.Core.assets.itemdata
                     new Trouser()
                     {
                         File = GameItem.GetInheritData<string>(assetData, "File"),
-                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
+                        Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),
@@ -384,7 +384,7 @@ namespace LoESoft.Core.assets.itemdata
                     new Weapon()
                     {
                         File = GameItem.GetInheritData<string>(assetData, "File"),
-                        Index = GameItem.GetInheritData<int>(assetData, "Index"),
+                        Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
                         Description = e.Element("Description").Value,
                         AttackBonus = GameItem.GetInheritData<int>(itemData, "AttackBonus"),

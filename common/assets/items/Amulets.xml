@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Amulet>
-  <Item id="amulet_0" name="Sample Amulet">
+<Amulets>
+  <Amulet id="amulet_0" name="Sample Amulet">
     <AssetData>
       <File>Amulets</File>
       <Index>0x00</Index>
@@ -9,5 +9,5 @@
     <ItemData>
       <Arm>0</Arm>
     </ItemData>
-  </Item>
-</Amulet>
+  </Amulet>
+</Amulets>

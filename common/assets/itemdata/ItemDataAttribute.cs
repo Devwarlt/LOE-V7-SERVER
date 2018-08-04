@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -8,7 +9,7 @@ namespace LoESoft.Core.assets.itemdata
     public abstract class GameItem
     {
         public string File { get; set; }
-        public int Index { get; set; }
+        public uint Index { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int AttackBonus { get; set; }
@@ -22,22 +23,26 @@ namespace LoESoft.Core.assets.itemdata
 
         private ItemDataAttribute GetAttribute => GetType().GetCustomAttributes(typeof(ItemDataAttribute), true).FirstOrDefault() as ItemDataAttribute;
 
-        public Slot Import<Slot>(string slot) => (Slot)JsonConvert.DeserializeObject(slot);
+        public static Slot Import<Slot>(string slot) => (Slot)JsonConvert.DeserializeObject(slot);
 
-        public string Export<Slot>(Slot slot) => JsonConvert.SerializeObject(slot);
+        public static string Export<Slot>(Slot slot) => JsonConvert.SerializeObject(slot);
 
         public static T GetInheritData<T>(XElement parent, string child)
         {
+            string data = !(parent.Element(child) == null) ? parent.Element(child).Value : null;
+
             if (typeof(T) == typeof(int))
-                return (T)(object)int.Parse(parent.Element(child) == null ? parent.Element(child).Value : "0");
+                return (T)(object)(data == null ? 0 : int.Parse(data));
+            if (typeof(T) == typeof(uint))
+                return (T)(object)(data == null ? 0 : (data.Contains("0x") ? uint.Parse(data.Replace("0x", null), NumberStyles.AllowHexSpecifier) : uint.Parse(data)));
             if (typeof(T) == typeof(string))
-                return (T)(object)(parent.Element(child) == null ? parent.Element(child).Value : "null");
+                return (T)(object)data;
             if (typeof(T) == typeof(bool))
-                return (T)(object)bool.Parse(parent.Element(child) == null ? parent.Element(child).Value : "false");
+                return (T)(object)(data == null ? false : bool.Parse(data));
             if (typeof(T) == typeof(double))
-                return (T)(object)double.Parse(parent.Element(child) == null ? parent.Element(child).Value : "0");
+                return (T)(object)(data == null ? 0 : double.Parse(data));
             if (typeof(T) == typeof(Vocations))
-                return (T)(object)((Vocations)int.Parse(parent.Element(child) == null ? parent.Element(child).Value : "-1"));
+                return (T)(object)(data == null ? Vocations.ANY : (Vocations)int.Parse(data));
 
             return (T)(object)null;
         }
