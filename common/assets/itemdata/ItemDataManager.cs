@@ -21,6 +21,7 @@ namespace LoESoft.Core.assets.itemdata
             { SlotTypes.AMULET_SLOT, "//Amulet" },
             { SlotTypes.ARMOR_SLOT, "//Armor" },
             { SlotTypes.BOOT_SLOT, "//Boot" },
+            { SlotTypes.CORPSE_SLOT, "//Corpse" },
             { SlotTypes.HELMET_SLOT, "//Helmet" },
             { SlotTypes.OBJECT_SLOT, "//Object" },
             { SlotTypes.RING_SLOT, "//Ring" },
@@ -78,6 +79,7 @@ namespace LoESoft.Core.assets.itemdata
             Amulets(root);
             Armors(root);
             Boots(root);
+            Corpses(root);
             Helmets(root);
             Objects(root);
             Rings(root);
@@ -191,6 +193,8 @@ namespace LoESoft.Core.assets.itemdata
             }
         }
 
+        private void Corpses(XElement root) => ProcessObjectsByType(root, SlotTypes.CORPSE_SLOT);
+
         private void Helmets(XElement root)
         {
             foreach (XElement e in root.XPathSelectElements(Slots[SlotTypes.HELMET_SLOT]))
@@ -226,15 +230,17 @@ namespace LoESoft.Core.assets.itemdata
             }
         }
 
-        private void Objects(XElement root)
+        private void Objects(XElement root) => ProcessObjectsByType(root, SlotTypes.OBJECT_SLOT);
+
+        private void ProcessObjectsByType(XElement root, SlotTypes slot)
         {
-            foreach (XElement e in root.XPathSelectElements(Slots[SlotTypes.OBJECT_SLOT]))
+            foreach (XElement e in root.XPathSelectElements(Slots[slot]))
             {
                 string id = e.Attribute("id").Value;
 
                 if (itemDatas.ContainsKey(id))
                 {
-                    Log.Warn($"Duplicated ItemData for 'Objects': {id}.");
+                    Log.Warn($"Duplicated ItemData for '{Slots[slot].Replace("//", null)}s': {id}.");
                     continue;
                 }
 
@@ -260,7 +266,7 @@ namespace LoESoft.Core.assets.itemdata
                         File = GameItem.GetInheritData<string>(assetData, "File"),
                         Index = GameItem.GetInheritData<uint>(assetData, "Index"),
                         Name = e.Attribute("name").Value,
-                        Description = e.Element("Description").Value,
+                        Description = e.Element("Description") == null ? null : e.Element("Description").Value,
                         AttackBonus = 0,
                         DefenseBonus = 0,
                         HPBonus = 0,
@@ -275,7 +281,7 @@ namespace LoESoft.Core.assets.itemdata
                         DecayData = decayInfo
                     };
 
-                ItemDatasCount[SlotTypes.OBJECT_SLOT] += 1;
+                ItemDatasCount[slot] += 1;
             }
         }
 

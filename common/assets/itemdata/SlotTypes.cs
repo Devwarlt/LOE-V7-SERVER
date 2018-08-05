@@ -10,6 +10,7 @@
         RING_SLOT = 5,
         TROUSER_SLOT = 6,
         BOOT_SLOT = 7,
-        OBJECT_SLOT = 8
+        OBJECT_SLOT = 8,
+        CORPSE_SLOT = 9
     }
 }
