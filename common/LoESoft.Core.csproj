@@ -119,6 +119,9 @@
     <Content Include="assets\items\Boots.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\items\Corpses.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\items\Helmets.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

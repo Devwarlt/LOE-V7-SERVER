@@ -14,6 +14,7 @@ namespace LoESoft.GameServer.realm.entity
         {
             Inventory = new Item[8];
             SlotTypes = new int[8];
+            InventoryData = new GameItem[28];
 
             for (int i = 0; i < SlotTypes.Length; i++)
                 if (SlotTypes[i] == 0) SlotTypes[i] = 10;
@@ -21,7 +22,7 @@ namespace LoESoft.GameServer.realm.entity
 
         public int[] SlotTypes { get; private set; }
         public Item[] Inventory { get; private set; }
-        public List<GameItem> InventoryData { get; private set; }
+        public GameItem[] InventoryData { get; private set; }
 
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {

@@ -9,13 +9,27 @@ using System.Linq;
 
 namespace LoESoft.GameServer
 {
+    public class ElapsedCorpseTime
+    {
+        private DateTime Start { get; set; }
+
+        public ElapsedCorpseTime()
+        {
+            Start = DateTime.Now;
+        }
+
+        public int Measure => int.Parse($"{(DateTime.Now - Start).TotalSeconds:n0}");
+    }
+
     public class ElapsedTime
     {
         private string From { get; set; }
         private DateTime BeginTime { get; set; }
         private DateTime EndTime { get; set; }
 
-        public ElapsedTime(string From)
+        public ElapsedTime() : this(null) { }
+
+        private ElapsedTime(string From)
         {
             this.From = From;
         }
@@ -27,7 +41,8 @@ namespace LoESoft.GameServer
         {
             EndTime = DateTime.Now;
 
-            Log.Warn($"[{From}] Elapsed Time: {(EndTime - BeginTime).TotalMilliseconds:n8} ms.");
+            if (From != null)
+                Log.Warn($"[{From}] Elapsed Time: {(EndTime - BeginTime).TotalMilliseconds:n8} ms.");
         }
     }
 

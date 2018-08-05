@@ -140,6 +140,11 @@ namespace LoESoft.GameServer.realm
         public readonly static StatsType CHAR_NEXT_ATTACK_EXPERIENCE = 123;
         public readonly static StatsType CHAR_NEXT_DEFENSE_EXPERIENCE = 124;
 
+        // TODO.
+        public readonly static StatsType CONTAINER_ITEM_DATA = 125;
+        public readonly static StatsType CONTAINER_PRIORITY = 126;
+        public readonly static StatsType CONTAINER_OWNER = 127;
+
         private byte _type;
 
         private StatsType(byte type)
@@ -159,7 +164,8 @@ namespace LoESoft.GameServer.realm
             CHAR_DEFENSE_EXPERIENCE,
             CHAR_NEXT_EXPERIENCE,
             CHAR_NEXT_ATTACK_EXPERIENCE,
-            CHAR_NEXT_DEFENSE_EXPERIENCE
+            CHAR_NEXT_DEFENSE_EXPERIENCE,
+            CONTAINER_ITEM_DATA
         };
 
         public bool IsUTF

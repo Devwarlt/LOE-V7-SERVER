@@ -1,4 +1,6 @@
-﻿namespace LoESoft.Core.assets.itemdata
+﻿using System.Collections.Generic;
+
+namespace LoESoft.Core.assets.itemdata
 {
     [ItemData(SlotTypes.AMULET_SLOT)]
     public class Amulet : GameItem
@@ -60,5 +62,15 @@
         public bool Consumable { get; set; }
         public int HP { get; set; }
         public int MP { get; set; }
+        public int Capacity { get; set; }
+        public List<DecayData> DecayData { get; set; }
+    }
+
+    public class DecayData
+    {
+        public int Priority { get; set; }
+        public string File { get; set; }
+        public uint Index { get; set; }
+        public int Time { get; set; }
     }
 }

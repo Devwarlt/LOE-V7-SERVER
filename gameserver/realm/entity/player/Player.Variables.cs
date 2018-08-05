@@ -63,7 +63,7 @@ namespace LoESoft.GameServer.realm.entity.player
         private bool xpFreeTimer;
         private bool dying;
         private Item[] inventory;
-        private List<GameItem> inventoryData;
+        private GameItem[] inventoryData;
         private float hpRegenCounter;
         private float mpRegenCounter;
         private bool resurrecting;
@@ -113,7 +113,7 @@ namespace LoESoft.GameServer.realm.entity.player
         public int Texture1 { get; set; }
         public int Texture2 { get; set; }
         public Item[] Inventory { get { return inventory; } set { inventory = value; } }
-        public List<GameItem> InventoryData { get { return inventoryData; } set { inventoryData = value; } }
+        public GameItem[] InventoryData { get { return inventoryData; } set { inventoryData = value; } }
         public string Guild { get; set; }
         public int GuildRank { get; set; }
         public int[] SlotTypes { get; set; }

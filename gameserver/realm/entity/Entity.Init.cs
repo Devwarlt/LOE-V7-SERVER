@@ -38,6 +38,9 @@ namespace LoESoft.GameServer.realm
 
         public wRandom Random { get; private set; }
 
+        public Entity()
+            : this(0) { }
+
         public Entity(ushort objType)
             : this(objType, true, false) { }
 
@@ -46,6 +49,9 @@ namespace LoESoft.GameServer.realm
 
         protected Entity(ushort objType, bool interactive, bool isPet)
         {
+            if (objType == 0)
+                return;
+
             ObjectType = objType;
             Name = "";
             Usable = false;

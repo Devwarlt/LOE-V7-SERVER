@@ -2,7 +2,6 @@
 {
     public partial class Player
     {
-
         private void CheckSetTypeSkin()
         {
             if (Inventory[0]?.SetType == Inventory[1]?.SetType &&

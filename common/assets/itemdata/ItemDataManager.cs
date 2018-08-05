@@ -3,6 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -97,8 +98,8 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
-                XElement itemData = e.Element("ItemData");
                 XElement assetData = e.Element("AssetData");
+                XElement itemData = e.Element("ItemData");
 
                 itemDatas[id] =
                     new Amulet()
@@ -132,8 +133,8 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
-                XElement itemData = e.Element("ItemData");
                 XElement assetData = e.Element("AssetData");
+                XElement itemData = e.Element("ItemData");
 
                 itemDatas[id] =
                     new Armor()
@@ -167,8 +168,8 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
-                XElement itemData = e.Element("ItemData");
                 XElement assetData = e.Element("AssetData");
+                XElement itemData = e.Element("ItemData");
 
                 itemDatas[id] =
                     new Boot()
@@ -202,8 +203,8 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
-                XElement itemData = e.Element("ItemData");
                 XElement assetData = e.Element("AssetData");
+                XElement itemData = e.Element("ItemData");
 
                 itemDatas[id] =
                     new Helmet()
@@ -237,8 +238,21 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
-                XElement itemData = e.Element("ItemData");
                 XElement assetData = e.Element("AssetData");
+                XElement itemData = e.Element("ItemData");
+                XElement decayData = itemData.Element("DecayData");
+                List<DecayData> decayInfo = new List<DecayData>();
+
+                if (decayData != null)
+                    foreach (XElement i in decayData.Elements())
+                        decayInfo.Add(
+                            new DecayData()
+                            {
+                                File = i.Attribute("file").Value,
+                                Index = uint.Parse(i.Attribute("index").Value.Replace("0x", null), NumberStyles.AllowHexSpecifier),
+                                Priority = int.Parse(i.Attribute("priority").Value),
+                                Time = int.Parse(i.Attribute("time").Value)
+                            });
 
                 itemDatas[id] =
                     new Object()
@@ -257,7 +271,8 @@ namespace LoESoft.Core.assets.itemdata
                         Stackable = GameItem.GetInheritData<bool>(itemData, "Stackable"),
                         Consumable = GameItem.GetInheritData<bool>(itemData, "Consumable"),
                         HP = GameItem.GetInheritData<int>(itemData, "HP"),
-                        MP = GameItem.GetInheritData<int>(itemData, "MP")
+                        MP = GameItem.GetInheritData<int>(itemData, "MP"),
+                        DecayData = decayInfo
                     };
 
                 ItemDatasCount[SlotTypes.OBJECT_SLOT] += 1;
@@ -276,8 +291,8 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
-                XElement itemData = e.Element("ItemData");
                 XElement assetData = e.Element("AssetData");
+                XElement itemData = e.Element("ItemData");
 
                 itemDatas[id] =
                     new Ring()
@@ -311,8 +326,8 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
-                XElement itemData = e.Element("ItemData");
                 XElement assetData = e.Element("AssetData");
+                XElement itemData = e.Element("ItemData");
 
                 itemDatas[id] =
                     new Shield()
@@ -347,8 +362,8 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
-                XElement itemData = e.Element("ItemData");
                 XElement assetData = e.Element("AssetData");
+                XElement itemData = e.Element("ItemData");
 
                 itemDatas[id] =
                     new Trouser()
@@ -382,8 +397,8 @@ namespace LoESoft.Core.assets.itemdata
                     continue;
                 }
 
-                XElement itemData = e.Element("ItemData");
                 XElement assetData = e.Element("AssetData");
+                XElement itemData = e.Element("ItemData");
 
                 itemDatas[id] =
                     new Weapon()
