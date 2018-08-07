@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
   <!--
-    Vocation Slot Type:
-    - 10: Any Type
-    - 1001: Amulet Type
-    - 1002: Helmet Type
-    - 1003: Weapon Type
-    - 1004: Armor Type
-    - 1005: Shield Type
-    - 1006: Ring Type
-    - 1007: Trousers Type
-    - 1008: Boots Type
-    -->
+      Vocation Slot Type:
+      - 10: Any Type
+      - 1001: Amulet Type
+      - 1002: Helmet Type
+      - 1003: Weapon Type
+      - 1004: Armor Type
+      - 1005: Shield Type
+      - 1006: Ring Type
+      - 1007: Trousers Type
+      - 1008: Boots Type
+      -->
   <Object type="0x0300" id="Apprentice">
     <Class>Player</Class>
-    <Description></Description>
+    <Description/>
     <AnimatedTexture>
       <File>players</File>
       <Index>0</Index>
@@ -39,7 +39,7 @@
   </Object>
   <Object type="0x0307" id="Magician">
     <Class>Player</Class>
-    <Description></Description>
+    <Description/>
     <AnimatedTexture>
       <File>players</File>
       <Index>1</Index>
@@ -64,7 +64,7 @@
   </Object>
   <Object type="0x030e" id="Knight">
     <Class>Player</Class>
-    <Description></Description>
+    <Description/>
     <AnimatedTexture>
       <File>players</File>
       <Index>2</Index>
@@ -89,7 +89,7 @@
   </Object>
   <Object type="0x0310" id="Hunter">
     <Class>Player</Class>
-    <Description></Description>
+    <Description/>
     <AnimatedTexture>
       <File>players</File>
       <Index>3</Index>

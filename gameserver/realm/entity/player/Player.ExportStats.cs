@@ -67,7 +67,6 @@ namespace LoESoft.GameServer.realm.entity.player
             stats[StatsType.INVENTORY_24_STAT] = Inventory[24]?.ObjectType ?? -1;
             stats[StatsType.INVENTORY_25_STAT] = Inventory[25]?.ObjectType ?? -1;
             stats[StatsType.INVENTORY_26_STAT] = Inventory[26]?.ObjectType ?? -1;
-            stats[StatsType.INVENTORY_27_STAT] = Inventory[27]?.ObjectType ?? -1;
 
             if (Boost == null)
                 CalculateBoost();
