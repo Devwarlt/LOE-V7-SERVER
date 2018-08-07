@@ -445,28 +445,28 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\xmls\loe\Amulets.xml">
+    <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7AmuletsCXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\xmls\loe\Armors.xml">
+    <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7ArmorsCXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\xmls\loe\Boots.xml">
+    <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7BootsCXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\xmls\loe\Helmets.xml">
+    <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7HelmetsCXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\xmls\loe\Rings.xml">
+    <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7RingsCXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\xmls\loe\Shields.xml">
+    <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7ShieldsCXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\xmls\loe\Trousers.xml">
+    <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7TrousersCXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\xmls\loe\Weapons.xml">
+    <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7WeaponsCXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="_gameserver.config">
