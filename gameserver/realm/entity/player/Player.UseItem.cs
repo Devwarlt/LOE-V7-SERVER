@@ -402,41 +402,6 @@ namespace LoESoft.GameServer.realm.entity.player
                             catch (Exception) { }
                         }
                         break;
-                    case ActivateEffects.Donor:
-                        {
-                            if (Database.Names.Contains(Name))
-                            {
-                                SendInfo("Players without valid name couldn't use this feature. Please name your character to continue.");
-                                return true;
-                            }
-
-                            if (!Owner.Name.Contains("Vault"))
-                            {
-                                SendInfo("You have to be in Vault to use this item.");
-                                return false;
-                            }
-
-                            List<ushort> rewards = new List<ushort> { 0x5016, 0x5017, 0x5018, 0x5019, 0x5020, 0x5021, 0x5022, 0x5023, 0x5024, 0x5025, 0x5026, 0x5027, 0x5028, 0x5029, 0x5030, 0x5031, 0x5032, 0x5033, 0x5034, 0x5035, 0x5036, 0x5037, 0x5038, 0x5039, 0x5040, 0x5041, 0x5042 };
-
-                            ushort reward = rewards[rnd.Next(0, rewards.Count)];
-
-                            if (Inventory[4] != null && Inventory[5] != null && Inventory[6] != null && Inventory[7] != null &&
-                                Inventory[8] != null && Inventory[9] != null && Inventory[10] != null && Inventory[11] != null)
-                            {
-                                SendHelp("Your inventory need free space to enchant this item.");
-                                return true;
-                            }
-                            else
-                                for (int i = 4; i < 12; i++)
-                                    if (Inventory[i] == null)
-                                    {
-                                        Inventory[i] = GameServer.Manager.GameData.Items[reward];
-                                        UpdateCount++;
-                                        SaveToCharacter();
-                                        return false;
-                                    }
-                            return true;
-                        }
                     case ActivateEffects.RemoveNegativeConditions:
                         {
                             this?.Aoe(eff.Range / 2, true, player => ApplyConditionEffect(NegativeEffs));
@@ -1322,6 +1287,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     case ActivateEffects.PetSkin:
                     case ActivateEffects.Unlock:
                     case ActivateEffects.MysteryDyes:
+                    case ActivateEffects.Donor:
                     default: return true;
                 }
             }

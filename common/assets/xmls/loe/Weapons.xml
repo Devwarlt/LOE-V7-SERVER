@@ -8,6 +8,14 @@
       <Index>0x07</Index>
     </Texture>
     <SlotType>1003</SlotType>
-    <Att chance="66">1</Att>
+    <HitChance>66</HitChance>
+    <Sound>weapon/mithril_sword</Sound>
+    <OldSound>bladeSwing</OldSound>
+    <Projectile>
+      <ObjectId>Blade</ObjectId>
+      <Speed>100</Speed>
+      <Damage>1</Damage>
+      <LifetimeMS>300</LifetimeMS>
+    </Projectile>
   </Object>
 </Additions>

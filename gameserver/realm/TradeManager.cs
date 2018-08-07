@@ -59,7 +59,7 @@ namespace LoESoft.GameServer.realm
                     {
                         if (sender.Inventory[i] != null)
                         {
-                            if (sender.Inventory[i].Soulbound || i < 4)
+                            if (sender.Inventory[i].Soulbound || i < 8)
                                 player1Trades[i] = false;
                             else
                                 player1Trades[i] = changes[i];
@@ -80,7 +80,7 @@ namespace LoESoft.GameServer.realm
                     {
                         if (sender.Inventory[i] != null)
                         {
-                            if (sender.Inventory[i].Soulbound || i < 4)
+                            if (sender.Inventory[i].Soulbound || i < 8)
                                 player2Trades[i] = false;
                             else
                                 player2Trades[i] = changes[i];
@@ -210,7 +210,7 @@ namespace LoESoft.GameServer.realm
                     }
                 }
 
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 28; i++)
                 {
                     if (player1.Inventory[i] == null)
                     {
@@ -227,7 +227,7 @@ namespace LoESoft.GameServer.realm
                     }
                 }
 
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 28; i++)
                 {
                     if (player2.Inventory[i] == null)
                     {

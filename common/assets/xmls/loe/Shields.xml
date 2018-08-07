@@ -8,6 +8,7 @@
       <Index>0x05</Index>
     </Texture>
     <SlotType>1005</SlotType>
-    <Def chance="66">5</Def>
+    <BlockChance>66</BlockChance>
+    <Def>5</Def>
   </Object>
 </Additions>

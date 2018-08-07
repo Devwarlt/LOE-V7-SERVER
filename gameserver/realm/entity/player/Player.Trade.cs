@@ -47,7 +47,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     {
                         Item = Inventory[i] == null ? -1 : Inventory[i].ObjectType,
                         SlotType = SlotTypes[i],
-                        Tradeable = (Inventory[i] != null && i >= 4) && (!Inventory[i].Soulbound),
+                        Tradeable = (Inventory[i] != null && i >= 8) && (!Inventory[i].Soulbound),
                         Included = false
                     };
                 }
@@ -58,7 +58,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     {
                         Item = target.Inventory[i] == null ? -1 : target.Inventory[i].ObjectType,
                         SlotType = SlotTypes[i],
-                        Tradeable = (target.Inventory[i] != null && i >= 4) && (!target.Inventory[i].Soulbound),
+                        Tradeable = (target.Inventory[i] != null && i >= 8) && (!target.Inventory[i].Soulbound),
                         Included = false
                     };
                 }

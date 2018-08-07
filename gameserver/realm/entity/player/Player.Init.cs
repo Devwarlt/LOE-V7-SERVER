@@ -114,10 +114,10 @@ namespace LoESoft.GameServer.realm.entity.player
                 MP = client.Character.MP;
                 ConditionEffects = 0;
                 OxygenBar = 100;
-                HasBackpack = client.Character.HasBackpack == true;
+                HasBackpack = false;
                 PlayerSkin = Client.Account.OwnedSkins.Contains(Client.Character.Skin) ? Client.Character.Skin : 0;
-                HealthPotions = client.Character.HealthPotions < 0 ? 0 : client.Character.HealthPotions;
-                MagicPotions = client.Character.MagicPotions < 0 ? 0 : client.Character.MagicPotions;
+                HealthPotions = 0;
+                MagicPotions = 0;
 
                 try
                 {
@@ -127,49 +127,21 @@ namespace LoESoft.GameServer.realm.entity.player
                 }
                 catch (Exception) { }
 
-                if (HasBackpack)
-                {
-                    Item[] inv =
+                Inventory =
                         client.Character.Items.Select(
                             _ =>
                                 _ == -1
                                     ? null
                                     : (GameServer.Manager.GameData.Items.ContainsKey((ushort)_) ? GameServer.Manager.GameData.Items[(ushort)_] : null))
                             .ToArray();
-                    Item[] backpack =
-                        client.Character.Backpack.Select(
-                            _ =>
-                                _ == -1
-                                    ? null
-                                    : (GameServer.Manager.GameData.Items.ContainsKey((ushort)_) ? GameServer.Manager.GameData.Items[(ushort)_] : null))
-                            .ToArray();
 
-                    Inventory = inv.Concat(backpack).ToArray();
-                    XElement xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
-                    if (xElement != null)
-                    {
-                        int[] slotTypes =
-                            Utils.FromCommaSepString32(
-                                xElement.Value);
-                        Array.Resize(ref slotTypes, 20);
-                        SlotTypes = slotTypes;
-                    }
-                }
-                else
-                {
-                    Inventory =
-                            client.Character.Items.Select(
-                                _ =>
-                                    _ == -1
-                                        ? null
-                                        : (GameServer.Manager.GameData.Items.ContainsKey((ushort)_) ? GameServer.Manager.GameData.Items[(ushort)_] : null))
-                                .ToArray();
-                    XElement xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
-                    if (xElement != null)
-                        SlotTypes =
-                            Utils.FromCommaSepString32(
-                                xElement.Value);
-                }
+                XElement xElement = GameServer.Manager.GameData.ObjectTypeToElement[ObjectType].Element("SlotTypes");
+
+                if (xElement != null)
+                    SlotTypes =
+                        Utils.FromCommaSepString32(
+                            xElement.Value);
+
                 Stats = (int[])client.Character.Stats.Clone();
 
                 for (var i = 0; i < SlotTypes.Length; i++)
@@ -178,7 +150,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 if (Client.Account.AccountType >= (int)Core.config.AccountType.TUTOR_ACCOUNT)
                     return;
 
-                for (var i = 0; i < 4; i++)
+                for (var i = 0; i < 8; i++)
                     if (Inventory[i]?.SlotType != SlotTypes[i])
                         Inventory[i] = null;
             }
@@ -291,7 +263,7 @@ namespace LoESoft.GameServer.realm.entity.player
                         DurationMS = 3000
                     });
 
-                Move(Client.ReconnectManager[AccountId].X, Client.ReconnectManager[AccountId].Y);
+                Move(ReconnectManager[AccountId].X, ReconnectManager[AccountId].Y);
 
                 SaveToCharacter();
 

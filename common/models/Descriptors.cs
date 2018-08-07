@@ -842,6 +842,11 @@ public class Item : IFeedable
             XpBooster = elem.Element("XpBoost") != null;
             LootDropBooster = elem.Element("LDBoosted") != null;
             LootTierBooster = elem.Element("LTBoosted") != null;
+
+            Arm = (n = elem.Element("Arm")) != null ? int.Parse(n.Value) : 0;
+            HitChance = (n = elem.Element("HitChance")) != null ? int.Parse(n.Value) : 0;
+            Def = (n = elem.Element("Def")) != null ? int.Parse(n.Value) : 0;
+            BlockChance = (n = elem.Element("BlockChance")) != null ? int.Parse(n.Value) : 0;
         }
         catch (Exception ex)
         {
@@ -849,6 +854,11 @@ public class Item : IFeedable
             Console.ReadLine();
         }
     }
+
+    public int Arm { get; private set; }
+    public int HitChance { get; private set; }
+    public int Def { get; private set; }
+    public int BlockChance { get; private set; }
 
     public ushort ObjectType { get; private set; }
     public string ObjectId { get; private set; }

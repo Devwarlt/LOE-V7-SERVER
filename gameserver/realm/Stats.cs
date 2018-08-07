@@ -139,11 +139,30 @@ namespace LoESoft.GameServer.realm
         public readonly static StatsType CHAR_NEXT_EXPERIENCE = 122;
         public readonly static StatsType CHAR_NEXT_ATTACK_EXPERIENCE = 123;
         public readonly static StatsType CHAR_NEXT_DEFENSE_EXPERIENCE = 124;
+        public readonly static StatsType CHAR_ARM = 125;
+        public readonly static StatsType CHAR_ATTACK = 126;
+        public readonly static StatsType CHAR_DEFENSE = 127;
+        public readonly static StatsType INVENTORY_12_STAT = 128;
+        public readonly static StatsType INVENTORY_13_STAT = 129;
+        public readonly static StatsType INVENTORY_14_STAT = 130;
+        public readonly static StatsType INVENTORY_15_STAT = 131;
+        public readonly static StatsType INVENTORY_16_STAT = 132;
+        public readonly static StatsType INVENTORY_17_STAT = 133;
+        public readonly static StatsType INVENTORY_18_STAT = 134;
+        public readonly static StatsType INVENTORY_19_STAT = 135;
+        public readonly static StatsType INVENTORY_20_STAT = 136;
+        public readonly static StatsType INVENTORY_21_STAT = 137;
+        public readonly static StatsType INVENTORY_22_STAT = 138;
+        public readonly static StatsType INVENTORY_23_STAT = 139;
+        public readonly static StatsType INVENTORY_24_STAT = 140;
+        public readonly static StatsType INVENTORY_25_STAT = 141;
+        public readonly static StatsType INVENTORY_26_STAT = 142;
+        public readonly static StatsType INVENTORY_27_STAT = 143;
 
         // TODO.
-        public readonly static StatsType CONTAINER_ITEM_DATA = 125;
+        /*public readonly static StatsType CONTAINER_ITEM_DATA = 125; // utf (json)
         public readonly static StatsType CONTAINER_PRIORITY = 126;
-        public readonly static StatsType CONTAINER_OWNER = 127;
+        public readonly static StatsType CONTAINER_OWNER = 127;*/
 
         private byte _type;
 
@@ -164,8 +183,7 @@ namespace LoESoft.GameServer.realm
             CHAR_DEFENSE_EXPERIENCE,
             CHAR_NEXT_EXPERIENCE,
             CHAR_NEXT_ATTACK_EXPERIENCE,
-            CHAR_NEXT_DEFENSE_EXPERIENCE,
-            CONTAINER_ITEM_DATA
+            CHAR_NEXT_DEFENSE_EXPERIENCE
         };
 
         public bool IsUTF

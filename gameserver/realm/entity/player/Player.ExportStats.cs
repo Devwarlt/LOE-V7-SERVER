@@ -52,6 +52,22 @@ namespace LoESoft.GameServer.realm.entity.player
             stats[StatsType.INVENTORY_9_STAT] = Inventory[9]?.ObjectType ?? -1;
             stats[StatsType.INVENTORY_10_STAT] = Inventory[10]?.ObjectType ?? -1;
             stats[StatsType.INVENTORY_11_STAT] = Inventory[11]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_12_STAT] = Inventory[12]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_13_STAT] = Inventory[13]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_14_STAT] = Inventory[14]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_15_STAT] = Inventory[15]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_16_STAT] = Inventory[16]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_17_STAT] = Inventory[17]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_18_STAT] = Inventory[18]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_19_STAT] = Inventory[19]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_20_STAT] = Inventory[20]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_21_STAT] = Inventory[21]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_22_STAT] = Inventory[22]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_23_STAT] = Inventory[23]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_24_STAT] = Inventory[24]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_25_STAT] = Inventory[25]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_26_STAT] = Inventory[26]?.ObjectType ?? -1;
+            stats[StatsType.INVENTORY_27_STAT] = Inventory[27]?.ObjectType ?? -1;
 
             if (Boost == null)
                 CalculateBoost();

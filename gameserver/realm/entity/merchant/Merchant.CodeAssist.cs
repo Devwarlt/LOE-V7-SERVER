@@ -33,7 +33,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                 Price = (int)(Price * player.AccountPerks.MerchantDiscount());
                 if (TryDeduct(player))
                 {
-                    for (var i = 4; i < player.Inventory.Length; i++)
+                    for (var i = 8; i < player.Inventory.Length; i++)
                     {
                         try
                         {

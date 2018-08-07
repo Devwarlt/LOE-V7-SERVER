@@ -226,7 +226,7 @@ namespace LoESoft.GameServer.realm.commands
 
                 if (!GameServer.Manager.GameData.Items[objType].Secret || player.Client.Account.Admin)
                 {
-                    for (int i = 4; i < player.Inventory.Length; i++)
+                    for (int i = 8; i < player.Inventory.Length; i++)
                         if (player.Inventory[i] == null)
                         {
                             player.Inventory[i] = GameServer.Manager.GameData.Items[objType];

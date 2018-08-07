@@ -243,24 +243,7 @@ namespace LoESoft.GameServer.realm.entity.player
             @char.MP = MP;
             if (PetID != 0)
                 @char.Pet = PetID;
-            try
-            {
-                switch (Inventory.Length)
-                {
-                    case 20:
-                        int[] equip = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
-                        int[] backpack = new int[8];
-                        Array.Copy(equip, 12, backpack, 0, 8);
-                        Array.Resize(ref equip, 12);
-                        @char.Items = equip;
-                        @char.Backpack = backpack;
-                        break;
-                    default:
-                        @char.Items = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
-                        break;
-                }
-            }
-            catch (Exception) { }
+            @char.Items = Inventory.Select(_ => _?.ObjectType ?? -1).ToArray();
 
             @char.Stats = Stats;
             @char.HealthPotions = HealthPotions;
@@ -275,7 +258,7 @@ namespace LoESoft.GameServer.realm.entity.player
 
         private bool CheckResurrection()
         {
-            for (var i = 0; i < 4; i++)
+            for (var i = 0; i < 8; i++)
             {
                 var item = Inventory[i];
                 if (item == null || !item.Resurrects) continue;
