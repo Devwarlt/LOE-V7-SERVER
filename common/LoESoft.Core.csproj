@@ -445,6 +445,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\xmls\loe\Amulets.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="_gameserver.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
