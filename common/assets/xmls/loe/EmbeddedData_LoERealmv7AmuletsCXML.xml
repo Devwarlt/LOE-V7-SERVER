@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Additions>
+<Objects>
   <Object type="0x6716" id="Bronze Amulet">
     <Class>Equipment</Class>
     <Item/>
@@ -10,4 +10,4 @@
     <SlotType>1001</SlotType>
     <Arm>1</Arm>
   </Object>
-</Additions>
+</Objects>

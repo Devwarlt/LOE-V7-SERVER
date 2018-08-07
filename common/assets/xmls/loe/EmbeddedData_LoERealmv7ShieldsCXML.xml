@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Additions>
+<Objects>
   <Object type="0x671b" id="Wooden Shield">
     <Class>Equipment</Class>
     <Item/>
@@ -11,4 +11,4 @@
     <BlockChance>66</BlockChance>
     <Def>5</Def>
   </Object>
-</Additions>
+</Objects>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Additions>
+<Objects>
   <Object type="0x671d" id="Mace">
     <Class>Equipment</Class>
     <Item/>
@@ -18,4 +18,4 @@
       <LifetimeMS>300</LifetimeMS>
     </Projectile>
   </Object>
-</Additions>
+</Objects>
