@@ -37,7 +37,7 @@ namespace LoESoft.GameServer.realm.entity.gameobject
         public Corpse(string id)
         {
             ItemId = id;
-            CorpseData = GameServer.Manager.ItemDataManager.ItemDatas[id] as Object;
+            //CorpseData = GameServer.Manager.ItemDataManager.ItemDatas[id] as Object;
             Capacity = CorpseData.Capacity;
             DecayData = CorpseData.DecayData;
             Items = new List<GameItem>(Capacity);

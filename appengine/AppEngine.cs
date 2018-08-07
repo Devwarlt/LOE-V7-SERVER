@@ -28,8 +28,8 @@ namespace LoESoft.AppEngine
         internal static EmbeddedData GameData
         { get; set; }
 
-        internal static ItemDataManager ItemDataManager
-        { get; set; }
+        //internal static ItemDataManager ItemDataManager
+        //{ get; set; }
 
         internal static ISManager Manager
         { get; set; }
@@ -54,8 +54,8 @@ namespace LoESoft.AppEngine
             {
                 GameData = new EmbeddedData();
 
-                ItemDataManager = new ItemDataManager();
-                ItemDataManager.Start();
+                //ItemDataManager = new ItemDataManager();
+                //ItemDataManager.Start();
 
                 InstanceId = Guid.NewGuid().ToString();
 

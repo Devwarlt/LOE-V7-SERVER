@@ -44,7 +44,7 @@ namespace LoESoft.GameServer.realm
         public ISManager InterServer { get; private set; }
         public CommandManager Commands { get; private set; }
         public EmbeddedData GameData { get; private set; }
-        public ItemDataManager ItemDataManager { get; private set; }
+        //public ItemDataManager ItemDataManager { get; private set; }
         public string InstanceId { get; private set; }
         public LogicTicker Logic { get; private set; }
         public int MaxClients { get; private set; }
@@ -82,8 +82,8 @@ namespace LoESoft.GameServer.realm
         {
             GameData = new EmbeddedData();
 
-            ItemDataManager = new ItemDataManager();
-            ItemDataManager.Start();
+            //ItemDataManager = new ItemDataManager();
+            //ItemDataManager.Start();
 
             //LootSerialization.PopulateLoot();
 

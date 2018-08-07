@@ -20,7 +20,7 @@ namespace LoESoft.AppEngine
         protected HttpListenerContext Context { get; private set; }
         protected Database Database => AppEngine.Database;
         protected EmbeddedData GameData => AppEngine.GameData;
-        protected ItemDataManager ItemDataManager => AppEngine.ItemDataManager;
+        //protected ItemDataManager ItemDataManager => AppEngine.ItemDataManager;
 
         public void HandleRequest(HttpListenerContext context)
         {
