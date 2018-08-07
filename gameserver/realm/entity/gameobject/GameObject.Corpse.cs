@@ -50,13 +50,13 @@ namespace LoESoft.GameServer.realm.entity.gameobject
 
         protected override void ExportStats(IDictionary<StatsType, object> stats)
         {
-            if (!ExportOnce)
+            /*if (!ExportOnce)
             {
                 ExportOnce = true;
                 stats[StatsType.CONTAINER_ITEM_DATA] = ItemDataAttribute.Export(CorpseData);
             }
             stats[StatsType.CONTAINER_PRIORITY] = (int)CurrentPhase;
-            stats[StatsType.CONTAINER_OWNER] = CorpseOwner ?? "-1";
+            stats[StatsType.CONTAINER_OWNER] = CorpseOwner ?? "-1";*/
         }
 
         public override void Tick(RealmTime time)
