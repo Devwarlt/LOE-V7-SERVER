@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Additions>
-  <Object type="0x6716" id="Bronze Amulet">
+  <Object type="0x671c" id="Leather Legs">
     <Class>Equipment</Class>
     <Item/>
     <Texture>
       <File>v7</File>
-      <Index>0x00</Index>
+      <Index>0x06</Index>
     </Texture>
-    <SlotType>1001</SlotType>
+    <SlotType>1007</SlotType>
     <Arm>1</Arm>
   </Object>
 </Additions>

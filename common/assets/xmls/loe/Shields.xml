@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Additions>
-  <Object type="0x6716" id="Bronze Amulet">
+  <Object type="0x671b" id="Wooden Shield">
     <Class>Equipment</Class>
     <Item/>
     <Texture>
       <File>v7</File>
-      <Index>0x00</Index>
+      <Index>0x05</Index>
     </Texture>
-    <SlotType>1001</SlotType>
-    <Arm>1</Arm>
+    <SlotType>1005</SlotType>
+    <Def chance="66">5</Def>
   </Object>
 </Additions>

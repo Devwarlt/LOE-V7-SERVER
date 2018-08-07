@@ -448,6 +448,13 @@
     <Content Include="assets\xmls\loe\Amulets.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\xmls\loe\Armors.xml" />
+    <Content Include="assets\xmls\loe\Boots.xml" />
+    <Content Include="assets\xmls\loe\Helmets.xml" />
+    <Content Include="assets\xmls\loe\Rings.xml" />
+    <Content Include="assets\xmls\loe\Shields.xml" />
+    <Content Include="assets\xmls\loe\Trousers.xml" />
+    <Content Include="assets\xmls\loe\Weapons.xml" />
     <Content Include="_gameserver.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

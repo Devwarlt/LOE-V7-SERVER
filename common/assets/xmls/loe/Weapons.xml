@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Additions>
-  <Object type="0x6716" id="Bronze Amulet">
+  <Object type="0x671d" id="Mace">
     <Class>Equipment</Class>
     <Item/>
     <Texture>
       <File>v7</File>
-      <Index>0x00</Index>
+      <Index>0x07</Index>
     </Texture>
-    <SlotType>1001</SlotType>
-    <Arm>1</Arm>
+    <SlotType>1003</SlotType>
+    <Att chance="66">1</Att>
   </Object>
 </Additions>
