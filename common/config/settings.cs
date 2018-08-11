@@ -24,8 +24,9 @@ namespace LoESoft.Core.config
         public static readonly List<GameVersion> GAME_VERSIONS = new List<GameVersion>
         {
             new GameVersion(Version: "0.0.1", Allowed: false),
-            new GameVersion(Version: "0.0.2", Allowed: true),
-            new GameVersion(Version: "0.0.3", Allowed: true)
+            new GameVersion(Version: "0.0.2", Allowed: false),
+            new GameVersion(Version: "0.0.3", Allowed: false),
+            new GameVersion(Version: "0.0.4", Allowed: true)
         };
 
         public static readonly List<string> ALLOWED_LOCAL_DNS = new List<string>
