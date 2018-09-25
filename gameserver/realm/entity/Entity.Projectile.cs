@@ -52,7 +52,7 @@ namespace LoESoft.GameServer.realm.entity
             && !(entity is Wall)
             && !ProjDesc.PassesCover);
 
-        public void ForceHit(Entity entity, RealmTime time, bool killed)
+        public void ForceHit(Entity entity, RealmTime time)
         {
             if (entity == null)
                 return;

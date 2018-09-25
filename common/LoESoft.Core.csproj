@@ -357,6 +357,7 @@
     </Content>
     <Content Include="assets\xmls\EmbeddedData_PlayersCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="assets\xmls\EmbeddedData_PlayersZombiesCXML.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -464,6 +465,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7TrousersCXML.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7EntitiesCXML.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\xmls\loe\EmbeddedData_LoERealmv7WeaponsCXML.xml">

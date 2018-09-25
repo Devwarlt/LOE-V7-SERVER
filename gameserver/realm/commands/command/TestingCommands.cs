@@ -22,6 +22,17 @@ namespace LoESoft.GameServer.realm.commands
             string cmd = string.Join(" ", args, 1, args.Length - 1);
             switch (args[0].Trim())
             {
+                case "shield":
+                    {
+                        var assets = new Dictionary<string, ushort>(GameServer.Manager.GameData.IdToObjectType, StringComparer.OrdinalIgnoreCase);
+
+                        Entity entity = Entity.Resolve(assets["Player's Shield Entity 1"]);
+                        entity.Move(player.X, player.Y);
+
+                        player.Owner.EnterWorld(entity);
+                        player.SendInfo("You have been spawn shield protector 1.");
+                    }
+                    break;
                 case "chatdata":
                     {
                         // returns only your chat data

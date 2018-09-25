@@ -10,6 +10,7 @@ namespace LoESoft.GameServer.networking.incoming
     {
         public byte BulletId { get; set; }
         public int ObjectId { get; set; }
+        public bool IsShieldProtector { get; set; }
 
         public override MessageID ID => MessageID.PLAYERHIT;
 
@@ -19,12 +20,14 @@ namespace LoESoft.GameServer.networking.incoming
         {
             BulletId = rdr.ReadByte();
             ObjectId = rdr.ReadInt32();
+            IsShieldProtector = rdr.ReadBoolean();
         }
 
         protected override void Write(NWriter wtr)
         {
             wtr.Write(BulletId);
             wtr.Write(ObjectId);
+            wtr.Write(IsShieldProtector);
         }
     }
 }

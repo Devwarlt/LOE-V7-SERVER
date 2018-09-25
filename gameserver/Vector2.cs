@@ -72,7 +72,7 @@ namespace Mono.Game
             Y = y;
         }
 
-        public Vector2(float value)
+        public Vector2(float value, double v)
         {
             X = value;
             Y = value;
