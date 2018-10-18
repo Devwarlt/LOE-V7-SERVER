@@ -239,7 +239,6 @@
     <Compile Include="networking\messages\handlers\hack\GodCheatHandler.cs" />
     <Compile Include="networking\messages\handlers\hack\ICheatHandler.cs" />
     <Compile Include="networking\messages\handlers\hack\DexterityCheatHandler.cs" />
-    <Compile Include="networking\messages\handlers\URLHandler.cs" />
     <Compile Include="networking\messages\incoming\ACCEPTTRADE.cs" />
     <Compile Include="networking\messages\incoming\AOEACK.cs" />
     <Compile Include="networking\messages\incoming\BUY.cs" />
@@ -269,7 +268,6 @@
     <Compile Include="networking\messages\incoming\LOAD.cs" />
     <Compile Include="networking\messages\incoming\MOVE.cs" />
     <Compile Include="networking\messages\incoming\OTHERHIT.cs" />
-    <Compile Include="networking\messages\incoming\URL.cs" />
     <Compile Include="networking\messages\incoming\PLAYERHIT.cs" />
     <Compile Include="networking\messages\incoming\PLAYERSHOOT.cs" />
     <Compile Include="networking\messages\incoming\PLAYERTEXT.cs" />
