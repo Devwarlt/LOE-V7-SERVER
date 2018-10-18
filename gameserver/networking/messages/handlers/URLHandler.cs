@@ -13,7 +13,7 @@ namespace LoESoft.GameServer.networking.handlers
 
         private readonly List<string> ALLOWED_DOMAINS = new List<string>()
         {
-            "dazedlynx.github.io", "unknown domain"
+            "loesoft-games.github.io", "unknown domain"
         };
 
         protected override void HandleMessage(Client client, URL message)
