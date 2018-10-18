@@ -34,7 +34,7 @@ namespace LoESoft.GameServer
         CTT_RECEIVE = 29,
         HATCH_PET = 30,
         NEWTICK = 31,
-        // Unregistered MessageID '32',
+        URL = 32,
         FILE = 33,
         TEXT = 34,
         TRADEDONE = 35,
