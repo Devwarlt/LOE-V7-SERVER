@@ -1,19 +1,19 @@
 ﻿#region
 
-using System.Linq;
 using LoESoft.Core;
-using System.Text;
+using LoESoft.Core.config;
+using LoESoft.GameServer.networking.error;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.world;
-using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 using System;
-using LoESoft.GameServer.networking.error;
-using static LoESoft.GameServer.networking.Client;
-using LoESoft.Core.config;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using static LoESoft.GameServer.networking.Client;
+using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 
 #endregion
 
@@ -68,7 +68,6 @@ namespace LoESoft.GameServer.networking.handlers
 
                 return;
             }
-
             else if (s1 == LoginStatus.InvalidCredentials)
             {
                 client.SendMessage(new FAILURE
@@ -134,6 +133,7 @@ namespace LoESoft.GameServer.networking.handlers
                             reason = DisconnectReason.SERVER_FULL;
                         }
                         break;
+
                     case ErrorIDs.ACCOUNT_BANNED:
                         {
                             labels = new[] { "{CLIENT_NAME}" };
@@ -141,6 +141,7 @@ namespace LoESoft.GameServer.networking.handlers
                             reason = DisconnectReason.ACCOUNT_BANNED;
                         }
                         break;
+
                     case ErrorIDs.INVALID_DISCONNECT_KEY:
                         {
                             labels = new[] { "{CLIENT_NAME}" };
@@ -148,6 +149,7 @@ namespace LoESoft.GameServer.networking.handlers
                             reason = DisconnectReason.INVALID_DISCONNECT_KEY;
                         }
                         break;
+
                     case ErrorIDs.LOST_CONNECTION:
                         {
                             labels = new[] { "{CLIENT_NAME}" };
@@ -155,6 +157,7 @@ namespace LoESoft.GameServer.networking.handlers
                             reason = DisconnectReason.LOST_CONNECTION;
                         }
                         break;
+
                     default:
                         {
                             labels = new[] { "{UNKNOW_ERROR_INSTANCE}" };
@@ -265,6 +268,24 @@ namespace LoESoft.GameServer.networking.handlers
 
                 client.Random = new wRandom(world.Seed);
                 client.TargetWorld = world.Id;
+
+                if (!client.IsDomainReceived)
+                {
+                    client.Player.ApplyConditionEffect(ConditionEffectIndex.Paused, -1);
+
+                    client.SendMessage(new FAILURE
+                    {
+                        ErrorId = (int)FailureIDs.DEFAULT,
+                        ErrorDescription = "Make sure to play with properly available URL to avoid this issue."
+                    });
+
+                    Thread.Sleep(3 * 1000);
+
+                    if (client != null)
+                        Manager.TryDisconnect(client, DisconnectReason.ACCESS_DENIED);
+
+                    return;
+                }
 
                 client.SendMessage(new MAPINFO
                 {

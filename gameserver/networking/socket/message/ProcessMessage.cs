@@ -18,7 +18,12 @@ namespace LoESoft.GameServer.networking
                 if (!MessageHandler.Handlers.TryGetValue(msg.ID, out IMessage handler))
                     Log.Warn($"Unhandled message ID '{msg.ID}'.");
                 else
+                {
+                    if (msg.ID == MessageID.URL)
+                        IsDomainReceived = true;
+
                     handler.Handle(this, (IncomingMessage)msg);
+                }
             }
             catch (NullReferenceException)
             {

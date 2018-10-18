@@ -14,6 +14,8 @@ namespace LoESoft.GameServer.networking
 {
     public partial class Client : IDisposable
     {
+        public bool IsDomainReceived;
+
         public static readonly int MaxNumberAttemptsPerCTT = 5;
         public static readonly int ACCOUNT_IN_USE_TIMEOUT = 10; // in seconds
 
