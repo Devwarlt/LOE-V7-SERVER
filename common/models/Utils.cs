@@ -50,6 +50,7 @@ public static class Utils
     {
         [DllImport("Kernel32")]
         public static extern bool SetConsoleCtrlHandler(EventHandler handler, bool add);
+
         public delegate bool EventHandler(CtrlType sig);
 
         public enum CtrlType

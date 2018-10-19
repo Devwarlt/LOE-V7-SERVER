@@ -1,12 +1,11 @@
 ﻿#region
 
+using LoESoft.Core;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
-using LoESoft.Core;
-using LoESoft.Core.assets.itemdata;
 
 #endregion
 
@@ -311,6 +310,7 @@ public class XMLBehaviorType
                     Database.log.ErrorFormat("XMLBehaviorsType {0} wasn't implemented yet!", BehaviorsType);
                 }
                 break;
+
             case XMLBehaviorsType.Protect:
                 {
                     //Protect(double speed, string protectee, double acquireRange = 10, double protectionRange = 2, double reprotectRange = 1)
@@ -338,6 +338,7 @@ public class XMLBehaviorType
                     else Protect_speed = 0;
                 }
                 break;
+
             case XMLBehaviorsType.RealmPortalDrop:
             case XMLBehaviorsType.RemoveEntity:
             case XMLBehaviorsType.Reproduce:
@@ -365,6 +366,7 @@ public class XMLBehaviorType
                     Database.log.ErrorFormat("XMLBehaviorsType {0} wasn't implemented yet!", BehaviorsType);
                 }
                 break;
+
             case XMLBehaviorsType.Wander:
                 {
                     //Wander(double speed)
@@ -372,6 +374,7 @@ public class XMLBehaviorType
                     else Wander_speed = 0;
                 }
                 break;
+
             default:
                 {
                     Database.log.ErrorFormat("XMLBehaviorsType {0} wasn't implemented yet!", BehaviorsType);

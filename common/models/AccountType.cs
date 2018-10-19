@@ -55,15 +55,19 @@
                 case AccountType.FREE_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.FreeAccount;
                     break;
+
                 case AccountType.VIP_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.VipAccount;
                     break;
+
                 case AccountType.LEGENDS_OF_LOE_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.LegendsofLoEAccount;
                     break;
+
                 case AccountType.TUTOR_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.TutorAccount;
                     break;
+
                 case AccountType.LOESOFT_ACCOUNT:
                     icon.Effect = ConditionEffectIndex.LoESoftAccount;
                     break;

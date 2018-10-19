@@ -1100,11 +1100,9 @@
 			<Index>0x32</Index>
 		</Texture>
 	</Object>
-	
-	
+
    4181044
-   
-	
+
 	<Object type="0x008d" id="InkBubbles">
 		<Class>Projectile</Class>
 		<RandomTexture>

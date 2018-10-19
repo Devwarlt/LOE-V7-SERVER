@@ -970,7 +970,7 @@
   </Object>
   <Object type="0x518e" id="Warden Two-handed Sword" setType="0x0009" setName="Forgotten Sentinel Set">
     <Class>Equipment</Class>
-    <Item/>
+    <Item />
     <Texture>
       <File>LRE</File>
       <Index>0</Index>
@@ -993,7 +993,7 @@
   </Object>
   <Object type="0x518f" id="Warden Helmet" setType="0x0009" setName="Forgotten Sentinel Set">
     <Class>Equipment</Class>
-    <Item/>
+    <Item />
     <Texture>
       <File>LRE</File>
       <Index>1</Index>
@@ -1002,7 +1002,7 @@
     <Description>Helmet of the forgotten sentinel.</Description>
     <ActivateOnEquip stat="21" amount="10">IncrementStat</ActivateOnEquip>
     <ActivateOnEquip stat="22" amount="5">IncrementStat</ActivateOnEquip>
-    <Usable/>
+    <Usable />
     <BagType>6</BagType>
     <FameBonus>6</FameBonus>
     <MpCost>110</MpCost>
@@ -1013,7 +1013,7 @@
   </Object>
   <Object type="0x518d" id="The Sentinel Warden" setType="0x0009" setName="Forgotten Sentinel Set">
     <Class>Equipment</Class>
-    <Item/>
+    <Item />
     <Texture>
       <File>LRE</File>
       <Index>2</Index>
@@ -1026,7 +1026,7 @@
     <ActivateOnEquip stat="0" amount="60">IncrementStat</ActivateOnEquip>
     <BagType>6</BagType>
     <FameBonus>5</FameBonus>
-    <Legacy/>
+    <Legacy />
     <DisplayId>The Sentinel Warden</DisplayId>
   </Object>
 </Objects>

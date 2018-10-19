@@ -8,9 +8,9 @@
     <ItemData>
       <Capacity>8</Capacity>
       <DecayData>
-        <Decay priority="0" file="Corpses" index="0x01" time="30"/>
-        <Decay priority="1" file="Corpses" index="0x02" time="60"/>
-        <Decay priority="2" file="Corpses" index="0x03" time="90"/>
+        <Decay priority="0" file="Corpses" index="0x01" time="30" />
+        <Decay priority="1" file="Corpses" index="0x02" time="60" />
+        <Decay priority="2" file="Corpses" index="0x03" time="90" />
       </DecayData>
     </ItemData>
   </Corpse>

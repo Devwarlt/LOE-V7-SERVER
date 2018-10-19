@@ -2,7 +2,7 @@
 <Objects>
   <Object type="0x6717" id="Leather Armor">
     <Class>Equipment</Class>
-    <Item/>
+    <Item />
     <Texture>
       <File>v7</File>
       <Index>0x01</Index>

@@ -39,6 +39,7 @@ public struct TimedLock : IDisposable
         leakDetector = new Sentinel();
 #endif
     }
+
     private object target;
 
     public void Dispose()
@@ -55,6 +56,7 @@ public struct TimedLock : IDisposable
     }
 
 #if DEBUG
+
     // (In Debug mode, we make it a class so that we can add a finalizer
     // in order to detect when the object is not freed.)
     private class Sentinel
@@ -67,10 +69,11 @@ public struct TimedLock : IDisposable
             System.Diagnostics.Debug.Fail("Undisposed lock");
         }
     }
+
     private Sentinel leakDetector;
 #endif
-
 }
+
 public class LockTimeoutException : ApplicationException
 {
     public LockTimeoutException() : base("Timeout waiting for lock")

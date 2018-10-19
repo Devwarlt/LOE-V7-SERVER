@@ -101,11 +101,11 @@
     </AnimatedTexture>
     <PlayerClassType>0x031d</PlayerClassType>
     <UnlockSpecial>Set Skin</UnlockSpecial>
-    <NoSkinSelect/>
+    <NoSkinSelect />
     <DisplayId>Forgotten Sentinel Set</DisplayId>
   </Object>
   <Object type="0x517d" id="The Rusher">
-    <Skin/>
+    <Skin />
     <Class>Skin</Class>
     <AnimatedTexture>
       <File>LRES8x8</File>

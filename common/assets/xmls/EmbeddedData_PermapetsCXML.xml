@@ -542,11 +542,9 @@
 		<Size>40</Size>
 		<ShadowSize>70</ShadowSize>
 	</Object>
-	
-	
+
    --&gt;
-   
-	
+
 	<Object type="0x1520" id="Leprechaun Egg">
 		<feedPower>200</feedPower>
 		<Class>Equipment</Class>

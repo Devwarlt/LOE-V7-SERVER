@@ -1,5 +1,7 @@
 ﻿#region
 
+using LoESoft.Core.models;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,8 +10,6 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using log4net;
-using LoESoft.Core.models;
 
 #endregion
 
@@ -185,6 +185,7 @@ namespace LoESoft.Core
          * - element 'File' of element 'AnimatedTexture' contains: LR or
          * element 'File' of element 'Texture' contains: LR
          */
+
         private bool IsLoEObject(XElement e)
         {
             if (e.Element("AnimatedTexture") != null)
@@ -202,6 +203,7 @@ namespace LoESoft.Core
          * - element 'SlotType' is: 9000
          * - element 'Activate' is: SpecialPet
          */
+
         private bool IsEgg(XElement e) =>
             IsLoEObject(e)
             && e.Attribute("id").Value.Contains("lcp egg")
@@ -215,6 +217,7 @@ namespace LoESoft.Core
          * - element 'Enemy'
          * - element 'Class' is: Character
          */
+
         private bool IsEnemy(XElement e) =>
            IsLoEObject(e)
            && e.Element("Enemy") != null
@@ -224,6 +227,7 @@ namespace LoESoft.Core
          * - is LoE Object
          * - element 'Class' is: Projectile
          */
+
         private bool IsProjectile(XElement e) =>
            IsLoEObject(e)
            && e.Element("Class").Value == "Projectile";
@@ -232,6 +236,7 @@ namespace LoESoft.Core
          * - is LoE Object
          * - element 'Ground'
          */
+
         private bool IsGround(XElement e) =>
            IsLoEObject(e);
 
@@ -240,6 +245,7 @@ namespace LoESoft.Core
          * - element 'Class' is: Equipment
          * - element 'Item'
          */
+
         private bool IsEquipment(XElement e) =>
            IsLoEObject(e)
            && e.Element("Class").Value == "Equipment"
@@ -250,6 +256,7 @@ namespace LoESoft.Core
          * - element 'NewPet'
          * - element 'Class' is: Character
          */
+
         private bool IsPet(XElement e) =>
            IsLoEObject(e)
            && e.Element("NewPet") != null
@@ -259,6 +266,7 @@ namespace LoESoft.Core
          * - is LoE Object
          * - element 'Skin'
          */
+
         private bool IsSkin(XElement e) =>
            IsLoEObject(e)
            && e.Element("Skin") != null;
@@ -331,6 +339,7 @@ namespace LoESoft.Core
                     case "Dye":
                         items[type] = new Item(type, e);
                         break;
+
                     case "Portal":
                     case "GuildHallPortal":
                         try
@@ -340,19 +349,23 @@ namespace LoESoft.Core
                         catch
                         {
                             Console.WriteLine("Error for portal: " + type + " id: " + id);
-                            /*3392,1792,1795,1796,1805,1806,1810,1825 -- no location, assume nexus?* 
+                            /*3392,1792,1795,1796,1805,1806,1810,1825 -- no location, assume nexus?*
         *  Tomb Portal of Cowardice,  Dungeon Portal,  Portal of Cowardice,  Realm Portal,  Glowing Portal of Cowardice,  Glowing Realm Portal,  Nexus Portal,  Locked Wine Cellar Portal*/
                         }
                         break;
+
                     case "Pet":
                         type2pet[type] = new PetStruct(type, e);
                         break;
+
                     case "PetSkin":
                         id2pet_skin[id] = new PetSkin(type, e);
                         break;
+
                     case "PetBehavior":
                     case "PetAbility":
                         break;
+
                     default:
                         objDescs[type] = new ObjectDesc(type, e);
                         break;

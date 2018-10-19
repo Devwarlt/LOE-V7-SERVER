@@ -1415,7 +1415,7 @@
 	<Projectile id="4">
 			<ObjectId>Fire Bullet</ObjectId>
 			<Speed>30</Speed>
-			<ArmorPiercing/>
+			<ArmorPiercing />
 			<MinDamage>163</MinDamage>
 			<MaxDamage>213</MaxDamage>
 			<LifetimeMS>6000</LifetimeMS>

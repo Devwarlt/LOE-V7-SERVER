@@ -52,8 +52,10 @@ namespace LoESoft.Core
             {
                 case LoginStatus.InvalidCredentials:
                     return "Error.incorrectEmailOrPassword";
+
                 case LoginStatus.AccountNotExists:
                     return "Error.accountNotFound";
+
                 case LoginStatus.OK:
                     return "OK";
             }
@@ -66,6 +68,7 @@ namespace LoESoft.Core
             {
                 case RegisterStatus.UsedName:
                     return "Error.nameAlreadyInUse";
+
                 case RegisterStatus.OK:
                     return "OK";
             }
@@ -78,6 +81,7 @@ namespace LoESoft.Core
             {
                 case CreateStatus.ReachCharLimit:
                     return "Too many characters";
+
                 case CreateStatus.OK:
                     return "OK";
             }

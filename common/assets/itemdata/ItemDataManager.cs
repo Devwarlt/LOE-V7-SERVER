@@ -16,6 +16,7 @@ namespace LoESoft.Core.assets.itemdata
     {
         private string DirectoryAssemblyPath => Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "assets/items");
         private readonly Dictionary<string, GameItem> itemDatas;
+
         private readonly Dictionary<SlotTypes, string> Slots = new Dictionary<SlotTypes, string>
         {
             { SlotTypes.AMULET_SLOT, "//Amulet" },
@@ -29,6 +30,7 @@ namespace LoESoft.Core.assets.itemdata
             { SlotTypes.TROUSER_SLOT, "//Trouser" },
             { SlotTypes.WEAPON_SLOT, "//Weapon" }
         };
+
         private ConcurrentDictionary<SlotTypes, int> ItemDatasCount { get; set; }
 
         public IDictionary<string, GameItem> ItemDatas { get; private set; }

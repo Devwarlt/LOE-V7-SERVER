@@ -519,6 +519,7 @@ namespace LoESoft.Core
         }
 
         #region "New character stats"
+
         public int CharLevel
         {
             get { return GetValue("charLvl", Settings.Beginner.CharLevel); }
@@ -614,6 +615,7 @@ namespace LoESoft.Core
             get { return GetValue("charTown", Settings.Beginner.CharTownID); }
             set { SetValue("charTown", value); }
         }
+
         #endregion
 
         public ushort ObjectType
@@ -823,7 +825,6 @@ namespace LoESoft.Core
 
         internal DbGuild(Database db, int id)
         {
-
             Id = id;
             Init(db, "guild." + id);
         }

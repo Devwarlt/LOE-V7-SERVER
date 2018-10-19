@@ -2,7 +2,7 @@
 <Objects>
   <Object type="0x6716" id="Bronze Amulet">
     <Class>Equipment</Class>
-    <Item/>
+    <Item />
     <Texture>
       <File>v7</File>
       <Index>0x00</Index>

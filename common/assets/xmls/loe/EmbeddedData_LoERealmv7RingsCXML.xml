@@ -2,7 +2,7 @@
 <Objects>
   <Object type="0x671a" id="Wooden Ring">
     <Class>Equipment</Class>
-    <Item/>
+    <Item />
     <Texture>
       <File>v7</File>
       <Index>0x04</Index>
