@@ -27,9 +27,13 @@ namespace LoESoft.AppEngine.gamestore
         }
 
         private int Credits(DbAccount acc) => acc.Credits;
+
         private int Fame(DbAccount acc) => acc.Fame;
+
         private int GuildFame(DbAccount acc) => acc.GuildFame;
+
         private int FortuneTokens(DbAccount acc) => acc.FortuneTokens;
+
         private int EmpiresCoin(DbAccount acc) => acc.EmpiresCoin;
 
         private bool Validate(DbAccount acc, int currency, int total)
@@ -77,27 +81,32 @@ namespace LoESoft.AppEngine.gamestore
                         acc.Credits -= total;
                     }
                     break;
+
                 case Currency.FAME:
                     {
                         acc.Fame -= total;
                         acc.TotalFame -= total;
                     }
                     break;
+
                 case Currency.GUILD_FAME:
                     {
                         acc.GuildFame -= total;
                     }
                     break;
+
                 case Currency.FORTUNE_TOKENS:
                     {
                         acc.FortuneTokens -= total;
                     }
                     break;
+
                 case Currency.EMPIRES_COIN:
                     {
                         acc.EmpiresCoin -= total;
                     }
                     break;
+
                 case Currency.INVALID:
                 default:
                     return;

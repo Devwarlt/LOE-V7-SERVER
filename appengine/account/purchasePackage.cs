@@ -82,7 +82,7 @@ namespace LoESoft.AppEngine.account
             return ret.ToArray();
         }
 
-        struct PackageContent
+        private struct PackageContent
         {
 #pragma warning disable CS0649 // Field 'purchasePackage.PackageContent.items' is never assigned to, and will always have its default value null
             public List<int> items;

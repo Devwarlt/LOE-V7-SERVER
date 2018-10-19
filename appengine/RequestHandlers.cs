@@ -1,7 +1,6 @@
 ﻿#region
 
 using LoESoft.Core;
-using LoESoft.Core.assets.itemdata;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;

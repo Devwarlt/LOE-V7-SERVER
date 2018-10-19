@@ -1,12 +1,11 @@
 ﻿#region
 
 using LoESoft.Core;
+using LoESoft.Core.config;
+using LoESoft.Core.models;
 using log4net.Config;
 using System;
 using System.IO;
-using LoESoft.Core.config;
-using LoESoft.Core.models;
-using LoESoft.Core.assets.itemdata;
 
 #endregion
 

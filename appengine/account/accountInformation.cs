@@ -6,7 +6,7 @@ using System.IO;
 
 namespace LoESoft.AppEngine.account
 {
-    class accountInformation : RequestHandler
+    internal class accountInformation : RequestHandler
     {
         protected override void HandleRequest()
         {
@@ -90,7 +90,6 @@ namespace LoESoft.AppEngine.account
             public int credits;
             public int fame;
             public string authenticationToken;
-
 
             private enum AccountType : int
             {

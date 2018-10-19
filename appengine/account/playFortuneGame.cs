@@ -1,10 +1,10 @@
 #region
 
+using LoESoft.AppEngine.mysterybox;
 using LoESoft.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LoESoft.AppEngine.mysterybox;
 
 #endregion
 
@@ -66,6 +66,7 @@ namespace LoESoft.AppEngine.account
                                 return;
                             }
                             break;
+
                         case CONSTANTS.FORTUNETOKENS:
                             if (acc.FortuneTokens < box.PriceFG.firstInToken)
                             {
@@ -73,6 +74,7 @@ namespace LoESoft.AppEngine.account
                                 return;
                             }
                             break;
+
                         default:
                             {
                                 WriteLine($"<Error>Invalid currency type ID {currency}.</Error>");
@@ -108,6 +110,7 @@ namespace LoESoft.AppEngine.account
                                             <Gold>{1}</Gold>
                                         </Success>", Utils.GetCommaSepString(candidates.ToArray()), acc.Credits - price);
                                         break;
+
                                     case CONSTANTS.FORTUNETOKENS:
                                         if (acc.FortuneTokens < box.PriceFG.firstInToken)
                                         {
@@ -124,6 +127,7 @@ namespace LoESoft.AppEngine.account
                                             <FortuneToken>{1}</FortuneToken>
                                         </Success>", Utils.GetCommaSepString(candidates.ToArray()), acc.FortuneTokens - price);
                                         break;
+
                                     default:
                                         {
                                             WriteLine($"<Error>Invalid currency type ID {currency}.</Error>");
@@ -132,6 +136,7 @@ namespace LoESoft.AppEngine.account
                                 }
                             }
                             break;
+
                         case 1:
                             {
                                 switch (currency)
@@ -154,6 +159,7 @@ namespace LoESoft.AppEngine.account
                                             }
                                         }
                                         break;
+
                                     case CONSTANTS.FORTUNETOKENS:
                                         {
                                             if (CurrentGames.ContainsKey(acc.AccountId))
@@ -172,6 +178,7 @@ namespace LoESoft.AppEngine.account
                                             }
                                         }
                                         break;
+
                                     default:
                                         {
                                             WriteLine($"<Error>Invalid currency type ID {currency}.</Error>");
@@ -180,6 +187,7 @@ namespace LoESoft.AppEngine.account
                                 }
                             }
                             break;
+
                         case 2:
                             {
                                 switch (currency)
@@ -208,11 +216,13 @@ namespace LoESoft.AppEngine.account
                                             }
                                         }
                                         break;
+
                                     case CONSTANTS.FORTUNETOKENS:
                                         {
                                             WriteLine($"<Error>You can not play twiche with a Fortune Token.</Error>");
                                         }
                                         return;
+
                                     default:
                                         {
                                             WriteLine($"<Error>Invalid currency type ID {currency}.</Error>");
@@ -221,6 +231,7 @@ namespace LoESoft.AppEngine.account
                                 }
                             }
                             break;
+
                         default:
                             {
                                 WriteLine($"<Error>Unreachable data stage {rows}.</Error>");
@@ -235,11 +246,13 @@ namespace LoESoft.AppEngine.account
                                 Database.UpdateCredit(acc, price < 0 ? 0 : -price);
                             }
                             break;
+
                         case CONSTANTS.FORTUNETOKENS:
                             {
                                 Database.UpdateTokens(acc, price < 0 ? 0 : -price);
                             }
                             break;
+
                         default:
                             {
                                 WriteLine($"<Error>Invalid currency type ID {currency}.</Error>");

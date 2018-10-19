@@ -8,7 +8,7 @@ using System.IO;
 
 namespace LoESoft.AppEngine.guild
 {
-    class getBoard : RequestHandler
+    internal class getBoard : RequestHandler
     {
         protected override void HandleRequest()
         {
@@ -20,7 +20,6 @@ namespace LoESoft.AppEngine.guild
                 {
                     if (Convert.ToInt32(acc.GuildId) <= 0)
                     {
-
                         wtr.Write("<Error>Not in guild</Error>");
                         return;
                     }

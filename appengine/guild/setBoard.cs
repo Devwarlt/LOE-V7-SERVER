@@ -2,10 +2,9 @@
 using System;
 using System.IO;
 
-
 namespace LoESoft.AppEngine.guild
 {
-    class setBoard : RequestHandler
+    internal class setBoard : RequestHandler
     {
         protected override void HandleRequest()
         {

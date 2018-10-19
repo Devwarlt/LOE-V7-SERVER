@@ -1,12 +1,12 @@
 ﻿#region
 
+using LoESoft.AppEngine.account;
 using LoESoft.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using LoESoft.AppEngine.account;
 using static LoESoft.Core.config.Settings.APPENGINE;
 
 #endregion
@@ -46,7 +46,7 @@ namespace LoESoft.AppEngine
         }
     }
 
-    class GuildMember
+    internal class GuildMember
     {
         public string name;
         public int rank;
@@ -74,7 +74,7 @@ namespace LoESoft.AppEngine
         }
     }
 
-    class Guild
+    internal class Guild
     {
         public int id;
         public string name;
@@ -119,7 +119,7 @@ namespace LoESoft.AppEngine
         }
     }
 
-    class GuildIdentity
+    internal class GuildIdentity
     {
         public int id;
         public string name;
@@ -657,7 +657,6 @@ namespace LoESoft.AppEngine
 
     internal class ItemCosts
     {
-
         public static XElement ToXml()
         {
             purchaseSkin x = new purchaseSkin();

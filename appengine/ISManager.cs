@@ -90,9 +90,11 @@ namespace LoESoft.AppEngine
                     else
                         availableInstance[e.InstanceId] = 5;
                     break;
+
                 case NetworkCode.PING:
                     availableInstance[e.InstanceId] = 5;
                     break;
+
                 case NetworkCode.QUIT:
                     int dummy;
                     availableInstance.TryRemove(e.InstanceId, out dummy);
@@ -130,12 +132,14 @@ namespace LoESoft.AppEngine
                         log.Info($"<{from} -> {to}> {e.Content.Text}");
                     }
                     break;
+
                 case GUILD:
                     {
                         string from = Database.ResolveIgn(e.Content.From);
                         log.Info($"<{from} -> Guild> {e.Content.Text}");
                     }
                     break;
+
                 case ANNOUNCE:
                     {
                         log.Info($"<Announcement> {e.Content.Text}");

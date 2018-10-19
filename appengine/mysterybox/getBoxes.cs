@@ -121,6 +121,7 @@ namespace LoESoft.AppEngine.mysterybox
                         }
                     }
                     return null;
+
                 case CONSTANTS.FORTUNE_GAME:
                     {
                         if (miniGames.Count > 0)

@@ -8,7 +8,7 @@ using System.IO;
 
 namespace LoESoft.AppEngine.guild
 {
-    class listMembers : RequestHandler
+    internal class listMembers : RequestHandler
     {
         protected override void HandleRequest()
         {

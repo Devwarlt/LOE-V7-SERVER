@@ -1,7 +1,7 @@
 ﻿#region
 
-using LoESoft.Core;
 using LoESoft.AppEngine.mysterybox;
+using LoESoft.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,7 +29,6 @@ namespace LoESoft.AppEngine.account
 
                 if (status == LoginStatus.OK)
                 {
-
                     if (Query["boxId"] == null)
                     {
                         WriteLine("<Error>Box ID not declared.</Error>");
@@ -55,6 +54,7 @@ namespace LoESoft.AppEngine.account
                                     return;
                                 }
                                 break;
+
                             case CONSTANTS.FAME:
                                 if (acc.Fame < box.Sale.Price)
                                 {
@@ -62,6 +62,7 @@ namespace LoESoft.AppEngine.account
                                     return;
                                 }
                                 break;
+
                             default:
                                 {
                                     WriteLine($"<Error>Invalid currency type ID {box.Sale.Currency}.</Error>");
@@ -80,6 +81,7 @@ namespace LoESoft.AppEngine.account
                                     return;
                                 }
                                 break;
+
                             case CONSTANTS.FAME:
                                 if (acc.Fame < box.PriceMB.Amount)
                                 {
@@ -87,6 +89,7 @@ namespace LoESoft.AppEngine.account
                                     return;
                                 }
                                 break;
+
                             default:
                                 {
                                     WriteLine($"<Error>Invalid currency type ID {box.PriceMB.Currency}.</Error>");
@@ -119,12 +122,14 @@ namespace LoESoft.AppEngine.account
                                     res.GoldLeft = acc.Credits;
                                 }
                                 break;
+
                             case CONSTANTS.FAME:
                                 {
                                     Database.UpdateFame(acc, -box.Sale.Price);
                                     res.GoldLeft = acc.Fame;
                                 }
                                 break;
+
                             default:
                                 {
                                     WriteLine($"<Error>Invalid currency type ID {box.Sale.Currency}.</Error>");
@@ -142,12 +147,14 @@ namespace LoESoft.AppEngine.account
                                     res.GoldLeft = acc.Credits;
                                 }
                                 break;
+
                             case CONSTANTS.FAME:
                                 {
                                     Database.UpdateFame(acc, box.PriceMB.Amount < 0 ? 0 : -box.PriceMB.Amount);
                                     res.GoldLeft = acc.Fame;
                                 }
                                 break;
+
                             default:
                                 {
                                     WriteLine($"<Error>Invalid currency type ID {box.PriceMB.Currency}.</Error>");
@@ -180,6 +187,7 @@ namespace LoESoft.AppEngine.account
         }
 
         #region "Process package awards"
+
         private int[] GetAwards(string items)
         {
             int[] ret = new int[items.Split(';').Length];
@@ -187,9 +195,11 @@ namespace LoESoft.AppEngine.account
                 ret[i] = Utils.FromString(items.Split(';')[0].Split(',')[rand.Next(items.Split(';')[0].Split(',').Length)]);
             return ret.ToArray();
         }
+
         #endregion "Process package awards"
 
         #region "Send package result"
+
         private void sendMysteryBoxResult(Stream stream, MysteryBoxResult res)
         {
             XmlDocument doc = new XmlDocument();
@@ -209,15 +219,18 @@ namespace LoESoft.AppEngine.account
             using (StreamWriter output = new StreamWriter(stream))
                 output.WriteLine(wtr.ToString());
         }
+
         #endregion "Send package result"
 
         #region "Package result structure"
+
         private class MysteryBoxResult
         {
             public string Awards { get; set; }
             public int GoldLeft { get; set; }
             public int Currency { get; set; }
         }
+
         #endregion "Package result structure"
     }
 }
