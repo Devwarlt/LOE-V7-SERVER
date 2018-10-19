@@ -1,7 +1,6 @@
 #region
 
 using LoESoft.GameServer.networking.outgoing;
-using LoESoft.GameServer.realm.terrain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,22 +101,22 @@ namespace LoESoft.GameServer.realm.entity.player
 
         public void HandleUpdate(RealmTime time)
         {
-            WmapTile tile;
             var world = GameServer.Manager.GetWorld(Owner.Id);
             var sendEntities = new HashSet<Entity>(GetNewEntities());
             var tilesUpdate = new List<UPDATE.TileData>(APPOX_AREA_OF_SIGHT);
 
-            mapWidth = Owner.Map.Width;
-            mapHeight = Owner.Map.Height;
-
+            mapWidth = world.Map.Width;
+            mapHeight = world.Map.Height;
             blocksight = world.Dungeon ? Sight.RayCast(this, SIGHTRADIUS).ToList() : Sight.GetSquare(SIGHTRADIUS);
 
-            foreach (IntPoint i in blocksight.ToList())
+            for (var i = 0; i < blocksight.Count; i++)
             {
-                int x = i.X + (int)X;
-                int y = i.Y + (int)Y;
+                var x = blocksight[i].X + (int)X;
+                var y = blocksight[i].Y + (int)Y;
+                var t = Owner.Map[x, y];
 
-                if (x < 0 || x >= Owner.Map.Width || y < 0 || y >= Owner.Map.Height || tiles[x, y] >= (tile = Owner.Map[x, y]).UpdateCount) continue;
+                if (x < 0 || x >= Owner.Map.Width || y < 0 || y >= Owner.Map.Height || tiles[x, y] >= (t = Owner.Map[x, y]).UpdateCount)
+                    continue;
 
                 if (!visibleTiles.ContainsKey(new IntPoint(x, y)))
                     visibleTiles[new IntPoint(x, y)] = true;
@@ -126,10 +125,10 @@ namespace LoESoft.GameServer.realm.entity.player
                 {
                     X = (short)x,
                     Y = (short)y,
-                    Tile = tile.TileId
+                    Tile = t.TileId
                 });
 
-                tiles[x, y] = tile.UpdateCount;
+                tiles[x, y] = t.UpdateCount;
             }
 
             var dropEntities = GetRemovedEntities().Distinct().ToArray();
