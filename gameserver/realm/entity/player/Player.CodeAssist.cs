@@ -1,13 +1,13 @@
 ﻿#region
 
+using LoESoft.Core;
 using LoESoft.Core.config;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LoESoft.GameServer.networking.outgoing;
-using LoESoft.GameServer.networking.incoming;
-using LoESoft.GameServer.networking;
-using LoESoft.Core;
 
 #endregion
 

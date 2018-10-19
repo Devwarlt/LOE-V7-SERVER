@@ -1,10 +1,10 @@
 ﻿#region
 
-using System.Linq;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
+using System.Linq;
 
 #endregion
 

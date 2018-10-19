@@ -1,6 +1,6 @@
-﻿using log4net;
-using LoESoft.GameServer.networking.incoming;
+﻿using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.realm;
+using log4net;
 
 namespace LoESoft.GameServer.networking
 {
@@ -15,7 +15,10 @@ namespace LoESoft.GameServer.networking
 
         public abstract MessageID ID { get; }
 
-        public MessageHandlers() { log4net = LogManager.GetLogger(GetType()); }
+        public MessageHandlers()
+        {
+            log4net = LogManager.GetLogger(GetType());
+        }
 
         protected abstract void HandleMessage(Client client, T message);
 
@@ -27,6 +30,9 @@ namespace LoESoft.GameServer.networking
 
         protected void SendFailure(string text) => client.SendMessage(new FAILURE { ErrorId = 0, ErrorDescription = text });
 
-        public void NotImplementedMessageHandler() { return; }
+        public void NotImplementedMessageHandler()
+        {
+            return;
+        }
     }
 }

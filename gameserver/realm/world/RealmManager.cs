@@ -1,22 +1,21 @@
 #region
 
+using LoESoft.Core;
+using LoESoft.Core.config;
+using LoESoft.Core.models;
+using LoESoft.GameServer.logic;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.realm.commands;
+using LoESoft.GameServer.realm.entity.merchant;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.world;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LoESoft.Core;
-using LoESoft.GameServer.logic;
-using LoESoft.GameServer.networking;
-using LoESoft.GameServer.realm.commands;
-using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.realm.world;
-using LoESoft.Core.config;
-using LoESoft.GameServer.realm.entity.merchant;
 using static LoESoft.GameServer.networking.Client;
-using LoESoft.Core.models;
-using LoESoft.Core.assets.itemdata;
 
 #endregion
 
@@ -26,6 +25,7 @@ namespace LoESoft.GameServer.realm
     {
         public static Dictionary<string, int> QuestPortraits = new Dictionary<string, int>();
         public static List<string> CurrentRealmNames = new List<string>();
+
         public static List<string> Realms = new List<string>
         {
             "Djinn",
@@ -44,8 +44,10 @@ namespace LoESoft.GameServer.realm
         public ISManager InterServer { get; private set; }
         public CommandManager Commands { get; private set; }
         public EmbeddedData GameData { get; private set; }
+
         //public ItemDataManager ItemDataManager { get; private set; }
         public string InstanceId { get; private set; }
+
         public LogicTicker Logic { get; private set; }
         public int MaxClients { get; private set; }
         public RealmPortalMonitor Monitor { get; private set; }
@@ -201,7 +203,6 @@ namespace LoESoft.GameServer.realm
             {
                 if (ClientManager.ContainsKey(client.Account.AccountId))
                 {
-
                     ClientManager.TryRemove(client.Account.AccountId, out ClientData _disposableCData);
 
                     Log.Info($"[({(int)reason}) {reason.ToString()}] Disconnect player '{_disposableCData.Client.Account.Name} (Account ID: {_disposableCData.Client.Account.AccountId})'.");

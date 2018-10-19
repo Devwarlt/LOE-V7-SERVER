@@ -1,12 +1,12 @@
 ﻿#region
 
+using LoESoft.GameServer.networking.incoming;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.player;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LoESoft.GameServer.networking.incoming;
-using LoESoft.GameServer.networking.outgoing;
-using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 

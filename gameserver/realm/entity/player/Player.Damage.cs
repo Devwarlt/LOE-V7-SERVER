@@ -1,7 +1,7 @@
 ﻿#region
 
-using System;
 using LoESoft.GameServer.networking.outgoing;
+using System;
 
 #endregion
 
@@ -38,7 +38,6 @@ namespace LoESoft.GameServer.realm.entity.player
                     SaveToCharacter();
                 }
                 catch (Exception) { }
-
             }
             else
             {

@@ -1,11 +1,11 @@
 ﻿#region
 
+using Ionic.Zlib;
+using LoESoft.Core;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using LoESoft.Core;
-using Ionic.Zlib;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -22,6 +22,7 @@ namespace LoESoft.GameServer.realm.terrain
             public string id;
 #pragma warning restore CS0649 // Field 'Json2Wmap.obj.id' is never assigned to, and will always have its default value null
         }
+
         private struct loc
         {
 #pragma warning disable CS0649 // Field 'Json2Wmap.loc.ground' is never assigned to, and will always have its default value null
@@ -34,6 +35,7 @@ namespace LoESoft.GameServer.realm.terrain
             public obj[] regions;
 #pragma warning restore CS0649 // Field 'Json2Wmap.loc.regions' is never assigned to, and will always have its default value null
         }
+
         private struct json_dat
         {
 #pragma warning disable CS0649 // Field 'Json2Wmap.json_dat.data' is never assigned to, and will always have its default value null
@@ -55,6 +57,7 @@ namespace LoESoft.GameServer.realm.terrain
             byte[] x = Convert(data, File.ReadAllText(from));
             File.WriteAllBytes(to, x);
         }
+
         public static byte[] Convert(EmbeddedData data, string json)
         {
             json_dat obj = JsonConvert.DeserializeObject<json_dat>(json);

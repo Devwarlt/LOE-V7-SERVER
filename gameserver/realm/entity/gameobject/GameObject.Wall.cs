@@ -1,8 +1,8 @@
 ﻿#region
 
-using System.Xml.Linq;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
+using System.Xml.Linq;
 
 #endregion
 
@@ -12,7 +12,6 @@ namespace LoESoft.GameServer.realm.entity
     {
         public Wall(ushort objType, XElement node)
             : base(objType, GetHP(node), true, false, true) { }
-
 
         public override bool HitByProjectile(Projectile projectile, RealmTime time)
         {

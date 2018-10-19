@@ -1,8 +1,8 @@
 ﻿#region
 
+using LoESoft.GameServer.realm;
 using Mono.Game;
 using System;
-using LoESoft.GameServer.realm;
 
 #endregion
 

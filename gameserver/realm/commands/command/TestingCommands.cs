@@ -1,14 +1,16 @@
-﻿using LoESoft.GameServer.realm.entity.player;
-using LoESoft.Core.config;
-using System.Collections.Generic;
-using System;
+﻿using LoESoft.Core.config;
 using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using System;
+using System.Collections.Generic;
 
 namespace LoESoft.GameServer.realm.commands
 {
     public class TestingCommands : Command
     {
-        public TestingCommands() : base("test", (int)AccountType.LOESOFT_ACCOUNT) { }
+        public TestingCommands() : base("test", (int)AccountType.LOESOFT_ACCOUNT)
+        {
+        }
 
         private readonly bool AllowTestingCommands = true;
 
@@ -33,6 +35,7 @@ namespace LoESoft.GameServer.realm.commands
                         player.SendInfo("You have been spawn shield protector 1.");
                     }
                     break;
+
                 case "chatdata":
                     {
                         // returns only your chat data
@@ -44,12 +47,14 @@ namespace LoESoft.GameServer.realm.commands
                                 player.SendInfo($"[ChatData] [{ChatManager.ChatDataCache[messageInfos.Key].Item1}] <{messageInfos.Key}> {ChatManager.ChatDataCache[messageInfos.Key].Item2}");
                     }
                     break;
+
                 case "clients":
                     {
                         foreach (KeyValuePair<string, ClientData> i in GameServer.Manager.ClientManager)
                             player.SendInfo($"[Clients] [ID: {i.Key}] Client '{i.Value.Client.Account.Name}' joined network at {i.Value.Registered}.");
                     }
                     break;
+
                 case "projectiles":
                     {
                         if (cmd == "ids")
@@ -61,6 +66,7 @@ namespace LoESoft.GameServer.realm.commands
                                 player.SendInfo($"[Projectiles] [Player ID: {i.Key.Key} / Projectile ID: {i.Key.Value} / Damage: {i.Value}]");
                     }
                     break;
+
                 case "id":
                     {
                         if (cmd == "mine")
@@ -72,6 +78,7 @@ namespace LoESoft.GameServer.realm.commands
                             player.SendInfo($"You don't have any pet yet.");
                     }
                     break;
+
                 default:
                     player.SendHelp("Available testing commands: 'chatdata' (my / all), 'clients', 'projectiles' (ids / all) and 'id' (mine / pet).");
                     break;

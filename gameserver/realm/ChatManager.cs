@@ -3,8 +3,8 @@
 using LoESoft.Core;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 #endregion
 
@@ -148,6 +148,8 @@ namespace LoESoft.GameServer.realm
             player.Client.SendMessage(_text);
         }
 
-        private void HandleChat(object sender, InterServerEventArgs<Message> e) { }
+        private void HandleChat(object sender, InterServerEventArgs<Message> e)
+        {
+        }
     }
 }

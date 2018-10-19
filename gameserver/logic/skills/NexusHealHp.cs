@@ -1,9 +1,9 @@
 ﻿#region
 
-using System;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity.player;
+using System;
 
 #endregion
 
@@ -38,7 +38,6 @@ namespace LoESoft.GameServer.logic.behaviors
             if (cool <= 0)
             {
                 if (host.HasConditionEffect(ConditionEffectIndex.Sick)) return;
-
 
                 if (host.GetNearestEntity(range, null) is Player entity)
                 {

@@ -1,13 +1,13 @@
 #region
 
-using System;
-using LoESoft.GameServer.realm;
-using System.Collections.Generic;
-using LoESoft.GameServer.realm.entity.player;
-using System.Threading.Tasks;
-using LoESoft.GameServer.realm.entity.npc;
-using System.Linq;
 using LoESoft.Core.models;
+using LoESoft.GameServer.realm;
+using LoESoft.GameServer.realm.entity.npc;
+using LoESoft.GameServer.realm.entity.player;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 #endregion
 
@@ -21,8 +21,9 @@ namespace LoESoft.GameServer.logic.behaviors
     // Engine only (this engine is not part of Behavior engine, only use it to integrate both)
     public class NPCEngine : Behavior
     {
-        // NPC read-only variables (declaration) 
+        // NPC read-only variables (declaration)
         protected List<string> _playerWelcomeMessages { get; set; }
+
         protected List<string> _playerLeaveMessages { get; set; }
         protected List<string> _NPCLeaveMessages { get; set; }
         protected bool _randomNPCLeaveMessages { get; set; }
@@ -32,7 +33,8 @@ namespace LoESoft.GameServer.logic.behaviors
         protected NPC _NPC { get; set; }
 
         // Engine read-only variables
-        protected DateTime _now => DateTime.Now; // get current time (real-time) 
+        protected DateTime _now => DateTime.Now; // get current time (real-time)
+
         protected int _delay = 1000; // in milliseconds
 
         public NPCEngine(

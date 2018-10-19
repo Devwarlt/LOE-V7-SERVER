@@ -1,17 +1,19 @@
 ﻿#region
 
-using LoESoft.GameServer.networking.outgoing;
-using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.realm.entity.npc;
 using LoESoft.GameServer.logic;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity.npc;
+using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
 namespace LoESoft.GameServer.realm.commands
 {
-    class GuildCommand : Command
+    internal class GuildCommand : Command
     {
-        public GuildCommand() : base("g") { }
+        public GuildCommand() : base("g")
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -38,9 +40,11 @@ namespace LoESoft.GameServer.realm.commands
         }
     }
 
-    class TellCommand : Command
+    internal class TellCommand : Command
     {
-        public TellCommand() : base("tell") { }
+        public TellCommand() : base("tell")
+        {
+        }
 
         protected override bool Process(Player player, RealmTime time, string[] args)
         {
@@ -144,6 +148,4 @@ namespace LoESoft.GameServer.realm.commands
             return false;
         }
     }
-
-
 }

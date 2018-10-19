@@ -1,10 +1,10 @@
 #region
 
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.terrain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LoESoft.GameServer.networking.outgoing;
-using LoESoft.GameServer.realm.terrain;
 
 #endregion
 
@@ -32,7 +32,6 @@ namespace LoESoft.GameServer.realm.entity.player
                     if (owner == AccountId)
                         if ((LootDropBoost || LootTierBoost) && (i.ObjectType != 0x500 || i.ObjectType != 0x506))
                             (i as Container).BoostedBag = true; //boosted bag
-
                 }
                 if (!(MathsUtils.DistSqr(i.X, i.Y, X, Y) <= SIGHTRADIUS * SIGHTRADIUS)) continue;
                 if (visibleTiles.ContainsKey(new IntPoint((int)i.X, (int)i.Y)))

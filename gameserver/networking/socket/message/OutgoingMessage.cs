@@ -38,6 +38,7 @@ namespace LoESoft.GameServer.networking
                         if (!socket.Connected) return;
                         socket.SendAsync(e);
                         break;
+
                     case OutgoingStage.Sending:
                         (e.UserToken as OutgoingToken).Message = null;
 

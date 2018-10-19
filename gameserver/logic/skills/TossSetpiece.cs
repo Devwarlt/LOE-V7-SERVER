@@ -1,9 +1,9 @@
 ﻿#region
 
-using System;
+using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.mapsetpiece;
-using LoESoft.GameServer.networking.outgoing;
+using System;
 
 #endregion
 
@@ -97,6 +97,7 @@ namespace LoESoft.GameServer.logic.behaviors
                             cool -= time.ElapsedMsDelta;
                     }
                     break;
+
                 default:
                     {
                         piece.RenderSetPiece(host.Owner, new IntPoint((int)host.X, (int)host.Y));

@@ -1,8 +1,8 @@
 ﻿#region
 
-using System;
 using LoESoft.Core;
 using LoESoft.GameServer.realm.terrain;
+using System;
 
 #endregion
 
@@ -76,7 +76,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                     t[x, y] = 2;
             t[12, 0] = t[13, 0] = t[14, 0] = 2;
 
-
             int r = rand.Next(0, 4); //Rotation
             for (int i = 0; i < r; i++)
                 t = SetPieces.RotateCW(t);
@@ -102,7 +101,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
-
                     else if (t[x, y] == 3)
                     {
                         Entity cyclops = Entity.Resolve(0x0928);

@@ -1,12 +1,12 @@
 ﻿#region
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using LoESoft.Core;
 using LoESoft.Core.models;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 #endregion
 
@@ -563,18 +563,23 @@ namespace LoESoft.GameServer.logic.loot
                 case ItemType.Weapon:
                     types = WeaponSlotType;
                     break;
+
                 case ItemType.Ability:
                     types = AbilitySlotType;
                     break;
+
                 case ItemType.Armor:
                     types = ArmorSlotType;
                     break;
+
                 case ItemType.Ring:
                     types = RingSlotType;
                     break;
+
                 case ItemType.Potion:
                     types = PotionSlotType;
                     break;
+
                 default:
                     throw new NotSupportedException(type.ToString());
             }
@@ -744,12 +749,16 @@ namespace LoESoft.GameServer.logic.loot
             {
                 case EggRarity.Egg_0To13Stars:
                     return new ILootDef[1] { new EggLoot(EggRarity.Egg_0To13Stars, 0.1) };
+
                 case EggRarity.Egg_14To27Stars:
                     return new ILootDef[2] { new EggLoot(EggRarity.Egg_0To13Stars, 0.1), new EggLoot(EggRarity.Egg_14To27Stars, 0.05) };
+
                 case EggRarity.Egg_28To41Stars:
                     return new ILootDef[3] { new EggLoot(EggRarity.Egg_0To13Stars, 0.1), new EggLoot(EggRarity.Egg_14To27Stars, 0.05), new EggLoot(EggRarity.Egg_28To41Stars, 0.01) };
+
                 case EggRarity.Egg_42To48Stars:
                     return new ILootDef[4] { new EggLoot(EggRarity.Egg_0To13Stars, 0.1), new EggLoot(EggRarity.Egg_14To27Stars, 0.05), new EggLoot(EggRarity.Egg_28To41Stars, 0.01), new EggLoot(EggRarity.Egg_42To48Stars, 0.001) };
+
                 default:
                     throw new InvalidOperationException("Not a valid Egg Rarity");
             }

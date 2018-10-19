@@ -1,8 +1,8 @@
 ﻿#region
 
+using LoESoft.GameServer.realm;
 using System;
 using System.Reflection;
-using LoESoft.GameServer.realm;
 
 #endregion
 
@@ -36,6 +36,8 @@ namespace LoESoft.GameServer.logic.behaviors
             }
         }
 
-        protected override void TickCore(Entity host, RealmTime time, ref object state) { }
+        protected override void TickCore(Entity host, RealmTime time, ref object state)
+        {
+        }
     }
 }

@@ -126,42 +126,49 @@ namespace LoESoft.GameServer.logic.skills.Pets
                         max = 2;
                     }
                     break;
+
                 case 1:
                     {
                         min = 2;
                         max = 5;
                     }
                     break;
+
                 case 2:
                     {
                         min = 5;
                         max = 9;
                     }
                     break;
+
                 case 3:
                     {
                         min = 9;
                         max = 11;
                     }
                     break;
+
                 case 4:
                     {
                         min = 11;
                         max = 17;
                     }
                     break;
+
                 case 5:
                     {
                         min = 17;
                         max = 23;
                     }
                     break;
+
                 case 6:
                     {
                         min = 23;
                         max = 29;
                     }
                     break;
+
                 case 7:
                     {
                         min = 29;

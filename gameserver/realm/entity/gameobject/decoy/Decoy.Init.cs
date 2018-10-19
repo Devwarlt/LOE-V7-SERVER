@@ -1,8 +1,8 @@
 ﻿#region
 
-using Mono.Game;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
+using Mono.Game;
 
 #endregion
 

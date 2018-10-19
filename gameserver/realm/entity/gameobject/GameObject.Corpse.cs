@@ -72,6 +72,7 @@ namespace LoESoft.GameServer.realm.entity.gameobject
                         CurrentIndex = DecayData[1].Index;
                     }
                     break;
+
                 case Phases.Public:
                     if (DecayTime.Measure >= DecayData[1].Time)
                     {
@@ -82,10 +83,12 @@ namespace LoESoft.GameServer.realm.entity.gameobject
                         CurrentIndex = DecayData[2].Index;
                     }
                     break;
+
                 case Phases.Decay:
                     if (DecayTime.Measure >= DecayData[2].Time)
                         Owner.LeaveWorld(this);
                     break;
+
                 default:
                     if (DecayTime.Measure >= 15)
                     {

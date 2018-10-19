@@ -1,10 +1,10 @@
 ﻿#region
 
+using LoESoft.GameServer.realm.terrain;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
-using LoESoft.GameServer.realm.terrain;
-using System.Collections.Generic;
 
 #endregion
 
@@ -13,6 +13,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
     public abstract class MapSetPiece
     {
         public abstract int Size { get; }
+
         public abstract void RenderSetPiece(World world, IntPoint pos);
 
         public unsafe void LoadJson(void* world, string embeddedResource, IntPoint* pos, void* wmap)

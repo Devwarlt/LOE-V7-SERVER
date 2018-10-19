@@ -1,8 +1,8 @@
 ﻿#region
 
-using System;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
+using System;
 
 #endregion
 
@@ -27,6 +27,8 @@ namespace LoESoft.GameServer.logic.behaviors
                 throw new InvalidOperationException("Not an Enemy.");
         }
 
-        protected override void TickCore(Entity host, RealmTime time, ref object state) { }
+        protected override void TickCore(Entity host, RealmTime time, ref object state)
+        {
+        }
     }
 }

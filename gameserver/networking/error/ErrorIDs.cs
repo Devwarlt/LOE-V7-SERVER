@@ -1,6 +1,5 @@
 ﻿#region
 
-
 #endregion
 
 namespace LoESoft.GameServer.networking

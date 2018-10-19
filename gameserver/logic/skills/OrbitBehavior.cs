@@ -10,6 +10,7 @@ namespace LoESoft.GameServer.logic.behaviors
 
         private GameEntity ObjA { get; set; }
         private GameEntity ObjB { get; set; }
+
         private int Range
         {
             get { return Range; }
@@ -21,6 +22,7 @@ namespace LoESoft.GameServer.logic.behaviors
                     Range = value;
             }
         } // prevent negative or zero value
+
         private double Angle { get; set; } // range 0 to 360 degrees
         private double AngularVelocity { get; set; }
 
@@ -29,6 +31,7 @@ namespace LoESoft.GameServer.logic.behaviors
 
         // Threads (background threads)
         private Thread RangeThread;
+
         private Thread AngularThread;
 
         public OrbitBehavior(GameEntity objA, GameEntity objB, int range, bool clockwise)

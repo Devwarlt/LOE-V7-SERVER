@@ -45,8 +45,10 @@ namespace LoESoft.GameServer
         GLOBAL_NOTIFICATION = 40,
         PLAYERSHOOT = 41,
         PET_CHANGE_FORM_MSG = 42,
+
         // Unregistered MessageID '43',
         UPDATE = 44,
+
         ENTER_ARENA = 45,
         RESKIN = 46,
         ACTIVE_PET_UPDATE_REQUEST = 47,
@@ -56,15 +58,19 @@ namespace LoESoft.GameServer
         TRADEREQUESTED = 51,
         DAMAGE = 52,
         ACCOUNTLIST = 53,
+
         // Unregistered MessageID '54',
         ARENA_DEATH = 55,
+
         BUYRESULT = 56,
         CLIENTSTAT = 57,
         CREATE_SUCCESS = 58,
         SQUAREHIT = 59,
+
         // Unregistered MessageID '60',
         // Unregistered MessageID '61',
         NAMERESULT = 62,
+
         LOAD = 63,
         INVSWAP = 64,
         IMMINENT_ARENA_WAVE = 65,
@@ -72,11 +78,13 @@ namespace LoESoft.GameServer
         JOINGUILD = 67,
         RECONNECT = 68,
         EVOLVE_PET = 69,
+
         // Unregistered MessageID '70',
         // Unregistered MessageID '71',
         // Unregistered MessageID '72',
         // Unregistered MessageID '73',
         TRADESTART = 74,
+
         GUILDREMOVE = 75,
         NEW_ABILITY = 76,
         BUY = 77,
@@ -100,10 +108,13 @@ namespace LoESoft.GameServer
         GUILDRESULT = 95,
         UPDATEACK = 96,
         INVDROP = 97,
+
         // Unregistered MessageID '98',
         GOTOACK = 99,
+
         TRADEACCEPTED = 100,
         CHANGETRADE = 101,
+
         // Unregistered MessageID '102',
         // Unregistered MessageID '103',
         // Unregistered MessageID '104',
@@ -153,6 +164,7 @@ namespace LoESoft.GameServer
         // Unregistered MessageID '148',
         // Unregistered MessageID '149',
         SWITCH_MUSIC = 150,
+
         CLAIM_LOGIN_REWARD_MSG = 151,
         LOGIN_REWARD_MSG = 152,
         // Unregistered MessageID '153',

@@ -1,11 +1,11 @@
 ﻿#region
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 #endregion
 
@@ -175,24 +175,31 @@ namespace LoESoft.GameServer.logic.loot
                 case 0:
                     bag = 0x500;
                     break;
+
                 case 1:
                     bag = 0x506;
                     break;
+
                 case 2:
                     bag = 0x503;
                     break;
+
                 case 3:
                     bag = 0x508;
                     break;
+
                 case 4:
                     bag = 0x509;
                     break;
+
                 case 5:
                     bag = 0x050B;
                     break;
+
                 case 6:
                     bag = 0x050C;
                     break;
+
                 case 7:
                     bag = 0xfff;
                     break;

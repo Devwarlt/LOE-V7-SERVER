@@ -6,7 +6,7 @@ namespace LoESoft.GameServer.realm
     /// <summary>
     /// Color-Hex:
     /// http://www.color-hex.com/
-    /// 
+    ///
     /// FlexTool:
     /// http://www.flextool.com.br/tabela_cores.html
     /// </summary>

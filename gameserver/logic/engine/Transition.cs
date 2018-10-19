@@ -1,8 +1,8 @@
 ﻿#region
 
+using LoESoft.GameServer.realm;
 using System;
 using System.Collections.Generic;
-using LoESoft.GameServer.realm;
 
 #endregion
 
@@ -12,6 +12,7 @@ namespace LoESoft.GameServer.logic
     {
         [ThreadStatic]
         private static Random rand;
+
         private readonly string targetStateName;
 
         public Transition(string targetState)

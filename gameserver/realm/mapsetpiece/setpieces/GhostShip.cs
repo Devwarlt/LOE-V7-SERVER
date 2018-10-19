@@ -1,14 +1,14 @@
 #region
 
+using LoESoft.Core;
 using System;
 using System.Collections.Generic;
-using LoESoft.Core;
 
 #endregion
 
 namespace LoESoft.GameServer.realm.mapsetpiece
 {
-    class GhostShip : MapSetPiece
+    internal class GhostShip : MapSetPiece
     {
         public override int Size => 50;
 
@@ -16,7 +16,8 @@ namespace LoESoft.GameServer.realm.mapsetpiece
         private static readonly string Water = "GhostWater";
         private static readonly string Sand = "Ghost Water Beach";
 
-        Random rand = new Random();
+        private Random rand = new Random();
+
         public override void RenderSetPiece(World world, IntPoint pos)
         {
             EmbeddedData dat = GameServer.Manager.GameData;

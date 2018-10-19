@@ -85,9 +85,11 @@ namespace LoESoft.GameServer.realm
                     else
                         availableInstance[e.InstanceId] = 5;
                     break;
+
                 case NetworkCode.PING:
                     availableInstance[e.InstanceId] = 5;
                     break;
+
                 case NetworkCode.QUIT:
                     int dummy;
                     availableInstance.TryRemove(e.InstanceId, out dummy);

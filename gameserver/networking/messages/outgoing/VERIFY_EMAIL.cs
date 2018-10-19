@@ -12,8 +12,12 @@ namespace LoESoft.GameServer.networking.outgoing
 
         public override Message CreateInstance() => new VERIFY_EMAIL();
 
-        protected override void Read(NReader rdr) { }
+        protected override void Read(NReader rdr)
+        {
+        }
 
-        protected override void Write(NWriter wtr) { }
+        protected override void Write(NWriter wtr)
+        {
+        }
     }
 }

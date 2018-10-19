@@ -1,7 +1,7 @@
 ﻿#region
 
-using System.Collections.Generic;
 using LoESoft.GameServer.networking.outgoing;
+using System.Collections.Generic;
 
 #endregion
 
@@ -57,6 +57,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 TextColor = 0x123456
             });
         }
+
         public void SendError(string text)
         {
             Client.SendMessage(new TEXT()
@@ -69,6 +70,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 TextColor = 0x123456
             });
         }
+
         public void SendpsrText(string text)
         {
             Client.SendMessage(new TEXT()
@@ -81,6 +83,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 TextColor = 0x123456
             });
         }
+
         public void SendHelp(string text)
         {
             Client.SendMessage(new TEXT()
@@ -93,6 +96,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 TextColor = 0x123456
             });
         }
+
         public void SendEnemy(string name, string text)
         {
             Client.SendMessage(new TEXT()
@@ -105,6 +109,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 TextColor = 0x123456
             });
         }
+
         public void SendText(string sender, string text)
         {
             Client.SendMessage(new TEXT()
@@ -117,6 +122,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 TextColor = 0x123456
             });
         }
+
         public void SendGuild(string text)
         {
             Client.SendMessage(new TEXT
@@ -130,6 +136,7 @@ namespace LoESoft.GameServer.realm.entity.player
                 TextColor = 0x123456
             });
         }
+
         public void GuildRecieved(int objId, int stars, string from, string text)
         {
             Client.SendMessage(new TEXT

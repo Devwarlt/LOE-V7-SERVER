@@ -1,8 +1,8 @@
 ﻿#region
 
+using LoESoft.GameServer.realm.entity.player;
 using System;
 using System.Collections.Generic;
-using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 

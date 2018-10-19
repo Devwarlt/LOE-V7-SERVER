@@ -9,9 +9,14 @@ namespace LoESoft.GameServer.realm.entity
 {
     partial class Decoy
     {
-        public void Damage(int dmg, Entity chr, bool NoDef, bool manaDrain = false) { }
+        public void Damage(int dmg, Entity chr, bool NoDef, bool manaDrain = false)
+        {
+        }
 
-        public bool IsVisibleToEnemy() { return true; }
+        public bool IsVisibleToEnemy()
+        {
+            return true;
+        }
 
         private Vector2 GetRandDirection()
         {

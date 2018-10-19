@@ -1,19 +1,19 @@
 ﻿#region
 
+using LoESoft.Core;
+using LoESoft.Core.config;
+using LoESoft.Core.models;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.realm;
+using log4net;
+using log4net.Config;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
-using LoESoft.Core;
-using log4net.Config;
-using LoESoft.GameServer.networking;
-using LoESoft.GameServer.realm;
-using LoESoft.Core.config;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using static LoESoft.GameServer.networking.Client;
-using LoESoft.Core.models;
-using log4net;
 
 #endregion
 
@@ -157,7 +157,7 @@ namespace LoESoft.GameServer
         */
         #endregion
 
-        static int ToMiliseconds(int minutes) => minutes * 60 * 1000;
+        private static int ToMiliseconds(int minutes) => minutes * 60 * 1000;
 
         public static void Usage()
         {

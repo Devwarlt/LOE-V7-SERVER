@@ -1,8 +1,8 @@
 ﻿#region
 
-using System;
 using LoESoft.Core;
 using LoESoft.GameServer.realm.terrain;
+using System;
 
 #endregion
 
@@ -15,7 +15,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
 
         private readonly Random rand = new Random();
 
-        static readonly byte[,] SetPiece =
+        private static readonly byte[,] SetPiece =
         {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},

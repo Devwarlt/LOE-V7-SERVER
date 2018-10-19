@@ -13,6 +13,7 @@ namespace LoESoft.GameServer.networking
         {
             // Unregistered DisconnectReason '0',
             FAILED_TO_LOAD_CHARACTER = 1,
+
             OUTDATED_CLIENT = 2,
             DISABLE_GUEST_ACCOUNT = 3,
             BAD_LOGIN = 4,
@@ -57,6 +58,7 @@ namespace LoESoft.GameServer.networking
             SERVER_MODE_LOCAL_ONLY = 43,
             SERVER_MODE_CLOSED_TEST_ONLY = 44,
             SERVER_MODE_PRODUCTION_ONLY = 45,
+
             // Unregistered DisconnectReason '46',
             // Unregistered DisconnectReason '47',
             // Unregistered DisconnectReason '48',

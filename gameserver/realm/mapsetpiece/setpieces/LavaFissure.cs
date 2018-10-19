@@ -1,11 +1,11 @@
 ﻿#region
 
-using System;
-using System.Linq;
 using LoESoft.Core;
 using LoESoft.GameServer.logic.loot;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.terrain;
+using System;
+using System.Linq;
 
 #endregion
 
@@ -85,7 +85,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
                 }
-
 
             Entity demon = Entity.Resolve("Red Demon");
             demon.Move(pos.X + 20.5f, pos.Y + 20.5f);

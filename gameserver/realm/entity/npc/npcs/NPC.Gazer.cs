@@ -62,6 +62,7 @@ namespace LoESoft.GameServer.realm.entity.npc.npcs
                     NoRepeat(player);
                     Callback(player, command, false); // player only (self)
                     return;
+
                 case "bye":
                 case "goodbye":
                 case "goodnight":
@@ -69,6 +70,7 @@ namespace LoESoft.GameServer.realm.entity.npc.npcs
                     Callback(player, command, false); // player only (self)
                     Leave(player, true);
                     return;
+
                 default:
                     callback = "Sorry, I don't understand.";
                     break;

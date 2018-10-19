@@ -3,6 +3,7 @@
     public interface ICheatHandler
     {
         CheatID ID { get; }
+
         void Handler();
     }
 

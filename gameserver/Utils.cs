@@ -27,7 +27,9 @@ namespace LoESoft.GameServer
         private DateTime BeginTime { get; set; }
         private DateTime EndTime { get; set; }
 
-        public ElapsedTime() : this(null) { }
+        public ElapsedTime() : this(null)
+        {
+        }
 
         private ElapsedTime(string From)
         {

@@ -1,18 +1,18 @@
 ﻿using LoESoft.GameServer.networking.outgoing;
-using System.Linq;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
+using System.Linq;
 
 namespace LoESoft.GameServer.logic.behaviors
 {
-    class HealGroup : Behavior
+    internal class HealGroup : Behavior
     {
         //State storage: cooldown timer
 
-        double range;
-        string group;
-        Cooldown coolDown;
-        int? amount;
+        private double range;
+        private string group;
+        private Cooldown coolDown;
+        private int? amount;
 
         public HealGroup(double range, string group, Cooldown coolDown = new Cooldown(), int? healAmount = null)
         {

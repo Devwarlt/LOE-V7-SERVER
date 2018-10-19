@@ -1,12 +1,12 @@
 #region
 
+using LoESoft.GameServer.realm.entity.player;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using System.Collections.Generic;
-using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 

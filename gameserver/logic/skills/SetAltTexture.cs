@@ -9,7 +9,7 @@ namespace LoESoft.GameServer.logic.behaviors
 {
     public class SetAltTexture : Behavior
     {
-        class TextureState
+        private class TextureState
         {
             public int currentTexture;
             public int remainingTime;

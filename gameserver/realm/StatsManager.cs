@@ -1,7 +1,7 @@
 ﻿#region
 
-using System;
 using LoESoft.GameServer.realm.entity.player;
+using System;
 
 #endregion
 
@@ -152,18 +152,25 @@ namespace LoESoft.GameServer.realm
             {
                 case "MaxHitPoints":
                     return 0;
+
                 case "MaxMagicPoints":
                     return 1;
+
                 case "Attack":
                     return 2;
+
                 case "Defense":
                     return 3;
+
                 case "Speed":
                     return 4;
+
                 case "HpRegen":
                     return 5;
+
                 case "MpRegen":
                     return 6;
+
                 case "Dexterity":
                     return 7;
             }
@@ -176,18 +183,25 @@ namespace LoESoft.GameServer.realm
             {
                 case 0:
                     return "MaxHitPoints";
+
                 case 1:
                     return "MaxMagicPoints";
+
                 case 2:
                     return "Attack";
+
                 case 3:
                     return "Defense";
+
                 case 4:
                     return "Speed";
+
                 case 5:
                     return "HpRegen";
+
                 case 6:
                     return "MpRegen";
+
                 case 7:
                     return "Dexterity";
             }
@@ -200,18 +214,25 @@ namespace LoESoft.GameServer.realm
             {
                 case 0:
                     return "Life";
+
                 case 1:
                     return "Mana";
+
                 case 2:
                     return "Attack";
+
                 case 3:
                     return "Defense";
+
                 case 4:
                     return "Speed";
+
                 case 5:
                     return "Vitality";
+
                 case 6:
                     return "Wisdom";
+
                 case 7:
                     return "Dexterity";
             }

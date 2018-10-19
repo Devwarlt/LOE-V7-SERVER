@@ -1,14 +1,14 @@
 ﻿#region
 
+using LoESoft.GameServer.logic;
+using LoESoft.GameServer.logic.transitions;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.merchant;
+using LoESoft.GameServer.realm.entity.player;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using log4net;
-using LoESoft.GameServer.logic;
-using LoESoft.GameServer.realm.entity;
-using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.logic.transitions;
-using LoESoft.GameServer.realm.entity.merchant;
 
 #endregion
 
@@ -96,11 +96,13 @@ namespace LoESoft.GameServer.realm
 
         //Stats
         public string Name { get; set; }
+
         public int Size { get; set; }
 
         private ConditionEffects _conditionEffects;
         private int _conditionEffects1;
         private int _conditionEffects2;
+
         public ConditionEffects ConditionEffects
         {
             get { return _conditionEffects; }
@@ -204,7 +206,7 @@ namespace LoESoft.GameServer.realm
             Y = y;
         }
 
-        class FPoint
+        private class FPoint
         {
             public float X;
             public float Y;
@@ -573,36 +575,46 @@ namespace LoESoft.GameServer.realm
             {
                 case "Sign":
                     return new Sign(id);
+
                 case "Wall":
                 case "DoubleWall":
                     return new Wall(id, node);
+
                 case "ConnectedWall":
                 case "CaveWall":
                     return new ConnectedObject(id);
+
                 case "GameObject":
                 case "CharacterChanger":
                 case "MoneyChanger":
                 case "NameChanger":
                     return new GameObject(id, GameObject.GetHP(node), GameObject.GetStatic(node), false, true);
+
                 case "GuildRegister":
                 case "GuildChronicle":
                 case "GuildBoard":
                     return new GameObject(id, null, false, false, false);
+
                 case "Container":
                     return new Container(node);
+
                 case "Character": //Other characters means enemy
                     return new Enemy(id, npc);
+
                 case "Portal":
                 case "GuildHallPortal":
                     return new Portal(id, null);
+
                 case "ClosedVaultChest":
                 case "ClosedVaultChestGold":
                 case "ClosedGiftChest":
                 case "VaultChest":
                 case "Merchant":
                     return new Merchant(id);
+
                 case "GuildMerchant":
                     return new GuildMerchant(id);
+
                 case "ArenaGuard":
                 case "ArenaPortal":
                 case "MysteryBoxGround":
@@ -613,6 +625,7 @@ namespace LoESoft.GameServer.realm
                 case "FortuneGround":
                 case "QuestRewards":
                     return new GameObject(id, null, true, false, false);
+
                 default:
                     log4net.Warn("Not supported type: " + type);
                     return new Entity(id);
@@ -641,7 +654,6 @@ namespace LoESoft.GameServer.realm
                 Y = pos.Y
             };
 
-
             if (Owner.Projectiles.TryGetValue(new KeyValuePair<int, byte>(Id, _projectile.ProjectileId), out Projectile _projectileSample))
                 if (_projectileSample != null)
                     Owner.RemoveProjectileFromId(Id, _projectileSample.ProjectileId);
@@ -664,7 +676,7 @@ namespace LoESoft.GameServer.realm
             return ObjectDesc.MaxHP == hpBeforeHit && ObjectDesc.MaxHP <= dmg;
         }
 
-        void ProcessConditionEffects(RealmTime time)
+        private void ProcessConditionEffects(RealmTime time)
         {
             if (effects == null || !tickingEffects) return;
 

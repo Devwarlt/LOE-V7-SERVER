@@ -1,12 +1,12 @@
 ﻿#region
 
+using Ionic.Zlib;
+using LoESoft.Core;
+using LoESoft.GameServer.realm.entity;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using LoESoft.Core;
-using Ionic.Zlib;
-using LoESoft.GameServer.realm.entity;
-using log4net;
 
 #endregion
 
@@ -117,39 +117,49 @@ namespace LoESoft.GameServer.realm.terrain
                         case "name":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.NAME_STAT, kv[1]));
                             break;
+
                         case "size":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.SIZE_STAT, Utils.FromString(kv[1])));
                             break;
+
                         case "eff":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.CONDITION_STAT, Utils.FromString(kv[1])));
                             break;
+
                         case "conn":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.CONNECT_STAT,
                                 Utils.FromString(kv[1])));
                             break;
+
                         case "hp":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.HP_STAT, Utils.FromString(kv[1])));
                             break;
+
                         case "mcost":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.MERCHANDISE_PRICE_STAT,
                                 Utils.FromString(kv[1])));
                             break;
+
                         case "mcur":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.MERCHANDISE_CURRENCY_STAT,
                                 Utils.FromString(kv[1])));
                             break;
+
                         case "mtype":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.MERCHANDISE_TYPE_STAT,
                                 Utils.FromString(kv[1])));
                             break;
+
                         case "mcount":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.MERCHANDISE_COUNT_STAT,
                                 Utils.FromString(kv[1])));
                             break;
+
                         case "mtime":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.MERCHANDISE_MINS_LEFT_STAT,
                                 Utils.FromString(kv[1])));
                             break;
+
                         case "stars":
                             stats.Add(new KeyValuePair<StatsType, object>(StatsType.MERCHANDISE_RANK_REQ_STAT,
                                 Utils.FromString(kv[1])));
@@ -307,12 +317,15 @@ namespace LoESoft.GameServer.realm.terrain
                             case "name":
                                 entity.Name = kv[1];
                                 break;
+
                             case "size":
                                 entity.Size = Utils.FromString(kv[1]);
                                 break;
+
                             case "eff":
                                 entity.ConditionEffects = (ConditionEffects)Utils.FromString(kv[1]);
                                 break;
+
                             case "conn":
                                 (entity as ConnectedObject).Connection =
                                     ConnectionInfo.Infos[(uint)Utils.FromString(kv[1])];
@@ -328,9 +341,11 @@ namespace LoESoft.GameServer.realm.terrain
                             case "mcost":
                                 (entity as SellableObject).Price = Utils.FromString(kv[1]);
                                 break;
+
                             case "mcur":
                                 (entity as SellableObject).Currency = (CurrencyType)Utils.FromString(kv[1]);
                                 break;
+
                             case "stars":
                                 (entity as SellableObject).RankReq = Utils.FromString(kv[1]);
                                 break;

@@ -14,6 +14,7 @@ namespace Mono.Game
 #if WINRT
 	[DataContract]
 #else
+
     [Serializable]
 #endif
     public struct Vector2 : IEquatable<Vector2>
@@ -320,18 +321,15 @@ namespace Mono.Game
             return value;
         }
 
-
         public static bool operator ==(Vector2 value1, Vector2 value2)
         {
             return value1.X == value2.X && value1.Y == value2.Y;
         }
 
-
         public static bool operator !=(Vector2 value1, Vector2 value2)
         {
             return value1.X != value2.X || value1.Y != value2.Y;
         }
-
 
         public static Vector2 operator +(Vector2 value1, Vector2 value2)
         {
@@ -340,14 +338,12 @@ namespace Mono.Game
             return value1;
         }
 
-
         public static Vector2 operator -(Vector2 value1, Vector2 value2)
         {
             value1.X -= value2.X;
             value1.Y -= value2.Y;
             return value1;
         }
-
 
         public static Vector2 operator *(Vector2 value1, Vector2 value2)
         {
@@ -356,14 +352,12 @@ namespace Mono.Game
             return value1;
         }
 
-
         public static Vector2 operator *(Vector2 value, float scaleFactor)
         {
             value.X *= scaleFactor;
             value.Y *= scaleFactor;
             return value;
         }
-
 
         public static Vector2 operator *(float scaleFactor, Vector2 value)
         {
@@ -372,14 +366,12 @@ namespace Mono.Game
             return value;
         }
 
-
         public static Vector2 operator /(Vector2 value1, Vector2 value2)
         {
             value1.X /= value2.X;
             value1.Y /= value2.Y;
             return value1;
         }
-
 
         public static Vector2 operator /(Vector2 value1, float divider)
         {

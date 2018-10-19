@@ -1,7 +1,7 @@
 ﻿#region
 
-using Mono.Game;
 using LoESoft.GameServer.realm;
+using Mono.Game;
 
 #endregion
 
@@ -28,7 +28,6 @@ namespace LoESoft.GameServer.logic.behaviors
 
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
-
             Status = CycleStatus.NotStarted;
 
             if (host.HasConditionEffect(ConditionEffectIndex.Paralyzed)) return;

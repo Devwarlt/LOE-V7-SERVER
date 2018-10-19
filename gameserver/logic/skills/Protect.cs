@@ -1,7 +1,7 @@
 ﻿#region
 
-using Mono.Game;
 using LoESoft.GameServer.realm;
+using Mono.Game;
 
 #endregion
 
@@ -54,6 +54,7 @@ namespace LoESoft.GameServer.logic.behaviors
                         goto case ProtectState.Protecting;
                     }
                     break;
+
                 case ProtectState.Protecting:
                     if (entity == null)
                     {
@@ -75,6 +76,7 @@ namespace LoESoft.GameServer.logic.behaviors
                         s = ProtectState.Protected;
                     }
                     break;
+
                 case ProtectState.Protected:
                     if (entity == null)
                     {

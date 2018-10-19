@@ -62,6 +62,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
         public static readonly Dictionary<int, Tuple<int, CurrencyType>> prices = new Dictionary<int, Tuple<int, CurrencyType>>
         {
             #region "Region 1 & 2"
+
             { 1793, new Tuple<int, CurrencyType>(100, CurrencyType.Gold) }, // Undead Lair Key
             { 308, new Tuple<int, CurrencyType>(250, CurrencyType.Gold) }, // Halloween Cemetery Key
             { 1797, new Tuple<int, CurrencyType>(50, CurrencyType.Gold) }, // Pirate Cave Key
@@ -92,7 +93,9 @@ namespace LoESoft.GameServer.realm.entity.merchant
             { 32695, new Tuple<int, CurrencyType>(250, CurrencyType.Gold) }, // Ice Tomb Key
             { 303, new Tuple<int, CurrencyType>(100, CurrencyType.Gold) }, // Mountain Temple Key
             #endregion "Region 1 & 2"
+
             #region "Region 4"
+
             { 3273, new Tuple<int, CurrencyType>(20, CurrencyType.Gold) }, // Soft Drink
             { 3275, new Tuple<int, CurrencyType>(50, CurrencyType.Gold) }, // Fries
             { 3270, new Tuple<int, CurrencyType>(100, CurrencyType.Gold) }, // Great Taco

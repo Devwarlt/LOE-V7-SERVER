@@ -1,12 +1,12 @@
 ﻿#region
 
 using LoESoft.Core;
+using LoESoft.GameServer.networking.error;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
-using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 using static LoESoft.GameServer.networking.Client;
-using LoESoft.GameServer.networking.error;
+using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 
 #endregion
 

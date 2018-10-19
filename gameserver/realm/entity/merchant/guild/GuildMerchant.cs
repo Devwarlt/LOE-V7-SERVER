@@ -25,9 +25,11 @@ namespace LoESoft.GameServer.realm.entity
                 case UP1:
                     Price = UP1C;
                     break;
+
                 case UP2:
                     Price = UP2C;
                     break;
+
                 case UP3:
                     Price = UP3C;
                     break;
@@ -36,7 +38,6 @@ namespace LoESoft.GameServer.realm.entity
 
         public override void Buy(Player player)
         {
-
         }
     }
 }

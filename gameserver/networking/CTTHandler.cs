@@ -63,6 +63,7 @@ namespace LoESoft.GameServer.networking
                         if (client.Socket.Connected)
                             Manager.TryDisconnect(client, DisconnectReason.SERVER_MODE_CLOSED_TEST_ONLY);
                     break;
+
                 case CTTStatus.InvalidCTT:
                     Client.SendMessage(new CTT_SEND
                     {
@@ -71,6 +72,7 @@ namespace LoESoft.GameServer.networking
 
                     client.Player.SendInfo($"Token '{message.CTTAuth}' is invalid, you have {client.CTTUses} of {MaxNumberAttemptsPerCTT} attempts until disconnect.");
                     break;
+
                 case CTTStatus.Approved:
                 default:
                     client.Player.ApplyConditionEffect(ConditionEffectIndex.Paused, 0);

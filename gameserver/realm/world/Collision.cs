@@ -13,7 +13,7 @@ namespace LoESoft.GameServer.realm
          *  0  - 7  X coordinate of chunk
          *  8  - 15 Y coordinate of chunk
          *  16 - 23 Collision Map Type
-         * 
+         *
          */
         public int Data;
 

@@ -1,11 +1,11 @@
 ﻿#region
 
+using LoESoft.Core.config;
+using LoESoft.GameServer.realm;
 using System;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using LoESoft.GameServer.realm;
-using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
 
 #endregion

@@ -11,6 +11,7 @@ namespace LoESoft.GameServer.logic
     /* Task System (LoESoft Games)
      * Author: DV
      * */
+
     public partial class TaskManager
     {
         protected Player player { get; set; }
@@ -27,6 +28,7 @@ namespace LoESoft.GameServer.logic
         /** Data format sample:
          * TASK_1:TASK_1_COMPLETED/ENTITY_1_ID,ENTITY_1_AMOUNT;ENTITY_2_ID,ENTITY_2_AMOUNT;...|TASK_2:TASK_2_COMPLETED/ENTITY_1_ID,ENTITY_1_AMOUNT;ENTITY_2_ID,ENTITY_2_AMOUNT;...
          */
+
         private TaskProgress Deserialize(string data)
         {
             if (data.Length == 0 || data == string.Empty || data == "" || data == " " || data == null)

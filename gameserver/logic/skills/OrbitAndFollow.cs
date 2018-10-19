@@ -1,11 +1,11 @@
 ﻿#region
 
-using System;
-using Mono.Game;
-using LoESoft.GameServer.realm;
 using LoESoft.Core.models;
-using System.Text;
+using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity.player;
+using Mono.Game;
+using System;
+using System.Text;
 
 #endregion
 
@@ -84,7 +84,6 @@ namespace LoESoft.GameServer.logic.behaviors
                     Math.Atan2(host.Y - entity.Y + (Random.NextDouble() * 2 - 1), host.X - entity.X + (Random.NextDouble() * 2 - 1)) :
                     Math.Atan2(host.Y - entity.Y, host.X - entity.X);
                 angle += (float)(s.Clockwise * hostVelocity / s.Radius);
-
 
                 var targetPosition = new Vector2()
                 {

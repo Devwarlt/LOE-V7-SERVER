@@ -12,7 +12,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece.special
     {
         public override int Size => 5;
 
-        static readonly byte[,] SetPiece =
+        private static readonly byte[,] SetPiece =
         {
             { 0, 4, 3, 4, 0 },
             { 4, 3, 2, 3, 4 },

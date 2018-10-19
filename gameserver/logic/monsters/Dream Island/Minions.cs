@@ -9,7 +9,7 @@ namespace LoESoft.GameServer.logic
         /// index 0: Muscle Ball (dmg: 90-135)
         /// index 1: Muscle Shuriken (dmg: 85)
         /// index 2: Nightmare Blasterball (dmg: 215)
-        class Muzzlereaper
+        private class Muzzlereaper
         {
             public static int muscle_ball = 0;
             public static int muscle_shuriken = 1;
@@ -21,7 +21,7 @@ namespace LoESoft.GameServer.logic
         /// index 1: Muscle Shuriken (dmg: 115)
         /// index 2: Nightmare Blasterball (dmg: 215)
         /// index 3: Heavy Nightmare Blasterball (dmg: 260)
-        class Guzzlereaper
+        private class Guzzlereaper
         {
             public static int muscle_ball = 0;
             public static int muscle_shuriken = 1;
@@ -35,7 +35,7 @@ namespace LoESoft.GameServer.logic
         /// index 2: Nightmare Spin (dmg: 125-150)
         /// index 3: Nightmare Blasterball (dmg: 215)
         /// index 4: Heavy Nightmare Blasterball (dmg: 260)
-        class Silencer
+        private class Silencer
         {
             public static int silencer_roar = 0;
             public static int silencer_slash = 1;
@@ -50,7 +50,7 @@ namespace LoESoft.GameServer.logic
         /// index 2: Enchanted Spear of the Wrath (dmg: 850)
         /// index 3: Nightmare Blasterball (dmg: 215)
         /// index 4: Heavy Nightmare Blasterball (dmg: 260)
-        class Eyeguard_of_Surrender
+        private class Eyeguard_of_Surrender
         {
             public static int eyeguard_slash = 0;
             public static int eyeguard_megapunch = 1;
@@ -64,7 +64,7 @@ namespace LoESoft.GameServer.logic
         /// index 1: Acid (dmg: 100)
         /// index 2: Bloody Punch (dmg: 250)
         /// index 3: Heavy Rock (dmg: 300)
-        class Lost_Prisoner_Soul
+        private class Lost_Prisoner_Soul
         {
             public static int critical_slash = 0;
             public static int acid = 1;
@@ -77,7 +77,7 @@ namespace LoESoft.GameServer.logic
         /// index 1: Acid (dmg: 100)
         /// index 2: Nightmare Blasterball (dmg: 215)
         /// index 3: Heavy Nightmare Blasterball (dmg: 260)
-        class Nightmare
+        private class Nightmare
         {
             public static int critical_slash = 0;
             public static int acid = 1;

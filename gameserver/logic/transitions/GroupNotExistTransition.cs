@@ -2,7 +2,7 @@
 
 namespace LoESoft.GameServer.logic.transitions
 {
-    class GroupNotExistTransition : Transition
+    internal class GroupNotExistTransition : Transition
     {
         private readonly double _dist;
         private readonly string _group;

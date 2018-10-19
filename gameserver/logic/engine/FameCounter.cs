@@ -1,10 +1,10 @@
 ﻿#region
 
 using LoESoft.Core;
-using System.Collections.Generic;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.entity.player;
+using System.Collections.Generic;
 
 #endregion
 

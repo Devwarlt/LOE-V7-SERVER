@@ -1,9 +1,9 @@
 ﻿#region
 
+using LoESoft.GameServer.networking;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using LoESoft.GameServer.networking;
 using static LoESoft.GameServer.networking.Client;
 
 #endregion

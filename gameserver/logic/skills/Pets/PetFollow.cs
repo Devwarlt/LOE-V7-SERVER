@@ -1,7 +1,7 @@
-﻿using LoESoft.GameServer.realm;
-using Mono.Game;
+﻿using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.networking.outgoing;
+using Mono.Game;
 
 namespace LoESoft.GameServer.logic.skills.Pets
 {
@@ -55,6 +55,7 @@ namespace LoESoft.GameServer.logic.skills.Pets
                     else
                         s.State = F.Acquired;
                     break;
+
                 case F.Acquired:
                     if (player == null)
                     {

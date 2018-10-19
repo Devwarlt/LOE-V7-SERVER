@@ -13,6 +13,7 @@ namespace LoESoft.GameServer.networking
             RIMM(e);
 
         #region "Regular Incoming Message Manager"
+
         private void RIMM(SocketAsyncEventArgs e)
         {
             try
@@ -123,6 +124,7 @@ namespace LoESoft.GameServer.networking
             else
                 e.Dispose();
         }
-        #endregion
+
+        #endregion "Regular Incoming Message Manager"
     }
 }

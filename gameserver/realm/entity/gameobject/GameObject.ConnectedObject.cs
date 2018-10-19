@@ -41,7 +41,6 @@ namespace LoESoft.GameServer.realm.entity
             Rotation = rotation;
         }
 
-
         public ConnectionType Type { get; private set; }
         public int Rotation { get; private set; }
         public uint Bits { get; private set; }
@@ -65,7 +64,6 @@ namespace LoESoft.GameServer.realm.entity
             for (int y = -1; y <= 1; y++)
                 for (int x = -1; x <= 1; x++)
                     z[x + 1, y + 1] = offset(x, y);
-
 
             if (z[1, 0] && z[1, 2] && z[0, 1] && z[2, 1])
                 return ConnectionInfo.Infos2[Tuple.Create(ConnectionType.Cross, 0)];
@@ -123,7 +121,6 @@ namespace LoESoft.GameServer.realm.entity
             stats[StatsType.CONNECT_STAT] = (int)ConnectionComputer.Compute((_x, _y) => false).Bits;
             base.ExportStats(stats);
         }
-
 
         public override bool HitByProjectile(Projectile projectile, RealmTime time) => true;
     }

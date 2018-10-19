@@ -1,10 +1,10 @@
 ﻿#region
 
-using System;
-using System.Xml.Linq;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm.entity.player;
+using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 #endregion
 
@@ -56,6 +56,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                                             currency = new KeyValuePair<string, int>("fame", player.CurrentFame);
                                         }
                                         break;
+
                                     case CurrencyType.Gold:
                                         {
                                             GameServer.Manager.Database.UpdateCredit(player.Client.Account, -Price);
@@ -63,6 +64,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                                             currency = new KeyValuePair<string, int>("gold", player.Credits);
                                         }
                                         break;
+
                                     case CurrencyType.FortuneTokens:
                                         {
                                             GameServer.Manager.Database.UpdateTokens(player.Client.Account, -Price);
@@ -70,6 +72,7 @@ namespace LoESoft.GameServer.realm.entity.merchant
                                             currency = new KeyValuePair<string, int>("fortune token", player.Tokens);
                                         }
                                         break;
+
                                     default: break;
                                 }
                                 if (1 - player.AccountPerks.MerchantDiscount() > 0 && (currency.Key != null && currency.Value != -1))

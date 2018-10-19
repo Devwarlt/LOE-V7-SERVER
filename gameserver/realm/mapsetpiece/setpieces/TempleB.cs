@@ -1,8 +1,8 @@
 ﻿#region
 
+using LoESoft.GameServer.realm.entity;
 using System;
 using System.Linq;
-using LoESoft.GameServer.realm.entity;
 
 #endregion
 
@@ -65,7 +65,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                 o[bas + 13, bas - 1] = o[bas + 14, bas - 1] = o[bas + 15, bas - 1] = 1;
             o[bas + 7, bas + 23] = o[bas + 8, bas + 23] = o[bas + 9, bas + 23] =
                 o[bas + 13, bas + 23] = o[bas + 14, bas + 23] = o[bas + 15, bas + 23] = 1;
-
 
             for (int y = 0; y < 4; y++) //Columns
                 for (int x = 0; x < 4; x++)

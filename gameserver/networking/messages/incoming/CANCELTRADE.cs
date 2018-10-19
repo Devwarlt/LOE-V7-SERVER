@@ -12,8 +12,12 @@ namespace LoESoft.GameServer.networking.incoming
 
         public override Message CreateInstance() => new CANCELTRADE();
 
-        protected override void Read(NReader rdr) { }
+        protected override void Read(NReader rdr)
+        {
+        }
 
-        protected override void Write(NWriter wtr) { }
+        protected override void Write(NWriter wtr)
+        {
+        }
     }
 }

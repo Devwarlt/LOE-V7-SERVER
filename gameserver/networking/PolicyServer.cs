@@ -1,9 +1,9 @@
 ﻿#region
 
+using LoESoft.Core;
 using System;
 using System.Net;
 using System.Net.Sockets;
-using LoESoft.Core;
 
 #endregion
 

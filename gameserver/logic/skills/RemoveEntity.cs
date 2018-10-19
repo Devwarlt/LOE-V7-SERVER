@@ -1,7 +1,7 @@
 ﻿#region
 
-using System.Linq;
 using LoESoft.GameServer.realm;
+using System.Linq;
 
 #endregion
 
@@ -29,6 +29,8 @@ namespace LoESoft.GameServer.logic.behaviors
                     host.Owner.LeaveWorld(e);
         }
 
-        protected override void TickCore(Entity host, RealmTime time, ref object state) { }
+        protected override void TickCore(Entity host, RealmTime time, ref object state)
+        {
+        }
     }
 }

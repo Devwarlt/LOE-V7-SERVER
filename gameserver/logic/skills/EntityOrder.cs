@@ -40,7 +40,6 @@ namespace LoESoft.GameServer.logic.behaviors
             return null;
         }
 
-
         protected override void TickCore(Entity host, RealmTime time, ref object state)
         {
             if (targetState == null)

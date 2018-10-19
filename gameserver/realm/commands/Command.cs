@@ -1,9 +1,9 @@
 ﻿#region
 
+using LoESoft.GameServer.realm.entity.player;
+using log4net;
 using System;
 using System.Collections.Generic;
-using log4net;
-using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 

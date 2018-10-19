@@ -1,29 +1,29 @@
 ﻿#region
 
-using System;
-using Mono.Game;
 using LoESoft.GameServer.realm;
+using Mono.Game;
+using System;
 
 #endregion
 
 namespace LoESoft.GameServer.logic.behaviors
 {
-    class Circle : CycleBehavior
+    internal class Circle : CycleBehavior
     {
-        class OrbitState
+        private class OrbitState
         {
             public float Speed;
             public float Radius;
             public int Direction;
         }
 
-        float speed;
-        float sightRange;
-        float radius;
-        ushort? target;
-        float speedVariance;
-        float radiusVariance;
-        bool? orbitClockwise;
+        private float speed;
+        private float sightRange;
+        private float radius;
+        private ushort? target;
+        private float speedVariance;
+        private float radiusVariance;
+        private bool? orbitClockwise;
 
         public Circle(
             double speed = 5,

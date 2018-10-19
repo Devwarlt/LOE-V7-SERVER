@@ -1,9 +1,9 @@
 ﻿#region
 
-using System;
-using System.Collections.Generic;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
+using System;
+using System.Collections.Generic;
 
 #endregion
 
@@ -26,7 +26,9 @@ namespace LoESoft.GameServer.logic
     {
         public static readonly State NullState = new State();
 
-        public State(params IStateChildren[] children) : this("", children) { }
+        public State(params IStateChildren[] children) : this("", children)
+        {
+        }
 
         public State(string name, params IStateChildren[] children)
         {

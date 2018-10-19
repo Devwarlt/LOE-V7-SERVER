@@ -4,7 +4,7 @@ using System;
 
 namespace LoESoft.GameServer.logic.behaviors
 {
-    class MoveLine : CycleBehavior
+    internal class MoveLine : CycleBehavior
     {
         private readonly float _speed;
         private readonly float _direction;

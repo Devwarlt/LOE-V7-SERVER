@@ -1,7 +1,7 @@
 ﻿#region
 
-using System.Collections.Generic;
 using LoESoft.GameServer.realm.entity.player;
+using System.Collections.Generic;
 using static LoESoft.GameServer.networking.Client;
 
 #endregion
@@ -40,6 +40,8 @@ namespace LoESoft.GameServer.realm.world
             }
         }
 
-        protected override void Init() { }
+        protected override void Init()
+        {
+        }
     }
 }

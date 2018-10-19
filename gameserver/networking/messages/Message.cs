@@ -1,13 +1,13 @@
 ﻿#region
 
+using LoESoft.Core;
+using LoESoft.GameServer.networking.outgoing;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using LoESoft.GameServer.networking.outgoing;
-using LoESoft.Core;
 
 #endregion
 
@@ -29,6 +29,7 @@ namespace LoESoft.GameServer.networking
         }
 
         public abstract MessageID ID { get; }
+
         public abstract Message CreateInstance();
 
         public abstract void Crypt(Client client, byte[] dat, int offset, int len);
@@ -72,6 +73,7 @@ namespace LoESoft.GameServer.networking
         }
 
         protected abstract void Read(NReader rdr);
+
         protected abstract void Write(NWriter wtr);
 
         public override string ToString()

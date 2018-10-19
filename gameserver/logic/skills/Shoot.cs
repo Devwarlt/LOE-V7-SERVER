@@ -1,10 +1,10 @@
 ﻿#region
 
-using System;
 using LoESoft.Core.models;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
+using System;
 
 #endregion
 
@@ -83,7 +83,6 @@ namespace LoESoft.GameServer.logic.behaviors
 
             double originalAngle = Math.Atan2(history.Value.Y - host.Y, history.Value.X - host.X);
             double newAngle = Math.Atan2(target.Y - host.Y, target.X - host.X);
-
 
             float bulletSpeed = desc.Speed / 100;
             double angularVelo = (newAngle - originalAngle) / (100 / 1000f);

@@ -1,10 +1,10 @@
 ﻿#region
 
-using System;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.terrain;
+using System;
 
 #endregion
 
@@ -45,7 +45,6 @@ namespace LoESoft.GameServer.logic.behaviors
                     direction = (float?)(180 * Math.PI / 180);
                 else
                     direction = (float?)(0 * Math.PI / 180);
-
 
                 if (player != null || defaultAngle != null || direction != null)
                 {

@@ -42,7 +42,6 @@ namespace LoESoft.GameServer.networking.handlers
                 return;
             }
 
-
             GuildCreateStatus gstatus = Manager.Database.CreateGuild(name, out DbGuild guild);
 
             if (gstatus != GuildCreateStatus.OK)

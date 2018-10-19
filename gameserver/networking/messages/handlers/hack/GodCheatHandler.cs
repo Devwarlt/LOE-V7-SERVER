@@ -13,7 +13,9 @@ namespace LoESoft.GameServer.networking.messages.handlers.hack
     {
         protected Projectile Proj { get; set; }
 
-        public GodCheatHandler() { }
+        public GodCheatHandler()
+        {
+        }
 
         CheatID ICheatHandler.ID
         { get { return CheatID.GOD; } }

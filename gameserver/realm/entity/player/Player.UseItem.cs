@@ -1,14 +1,14 @@
 ﻿#region
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using LoESoft.Core;
+using LoESoft.Core.config;
 using LoESoft.GameServer.networking;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using static LoESoft.GameServer.networking.Client;
-using LoESoft.Core;
-using LoESoft.Core.config;
 
 #endregion
 
@@ -81,6 +81,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 plr?.Client.SendMessage(batch);
                         }
                         break;
+
                     case ActivateEffects.Shoot: Shoot(time, item, target); break;
                     case ActivateEffects.Heal:
                         {
@@ -89,6 +90,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             Owner?.BroadcastMessage(pkts, null);
                         }
                         break;
+
                     case ActivateEffects.HealNova:
                         {
                             var amountHN = eff.Amount;
@@ -111,6 +113,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.Magic:
                         {
                             List<Message> pkts = new List<Message>();
@@ -118,6 +121,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             Owner?.BroadcastMessage(pkts, null);
                         }
                         break;
+
                     case ActivateEffects.MagicNova:
                         {
                             List<Message> pkts = new List<Message>();
@@ -132,6 +136,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             Owner?.BroadcastMessage(pkts, null);
                         }
                         break;
+
                     case ActivateEffects.Teleport:
                         {
                             if (Database.Names.Contains(Name))
@@ -167,6 +172,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }, null);
                         }
                         break;
+
                     case ActivateEffects.VampireBlast:
                         {
                             List<Message> pkts = new List<Message>
@@ -222,6 +228,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.Trap:
                         {
                             BroadcastSync(new SHOWEFFECT
@@ -244,6 +251,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }));
                         }
                         break;
+
                     case ActivateEffects.StasisBlast:
                         {
                             List<Message> pkts = new List<Message>
@@ -299,6 +307,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             BroadcastSync(pkts, p => this.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.Decoy:
                         {
                             Decoy decoy = new Decoy(this, eff.DurationMS, StatsManager.GetSpeed());
@@ -306,6 +315,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             Owner?.EnterWorld(decoy);
                         }
                         break;
+
                     case ActivateEffects.Lightning:
                         {
                             Enemy start = null;
@@ -368,6 +378,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             BroadcastSync(pkts, p => this?.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.PoisonGrenade:
                         {
                             try
@@ -402,6 +413,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             catch (Exception) { }
                         }
                         break;
+
                     case ActivateEffects.RemoveNegativeConditions:
                         {
                             this?.Aoe(eff.Range / 2, true, player => ApplyConditionEffect(NegativeEffs));
@@ -414,6 +426,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }, p => this?.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.RemoveNegativeConditionsSelf:
                         {
                             ApplyConditionEffect(NegativeEffs);
@@ -426,6 +439,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }, null);
                         }
                         break;
+
                     case ActivateEffects.IncrementStat:
                         {
                             if (Database.Names.Contains(Name))
@@ -456,6 +470,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 Stats[idx] = limit;
                         }
                         break;
+
                     case ActivateEffects.UnlockPortal:
                         {
                             if (Database.Names.Contains(Name))
@@ -502,6 +517,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             BroadcastSync(packets);
                         }
                         break;
+
                     case ActivateEffects.Create:
                         {
                             if (Database.Names.Contains(Name))
@@ -611,6 +627,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }
                         }
                         break;
+
                     case ActivateEffects.UnlockSkin:
                         {
                             if (Database.Names.Contains(Name))
@@ -658,6 +675,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             Owner?.Timers.Add(new WorldTimer(30 * 1000, (w, t) => w.LeaveWorld(en)));
                         }
                         break;
+
                     case ActivateEffects.MysteryPortal:
                         {
                             if (Database.Names.Contains(Name))
@@ -730,6 +748,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }));
                         }
                         break;
+
                     case ActivateEffects.GenericActivate:
                         {
                             bool targetPlayer = eff.Target.Equals("player");
@@ -763,6 +782,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }, p => this?.DistSqr(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.SpecialPet:
                         {
                             /// Probability:
@@ -855,12 +875,12 @@ namespace LoESoft.GameServer.realm.entity.player
                         {
                             /// <summary>
                             /// EGG CONVERSION ALGORITHM
-                            /// 
+                            ///
                             /// This feature was used before to manage FSoD pets i.e create new pet type,
                             /// now we are converting all exist eggs for new pet system. This algorithm
                             /// added convert FSoD pet egg to randomly pet egg of new system depending by
                             /// player's luck and egg tier.
-                            /// 
+                            ///
                             /// by Devwarlt
                             /// </summary>
 
@@ -926,6 +946,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                                     common.ToList()[2] : common.ToList()[minorVariance];
                                     }
                                     break;
+
                                 case (int)EggRarity.Uncommon:
                                     {
                                         convertedEgg =
@@ -933,6 +954,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                                 uncommon.ToList()[middleVariance] : uncommon.ToList()[possibleCandidate];
                                     }
                                     break;
+
                                 case (int)EggRarity.Rare:
                                     {
                                         convertedEgg =
@@ -940,6 +962,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                                 rare.ToList()[middleVariance] : rare.ToList()[possibleCandidate];
                                     }
                                     break;
+
                                 case (int)EggRarity.Legendary:
                                     {
                                         convertedEgg =
@@ -947,6 +970,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                                 legendary.ToList()[middleVariance] : legendary.ToList()[possibleCandidate];
                                     }
                                     break;
+
                                 default:
                                     {
                                         convertedEgg =
@@ -1098,6 +1122,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }, p => this?.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.ConditionEffectAura:
                         {
                             int durationCEA = eff.DurationMS;
@@ -1126,6 +1151,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 case ConditionEffectIndex.Damaging:
                                     color = 0xffff0000;
                                     break;
+
                                 case ConditionEffectIndex.Berserk:
                                     color = 0x808080;
                                     break;
@@ -1140,6 +1166,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }, p => this?.Dist(p) < 25);
                         }
                         break;
+
                     case ActivateEffects.ConditionEffectSelf:
                         {
                             int durationCES = eff.DurationMS;
@@ -1154,6 +1181,7 @@ namespace LoESoft.GameServer.realm.entity.player
                                 case ConditionEffectIndex.Damaging:
                                     color = 0xffff0000;
                                     break;
+
                                 case ConditionEffectIndex.Berserk:
                                     color = 0x808080;
                                     break;
@@ -1174,6 +1202,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             }, null);
                         }
                         break;
+
                     case ActivateEffects.AccountLifetime:
                         {
                             if (Database.Names.Contains(Name))
@@ -1243,6 +1272,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             _world.Timers.Add(new WorldTimer(2000, (w, t) => Client.Reconnect(_reconnect)));
                         }
                         break;
+
                     case ActivateEffects.Gold:
                         {
                             if (Database.Names.Contains(Name))
@@ -1252,6 +1282,7 @@ namespace LoESoft.GameServer.realm.entity.player
                             UpdateCount++;
                         }
                         break;
+
                     case ActivateEffects.Exchange:
                         {
                             if (Database.Names.Contains(Name))

@@ -1,7 +1,7 @@
 ﻿#region
 
-using System.Linq;
 using LoESoft.GameServer.realm;
+using System.Linq;
 
 #endregion
 

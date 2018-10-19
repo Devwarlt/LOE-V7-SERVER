@@ -1,9 +1,9 @@
 ﻿#region
 
-using System;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity.player;
+using System;
 
 #endregion
 

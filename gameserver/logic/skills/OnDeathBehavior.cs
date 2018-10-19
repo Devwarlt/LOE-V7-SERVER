@@ -25,6 +25,8 @@ namespace LoESoft.GameServer.logic.behaviors
             };
         }
 
-        protected override void TickCore(Entity host, RealmTime time, ref object state) { }
+        protected override void TickCore(Entity host, RealmTime time, ref object state)
+        {
+        }
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace LoESoft.GameServer.logic.behaviors
 {
-    class GroundTransform : Behavior
+    internal class GroundTransform : Behavior
     {
-        class TileState
+        private class TileState
         {
             public ushort TileType;
             public int X;
@@ -119,6 +119,8 @@ namespace LoESoft.GameServer.logic.behaviors
             }
         }
 
-        protected override void TickCore(Entity host, RealmTime time, ref object state) { }
+        protected override void TickCore(Entity host, RealmTime time, ref object state)
+        {
+        }
     }
 }

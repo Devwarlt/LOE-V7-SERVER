@@ -1,15 +1,15 @@
 ﻿#region
 
 using LoESoft.Core.config;
-using System;
-using System.Globalization;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity;
-using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 using LoESoft.GameServer.realm.entity.player;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using FAILURE = LoESoft.GameServer.networking.outgoing.FAILURE;
 
 #endregion
 
@@ -71,6 +71,7 @@ namespace LoESoft.GameServer.networking.handlers
                             world = GameServer.Manager.PlayerVault(client);
                             setWorldInstance = false;
                             break;
+
                         case 0x0704:
                         case 0x0703: //portal of cowardice
                         case 0x0d40:
@@ -91,12 +92,15 @@ namespace LoESoft.GameServer.networking.handlers
                                 setWorldInstance = false;
                             }
                             break;
+
                         case 0x071d:
                             world = GameServer.Manager.GetWorld((int)TownID.ISLE_OF_APPRENTICES_ID);
                             break;
+
                         case 0x0712:
                             world = GameServer.Manager.GetWorld((int)TownID.ISLE_OF_APPRENTICES_ID);
                             break;
+
                         case 0x072f:
                             if (player.Guild != null)
                             {
@@ -105,6 +109,7 @@ namespace LoESoft.GameServer.networking.handlers
                                 player.SendInfo("Thanks.");
                             }
                             break;
+
                         default:
                             {
                                 Type worldType =

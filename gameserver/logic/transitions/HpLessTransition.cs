@@ -11,6 +11,7 @@ namespace LoESoft.GameServer.logic.transitions
     {
         // State storage: none
         private string Name { get; set; }
+
         private int InvalidHP { get; set; }
         private readonly double threshold;
 
@@ -25,6 +26,7 @@ namespace LoESoft.GameServer.logic.transitions
 
         // Exclusive for new interface: INonSkipState
         public Enemy Enemy { get; set; }
+
         public bool DoneAction { get; set; }
         public bool DoneStorage { get; set; }
         public bool Skip { get; set; }

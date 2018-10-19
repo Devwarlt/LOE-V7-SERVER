@@ -11,7 +11,7 @@ namespace LoESoft.GameServer.realm.mapsetpiece
     {
         public override int Size => 3;
 
-        static readonly byte[,] SetPiece =
+        private static readonly byte[,] SetPiece =
         {
             {1, 1, 1},
             {1, 2, 1},

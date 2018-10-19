@@ -1,10 +1,10 @@
 ﻿#region
 
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LoESoft.GameServer.realm.entity;
-using LoESoft.GameServer.realm.entity.player;
 
 #endregion
 
@@ -23,7 +23,6 @@ namespace LoESoft.GameServer.realm
         {
             return Math.Sqrt(a.DistSqr(b));
         }
-
 
         public static bool AnyPlayerNearby(this Entity entity)
         {
@@ -49,7 +48,6 @@ namespace LoESoft.GameServer.realm
 
         public static Entity GetNearestEntity(this Entity entity, double dist, ushort? objType) //Null for player
         {
-
             Entity[] entities = entity.GetNearestEntities(dist, objType).ToArray();
             if (entities.Length <= 0)
                 return null;
@@ -60,7 +58,6 @@ namespace LoESoft.GameServer.realm
         {
             return entity.Owner.GetEntity(entityId);
         }
-
 
         /// <summary>
         /// Only for enemys

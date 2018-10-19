@@ -31,6 +31,7 @@ namespace LoESoft.GameServer.logic.loot.Loot_System
             {
                 case LootType.Equipment:
                     return ProcessEquipmentsLoot(new List<Tuple<ItemType, byte>> { Tuple.Create(itemType, tier) });
+
                 case LootType.Any:
                     {
                         List<string> items = new List<string>();

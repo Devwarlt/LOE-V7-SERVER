@@ -1,11 +1,11 @@
-﻿using System;
+﻿using LoESoft.Core.config;
+using LoESoft.Core.models;
+using LoESoft.GameServer.realm;
+using log4net;
+using System;
 using System.Collections.Concurrent;
 using System.Net.Sockets;
-using log4net;
-using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
-using LoESoft.GameServer.realm;
-using LoESoft.Core.models;
 
 namespace LoESoft.GameServer.networking
 {

@@ -10,7 +10,6 @@ namespace LoESoft.GameServer.logic.behaviors.Drakes
 {
     public class BlueDrakeAttack : Behavior
     {
-
         protected override void OnStateEntry(Entity host, RealmTime time, ref object state)
         {
             state = 0;

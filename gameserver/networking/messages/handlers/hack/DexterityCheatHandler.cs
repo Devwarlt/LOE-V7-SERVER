@@ -18,7 +18,9 @@ namespace LoESoft.GameServer.networking.messages.handlers.hack
         public float MaxAttackFrequency { get; set; }
         public float WeaponRateOfFire { get; set; }
 
-        public DexterityCheatHandler() { }
+        public DexterityCheatHandler()
+        {
+        }
 
         private bool ByPass
         { get { return Player.AccountType == (int)AccountType.LOESOFT_ACCOUNT; } }

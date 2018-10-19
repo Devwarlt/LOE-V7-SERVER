@@ -1,7 +1,6 @@
 ﻿using LoESoft.GameServer.logic.behaviors;
-using LoESoft.GameServer.logic.transitions;
 using LoESoft.GameServer.logic.loot;
-
+using LoESoft.GameServer.logic.transitions;
 
 namespace LoESoft.GameServer.logic
 {

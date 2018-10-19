@@ -1,8 +1,8 @@
 ﻿#region
 
-using System;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.mapsetpiece;
+using System;
 
 #endregion
 
@@ -26,6 +26,8 @@ namespace LoESoft.GameServer.logic.behaviors
             piece.RenderSetPiece(host.Owner, new IntPoint((int)host.X, (int)host.Y));
         }
 
-        protected override void TickCore(Entity host, RealmTime time, ref object state) { }
+        protected override void TickCore(Entity host, RealmTime time, ref object state)
+        {
+        }
     }
 }

@@ -1,18 +1,17 @@
 ﻿#region
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using LoESoft.Core;
+using LoESoft.Core.config;
 using LoESoft.GameServer.logic;
+using LoESoft.GameServer.logic.skills.Pets;
 using LoESoft.GameServer.networking;
 using LoESoft.GameServer.networking.incoming;
 using LoESoft.GameServer.networking.outgoing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
-using LoESoft.Core.config;
 using static LoESoft.GameServer.networking.Client;
-using LoESoft.Core;
-using LoESoft.GameServer.logic.skills.Pets;
-using LoESoft.Core.models;
 
 #endregion
 
@@ -21,6 +20,7 @@ namespace LoESoft.GameServer.realm.entity.player
     internal interface IPlayer
     {
         void Damage(int dmg, Entity chr, bool NoDef, bool manaDrain = false);
+
         bool IsVisibleToEnemy();
     }
 
@@ -335,6 +335,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     if (!Settings.ALLOWED_LOCAL_DNS.Contains(DNS))
                         GameServer.Manager.TryDisconnect(Client, DisconnectReason.SERVER_MODE_LOCAL_ONLY);
                     break;
+
                 case Settings.ServerMode.ClosedTest:
                     if (!Client.Account.ClosedTester)
                     {
@@ -347,6 +348,7 @@ namespace LoESoft.GameServer.realm.entity.player
                     }
 
                     break;
+
                 default:
                     break;
             }

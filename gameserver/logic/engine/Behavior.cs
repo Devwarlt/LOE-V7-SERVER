@@ -1,8 +1,8 @@
 ﻿#region
 
+using LoESoft.GameServer.realm;
 using log4net;
 using System;
-using LoESoft.GameServer.realm;
 
 #endregion
 
@@ -19,6 +19,7 @@ namespace LoESoft.GameServer.logic
 
         [ThreadStatic]
         private static Random rand;
+
         protected static Random Random
         {
             get
@@ -30,7 +31,6 @@ namespace LoESoft.GameServer.logic
 
         public void Tick(Entity host, RealmTime time)
         {
-
             if (!host.StoredBehaviors.TryGetValue(this, out object state))
                 state = null;
 

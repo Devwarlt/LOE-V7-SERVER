@@ -1,7 +1,7 @@
 ﻿#region
 
-using System.Collections.Generic;
 using LoESoft.Core;
+using System.Collections.Generic;
 
 #endregion
 

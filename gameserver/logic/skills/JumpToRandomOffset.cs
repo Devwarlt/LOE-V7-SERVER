@@ -1,7 +1,7 @@
 ﻿#region
 
-using System;
 using LoESoft.GameServer.realm;
+using System;
 
 #endregion
 

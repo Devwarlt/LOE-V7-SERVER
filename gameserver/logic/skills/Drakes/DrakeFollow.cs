@@ -1,9 +1,9 @@
 ﻿#region
 
-using Mono.Game;
-using System;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity.player;
+using Mono.Game;
+using System;
 
 #endregion
 
@@ -35,6 +35,7 @@ namespace LoESoft.GameServer.logic.behaviors.Drakes
                     else
                         s.State = F.Acquired;
                     break;
+
                 case F.Acquired:
                     if (player == null)
                     {

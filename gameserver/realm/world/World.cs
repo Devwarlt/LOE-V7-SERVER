@@ -1,18 +1,18 @@
 ﻿#region
 
+using LoESoft.Core.models;
+using LoESoft.GameServer.networking;
+using LoESoft.GameServer.networking.outgoing;
+using LoESoft.GameServer.realm.entity;
+using LoESoft.GameServer.realm.entity.player;
+using LoESoft.GameServer.realm.terrain;
+using LoESoft.GameServer.realm.world;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using LoESoft.GameServer.networking;
-using LoESoft.GameServer.networking.outgoing;
-using LoESoft.GameServer.realm.entity;
-using LoESoft.GameServer.realm.entity.player;
-using LoESoft.GameServer.realm.world;
-using LoESoft.GameServer.realm.terrain;
-using LoESoft.Core.models;
 
 #endregion
 
@@ -374,7 +374,6 @@ namespace LoESoft.GameServer.realm
 
         private void TryRemove(GameObject gameObject)
         {
-
             if (string.IsNullOrEmpty(gameObject.Name) || string.IsNullOrWhiteSpace(gameObject.Name))
                 return;
 
@@ -508,9 +507,11 @@ namespace LoESoft.GameServer.realm
                 case MapType.Wmap:
                     FromWorldMap(stream);
                     break;
+
                 case MapType.Json:
                     FromWorldMap(new MemoryStream(Json2Wmap.Convert(GameServer.Manager.GameData, new StreamReader(stream).ReadToEnd())));
                     break;
+
                 default:
                     throw new ArgumentException("Invalid MapType");
             }

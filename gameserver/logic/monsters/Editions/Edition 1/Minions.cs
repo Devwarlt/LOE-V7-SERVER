@@ -8,7 +8,7 @@ namespace LoESoft.GameServer.logic
         /// Fiery Succubus
         /// index 0: Fire Shard (dmg: 80)
         /// index 1: Fire Enchanted Bullet (dmg: 150)
-        class Fiery_Succubus
+        private class Fiery_Succubus
         {
             public static int fire_shard = 0;
             public static int fire_enchanted_bullet = 1;
@@ -18,7 +18,7 @@ namespace LoESoft.GameServer.logic
         /// index 0: Fire Shard (dmg: 80)
         /// index 1: Fire Enchanted Bullet (dmg: 150)
         /// index 2: Vulcanum (dmg: 110)
-        class Fiery_Twin_Succubus
+        private class Fiery_Twin_Succubus
         {
             public static int fire_shard = 0;
             public static int fire_enchanted_bullet = 1;
@@ -26,12 +26,16 @@ namespace LoESoft.GameServer.logic
         }
 
         #region "TODO"
+
         /// Icy Succubus
-        class Icy_Succubus { }
+        private class Icy_Succubus
+        { }
 
         /// Icy Twin Succubus
-        class Icy_Twin_Succubus { }
-        #endregion
+        private class Icy_Twin_Succubus
+        { }
+
+        #endregion "TODO"
 
         private _ Edition1Minions = () => Behav()
         .Init("Fiery Succubus",

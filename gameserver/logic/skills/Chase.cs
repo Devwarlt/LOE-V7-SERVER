@@ -1,8 +1,8 @@
 ﻿#region
 
-using Mono.Game;
 using LoESoft.GameServer.realm;
 using LoESoft.GameServer.realm.entity.player;
+using Mono.Game;
 
 #endregion
 
@@ -66,6 +66,7 @@ namespace LoESoft.GameServer.logic.behaviors
                     if (s.RemainingTime > 0)
                         s.RemainingTime -= time.ElapsedMsDelta;
                     break;
+
                 case F.Acquired:
                     if (player == null)
                     {
@@ -101,6 +102,7 @@ namespace LoESoft.GameServer.logic.behaviors
                         s.RemainingTime = 0;
                     }
                     break;
+
                 case F.Resting:
                     if (player == null)
                     {

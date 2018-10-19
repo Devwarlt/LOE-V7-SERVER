@@ -10,7 +10,9 @@ namespace LoESoft.GameServer
     {
         private uint seed;
 
-        public wRandom() : this((uint)Environment.TickCount) { }
+        public wRandom() : this((uint)Environment.TickCount)
+        {
+        }
 
         public wRandom(uint seed)
         {

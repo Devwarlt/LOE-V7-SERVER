@@ -1,11 +1,11 @@
 ﻿#region
 
-using System;
-using System.Linq;
 using LoESoft.Core;
 using LoESoft.GameServer.logic.loot;
 using LoESoft.GameServer.realm.entity;
 using LoESoft.GameServer.realm.terrain;
+using System;
+using System.Linq;
 
 #endregion
 
@@ -123,7 +123,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
-
                     else if (t[x, y] == 2)
                     {
                         WmapTile tile = world.Map[x + pos.X, y + pos.Y].Clone();
@@ -138,7 +137,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                         tile.ObjType = 0;
                         world.Map[x + pos.X, y + pos.Y] = tile;
                     }
-
                     else if (t[x, y] == 4)
                     {
                         WmapTile tile = world.Map[x + pos.X, y + pos.Y].Clone();
@@ -156,7 +154,6 @@ namespace LoESoft.GameServer.realm.mapsetpiece
                         wall.Move(x + pos.X + 0.5f, y + pos.Y + 0.5f);
                         world.EnterWorld(wall);
                     }
-
                     else if (t[x, y] == 6)
                     {
                         WmapTile tile = world.Map[x + pos.X, y + pos.Y].Clone();
