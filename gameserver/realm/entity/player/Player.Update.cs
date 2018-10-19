@@ -103,9 +103,9 @@ namespace LoESoft.GameServer.realm.entity.player
         public void HandleUpdate(RealmTime time)
         {
             WmapTile tile;
-            World world = GameServer.Manager.GetWorld(Owner.Id);
-            HashSet<Entity> sendEntities = new HashSet<Entity>(GetNewEntities());
-            List<UPDATE.TileData> tilesUpdate = new List<UPDATE.TileData>(APPOX_AREA_OF_SIGHT);
+            var world = GameServer.Manager.GetWorld(Owner.Id);
+            var sendEntities = new HashSet<Entity>(GetNewEntities());
+            var tilesUpdate = new List<UPDATE.TileData>(APPOX_AREA_OF_SIGHT);
 
             mapWidth = Owner.Map.Width;
             mapHeight = Owner.Map.Height;
@@ -132,20 +132,19 @@ namespace LoESoft.GameServer.realm.entity.player
                 tiles[x, y] = tile.UpdateCount;
             }
 
-            int[] dropEntities = GetRemovedEntities().Distinct().ToArray();
+            var dropEntities = GetRemovedEntities().Distinct().ToArray();
 
             clientEntities.RemoveWhere(_ => Array.IndexOf(dropEntities, _.Id) != -1);
 
-            List<Entity> toRemove = lastUpdate.Keys.Where(i => !clientEntities.Contains(i)).ToList();
+            var toRemove = lastUpdate.Keys.Where(i => !clientEntities.Contains(i)).ToList();
             toRemove.ForEach(i => lastUpdate.TryRemove(i, out int val));
 
             foreach (var i in sendEntities)
                 lastUpdate[i] = i.UpdateCount;
 
-            IEnumerable<ObjectDef> newStatics = GetNewStatics((int)X, (int)Y);
-            IEnumerable<IntPoint> removeStatics = GetRemovedStatics((int)X, (int)Y);
-
-            List<int> removedIds = new List<int>();
+            var newStatics = GetNewStatics((int)X, (int)Y);
+            var removeStatics = GetRemovedStatics((int)X, (int)Y);
+            var removedIds = new List<int>();
 
             if (!world.Dungeon)
                 foreach (IntPoint i in removeStatics.ToArray())
