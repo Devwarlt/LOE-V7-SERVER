@@ -125,7 +125,6 @@ namespace LoESoft.GameServer.realm.entity.player
         private long b;
         private readonly Random invRand = new Random();
         private int[] setTypeBoosts;
-        private int updateLastSeen;
         public Enemy Quest { get; private set; }
         private bool worldBroadcast = true;
         private readonly Queue<Tuple<Message, Predicate<Player>>> pendingPackets = new Queue<Tuple<Message, Predicate<Player>>>();
@@ -138,8 +137,6 @@ namespace LoESoft.GameServer.realm.entity.player
         private readonly HashSet<IntPoint> clientStatic = new HashSet<IntPoint>(new IntPointComparer());
         private readonly ConcurrentDictionary<Entity, int> lastUpdate = new ConcurrentDictionary<Entity, int>();
         public Dictionary<IntPoint, bool> visibleTiles;
-        private int mapHeight;
-        private int mapWidth;
         private int tickId;
         public List<IntPoint> blocksight = new List<IntPoint>();
         public static int Oldstat { get; set; }
